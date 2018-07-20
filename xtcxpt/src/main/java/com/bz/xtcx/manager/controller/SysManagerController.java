@@ -16,6 +16,7 @@ import com.bz.xtcx.manager.entity.SysUser;
 import com.bz.xtcx.manager.service.ISysOrgService;
 import com.bz.xtcx.manager.service.ISysUserService;
 import com.bz.xtcx.manager.vo.VoResponse;
+import com.github.pagehelper.PageInfo;
 
 
 @RestController
@@ -33,6 +34,15 @@ public class SysManagerController extends BaseController{
 		VoResponse voRes = getVoResponse();
 		if(StringUtils.isEmpty(user.getUserName()) || StringUtils.isEmpty(user.getPassword())) return voRes;
 		voRes = sysUserService.saveOrUpdate(user);
+		return voRes;
+	}
+	
+	@PostMapping("user/page")
+	public Object getAllUsers(@RequestBody SysUser user, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
+			@RequestParam(value="orderBy",required=false)  String orderBy) {
+		VoResponse voRes = new VoResponse();
+		PageInfo<SysUser> info = sysUserService.getPageByCondition(user, pageNum, pageSize, orderBy);
+		voRes.setData(info);
 		return voRes;
 	}
 	

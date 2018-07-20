@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.bz.xtcx.manager.entity.SysUser;
 import com.bz.xtcx.manager.vo.VoResponse;
+import com.github.pagehelper.PageInfo;
 
 public interface ISysUserService {
 
@@ -35,4 +36,7 @@ public interface ISysUserService {
 	 * @return
 	 */
 	public SysUser getUserByUsername(String username);
+	
+	
+	PageInfo<SysUser> getPageByCondition(SysUser user, int pageNum, int pageSize, String orderBy);
 }

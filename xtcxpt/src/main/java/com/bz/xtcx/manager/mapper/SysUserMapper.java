@@ -16,12 +16,13 @@ import com.bz.xtcx.manager.mapper.provider.SysUserProvider;
 
 public interface SysUserMapper {
 	
-	@Insert("insert into `sys_user`(user_id, user_name, password, cellphone, email, status, creater)"
+	@Insert("insert into `sys_user`(user_id, user_name, password, cellphone, email, org_id, status, creater)"
 		    + " VALUES(#{id, jdbcType=VARCHAR},"
 		    + " #{userName, jdbcType=VARCHAR},"
 		    + " #{password, jdbcType=VARCHAR},"
 		    + " #{cellphone, jdbcType=VARCHAR},"
-		    + " #{email, jdbcType=INTEGER},"
+		    + " #{email, jdbcType=VARCHAR},"
+		    + " #{orgId, jdbcType=VARCHAR},"
 		    + " #{status, jdbcType=INTEGER},"
 		    + " #{creater, jdbcType=VARCHAR})"
 		    )

@@ -7,11 +7,15 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+import org.springframework.util.StringUtils;
 
 import com.bz.xtcx.manager.entity.SysUser;
 import com.bz.xtcx.manager.mapper.SysUserMapper;
 import com.bz.xtcx.manager.service.ISysUserService;
 import com.bz.xtcx.manager.vo.VoResponse;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 @Service
 public class SysUserService extends BaseService implements ISysUserService {
@@ -74,8 +78,17 @@ public class SysUserService extends BaseService implements ISysUserService {
 		return user;
 	}
 
-	
-	
-	
+	@Override
+	public PageInfo<SysUser> getPageByCondition(SysUser user, int pageNum, int pageSize, String orderBy) {
+		Page<SysUser> page = PageHelper.startPage(pageNum, pageSize);
+		if(StringUtils.isEmpty(orderBy)) {
+			PageHelper.orderBy("create_time desc");
+		}else {
+			PageHelper.orderBy(orderBy);
+		}
+		sysUserMapper.findByCondition(user);
+		PageInfo<SysUser> info = new PageInfo<SysUser>(page);
+		return info;
+	}
 
 }

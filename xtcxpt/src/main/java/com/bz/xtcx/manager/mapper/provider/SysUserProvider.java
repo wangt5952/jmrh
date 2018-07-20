@@ -19,9 +19,11 @@ public class SysUserProvider {
 	StringBuilder queryCondition(SysUser user) {
 		StringBuilder sql = new StringBuilder();
 		if (user.getUserName() != null)
-            sql.append(" and user_name='"+user.getUserName()+"'");
+            sql.append(" and user_name like '%"+user.getUserName()+"%'");
         if (user.getCellphone() != null)
             sql.append(" and cellphone='"+user.getCellphone()+"'");
+        if (user.getEmail() != null)
+            sql.append(" and email='"+user.getEmail()+"'");
 		return sql;
 	}
 }

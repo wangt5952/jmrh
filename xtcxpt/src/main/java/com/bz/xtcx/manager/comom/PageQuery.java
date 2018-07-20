@@ -1,5 +1,10 @@
 package com.bz.xtcx.manager.comom;
 
+/**
+ * 分页查询
+ * @author zhangkj
+ *
+ */
 public class PageQuery{
 
 	private final int PAGE_SIZE_DEFAULT = 15;
