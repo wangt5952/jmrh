@@ -38,23 +38,38 @@
           <el-form-item label="联系地址">
             <el-input placeholder="请输入联系地址" style="width:80%"></el-input>
           </el-form-item>
-          <el-form-item label="上传身份证">
+          <el-form-item label="上传身份证正面">
             <div>
-  <!--这是正面照-->
-  <div class="photo">
-  <a href="javascript">
-  <img :src="contrary" id="bgpic">
-  <input type="file" id="IdCard">
-  </a>
-  </div>
-  <!--这是背面照-->
-  <div class="photo photo1">
-  <a href="javascript">
-  <img :src="contrary2" id="bgpicb">
-  <input type="file" id="IdCardbg">
-      </a>
-      </div>
-      </div>
+              <!--这是正面照-->
+              <div class="photo">
+                <a href="javascript">
+              <img :src="contrary" id="bgpic">
+              <input type="file" id="IdCard">
+              </a>
+              </div>
+            </div>
+          </el-form-item>
+          <el-form-item label="上传身份证反面">
+            <div>
+              <!--这是背面照-->
+              <div class="photo photo1">
+                <a href="javascript">
+                <img :src="contrary2" id="bgpicb">
+                <input type="file" id="IdCardbg">
+                    </a>
+              </div>
+            </div>
+          </el-form-item>
+          <el-form-item label="手持身份证">
+            <div>
+              <!--这是背面照-->
+              <div class="photo photo1">
+                <a href="javascript">
+                <img :src="contrary2" id="bgpicb">
+                <input type="file" id="IdCardbg">
+                    </a>
+              </div>
+            </div>
           </el-form-item>
 
           <el-form-item label="手机号">
@@ -102,8 +117,8 @@ export default {
     return {
       radioData: '1',
       dateValue: '',
-      contrary:'',
-      contrary2:'',
+      contrary: '',
+      contrary2: '',
       selected: [],
       pcaa: pcaa, //最多省市区三级，结合:level='2'选择，0省、1省市、2省市区
 
@@ -189,16 +204,17 @@ export default {
 .tools {
   height: 5%
 }
+
 .area-select .area-selected-trigger {
-    position: relative;
-    display: block;
-    font-size: 14px;
-    cursor: pointer;
-    margin: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    height: 100%;
-    padding: 0px 0px 0px 12px;
+  position: relative;
+  display: block;
+  font-size: 14px;
+  cursor: pointer;
+  margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  height: 100%;
+  padding: 0px 0px 0px 12px;
 }
 </style>
