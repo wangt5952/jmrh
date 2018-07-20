@@ -37,6 +37,20 @@ public interface ISysUserService {
 	 */
 	public SysUser getUserByUsername(String username);
 	
-	
+	/**
+	 * 分页查询
+	 * @param user
+	 * @param pageNum
+	 * @param pageSize
+	 * @param orderBy
+	 * @return
+	 */
 	PageInfo<SysUser> getPageByCondition(SysUser user, int pageNum, int pageSize, String orderBy);
+	
+	/**
+	 * 删除
+	 * @param id
+	 * @return
+	 */
+	int del(String id);
 }

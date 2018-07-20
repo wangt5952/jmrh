@@ -91,4 +91,9 @@ public class SysUserService extends BaseService implements ISysUserService {
 		return info;
 	}
 
+	@Override
+	public int del(String id) {
+		return 0;
+	}
+
 }

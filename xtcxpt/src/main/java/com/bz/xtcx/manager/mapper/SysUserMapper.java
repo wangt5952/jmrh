@@ -2,6 +2,7 @@ package com.bz.xtcx.manager.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.ResultMap;
@@ -9,6 +10,7 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.mapping.StatementType;
 
 import com.bz.xtcx.manager.entity.SysUser;
@@ -28,6 +30,18 @@ public interface SysUserMapper {
 		    )
     @SelectKey(before = true, keyProperty = "id", resultType = String.class, statementType = StatementType.STATEMENT, statement="select uuid()")
 	int insert(SysUser user);
+	
+	@Delete("delete from `sys_user` where user_id = #{id}")
+	int del(String id);
+	
+	@Update("update `sys_user` set password=#{password},"
+			+ " cellphone=#{cellphone, jdbcType=VARCHAR},"
+			+ " email=#{email, jdbcType=VARCHAR},"
+			+ " org_id=#{orgId, jdbcType=VARCHAR},"
+			+ " status=#{status, jdbcType=INTEGER},"
+			+ " updater=#{updater, jdbcType=VARCHAR}"
+			+ " where user_id=#{id}")
+	int update(SysUser user);
 
 	@SelectProvider(type = SysUserProvider.class, method = "findCount")
     int findCount(SysUser user);
@@ -54,6 +68,5 @@ public interface SysUserMapper {
 	@Select("select * from `sys_user` where user_name = #{username} or email = #{username}")
     @ResultMap("sysUser")
 	SysUser findByUserameOrEmail(String username);
-	
 	
 }

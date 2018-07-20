@@ -46,6 +46,12 @@ public class SysManagerController extends BaseController{
 		return voRes;
 	}
 	
+	@DeleteMapping("user")
+	public Object delUser(@RequestParam("id") String id) {
+		VoResponse voRes = getVoResponse();
+		return voRes;
+	}
+	
 	@GetMapping("org")
 	public Object getAllOrgs() {
 		VoResponse voRes = new VoResponse();
