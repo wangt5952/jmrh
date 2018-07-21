@@ -30,6 +30,12 @@ export const constantRouterMap = [{
     name: 'register',
     leaf: true,
     hidden: true
+  }, {
+    path: '/registerDetail',
+    component: _import('registerDetail/index'),
+    name: 'registerDetail',
+    leaf: true,
+    hidden: true
   },{
     path: '/resetPaw',
     component: _import('resetPaw/index'),

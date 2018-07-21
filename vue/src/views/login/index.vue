@@ -44,15 +44,23 @@
               <!-- 普通登录 -->
               <el-tab-pane label="普通登录" name="first">
                 <el-form  :model="loginForm" ref="loginForm" :label-position="labelPosition" label-width="100px">
-                  <el-form-item label="用户名">
-                    <el-input v-model="loginForm.username" placeholder="请输入用户名"></el-input>
+                  <el-form-item label="">
+                    <el-input v-model="loginForm.username" placeholder="请输入用户名">
+                    <i  slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
                   </el-form-item>
 
-                  <p class="resetPaw" @click="toresetPaw">忘记密码?</p>
 
-                  <el-form-item label="密码">
-                    <el-input type="password" v-model="loginForm.password" placeholder="请输入密码"></el-input>
+                  <el-form-item label="" style="margin: 0;">
+                    <el-input type="password" v-model="loginForm.password" placeholder="请输入密码">
+
+                      <i  slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
+                    </el-input>
                   </el-form-item>
+
+                                    <el-form-item label="" style="margin: 0;">
+                                        <el-checkbox v-model="checked" style="float: left;">管理员</el-checkbox>
+                                      <p class="resetPaw" @click="toresetPaw">忘记密码?</p>
+                                  </el-form-item>
                   <el-form-item>
                     <el-button type="primary" @click.native.prevent="handleLogin">登录</el-button>
                     <span @click="toRegister" class="toLogin">立即注册</span>

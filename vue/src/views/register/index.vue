@@ -2,7 +2,7 @@
 <div class="register-container" style="background: #1896d2">
   <div class="content">
 
-    <div class="left-content" :style="{'background-image': `url('${leftImage}')`}"></div>
+    <!-- <div class="left-content" :style="{'background-image': `url('${leftImage}')`}"></div> -->
 
     <div class="right-content">
       <el-card class="box-card">
@@ -12,29 +12,81 @@
         </div>
 
         <div class="item">
-              <el-form :model="registerForm" :label-position="labelPosition" label-width="100px">
+          <el-form :model="registerForm" :label-position="labelPosition" label-width="100px">
 
-                  <div class="paddingb textl paddingr">
-                    <el-radio v-model="radioData" label="1">个人</el-radio>
-                    <el-radio v-model="radioData" label="2">企业</el-radio>
-                    <el-radio v-model="radioData" label="3">服务</el-radio>
-                  </div>
-                <el-form-item label="邮箱">
-                  <el-input type="text" v-model="registerForm.email" placeholder="请输入邮箱"></el-input>
-                </el-form-item>
-                <el-form-item label="验证码">
-                  <el-input type="text" v-model="registerForm.ecode" placeholder="请输入验证码" style="width:230px"></el-input>
-                  <el-button type="text">发送验证码</el-button>
-                </el-form-item>
-                <el-form-item label="密码">
-                  <el-input type="text" v-model="registerForm.ecode" placeholder="请输入密码" ></el-input>
-                </el-form-item>
-                <el-form-item>
-                  <el-button  @click="toRegister" type="primary">立即注册</el-button>
-                  <span @click="toLogin" class="toLogin">立即登录</span>
-                </el-form-item>
-              </el-form>
-              <!-- <div class="loginQuick">
+            <el-form-item label="">
+              <div class="paddingb textl paddingr">
+                <el-radio v-model="radioData" label="1">个人</el-radio>
+                <el-radio v-model="radioData" label="2">企业</el-radio>
+                <el-radio v-model="radioData" label="3">服务</el-radio>
+              </div>
+            </el-form-item>
+            <el-form-item label="">
+              <el-input type="text" v-model="registerForm.email" placeholder="请输入邮箱">
+                <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
+              </el-input>
+            </el-form-item>
+            <el-form-item label="">
+              <el-input type="text" v-model="registerForm.ecode" placeholder="请输入密码">
+                <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
+              </el-input>
+            </el-form-item>
+            <el-form-item label="">
+              <el-input type="text" v-model="registerForm.ecode" placeholder="请再次输入密码">
+                <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
+              </el-input>
+            </el-form-item>
+
+            <div class="" v-if="radioData == '1'">
+              <el-form-item label="">
+                <el-input type="text" v-model="registerForm.ecode" placeholder="请输入姓名">
+                  <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
+                </el-input>
+              </el-form-item>
+
+              <el-form-item label="">
+                <el-input type="text" v-model="registerForm.ecode" placeholder="请输入身份证号">
+                  <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
+                </el-input>
+              </el-form-item>
+            </div>
+
+            <div class="" v-if="radioData == '2'">
+              <el-form-item label="">
+                <el-input type="text" v-model="registerForm.ecode" placeholder="请输入企业名称">
+                  <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
+                </el-input>
+              </el-form-item>
+
+              <el-form-item label="">
+                <el-input type="text" v-model="registerForm.ecode" placeholder="请输入营业执照">
+                  <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
+                </el-input>
+              </el-form-item>
+            </div>
+
+
+
+            <div class="" v-if="radioData == '3'">
+              <el-form-item label="">
+                <el-input type="text" v-model="registerForm.ecode" placeholder="请输入单位名称">
+                  <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
+                </el-input>
+              </el-form-item>
+
+              <el-form-item label="">
+                <el-input type="text" v-model="registerForm.ecode" placeholder="请输入机构代码">
+                  <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
+                </el-input>
+              </el-form-item>
+            </div>
+
+            <el-form-item>
+              <el-button @click="toRegisterDetail" type="primary">下一步</el-button>
+              <span @click="toLogin" class="toLogin">立即登录</span>
+            </el-form-item>
+          </el-form>
+          <!-- <div class="loginQuick">
                   <p><span>快速登录</span></p>
                   <div class="quick-content">
                     <ul class="quickList">
@@ -43,7 +95,7 @@
                     </ul>
                   </div>
                 </div> -->
-            </el-tab-pane>
+          </el-tab-pane>
 
         </div>
 
@@ -57,29 +109,19 @@
 </template>
 
 <script>
-import bgImage from '@/assets/images/login-bg.jpg'
-import leftImage from '@/assets/images/bg-1.jpg'
-import weiXinImage from '@/assets/images/weixin.png'
-import weiBoImage from '@/assets/images/weibo.jpg'
-import QQImage from '@/assets/images/QQ.png'
 export default {
   data() {
     return {
-      bgImage,
-      leftImage,
-      weiXinImage,
-      weiBoImage,
-      QQImage,
       labelPosition: 'top',
       login_method: 'first', // 登录方式
-        radioData: '1',
+      radioData: '1',
       loginVerify: { // 普通登录
         phone: '',
         verity: ''
       },
       registerForm: { // 普通登录
         email: '',
-        ecode :''
+        ecode: ''
       }
     }
   },
@@ -92,21 +134,10 @@ export default {
         path: '/login'
       })
     },
-    toRegister() {
-      if(this.login_method == 'first'){
-        if (!this.validata.validatoRegistere(this.registerForm)) return
-        this.$message({
-          message: '1',
-          type: 'warning'
-        });
-      }else if(this.login_method == 'second'){
-        if (!this.validata.validatoRegisterp(this.loginVerify)) return
-        this.$message({
-          message: '2',
-          type: 'warning'
-        });
-      }
-
+    toRegisterDetail() {
+        this.$router.push(
+        {name: 'registerDetail', params: {radioData: this.radioData}}
+      )
     }
   }
 }
@@ -157,9 +188,7 @@ export default {
         }
 
         .right-content {
-            position: absolute;
-            right: 0;
-            bottom: 0;
+           margin: 0 auto;
             // background-color: rgba(225, 255, 255, 0.6);
             z-index: 3;
 
