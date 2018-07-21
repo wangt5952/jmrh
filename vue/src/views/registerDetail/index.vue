@@ -193,7 +193,7 @@
                         <el-radio v-model="registerH" label="2">否</el-radio>
                       </el-form-item>
                       <el-form-item label="企业所在地性质">
-                        <el-radio v-model="registerSite" label="1">国家级高新区  </el-radio>
+                        <el-radio v-model="registerSite" label="1">国家级高新区 </el-radio>
                         <el-radio v-model="registerSite" label="2">省级高新区</el-radio>
                         <el-radio v-model="registerSite" label="3">国家级经开区 </el-radio>
                         <el-radio v-model="registerSite" label="4">省级经开区</el-radio>
@@ -205,6 +205,28 @@
                         <el-radio v-model="registerHSite" label="3">昆山高新区 </el-radio>
                         <el-radio v-model="registerHSite" label="4">徐州高新区</el-radio>
                         <el-radio v-model="registerHSite" label="5">其他</el-radio>
+                      </el-form-item>
+                      <el-form-item label="是否上市">
+                        <el-radio v-model="registerMarket" label="1">是</el-radio>
+                        <el-radio v-model="registerMarket" label="2">否</el-radio>
+                      </el-form-item>
+                      <el-form-item label="上市地点">
+                        <el-radio v-model="registerMarkeSite" label="1">上交所</el-radio>
+                        <el-radio v-model="registerMarkeSite" label="2">深交所</el-radio>
+                        <el-radio v-model="registerMarkeSite" label="3">新三板 </el-radio>
+                        <el-radio v-model="registerMarkeSite" label="4">港交所</el-radio>
+                        <el-radio v-model="registerMarkeSite" label="5">主版</el-radio>
+                        <el-radio v-model="registerMarkeSite" label="6">中小板</el-radio>
+                        <el-radio v-model="registerMarkeSite" label="7">创业板</el-radio>
+                      </el-form-item>
+                      <el-form-item label="所属领域">
+                        <el-radio v-model="registerField" label="1">智能装备</el-radio>
+                        <el-radio v-model="registerField" label="2">电子信息</el-radio>
+                        <el-radio v-model="registerField" label="3">新材料 </el-radio>
+                        <el-radio v-model="registerField" label="4">航空航天</el-radio>
+                        <el-radio v-model="registerField" label="5">生物技术与新医药</el-radio>
+                        <el-radio v-model="registerField" label="6">能源与环保</el-radio>
+                        <el-radio v-model="registerField" label="7">其他</el-radio>
                       </el-form-item>
                     </el-col>
 
@@ -218,7 +240,51 @@
 
 
               </el-tab-pane>
-              <el-tab-pane label="其他信息">其他信息</el-tab-pane>
+              <el-tab-pane label="服务机构">
+
+                <el-form class="" label-width="30%" style="text-align:left">
+                  <el-row :gutter="20">
+                    <el-col :span="20">
+                      <el-form-item label="单位名称">
+                        <el-input placeholder="请输入单位名称" style="width:80%"></el-input>
+                      </el-form-item>
+                      <el-form-item label="所在地区">
+                        <area-cascader :level="1" v-model="selected" :data="pcaa"></area-cascader>
+                        <!-- <area-cascader v-model="selected" :level="1" :data="pca"></area-cascader> -->
+                      </el-form-item>
+                      <el-form-item label="联系地址">
+                        <el-input placeholder="请输入联系地址" style="width:80%"></el-input>
+                      </el-form-item>
+                      <el-form-item label="邮编">
+                        <el-input placeholder="请输入邮编" style="width:80%"></el-input>
+                      </el-form-item>
+
+                      <el-form-item label="机构性质">
+                        <el-radio v-model="registerNature" label="1">企业</el-radio>
+                        <el-radio v-model="registerNature" label="2">科研院所</el-radio>
+                        <el-radio v-model="registerNature" label="3">高等院校 </el-radio>
+                        <el-radio v-model="registerNature" label="4">其他</el-radio>
+                      </el-form-item>
+
+                      <el-form-item label="机构类别">
+                        <el-radio v-model="registerNatureType" label="1">研究开发</el-radio>
+                        <el-radio v-model="registerNatureType" label="2">科技投融资</el-radio>
+                        <el-radio v-model="registerNatureType" label="3">技术转移 </el-radio>
+                        <el-radio v-model="registerNatureType" label="4">检验检测</el-radio>
+                        <el-radio v-model="registerNatureType" label="5">创业孵化</el-radio>
+                        <el-radio v-model="registerNatureType" label="6">知识产权</el-radio>
+                        <el-radio v-model="registerNatureType" label="7">科技评估</el-radio>
+                        <el-radio v-model="registerNatureType" label="8">标准认证</el-radio>
+                        <el-radio v-model="registerNatureType" label="9">管理咨询</el-radio>
+                        <el-radio v-model="registerNatureType" label="10">综合科技服务</el-radio>
+                        <el-radio v-model="registerNatureType" label="11">其他</el-radio>
+                      </el-form-item>
+                    </el-col>
+
+                  </el-row>
+                </el-form>
+
+              </el-tab-pane>
             </el-tabs>
 
 
@@ -229,6 +295,258 @@
               </div>
             </el-row>
 
+          </div>
+
+
+          <div v-if="radioData == '3'" class="">
+            <el-tabs type="border-card">
+              <el-tab-pane>
+                <span slot="label"><i class="el-icon-date"></i> 机构联系人</span>
+                <el-form class="" label-width="30%" style="text-align:left">
+                  <el-row :gutter="20">
+                    <el-col :span="20">
+
+                      <el-form-item label="姓名">
+                        <el-input placeholder="请输入姓名" style="width:80%"></el-input>
+                      </el-form-item>
+                      <el-form-item label="职务">
+                        <el-input placeholder="请输入职务" style="width:80%"></el-input>
+                      </el-form-item>
+                      <el-form-item label="手机号">
+                        <el-input placeholder="请输入手机号" style="width:80%"></el-input>
+                      </el-form-item>
+                      <el-form-item label="邮箱">
+                        <el-input placeholder="请输入邮箱" style="width:80%"></el-input>
+                      </el-form-item>
+                    </el-col>
+
+                    <el-col :span="10">
+
+
+                    </el-col>
+
+                  </el-row>
+                </el-form>
+
+              </el-tab-pane>
+              <el-tab-pane label="机构法定代表人">
+                <el-form class="" label-width="30%" style="text-align:left">
+                  <el-row :gutter="20">
+                    <el-col :span="20">
+
+                      <el-form-item label="姓名">
+                        <el-input placeholder="请输入姓名" style="width:80%"></el-input>
+                      </el-form-item>
+                      <el-form-item label="手机号">
+                        <el-input placeholder="请输入手机号" style="width:80%"></el-input>
+                      </el-form-item>
+                      <el-form-item label="邮箱">
+                        <el-input placeholder="请输入邮箱" style="width:80%"></el-input>
+                      </el-form-item>
+                    </el-col>
+
+                    <el-col :span="10">
+
+
+                    </el-col>
+
+                  </el-row>
+                </el-form>
+              </el-tab-pane>
+              <el-tab-pane label="机构信息">
+                <el-form class="" label-width="30%" style="text-align:left">
+                  <el-row :gutter="20">
+                    <el-col :span="20">
+                      <el-form-item label="单位名称">
+                        <el-input placeholder="请输入单位名称" style="width:80%"></el-input>
+                      </el-form-item>
+                      <el-form-item label="所在地区">
+                        <area-cascader :level="1" v-model="selected" :data="pcaa"></area-cascader>
+                        <!-- <area-cascader v-model="selected" :level="1" :data="pca"></area-cascader> -->
+                      </el-form-item>
+                      <el-form-item label="联系地址">
+                        <el-input placeholder="请输入联系地址" style="width:80%"></el-input>
+                      </el-form-item>
+                      <el-form-item label="邮编">
+                        <el-input placeholder="请输入邮编" style="width:80%"></el-input>
+                      </el-form-item>
+
+                      <el-form-item label="机构性质">
+                        <el-radio v-model="registerNature" label="1">企业</el-radio>
+                        <el-radio v-model="registerNature" label="2">科研院所</el-radio>
+                        <el-radio v-model="registerNature" label="3">高等院校 </el-radio>
+                        <el-radio v-model="registerNature" label="4">其他</el-radio>
+                      </el-form-item>
+
+                      <el-form-item label="机构类别">
+                        <el-radio v-model="registerNatureType" label="1">研究开发</el-radio>
+                        <el-radio v-model="registerNatureType" label="2">科技投融资</el-radio>
+                        <el-radio v-model="registerNatureType" label="3">技术转移 </el-radio>
+                        <el-radio v-model="registerNatureType" label="4">检验检测</el-radio>
+                        <el-radio v-model="registerNatureType" label="5">创业孵化</el-radio>
+                        <el-radio v-model="registerNatureType" label="6">知识产权</el-radio>
+                        <el-radio v-model="registerNatureType" label="7">科技评估</el-radio>
+                        <el-radio v-model="registerNatureType" label="8">标准认证</el-radio>
+                        <el-radio v-model="registerNatureType" label="9">管理咨询</el-radio>
+                        <el-radio v-model="registerNatureType" label="10">综合科技服务</el-radio>
+                        <el-radio v-model="registerNatureType" label="11">其他</el-radio>
+                      </el-form-item>
+                    </el-col>
+
+                  </el-row>
+                </el-form>
+              </el-tab-pane>
+
+              <el-tab-pane label="人才队伍情况">
+
+                <el-form class="" label-width="30%" style="text-align:left">
+                  <el-row :gutter="20">
+                    <el-col :span="20">
+                      <el-form-item label="人员总数">
+                        <el-input placeholder="请输入人员总数" style="width:80%"></el-input>
+                      </el-form-item>
+                      <el-form-item label="本科及以上学历人员占比">
+                        <el-input placeholder="请输入人员本科及以上学历人员占比" style="width:80%"></el-input>
+                      </el-form-item>
+                      <el-form-item label="中高级职称以上人员占比">
+                        <el-input placeholder="请输入中高级职称以上人员占比编" style="width:80%"></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                </el-form>
+
+              </el-tab-pane>
+
+              <el-tab-pane label="项目情况">
+                <el-form class="" label-width="30%" style="text-align:left">
+                  <el-row :gutter="20">
+                    <el-col :span="20">
+                      <el-form-item label="资助方式">
+                        <el-radio v-model="registerSupport" label="1">拨款</el-radio>
+                        <el-radio v-model="registerSupport" label="2">贴息</el-radio>
+                        <el-radio v-model="registerSupport" label="3">减免税 </el-radio>
+                        <el-radio v-model="registerSupport" label="4">其他</el-radio>
+                        <el-radio v-model="registerSupport" label="5">以上全无</el-radio>
+                      </el-form-item>
+                      <el-form-item label="执行情况">
+                        <el-radio v-model="registerImplement" label="1">申请</el-radio>
+                        <el-radio v-model="registerImplement" label="2">在研</el-radio>
+                        <el-radio v-model="registerImplement" label="3">验收/结题 </el-radio>
+                      </el-form-item>
+
+
+                    </el-col>
+                  </el-row>
+                  <!-- <el-form-item label=""> -->
+
+                  <div style="margin:0 auto">
+
+                    <el-button size="small" @click="addProject()">
+                      添加项目
+                    </el-button>
+                    <el-table class="tableH" :data="registerPorcolumnDefinitions" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
+
+                      <el-table-column align="center" label="项目名称">
+                        <template slot-scope="scope">
+                        <input  type="text" v-model="scope.row.name">
+                                        </template>
+                      </el-table-column>
+                      <el-table-column align="center" label="起止时间">
+                        <template slot-scope="scope">
+                                              <span>
+                                                <input  type="text" v-model="scope.row.time">
+                                              </span>
+                                          </template>
+                      </el-table-column>
+                      <el-table-column align="center" label="项目来源">
+                        <template slot-scope="scope">
+                        <input  type="text" v-model="scope.row.source">
+                                        </template>
+                      </el-table-column>
+                    </el-table>
+                    </div>
+                  <!-- </el-form-item> -->
+
+                </el-form>
+              </el-tab-pane>
+              <el-tab-pane label="所获资质及荣誉">
+                <el-form class="" label-width="30%" style="text-align:left">
+                  <el-row :gutter="22">
+                    <!-- <el-form-item label=""> -->
+
+                    <div style="margin:0 auto">
+
+                      <el-button size="small" @click="addProject()">
+                        添加荣誉
+                      </el-button>
+                      <el-table class="tableH" :data="registerPorcolumnDefinitions" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
+
+                        <el-table-column align="center" label="时间">
+                          <template slot-scope="scope">
+                          <input  type="text" v-model="scope.row.name">
+                                          </template>
+                        </el-table-column>
+                        <el-table-column align="center" label="获得时间">
+                          <template slot-scope="scope">
+                                                <span>
+                                                  <input  type="text" v-model="scope.row.time">
+                                                </span>
+                                            </template>
+                        </el-table-column>
+                        <el-table-column align="center" label="颁发机构">
+                          <template slot-scope="scope">
+                          <input  type="text" v-model="scope.row.source">
+                                          </template>
+                        </el-table-column>
+                      </el-table>
+                      </div>
+                    <!-- </el-form-item> -->
+
+                  </el-row>
+                </el-form>
+              </el-tab-pane>
+              <el-tab-pane label="主要工作成效">
+                <el-form class="" label-width="30%" style="text-align:left">
+                  <el-row :gutter="22">
+                    <!-- <el-form-item label=""> -->
+
+                    <div style="margin:0 auto">
+
+                      <el-button size="small" @click="addProject()">
+                        添加成效
+                      </el-button>
+                      <el-table class="tableH" :data="registerPorcolumnDefinitions" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
+
+                        <el-table-column align="center" label="服务项目名称">
+                          <template slot-scope="scope">
+                          <input  type="text" v-model="scope.row.name">
+                                          </template>
+                        </el-table-column>
+                        <el-table-column align="center" label="服务对象">
+                          <template slot-scope="scope">
+                                                <span>
+                                                  <input  type="text" v-model="scope.row.time">
+                                                </span>
+                                            </template>
+                        </el-table-column>
+                        <el-table-column align="center" label="服务时间">
+                          <template slot-scope="scope">
+                          <input  type="text" v-model="scope.row.source">
+                                          </template>
+                        </el-table-column>
+                      </el-table>
+                      </div>
+                    <!-- </el-form-item> -->
+                  </el-row>
+                </el-form>
+              </el-tab-pane>
+            </el-tabs>
+            <el-row>
+              <div style="text-align:center;margin-top: 20px;">
+                <el-button type="primary" style="width: 120px;">完善并保存</el-button>
+                <el-button type="primary" style="width: 120px;">不完善并保存</el-button>
+              </div>
+            </el-row>
           </div>
 
         </div>
@@ -251,13 +569,25 @@ export default {
   data() {
     return {
       dateValue: '',
-      radioData: '2',
+      radioData: '3',
       registerFinance: '1',
       registerType: '1',
-      registerH : '1',
-      registerSite : '1',
-      registerHSite : '1',
-      registerValue:'',
+      registerH: '1',
+      registerSite: '1',
+      registerHSite: '1',
+      registerMarket: '1',
+      registerMarkeSite: '1',
+      registerField: '1',
+      registerValue: '',
+      registerNature: '',
+      registerNatureType: '',
+      registerImplement: '',
+      registerSupport: '',
+      registerPorcolumnDefinitions: [{
+        name: '',
+        time: '',
+        source: ''
+      }],
       loginVerify: { // 普通登录
         phone: '',
         verity: ''
@@ -273,6 +603,16 @@ export default {
     }
   },
   methods: {
+
+    addProject() {
+      this.registerPorcolumnDefinitions.push({
+        name: '',
+        time: '',
+        source: ''
+      })
+      this._newVals()
+      // this.editableTabsValue = newTabName;
+    },
     handleClick(tab, event) {
       console.log(tab, event)
     },
@@ -329,6 +669,16 @@ export default {
     border-radius: 4px;
     border: 1px solid #e1e2e6;
 }
+.el-tabs__header {
+    z-index: 999;
+}
+.el-card__body {
+    height: 600px;
+}
+.el-tabs--border-card {
+    height: 500px;
+
+}
 .register-container {
     width: 100%;
     height: 100vh;
@@ -344,10 +694,10 @@ export default {
         margin: 0;
     }
     .el-tabs__content {
-    overflow: auto;
-    height: 400px;
-    position: relative;
-}
+        overflow-y: auto;
+        height: 400px;
+        position: relative;
+    }
     .content {
         width: 986px;
         height: 518px;
@@ -360,7 +710,7 @@ export default {
         .detail-content,
         .left-content {
             width: 1200px;
-            height: 500px;
+            height: 700px;
             // border: 2px dashed  #CBBD63;
             // background-color: rgba(225, 255, 255, 0.1);
             -webkit-filter: drop-shadow(4px 4px 4px #CBBD63);
