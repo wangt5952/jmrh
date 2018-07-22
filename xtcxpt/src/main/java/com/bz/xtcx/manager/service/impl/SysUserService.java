@@ -93,7 +93,14 @@ public class SysUserService extends BaseService implements ISysUserService {
 
 	@Override
 	public int del(String id) {
-		return 0;
+		int result = sysUserMapper.del(id);
+		return result;
+	}
+
+	@Override
+	public List<SysUser> getAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

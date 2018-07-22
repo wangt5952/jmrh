@@ -10,6 +10,7 @@ import com.bz.xtcx.manager.entity.SysOrg;
 import com.bz.xtcx.manager.mapper.SysOrgMapper;
 import com.bz.xtcx.manager.service.ISysOrgService;
 import com.bz.xtcx.manager.vo.VoResponse;
+import com.github.pagehelper.PageInfo;
 
 @Service
 public class SysOrgService implements ISysOrgService {
@@ -50,9 +51,16 @@ public class SysOrgService implements ISysOrgService {
 		return voRes;
 	}
 	
-	public static void main(String[] args) {
-		String s = "";
-		System.out.println(StringUtils.isEmpty(s));
+	@Override
+	public int del(String id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public PageInfo<SysOrg> getPageByCondition(SysOrg t, int pageNum, int pageSize, String orderBy) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

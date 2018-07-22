@@ -2,7 +2,9 @@ package com.bz.xtcx.manager.entity;
 
 import java.util.List;
 
-public class SysMenu {
+import com.bz.xtcx.manager.comom.BasicEntity;
+
+public class SysMenu extends BasicEntity{
 
 	private String menuName;
 	private String menuUrl;
