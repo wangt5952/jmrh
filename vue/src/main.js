@@ -11,6 +11,14 @@ import validate from './utils/validate' // 验证
 import jsPlumb from 'jsplumb'
 import VueAreaLinkage from 'vue-area-linkage';
 
+
+import '../static/UE/ueditor.config.js'
+import '../static/UE/ueditor.all.min.js'
+import '../static/UE/lang/zh-cn/zh-cn.js'
+import '../static/UE/ueditor.parse.min.js'
+
+
+
 Vue.prototype.$jsPlumb = jsPlumb.jsPlumb
 Vue.prototype.validata =  validate
 import vSelect from 'vue-select'
