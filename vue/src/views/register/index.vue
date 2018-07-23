@@ -18,7 +18,8 @@
               <div class="paddingb textl paddingr">
                 <el-radio v-model="radioData" label="1">个人</el-radio>
                 <el-radio v-model="radioData" label="2">企业</el-radio>
-                <el-radio v-model="radioData" label="3">服务</el-radio>
+                <el-radio v-model="radioData" label="3">服务机构</el-radio>
+                <el-radio v-model="radioData" label="4">高校院所</el-radio>
               </div>
             </el-form-item>
             <el-form-item label="">
@@ -69,13 +70,26 @@
 
             <div class="" v-if="radioData == '3'">
               <el-form-item label="">
-                <el-input type="text" v-model="registerForm.ecode" placeholder="请输入单位名称">
+                <el-input type="text" v-model="registerForm.ecode" placeholder="请输入机构名称">
+                  <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
+                </el-input>
+              </el-form-item>
+              <el-form-item label="">
+                <el-input type="text" v-model="registerForm.ecode" placeholder="请输入机构代码">
+                  <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
+                </el-input>
+              </el-form-item>
+            </div>
+
+            <div class="" v-if="radioData == '4'">
+              <el-form-item label="">
+                <el-input type="text" v-model="registerForm.ecode" placeholder="请输入高校名称">
                   <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
                 </el-input>
               </el-form-item>
 
               <el-form-item label="">
-                <el-input type="text" v-model="registerForm.ecode" placeholder="请输入机构代码">
+                <el-input type="text" v-model="registerForm.ecode" placeholder="请输入高校代码">
                   <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
                 </el-input>
               </el-form-item>
@@ -135,9 +149,12 @@ export default {
       })
     },
     toRegisterDetail() {
-        this.$router.push(
-        {name: 'registerDetail', params: {radioData: this.radioData}}
-      )
+      this.$router.push({
+        name: 'registerDetail',
+        params: {
+          radioData: this.radioData
+        }
+      })
     }
   }
 }
@@ -188,7 +205,7 @@ export default {
         }
 
         .right-content {
-           margin: 0 auto;
+            margin: 0 auto;
             // background-color: rgba(225, 255, 255, 0.6);
             z-index: 3;
 
@@ -215,8 +232,6 @@ export default {
 
                     // input-box
                     .el-form-item__content {
-                        width: 340px;
-
                         .el-button {
                             width: 100px;
                         }

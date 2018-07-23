@@ -8,7 +8,7 @@
       <el-card class="box-card">
 
         <div slot="header" class="clearfix">
-          <span> <span v-if="radioData == '1'">个人</span> <span v-if="radioData == '2'">企业</span><span v-if="radioData == '3'">服务</span>注册</span>
+          <span> <span v-if="radioData == '1'">个人</span> <span v-if="radioData == '2'">企业</span><span v-if="radioData == '3'">服务机构</span><span v-if="radioData == '4'">高校院所</span>注册</span>
         </div>
 
         <div class="item">
@@ -464,7 +464,7 @@
                                         </template>
                       </el-table-column>
                     </el-table>
-                    </div>
+                  </div>
                   <!-- </el-form-item> -->
 
                 </el-form>
@@ -499,7 +499,7 @@
                                           </template>
                         </el-table-column>
                       </el-table>
-                      </div>
+                    </div>
                     <!-- </el-form-item> -->
 
                   </el-row>
@@ -535,7 +535,7 @@
                                           </template>
                         </el-table-column>
                       </el-table>
-                      </div>
+                    </div>
                     <!-- </el-form-item> -->
                   </el-row>
                 </el-form>
@@ -548,6 +548,57 @@
               </div>
             </el-row>
           </div>
+
+          <div v-if="radioData == '4'" class="">
+            <el-tabs type="border-card">
+              <el-tab-pane>
+                <span slot="label"><i class="el-icon-date"></i> 高校基本信息</span>
+                <el-form class="" label-width="30%" style="text-align:left">
+                  <el-row :gutter="20">
+                    <el-col :span="20">
+
+                      <el-form-item label="名称">
+                        <el-input placeholder="请输入名称" style="width:80%"></el-input>
+                      </el-form-item>
+
+                      <el-form-item label="所在地区">
+                        <area-cascader :level="1" v-model="selected" :data="pcaa"></area-cascader>
+                        <!-- <area-cascader v-model="selected" :level="1" :data="pca"></area-cascader> -->
+                      </el-form-item>
+                      <el-form-item label="联系地址">
+                        <el-input placeholder="请输入联系地址" style="width:80%"></el-input>
+                      </el-form-item>
+                      <el-form-item label="邮箱">
+                        <el-input placeholder="请输入邮箱" style="width:80%"></el-input>
+                      </el-form-item>
+
+                      <el-form-item label="单位网址">
+                        <el-input placeholder="请输入单位网址" style="width:80%"></el-input>
+                      </el-form-item>
+
+                      <el-form-item label="单位简介">
+                        <el-input placeholder="请输入单位简介" style="width:80%"></el-input>
+                      </el-form-item>
+                    </el-col>
+
+
+
+                  </el-row>
+                </el-form>
+
+              </el-tab-pane>
+
+            </el-tabs>
+            <el-row>
+              <div style="text-align:center;margin-top: 20px;">
+                <el-button type="primary" style="width: 120px;">完善并保存</el-button>
+                <el-button type="primary" style="width: 120px;">不完善并保存</el-button>
+              </div>
+            </el-row>
+          </div>
+
+
+
 
         </div>
 
@@ -673,11 +724,10 @@ export default {
     z-index: 999;
 }
 .el-card__body {
-    height: 600px;
+    // height: 600px;
 }
 .el-tabs--border-card {
     height: 500px;
-
 }
 .register-container {
     width: 100%;
