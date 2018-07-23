@@ -10,6 +10,7 @@ import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 
 import com.bz.xtcx.manager.entity.SysUser;
+import com.bz.xtcx.manager.mapper.BusUserMapper;
 import com.bz.xtcx.manager.mapper.SysUserMapper;
 import com.bz.xtcx.manager.service.ISysUserService;
 import com.bz.xtcx.manager.vo.VoResponse;
@@ -22,6 +23,9 @@ public class SysUserService extends BaseService implements ISysUserService {
 	
 	@Autowired
 	private SysUserMapper sysUserMapper;
+	
+	@Autowired
+	private BusUserMapper usUserMapper;
 	
 	@Override
 	public List<SysUser> getUserByEmail(String email) {
@@ -51,17 +55,23 @@ public class SysUserService extends BaseService implements ISysUserService {
 	}
 	
 	@Override
-	public VoResponse signIn(String username, String password) {
+	public VoResponse signIn(String username, String password, boolean isAdmin) {
 		VoResponse voRes = new VoResponse();
 		String md5Password = DigestUtils.md5DigestAsHex(password.getBytes());//md5加密
-		SysUser user = this.getUserByUsername(username);
-		if(user != null && user.getPassword().equals(md5Password)) {
-			HttpSession session = getSession();
-			user.setToken(session.getId());
-			this.createRedisUser(username, user);
-			voRes.setData(user);
-			return voRes;
+		SysUser user = null;
+		if(isAdmin) {
+			user = this.getUserByUsername(username);
+			if(user != null && user.getPassword().equals(md5Password)) {
+				HttpSession session = getSession();
+				user.setToken(session.getId());
+				this.createRedisUser(user.getId(), user);
+				voRes.setData(user);
+				return voRes;
+			}
+		}else {
+			
 		}
+		
 		voRes.setFail(voRes);
 		voRes.setMessage("用户名或者密码错误");
 		return voRes;

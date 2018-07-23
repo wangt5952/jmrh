@@ -1,7 +1,6 @@
 package com.bz.xtcx.manager.service.impl;
 
 import java.io.File;
-import java.util.UUID;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;

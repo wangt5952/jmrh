@@ -2,10 +2,6 @@ package com.bz.xtcx.manager.controller;
 
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
@@ -40,12 +36,8 @@ public class LoginController extends BaseController{
 	@PostMapping("login")
 	public Object login(@RequestBody VoUser vo) {
 		VoResponse voRes = getVoResponse();
-		if(StringUtils.isEmpty(vo.getUsername()) || StringUtils.isEmpty(vo.getPassword())) return null;
-		if(vo.isAdmin()) {
-			voRes = sysUserService.signIn(vo.getUsername(), vo.getPassword());
-		}else {
-			
-		}
+		if(StringUtils.isEmpty(vo.getUserName()) || StringUtils.isEmpty(vo.getPassword())) return null;
+		voRes = sysUserService.signIn(vo.getUserName(), vo.getPassword(), vo.isAdmin());
 		return voRes;
 	}
 	

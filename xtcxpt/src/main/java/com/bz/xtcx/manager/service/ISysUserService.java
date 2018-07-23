@@ -15,7 +15,7 @@ public interface ISysUserService extends IBaseService<SysUser>{
 	 * @param password
 	 * @return
 	 */
-	public VoResponse signIn(String username, String password);
+	public VoResponse signIn(String username, String password, boolean isAdmin);
 	
 	/**
 	 * 登出

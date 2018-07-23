@@ -35,7 +35,7 @@ public interface SysMenuMapper {
 	@Delete("delete from `sys_menu` where menu_id = ${id}")
 	int del(String id);
 	
-	@Select("select * from `sys_menu` where parent_id is null order by sort_order")
+	@Select("select * from `sys_menu` where ifnull(parent_id,'')='' order by sort_order")
     @Results(id = "sysMenu", 
 		value = { 
 		    @Result(id = true, property = "id", column = "menu_id"),

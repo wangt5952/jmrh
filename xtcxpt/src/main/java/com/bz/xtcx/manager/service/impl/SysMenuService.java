@@ -3,6 +3,7 @@ package com.bz.xtcx.manager.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.bz.xtcx.manager.entity.SysMenu;
@@ -11,6 +12,7 @@ import com.bz.xtcx.manager.service.ISysMenuService;
 import com.bz.xtcx.manager.vo.VoResponse;
 import com.github.pagehelper.PageInfo;
 
+@Service
 public class SysMenuService extends BaseService implements ISysMenuService{
 
 	@Autowired
@@ -39,14 +41,14 @@ public class SysMenuService extends BaseService implements ISysMenuService{
 
 	@Override
 	public int del(String id) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = sysMenuMapper.del(id);
+		return result;
 	}
 
 	@Override
 	public List<SysMenu> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<SysMenu> list = sysMenuMapper.findAll();
+		return list;
 	}
 
 	@Override

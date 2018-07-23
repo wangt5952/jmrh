@@ -22,6 +22,8 @@ public class SysUser extends BasicEntity implements Serializable {
 	private List<SysRole> roles;
 	private String orgId;
 	private SysOrg org;
+	private String country;
+	private String adress;
 	private String token;
 	
 	public String getPassword() {
@@ -71,6 +73,18 @@ public class SysUser extends BasicEntity implements Serializable {
 	}
 	public void setOrgId(String orgId) {
 		this.orgId = orgId;
+	}
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	public String getAdress() {
+		return adress;
+	}
+	public void setAdress(String adress) {
+		this.adress = adress;
 	}
 	
 }

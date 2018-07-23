@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bz.xtcx.manager.entity.SysMenu;
 import com.bz.xtcx.manager.entity.SysOrg;
 import com.bz.xtcx.manager.entity.SysRole;
 import com.bz.xtcx.manager.entity.SysUser;
+import com.bz.xtcx.manager.service.ISysMenuService;
 import com.bz.xtcx.manager.service.ISysOrgService;
+import com.bz.xtcx.manager.service.ISysRoleService;
 import com.bz.xtcx.manager.service.ISysUserService;
 import com.bz.xtcx.manager.vo.VoResponse;
 import com.github.pagehelper.PageInfo;
@@ -29,6 +32,12 @@ public class SysManagerController extends BaseController{
 	
 	@Autowired
 	private ISysUserService sysUserService;
+	
+	@Autowired
+	private ISysRoleService sysRoleService;
+	
+	@Autowired
+	private ISysMenuService sysMenuService;
 	
 	@PostMapping("user")
 	public Object addSysUser(@RequestBody SysUser user) {
@@ -81,7 +90,8 @@ public class SysManagerController extends BaseController{
 	@PostMapping("role")
 	public Object addSysRole(@RequestBody SysRole role) {
 		VoResponse voRes = getVoResponse();
-		if(StringUtils.isEmpty(role.getRoleName()) || role.getRoleType() > 0) return voRes;
+		if(StringUtils.isEmpty(role.getRoleName()) ) return voRes;
+		voRes = sysRoleService.saveOrUpdate(role);
 		return voRes;
 	}
 	
@@ -89,40 +99,45 @@ public class SysManagerController extends BaseController{
 	public Object getAllRoles(@RequestBody SysRole role, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
 			@RequestParam(value="orderBy",required=false)  String orderBy) {
 		VoResponse voRes = new VoResponse();
-		PageInfo<SysUser> info = null;
+		PageInfo<SysRole> info = sysRoleService.getPageByCondition(role, pageNum, pageSize, orderBy);
 		voRes.setData(info);
 		return voRes;
 	}
 	
 	@DeleteMapping("role")
 	public Object delRole(@RequestParam("id") String id) {
-		VoResponse voRes = getVoResponse();
+		VoResponse voRes = new VoResponse();
+		int result = sysRoleService.del(id);
+		if(result > 0) return voRes;
+		voRes.setFail(voRes);
 		return voRes;
 	}
 	
 	@GetMapping("menu/tree")
 	public Object getAllMenus() {
 		VoResponse voRes = new VoResponse();
-		voRes.setData(sysOrgService.getAll());
+		voRes.setData(sysMenuService.getAll());
 		return voRes;
 	}
 	
 	@DeleteMapping("menu")
 	public Object delMenu(@RequestParam("id") String id) {
 		VoResponse voRes = getVoResponse();
-		
+		int result = sysMenuService.del(id);
+		if(result > 0) return voRes;
+		voRes.setFail(voRes);
 		return voRes;
 	}
 	
 	@PostMapping("menu")
-	public Object addMenu(@RequestBody SysOrg org) {
-		VoResponse voRes = sysOrgService.saveOrUpdate(org);
+	public Object addMenu(@RequestBody SysMenu menu) {
+		VoResponse voRes = sysMenuService.saveOrUpdate(menu);
 		return voRes;
 	}
 	
 	@PutMapping("menu")
-	public Object updateMenu(@RequestBody SysOrg org) {
-		VoResponse voRes = getVoResponse();
+	public Object updateMenu(@RequestBody SysMenu menu) {
+		VoResponse voRes = sysMenuService.saveOrUpdate(menu);
 		return voRes;
 	}
 

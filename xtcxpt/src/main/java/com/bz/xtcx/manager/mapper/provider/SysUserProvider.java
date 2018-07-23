@@ -1,5 +1,7 @@
 package com.bz.xtcx.manager.mapper.provider;
 
+import java.text.MessageFormat;
+
 import com.bz.xtcx.manager.entity.SysUser;
 
 public class SysUserProvider {
@@ -25,5 +27,17 @@ public class SysUserProvider {
         if (user.getEmail() != null)
             sql.append(" and email='"+user.getEmail()+"'");
 		return sql;
+	}
+	
+	public String addUserRoles(SysUser user){
+		StringBuilder sql = new StringBuilder();
+		sql.append("insert into `sys_user_role`(id, user_id, role_id, creater, create_time) values ");
+        MessageFormat mf = new MessageFormat("(uuid(), #'{'user.id}, #'{'user.roles[{0}].id}, #'{'user.creater}, #'{'user.create_time} ),");
+        for(int i = 0; i < user.getRoles().size(); i++) {
+        	sql.append(mf.format(new Object[]{i}));
+        }
+        sql.deleteCharAt(sql.length() - 1);
+        System.out.println(sql);
+		return sql.toString();
 	}
 }

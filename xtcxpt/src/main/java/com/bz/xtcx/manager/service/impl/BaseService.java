@@ -39,26 +39,29 @@ public class BaseService {
 	
 	/**
 	 * 创建redis缓存session
-	 * @param username
+	 * @param userId
 	 * @param session
 	 */
-	public void createRedisUser(String username, SysUser user) {
-		if(redisTemplate.opsForValue().getOperations().hasKey(username)) {
-			String token = redisTemplate.opsForValue().get(username).toString();
-			boolean result = redisTemplate.delete(username);
+	public void createRedisUser(String userId, SysUser user) {
+		if(redisTemplate.opsForValue().getOperations().hasKey(userId)) {
+			String token = redisTemplate.opsForValue().get(userId).toString();
+			boolean result = redisTemplate.delete(userId);
 			System.out.println(result);
 			result = redisTemplate.delete(token);
 			System.out.println(result);
 		}
-		redisTemplate.opsForValue().set(username, session.getId());
+		redisTemplate.opsForValue().set(userId, session.getId());
 		redisTemplate.opsForValue().set(session.getId(), user);
 	}
 	
+	/**
+	 * 销毁redis缓存session
+	 */
 	public void destroyedRedisUser() {
-		String username = this.getUserName();
-		if(redisTemplate.opsForValue().getOperations().hasKey(username)) {
-			String token = redisTemplate.opsForValue().get(username).toString();
-			boolean result = redisTemplate.delete(username);
+		String userId = this.getUserId();
+		if(redisTemplate.opsForValue().getOperations().hasKey(userId)) {
+			String token = redisTemplate.opsForValue().get(userId).toString();
+			boolean result = redisTemplate.delete(userId);
 			System.out.println(result);
 			result = redisTemplate.delete(token);
 			System.out.println(result);

@@ -4,18 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class VoUser {
 
-	private String username;
+	private String userName;
 	private String password;
 	@JsonProperty("isAdmin")
 	private boolean isAdmin;
 	private String token;
 	
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
 	public String getPassword() {
 		return password;
 	}
@@ -33,6 +27,12 @@ public class VoUser {
 	}
 	public void setToken(String token) {
 		this.token = token;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	
 	
