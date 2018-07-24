@@ -6,6 +6,10 @@ import com.bz.xtcx.manager.comom.BasicEntity;
 
 public class SysOrg extends BasicEntity{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5466520079119005849L;
 	private String orgName;
 	private int orgType;//组织类别
 	private int sortOrder;

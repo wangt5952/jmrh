@@ -47,6 +47,13 @@ public class SysManagerController extends BaseController{
 		return voRes;
 	}
 	
+	@PutMapping("user")
+	public Object updateSysUser(@RequestBody SysUser user) {
+		VoResponse voRes = getVoResponse();
+		voRes = sysUserService.saveOrUpdate(user);
+		return voRes;
+	}
+	
 	@PostMapping("user/page")
 	public Object getAllUsers(@RequestBody SysUser user, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
 			@RequestParam(value="orderBy",required=false)  String orderBy) {

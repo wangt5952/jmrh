@@ -71,18 +71,22 @@ public interface SysUserMapper {
     @ResultMap("sysUser")
 	SysUser findByUserameOrEmail(String username);
 	
+	@Select("select * from `sys_user` where user_id = #{id}")
+    @ResultMap("sysUser")
+	SysUser findById(String id);
+	
 	
 	/**
      * 新增用户的角色信息
      * @param user
      */
     @InsertProvider(type = SysUserProvider.class, method = "addUserRoles")
-    void addUserRoles(SysUser user);
+    int addUserRoles(SysUser user);
 
     /**
      * 根据用户ID，删除用户的角色信息
      * @param userId
      */
     @Delete("delete from `sys_user_role` where user_id=#{userId}")
-    void delUserRoles(String userId);
+    int delUserRoles(String userId);
 }

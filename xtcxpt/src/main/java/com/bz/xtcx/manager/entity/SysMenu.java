@@ -6,6 +6,10 @@ import com.bz.xtcx.manager.comom.BasicEntity;
 
 public class SysMenu extends BasicEntity{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8340527631854231092L;
 	private String menuName;
 	private String menuUrl;
 	private int menuLevel;
@@ -14,6 +18,7 @@ public class SysMenu extends BasicEntity{
 	private int sortOrder;
 	private String remark;
 	private String parentId;
+	private boolean leaf;
 	private List<SysMenu> menus;//菜单
 	private List<SysMenu> authmenus;//功能按钮
 	
@@ -76,6 +81,12 @@ public class SysMenu extends BasicEntity{
 	}
 	public void setSortOrder(int sortOrder) {
 		this.sortOrder = sortOrder;
+	}
+	public boolean isLeaf() {
+		return leaf;
+	}
+	public void setLeaf(boolean leaf) {
+		this.leaf = leaf;
 	}
 	
 }

@@ -48,7 +48,7 @@ public class BaseService {
 			boolean result = redisTemplate.delete(userId);
 			System.out.println(result);
 			result = redisTemplate.delete(token);
-			System.out.println(result);
+			//System.out.println(result);
 		}
 		redisTemplate.opsForValue().set(userId, session.getId());
 		redisTemplate.opsForValue().set(session.getId(), user);

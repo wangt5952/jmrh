@@ -2,6 +2,7 @@ package com.bz.xtcx.manager.service;
 
 import java.util.List;
 
+import com.bz.xtcx.manager.entity.SysMenu;
 import com.bz.xtcx.manager.entity.SysUser;
 import com.bz.xtcx.manager.vo.VoResponse;
 
@@ -28,5 +29,7 @@ public interface ISysUserService extends IBaseService<SysUser>{
 	 * @return
 	 */
 	public SysUser getUserByUsername(String username);
+	
+	public List<SysMenu> getCurrentUserMenus();
 	
 }

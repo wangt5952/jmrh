@@ -13,6 +13,7 @@ import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.mapping.StatementType;
 
 import com.bz.xtcx.manager.entity.SysMenu;
+import com.bz.xtcx.manager.entity.SysRole;
 
 public interface SysMenuMapper {
 
@@ -64,4 +65,8 @@ public interface SysMenuMapper {
 	@Select("select * from `sys_menu` where parent_id = #{id} order by sort_order")
 	@ResultMap("sysMenu")
 	List<SysMenu> findByParentId(String id);
+	
+	@Select("select * from `sys_menu` where menu_id in(select menu_id from `sys_role_menu` where role_id = #{roleId})")
+	@ResultMap("sysMenu")
+    List<SysRole> findMenusByRoleId(String roleId);
 }

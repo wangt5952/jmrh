@@ -56,8 +56,8 @@ public interface SysRoleMapper {
 		    @Result(property = "creater", column = "creater"),
 		    @Result(property = "createTime", column = "create_time"),
 		    @Result(property = "updater", column = "updater"),
-		    @Result(property = "updateTime", column = "update_time")
-		    //@Result(property = "menus", column = "role_id", many = @Many(select = "com.bz.xtcx.manager.mapper.SysMenuMapper.findMenusByRoleId") ) 
+		    @Result(property = "updateTime", column = "update_time"),
+		    @Result(property = "menus", column = "role_id", many = @Many(select = "com.bz.xtcx.manager.mapper.SysMenuMapper.findMenusByRoleId") ) 
 	    }
 	)
     List<SysRole> findByCondition(SysRole role);

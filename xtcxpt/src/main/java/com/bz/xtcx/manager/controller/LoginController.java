@@ -36,7 +36,7 @@ public class LoginController extends BaseController{
 	@PostMapping("login")
 	public Object login(@RequestBody VoUser vo) {
 		VoResponse voRes = getVoResponse();
-		if(StringUtils.isEmpty(vo.getUserName()) || StringUtils.isEmpty(vo.getPassword())) return null;
+		if(StringUtils.isEmpty(vo.getUserName()) || StringUtils.isEmpty(vo.getPassword())) return voRes;
 		voRes = sysUserService.signIn(vo.getUserName(), vo.getPassword(), vo.isAdmin());
 		return voRes;
 	}
@@ -45,6 +45,13 @@ public class LoginController extends BaseController{
 	public Object logout(){
 		VoResponse voRes = new VoResponse();
 		sysUserService.signOut();
+		return voRes;
+	}
+	
+	@GetMapping("getMenus")
+	public Object getCurrentUserMenus(){
+		VoResponse voRes = new VoResponse();
+		voRes.setData(sysUserService.getCurrentUserMenus());
 		return voRes;
 	}
 

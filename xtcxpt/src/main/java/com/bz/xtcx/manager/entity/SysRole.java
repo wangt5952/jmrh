@@ -6,6 +6,10 @@ import com.bz.xtcx.manager.comom.BasicEntity;
 
 public class SysRole extends BasicEntity{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8571895183610594811L;
 	private String roleName;
 	private String roleDesc;
 	private int roleType;

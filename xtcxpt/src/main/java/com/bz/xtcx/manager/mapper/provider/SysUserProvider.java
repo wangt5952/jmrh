@@ -32,7 +32,7 @@ public class SysUserProvider {
 	public String addUserRoles(SysUser user){
 		StringBuilder sql = new StringBuilder();
 		sql.append("insert into `sys_user_role`(id, user_id, role_id, creater, create_time) values ");
-        MessageFormat mf = new MessageFormat("(uuid(), #'{'user.id}, #'{'user.roles[{0}].id}, #'{'user.creater}, #'{'user.create_time} ),");
+        MessageFormat mf = new MessageFormat("(uuid(), #'{'id}, #'{'roles[{0}].id}, #'{'creater}, #'{'createTime} ),");
         for(int i = 0; i < user.getRoles().size(); i++) {
         	sql.append(mf.format(new Object[]{i}));
         }
