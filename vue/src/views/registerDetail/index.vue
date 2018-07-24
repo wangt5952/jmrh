@@ -6,7 +6,6 @@
 
     <div class="detail-content">
       <el-card class="box-card">
-
         <div slot="header" class="clearfix">
           <span> <span v-if="radioData == '1'">个人</span> <span v-if="radioData == '2'">企业</span><span v-if="radioData == '3'">服务机构</span><span v-if="radioData == '4'">高校院所</span>注册</span>
         </div>
@@ -17,10 +16,10 @@
               <el-row :gutter="20">
                 <el-col :span="10">
                   <el-form-item label="姓名">
-                    <el-input placeholder="请输入姓名" style="width:80%"></el-input>
+                    <el-input v-model="per.name" placeholder="请输入姓名" style="width:80%"></el-input>
                   </el-form-item>
                   <el-form-item label="性别">
-                    <el-select style="width:100px" placeholder="请选择">
+                    <el-select v-model="per.sex" style="width:100px" placeholder="请选择">
                       <el-option label="男" key="1" value='1'>
                       </el-option>
                       <el-option label="女" key="0" value='0'>
@@ -28,32 +27,35 @@
                     </el-select>
                   </el-form-item>
                   <el-form-item label="出生日期">
-                    <el-date-picker v-model="dateValue" type="date" placeholder="选择日期">
+                    <el-date-picker v-model="per.dateValue" type="date" placeholder="选择日期">
                     </el-date-picker>
                   </el-form-item>
                   <el-form-item label="所在地区">
-                    <area-cascader :level="1" v-model="selected" :data="pcaa"></area-cascader>
+                    <area-cascader :level="1" v-model="per.address" :data="pcaa"></area-cascader>
                     <!-- <area-cascader v-model="selected" :level="1" :data="pca"></area-cascader> -->
                   </el-form-item>
                   <el-form-item label="联系地址">
-                    <el-input placeholder="请输入联系地址" style="width:80%"></el-input>
+                    <el-input placeholder="请输入联系地址" v-model="per.selected" style="width:80%"></el-input>
                   </el-form-item>
                   <el-form-item label="邮箱">
-                    <el-input placeholder="请输入邮箱" style="width:80%"></el-input>
+                    <el-input placeholder="请输入邮箱" v-model="per.ecode" style="width:80%"></el-input>
                   </el-form-item>
                 </el-col>
 
                 <el-col :span="10">
                   <el-form-item label="身份证号">
-                    <el-input placeholder="请输入身份证号" style="width:80%"></el-input>
+                    <el-input placeholder="请输入身份证号" v-model="per.id" style="width:80%"></el-input>
                   </el-form-item>
                   <el-form-item label="上传身份证正面">
                     <div>
                       <!--这是正面照-->
                       <div class="photo">
-                        <a href="javascript">
-                      <input type="file" id="IdCard">
-                      </a>
+                        <el-upload class="upload-demo" action="" :on-change="handleChange1" :on-preview="handlePreview" :on-remove="handleRemove1" :file-list="per.cardPositive" list-type="picture">
+                          <el-button size="small" type="primary">点击上传</el-button>
+                        </el-upload>
+                        <!-- <input type="file" @change="uploadImg($event)" id="IdCard"> -->
+                        <!-- <input type="file"  @change="per.cardPositive"  id="IdCard"> -->
+
                       </div>
                     </div>
                   </el-form-item>
@@ -61,9 +63,10 @@
                     <div>
                       <!--这是背面照-->
                       <div class="photo photo1">
-                        <a href="javascript">
-                        <input type="file" id="IdCardbg">
-                            </a>
+                        <el-upload class="upload-demo" action="" :on-change="handleChange2" :on-preview="handlePreview" :on-remove="handleRemove2" :file-list="per.cardSide" list-type="picture">
+                          <el-button size="small" type="primary">点击上传</el-button>
+                        </el-upload>
+
                       </div>
                     </div>
                   </el-form-item>
@@ -71,15 +74,16 @@
                     <div>
                       <!--这是背面照-->
                       <div class="photo photo1">
-                        <a href="javascript">
-                        <input type="file" id="IdCardbg">
-                            </a>
+                        <el-upload class="upload-demo" action="" :on-change="handleChange3" :on-preview="handlePreview" :on-remove="handleRemove2" :file-list="per.cardHands" list-type="picture">
+                          <el-button size="small" type="primary">点击上传</el-button>
+                        </el-upload>
+
                       </div>
                     </div>
                   </el-form-item>
 
                   <el-form-item label="手机号">
-                    <el-input placeholder="请输入手机号" style="width:80%"></el-input>
+                    <el-input placeholder="请输入手机号" v-model="per.phone" style="width:80%"></el-input>
                   </el-form-item>
 
                 </el-col>
@@ -87,7 +91,7 @@
               </el-row>
               <el-row>
                 <div style="text-align:center">
-                  <el-button type="primary" style="width: 120px;">完善并保存</el-button>
+                  <el-button type="primary" @click="saveFile" style="width: 120px;">完善并保存</el-button>
                   <el-button type="primary" style="width: 120px;">不完善并保存</el-button>
                 </div>
               </el-row>
@@ -106,30 +110,30 @@
                   <el-row :gutter="20">
                     <el-col :span="10">
                       <el-form-item label="姓名">
-                        <el-input placeholder="请输入姓名" style="width:80%"></el-input>
+                        <el-input placeholder="请输入姓名" v-model="com.lxname" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="职务">
-                        <el-input placeholder="请输入职务" style="width:80%"></el-input>
+                        <el-input placeholder="请输入职务" v-model="com.lxzw" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="手机号">
-                        <el-input placeholder="请输入手机号" style="width:80%"></el-input>
+                        <el-input placeholder="请输入手机号" v-model="com.lxphone" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="邮箱">
-                        <el-input placeholder="请输入邮箱" style="width:80%"></el-input>
+                        <el-input placeholder="请输入邮箱" v-model="com.lxemail" style="width:80%"></el-input>
                       </el-form-item>
                     </el-col>
 
                     <el-col :span="10">
 
                       <el-form-item label="所在地区">
-                        <area-cascader :level="1" v-model="selected" :data="pcaa"></area-cascader>
+                        <area-cascader :level="1" v-model="com.lxselected" :data="pcaa"></area-cascader>
                         <!-- <area-cascader v-model="selected" :level="1" :data="pca"></area-cascader> -->
                       </el-form-item>
                       <el-form-item label="联系地址">
-                        <el-input placeholder="请输入联系地址" style="width:80%"></el-input>
+                        <el-input placeholder="请输入联系地址" v-model="com.lxaddress" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="邮编">
-                        <el-input placeholder="请输入邮编" style="width:80%"></el-input>
+                        <el-input placeholder="请输入邮编" v-model="com.lxecode" style="width:80%"></el-input>
                       </el-form-item>
 
                     </el-col>
@@ -145,16 +149,16 @@
                     <el-col :span="20">
 
                       <el-form-item label="姓名">
-                        <el-input placeholder="请输入姓名" style="width:80%"></el-input>
+                        <el-input placeholder="请输入姓名" v-model="com.lpname" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="职务">
-                        <el-input placeholder="请输入职务" style="width:80%"></el-input>
+                        <el-input placeholder="请输入职务" v-model="com.lpzw" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="手机号">
-                        <el-input placeholder="请输入手机号" style="width:80%"></el-input>
+                        <el-input placeholder="请输入手机号" v-model="com.lpphone" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="邮箱">
-                        <el-input placeholder="请输入邮箱" style="width:80%"></el-input>
+                        <el-input placeholder="请输入邮箱" v-model="com.lpemail" style="width:80%"></el-input>
                       </el-form-item>
                     </el-col>
 
@@ -172,61 +176,61 @@
                     <el-col :span="20">
 
                       <el-form-item label="企业规模（注册资金）">
-                        <el-radio v-model="registerFinance" label="1">小于2000万（含）</el-radio>
-                        <el-radio v-model="registerFinance" label="2">2000-5000万</el-radio>
-                        <el-radio v-model="registerFinance" label="3">5000-1亿（含）</el-radio>
-                        <el-radio v-model="registerFinance" label="4">1亿-2亿（含）</el-radio>
-                        <el-radio v-model="registerFinance" label="5">2亿-4亿（含）</el-radio>
-                        <el-radio v-model="registerFinance" label="6">4亿及以上（含）</el-radio>
+                        <el-radio v-model="com.registerFinance" label="1">小于2000万（含）</el-radio>
+                        <el-radio v-model="com.registerFinance" label="2">2000-5000万</el-radio>
+                        <el-radio v-model="com.registerFinance" label="3">5000-1亿（含）</el-radio>
+                        <el-radio v-model="com.registerFinance" label="4">1亿-2亿（含）</el-radio>
+                        <el-radio v-model="com.registerFinance" label="5">2亿-4亿（含）</el-radio>
+                        <el-radio v-model="com.registerFinance" label="6">4亿及以上（含）</el-radio>
                       </el-form-item>
                       <el-form-item label="注册时间">
-                        <el-date-picker v-model="registerValue" type="date" placeholder="选择日期">
+                        <el-date-picker v-model="com.registerValue" type="date" placeholder="选择日期">
                         </el-date-picker>
                       </el-form-item>
                       <el-form-item label="注册类型">
-                        <el-radio v-model="registerType" label="1">内资企业</el-radio>
-                        <el-radio v-model="registerType" label="2">合资企业</el-radio>
-                        <el-radio v-model="registerType" label="3">外资企业</el-radio>
+                        <el-radio v-model="com.registerType" label="1">内资企业</el-radio>
+                        <el-radio v-model="com.registerType" label="2">合资企业</el-radio>
+                        <el-radio v-model="com.registerType" label="3">外资企业</el-radio>
                       </el-form-item>
                       <el-form-item label="是否高新技术企业">
-                        <el-radio v-model="registerH" label="1">是</el-radio>
-                        <el-radio v-model="registerH" label="2">否</el-radio>
+                        <el-radio v-model="com.registerH" label="1">是</el-radio>
+                        <el-radio v-model="com.registerH" label="2">否</el-radio>
                       </el-form-item>
                       <el-form-item label="企业所在地性质">
-                        <el-radio v-model="registerSite" label="1">国家级高新区 </el-radio>
-                        <el-radio v-model="registerSite" label="2">省级高新区</el-radio>
-                        <el-radio v-model="registerSite" label="3">国家级经开区 </el-radio>
-                        <el-radio v-model="registerSite" label="4">省级经开区</el-radio>
-                        <el-radio v-model="registerSite" label="5">其他</el-radio>
+                        <el-radio v-model="com.registerSite" label="1">国家级高新区 </el-radio>
+                        <el-radio v-model="com.registerSite" label="2">省级高新区</el-radio>
+                        <el-radio v-model="com.registerSite" label="3">国家级经开区 </el-radio>
+                        <el-radio v-model="com.registerSite" label="4">省级经开区</el-radio>
+                        <el-radio v-model="com.registerSite" label="5">其他</el-radio>
                       </el-form-item>
                       <el-form-item label="所在国家高新区">
-                        <el-radio v-model="registerHSite" label="1">南京高新区</el-radio>
-                        <el-radio v-model="registerHSite" label="2">无锡高新区</el-radio>
-                        <el-radio v-model="registerHSite" label="3">昆山高新区 </el-radio>
-                        <el-radio v-model="registerHSite" label="4">徐州高新区</el-radio>
-                        <el-radio v-model="registerHSite" label="5">其他</el-radio>
+                        <el-radio v-model="com.registerHSite" label="1">南京高新区</el-radio>
+                        <el-radio v-model="com.registerHSite" label="2">无锡高新区</el-radio>
+                        <el-radio v-model="com.registerHSite" label="3">昆山高新区 </el-radio>
+                        <el-radio v-model="com.registerHSite" label="4">徐州高新区</el-radio>
+                        <el-radio v-model="com.registerHSite" label="5">其他</el-radio>
                       </el-form-item>
                       <el-form-item label="是否上市">
-                        <el-radio v-model="registerMarket" label="1">是</el-radio>
-                        <el-radio v-model="registerMarket" label="2">否</el-radio>
+                        <el-radio v-model="com.registerMarket" label="1">是</el-radio>
+                        <el-radio v-model="com.registerMarket" label="2">否</el-radio>
                       </el-form-item>
                       <el-form-item label="上市地点">
-                        <el-radio v-model="registerMarkeSite" label="1">上交所</el-radio>
-                        <el-radio v-model="registerMarkeSite" label="2">深交所</el-radio>
-                        <el-radio v-model="registerMarkeSite" label="3">新三板 </el-radio>
-                        <el-radio v-model="registerMarkeSite" label="4">港交所</el-radio>
-                        <el-radio v-model="registerMarkeSite" label="5">主版</el-radio>
-                        <el-radio v-model="registerMarkeSite" label="6">中小板</el-radio>
-                        <el-radio v-model="registerMarkeSite" label="7">创业板</el-radio>
+                        <el-radio v-model="com.registerMarkeSite" label="1">上交所</el-radio>
+                        <el-radio v-model="com.registerMarkeSite" label="2">深交所</el-radio>
+                        <el-radio v-model="com.registerMarkeSite" label="3">新三板 </el-radio>
+                        <el-radio v-model="com.registerMarkeSite" label="4">港交所</el-radio>
+                        <el-radio v-model="com.registerMarkeSite" label="5">主版</el-radio>
+                        <el-radio v-model="com.registerMarkeSite" label="6">中小板</el-radio>
+                        <el-radio v-model="com.registerMarkeSite" label="7">创业板</el-radio>
                       </el-form-item>
                       <el-form-item label="所属领域">
-                        <el-radio v-model="registerField" label="1">智能装备</el-radio>
-                        <el-radio v-model="registerField" label="2">电子信息</el-radio>
-                        <el-radio v-model="registerField" label="3">新材料 </el-radio>
-                        <el-radio v-model="registerField" label="4">航空航天</el-radio>
-                        <el-radio v-model="registerField" label="5">生物技术与新医药</el-radio>
-                        <el-radio v-model="registerField" label="6">能源与环保</el-radio>
-                        <el-radio v-model="registerField" label="7">其他</el-radio>
+                        <el-radio v-model="com.registerField" label="1">智能装备</el-radio>
+                        <el-radio v-model="com.registerField" label="2">电子信息</el-radio>
+                        <el-radio v-model="com.registerField" label="3">新材料 </el-radio>
+                        <el-radio v-model="com.registerField" label="4">航空航天</el-radio>
+                        <el-radio v-model="com.registerField" label="5">生物技术与新医药</el-radio>
+                        <el-radio v-model="com.registerField" label="6">能源与环保</el-radio>
+                        <el-radio v-model="com.registerField" label="7">其他</el-radio>
                       </el-form-item>
                     </el-col>
 
@@ -240,57 +244,13 @@
 
 
               </el-tab-pane>
-              <el-tab-pane label="服务机构">
 
-                <el-form class="" label-width="30%" style="text-align:left">
-                  <el-row :gutter="20">
-                    <el-col :span="20">
-                      <el-form-item label="单位名称">
-                        <el-input placeholder="请输入单位名称" style="width:80%"></el-input>
-                      </el-form-item>
-                      <el-form-item label="所在地区">
-                        <area-cascader :level="1" v-model="selected" :data="pcaa"></area-cascader>
-                        <!-- <area-cascader v-model="selected" :level="1" :data="pca"></area-cascader> -->
-                      </el-form-item>
-                      <el-form-item label="联系地址">
-                        <el-input placeholder="请输入联系地址" style="width:80%"></el-input>
-                      </el-form-item>
-                      <el-form-item label="邮编">
-                        <el-input placeholder="请输入邮编" style="width:80%"></el-input>
-                      </el-form-item>
-
-                      <el-form-item label="机构性质">
-                        <el-radio v-model="registerNature" label="1">企业</el-radio>
-                        <el-radio v-model="registerNature" label="2">科研院所</el-radio>
-                        <el-radio v-model="registerNature" label="3">高等院校 </el-radio>
-                        <el-radio v-model="registerNature" label="4">其他</el-radio>
-                      </el-form-item>
-
-                      <el-form-item label="机构类别">
-                        <el-radio v-model="registerNatureType" label="1">研究开发</el-radio>
-                        <el-radio v-model="registerNatureType" label="2">科技投融资</el-radio>
-                        <el-radio v-model="registerNatureType" label="3">技术转移 </el-radio>
-                        <el-radio v-model="registerNatureType" label="4">检验检测</el-radio>
-                        <el-radio v-model="registerNatureType" label="5">创业孵化</el-radio>
-                        <el-radio v-model="registerNatureType" label="6">知识产权</el-radio>
-                        <el-radio v-model="registerNatureType" label="7">科技评估</el-radio>
-                        <el-radio v-model="registerNatureType" label="8">标准认证</el-radio>
-                        <el-radio v-model="registerNatureType" label="9">管理咨询</el-radio>
-                        <el-radio v-model="registerNatureType" label="10">综合科技服务</el-radio>
-                        <el-radio v-model="registerNatureType" label="11">其他</el-radio>
-                      </el-form-item>
-                    </el-col>
-
-                  </el-row>
-                </el-form>
-
-              </el-tab-pane>
             </el-tabs>
 
 
             <el-row>
               <div style="text-align:center;margin-top: 20px;">
-                <el-button type="primary" style="width: 120px;">完善并保存</el-button>
+                <el-button type="primary" style="width: 120px;" @click="saveFile">完善并保存</el-button>
                 <el-button type="primary" style="width: 120px;">不完善并保存</el-button>
               </div>
             </el-row>
@@ -307,16 +267,16 @@
                     <el-col :span="20">
 
                       <el-form-item label="姓名">
-                        <el-input placeholder="请输入姓名" style="width:80%"></el-input>
+                        <el-input placeholder="请输入姓名" v-model="mech.lxname" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="职务">
-                        <el-input placeholder="请输入职务" style="width:80%"></el-input>
+                        <el-input placeholder="请输入职务" v-model="mech.lxzw" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="手机号">
-                        <el-input placeholder="请输入手机号" style="width:80%"></el-input>
+                        <el-input placeholder="请输入手机号" v-model="mech.lxphone" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="邮箱">
-                        <el-input placeholder="请输入邮箱" style="width:80%"></el-input>
+                        <el-input placeholder="请输入邮箱" v-model="mech.lxemail" style="width:80%"></el-input>
                       </el-form-item>
                     </el-col>
 
@@ -335,13 +295,13 @@
                     <el-col :span="20">
 
                       <el-form-item label="姓名">
-                        <el-input placeholder="请输入姓名" style="width:80%"></el-input>
+                        <el-input placeholder="请输入姓名" v-model="mech.fdname" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="手机号">
-                        <el-input placeholder="请输入手机号" style="width:80%"></el-input>
+                        <el-input placeholder="请输入手机号" v-model="mech.fdphone" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="邮箱">
-                        <el-input placeholder="请输入邮箱" style="width:80%"></el-input>
+                        <el-input placeholder="请输入邮箱" v-model="mech.fdemail" style="width:80%"></el-input>
                       </el-form-item>
                     </el-col>
 
@@ -358,38 +318,38 @@
                   <el-row :gutter="20">
                     <el-col :span="20">
                       <el-form-item label="单位名称">
-                        <el-input placeholder="请输入单位名称" style="width:80%"></el-input>
+                        <el-input placeholder="请输入单位名称" v-model="mech.comname" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="所在地区">
-                        <area-cascader :level="1" v-model="selected" :data="pcaa"></area-cascader>
+                        <area-cascader :level="1" v-model="mech.selected" :data="pcaa"></area-cascader>
                         <!-- <area-cascader v-model="selected" :level="1" :data="pca"></area-cascader> -->
                       </el-form-item>
                       <el-form-item label="联系地址">
-                        <el-input placeholder="请输入联系地址" style="width:80%"></el-input>
+                        <el-input placeholder="请输入联系地址" v-model="mech.address" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="邮编">
-                        <el-input placeholder="请输入邮编" style="width:80%"></el-input>
+                        <el-input placeholder="请输入邮编" v-model="mech.ecode" style="width:80%"></el-input>
                       </el-form-item>
 
                       <el-form-item label="机构性质">
-                        <el-radio v-model="registerNature" label="1">企业</el-radio>
-                        <el-radio v-model="registerNature" label="2">科研院所</el-radio>
-                        <el-radio v-model="registerNature" label="3">高等院校 </el-radio>
-                        <el-radio v-model="registerNature" label="4">其他</el-radio>
+                        <el-radio v-model="mech.registerNature" label="1">企业</el-radio>
+                        <el-radio v-model="mech.registerNature" label="2">科研院所</el-radio>
+                        <el-radio v-model="mech.registerNature" label="3">高等院校 </el-radio>
+                        <el-radio v-model="mech.registerNature" label="4">其他</el-radio>
                       </el-form-item>
 
                       <el-form-item label="机构类别">
-                        <el-radio v-model="registerNatureType" label="1">研究开发</el-radio>
-                        <el-radio v-model="registerNatureType" label="2">科技投融资</el-radio>
-                        <el-radio v-model="registerNatureType" label="3">技术转移 </el-radio>
-                        <el-radio v-model="registerNatureType" label="4">检验检测</el-radio>
-                        <el-radio v-model="registerNatureType" label="5">创业孵化</el-radio>
-                        <el-radio v-model="registerNatureType" label="6">知识产权</el-radio>
-                        <el-radio v-model="registerNatureType" label="7">科技评估</el-radio>
-                        <el-radio v-model="registerNatureType" label="8">标准认证</el-radio>
-                        <el-radio v-model="registerNatureType" label="9">管理咨询</el-radio>
-                        <el-radio v-model="registerNatureType" label="10">综合科技服务</el-radio>
-                        <el-radio v-model="registerNatureType" label="11">其他</el-radio>
+                        <el-radio v-model="mech.registerNatureType" label="1">研究开发</el-radio>
+                        <el-radio v-model="mech.registerNatureType" label="2">科技投融资</el-radio>
+                        <el-radio v-model="mech.registerNatureType" label="3">技术转移 </el-radio>
+                        <el-radio v-model="mech.registerNatureType" label="4">检验检测</el-radio>
+                        <el-radio v-model="mech.registerNatureType" label="5">创业孵化</el-radio>
+                        <el-radio v-model="mech.registerNatureType" label="6">知识产权</el-radio>
+                        <el-radio v-model="mech.registerNatureType" label="7">科技评估</el-radio>
+                        <el-radio v-model="mech.registerNatureType" label="8">标准认证</el-radio>
+                        <el-radio v-model="mech.registerNatureType" label="9">管理咨询</el-radio>
+                        <el-radio v-model="mech.registerNatureType" label="10">综合科技服务</el-radio>
+                        <el-radio v-model="mech.registerNatureType" label="11">其他</el-radio>
                       </el-form-item>
                     </el-col>
 
@@ -403,13 +363,13 @@
                   <el-row :gutter="20">
                     <el-col :span="20">
                       <el-form-item label="人员总数">
-                        <el-input placeholder="请输入人员总数" style="width:80%"></el-input>
+                        <el-input v-model="mech.perNum" placeholder="请输入人员总数" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="本科及以上学历人员占比">
-                        <el-input placeholder="请输入人员本科及以上学历人员占比" style="width:80%"></el-input>
+                        <el-input v-model="mech.underPer" placeholder="请输入人员本科及以上学历人员占比" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="中高级职称以上人员占比">
-                        <el-input placeholder="请输入中高级职称以上人员占比编" style="width:80%"></el-input>
+                        <el-input v-model="mech.MHPer" placeholder="请输入中高级职称以上人员占比编" style="width:80%"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -422,16 +382,16 @@
                   <el-row :gutter="20">
                     <el-col :span="20">
                       <el-form-item label="资助方式">
-                        <el-radio v-model="registerSupport" label="1">拨款</el-radio>
-                        <el-radio v-model="registerSupport" label="2">贴息</el-radio>
-                        <el-radio v-model="registerSupport" label="3">减免税 </el-radio>
-                        <el-radio v-model="registerSupport" label="4">其他</el-radio>
-                        <el-radio v-model="registerSupport" label="5">以上全无</el-radio>
+                        <el-radio v-model="mech.registerSupport" label="1">拨款</el-radio>
+                        <el-radio v-model="mech.registerSupport" label="2">贴息</el-radio>
+                        <el-radio v-model="mech.registerSupport" label="3">减免税 </el-radio>
+                        <el-radio v-model="mech.registerSupport" label="4">其他</el-radio>
+                        <el-radio v-model="mech.registerSupport" label="5">以上全无</el-radio>
                       </el-form-item>
                       <el-form-item label="执行情况">
-                        <el-radio v-model="registerImplement" label="1">申请</el-radio>
-                        <el-radio v-model="registerImplement" label="2">在研</el-radio>
-                        <el-radio v-model="registerImplement" label="3">验收/结题 </el-radio>
+                        <el-radio v-model="mech.registerImplement" label="1">申请</el-radio>
+                        <el-radio v-model="mech.registerImplement" label="2">在研</el-radio>
+                        <el-radio v-model="mech.registerImplement" label="3">验收/结题 </el-radio>
                       </el-form-item>
 
 
@@ -444,7 +404,7 @@
                     <el-button size="small" @click="addProject()">
                       添加项目
                     </el-button>
-                    <el-table class="tableH" :data="registerPorcolumnDefinitions" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
+                    <el-table class="tableH" :data="mech.registerPorcolumnDefinitions" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
 
                       <el-table-column align="center" label="项目名称">
                         <template slot-scope="scope">
@@ -479,7 +439,7 @@
                       <el-button size="small" @click="addProject()">
                         添加荣誉
                       </el-button>
-                      <el-table class="tableH" :data="registerPorcolumnDefinitions" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
+                      <el-table class="tableH" :data="mech.registerPorcolumnDefinitions" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
 
                         <el-table-column align="center" label="时间">
                           <template slot-scope="scope">
@@ -515,7 +475,7 @@
                       <el-button size="small" @click="addProject()">
                         添加成效
                       </el-button>
-                      <el-table class="tableH" :data="registerPorcolumnDefinitions" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
+                      <el-table class="tableH" :data="mech.registerPorcolumnDefinitions" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
 
                         <el-table-column align="center" label="服务项目名称">
                           <template slot-scope="scope">
@@ -543,7 +503,7 @@
             </el-tabs>
             <el-row>
               <div style="text-align:center;margin-top: 20px;">
-                <el-button type="primary" style="width: 120px;">完善并保存</el-button>
+                <el-button type="primary" style="width: 120px;" @click="saveFile">完善并保存</el-button>
                 <el-button type="primary" style="width: 120px;">不完善并保存</el-button>
               </div>
             </el-row>
@@ -558,26 +518,26 @@
                     <el-col :span="20">
 
                       <el-form-item label="名称">
-                        <el-input placeholder="请输入名称" style="width:80%"></el-input>
+                        <el-input placeholder="请输入名称" v-model="school.name" style="width:80%"></el-input>
                       </el-form-item>
 
                       <el-form-item label="所在地区">
-                        <area-cascader :level="1" v-model="selected" :data="pcaa"></area-cascader>
+                        <area-cascader :level="1" v-model="school.selected" :data="pcaa"></area-cascader>
                         <!-- <area-cascader v-model="selected" :level="1" :data="pca"></area-cascader> -->
                       </el-form-item>
                       <el-form-item label="联系地址">
-                        <el-input placeholder="请输入联系地址" style="width:80%"></el-input>
+                        <el-input placeholder="请输入联系地址" v-model="school.address" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="邮箱">
-                        <el-input placeholder="请输入邮箱" style="width:80%"></el-input>
+                        <el-input placeholder="请输入邮箱" v-model="school.email" style="width:80%"></el-input>
                       </el-form-item>
 
                       <el-form-item label="单位网址">
-                        <el-input placeholder="请输入单位网址" style="width:80%"></el-input>
+                        <el-input placeholder="请输入单位网址" v-model="school.network" style="width:80%"></el-input>
                       </el-form-item>
 
                       <el-form-item label="单位简介">
-                        <el-input placeholder="请输入单位简介" style="width:80%"></el-input>
+                        <el-input placeholder="请输入单位简介" v-model="school.desc" style="width:80%"></el-input>
                       </el-form-item>
                     </el-col>
 
@@ -591,7 +551,7 @@
             </el-tabs>
             <el-row>
               <div style="text-align:center;margin-top: 20px;">
-                <el-button type="primary" style="width: 120px;">完善并保存</el-button>
+                <el-button type="primary" style="width: 120px;"  @click="saveFile">完善并保存</el-button>
                 <el-button type="primary" style="width: 120px;">不完善并保存</el-button>
               </div>
             </el-row>
@@ -619,26 +579,76 @@ import {
 export default {
   data() {
     return {
-      dateValue: '',
-      radioData: '3',
-      registerFinance: '1',
-      registerType: '1',
-      registerH: '1',
-      registerSite: '1',
-      registerHSite: '1',
-      registerMarket: '1',
-      registerMarkeSite: '1',
-      registerField: '1',
-      registerValue: '',
-      registerNature: '',
-      registerNatureType: '',
-      registerImplement: '',
-      registerSupport: '',
-      registerPorcolumnDefinitions: [{
+      school: {
+        desc: '',
+        network: '',
+        email: '',
+        address: '',
+        selected: '',
         name: '',
-        time: '',
-        source: ''
-      }],
+      },
+      mech: {
+        registerNature: '',
+        registerNatureType: '',
+        registerImplement: '',
+        registerSupport: '',
+        registerPorcolumnDefinitions: [{
+          name: '',
+          time: '',
+          source: ''
+        }],
+        MHPer: '',
+        underPer: '',
+        perNum: '',
+        ecode: '',
+        address: '',
+        selected: '',
+        comname: '',
+        fdemail: '',
+        fdphone: '',
+        fdname: '',
+        lxemail: '',
+        lxphone: '',
+        lxzw: '',
+        lxname: ''
+      },
+      com: {
+        lxname: '',
+        lxzw: '',
+        lxphone: '',
+        lxemail: '',
+        lxselected: '',
+        lxaddress: '',
+        lxecode: '',
+        lpname: '',
+        lpzw: '',
+        lpphone: '',
+        lpemail: '',
+        registerFinance: '1',
+        registerValue: '',
+        registerType: '1',
+        registerH: '1',
+        registerSite: '1',
+        registerHSite: '1',
+        registerMarket: '1',
+        registerMarkeSite: '1',
+        registerField: '1',
+      },
+      per: {
+        name: '',
+        dateValue: '',
+        sex: '',
+        selected: '',
+        address: '',
+        ecode: '',
+        id: '',
+        cardPositive: [],
+        cardSide: [],
+        cardHands: [],
+        phone: '',
+      },
+      radioData: '3',
+      registerValue: '',
       loginVerify: { // 普通登录
         phone: '',
         verity: ''
@@ -654,9 +664,54 @@ export default {
     }
   },
   methods: {
+    handleChange1(file, fileList) {
+      let obj = {}
+      obj.name = fileList.slice(-3)[0].name
+      obj.url = fileList.slice(-3)[0].url
+      this.per.cardPositive.push(obj)
 
+    },
+    handleChange2(file, fileList) {
+      let obj = {}
+      obj.name = fileList.slice(-3)[0].name
+      obj.url = fileList.slice(-3)[0].url
+      this.per.cardSide.push(obj)
+
+    },
+    handleChange3(file, fileList) {
+      let obj = {}
+      obj.name = fileList.slice(-3)[0].name
+      obj.url = fileList.slice(-3)[0].url
+      this.per.cardHands.push(obj)
+
+    },
+    handleRemove1(file, fileList) {
+      this.per.cardPositive = []
+    },
+    handleRemove2(file, fileList) {
+      this.per.cardSide = []
+    },
+    handleRemove3(file, fileList) {
+      this.per.cardHands = []
+    },
+    handlePreview(file) {
+      console.log(file);
+    },
+    uploadImg: function(event) {
+      var file = event.target.files; // (利用console.log输出看结构就知道如何处理档案资料)
+      console.log(file)
+      // do something...
+    },
+    saveFile() {
+      let obj = this.per
+      let obj2 = this.com
+      let obj3 = this.mech
+      let obj4 = this.school
+      debugger
+      return
+    },
     addProject() {
-      this.registerPorcolumnDefinitions.push({
+      this.mech.registerPorcolumnDefinitions.push({
         name: '',
         time: '',
         source: ''
@@ -694,6 +749,25 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss">
 @import "src/styles/mixin.scss";
+.upload-demo {
+    display: flex;
+}
+.el-upload-list--picture .el-upload-list__item {
+    width: 220px;
+    margin-top: 0;
+    height: 42px;
+    padding: 0;
+    margin-left: 10px;
+}
+.el-upload-list--picture .el-upload-list__item-thumbnail {
+    width: 30px;
+    height: 30px;
+    margin-left: 20px;
+}
+.el-upload-list--picture .el-upload-list__item.is-success .el-upload-list__item-name {
+    line-height: 40px;
+    margin-top: 0;
+}
 .area-select .area-selected-trigger {
     position: relative;
     display: block;

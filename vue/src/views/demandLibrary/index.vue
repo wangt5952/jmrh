@@ -4,7 +4,7 @@
     <div class="paddingb textl paddingr">
       <el-input v-model="input" placeholder="请输入内容" style="width: 15%;"></el-input>
       <el-button style="margin-left:20px" @click="loadPageList" type="primary" icon="el-icon-search"></el-button>
-      <el-button style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">添加用户</el-button>
+      <el-button style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">发布需求</el-button>
 
     </div>
   </div>
@@ -19,29 +19,46 @@
                     <span>{{ scope.row.userName }}</span>
                 </template>
     </el-table-column>
-    <el-table-column align="center" label="账户">
+    <el-table-column align="center" label="需求名">
       <template slot-scope="scope">
                     <span>{{ scope.row.fullName }}</span>
                 </template>
     </el-table-column>
-    <el-table-column align="center" label="手机号">
+    <el-table-column align="center" label="发布方单位名">
+      <template slot-scope="scope">
+                    <span>{{ scope.row.fullName }}</span>
+                </template>
+    </el-table-column>
+    <el-table-column align="center" label="发布方机构代码">
+      <template slot-scope="scope">
+                    <span>
+                        {{ scope.row.dpartmentId}}</span>
+                </template>
+    </el-table-column>
+    <el-table-column align="center" label="联系人手机号">
+      <template slot-scope="scope">
+                    <span>
+                        {{ scope.row.dpartmentId}}</span>
+                </template>
+    </el-table-column>
+    <el-table-column align="center" label="联系人身份证号">
       <template slot-scope="scope">
                     <span>
                         {{ scope.row.dpartmentId}}</span>
                 </template>
     </el-table-column>
 
-    <el-table-column align="center" label="用户类别">
+    <el-table-column align="center" label="领域">
       <template slot-scope="scope">
                     <span>
                         {{ scope.row.dpartmentId}}</span>
                 </template>
     </el-table-column>
-    <el-table-column align="center" label="用户状态">
+    <el-table-column align="center" label="状态">
       <template slot-scope="scope">
-                    <span>
-                        {{ scope.row.dpartmentId}}</span>
-                </template>
+                        <span>
+                            {{ scope.row.dpartmentId}}</span>
+                    </template>
     </el-table-column>
     <el-table-column align="center" label="操作">
       <template slot-scope="scope">
