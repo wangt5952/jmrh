@@ -705,7 +705,7 @@ export default {
     saveFile() {
       let obj = this.per
       let obj2 = this.com
-      let obj3 = this.mech
+      let obj3 = JSON.stringify(this.mech)
       let obj4 = this.school
       debugger
       return
