@@ -40,6 +40,15 @@ public class SysManagerController extends BaseController{
 	@Autowired
 	private ISysMenuService sysMenuService;
 	
+	@PostMapping("user/page")
+	public Object getAllUsers(@RequestBody SysUser user, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
+			@RequestParam(value="orderBy",required=false)  String orderBy) {
+		VoResponse voRes = new VoResponse();
+		PageInfo<SysUser> info = sysUserService.getPageByCondition(user, pageNum, pageSize, orderBy);
+		voRes.setData(info);
+		return voRes;
+	}
+	
 	@PostMapping("user")
 	public Object addSysUser(@RequestBody SysUser user) {
 		VoResponse voRes = getVoResponse();
@@ -52,15 +61,6 @@ public class SysManagerController extends BaseController{
 	public Object updateSysUser(@RequestBody SysUser user) {
 		VoResponse voRes = getVoResponse();
 		voRes = sysUserService.saveOrUpdate(user);
-		return voRes;
-	}
-	
-	@PostMapping("user/page")
-	public Object getAllUsers(@RequestBody SysUser user, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
-			@RequestParam(value="orderBy",required=false)  String orderBy) {
-		VoResponse voRes = new VoResponse();
-		PageInfo<SysUser> info = sysUserService.getPageByCondition(user, pageNum, pageSize, orderBy);
-		voRes.setData(info);
 		return voRes;
 	}
 	

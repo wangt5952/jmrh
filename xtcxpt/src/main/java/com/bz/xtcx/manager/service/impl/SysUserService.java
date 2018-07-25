@@ -26,6 +26,7 @@ import com.bz.xtcx.manager.mapper.BusUserDetailMapper;
 import com.bz.xtcx.manager.mapper.BusUserFormMapper;
 import com.bz.xtcx.manager.mapper.BusUserMapper;
 import com.bz.xtcx.manager.mapper.SysMenuMapper;
+import com.bz.xtcx.manager.mapper.SysRoleMapper;
 import com.bz.xtcx.manager.mapper.SysUserMapper;
 import com.bz.xtcx.manager.service.IEmailService;
 import com.bz.xtcx.manager.service.ISysUserService;
@@ -42,6 +43,9 @@ public class SysUserService extends BaseService implements ISysUserService {
 	
 	@Autowired
 	private BusUserMapper busUserMapper;
+	
+	@Autowired
+	private SysRoleMapper sysRoleMapper;
 	
 	@Autowired
 	private SysMenuMapper sysMenuMapper;
@@ -169,7 +173,7 @@ public class SysUserService extends BaseService implements ISysUserService {
 				User e = new User();
 				e.setUserId(user.getId());
 				e.setUserName(user.getUserName());
-				e.setUserType(0);
+				e.setUserType(user.getUserType());
 				e.setToken(session.getId());
 				e.setEmail(user.getEmail());
 				e.setCellphone(user.getCellphone());
@@ -221,18 +225,48 @@ public class SysUserService extends BaseService implements ISysUserService {
 
 	@Override
 	public List<SysMenu> getCurrentUserMenus() {
-		String userId = getUserId();
-		if(userId == null) {
+		User user = this.getUser();
+		if(user == null) {
 			return null;
 		}
-		List<SysMenu> list =  this.getUserMenuById(userId);
+		List<SysMenu> list =  null;
+		switch(user.getUserType()) {
+			case 0:
+				SysUser sysuser = sysUserMapper.findById(user.getUserId());
+				if(sysuser != null && sysuser.getRoles() != null) {
+					list =  this.getUserMenuById(sysuser.getRoles());
+				}
+				break;
+			case 1:
+				list =  this.getUserMenuById(sysRoleMapper.findRolesByType(UserTypeEnum.Person.theName()));
+				break;
+			case 2:
+				list =  this.getUserMenuById(sysRoleMapper.findRolesByType(UserTypeEnum.Enterprise.theName()));
+				break;
+			case 3:
+				list =  this.getUserMenuById(sysRoleMapper.findRolesByType(UserTypeEnum.Service.theName()));
+				break;
+			case 4:
+				list =  this.getUserMenuById(sysRoleMapper.findRolesByType(UserTypeEnum.Expert.theName()));
+				break;
+			case 5:
+				list =  this.getUserMenuById(sysRoleMapper.findRolesByType(UserTypeEnum.College.theName()));
+				break;
+			case 6:
+				list =  this.getUserMenuById(sysRoleMapper.findRolesByType(UserTypeEnum.Military.theName()));
+				break;
+		}
+		if(list == null) {
+			return null;
+		}
 		setMenu(list, null);
 		return list;
 	}
 	
-	public List<SysMenu> getUserMenuById(String userId){
-		SysUser user = sysUserMapper.findById(userId);
-		List<SysRole> roles = user.getRoles();
+	public List<SysMenu> getUserMenuById(List<SysRole> roles){
+		//SysUser user = sysUserMapper.findById(userId);
+		
+		//List<SysRole> roles = user.getRoles();
 		List<SysMenu> myMenus = new ArrayList<SysMenu>();
 		List<SysMenu> allMenus = sysMenuMapper.findAll();
 		for(SysRole role : roles){

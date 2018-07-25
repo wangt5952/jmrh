@@ -1,10 +1,8 @@
 package com.bz.xtcx.manager.entity;
 
-import java.io.Serializable;
-
 import com.bz.xtcx.manager.comom.BasicEntity;
 
-public class BusUserForm extends BasicEntity implements Serializable{
+public class BusUserForm extends BasicEntity {
 
 	/**
 	 * 

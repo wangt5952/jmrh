@@ -25,12 +25,6 @@ public class LoginController extends BaseController{
 	@Autowired
 	private ISysUserService sysUserService;
 	
-	@GetMapping
-	public Object hello() {
-		String msg = "Hello,LoginController";
-		return msg;
-	}
-	
 	@PostMapping("login")
 	public Object login(@RequestBody VoUser vo) {
 		VoResponse voRes = getVoResponse();

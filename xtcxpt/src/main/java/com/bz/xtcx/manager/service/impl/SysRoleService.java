@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.bz.xtcx.manager.entity.SysMenu;
 import com.bz.xtcx.manager.entity.SysRole;
 import com.bz.xtcx.manager.mapper.SysRoleMapper;
 import com.bz.xtcx.manager.service.ISysRoleService;
@@ -23,16 +24,24 @@ public class SysRoleService extends BaseService implements ISysRoleService{
 	@Override
 	public VoResponse saveOrUpdate(SysRole t) {
 		VoResponse voRes = new VoResponse();
+		int result = 0;
 		if(t.getId() == null) {
 			t.setCreater(getUserName());
-			int result = sysRoleMapper.insert(t);
+			result = sysRoleMapper.insert(t);
 			if(result > 0) {
 				return voRes;
 			}
 		}else {
-			
+			t.setUpdater(getUserName());
+			result = sysRoleMapper.update(t);
 		}
-		return null;
+		List<SysMenu> menus = t.getMenus();
+		if(menus != null && menus.size() > 0) {//add role
+			result = sysRoleMapper.delRoleMenus(t.getId());
+			result = sysRoleMapper.addRoleMenus(t);
+		}
+		voRes.setData(result);
+		return voRes;
 	}
 
 	@Override

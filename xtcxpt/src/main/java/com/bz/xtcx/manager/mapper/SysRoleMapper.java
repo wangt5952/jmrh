@@ -64,16 +64,20 @@ public interface SysRoleMapper {
     List<SysRole> findByCondition(SysRole role);
 	
     @InsertProvider(type = SysRoleProvider.class, method = "addRoleMenus")
-    void addRoleMenus(SysRole role);
+    int addRoleMenus(SysRole role);
 
     /**
      * 根据用户ID，删除用户的角色信息
      * @param userId
      */
     @Delete("delete from `sys_role_menu` where role_id=#{roleId}")
-    void delRoleMenus(String roleId);
+    int delRoleMenus(String roleId);
     
     @Select("select * from `sys_role` where role_id in(select role_id from `sys_user_role` where user_id = #{userId})")
     @ResultMap("sysRole")
     List<SysRole> findRolesByUserId(String userId);
+    
+    @Select("select * from `sys_role` where role_name = #{roleName} and role_type = 2")
+    @ResultMap("sysRole")
+    List<SysRole> findRolesByType(String roleName);
 }

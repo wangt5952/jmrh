@@ -29,8 +29,8 @@ public class SysRoleProvider {
 	
 	public String addRoleMenus(SysRole role){
 		StringBuilder sql = new StringBuilder();
-		sql.append("insert into `sys_role_menu`(id, role_id, menu_id, creater, create_time) values ");
-        MessageFormat mf = new MessageFormat("(uuid(), #'{'role.id}, #'{'role.menus[{0}].id}, #'{'role.creater}, #'{'role.create_time} ),");
+		sql.append("insert into `sys_role_menu`(id, role_id, menu_id, creater) values ");
+        MessageFormat mf = new MessageFormat("(uuid(), #'{'id}, #'{'menus[{0}].id}, #'{'creater} ),");
         for(int i = 0; i < role.getMenus().size(); i++) {
         	sql.append(mf.format(new Object[]{i}));
         }

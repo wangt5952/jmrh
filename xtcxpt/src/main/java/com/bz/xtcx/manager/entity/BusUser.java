@@ -1,18 +1,15 @@
 package com.bz.xtcx.manager.entity;
 
-import java.io.Serializable;
 import java.util.List;
 
 import com.bz.xtcx.manager.comom.BasicEntity;
 
-public class BusUser extends BasicEntity implements Serializable{
+public class BusUser extends BasicEntity {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7007872284171956250L;
-	
-	
+	private static final long serialVersionUID = 7663373345588828439L;
 	private String email;
 	private String password;
 	private String userName;
