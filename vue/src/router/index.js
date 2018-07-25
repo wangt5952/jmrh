@@ -30,6 +30,12 @@ export const constantRouterMap = [{
     name: 'register',
     leaf: true,
     hidden: true
+  }, {
+    path: '/registerDetail',
+    component: _import('registerDetail/index'),
+    name: 'registerDetail',
+    leaf: true,
+    hidden: true
   },{
     path: '/resetPaw',
     component: _import('resetPaw/index'),
@@ -92,7 +98,7 @@ export const constantRouterMap = [{
   }, {
     path: '/manage',
     component: Layout,
-    redirect: '/manage/role',
+    redirect: '/manage/user',
     name: '系统管理',
     meta: {
       title: '系统管理',
@@ -100,7 +106,7 @@ export const constantRouterMap = [{
     },
     leaf: false,
     children: [{
-      path: 'role',
+      path: 'user',
       name: '注册用户列表',
       component: _import('user/index'),
       leaf: true,
@@ -109,25 +115,25 @@ export const constantRouterMap = [{
         icon: 'table'
       }
     }, {
-      path: 'role2',
+      path: 'ManageUser',
       name: '管理用户列表',
-      component: _import('user/index'),
+      component: _import('ManageUser/index'),
       leaf: true,
       meta: {
         title: '管理用户列表',
         icon: 'table'
       }
     }, {
-      path: 'role3',
+      path: 'org',
       name: '组织架构列表',
-      component: _import('tree/index'),
+      component: _import('org/index'),
       leaf: true,
       meta: {
         title: '组织架构列表',
         icon: 'table'
       }
     },{
-      path: 'role4',
+      path: 'role',
       name: '角色列表',
       component: _import('role/index'),
       leaf: true,
@@ -136,7 +142,7 @@ export const constantRouterMap = [{
         icon: 'table'
       }
     }, {
-      path: 'role5',
+      path: 'tree',
       name: '功能列表',
       component: _import('tree/index'),
       leaf: true,
@@ -148,7 +154,7 @@ export const constantRouterMap = [{
   },{
     path: '/manage2',
     component: Layout,
-    redirect: '/manage/role',
+    redirect: '/manage2/role',
     name: '门户管理',
     meta: {
       title: '门户管理',
@@ -156,7 +162,7 @@ export const constantRouterMap = [{
     },
     leaf: false,
     children: [{
-      path: 'role',
+      path: 'columnManage',
       name: '栏目管理',
       component: _import('columnManage/index'),
       leaf: true,
@@ -165,7 +171,7 @@ export const constantRouterMap = [{
         icon: 'table'
       }
     },{
-      path: 'role2',
+      path: 'contentManage',
       name: '内容管理',
       component: _import('contentManage/index'),
       leaf: true,
@@ -173,13 +179,69 @@ export const constantRouterMap = [{
         title: '内容管理',
         icon: 'table'
       }
-    },{
-      path: 'role3',
-      name: '添加文章',
-      component: _import('contentManage/index'),
+    }]
+  },{
+    path: '/manage3',
+    component: Layout,
+    redirect: '/manage3/expert',
+    name: '资源库管理',
+    meta: {
+      title: '资源库管理',
+      icon: 'tree'
+    },
+    leaf: false,
+    children: [{
+      path: 'expert',
+      name: '专家库管理',
+      component: _import('expert/index'),
       leaf: true,
       meta: {
-        title: '添加文章',
+        title: '专家库管理',
+        icon: 'table'
+      }
+    },{
+      path: 'enterprise',
+      name: '企业库管理',
+      component: _import('enterprise/index'),
+      leaf: true,
+      meta: {
+        title: '企业库管理',
+        icon: 'table'
+      }
+    },{
+      path: 'hschool',
+      name: '高校院所库管理',
+      component: _import('hschool/index'),
+      leaf: true,
+      meta: {
+        title: '高校院所库管理',
+        icon: 'table'
+      }
+    },{
+      path: 'mechanism',
+      name: '服务机构库管理',
+      component: _import('mechanism/index'),
+      leaf: true,
+      meta: {
+        title: '服务机构库管理',
+        icon: 'table'
+      }
+    },{
+      path: 'demandLibrary',
+      name: '需求库管理',
+      component: _import('demandLibrary/index'),
+      leaf: true,
+      meta: {
+        title: '需求库管理',
+        icon: 'table'
+      }
+    },{
+      path: 'achieveLibrary',
+      name: '成果库管理',
+      component: _import('achieveLibrary/index'),
+      leaf: true,
+      meta: {
+        title: '成果库管理',
         icon: 'table'
       }
     }]

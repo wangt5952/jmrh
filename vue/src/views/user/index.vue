@@ -14,27 +14,33 @@
     <el-table-column type="index" align="center" label="序号">
 
     </el-table-column>
-    <el-table-column align="center" label="用户名">
+    <el-table-column align="center" label="ID">
       <template slot-scope="scope">
                     <span>{{ scope.row.userName }}</span>
                 </template>
     </el-table-column>
-    <el-table-column align="center" label="全名">
+    <el-table-column align="center" label="账户">
       <template slot-scope="scope">
                     <span>{{ scope.row.fullName }}</span>
                 </template>
     </el-table-column>
-    <el-table-column align="center" label="部门">
+    <el-table-column align="center" label="手机号">
       <template slot-scope="scope">
                     <span>
                         {{ scope.row.dpartmentId}}</span>
                 </template>
     </el-table-column>
 
-    <el-table-column align="center" label="用户角色">
+    <el-table-column align="center" label="用户类别">
       <template slot-scope="scope">
                     <span>
-                        <el-button size="small" @click="handleShow(scope.row,'role')" type=""  class="colorblue borderblue">查看</el-button></span>
+                        {{ scope.row.dpartmentId}}</span>
+                </template>
+    </el-table-column>
+    <el-table-column align="center" label="用户状态">
+      <template slot-scope="scope">
+                    <span>
+                        {{ scope.row.dpartmentId}}</span>
                 </template>
     </el-table-column>
     <el-table-column align="center" label="操作">
