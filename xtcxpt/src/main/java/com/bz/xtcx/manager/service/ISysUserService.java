@@ -3,9 +3,11 @@ package com.bz.xtcx.manager.service;
 import java.util.List;
 
 import com.bz.xtcx.manager.entity.BusUser;
+import com.bz.xtcx.manager.entity.BusUserForm;
 import com.bz.xtcx.manager.entity.SysMenu;
 import com.bz.xtcx.manager.entity.SysUser;
 import com.bz.xtcx.manager.vo.VoResponse;
+import com.github.pagehelper.PageInfo;
 
 public interface ISysUserService extends IBaseService<SysUser>{
 
@@ -35,4 +37,13 @@ public interface ISysUserService extends IBaseService<SysUser>{
 	
 	public List<SysMenu> getCurrentUserMenus();
 	
+	PageInfo<BusUser> getPageBusUserByCondition(BusUser user, int pageNum, int pageSize, String orderBy);
+	
+	VoResponse setUserDetail(String detail);
+	
+	BusUserForm getUserDetail(String userId);
+	
+	VoResponse setUserForm(BusUserForm from);
+	
+	BusUserForm getUserForm(int type);
 }

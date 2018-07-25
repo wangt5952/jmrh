@@ -114,6 +114,19 @@ public class BaseService {
 		}
 		return userId;
 	}
+	
+	public User getUser(){
+		User user = null;
+		String token = request.getHeader("token");
+		if(token == null) {
+			return user;
+		}
+		Object obj = redisTemplate.opsForValue().get(token);
+		if(obj != null){
+			user = ((User)obj);
+		}
+		return user;
+	}
 
 	
 }

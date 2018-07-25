@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bz.xtcx.manager.entity.BusUser;
 import com.bz.xtcx.manager.entity.SysMenu;
 import com.bz.xtcx.manager.entity.SysOrg;
 import com.bz.xtcx.manager.entity.SysRole;
@@ -148,4 +149,12 @@ public class SysManagerController extends BaseController{
 		return voRes;
 	}
 
+	@PostMapping("bususer/page")
+	public Object getAllBusUsers(@RequestBody BusUser user, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
+			@RequestParam(value="orderBy",required=false)  String orderBy) {
+		VoResponse voRes = new VoResponse();
+		PageInfo<BusUser> info = sysUserService.getPageBusUserByCondition(user, pageNum, pageSize, orderBy);
+		voRes.setData(info);
+		return voRes;
+	}
 }

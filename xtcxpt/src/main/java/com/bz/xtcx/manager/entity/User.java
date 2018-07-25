@@ -1,7 +1,13 @@
 package com.bz.xtcx.manager.entity;
 
-public class User {
+import java.io.Serializable;
 
+public class User implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6433636505184826115L;
 	private String userId;
 	private String userName;
 	private String password;

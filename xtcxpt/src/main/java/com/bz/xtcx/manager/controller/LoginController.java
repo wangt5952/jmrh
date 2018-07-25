@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bz.xtcx.manager.entity.BusUser;
+import com.bz.xtcx.manager.entity.BusUserForm;
 import com.bz.xtcx.manager.service.ISysUserService;
 import com.bz.xtcx.manager.vo.VoResponse;
 import com.bz.xtcx.manager.vo.VoUser;
@@ -72,6 +73,34 @@ public class LoginController extends BaseController{
 	@GetMapping("activate")
 	public Object activate(@RequestParam("activateId") String id){
 		VoResponse voRes = sysUserService.activate(id);
+		return voRes;
+	}
+	
+	@PostMapping("setUserDetail")
+	public Object setUserDetail(@RequestBody String detail){
+		VoResponse voRes = new VoResponse();
+		voRes = sysUserService.setUserDetail(detail);
+		return voRes;
+	}
+	
+	@GetMapping("getUserDetail")
+	public Object getUserDetail(@RequestParam("userId") String userId){
+		VoResponse voRes = new VoResponse();
+		voRes.setData(sysUserService.getUserDetail(userId));
+		return voRes;
+	}
+	
+	@PostMapping("setUserForm")
+	public Object setUserForm(@RequestBody BusUserForm form){
+		VoResponse voRes = new VoResponse();
+		voRes = sysUserService.setUserForm(form);
+		return voRes;
+	}
+	
+	@GetMapping("getUserForm")
+	public Object getUserForm(@RequestParam("type") int type){
+		VoResponse voRes = new VoResponse();
+		voRes.setData(sysUserService.getUserForm(type));
 		return voRes;
 	}
 	

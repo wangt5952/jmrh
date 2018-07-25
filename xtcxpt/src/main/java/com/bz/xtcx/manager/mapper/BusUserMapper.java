@@ -16,6 +16,7 @@ import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.mapping.StatementType;
 
 import com.bz.xtcx.manager.entity.BusUser;
+import com.bz.xtcx.manager.mapper.provider.BusUserProvider;
 import com.bz.xtcx.manager.mapper.provider.SysUserProvider;
 
 public interface BusUserMapper {
@@ -46,10 +47,10 @@ public interface BusUserMapper {
 			+ " where user_id=#{id}")
 	int update(BusUser user);
 	
-	@SelectProvider(type = SysUserProvider.class, method = "findCount")
+	@SelectProvider(type = BusUserProvider.class, method = "findCount")
     int findCount(BusUser user);
 	
-	@SelectProvider(type = SysUserProvider.class, method = "findByCondition")
+	@SelectProvider(type = BusUserProvider.class, method = "findByCondition")
 	@Results(
 		id = "busUser",
 		value = {
@@ -69,6 +70,10 @@ public interface BusUserMapper {
 	    }
 	)
     List<BusUser> findByCondition(BusUser user);
+	
+	@Select("select * from `bus_user` where user_id = #{id}")
+    @ResultMap("busUser")
+	BusUser findById(String id);
 	
 	@Select("select * from `bus_user` where email = #{email}")
     @ResultMap("busUser")

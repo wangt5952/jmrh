@@ -24,7 +24,6 @@ public class BusUser extends BasicEntity implements Serializable{
 	private String adress;
 	private int checkStatus;
 	private List<SysRole> roles;
-	private String token;
 	
 	public String getUserName() {
 		return userName;
@@ -73,12 +72,6 @@ public class BusUser extends BasicEntity implements Serializable{
 	}
 	public void setAdress(String adress) {
 		this.adress = adress;
-	}
-	public String getToken() {
-		return token;
-	}
-	public void setToken(String token) {
-		this.token = token;
 	}
 	public String getName() {
 		return name;

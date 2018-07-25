@@ -8,16 +8,22 @@ import java.util.UUID;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.bz.xtcx.manager.entity.BusUser;
+import com.bz.xtcx.manager.entity.BusUserDetail;
+import com.bz.xtcx.manager.entity.BusUserForm;
 import com.bz.xtcx.manager.entity.SysMenu;
 import com.bz.xtcx.manager.entity.SysRole;
 import com.bz.xtcx.manager.entity.SysUser;
 import com.bz.xtcx.manager.entity.User;
+import com.bz.xtcx.manager.enums.UserTypeEnum;
+import com.bz.xtcx.manager.mapper.BusUserDetailMapper;
+import com.bz.xtcx.manager.mapper.BusUserFormMapper;
 import com.bz.xtcx.manager.mapper.BusUserMapper;
 import com.bz.xtcx.manager.mapper.SysMenuMapper;
 import com.bz.xtcx.manager.mapper.SysUserMapper;
@@ -39,6 +45,12 @@ public class SysUserService extends BaseService implements ISysUserService {
 	
 	@Autowired
 	private SysMenuMapper sysMenuMapper;
+	
+	@Autowired
+	private BusUserFormMapper busUserFormMapper;
+	
+	@Autowired
+	private BusUserDetailMapper busUserDetailMapper;
 	
 	@Autowired
 	private IEmailService emailService;
@@ -63,6 +75,8 @@ public class SysUserService extends BaseService implements ISysUserService {
 		this.getRedisTemplate().opsForValue().set(uuid.toString(), user.getEmail());
 		user.setUserName(user.getEmail().split("@")[0]);
 		user.setCheckStatus(0);//未激活
+		String md5Password = DigestUtils.md5DigestAsHex(user.getPassword().getBytes());//md5加密
+		user.setPassword(md5Password);
 		int result = busUserMapper.insert(user);
 		if(result > 0) {
 			return voRes;
@@ -139,7 +153,7 @@ public class SysUserService extends BaseService implements ISysUserService {
 				e.setEmail(user.getEmail());
 				e.setCellphone(user.getCellphone());
 				this.createRedisUser(user.getId(), e);
-				voRes.setData(user);
+				voRes.setData(e);
 				return voRes;
 			}
 		}else {
@@ -154,7 +168,7 @@ public class SysUserService extends BaseService implements ISysUserService {
 				e.setEmail(user.getEmail());
 				e.setCellphone(user.getCellphone());
 				this.createRedisUser(user.getId(), e);
-				voRes.setData(user);
+				voRes.setData(e);
 				return voRes;
 			}
 		}
@@ -291,6 +305,100 @@ public class SysUserService extends BaseService implements ISysUserService {
 				transMenus(myMenus, menu.getMenus());
 			}
 		}
+	}
+	
+	@Override
+	public PageInfo<BusUser> getPageBusUserByCondition(BusUser user, int pageNum, int pageSize, String orderBy) {
+		Page<BusUser> page = PageHelper.startPage(pageNum, pageSize);
+		if(StringUtils.isEmpty(orderBy)) {
+			PageHelper.orderBy("create_time desc");
+		}else {
+			PageHelper.orderBy(orderBy);
+		}
+		busUserMapper.findByCondition(user);
+		PageInfo<BusUser> info = new PageInfo<BusUser>(page);
+		return info;
+	}
+
+	@Override
+	public VoResponse setUserDetail(String detail) {
+		VoResponse voRes = new VoResponse();
+		JSONObject json = JSON.parseObject(detail);
+		//System.out.println(jsonObject.get("registerNature"));
+		User user = this.getUser();
+		int result = 0;
+		if(!StringUtils.isEmpty(user.getUserId())) {
+			if(StringUtils.isEmpty(json.getString("detailId"))) {//add
+				BusUserForm form = new BusUserForm();
+				form.setDetail(detail);
+				form.setUserId(user.getUserId());
+				form.setCreater(user.getUserName());
+				result = busUserFormMapper.insert(form);
+				if(result == 0) {
+					voRes.setFail(voRes);
+					return voRes;
+				}
+				BusUser sysuser = busUserMapper.findById(user.getUserId());
+				if(user.getUserType() == UserTypeEnum.Enterprise.value()) {
+					BusUserDetail e = new BusUserDetail();
+					/*e.setEnterprise_name(json.getString(""));
+					e.setBusiness_license(business_license);
+					e.setRegistered_capital(registered_capital);
+					e.setRegistered_time(registered_time);
+					e.setRegistered_type(registered_type);
+					e.setCountry(country);
+					e.setAdress(adress);
+					e.setZip_code(zip_code);
+					e.setIs_high_new_tech(is_high_new_tech);
+					e.setLocation_nature(location_nature);
+					e.setHigh_tech_zone(high_tech_zone);
+					e.setIs_listed(is_listed);
+					e.setStock_code(stock_code);*/
+					busUserDetailMapper.insert(e);
+					
+				}else if(user.getUserType() == UserTypeEnum.Service.value()) {
+					
+				}else if(user.getUserType() == UserTypeEnum.Expert.value()) {
+					
+				}else if(user.getUserType() == UserTypeEnum.College.value()) {
+					
+				}
+				
+			}else {
+				
+			}
+			return voRes;
+		}
+		voRes.setFail(voRes);
+		return voRes;
+	}
+	
+	int saveEnterprise(JSONObject json){
+		return 0;
+	}
+	
+	@Override
+	public BusUserForm getUserDetail(String userId) {
+		BusUserForm from = busUserFormMapper.findByUserId(userId);
+		return from;
+	}
+
+	@Override
+	public BusUserForm getUserForm(int type) {
+		BusUserForm from = busUserFormMapper.findByType(type);
+		return from;
+	}
+
+	@Override
+	public VoResponse setUserForm(BusUserForm form) {
+		VoResponse voRes = new VoResponse();
+		if(StringUtils.isEmpty(form.getId())) {
+			//BusUserForm from = busUserFormMapper.findByType(form.getFormType());
+		}
+		User user = this.getUser();
+		form.setCreater(user.getUserName());
+		busUserFormMapper.insert(form);
+		return voRes;
 	}
 
 }
