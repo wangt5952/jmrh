@@ -13,6 +13,7 @@ import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.Many;
+import org.apache.ibatis.annotations.One;
 import org.apache.ibatis.mapping.StatementType;
 
 import com.bz.xtcx.manager.entity.SysUser;
@@ -62,7 +63,8 @@ public interface SysUserMapper {
 		    @Result(property = "createTime", column = "create_time"),
 		    @Result(property = "updater", column = "updater"),
 		    @Result(property = "updateTime", column = "update_time"),
-		    @Result(property = "roles", column = "user_id", many = @Many(select = "com.bz.xtcx.manager.mapper.SysRoleMapper.findRolesByUserId") ) 
+		    @Result(property = "roles", column = "user_id", many = @Many(select = "com.bz.xtcx.manager.mapper.SysRoleMapper.findRolesByUserId") ),
+		    @Result(property = "org", column = "org_id", one = @One(select = "com.bz.xtcx.manager.mapper.SysOrgMapper.findById") ),
 	    }
 	)
     List<SysUser> findByCondition(SysUser user);

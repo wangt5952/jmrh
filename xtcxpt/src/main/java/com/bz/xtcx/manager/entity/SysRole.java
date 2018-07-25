@@ -1,10 +1,11 @@
 package com.bz.xtcx.manager.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.bz.xtcx.manager.comom.BasicEntity;
 
-public class SysRole extends BasicEntity{
+public class SysRole extends BasicEntity implements Serializable{
 
 	/**
 	 * 

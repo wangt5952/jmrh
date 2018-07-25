@@ -22,6 +22,8 @@ public class SysRoleProvider {
 		StringBuilder sql = new StringBuilder();
 		if (e.getRoleName() != null)
             sql.append(" and role_name like '%"+e.getRoleName()+"%'");
+		if (e.getRoleType() != 0)
+            sql.append(" and role_type = "+e.getRoleType());
 		return sql;
 	}
 	

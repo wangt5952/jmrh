@@ -125,7 +125,13 @@ public class SysUserService extends BaseService implements ISysUserService {
 			result = sysUserMapper.insert(user);
 			
 		}else {
-			
+			SysUser oldUser = sysUserMapper.findById(user.getId());
+			if(!oldUser.getPassword().equals(user.getPassword())) {
+				String md5Password = DigestUtils.md5DigestAsHex(user.getPassword().getBytes());//md5加密
+				user.setPassword(md5Password);
+			}
+			user.setUpdater(this.getUserName());
+			result = sysUserMapper.update(user);
 		}
 		List<SysRole> roles = user.getRoles();
 		if(roles != null && roles.size() > 0) {//add role

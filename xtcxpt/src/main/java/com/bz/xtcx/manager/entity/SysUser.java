@@ -1,5 +1,6 @@
 package com.bz.xtcx.manager.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.bz.xtcx.manager.comom.BasicEntity;
@@ -8,7 +9,7 @@ import com.bz.xtcx.manager.comom.BasicEntity;
  * @author zhangkj
  *
  */
-public class SysUser extends BasicEntity {
+public class SysUser extends BasicEntity implements Serializable{
 
 	/**
 	 * 

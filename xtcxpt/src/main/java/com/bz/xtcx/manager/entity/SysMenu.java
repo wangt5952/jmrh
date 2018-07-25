@@ -1,10 +1,11 @@
 package com.bz.xtcx.manager.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.bz.xtcx.manager.comom.BasicEntity;
 
-public class SysMenu extends BasicEntity{
+public class SysMenu extends BasicEntity implements Serializable{
 
 	/**
 	 * 

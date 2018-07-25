@@ -55,6 +55,9 @@ public class SysRoleService extends BaseService implements ISysRoleService{
 		}else {
 			PageHelper.orderBy(orderBy);
 		}
+		if(t.getRoleType() == 0) {
+			t.setRoleType(1);
+		}
 		sysRoleMapper.findByCondition(t);
 		PageInfo<SysRole> info = new PageInfo<SysRole>(page);
 		return info;

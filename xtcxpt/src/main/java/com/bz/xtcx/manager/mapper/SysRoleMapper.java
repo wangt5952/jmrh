@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
@@ -73,5 +74,6 @@ public interface SysRoleMapper {
     void delRoleMenus(String roleId);
     
     @Select("select * from `sys_role` where role_id in(select role_id from `sys_user_role` where user_id = #{userId})")
+    @ResultMap("sysRole")
     List<SysRole> findRolesByUserId(String userId);
 }
