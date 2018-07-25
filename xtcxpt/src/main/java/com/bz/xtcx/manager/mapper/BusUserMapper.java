@@ -16,18 +16,19 @@ import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.mapping.StatementType;
 
 import com.bz.xtcx.manager.entity.BusUser;
-import com.bz.xtcx.manager.entity.SysUser;
 import com.bz.xtcx.manager.mapper.provider.SysUserProvider;
 
 public interface BusUserMapper {
 	
-	@Insert("insert into `bus_user`(user_id, user_name, password, cellphone, email, user_type, check_status, status)"
+	@Insert("insert into `bus_user`(user_id, user_name, password, cellphone, email, user_type, name, id_number, check_status, status)"
 		    + " VALUES(#{id, jdbcType=VARCHAR},"
 		    + " #{userName, jdbcType=VARCHAR},"
 		    + " #{password, jdbcType=VARCHAR},"
 		    + " #{cellphone, jdbcType=VARCHAR},"
 		    + " #{email, jdbcType=VARCHAR},"
 		    + " #{userType, jdbcType=INTEGER},"
+		    + " #{name, jdbcType=VARCHAR},"
+		    + " #{idNumber, jdbcType=VARCHAR},"
 		    + " #{checkStatus, jdbcType=INTEGER},"
 		    + " #{status, jdbcType=INTEGER})"
 		    )
@@ -44,7 +45,7 @@ public interface BusUserMapper {
 			+ " status=#{status, jdbcType=INTEGER}"
 			+ " where user_id=#{id}")
 	int update(BusUser user);
-
+	
 	@SelectProvider(type = SysUserProvider.class, method = "findCount")
     int findCount(BusUser user);
 	
@@ -58,6 +59,8 @@ public interface BusUserMapper {
 		    @Result(property = "cellphone", column = "cellphone"),
 		    @Result(property = "email", column = "email"),
 		    @Result(property = "user_type", column = "userType"),
+		    @Result(property = "name", column = "userType"),
+		    @Result(property = "id_number", column = "idNumber"),
 		    @Result(property = "check_status", column = "checkStatus"),
 		    @Result(property = "status", column = "status"),
 		    @Result(property = "createTime", column = "create_time"),
@@ -65,19 +68,18 @@ public interface BusUserMapper {
 		    @Result(property = "roles", column = "user_id", many = @Many(select = "com.bz.xtcx.manager.mapper.SysRoleMapper.findRolesByUserId") ) 
 	    }
 	)
-    List<SysUser> findByCondition(BusUser user);
+    List<BusUser> findByCondition(BusUser user);
 	
-	@Select("select * from `bus_user` where user_name = #{username} or email = #{username}")
+	@Select("select * from `bus_user` where email = #{email}")
     @ResultMap("busUser")
-	SysUser findByUserameOrEmail(String username);
-	
+	BusUser findByEmail(String email);
 	
 	/**
      * 新增用户的角色信息
      * @param user
      */
     @InsertProvider(type = SysUserProvider.class, method = "addUserRoles")
-    void addUserRoles(SysUser user);
+    void addUserRoles(BusUser user);
 
     /**
      * 根据用户ID，删除用户的角色信息

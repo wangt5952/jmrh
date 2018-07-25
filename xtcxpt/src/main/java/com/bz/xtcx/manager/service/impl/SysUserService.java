@@ -3,20 +3,25 @@ package com.bz.xtcx.manager.service.impl;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 
+import com.bz.xtcx.manager.entity.BusUser;
 import com.bz.xtcx.manager.entity.SysMenu;
 import com.bz.xtcx.manager.entity.SysRole;
 import com.bz.xtcx.manager.entity.SysUser;
+import com.bz.xtcx.manager.entity.User;
 import com.bz.xtcx.manager.mapper.BusUserMapper;
 import com.bz.xtcx.manager.mapper.SysMenuMapper;
 import com.bz.xtcx.manager.mapper.SysUserMapper;
+import com.bz.xtcx.manager.service.IEmailService;
 import com.bz.xtcx.manager.service.ISysUserService;
 import com.bz.xtcx.manager.vo.VoResponse;
 import com.github.pagehelper.Page;
@@ -35,9 +40,55 @@ public class SysUserService extends BaseService implements ISysUserService {
 	@Autowired
 	private SysMenuMapper sysMenuMapper;
 	
+	@Autowired
+	private IEmailService emailService;
+	
 	@Override
-	public List<SysUser> getUserByEmail(String email) {
-		return null;
+	public VoResponse register(BusUser user) {
+		VoResponse voRes = new VoResponse();
+		//检查邮箱是否已经注册
+		BusUser e = busUserMapper.findByEmail(user.getEmail());
+		if(e != null) {
+			voRes.setFail(voRes);
+			voRes.setMessage("邮箱已经被注册");
+			return voRes;
+		}
+		UUID uuid = UUID.randomUUID();
+		String url = "http://localhost:8080/xtcx/user/activate?activateId=" + uuid.toString();
+		if(!emailService.sendRegisterEmail(user.getEmail(), url)) {
+			voRes.setFail(voRes);
+			voRes.setMessage("邮箱验证有误，请重新输入邮箱");
+			return voRes;
+		}
+		this.getRedisTemplate().opsForValue().set(uuid.toString(), user.getEmail());
+		user.setUserName(user.getEmail().split("@")[0]);
+		user.setCheckStatus(0);//未激活
+		int result = busUserMapper.insert(user);
+		if(result > 0) {
+			return voRes;
+		}
+		return voRes;
+	}
+	
+	@Override
+	public VoResponse activate(String uuid) {
+		VoResponse voRes = new VoResponse();
+		Object obj = this.getRedisTemplate().opsForValue().get(uuid);
+		if(!StringUtils.isEmpty(obj)){
+			String email = obj.toString();
+			BusUser user = busUserMapper.findByEmail(email);
+			user.setCheckStatus(1);
+			int result = busUserMapper.update(user);
+			if(result > 0) {
+				voRes.setData(obj + "激活成功");
+			}else {
+				voRes.setData(obj + "激活失败");
+			}
+		}else {
+			voRes.setFail(voRes);
+			voRes.setData("激活失败");
+		}
+		return voRes;
 	}
 
 	@Override
@@ -76,18 +127,36 @@ public class SysUserService extends BaseService implements ISysUserService {
 	public VoResponse signIn(String username, String password, boolean isAdmin) {
 		VoResponse voRes = new VoResponse();
 		String md5Password = DigestUtils.md5DigestAsHex(password.getBytes());//md5加密
-		SysUser user = null;
 		if(isAdmin) {
-			user = this.getUserByUsername(username);
+			SysUser user = sysUserMapper.findByUserameOrEmail(username);
 			if(user != null && user.getPassword().equals(md5Password)) {
 				HttpSession session = getSession();
-				user.setToken(session.getId());
-				this.createRedisUser(user.getId(), user);
+				User e = new User();
+				e.setUserId(user.getId());
+				e.setUserName(user.getUserName());
+				e.setUserType(0);
+				e.setToken(session.getId());
+				e.setEmail(user.getEmail());
+				e.setCellphone(user.getCellphone());
+				this.createRedisUser(user.getId(), e);
 				voRes.setData(user);
 				return voRes;
 			}
 		}else {
-			
+			BusUser user = busUserMapper.findByEmail(username);//邮箱
+			if(user != null && user.getPassword().equals(md5Password)) {
+				HttpSession session = getSession();
+				User e = new User();
+				e.setUserId(user.getId());
+				e.setUserName(user.getUserName());
+				e.setUserType(0);
+				e.setToken(session.getId());
+				e.setEmail(user.getEmail());
+				e.setCellphone(user.getCellphone());
+				this.createRedisUser(user.getId(), e);
+				voRes.setData(user);
+				return voRes;
+			}
 		}
 		voRes.setFail(voRes);
 		voRes.setMessage("用户名或者密码错误");
@@ -223,4 +292,5 @@ public class SysUserService extends BaseService implements ISysUserService {
 			}
 		}
 	}
+
 }

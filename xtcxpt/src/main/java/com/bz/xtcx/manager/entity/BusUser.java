@@ -1,6 +1,7 @@
 package com.bz.xtcx.manager.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.bz.xtcx.manager.comom.BasicEntity;
 
@@ -11,14 +12,18 @@ public class BusUser extends BasicEntity implements Serializable{
 	 */
 	private static final long serialVersionUID = 7007872284171956250L;
 	
-	private String userName;
-	private String password;
+	
 	private String email;
+	private String password;
+	private String userName;
 	private String cellphone;
 	private int userType;
-	private int checkStatus;
+	private String name;
+	private String idNumber;
 	private String country;
 	private String adress;
+	private int checkStatus;
+	private List<SysRole> roles;
 	private String token;
 	
 	public String getUserName() {
@@ -74,6 +79,24 @@ public class BusUser extends BasicEntity implements Serializable{
 	}
 	public void setToken(String token) {
 		this.token = token;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getIdNumber() {
+		return idNumber;
+	}
+	public void setIdNumber(String idNumber) {
+		this.idNumber = idNumber;
+	}
+	public List<SysRole> getRoles() {
+		return roles;
+	}
+	public void setRoles(List<SysRole> roles) {
+		this.roles = roles;
 	}
 	
 	

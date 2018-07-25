@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 
-import com.bz.xtcx.manager.entity.SysUser;
+import com.bz.xtcx.manager.entity.User;
 
 
 public class BaseService {
@@ -37,12 +37,20 @@ public class BaseService {
 		this.request = request;
 	}
 	
+	public RedisTemplate<String, Object> getRedisTemplate() {
+		return redisTemplate;
+	}
+
+	public void setRedisTemplate(RedisTemplate<String, Object> redisTemplate) {
+		this.redisTemplate = redisTemplate;
+	}
+	
 	/**
 	 * 创建redis缓存session
 	 * @param userId
 	 * @param session
 	 */
-	public void createRedisUser(String userId, SysUser user) {
+	public void createRedisUser(String userId, User user) {
 		if(redisTemplate.opsForValue().getOperations().hasKey(userId)) {
 			String token = redisTemplate.opsForValue().get(userId).toString();
 			boolean result = redisTemplate.delete(userId);
@@ -68,6 +76,19 @@ public class BaseService {
 		}
 	}
 	
+	public void setRedisEmail(String uuid, String email) {
+		redisTemplate.opsForValue().set(uuid, email);
+	}
+	
+	public String getRedisEmail(String uuid){
+		String email = "";
+		Object obj = redisTemplate.opsForValue().get(uuid);
+		if(obj != null){
+			email = obj.toString();
+		}
+		return email;
+	}
+	
 	public String getUserName(){
 		String username = "auto";
 		String token = request.getHeader("token");
@@ -76,7 +97,7 @@ public class BaseService {
 		}
 		Object obj = redisTemplate.opsForValue().get(token);
 		if(obj != null){
-			username = ((SysUser)obj).getUserName();
+			username = ((User)obj).getUserName();
 		}
 		return username;
 	}
@@ -89,7 +110,7 @@ public class BaseService {
 		}
 		Object obj = redisTemplate.opsForValue().get(token);
 		if(obj != null){
-			userId = ((SysUser)obj).getId();
+			userId = ((User)obj).getUserId();
 		}
 		return userId;
 	}

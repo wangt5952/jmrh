@@ -2,13 +2,16 @@ package com.bz.xtcx.manager.service;
 
 import java.util.List;
 
+import com.bz.xtcx.manager.entity.BusUser;
 import com.bz.xtcx.manager.entity.SysMenu;
 import com.bz.xtcx.manager.entity.SysUser;
 import com.bz.xtcx.manager.vo.VoResponse;
 
 public interface ISysUserService extends IBaseService<SysUser>{
 
-	public List<SysUser> getUserByEmail(String email);
+	public VoResponse register(BusUser user);
+	
+	public VoResponse activate(String uuid);
 	
 	/**
 	 * 登录
