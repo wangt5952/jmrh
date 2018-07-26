@@ -46,7 +46,12 @@ public class SysOrgService implements ISysOrgService {
 			}
 			sysOrgMapper.insert(org);
 		}else {//update
-			
+			SysOrg oldOrg = sysOrgMapper.findById(org.getId());
+			oldOrg.setSortOrder(org.getSortOrder());
+			oldOrg.setOrgName(org.getOrgName());
+			oldOrg.setRemark(org.getRemark());
+			oldOrg.setStatus(org.getStatus());
+			sysOrgMapper.update(oldOrg);
 		}
 		return voRes;
 	}

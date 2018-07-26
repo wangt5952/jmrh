@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.mapping.StatementType;
 
 import com.bz.xtcx.manager.entity.SysOrg;
@@ -27,6 +28,14 @@ public interface SysOrgMapper {
 		    )
     @SelectKey(before = true, keyProperty = "id", resultType = String.class, statementType = StatementType.STATEMENT, statement="select uuid()")
 	int insert(SysOrg sysOrg);
+	
+	@Update("update `sys_org` set org_name=#{orgName, jdbcType=VARCHAR},"
+			+ " sort_order=#{sortOrder, jdbcType=VARCHAR},"
+			+ " remark=#{remark, jdbcType=VARCHAR},"
+			+ " status=#{status, jdbcType=INTEGER},"
+			+ " updater=#{updater, jdbcType=VARCHAR}"
+			+ " where org_id=#{id}")
+	int update(SysOrg sysOrg);
 	
 	@Select("select * from `sys_org` where parent_id is null order by sort_order")
     @Results(id = "sysOrg", 

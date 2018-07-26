@@ -23,7 +23,6 @@ import com.bz.xtcx.manager.service.ISysUserService;
 import com.bz.xtcx.manager.vo.VoResponse;
 import com.github.pagehelper.PageInfo;
 
-
 @RestController
 @RequestMapping("xtcx/sysManager")
 public class SysManagerController extends BaseController{
@@ -82,7 +81,8 @@ public class SysManagerController extends BaseController{
 	
 	@DeleteMapping("user")
 	public Object delUser(@RequestParam("id") String id) {
-		VoResponse voRes = getVoResponse();
+		VoResponse voRes = new VoResponse();
+		voRes.setData(sysUserService.del(id));
 		return voRes;
 	}
 	
@@ -95,7 +95,8 @@ public class SysManagerController extends BaseController{
 	
 	@DeleteMapping("org")
 	public Object delOrg(@RequestParam("id") String id) {
-		VoResponse voRes = getVoResponse();
+		VoResponse voRes = new VoResponse();
+		voRes.setData(sysOrgService.del(id));
 		return voRes;
 	}
 	
@@ -107,7 +108,7 @@ public class SysManagerController extends BaseController{
 	
 	@PutMapping("org")
 	public Object updateOrg(@RequestBody SysOrg org) {
-		VoResponse voRes = getVoResponse();
+		VoResponse voRes = sysOrgService.saveOrUpdate(org);
 		return voRes;
 	}
 	
