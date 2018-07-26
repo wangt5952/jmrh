@@ -13,82 +13,83 @@ import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.Many;
-import org.apache.ibatis.annotations.One;
 import org.apache.ibatis.mapping.StatementType;
 
-import com.bz.xtcx.manager.entity.SysUser;
+import com.bz.xtcx.manager.entity.BusUser;
+import com.bz.xtcx.manager.mapper.provider.BusUserProvider;
 import com.bz.xtcx.manager.mapper.provider.SysUserProvider;
 
-public interface SysUserMapper {
+public interface BusUserMapper {
 	
-	@Insert("insert into `sys_user`(user_id, user_name, password, cellphone, email, org_id, status, creater)"
+	@Insert("insert into `bus_user`(user_id, user_name, password, cellphone, email, user_type, name, id_number, check_status, status)"
 		    + " VALUES(#{id, jdbcType=VARCHAR},"
 		    + " #{userName, jdbcType=VARCHAR},"
 		    + " #{password, jdbcType=VARCHAR},"
 		    + " #{cellphone, jdbcType=VARCHAR},"
 		    + " #{email, jdbcType=VARCHAR},"
-		    + " #{orgId, jdbcType=VARCHAR},"
-		    + " #{status, jdbcType=INTEGER},"
-		    + " #{creater, jdbcType=VARCHAR})"
+		    + " #{userType, jdbcType=INTEGER},"
+		    + " #{name, jdbcType=VARCHAR},"
+		    + " #{idNumber, jdbcType=VARCHAR},"
+		    + " #{checkStatus, jdbcType=INTEGER},"
+		    + " #{status, jdbcType=INTEGER})"
 		    )
     @SelectKey(before = true, keyProperty = "id", resultType = String.class, statementType = StatementType.STATEMENT, statement="select uuid()")
-	int insert(SysUser user);
+	int insert(BusUser user);
 	
-	@Delete("delete from `sys_user` where user_id = #{id}")
+	@Delete("delete from `bus_user` where user_id = #{id}")
 	int del(String id);
 	
-	@Update("update `sys_user` set password=#{password},"
+	@Update("update `bus_user` set password=#{password},"
 			+ " cellphone=#{cellphone, jdbcType=VARCHAR},"
 			+ " email=#{email, jdbcType=VARCHAR},"
-			+ " org_id=#{orgId, jdbcType=VARCHAR},"
-			+ " status=#{status, jdbcType=INTEGER},"
-			+ " updater=#{updater, jdbcType=VARCHAR}"
+			+ " check_status=#{checkStatus, jdbcType=INTEGER},"
+			+ " status=#{status, jdbcType=INTEGER}"
 			+ " where user_id=#{id}")
-	int update(SysUser user);
-
-	@SelectProvider(type = SysUserProvider.class, method = "findCount")
-    int findCount(SysUser user);
+	int update(BusUser user);
 	
-	@SelectProvider(type = SysUserProvider.class, method = "findByCondition")
+	@SelectProvider(type = BusUserProvider.class, method = "findCount")
+    int findCount(BusUser user);
+	
+	@SelectProvider(type = BusUserProvider.class, method = "findByCondition")
 	@Results(
-		id = "sysUser",
+		id = "busUser",
 		value = {
 		    @Result(id = true, property = "id", column = "user_id"),
 		    @Result(property = "userName", column = "user_name"),
 		    @Result(property = "password", column = "password"),
 		    @Result(property = "cellphone", column = "cellphone"),
 		    @Result(property = "email", column = "email"),
+		    @Result(property = "userType", column = "user_type"),
+		    @Result(property = "name", column = "name"),
+		    @Result(property = "idNumber", column = "id_number"),
+		    @Result(property = "checkStatus", column = "check_status"),
 		    @Result(property = "status", column = "status"),
-		    @Result(property = "creater", column = "creater"),
 		    @Result(property = "createTime", column = "create_time"),
-		    @Result(property = "updater", column = "updater"),
 		    @Result(property = "updateTime", column = "update_time"),
-		    @Result(property = "roles", column = "user_id", many = @Many(select = "com.bz.xtcx.manager.mapper.SysRoleMapper.findRolesByUserId") ),
-		    @Result(property = "org", column = "org_id", one = @One(select = "com.bz.xtcx.manager.mapper.SysOrgMapper.findById") ),
+		    @Result(property = "roles", column = "user_id", many = @Many(select = "com.bz.xtcx.manager.mapper.SysRoleMapper.findRolesByUserId") ) 
 	    }
 	)
-    List<SysUser> findByCondition(SysUser user);
+    List<BusUser> findByCondition(BusUser user);
 	
-	@Select("select * from `sys_user` where user_name = #{username} or email = #{username}")
-    @ResultMap("sysUser")
-	SysUser findByUserameOrEmail(String username);
+	@Select("select * from `bus_user` where user_id = #{id}")
+    @ResultMap("busUser")
+	BusUser findById(String id);
 	
-	@Select("select * from `sys_user` where user_id = #{id}")
-    @ResultMap("sysUser")
-	SysUser findById(String id);
-	
+	@Select("select * from `bus_user` where email = #{email}")
+    @ResultMap("busUser")
+	BusUser findByEmail(String email);
 	
 	/**
      * 新增用户的角色信息
      * @param user
      */
     @InsertProvider(type = SysUserProvider.class, method = "addUserRoles")
-    int addUserRoles(SysUser user);
+    void addUserRoles(BusUser user);
 
     /**
      * 根据用户ID，删除用户的角色信息
      * @param userId
      */
     @Delete("delete from `sys_user_role` where user_id=#{userId}")
-    int delUserRoles(String userId);
+    void delUserRoles(String userId);
 }

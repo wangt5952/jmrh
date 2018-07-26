@@ -1,6 +1,5 @@
 package com.bz.xtcx.manager.entity;
 
-import java.io.Serializable;
 import java.util.List;
 
 import com.bz.xtcx.manager.comom.BasicEntity;
@@ -9,7 +8,7 @@ import com.bz.xtcx.manager.comom.BasicEntity;
  * @author zhangkj
  *
  */
-public class SysUser extends BasicEntity implements Serializable {
+public class SysUser extends BasicEntity {
 
 	/**
 	 * 
@@ -22,7 +21,8 @@ public class SysUser extends BasicEntity implements Serializable {
 	private List<SysRole> roles;
 	private String orgId;
 	private SysOrg org;
-	private String token;
+	private String country;
+	private String adress;
 	
 	public String getPassword() {
 		return password;
@@ -54,12 +54,6 @@ public class SysUser extends BasicEntity implements Serializable {
 	public void setRoles(List<SysRole> roles) {
 		this.roles = roles;
 	}
-	public String getToken() {
-		return token;
-	}
-	public void setToken(String token) {
-		this.token = token;
-	}
 	public SysOrg getOrg() {
 		return org;
 	}
@@ -71,6 +65,18 @@ public class SysUser extends BasicEntity implements Serializable {
 	}
 	public void setOrgId(String orgId) {
 		this.orgId = orgId;
+	}
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	public String getAdress() {
+		return adress;
+	}
+	public void setAdress(String adress) {
+		this.adress = adress;
 	}
 	
 }

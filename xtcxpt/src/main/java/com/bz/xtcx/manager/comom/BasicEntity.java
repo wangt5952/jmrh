@@ -1,10 +1,15 @@
 package com.bz.xtcx.manager.comom;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import com.bz.xtcx.manager.enums.StatusEnum;
 
-public class BasicEntity{
+public class BasicEntity implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2104998781705156985L;
 	private String id;
 	private Date createTime;
 	private String creater = "auto";

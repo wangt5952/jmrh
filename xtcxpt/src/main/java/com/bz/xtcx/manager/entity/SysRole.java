@@ -4,10 +4,15 @@ import java.util.List;
 
 import com.bz.xtcx.manager.comom.BasicEntity;
 
-public class SysRole extends BasicEntity{
+public class SysRole extends BasicEntity {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8571895183610594811L;
 	private String roleName;
 	private String roleDesc;
+	private int roleType;
 	private List<SysMenu> menus;
 	
 	public String getRoleName() {
@@ -27,6 +32,12 @@ public class SysRole extends BasicEntity{
 	}
 	public void setMenus(List<SysMenu> menus) {
 		this.menus = menus;
+	}
+	public int getRoleType() {
+		return roleType;
+	}
+	public void setRoleType(int roleType) {
+		this.roleType = roleType;
 	}
 	
 	

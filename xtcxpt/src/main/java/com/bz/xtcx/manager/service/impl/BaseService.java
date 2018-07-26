@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 
-import com.bz.xtcx.manager.entity.SysUser;
+import com.bz.xtcx.manager.entity.User;
 
 
 public class BaseService {
@@ -37,28 +37,39 @@ public class BaseService {
 		this.request = request;
 	}
 	
+	public RedisTemplate<String, Object> getRedisTemplate() {
+		return redisTemplate;
+	}
+
+	public void setRedisTemplate(RedisTemplate<String, Object> redisTemplate) {
+		this.redisTemplate = redisTemplate;
+	}
+	
 	/**
 	 * 创建redis缓存session
-	 * @param username
+	 * @param userId
 	 * @param session
 	 */
-	public void createRedisUser(String username, SysUser user) {
-		if(redisTemplate.opsForValue().getOperations().hasKey(username)) {
-			String token = redisTemplate.opsForValue().get(username).toString();
-			boolean result = redisTemplate.delete(username);
+	public void createRedisUser(String userId, User user) {
+		if(redisTemplate.opsForValue().getOperations().hasKey(userId)) {
+			String token = redisTemplate.opsForValue().get(userId).toString();
+			boolean result = redisTemplate.delete(userId);
 			System.out.println(result);
 			result = redisTemplate.delete(token);
-			System.out.println(result);
+			//System.out.println(result);
 		}
-		redisTemplate.opsForValue().set(username, session.getId());
+		redisTemplate.opsForValue().set(userId, session.getId());
 		redisTemplate.opsForValue().set(session.getId(), user);
 	}
 	
+	/**
+	 * 销毁redis缓存session
+	 */
 	public void destroyedRedisUser() {
-		String username = this.getUserName();
-		if(redisTemplate.opsForValue().getOperations().hasKey(username)) {
-			String token = redisTemplate.opsForValue().get(username).toString();
-			boolean result = redisTemplate.delete(username);
+		String userId = this.getUserId();
+		if(redisTemplate.opsForValue().getOperations().hasKey(userId)) {
+			String token = redisTemplate.opsForValue().get(userId).toString();
+			boolean result = redisTemplate.delete(userId);
 			System.out.println(result);
 			result = redisTemplate.delete(token);
 			System.out.println(result);
@@ -73,7 +84,7 @@ public class BaseService {
 		}
 		Object obj = redisTemplate.opsForValue().get(token);
 		if(obj != null){
-			username = ((SysUser)obj).getUserName();
+			username = ((User)obj).getUserName();
 		}
 		return username;
 	}
@@ -86,9 +97,22 @@ public class BaseService {
 		}
 		Object obj = redisTemplate.opsForValue().get(token);
 		if(obj != null){
-			userId = ((SysUser)obj).getId();
+			userId = ((User)obj).getUserId();
 		}
 		return userId;
+	}
+	
+	public User getUser(){
+		User user = null;
+		String token = request.getHeader("token");
+		if(token == null) {
+			return user;
+		}
+		Object obj = redisTemplate.opsForValue().get(token);
+		if(obj != null){
+			user = ((User)obj);
+		}
+		return user;
 	}
 
 	

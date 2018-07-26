@@ -2,23 +2,23 @@ package com.bz.xtcx.manager.mapper.provider;
 
 import java.text.MessageFormat;
 
-import com.bz.xtcx.manager.entity.SysUser;
+import com.bz.xtcx.manager.entity.BusUser;
 
-public class SysUserProvider {
+public class BusUserProvider {
 
-	public String findCount(SysUser user){
-        StringBuilder sql = new StringBuilder("select count(*) from `sys_user` where 1=1");
+	public String findCount(BusUser user){
+        StringBuilder sql = new StringBuilder("select count(*) from `bus_user` where 1=1");
         sql.append(queryCondition(user));
         return sql.toString();
     }
 	
-	public String findByCondition(SysUser user) {
-		StringBuilder sql = new StringBuilder("select * from `sys_user` where 1=1");
+	public String findByCondition(BusUser user) {
+		StringBuilder sql = new StringBuilder("select * from `bus_user` where 1=1");
 		sql.append(queryCondition(user));
         return sql.toString();
 	}
 	
-	StringBuilder queryCondition(SysUser user) {
+	StringBuilder queryCondition(BusUser user) {
 		StringBuilder sql = new StringBuilder();
 		if(user != null) {
 			if (user.getUserName() != null)
@@ -26,12 +26,12 @@ public class SysUserProvider {
 	        if (user.getCellphone() != null)
 	            sql.append(" and cellphone='"+user.getCellphone()+"'");
 	        if (user.getEmail() != null)
-	            sql.append(" and email='"+user.getEmail()+"'");
+	            sql.append(" and email like '%"+user.getEmail()+"%'");
 		}
 		return sql;
 	}
 	
-	public String addUserRoles(SysUser user){
+	public String addUserRoles(BusUser user){
 		StringBuilder sql = new StringBuilder();
 		sql.append("insert into `sys_user_role`(id, user_id, role_id, creater, create_time) values ");
         MessageFormat mf = new MessageFormat("(uuid(), #'{'id}, #'{'roles[{0}].id}, #'{'creater}, #'{'createTime} ),");
