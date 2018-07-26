@@ -10,6 +10,8 @@ import com.bz.xtcx.manager.vo.VoResponse;
 import com.github.pagehelper.PageInfo;
 
 public interface ISysUserService extends IBaseService<SysUser>{
+	
+	public int updateUserStatus(SysUser user);
 
 	public VoResponse register(BusUser user);
 	

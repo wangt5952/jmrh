@@ -60,6 +60,16 @@ public class SysUserService extends BaseService implements ISysUserService {
 	private IEmailService emailService;
 	
 	@Override
+	public int updateUserStatus(SysUser user) {
+		BusUser oldUser = busUserMapper.findById(user.getId());
+		if(oldUser != null && !oldUser.getStatus().equals(user.getStatus())) {
+			oldUser.setStatus(user.getStatus());
+			return busUserMapper.update(oldUser);
+		}
+		return 0;
+	}
+	
+	@Override
 	public VoResponse register(BusUser user) {
 		VoResponse voRes = new VoResponse();
 		//检查邮箱是否已经注册
@@ -440,5 +450,6 @@ public class SysUserService extends BaseService implements ISysUserService {
 		busUserFormMapper.insert(form);
 		return voRes;
 	}
+
 
 }

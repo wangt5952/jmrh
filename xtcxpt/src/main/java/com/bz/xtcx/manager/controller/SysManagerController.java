@@ -53,6 +53,7 @@ public class SysManagerController extends BaseController{
 	public Object addSysUser(@RequestBody SysUser user) {
 		VoResponse voRes = getVoResponse();
 		if(StringUtils.isEmpty(user.getUserName()) || StringUtils.isEmpty(user.getPassword())) return voRes;
+		user.setId(null);
 		voRes = sysUserService.saveOrUpdate(user);
 		return voRes;
 	}
@@ -60,7 +61,22 @@ public class SysManagerController extends BaseController{
 	@PutMapping("user")
 	public Object updateSysUser(@RequestBody SysUser user) {
 		VoResponse voRes = getVoResponse();
+		if(StringUtils.isEmpty(user.getId())) return voRes;
 		voRes = sysUserService.saveOrUpdate(user);
+		return voRes;
+	}
+	
+	@PutMapping("user/status")
+	public Object updateSysUserStatus(@RequestBody SysUser user) {
+		VoResponse voRes = getVoResponse();
+		if(StringUtils.isEmpty(user.getId()) || user.getStatus() == null ) return voRes;
+		if(user.getStatus() == 0 || user.getStatus() == 1) {
+			int result = sysUserService.updateUserStatus(user);
+			if(result > 0) {
+				voRes.setSuccess(voRes);
+				voRes.setData(result);
+			}
+		}
 		return voRes;
 	}
 	
