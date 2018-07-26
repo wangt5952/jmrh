@@ -3,6 +3,7 @@ package com.bz.xtcx.manager.entity;
 import java.util.List;
 
 import com.bz.xtcx.manager.comom.BasicEntity;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SysOrg extends BasicEntity {
 
@@ -10,11 +11,13 @@ public class SysOrg extends BasicEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 5466520079119005849L;
+	@JsonProperty("label")
 	private String orgName;
 	private int orgType;//组织类别
 	private int sortOrder;
 	private String remark;
 	private String parentId;
+	@JsonProperty("children")
 	private List<SysOrg> orgs;
 	
 	public String getOrgName() {

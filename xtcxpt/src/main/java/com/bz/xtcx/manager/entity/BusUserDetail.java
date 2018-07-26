@@ -1,7 +1,9 @@
 package com.bz.xtcx.manager.entity;
 
 import com.bz.xtcx.manager.comom.BasicEntity;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BusUserDetail extends BasicEntity {
 
 	/**

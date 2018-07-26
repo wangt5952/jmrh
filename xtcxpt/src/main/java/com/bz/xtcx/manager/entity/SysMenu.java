@@ -3,6 +3,7 @@ package com.bz.xtcx.manager.entity;
 import java.util.List;
 
 import com.bz.xtcx.manager.comom.BasicEntity;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SysMenu extends BasicEntity {
 
@@ -10,6 +11,7 @@ public class SysMenu extends BasicEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 8340527631854231092L;
+	@JsonProperty("label")
 	private String menuName;
 	private String menuUrl;
 	private int menuLevel;
@@ -19,6 +21,7 @@ public class SysMenu extends BasicEntity {
 	private String remark;
 	private String parentId;
 	private boolean leaf;
+	@JsonProperty("children")
 	private List<SysMenu> menus;//菜单
 	private List<SysMenu> authmenus;//功能按钮
 	

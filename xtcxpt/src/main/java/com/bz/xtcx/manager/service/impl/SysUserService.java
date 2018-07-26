@@ -93,6 +93,7 @@ public class SysUserService extends BaseService implements ISysUserService {
 		user.setPassword(md5Password);
 		int result = busUserMapper.insert(user);
 		if(result > 0) {
+			voRes.setData(user);
 			return voRes;
 		}
 		return voRes;
