@@ -4,7 +4,7 @@
 
     <!-- <div class="left-content" :style="{'background-image': `url('${leftImage}')`}"></div> -->
 
-    <div class="right-content">
+    <div class="right-content" style="width: 550px;">
       <el-card class="box-card">
 
         <div slot="header" class="clearfix">
@@ -12,14 +12,15 @@
         </div>
 
         <div class="item">
-          <el-form :model="registerForm" :label-position="labelPosition" label-width="100px">
+          <el-form :label-position="labelPosition" label-width="100px">
 
             <el-form-item label="">
               <div class="paddingb textl paddingr">
-                <el-radio v-model="radioData" label="1">个人</el-radio>
-                <el-radio v-model="radioData" label="2">企业</el-radio>
-                <el-radio v-model="radioData" label="3">服务机构</el-radio>
-                <el-radio v-model="radioData" label="4">高校院所</el-radio>
+                <el-radio v-model="userType" label="0">个人</el-radio>
+                <el-radio v-model="userType" label="1">专家</el-radio>
+                <el-radio v-model="userType" label="2">企业</el-radio>
+                <el-radio v-model="userType" label="3">服务机构</el-radio>
+                <el-radio v-model="userType" label="4">高校院所</el-radio>
               </div>
             </el-form-item>
             <el-form-item label="">
@@ -28,72 +29,26 @@
               </el-input>
             </el-form-item>
             <el-form-item label="">
-              <el-input type="text" v-model="registerForm.ecode" placeholder="请输入密码">
+              <el-input type="text" v-model="registerForm.password" placeholder="请输入密码">
                 <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
               </el-input>
             </el-form-item>
             <el-form-item label="">
-              <el-input type="text" v-model="registerForm.ecode" placeholder="请再次输入密码">
+              <el-input type="text" v-model="registerForm.repassword" placeholder="请再次输入密码">
                 <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
               </el-input>
             </el-form-item>
 
-            <div class="" v-if="radioData == '1'">
-              <el-form-item label="">
-                <el-input type="text" v-model="registerForm.ecode" placeholder="请输入姓名">
-                  <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
-                </el-input>
-              </el-form-item>
-
-              <el-form-item label="">
-                <el-input type="text" v-model="registerForm.ecode" placeholder="请输入身份证号">
-                  <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
-                </el-input>
-              </el-form-item>
-            </div>
-
-            <div class="" v-if="radioData == '2'">
-              <el-form-item label="">
-                <el-input type="text" v-model="registerForm.ecode" placeholder="请输入企业名称">
-                  <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
-                </el-input>
-              </el-form-item>
-
-              <el-form-item label="">
-                <el-input type="text" v-model="registerForm.ecode" placeholder="请输入营业执照">
-                  <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
-                </el-input>
-              </el-form-item>
-            </div>
-
-
-
-            <div class="" v-if="radioData == '3'">
-              <el-form-item label="">
-                <el-input type="text" v-model="registerForm.ecode" placeholder="请输入机构名称">
-                  <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
-                </el-input>
-              </el-form-item>
-              <el-form-item label="">
-                <el-input type="text" v-model="registerForm.ecode" placeholder="请输入机构代码">
-                  <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
-                </el-input>
-              </el-form-item>
-            </div>
-
-            <div class="" v-if="radioData == '4'">
-              <el-form-item label="">
-                <el-input type="text" v-model="registerForm.ecode" placeholder="请输入高校名称">
-                  <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
-                </el-input>
-              </el-form-item>
-
-              <el-form-item label="">
-                <el-input type="text" v-model="registerForm.ecode" placeholder="请输入高校代码">
-                  <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
-                </el-input>
-              </el-form-item>
-            </div>
+            <el-form-item label="">
+              <el-input type="text" v-model="registerForm.name" :placeholder="idNumberName">
+                <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
+              </el-input>
+            </el-form-item>
+            <el-form-item label="">
+              <el-input type="text" v-model="registerForm.idNumber" :placeholder="idNumberCode">
+                <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
+              </el-input>
+            </el-form-item>
 
             <el-form-item>
               <el-button @click="toRegisterDetail" type="primary">下一步</el-button>
@@ -123,38 +78,84 @@
 </template>
 
 <script>
+import {
+  registers
+} from '@/api/login'
 export default {
   data() {
     return {
+      idNumberName: '请输入名字',
+      idNumberCode: '请输入身份证号',
       labelPosition: 'top',
-      login_method: 'first', // 登录方式
-      radioData: '1',
-      loginVerify: { // 普通登录
-        phone: '',
-        verity: ''
-      },
+      userType: '0',
       registerForm: { // 普通登录
         email: '',
-        ecode: ''
+        password: '',
+        repassword: '',
+        name: '',
+        idNumber: '',
+        name: '',
       }
     }
   },
+  mounted() {
+
+  },
   methods: {
-    handleClick(tab, event) {
-      console.log(tab, event)
-    },
     toLogin() {
       this.$router.push({
         path: '/login'
       })
     },
-    toRegisterDetail() {
-      this.$router.push({
-        name: 'registerDetail',
-        params: {
-          radioData: this.radioData
-        }
-      })
+    async toRegisterDetail() {
+      // let {
+      //   data,
+      //   success
+      // } = await registers(this.registerForm)
+      // if (success) {
+      //   this.$confirm('是否要加入社区?', '提示', {
+      //     confirmButtonText: '加入',
+      //     cancelButtonText: '不加入',
+      //     type: 'warning'
+      //   }).then(async () => {
+          this.$router.push({
+            name: 'registerDetail',
+            params: {
+              userType: this.userType
+            }
+          })
+        // }).catch(() => {
+        //   this.$router.push({
+        //     name: '/',
+        //     params: {
+        //       userType: this.userType
+        //     }
+        //   })
+        // });
+
+      // }
+
+
+    }
+  },
+  watch: {
+    userType() {
+      if (this.userType == '0') {
+        this.idNumberName = '请输入名字'
+        this.idNumberCode = '请输入身份证号'
+      }else if (this.userType == '1') {
+        this.idNumberName = '请输入名字'
+        this.idNumberCode = '请输入身份证号'
+      }  else if (this.userType == '2') {
+        this.idNumberName = '请输入企业名称'
+        this.idNumberCode = '请输入营业执照'
+      } else if (this.userType == '3') {
+        this.idNumberName = '请输入机构名称'
+        this.idNumberCode = '请输入机构代码'
+      } else if (this.userType == '4') {
+        this.idNumberName = '请输入高校名称'
+        this.idNumberCode = '请输入高校代码'
+      }
     }
   }
 }

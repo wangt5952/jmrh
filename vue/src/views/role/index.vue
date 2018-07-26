@@ -98,12 +98,17 @@
         <el-form-item label="名称">
           <el-input v-model="obj.roleName" placeholder="请输入内容" style="width:80%"></el-input>
         </el-form-item>
-
-        <!-- <el-form-item label="数据权限">
-          <v-select multiple v-model="selected" :options="options" style="width:80%"></v-select>
-        </el-form-item> -->
         <el-form-item label="描述">
           <el-input v-model="obj.roleDesc" placeholder="请输入内容" style="width:80%"></el-input>
+        </el-form-item>
+        <el-form-item label="类型">
+          <el-select v-model="obj.roleType" style="width:100px" placeholder="请选择">
+            <el-option label="管理员" key="1" value='1'>
+            </el-option>
+            <el-option label="用户" key="2" value='2'>
+            </el-option>
+          </el-select>
+
         </el-form-item>
       </el-row>
     </el-form>
@@ -114,6 +119,10 @@
       <el-button type="primary" @click="dialogFormVisible = false">关闭</el-button>
     </span>
   </el-dialog>
+
+  <div class="pagination-container pageH" style="padding-top:20px">
+    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-sizes="[10,20,30, 50]" :page-size="listQuery.limit" layout="total, sizes, prev, pager, next, jumper" :total="total"></el-pagination>
+  </div>
 
 
 </div>
@@ -168,7 +177,8 @@ export default {
       },
       obj: {
         roleName: '',
-        roleDesc: ''
+        roleDesc: '',
+        roleType: ''
       },
       selected: [],
       options: [],
@@ -199,8 +209,8 @@ export default {
     //
     // },
     async loadPageList() {
-      let data = await getAllrole()
-      this.list = data.data
+      let {data} = await getAllrole(this.listQuery)
+      this.list = data.list
       this.loading = false
     },
     async handleCreate() {
@@ -231,7 +241,7 @@ export default {
     },
     async addCreate(obj) {
 
-      if (!this.validata.validaRole(obj)) return
+      // if (!this.validata.validaRole(obj)) return
 
       obj.method = 'post'
       obj.menus = null
@@ -328,6 +338,20 @@ export default {
           });
         });
       }
+    },
+
+    handleSizeChange(val) {
+      if (!isNaN(val)) {
+        this.listQuery.limit = val
+      }
+      this.loadPageList()
+    },
+
+    handleCurrentChange(val) {
+      if (!isNaN(val)) {
+        this.listQuery.page = val
+      }
+      this.loadPageList()
     },
     onDate1Change(val) {
       this.obj.loanDate = val

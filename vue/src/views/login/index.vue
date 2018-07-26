@@ -43,9 +43,9 @@
             <el-tabs v-model="login_method" @tab-click="handleClick">
               <!-- 普通登录 -->
               <el-tab-pane label="普通登录" name="first">
-                <el-form  :model="loginForm" ref="loginForm" :label-position="labelPosition" label-width="100px">
+                <el-form  :model="loginForm" :rules="loginRules" ref="loginForm" :label-position="labelPosition" label-width="100px">
                   <el-form-item label="">
-                    <el-input v-model="loginForm.username" placeholder="请输入用户名">
+                    <el-input v-model="loginForm.userName" placeholder="请输入用户名">
                     <i  slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
                   </el-form-item>
 
@@ -58,7 +58,7 @@
                   </el-form-item>
 
                                     <el-form-item label="" style="margin: 0;">
-                                        <el-checkbox v-model="checked" style="float: left;">管理员</el-checkbox>
+                                        <el-checkbox v-model="loginForm.isAdmin" style="float: left;">管理员</el-checkbox>
                                       <p class="resetPaw" @click="toresetPaw">忘记密码?</p>
                                   </el-form-item>
                   <el-form-item>
@@ -122,11 +122,7 @@ import {
 } from '@/api/menu'
 import MenuUtils from '@/views/MenuUtils'
 
-import bgImage from '@/assets/images/login-bg.jpg'
 import leftImage from '@/assets/images/bg-1.jpg'
-import weiXinImage from '@/assets/images/weixin.png'
-import weiBoImage from '@/assets/images/weibo.jpg'
-import QQImage from '@/assets/images/QQ.png'
 
 var routers = []
 export default {
@@ -147,11 +143,7 @@ export default {
       }
     }
     return {
-      bgImage,
       leftImage,
-      weiXinImage,
-      weiBoImage,
-      QQImage,
       labelPosition: 'top',
       login_method: 'first', // 登录方式
       loginVerify: { // 普通登录
@@ -159,8 +151,9 @@ export default {
         number: ''
       },
       loginForm: {
-        username: 'admin',
-        password: 'admin'
+        userName: 'admin',
+        password: 'admin',
+        isAdmin:false,
       },
       loginRules: {
         username: [{
@@ -255,34 +248,25 @@ export default {
       return treeData
     },
     handleLogin() {
-      this.$refs.loginForm.validate(valid => {
-        if (valid) {
-          this.loading = true
-
-          this.$store.dispatch('Login', this.loginForm).then(async () => {
-
-            if (this.$store.getters.token && this.$store.getters.token != undefined && this.$store.getters.token != '') {
-
-              this.loading = false
-              window.sessionStorage.setItem('user', JSON.stringify('true'))
-              this.$router.push({
-                path: '/'
-              })
-            } else {
-              this.$message({
-                message: this.$store.getters.message,
-                type: 'warning'
-              });
-            }
-
-          }).catch(() => {
-            this.loading = false
+      this.loading = true
+      this.$store.dispatch('Login', this.loginForm).then(async () => {
+        if (this.$store.getters.token && this.$store.getters.token != undefined && this.$store.getters.token != '') {
+          this.loading = false
+          window.sessionStorage.setItem('user', JSON.stringify('true'))
+          this.$router.push({
+            path: '/'
           })
         } else {
-          console.log('error submit!!')
-          return false
+          this.$message({
+            message: this.$store.getters.message,
+            type: 'warning'
+          });
         }
+
+      }).catch(() => {
+        this.loading = false
       })
+
     }
   }
 }

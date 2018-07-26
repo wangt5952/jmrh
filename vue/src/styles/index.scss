@@ -26,7 +26,10 @@ html {
 *:after {
   box-sizing: inherit;
 }
-
+button, input,textarea{
+    overflow: visible;
+    border: 1px solid #d0cece;
+}
 div:focus{
   outline: none;
 }
