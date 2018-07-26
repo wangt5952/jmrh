@@ -18,8 +18,10 @@ public class SysOrgProvider {
 	
 	StringBuilder queryCondition(SysOrg e) {
 		StringBuilder sql = new StringBuilder();
-		if (e.getOrgName() != null)
-            sql.append(" and org_name like '%"+e.getOrgName()+"%'");
+		if(e != null) {
+			if (e.getOrgName() != null)
+	            sql.append(" and org_name like '%"+e.getOrgName()+"%'");
+		}
 		return sql;
 	}
 }

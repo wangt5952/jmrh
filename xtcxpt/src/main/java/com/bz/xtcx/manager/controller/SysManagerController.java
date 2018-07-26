@@ -40,7 +40,7 @@ public class SysManagerController extends BaseController{
 	private ISysMenuService sysMenuService;
 	
 	@PostMapping("user/page")
-	public Object getAllUsers(@RequestBody SysUser user, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
+	public Object getAllUsers(@RequestBody(required=false) SysUser user, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
 			@RequestParam(value="orderBy",required=false)  String orderBy) {
 		VoResponse voRes = new VoResponse();
 		PageInfo<SysUser> info = sysUserService.getPageByCondition(user, pageNum, pageSize, orderBy);

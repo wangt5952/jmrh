@@ -20,12 +20,14 @@ public class BusUserProvider {
 	
 	StringBuilder queryCondition(BusUser user) {
 		StringBuilder sql = new StringBuilder();
-		if (user.getUserName() != null)
-            sql.append(" and user_name like '%"+user.getUserName()+"%'");
-        if (user.getCellphone() != null)
-            sql.append(" and cellphone='"+user.getCellphone()+"'");
-        if (user.getEmail() != null)
-            sql.append(" and email like '%"+user.getEmail()+"%'");
+		if(user != null) {
+			if (user.getUserName() != null)
+	            sql.append(" and user_name like '%"+user.getUserName()+"%'");
+	        if (user.getCellphone() != null)
+	            sql.append(" and cellphone='"+user.getCellphone()+"'");
+	        if (user.getEmail() != null)
+	            sql.append(" and email like '%"+user.getEmail()+"%'");
+		}
 		return sql;
 	}
 	

@@ -12,8 +12,10 @@ public class LibExpertProvider {
 	
 	StringBuilder queryCondition(LibExpert e) {
 		StringBuilder sql = new StringBuilder();
-		if (e.getName() != null)
-            sql.append(" and name like '%"+e.getName()+"%'");
+		if(e != null) {
+			if (e.getName() != null)
+	            sql.append(" and name like '%"+e.getName()+"%'");
+		}
 		return sql;
 	}
 	

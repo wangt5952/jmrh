@@ -18,8 +18,10 @@ public class SysMenuProvider {
 	
 	StringBuilder queryCondition(SysMenu e) {
 		StringBuilder sql = new StringBuilder();
-		if (e.getMenuName() != null)
-            sql.append(" and menu_name like '%"+e.getMenuName()+"%'");
+		if(e != null) {
+			if (e.getMenuName() != null)
+	            sql.append(" and menu_name like '%"+e.getMenuName()+"%'");
+		}
 		return sql;
 	}
 }
