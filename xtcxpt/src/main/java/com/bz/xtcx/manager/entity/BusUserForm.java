@@ -14,12 +14,6 @@ public class BusUserForm extends BasicEntity {
 	private String detail;
 	private int checkStatus;
 	
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
 	public int getFormType() {
 		return formType;
 	}
@@ -37,6 +31,12 @@ public class BusUserForm extends BasicEntity {
 	}
 	public void setCheckStatus(int checkStatus) {
 		this.checkStatus = checkStatus;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	
 }

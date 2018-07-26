@@ -51,12 +51,6 @@ public class SysUserService extends BaseService implements ISysUserService {
 	private SysMenuMapper sysMenuMapper;
 	
 	@Autowired
-	private BusUserFormMapper busUserFormMapper;
-	
-	@Autowired
-	private BusUserDetailMapper busUserDetailMapper;
-	
-	@Autowired
 	private IEmailService emailService;
 	
 	@Override
@@ -371,86 +365,9 @@ public class SysUserService extends BaseService implements ISysUserService {
 		return info;
 	}
 
-	@Override
-	public VoResponse setUserDetail(String detail) {
-		VoResponse voRes = new VoResponse();
-		JSONObject json = JSON.parseObject(detail);
-		//System.out.println(jsonObject.get("registerNature"));
-		User user = this.getUser();
-		int result = 0;
-		if(!StringUtils.isEmpty(user.getUserId())) {
-			if(StringUtils.isEmpty(json.getString("detailId"))) {//add
-				BusUserForm form = new BusUserForm();
-				form.setDetail(detail);
-				form.setUserId(user.getUserId());
-				form.setCreater(user.getUserName());
-				result = busUserFormMapper.insert(form);
-				if(result == 0) {
-					voRes.setFail(voRes);
-					return voRes;
-				}
-				BusUser sysuser = busUserMapper.findById(user.getUserId());
-				if(user.getUserType() == UserTypeEnum.Enterprise.value()) {
-					BusUserDetail e = new BusUserDetail();
-					/*e.setEnterprise_name(json.getString(""));
-					e.setBusiness_license(business_license);
-					e.setRegistered_capital(registered_capital);
-					e.setRegistered_time(registered_time);
-					e.setRegistered_type(registered_type);
-					e.setCountry(country);
-					e.setAdress(adress);
-					e.setZip_code(zip_code);
-					e.setIs_high_new_tech(is_high_new_tech);
-					e.setLocation_nature(location_nature);
-					e.setHigh_tech_zone(high_tech_zone);
-					e.setIs_listed(is_listed);
-					e.setStock_code(stock_code);*/
-					busUserDetailMapper.insert(e);
-					
-				}else if(user.getUserType() == UserTypeEnum.Service.value()) {
-					
-				}else if(user.getUserType() == UserTypeEnum.Expert.value()) {
-					
-				}else if(user.getUserType() == UserTypeEnum.College.value()) {
-					
-				}
-				
-			}else {
-				
-			}
-			return voRes;
-		}
-		voRes.setFail(voRes);
-		return voRes;
-	}
 	
 	int saveEnterprise(JSONObject json){
 		return 0;
 	}
 	
-	@Override
-	public BusUserForm getUserDetail(String userId) {
-		BusUserForm from = busUserFormMapper.findByUserId(userId);
-		return from;
-	}
-
-	@Override
-	public BusUserForm getUserForm(int type) {
-		BusUserForm from = busUserFormMapper.findByType(type);
-		return from;
-	}
-
-	@Override
-	public VoResponse setUserForm(BusUserForm form) {
-		VoResponse voRes = new VoResponse();
-		if(StringUtils.isEmpty(form.getId())) {
-			//BusUserForm from = busUserFormMapper.findByType(form.getFormType());
-		}
-		User user = this.getUser();
-		form.setCreater(user.getUserName());
-		busUserFormMapper.insert(form);
-		return voRes;
-	}
-
-
 }

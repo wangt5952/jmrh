@@ -41,11 +41,4 @@ public interface ISysUserService extends IBaseService<SysUser>{
 	
 	PageInfo<BusUser> getPageBusUserByCondition(BusUser user, int pageNum, int pageSize, String orderBy);
 	
-	VoResponse setUserDetail(String detail);
-	
-	BusUserForm getUserDetail(String userId);
-	
-	VoResponse setUserForm(BusUserForm from);
-	
-	BusUserForm getUserForm(int type);
 }

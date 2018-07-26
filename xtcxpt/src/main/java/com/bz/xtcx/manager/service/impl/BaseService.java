@@ -76,19 +76,6 @@ public class BaseService {
 		}
 	}
 	
-	public void setRedisEmail(String uuid, String email) {
-		redisTemplate.opsForValue().set(uuid, email);
-	}
-	
-	public String getRedisEmail(String uuid){
-		String email = "";
-		Object obj = redisTemplate.opsForValue().get(uuid);
-		if(obj != null){
-			email = obj.toString();
-		}
-		return email;
-	}
-	
 	public String getUserName(){
 		String username = "auto";
 		String token = request.getHeader("token");
