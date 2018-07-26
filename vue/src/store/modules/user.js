@@ -41,16 +41,17 @@ const user = {
     Login({
       commit
     }, userInfo) {
-      const username = userInfo.username.trim()
+      // const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
-        login(username, userInfo.password).then(response => {
+        login(userInfo).then(response => {
           const data = response.data
           if (response.success) {
             setToken(data.sessionId)
-            commit('SET_TOKEN', data.sessionId)
+            commit('SET_TOKEN', data.token)
             commit('SET_NAME', data.userName)
             window.sessionStorage.setItem('userName', data.userName)
-            window.sessionStorage.setItem('userId', data.id)
+            window.sessionStorage.setItem('userId', data.userId)
+            window.sessionStorage.setItem('userType', data.userType)
           } else {
             commit('SET_MES', response.message)
           }

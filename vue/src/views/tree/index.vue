@@ -144,7 +144,7 @@ export default {
   methods: {
     async loadTree() {
       let data = await menuEdit()
-      this.treeData = data.data[0].children
+      this.treeData = data.data
       this.dialogFormVisible = false
       this.loading = false
     },
@@ -210,13 +210,14 @@ export default {
 
     },
     async subAddCreate() {
-      if (!this.validata.validaTree(this.obj)) return
+      // if (!this.validata.validaTree(this.obj)) return
       let obj = this.obj
       if (this.treeTemp.id) {
         obj.parentId = this.treeTemp.id
       }
       obj.method = 'post'
       let data = await addCreate(obj)
+      debugger
       if (this.treeTemp.id) {
         this.treeTemp.children.push(this.obj)
         this.dialogEditVisible = false

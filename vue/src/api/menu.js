@@ -18,7 +18,7 @@ export function getUserMenus(data) {
 }
 export function menuEdit(data) {
   return request({
-    url: '/mdm/menu?level=0',
+    url: '/xtcx/sysManager/menu/tree',
     method: 'get',
     data
   });
@@ -32,7 +32,7 @@ export function loadmenu1(data) {
 }
 export function addCreate(data) {
   return request({
-    url: '/mdm/menu',
+    url: '/xtcx/sysManager/menu',
     method: 'post',
     data
   });

@@ -1,25 +1,34 @@
 import request from '@/utils/request'
 
-// export function login(username, password) {
-//   return request({
-//     url: '/user/login',
-//     method: 'post',
-//     data: {
-//       username,
-//       password
-//     }
-//   })
-// }
-export function login(userName, userPassword) {
+
+export function registers(data) {
+  return request({
+    url: '/xtcx/user/register',
+    method: 'post',
+    data
+  })
+}
+export function login(data) {
   return request({
     //url: '/user/login',
-    url: '/mdm/user/signIn',
+    url: '/xtcx/user/login',
     method: 'post',
-    data: {
-      userName,
-      userPassword
-    }
+    data
   });
+}
+
+export function getUserDetail(activateId) {
+  return request({
+    url: '/xtcx/user/getUserDetail?userId=f2ef9bf2-8fce-11e8-8493-80ce62501f15',
+    method: 'get'
+  })
+}
+
+export function getActivate(activateId) {
+  return request({
+    url: '/xtcx/user/activate?=activateId'+activateId,
+    method: 'get'
+  })
 }
 export function getInfo(token) {
   return request({

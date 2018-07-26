@@ -56,6 +56,13 @@ module.exports = {
           '^/mdm': '/mdm'
         }
       },
+      '/xtcx': {
+        target: 'http://106.14.172.38:8080',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/mdm': '/mdm'
+        }
+      },
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README

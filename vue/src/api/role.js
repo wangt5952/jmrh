@@ -4,15 +4,15 @@ import request from '@/utils/request'
 export function getAllrole(data) {
   return request({
     //url: '/user/login',
-    url: '/mdm/role/getAll',
-    method: 'get',
+    url: '/xtcx/sysManager/role/page?pageNum='+data.page+'&pageSize='+data.limit,
+    method: 'post',
     data
   });
 }
 
 export function addRole(data) {
   return request({
-    url: '/mdm/role',
+    url: '/xtcx/sysManager/role',
     method: 'post',
     data
   });
