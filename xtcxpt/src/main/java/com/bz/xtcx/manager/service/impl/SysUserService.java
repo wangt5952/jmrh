@@ -243,7 +243,7 @@ public class SysUserService extends BaseService implements ISysUserService {
 				}
 				break;
 			case 1:
-				list =  this.getUserMenuById(sysRoleMapper.findRolesByType(UserTypeEnum.Person.theName()));
+				list =  this.getUserMenuById(sysRoleMapper.findRolesByType(UserTypeEnum.Expert.theName()));
 				break;
 			case 2:
 				list =  this.getUserMenuById(sysRoleMapper.findRolesByType(UserTypeEnum.Enterprise.theName()));
@@ -252,12 +252,9 @@ public class SysUserService extends BaseService implements ISysUserService {
 				list =  this.getUserMenuById(sysRoleMapper.findRolesByType(UserTypeEnum.Service.theName()));
 				break;
 			case 4:
-				list =  this.getUserMenuById(sysRoleMapper.findRolesByType(UserTypeEnum.Expert.theName()));
-				break;
-			case 5:
 				list =  this.getUserMenuById(sysRoleMapper.findRolesByType(UserTypeEnum.College.theName()));
 				break;
-			case 6:
+			case 5:
 				list =  this.getUserMenuById(sysRoleMapper.findRolesByType(UserTypeEnum.Military.theName()));
 				break;
 		}

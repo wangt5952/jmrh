@@ -3,7 +3,6 @@ package com.bz.xtcx.manager.mapper;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
@@ -14,10 +13,9 @@ import com.bz.xtcx.manager.entity.BusUserForm;
 
 public interface BusUserFormHisMapper {
 	
-	@Insert("insert into `bus_user_form_his`(id, user_id, form_type, detail, check_status, status, creater)"
+	@Insert("insert into `bus_user_form_his`(id, user_id, detail, check_status, status, creater)"
 		    + " VALUES(#{id, jdbcType=VARCHAR},"
 		    + " #{userId, jdbcType=VARCHAR},"
-		    + " #{formType, jdbcType=INTEGER},"
 		    + " #{detail, jdbcType=VARCHAR},"
 		    + " #{checkStatus, jdbcType=INTEGER},"
 		    + " #{status, jdbcType=INTEGER},"
@@ -38,13 +36,12 @@ public interface BusUserFormHisMapper {
 	int updateCheck(int check, String id);
 	
 	
-	@Select("select * from `bus_user_form_his` where user_id = #{userId}")
+	@Select("select * from `bus_user_form_his` where user_id = #{userId} and check_status = #{check}")
 	@Results(
 			id = "busUserFormHis",
 			value = {
 			    @Result(id = true, property = "id", column = "id"),
 			    @Result(property = "userId", column = "user_id"),
-			    @Result(property = "formType", column = "form_type"),
 			    @Result(property = "detail", column = "detail"),
 			    @Result(property = "checkStatus", column = "check_status"),
 			    @Result(property = "status", column = "status"),
@@ -54,10 +51,11 @@ public interface BusUserFormHisMapper {
 			    @Result(property = "updateTime", column = "update_time")
 		    }
 		)
+	BusUserForm findByUserId(String userId, int check);
+	
+	@Update("select * from `bus_user_form_his` where check_status!=-1 and user_id=#{userId} order by create_time desc limit 1")
 	BusUserForm findByUserId(String userId);
 	
-	@Select("select * from `bus_user_form_his` where user_id is null and form_type = #{type} order by create_time desc limit 1")
-	@ResultMap("busUserFormHis")
-	BusUserForm findByType(int type);
-	
+	@Update("select * from `bus_user_form_his` where id=#{id}")
+	BusUserForm findById(String id);
 }

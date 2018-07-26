@@ -21,6 +21,7 @@ public class LibEnterprise extends BasicEntity{
 	private int is_high_new_tech;//是否高新技术企业
 	private String domain;//所属领域
 	private String country;//地区
+	private int check_status;
 	
 	
 	public String getUserId() {
@@ -64,6 +65,12 @@ public class LibEnterprise extends BasicEntity{
 	}
 	public void setCountry(String country) {
 		this.country = country;
+	}
+	public int getCheck_status() {
+		return check_status;
+	}
+	public void setCheck_status(int check_status) {
+		this.check_status = check_status;
 	}
 	
 }

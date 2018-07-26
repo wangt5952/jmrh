@@ -27,6 +27,7 @@ public class LibService extends BasicEntity{
 	private int service_quantity_before;
 	private int service_quantity_previous;
 	private String honor;//所获资质
+	private int check_status;
 	
 	
 	public String getUserId() {
@@ -94,6 +95,12 @@ public class LibService extends BasicEntity{
 	}
 	public void setHonor(String honor) {
 		this.honor = honor;
+	}
+	public int getCheck_status() {
+		return check_status;
+	}
+	public void setCheck_status(int check_status) {
+		this.check_status = check_status;
 	}
 	
 	

@@ -22,6 +22,7 @@ public class LibExpert extends BasicEntity{
 	private String work_unit;//工作单位
 	private String success_record;//主要学术成就/研究成果/管理成就
 	private String project_desc;//主要产学研合作项目情况（国防军工类项目）
+	private int check_status;
 	
 	public String getUserId() {
 		return userId;
@@ -70,6 +71,12 @@ public class LibExpert extends BasicEntity{
 	}
 	public void setProject_desc(String project_desc) {
 		this.project_desc = project_desc;
+	}
+	public int getCheck_status() {
+		return check_status;
+	}
+	public void setCheck_status(int check_status) {
+		this.check_status = check_status;
 	}
 	
 	

@@ -19,6 +19,11 @@ public class LibController {
 	@Autowired
 	private ILibService libService;
 
+	/**
+	 * 获取表格基础数据
+	 * @param type
+	 * @return
+	 */
 	@GetMapping("getForm")
 	public Object getUserForm(@RequestParam("type") int type){
 		VoResponse voRes = new VoResponse();
@@ -26,6 +31,11 @@ public class LibController {
 		return voRes;
 	}
 
+	/**
+	 * 设置表格基础数据
+	 * @param form
+	 * @return
+	 */
 	@PostMapping("setForm")
 	public Object setUserForm(@RequestBody BusUserForm form){
 		VoResponse voRes = new VoResponse();
@@ -33,17 +43,44 @@ public class LibController {
 		return voRes;
 	}
 	
+	/**
+	 * 用户保存，提交资源库信息
+	 * @param detail
+	 * @param isDraft
+	 * @return
+	 */
 	@PostMapping("setUserDetail")
-	public Object setUserDetail(@RequestBody String detail){
+	public Object setUserDetail(@RequestBody String detail, @RequestParam(value="isDraft", required=false) boolean isDraft){
 		VoResponse voRes = new VoResponse();
-		voRes = libService.setUserDetail(detail);
+		if(isDraft) {
+			voRes.setData(libService.saveFormHis(detail));
+		}else {
+			voRes = libService.setUserDetail(detail);
+		}
 		return voRes;
 	}
 	
+	/**
+	 * 用户获取资源库信息
+	 * @param userId
+	 * @return
+	 */
 	@GetMapping("getUserDetail")
-	public Object getUserDetail(@RequestParam("userId") String userId){
+	public Object getUserDetail(@RequestParam(value="isDraft", required=false) boolean isDraft){
 		VoResponse voRes = new VoResponse();
-		voRes.setData(libService.getUserDetail(userId));
+		voRes.setData(libService.getUserDetail(isDraft));
+		return voRes;
+	}
+	
+	/**
+	 * 管理员审核资源库信息
+	 * @param id
+	 * @return
+	 */
+	@GetMapping("checkUserDetail")
+	public Object checkUserDetail(@RequestParam("id") String id){
+		VoResponse voRes = new VoResponse();
+		voRes = libService.checkUserDetail(id);
 		return voRes;
 	}
 	

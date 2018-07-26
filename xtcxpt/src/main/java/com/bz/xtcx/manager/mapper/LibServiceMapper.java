@@ -5,7 +5,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
@@ -78,4 +80,8 @@ public interface LibServiceMapper {
 	    }
 	)
     List<LibService> findByCondition(LibService e);
+	
+	@Select("select * from `bus_user_service` where user_id = #{userId}")
+	@ResultMap("libService")
+	LibService findByUserId(String userId);
 }

@@ -23,6 +23,7 @@ public class LibCollege extends BasicEntity{
 	private String unit_url;//单位网址
 	private String major_platform;//单位简介
 	private String introduction;//重大平台
+	private int check_status;
 	
 	public String getUserId() {
 		return userId;
@@ -77,6 +78,12 @@ public class LibCollege extends BasicEntity{
 	}
 	public void setIntroduction(String introduction) {
 		this.introduction = introduction;
+	}
+	public int getCheck_status() {
+		return check_status;
+	}
+	public void setCheck_status(int check_status) {
+		this.check_status = check_status;
 	}
 	
 	

@@ -121,7 +121,7 @@ public class SysManagerController extends BaseController{
 	}
 	
 	@PostMapping("role/page")
-	public Object getAllRoles(@RequestBody SysRole role, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
+	public Object getAllRoles(@RequestBody(required=false) SysRole role, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
 			@RequestParam(value="orderBy",required=false)  String orderBy) {
 		VoResponse voRes = new VoResponse();
 		PageInfo<SysRole> info = sysRoleService.getPageByCondition(role, pageNum, pageSize, orderBy);
@@ -167,7 +167,7 @@ public class SysManagerController extends BaseController{
 	}
 
 	@PostMapping("bususer/page")
-	public Object getAllBusUsers(@RequestBody BusUser user, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
+	public Object getAllBusUsers(@RequestBody(required=false) BusUser user, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
 			@RequestParam(value="orderBy",required=false)  String orderBy) {
 		VoResponse voRes = new VoResponse();
 		PageInfo<BusUser> info = sysUserService.getPageBusUserByCondition(user, pageNum, pageSize, orderBy);
