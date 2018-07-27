@@ -75,7 +75,23 @@ public class SysUserService extends BaseService implements ISysUserService {
 		int result = busUserMapper.update(old);
 		return result;
 	}
-
+	
+	@Override
+	public BusUser getBusUser() {
+		User u = this.getUser();
+		BusUser user = busUserMapper.findById(u.getUserId());
+		return user;
+	}
+	
+	@Override
+	public boolean sendEmailCode(String email) {
+		String id = String.valueOf(((Math.random()*9+1)*1000));
+		if(emailService.sendCodeEmail(email, id)) {
+			this.getRedisTemplate().opsForValue().set(id, email);
+			return true;
+		}
+		return false;
+	}
 	
 	@Override
 	public VoResponse register(BusUser user) {

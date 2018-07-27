@@ -1,5 +1,6 @@
 package com.bz.xtcx.manager.config;
 
+import java.io.File;
 import java.util.Properties;
 
 import javax.servlet.Filter;
@@ -76,6 +77,13 @@ public class WebConfig {
         factory.setMaxFileSize("10240KB"); //KB,MB
         /// 设置总上传数据总大小
         factory.setMaxRequestSize("102400KB");
+        String location = System.getProperty("user.dir") + "/java/tmp";
+        System.out.println(location);
+        File tmpFile = new File(location);
+        if (!tmpFile.exists()) {
+            tmpFile.mkdirs();
+        }
+        factory.setLocation(location);
         return factory.createMultipartConfig();
     }
 }

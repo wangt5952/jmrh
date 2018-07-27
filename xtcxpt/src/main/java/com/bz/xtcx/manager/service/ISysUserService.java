@@ -18,6 +18,14 @@ public interface ISysUserService extends IBaseService<SysUser>{
 	 * @return
 	 */
 	int updateUser(BusUser user);
+	
+	BusUser getBusUser();
+	
+	/**
+	 * 发送邮箱验证码
+	 * @return
+	 */
+	boolean sendEmailCode(String email);
 
 	public VoResponse register(BusUser user);
 	

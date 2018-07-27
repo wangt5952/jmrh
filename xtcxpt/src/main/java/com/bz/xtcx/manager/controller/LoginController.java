@@ -33,13 +33,54 @@ public class LoginController extends BaseController{
 		return voRes;
 	}
 	
+	/**
+	 * 修改密码
+	 * @param vo
+	 * @return
+	 */
+	@PostMapping("rePwd")
+	public Object resetPassword(@RequestBody VoUser vo) {
+		VoResponse voRes = getVoResponse();
+		
+		return voRes;
+	}
+	
+	/**
+	 * 找回密码
+	 * @param vo
+	 * @return
+	 */
+	@PostMapping("lookPwd")
+	public Object lookPassword(@RequestBody VoUser vo) {
+		VoResponse voRes = getVoResponse();
+		
+		return voRes;
+	}
+	
+	/**
+	 * 获取用户资料
+	 * @return
+	 */
+	@GetMapping
+	public Object getUser(){
+		VoResponse voRes = new VoResponse();
+		voRes.setData(sysUserService.getBusUser());
+		return voRes;
+	}
+	
+	/**
+	 * 修改用户信息
+	 * @param user
+	 * @return
+	 */
 	@PutMapping
 	public Object updateBusUser(@RequestBody BusUser user) {
-		VoResponse voRes = getVoResponse();
+		VoResponse voRes =  new VoResponse();
 		if(StringUtils.isEmpty(user.getId())) return voRes;
 		voRes.setData(sysUserService.updateUser(user));
 		return voRes;
 	}
+	
 	
 	@GetMapping("logout")
 	public Object logout(){

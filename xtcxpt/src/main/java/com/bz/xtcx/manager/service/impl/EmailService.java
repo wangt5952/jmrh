@@ -49,6 +49,26 @@ public class EmailService implements IEmailService{
 	}
     
     @Override
+	public boolean sendCodeEmail(String to, String uuid) {
+        String subject = "协同创新平台验证码";
+        StringBuilder  content = new StringBuilder();
+        content.append(uuid);
+        SimpleMailMessage message = new SimpleMailMessage();//创建简单邮件消息
+        message.setFrom(from);//设置发送人
+        message.setTo(to);//设置收件人
+        message.setSubject(subject);//设置主题
+        message.setText(content.toString());//设置内容
+        try {
+            mailSender.send(message);//执行发送邮件
+            logger.info("简单邮件已经发送。");
+            return true;
+        } catch (Exception e) {
+            logger.error("发送简单邮件时发生异常！", e);
+        }
+		return false;
+	}
+    
+    @Override
     public void sendSimpleEmail(String to, String subject, String content) {
         SimpleMailMessage message = new SimpleMailMessage();//创建简单邮件消息
         message.setFrom(from);//设置发送人

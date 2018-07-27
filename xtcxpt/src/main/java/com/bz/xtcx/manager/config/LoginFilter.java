@@ -58,7 +58,7 @@ public class LoginFilter implements Filter{
 			}
 		}
 		
-		/*String token = req.getHeader("token");
+		String token = req.getHeader("token");
 		if(token == null) {
 			res.setStatus(200);
 			PrintWriter writer = response.getWriter();
@@ -73,7 +73,7 @@ public class LoginFilter implements Filter{
 			writer.write(JSON.toJSON(voRes).toString());
 			return;
 		}
-		user = (User) obj;*/
+		user = (User) obj;
 		
 		chain.doFilter(request, response);
 	}
