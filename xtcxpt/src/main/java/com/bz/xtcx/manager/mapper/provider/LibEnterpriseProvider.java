@@ -13,8 +13,8 @@ public class LibEnterpriseProvider {
 	StringBuilder queryCondition(LibEnterprise e) {
 		StringBuilder sql = new StringBuilder();
 		if(e != null) {
-			if (e.getEnterprise_name() != null)
-	            sql.append(" and enterprise_name like '%"+e.getEnterprise_name()+"%'");
+			if (e.getName() != null)
+	            sql.append(" and enterprise_name like '%"+e.getName()+"%'");
 		}
 		return sql;
 	}

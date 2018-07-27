@@ -8,10 +8,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,38 +22,51 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.bz.xtcx.manager.service.IUserImageService;
+import com.bz.xtcx.manager.vo.VoResponse;
+
 @RestController
 @RequestMapping("xtcx/file")
 public class FileUploadController {
+	
+	@Autowired
+	private IUserImageService userImageService;
 
 	// 文件上传相关代码
 	@PostMapping("upload")
-	public String upload(@RequestParam("file")MultipartFile file) {
+	public Object upload(@RequestParam("file")MultipartFile file, @RequestParam("type") int type) {
+		VoResponse voRes = new VoResponse();
 		if (file.isEmpty()) {
-			return "文件为空";
+			voRes.setFail(voRes);
+			voRes.setData("文件为空");
+			return voRes;
 		}
 		// 获取文件名
 		String fileName = file.getOriginalFilename();
 		// 获取文件的后缀名
 		String suffixName = fileName.substring(fileName.lastIndexOf("."));
 		// 文件上传后的路径
-		String filePath = "D://test//";
-		// 解决中文问题，liunx下中文路径，图片显示问题
-		// fileName = UUID.randomUUID() + suffixName;
+		//String filePath = "D://test//";
+		String filePath = "/root/java/xtcx/";
+		fileName = UUID.randomUUID() + suffixName;
 		File dest = new File(filePath + fileName);
 		// 检测是否存在目录
 		if (!dest.getParentFile().exists()) {
 			dest.getParentFile().mkdirs();
 		}
+		System.out.println(dest.getPath());
 		try {
 			file.transferTo(dest);
-			return "上传成功";
+			voRes.setData(userImageService.saveOrUpdate(type, fileName));
+			return voRes;
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return "上传失败";
+		voRes.setFail(voRes);
+		voRes.setData("上传失败");
+		return voRes;
 	}
 
 	// 文件下载相关代码

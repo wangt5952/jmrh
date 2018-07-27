@@ -13,7 +13,7 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.mapping.StatementType;
 
-import com.bz.xtcx.manager.entity.LibService;
+import com.bz.xtcx.manager.entity.LibServices;
 import com.bz.xtcx.manager.mapper.provider.LibServiceProvider;
 
 public interface LibServiceMapper {
@@ -36,7 +36,7 @@ public interface LibServiceMapper {
 		    + " #{creater, jdbcType=VARCHAR})"
 		    )
     @SelectKey(before = true, keyProperty = "id", resultType = String.class, statementType = StatementType.STATEMENT, statement="select uuid()")
-	int insert(LibService e);
+	int insert(LibServices e);
 	
 	@Delete("delete from `bus_user_service` where id = #{id}")
 	int del(String id);
@@ -54,7 +54,7 @@ public interface LibServiceMapper {
 			+ " status=#{status, jdbcType=INTEGER},"
 			+ " updater=#{updater, jdbcType=VARCHAR}"
 			+ " where user_id=#{id}")
-	int update(LibService e);
+	int update(LibServices e);
 	
 	@SelectProvider(type = LibServiceProvider.class, method = "findByCondition")
 	@Results(
@@ -79,9 +79,9 @@ public interface LibServiceMapper {
 		    @Result(property = "updateTime", column = "update_time")
 	    }
 	)
-    List<LibService> findByCondition(LibService e);
+    List<LibServices> findByCondition(LibServices e);
 	
 	@Select("select * from `bus_user_service` where user_id = #{userId}")
 	@ResultMap("libService")
-	LibService findByUserId(String userId);
+	LibServices findByUserId(String userId);
 }

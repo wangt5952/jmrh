@@ -2,7 +2,9 @@ package com.bz.xtcx.manager.mapper;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
@@ -13,9 +15,10 @@ import com.bz.xtcx.manager.entity.BusUserForm;
 
 public interface BusUserFormHisMapper {
 	
-	@Insert("insert into `bus_user_form_his`(id, user_id, detail, check_status, status, creater)"
+	@Insert("insert into `bus_user_form_his`(id, user_id, form_type, detail, check_status, status, creater)"
 		    + " VALUES(#{id, jdbcType=VARCHAR},"
 		    + " #{userId, jdbcType=VARCHAR},"
+		    + " #{formType, jdbcType=VARCHAR},"
 		    + " #{detail, jdbcType=VARCHAR},"
 		    + " #{checkStatus, jdbcType=INTEGER},"
 		    + " #{status, jdbcType=INTEGER},"
@@ -33,7 +36,7 @@ public interface BusUserFormHisMapper {
 	int update(BusUserForm form);
 	
 	@Update("update `bus_user_form_his` set check_status=#{check, jdbcType=INTEGER} where id=#{id}")
-	int updateCheck(int check, String id);
+	int updateCheck(@Param("check")int check, @Param("id")String id);
 	
 	
 	@Select("select * from `bus_user_form_his` where user_id = #{userId} and check_status = #{check}")
@@ -42,6 +45,7 @@ public interface BusUserFormHisMapper {
 			value = {
 			    @Result(id = true, property = "id", column = "id"),
 			    @Result(property = "userId", column = "user_id"),
+			    @Result(property = "formType", column = "form_type"),
 			    @Result(property = "detail", column = "detail"),
 			    @Result(property = "checkStatus", column = "check_status"),
 			    @Result(property = "status", column = "status"),
@@ -51,11 +55,12 @@ public interface BusUserFormHisMapper {
 			    @Result(property = "updateTime", column = "update_time")
 		    }
 		)
-	BusUserForm findByUserId(String userId, int check);
+	BusUserForm findByUserIdAndCheck(@Param("userId")String userId, @Param("check")int check);
 	
-	@Update("select * from `bus_user_form_his` where check_status!=-1 and user_id=#{userId} order by create_time desc limit 1")
+	@Select("select * from `bus_user_form_his` where check_status!=-1 and user_id=#{userId} order by create_time desc limit 1")
 	BusUserForm findByUserId(String userId);
 	
-	@Update("select * from `bus_user_form_his` where id=#{id}")
+	@Select("select * from `bus_user_form_his` where id=#{id}")
+	@ResultMap("busUserFormHis")
 	BusUserForm findById(String id);
 }

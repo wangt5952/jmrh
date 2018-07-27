@@ -1,13 +1,16 @@
 package com.bz.xtcx.manager.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
@@ -64,6 +67,33 @@ public class SysUserService extends BaseService implements ISysUserService {
 	}
 	
 	@Override
+	public int updateUser(BusUser user) {
+		User u = this.getUser();
+		BusUser old = busUserMapper.findById(u.getUserId());
+		old.setCellphone(user.getCellphone());
+		old.setUserName(user.getUserName());
+		int result = busUserMapper.update(old);
+		return result;
+	}
+	
+	@Override
+	public BusUser getBusUser() {
+		User u = this.getUser();
+		BusUser user = busUserMapper.findById(u.getUserId());
+		return user;
+	}
+	
+	@Override
+	public boolean sendEmailCode(String email) {
+		String id = String.valueOf(((Math.random()*9+1)*1000));
+		if(emailService.sendCodeEmail(email, id)) {
+			this.getRedisTemplate().opsForValue().set(id, email);
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
 	public VoResponse register(BusUser user) {
 		VoResponse voRes = new VoResponse();
 		//检查邮箱是否已经注册
@@ -74,7 +104,8 @@ public class SysUserService extends BaseService implements ISysUserService {
 			return voRes;
 		}
 		UUID uuid = UUID.randomUUID();
-		String url = "http://localhost:8080/xtcx/user/activate?activateId=" + uuid.toString();
+		//String url = "http://localhost:8080/xtcx/user/activate?activateId=" + uuid.toString();
+		String url = "http://106.14.172.38:8990/jmrh/xtcx/user/activate?activateId=" + uuid.toString();
 		if(!emailService.sendRegisterEmail(user.getEmail(), url)) {
 			voRes.setFail(voRes);
 			voRes.setMessage("邮箱验证有误，请重新输入邮箱");
@@ -167,13 +198,18 @@ public class SysUserService extends BaseService implements ISysUserService {
 				e.setToken(session.getId());
 				e.setEmail(user.getEmail());
 				e.setCellphone(user.getCellphone());
-				this.createRedisUser(user.getId(), e);
+				this.createRedisUser(e);
 				voRes.setData(e);
 				return voRes;
 			}
 		}else {
 			BusUser user = busUserMapper.findByEmail(username);//邮箱
 			if(user != null && user.getPassword().equals(md5Password)) {
+				if(user.getCheckStatus() == 0) {
+					voRes.setFail(voRes);
+					voRes.setMessage("用户未激活");
+					return voRes;
+				}
 				HttpSession session = getSession();
 				User e = new User();
 				e.setUserId(user.getId());
@@ -182,7 +218,7 @@ public class SysUserService extends BaseService implements ISysUserService {
 				e.setToken(session.getId());
 				e.setEmail(user.getEmail());
 				e.setCellphone(user.getCellphone());
-				this.createRedisUser(user.getId(), e);
+				this.createRedisUser(e);
 				voRes.setData(e);
 				return voRes;
 			}
@@ -366,5 +402,23 @@ public class SysUserService extends BaseService implements ISysUserService {
 	int saveEnterprise(JSONObject json){
 		return 0;
 	}
+
+	@Override
+	public Object getRedisUser(String userId) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		RedisOperations<String, Object> redis = this.getRedisTemplate().opsForValue().getOperations();
+		if(redis.hasKey(userId)) {
+			String token = (String) this.getRedisTemplate().opsForValue().get(userId);
+			map.put("token", token);
+			if(redis.hasKey(token)) {
+				map.put("user", this.getRedisTemplate().opsForValue().get(token));
+			}
+		}
+		String id = this.getSession().getId();
+		Object obj = this.getRedisTemplate().opsForValue().get(id);
+		map.put("currUser", obj);
+		return map;
+	}
+
 	
 }

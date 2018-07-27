@@ -4,6 +4,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 
@@ -11,6 +13,8 @@ import com.bz.xtcx.manager.entity.User;
 
 
 public class BaseService {
+	
+	private static final Logger logger = LoggerFactory.getLogger(BaseService.class);   
 	
 	@Resource
     private RedisTemplate<String, Object> redisTemplate;
@@ -50,16 +54,26 @@ public class BaseService {
 	 * @param userId
 	 * @param session
 	 */
-	public void createRedisUser(String userId, User user) {
-		if(redisTemplate.opsForValue().getOperations().hasKey(userId)) {
-			String token = redisTemplate.opsForValue().get(userId).toString();
-			boolean result = redisTemplate.delete(userId);
-			System.out.println(result);
-			result = redisTemplate.delete(token);
-			//System.out.println(result);
+	public void createRedisUser(User user) {
+		boolean result = false;
+		//同一个session
+		if(redisTemplate.opsForValue().getOperations().hasKey(user.getToken())) {
+			User oldUser = (User) redisTemplate.opsForValue().get(user.getToken());
+			result = redisTemplate.delete(oldUser.getUserId());
+			logger.warn("session : " + result);
+			result = redisTemplate.delete(user.getToken());
+			logger.warn("session : " + result);
 		}
-		redisTemplate.opsForValue().set(userId, session.getId());
-		redisTemplate.opsForValue().set(session.getId(), user);
+		if(redisTemplate.opsForValue().getOperations().hasKey(user.getUserId())) {
+			String oldToken = redisTemplate.opsForValue().get(user.getUserId()).toString();
+			result = redisTemplate.delete(user.getUserId());
+			logger.warn("userId : " + result);
+			result = redisTemplate.delete(oldToken);
+			logger.warn("userId : " + result);
+		}
+		//add
+		redisTemplate.opsForValue().set(user.getUserId(), user.getToken());
+		redisTemplate.opsForValue().set(user.getToken(), user);
 	}
 	
 	/**

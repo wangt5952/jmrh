@@ -13,6 +13,15 @@ public interface IEmailService {
 	 */
 	public boolean sendRegisterEmail(String to, String uuid);
 	
+	/**
+	 * 发送平台验证码邮件
+	 * @param to
+	 * @param uuid
+	 * @return
+	 */
+	public boolean sendCodeEmail(String to, String uuid);
+	
+	
     /**
      * 发送简单邮件
      * @param to

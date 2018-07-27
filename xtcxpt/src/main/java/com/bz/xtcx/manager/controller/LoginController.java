@@ -7,6 +7,7 @@ import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,7 +33,56 @@ public class LoginController extends BaseController{
 		return voRes;
 	}
 	
-	@PostMapping("logout")
+	/**
+	 * 修改密码
+	 * @param vo
+	 * @return
+	 */
+	@PostMapping("rePwd")
+	public Object resetPassword(@RequestBody VoUser vo) {
+		VoResponse voRes = getVoResponse();
+		
+		return voRes;
+	}
+	
+	/**
+	 * 找回密码
+	 * @param vo
+	 * @return
+	 */
+	@PostMapping("lookPwd")
+	public Object lookPassword(@RequestBody VoUser vo) {
+		VoResponse voRes = getVoResponse();
+		
+		return voRes;
+	}
+	
+	/**
+	 * 获取用户资料
+	 * @return
+	 */
+	@GetMapping
+	public Object getUser(){
+		VoResponse voRes = new VoResponse();
+		voRes.setData(sysUserService.getBusUser());
+		return voRes;
+	}
+	
+	/**
+	 * 修改用户信息
+	 * @param user
+	 * @return
+	 */
+	@PutMapping
+	public Object updateBusUser(@RequestBody BusUser user) {
+		VoResponse voRes =  new VoResponse();
+		if(StringUtils.isEmpty(user.getId())) return voRes;
+		voRes.setData(sysUserService.updateUser(user));
+		return voRes;
+	}
+	
+	
+	@GetMapping("logout")
 	public Object logout(){
 		VoResponse voRes = new VoResponse();
 		sysUserService.signOut();
@@ -59,6 +109,11 @@ public class LoginController extends BaseController{
 			voRes.setMessage("密码不能为空");
 			return voRes;
 		}
+		if(user.getUserType() == 0) {
+			voRes.setNull(voRes);
+			voRes.setMessage("用户类型不能为空");
+			return voRes;
+		}
 		voRes = sysUserService.register(user);
 		return voRes;
 	}
@@ -67,6 +122,11 @@ public class LoginController extends BaseController{
 	public Object activate(@RequestParam("activateId") String id){
 		VoResponse voRes = sysUserService.activate(id);
 		return voRes;
+	}
+	
+	@GetMapping("getRedisUser")
+	public Object getRedisUser(@RequestParam("userId") String id){
+		return sysUserService.getRedisUser(id);
 	}
 	
 	public static void main(String[] args) {

@@ -5,8 +5,9 @@ import com.bz.xtcx.manager.entity.LibExpert;
 public class LibExpertProvider {
 
 	public String findByCondition(LibExpert e) {
-		StringBuilder sql = new StringBuilder("select * from `bus_user_service` where 1=1");
+		StringBuilder sql = new StringBuilder("select * from `bus_user_expert` where 1=1");
 		sql.append(queryCondition(e));
+		System.out.println(sql);
         return sql.toString();
 	}
 	

@@ -1,13 +1,11 @@
 package com.bz.xtcx.manager.entity;
 
-import com.bz.xtcx.manager.comom.BasicEntity;
-
 /**
  * 服务机构库
  * @author zhangkj
  *
  */
-public class LibService extends BasicEntity{
+public class LibServices extends BaseLib{
 
 	
 	/**
@@ -16,8 +14,6 @@ public class LibService extends BasicEntity{
 	private static final long serialVersionUID = 3874228762810906032L;
 	
 	
-	private String userId;
-	private String name;//单位名称
 	private String org_type;//机构类型
 	private String linkman;//联系人
 	private int service_amount_last;//近三年服务情况
@@ -27,15 +23,7 @@ public class LibService extends BasicEntity{
 	private int service_quantity_before;
 	private int service_quantity_previous;
 	private String honor;//所获资质
-	private int check_status;
 	
-	
-	public String getUserId() {
-		return userId;
-	}
-	public String getName() {
-		return name;
-	}
 	public String getOrg_type() {
 		return org_type;
 	}
@@ -62,12 +50,6 @@ public class LibService extends BasicEntity{
 	}
 	public String getHonor() {
 		return honor;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	public void setName(String name) {
-		this.name = name;
 	}
 	public void setOrg_type(String org_type) {
 		this.org_type = org_type;
@@ -96,13 +78,4 @@ public class LibService extends BasicEntity{
 	public void setHonor(String honor) {
 		this.honor = honor;
 	}
-	public int getCheck_status() {
-		return check_status;
-	}
-	public void setCheck_status(int check_status) {
-		this.check_status = check_status;
-	}
-	
-	
-	
 }

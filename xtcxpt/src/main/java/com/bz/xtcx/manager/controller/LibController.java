@@ -9,8 +9,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bz.xtcx.manager.entity.BusUserForm;
+import com.bz.xtcx.manager.entity.LibCollege;
+import com.bz.xtcx.manager.entity.LibEnterprise;
+import com.bz.xtcx.manager.entity.LibExpert;
+import com.bz.xtcx.manager.entity.LibServices;
+import com.bz.xtcx.manager.entity.SysUser;
 import com.bz.xtcx.manager.service.ILibService;
 import com.bz.xtcx.manager.vo.VoResponse;
+import com.github.pagehelper.PageInfo;
 
 @RestController
 @RequestMapping("xtcx/lib")
@@ -84,4 +90,39 @@ public class LibController {
 		return voRes;
 	}
 	
+	@PostMapping("expert/page")
+	public Object getAllExperts(@RequestBody(required=false) LibExpert lib, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
+			@RequestParam(value="orderBy",required=false)  String orderBy) {
+		VoResponse voRes = new VoResponse();
+		PageInfo<LibExpert> info = libService.getExpertPageByCondition(lib, pageNum, pageSize, orderBy);
+		voRes.setData(info);
+		return voRes;
+	}
+	
+	@PostMapping("college/page")
+	public Object getAllColleges(@RequestBody(required=false) LibCollege lib, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
+			@RequestParam(value="orderBy",required=false)  String orderBy) {
+		VoResponse voRes = new VoResponse();
+		PageInfo<LibCollege> info = libService.getCollegePageByCondition(lib, pageNum, pageSize, orderBy);
+		voRes.setData(info);
+		return voRes;
+	}
+	
+	@PostMapping("enterprise/page")
+	public Object getAllEnterprises(@RequestBody(required=false) LibEnterprise lib, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
+			@RequestParam(value="orderBy",required=false)  String orderBy) {
+		VoResponse voRes = new VoResponse();
+		PageInfo<LibEnterprise> info = libService.getEnterprisePageByCondition(lib, pageNum, pageSize, orderBy);
+		voRes.setData(info);
+		return voRes;
+	}
+	
+	@PostMapping("services/page")
+	public Object getAllServices(@RequestBody(required=false) LibServices lib, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
+			@RequestParam(value="orderBy",required=false)  String orderBy) {
+		VoResponse voRes = new VoResponse();
+		PageInfo<LibServices> info = libService.getServicePageByCondition(lib, pageNum, pageSize, orderBy);
+		voRes.setData(info);
+		return voRes;
+	}
 }

@@ -1,35 +1,22 @@
 package com.bz.xtcx.manager.entity;
 
-import com.bz.xtcx.manager.comom.BasicEntity;
-
 /**
  * 企业库
  * @author zhangkj
  *
  */
-public class LibEnterprise extends BasicEntity{
+public class LibEnterprise extends BaseLib {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1193852615185056708L;
 	
-	private String userId;
-	private String enterprise_name;//企业名称
 	private String registered_capital;//企业规模（注册资金）
 	private String registered_type;//注册类型
 	private int is_high_new_tech;//是否高新技术企业
 	private String domain;//所属领域
-	private String country;//地区
-	private int check_status;
 	
-	
-	public String getUserId() {
-		return userId;
-	}
-	public String getEnterprise_name() {
-		return enterprise_name;
-	}
 	public String getRegistered_capital() {
 		return registered_capital;
 	}
@@ -41,15 +28,6 @@ public class LibEnterprise extends BasicEntity{
 	}
 	public String getDomain() {
 		return domain;
-	}
-	public String getCountry() {
-		return country;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	public void setEnterprise_name(String enterprise_name) {
-		this.enterprise_name = enterprise_name;
 	}
 	public void setRegistered_capital(String registered_capital) {
 		this.registered_capital = registered_capital;
@@ -63,14 +41,4 @@ public class LibEnterprise extends BasicEntity{
 	public void setDomain(String domain) {
 		this.domain = domain;
 	}
-	public void setCountry(String country) {
-		this.country = country;
-	}
-	public int getCheck_status() {
-		return check_status;
-	}
-	public void setCheck_status(int check_status) {
-		this.check_status = check_status;
-	}
-	
 }

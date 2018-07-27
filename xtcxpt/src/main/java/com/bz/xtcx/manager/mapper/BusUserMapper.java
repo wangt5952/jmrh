@@ -40,6 +40,7 @@ public interface BusUserMapper {
 	int del(String id);
 	
 	@Update("update `bus_user` set password=#{password},"
+			+ " user_name=#{userName, jdbcType=VARCHAR},"
 			+ " cellphone=#{cellphone, jdbcType=VARCHAR},"
 			+ " email=#{email, jdbcType=VARCHAR},"
 			+ " check_status=#{checkStatus, jdbcType=INTEGER},"
