@@ -57,6 +57,10 @@ export const constantRouterMap = [{
       path: 'userDetail',
       component: _import('userDetail/index'),
       leaf: true,
+    },{
+      path: 'userBaseDetail',
+      component: _import('userBaseDetail/index'),
+      leaf: true,
     }]
   },
   {
@@ -301,7 +305,7 @@ export const constantRouterMap = [{
 
 
 export default new Router({
-  mode: 'history', //后端支持可开
+  // mode: 'history', //后端支持可开
   // scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap
 })

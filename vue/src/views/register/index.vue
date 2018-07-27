@@ -16,7 +16,6 @@
 
             <el-form-item label="">
               <div class="paddingb textl paddingr">
-                <el-radio v-model="userType" label="0">个人</el-radio>
                 <el-radio v-model="userType" label="1">专家</el-radio>
                 <el-radio v-model="userType" label="2">企业</el-radio>
                 <el-radio v-model="userType" label="3">服务机构</el-radio>
@@ -51,7 +50,7 @@
             </el-form-item>
 
             <el-form-item>
-              <el-button @click="toRegisterDetail" type="primary">下一步</el-button>
+              <el-button @click="toRegisterDetail" type="primary">提交</el-button>
               <span @click="toLogin" class="toLogin">立即登录</span>
             </el-form-item>
           </el-form>
@@ -95,6 +94,7 @@ export default {
         name: '',
         idNumber: '',
         name: '',
+        userType: '',
       }
     }
   },
@@ -108,45 +108,59 @@ export default {
       })
     },
     async toRegisterDetail() {
-      // let {
-      //   data,
-      //   success
-      // } = await registers(this.registerForm)
-      // if (success) {
-      //   this.$confirm('是否要加入社区?', '提示', {
-      //     confirmButtonText: '加入',
-      //     cancelButtonText: '不加入',
-      //     type: 'warning'
-      //   }).then(async () => {
-          this.$router.push({
-            name: 'registerDetail',
-            params: {
-              userType: this.userType
-            }
-          })
-        // }).catch(() => {
-        //   this.$router.push({
-        //     name: '/',
-        //     params: {
-        //       userType: this.userType
-        //     }
-        //   })
-        // });
-
-      // }
-
-
+      this.registerForm.userType = this.userType
+      let {
+        data,
+        success,
+        message
+      } = await registers(this.registerForm)
+      if (success) {
+        const h = this.$createElement;
+        this.$notify({
+          title: '用户激活提醒',
+          message: h('i', {
+            style: 'color: teal'
+          }, '激活帐户邮件已发送到你的邮箱中'+data.email+'，点击里面的激活链接')
+        });
+      }else {
+        this.$message({
+          message: message,
+          type: 'success'
+        });
+      }
     }
+
+
+    // this.$confirm('是否要加入社区?', '提示', {
+    //   confirmButtonText: '加入',
+    //   cancelButtonText: '不加入',
+    //   type: 'warning'
+    // }).then(async () => {
+    //
+    // this.$router.push({
+    //   name: 'registerDetail',
+    //   params: {
+    //     userType: this.userType
+    //   }
+    // })
+    // }).catch(() => {
+    //   this.$router.push({
+    //     name: '/',
+    //     params: {
+    //       userType: this.userType
+    //     }
+    //   })
+    // });
   },
   watch: {
     userType() {
       if (this.userType == '0') {
         this.idNumberName = '请输入名字'
         this.idNumberCode = '请输入身份证号'
-      }else if (this.userType == '1') {
+      } else if (this.userType == '1') {
         this.idNumberName = '请输入名字'
         this.idNumberCode = '请输入身份证号'
-      }  else if (this.userType == '2') {
+      } else if (this.userType == '2') {
         this.idNumberName = '请输入企业名称'
         this.idNumberCode = '请输入营业执照'
       } else if (this.userType == '3') {

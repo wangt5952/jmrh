@@ -19,29 +19,30 @@
                     <span>{{ scope.row.userName }}</span>
                 </template>
     </el-table-column>
-    <el-table-column align="center" label="账户">
+    <el-table-column align="center" label="管理员名称">
       <template slot-scope="scope">
-                    <span>{{ scope.row.fullName }}</span>
-                </template>
-    </el-table-column>
-    <el-table-column align="center" label="姓名">
-      <template slot-scope="scope">
-                    <span>{{ scope.row.fullName }}</span>
+                    <span>{{ scope.row.userName }}</span>
                 </template>
     </el-table-column>
     <el-table-column align="center" label="手机号">
       <template slot-scope="scope">
                     <span>
-                        {{ scope.row.dpartmentId}}</span>
+                        {{ scope.row.cellphone}}</span>
                 </template>
     </el-table-column>
 
-    <el-table-column align="center" label="所属组织机构">
+    <!-- <el-table-column align="center" label="所属组织机构">
       <template slot-scope="scope">
                     <span>
-                        {{ scope.row.dpartmentId}}</span>
+                        {{ scope.row.org.label }} - {{ scope.row.org.remark }} - {{ scope.row.org.children[0].label }}  - {{ scope.row.org.children[0].remark }}</span>
                 </template>
-    </el-table-column>
+    </el-table-column> -->
+        <el-table-column align="center" label="所属角色">
+          <template slot-scope="scope">
+                        <span>
+                            {{ scope.row.roles[0].roleName}}</span>
+                    </template>
+        </el-table-column>
     <el-table-column align="center" label="操作">
       <template slot-scope="scope">
                     <div style="margin:2% 2% 2% 2%">
@@ -108,9 +109,9 @@
           <v-select multiple v-model="selected" :options="options" style="width:80%"></v-select>
         </el-form-item>
         <el-form-item label="部门">
-          <el-select v-model="obj.dpartmentId" placeholder="请选择" style="width:80%">
+          <el-select v-model="obj.org" placeholder="请选择" style="width:80%">
             <el-option-group v-for="group in treeData" :key="group.label" :label="group.label">
-              <el-option v-for="item in group.children" :key="item.id" :label="item.label" :value="item.label">
+              <el-option v-for="item in group.children" :key="item.id" :label="item.label" :value="item.id">
               </el-option>
             </el-option-group>
           </el-select>
@@ -135,15 +136,14 @@ import {
   addUser,
   saveUser,
   delUser,
-  getUserId
-} from '@/api/user'
+} from '@/api/manageUser'
 
 import {
   getAllrole
 } from '@/api/role'
 import {
-  depgetAll
-} from '@/api/department'
+  getOrgMenus
+} from '@/api/org'
 export default {
   data() {
     return {
@@ -208,9 +208,11 @@ export default {
       } else {
         this.listQuery.objName = ''
       }
-      let data = await getUser(this.listQuery)
-      this.list = data.data.rows
-      this.loading = false
+      let {data,success} = await getUser(this.listQuery)
+      if(success){
+        this.list = data.list
+        this.loading = false
+      }
     },
     handleSizeChange(val) {
       if (!isNaN(val)) {
@@ -235,12 +237,17 @@ export default {
         fullName: '',
         department: '',
       }
+      this.selected =[]
       this.loadoptions()
     },
     async loadoptions() {
-      let getAlldata = await getAllrole()
+      let obj ={}
+      obj.page = 1
+      obj.limit = 100
+      let {data} = await getAllrole(obj)
       let arr = []
-      getAlldata = getAlldata.data
+      let getAlldata = data.list
+
       for (let i = 0; i < getAlldata.length; i++) {
         let obja = {}
         obja.label = getAlldata[i].roleName
@@ -248,24 +255,26 @@ export default {
         arr.push(obja)
       }
       this.options = arr
-      this.loadgetUserId()
+      // this.loadgetUserId()
       this.loadgetdep()
     },
-    async loadgetUserId() {
-      let aa = this.obj
-      let getUserIddata = await getUserId(this.obj.id)
-      getUserIddata = getUserIddata.data.roles
-      for (let i = 0; i < getUserIddata.length; i++) {
-        getUserIddata[i].label = getUserIddata[i].roleName
-        getUserIddata[i].value = getUserIddata[i].id
-      }
-      debugger
-      this.selected = getUserIddata
-
-    },
+    // async loadgetUserId() {
+    //   let aa = this.obj
+    //   let getUserIddata = await getUserId(this.obj.id)
+    //   getUserIddata = getUserIddata.data.roles
+    //   for (let i = 0; i < getUserIddata.length; i++) {
+    //     getUserIddata[i].label = getUserIddata[i].roleName
+    //     getUserIddata[i].value = getUserIddata[i].id
+    //   }
+    //   debugger
+    //   this.selected = getUserIddata
+    //
+    // },
     async loadgetdep() {
-      let depData = await depgetAll()
-      this.treeData = depData.data
+      let {data,success} = await getOrgMenus()
+      if(success){
+        this.treeData = data
+      }
     },
     async ondep1Change(val) {
       if (val) {
@@ -274,7 +283,7 @@ export default {
     },
     async addCreate(obj) {
 
-      if (!this.validata.validausr(obj)) return
+      // if (!this.validata.validausr(obj)) return
       obj.method = 'post'
       let arr = []
       let getAlldata = this.selected
@@ -300,7 +309,7 @@ export default {
       }
     },
     async saveCreate(obj) {
-      if (!this.validata.validausr(obj)) return
+      // if (!this.validata.validausr(obj)) return
       obj.method = 'put'
       let arr = []
       let getAlldata = this.selected
@@ -348,11 +357,20 @@ export default {
       }
     },
     async handleEdit(data, type) {
-
-
       if (type === 'edit') {
         this.obj = data
-        this.selected = data.roles
+
+        let arr = []
+        let getAlldata = data.roles
+
+        for (let i = 0; i < getAlldata.length; i++) {
+          let obja = {}
+          obja.label = getAlldata[i].roleName
+          obja.value = getAlldata[i].id
+          arr.push(obja)
+        }
+        this.selected = arr
+
         this.dialogStatus = 'update'
         this.dialogsave = true
         this.dialogadd = false

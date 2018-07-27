@@ -166,9 +166,7 @@ import redImg from '@/assets/images/weixin.png'
 import toolsImg from '@/assets/images/weixin.png'
 import comImg from '@/assets/images/weixin.png'
 import writeImg from '@/assets/images/weixin.png'
-import {
-  getMain
-} from '@/api/dashboard'
+
 export default {
 
   data() {

@@ -4,53 +4,59 @@
     <div class="paddingb textl paddingr">
       <el-input v-model="input" placeholder="请输入内容" style="width: 15%;"></el-input>
       <el-button style="margin-left:20px" @click="loadPageList" type="primary" icon="el-icon-search"></el-button>
-      <el-button style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">添加用户</el-button>
+      <!-- <el-button style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">添加用户</el-button> -->
 
     </div>
   </div>
 
-
   <el-table v-loading="loading" class="tableH" :data="list" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
-    <el-table-column type="index" align="center" label="序号">
-
+      <el-table-column
+      type="index"
+      width="50" align="center" label="ID">
     </el-table-column>
-    <el-table-column align="center" label="ID">
+    <el-table-column align="center" label="名称(单位)">
       <template slot-scope="scope">
-                    <span>{{ scope.row.userName }}</span>
+                    <span>{{ scope.row.name }}</span>
                 </template>
     </el-table-column>
-    <el-table-column align="center" label="账户">
+    <el-table-column align="center" label="昵称">
       <template slot-scope="scope">
-                    <span>{{ scope.row.fullName }}</span>
+                    <span>{{ scope.row.userName }}</span>
                 </template>
     </el-table-column>
     <el-table-column align="center" label="手机号">
       <template slot-scope="scope">
                     <span>
-                        {{ scope.row.dpartmentId}}</span>
+                        {{ scope.row.cellphone}}</span>
                 </template>
     </el-table-column>
 
     <el-table-column align="center" label="用户类别">
       <template slot-scope="scope">
                     <span>
-                        {{ scope.row.dpartmentId}}</span>
+                        {{ scope.row.userType}}</span>
                 </template>
     </el-table-column>
-    <el-table-column align="center" label="用户状态">
+    <el-table-column align="center" label="邮箱">
       <template slot-scope="scope">
                     <span>
-                        {{ scope.row.dpartmentId}}</span>
+                        {{ scope.row.email}}</span>
                 </template>
     </el-table-column>
-    <el-table-column align="center" label="操作">
+    <el-table-column align="center" label="身份证号">
+      <template slot-scope="scope">
+                    <span>
+                        {{ scope.row.idNumber}}</span>
+                </template>
+    </el-table-column>
+    <!-- <el-table-column align="center" label="操作">
       <template slot-scope="scope">
                     <div style="margin:2% 2% 2% 2%">
                         <el-button size="small" @click="handleEdit(scope.row,'edit')" type=""  class="el-icon-edit colorblue borderblue"></el-button>
                         <el-button size="small" @click="handleEdit(scope.row,'del')"  type=""  class="el-icon-delete colorred borderred"></el-button>
                     </div>
                 </template>
-    </el-table-column>
+    </el-table-column> -->
 
   </el-table>
 
@@ -58,37 +64,8 @@
     <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-sizes="[10,20,30, 50]" :page-size="listQuery.limit" layout="total, sizes, prev, pager, next, jumper" :total="total"></el-pagination>
   </div>
 
-  <!-- <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogShowDep" width="30%" top='5%'>
-    <el-tree :data="treeData" show-checkbox default-expand-all node-key="id" ref="tree" highlight-current :props="defaultProps">
-    </el-tree>
-    <span slot="footer" class="dialog-footer">
-      <el-button type="primary" @click="dialogShowDep = false">关闭</el-button>
-    </span>
-  </el-dialog> -->
-
-  <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogShowRole" width="30%" top='5%'>
-
-    <el-table class="tableH" :data="selected" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
-      <el-table-column type="index" align="center" label="序号">
-
-      </el-table-column>
-      <el-table-column align="center" label="角色名">
-        <template slot-scope="scope">
-                  <span>{{ scope.row.roleName }}</span>
-              </template>
-      </el-table-column>
-      <el-table-column align="center" label="角色描述">
-        <template slot-scope="scope">
-                  <span>{{ scope.row.roleDesc }}</span>
-              </template>
-      </el-table-column>
 
 
-    </el-table>
-    <span slot="footer" class="dialog-footer">
-      <el-button type="primary" @click="dialogShowRole = false">关闭</el-button>
-    </span>
-  </el-dialog>
 
   <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="30%" top='5%'>
 
@@ -96,25 +73,26 @@
 
       <el-row :gutter="24">
 
-        <el-form-item label="用户名">
+        <el-form-item label="名称(单位)">
+          <el-input v-model="obj.name" placeholder="请输入内容" style="width:80%"></el-input>
+        </el-form-item>
+        <el-form-item label="昵称">
           <el-input v-model="obj.userName" placeholder="请输入内容" style="width:80%"></el-input>
         </el-form-item>
         <el-form-item label="全名">
           <el-input v-model="obj.fullName" placeholder="请输入内容" style="width:80%"></el-input>
         </el-form-item>
-        <el-form-item label="密码">
-          <el-input v-model="obj.userPassword" placeholder="请输入内容" style="width:80%"></el-input>
+        <el-form-item label="手机号">
+          <el-input v-model="obj.cellphone" placeholder="请输入内容" style="width:80%"></el-input>
         </el-form-item>
-        <el-form-item label="角色">
-          <v-select multiple v-model="selected" :options="options" style="width:80%"></v-select>
+        <el-form-item label="用户类别">
+          <el-input v-model="obj.userType" placeholder="请输入内容" style="width:80%"></el-input>
         </el-form-item>
-        <el-form-item label="部门">
-          <el-select v-model="obj.dpartmentId" placeholder="请选择" style="width:80%">
-            <el-option-group v-for="group in treeData" :key="group.label" :label="group.label">
-              <el-option v-for="item in group.children" :key="item.id" :label="item.label" :value="item.label">
-              </el-option>
-            </el-option-group>
-          </el-select>
+        <el-form-item label="邮箱">
+          <el-input v-model="obj.email" placeholder="请输入内容" style="width:80%"></el-input>
+        </el-form-item>
+        <el-form-item label="身份证号">
+          <el-input v-model="obj.idNumber" placeholder="请输入内容" style="width:80%"></el-input>
         </el-form-item>
       </el-row>
     </el-form>
@@ -154,7 +132,6 @@ export default {
       timeType: '1',
       dialogStatus: '',
       dialogFormVisible: false,
-      dialogShowRole: false,
       dialogShowDep: false,
       dialogadd: false,
       dialogsave: false,
@@ -205,13 +182,15 @@ export default {
   methods: {
     async loadPageList() {
       if (this.input) {
-        this.listQuery.objName = this.input
+        this.listQuery.email = this.input
       } else {
-        this.listQuery.objName = ''
+        this.listQuery.email = ''
       }
-      let data = await getUser(this.listQuery)
-      this.list = data.data.rows
-      this.loading = false
+      let {data,success} = await getUser(this.listQuery)
+      if(success){
+        this.list = data.list
+        this.loading = false
+      }
     },
     handleSizeChange(val) {
       if (!isNaN(val)) {
@@ -339,15 +318,6 @@ export default {
     //     message: '修改成功!'
     //   });
     // }
-    async handleShow(data, type) {
-      if (type === 'role') {
-        this.obj = data
-        this.dialogStatus = 'role'
-        this.dialogShowRole = true
-        this.loadgetUserId()
-
-      }
-    },
     async handleEdit(data, type) {
 
 

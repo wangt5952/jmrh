@@ -46,7 +46,7 @@ const user = {
         login(userInfo).then(response => {
           const data = response.data
           if (response.success) {
-            setToken(data.sessionId)
+            setToken(data.token)
             commit('SET_TOKEN', data.token)
             commit('SET_NAME', data.userName)
             window.sessionStorage.setItem('userName', data.userName)

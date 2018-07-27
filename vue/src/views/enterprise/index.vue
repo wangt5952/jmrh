@@ -4,7 +4,6 @@
     <div class="paddingb textl paddingr">
       <el-input v-model="input" placeholder="请输入内容" style="width: 15%;"></el-input>
       <el-button style="margin-left:20px" @click="loadPageList" type="primary" icon="el-icon-search"></el-button>
-      <el-button style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">添加企业</el-button>
 
     </div>
   </div>
@@ -143,12 +142,8 @@
 
 <script>
 import {
-  getUser,
-  addUser,
-  saveUser,
-  delUser,
-  getUserId
-} from '@/api/user'
+  getenterprise,
+} from '@/api/library'
 
 import {
   getAllrole
@@ -220,9 +215,11 @@ export default {
       } else {
         this.listQuery.objName = ''
       }
-      let data = await getUser(this.listQuery)
-      this.list = data.data.rows
-      this.loading = false
+      let {data,success} = await getenterprise(this.listQuery)
+      if(success){
+        this.list = data.list
+        this.loading = false
+      }
     },
     handleSizeChange(val) {
       if (!isNaN(val)) {
@@ -235,19 +232,6 @@ export default {
         this.listQuery.page = val
       }
       this.loadPageList()
-    },
-    async handleCreate() {
-      this.dialogStatus = 'create'
-      this.dialogFormVisible = true
-      this.dialogadd = true
-      this.dialogsave = false
-      this.obj = {
-        userName: '',
-        userPassword: '',
-        fullName: '',
-        department: '',
-      }
-      this.loadoptions()
     },
     async loadoptions() {
       let getAlldata = await getAllrole()

@@ -11,21 +11,21 @@
           首页
         </el-dropdown-item>
       </router-link>
-        <router-link class="inlineBlock" to="">
+      <router-link class="inlineBlock" to="">
         <el-dropdown-item>
-            <span @click="dialogFormVisible = true" style="display:block;">密码修改</span>
+          <span @click="dialogFormVisible = true" >密码修改</span>
         </el-dropdown-item>
       </router-link>
-      <router-link class="inlineBlock" to="/index/userDetail">
+      <router-link class="inlineBlock" to="/index/userBaseDetail">
         <el-dropdown-item>
           修改用户信息
         </el-dropdown-item>
       </router-link>
-    <router-link class="inlineBlock" to="/index/userDetail">
-      <el-dropdown-item>
-        加入社区
-      </el-dropdown-item>
-    </router-link>
+      <router-link class="inlineBlock" to="/index/userDetail">
+        <el-dropdown-item>
+          加入社区
+        </el-dropdown-item>
+      </router-link>
       <el-dropdown-item divided>
         <span @click="logout" style="display:block;">登出</span>
       </el-dropdown-item>
@@ -61,8 +61,6 @@
   </el-dialog>
 
 </el-menu>
-
-
 </template>
 
 <script>
@@ -97,7 +95,7 @@ export default {
     this.name = window.sessionStorage.getItem('userName')
   },
   methods: {
-    savePaw(){
+    savePaw() {
 
     },
     toggleSideBar() {
@@ -136,13 +134,13 @@ export default {
     .avatarname {
         position: absolute;
         display: inline-block;
-        right: 25px;
+        right: 100px;
     }
     .avatar-container {
         height: 50px;
         display: inline-block;
         position: absolute;
-        right: 75px;
+        right: 30px;
         .avatar-wrapper {
             cursor: pointer;
             margin-top: 5px;

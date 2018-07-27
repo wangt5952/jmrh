@@ -97,11 +97,11 @@
 
 <script>
 import {
-  menuEdit,
+  getOrgMenus,
   addCreate,
   saveEdit,
-  delMenu
-} from '@/api/menu'
+  delOrg
+} from '@/api/org'
 
 export default {
   data() {
@@ -143,10 +143,12 @@ export default {
 
   methods: {
     async loadTree() {
-      let data = await menuEdit()
-      this.treeData = data.data[0].children
-      this.dialogFormVisible = false
-      this.loading = false
+      let {data,success} = await getOrgMenus()
+      if(success){
+        this.treeData = data
+        this.dialogFormVisible = false
+        this.loading = false
+      }
     },
     handleNodeClick(val) {
       this.dialogFormVisible = true
@@ -194,7 +196,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(async () => {
-        let del = await delMenu(this.treeTemp.id)
+        let del = await delOrg(this.treeTemp.id)
         this.loadTree()
         this.$message({
           type: 'success',
@@ -210,13 +212,14 @@ export default {
 
     },
     async subAddCreate() {
-      if (!this.validata.validaTree(this.obj)) return
+      // if (!this.validata.validaTree(this.obj)) return
       let obj = this.obj
       if (this.treeTemp.id) {
         obj.parentId = this.treeTemp.id
       }
       obj.method = 'post'
       let data = await addCreate(obj)
+      debugger
       if (this.treeTemp.id) {
         this.treeTemp.children.push(this.obj)
         this.dialogEditVisible = false
@@ -232,7 +235,8 @@ export default {
 
     },
     async subSaveCreate() {
-      if (!this.validata.validaTree(this.obj)) return
+      // if (!this.validata.validaTree(this.obj)) return
+      debugger
       let obj = this.obj
       obj.method = 'put'
       let data = await saveEdit(obj)

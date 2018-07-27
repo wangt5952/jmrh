@@ -4,14 +4,13 @@
     <div class="paddingb textl paddingr">
       <el-input v-model="input" placeholder="请输入内容" style="width: 15%;"></el-input>
       <el-button style="margin-left:20px" @click="loadPageList" type="primary" icon="el-icon-search"></el-button>
-      <el-button style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">添加专家</el-button>
 
     </div>
   </div>
 
 
   <el-table v-loading="loading" class="tableH" :data="list" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
-    <el-table-column type="index" align="center" label="序号">
+    <el-table-column type="index" align="center" label="ID">
 
     </el-table-column>
     <el-table-column align="center" label="ID">
@@ -19,14 +18,9 @@
                     <span>{{ scope.row.userName }}</span>
                 </template>
     </el-table-column>
-    <el-table-column align="center" label="账户">
-      <template slot-scope="scope">
-                    <span>{{ scope.row.fullName }}</span>
-                </template>
-    </el-table-column>
     <el-table-column align="center" label="姓名">
       <template slot-scope="scope">
-                    <span>{{ scope.row.fullName }}</span>
+                    <span>{{ scope.row.name }}</span>
                 </template>
     </el-table-column>
     <el-table-column align="center" label="身份证号">
@@ -45,13 +39,13 @@
     <el-table-column align="center" label="领域">
       <template slot-scope="scope">
                     <span>
-                        {{ scope.row.dpartmentId}}</span>
+                        {{ scope.row.research_area}}</span>
                 </template>
     </el-table-column>
-    <el-table-column align="center" label="状态">
+    <el-table-column align="center" label="项目描述">
       <template slot-scope="scope">
                         <span>
-                            {{ scope.row.dpartmentId}}</span>
+                            {{ scope.row.project_desc}}</span>
                     </template>
     </el-table-column>
     <el-table-column align="center" label="操作">
@@ -143,12 +137,8 @@
 
 <script>
 import {
-  getUser,
-  addUser,
-  saveUser,
-  delUser,
-  getUserId
-} from '@/api/user'
+  getexpert,
+} from '@/api/library'
 
 import {
   getAllrole
@@ -220,9 +210,11 @@ export default {
       } else {
         this.listQuery.objName = ''
       }
-      let data = await getUser(this.listQuery)
-      this.list = data.data.rows
-      this.loading = false
+      let {data,success} = await getexpert(this.listQuery)
+      if(success){
+        this.list = data.list
+        this.loading = false
+      }
     },
     handleSizeChange(val) {
       if (!isNaN(val)) {
@@ -235,19 +227,6 @@ export default {
         this.listQuery.page = val
       }
       this.loadPageList()
-    },
-    async handleCreate() {
-      this.dialogStatus = 'create'
-      this.dialogFormVisible = true
-      this.dialogadd = true
-      this.dialogsave = false
-      this.obj = {
-        userName: '',
-        userPassword: '',
-        fullName: '',
-        department: '',
-      }
-      this.loadoptions()
     },
     async loadoptions() {
       let getAlldata = await getAllrole()

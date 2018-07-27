@@ -151,8 +151,8 @@ export default {
         number: ''
       },
       loginForm: {
-        userName: 'admin',
-        password: 'admin',
+        userName: '269274122@qq.com',
+        password: '123',
         isAdmin:false,
       },
       loginRules: {
