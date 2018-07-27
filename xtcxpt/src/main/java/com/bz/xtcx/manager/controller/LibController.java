@@ -13,7 +13,6 @@ import com.bz.xtcx.manager.entity.LibCollege;
 import com.bz.xtcx.manager.entity.LibEnterprise;
 import com.bz.xtcx.manager.entity.LibExpert;
 import com.bz.xtcx.manager.entity.LibServices;
-import com.bz.xtcx.manager.entity.SysUser;
 import com.bz.xtcx.manager.service.ILibService;
 import com.bz.xtcx.manager.vo.VoResponse;
 import com.github.pagehelper.PageInfo;
@@ -67,6 +66,19 @@ public class LibController {
 	}
 	
 	/**
+	 * 新增资源库信息
+	 * @param detail
+	 * @param isDraft
+	 * @return
+	 */
+	@PostMapping("addLib")
+	public Object addLib(@RequestBody String detail, @RequestParam("type") int type){
+		VoResponse voRes = new VoResponse();
+		libService.setUserDetail(detail);
+		return voRes;
+	}
+	
+	/**
 	 * 用户获取资源库信息
 	 * @param userId
 	 * @return
@@ -75,6 +87,17 @@ public class LibController {
 	public Object getUserDetail(@RequestParam(value="isDraft", required=false) boolean isDraft){
 		VoResponse voRes = new VoResponse();
 		voRes.setData(libService.getUserDetail(isDraft));
+		return voRes;
+	}
+	
+	/**
+	 * 获取提交的用户完善资料（资源库待办任务）
+	 * @param id
+	 * @return
+	 */
+	@GetMapping("getSubmitLibs")
+	public Object getSubmitUserDetail(@RequestParam("id") String id){
+		VoResponse voRes = new VoResponse();
 		return voRes;
 	}
 	
@@ -125,4 +148,6 @@ public class LibController {
 		voRes.setData(info);
 		return voRes;
 	}
+	
+	
 }

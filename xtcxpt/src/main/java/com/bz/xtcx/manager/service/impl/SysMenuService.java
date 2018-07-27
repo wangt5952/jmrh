@@ -34,7 +34,8 @@ public class SysMenuService extends BaseService implements ISysMenuService{
 			}
 			sysMenuMapper.insert(menu);
 		}else {//update
-			
+			//SysMenu old = sysMenuMapper.findById(menu.getId());
+			sysMenuMapper.update(menu);
 		}
 		return voRes;
 	}

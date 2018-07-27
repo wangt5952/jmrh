@@ -5,12 +5,23 @@ import java.util.List;
 import com.bz.xtcx.manager.entity.BusUser;
 import com.bz.xtcx.manager.entity.SysMenu;
 import com.bz.xtcx.manager.entity.SysUser;
+import com.bz.xtcx.manager.vo.VoPwd;
 import com.bz.xtcx.manager.vo.VoResponse;
 import com.github.pagehelper.PageInfo;
 
 public interface ISysUserService extends IBaseService<SysUser>{
 	
+	/**
+	 * 修改用户状态
+	 * @param user
+	 * @return
+	 */
 	public int updateUserStatus(SysUser user);
+	
+	
+	VoResponse updateUserPwd(VoPwd vo);
+	
+	VoResponse lookUserPwd(VoPwd vo);
 	
 	/**
 	 * 更新用户资料

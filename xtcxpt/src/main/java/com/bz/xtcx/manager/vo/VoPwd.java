@@ -5,6 +5,7 @@ public class VoPwd {
 	private String code;
 	private String email;
 	private String password;
+	private String newPassword;
 	
 	public String getCode() {
 		return code;
@@ -23,6 +24,12 @@ public class VoPwd {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getNewPassword() {
+		return newPassword;
+	}
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
 	}
 	
 	

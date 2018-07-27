@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bz.xtcx.manager.entity.BusUser;
 import com.bz.xtcx.manager.service.ISysUserService;
+import com.bz.xtcx.manager.vo.VoPwd;
 import com.bz.xtcx.manager.vo.VoResponse;
 import com.bz.xtcx.manager.vo.VoUser;
 
@@ -38,10 +39,15 @@ public class LoginController extends BaseController{
 	 * @param vo
 	 * @return
 	 */
-	@PostMapping("rePwd")
-	public Object resetPassword(@RequestBody VoUser vo) {
+	@PostMapping("resetPwd")
+	public Object resetPassword(@RequestBody VoPwd vo) {
 		VoResponse voRes = getVoResponse();
-		
+		if(StringUtils.isEmpty(vo.getNewPassword())) {
+			voRes.setFail(voRes);
+			voRes.setData("密码不能为空");
+			return voRes;
+		}
+		voRes = sysUserService.updateUserPwd(vo);
 		return voRes;
 	}
 	
@@ -51,9 +57,27 @@ public class LoginController extends BaseController{
 	 * @return
 	 */
 	@PostMapping("lookPwd")
-	public Object lookPassword(@RequestBody VoUser vo) {
+	public Object lookPassword(@RequestBody VoPwd vo) {
 		VoResponse voRes = getVoResponse();
-		
+		if(StringUtils.isEmpty(vo.getCode())) {
+			voRes.setData("验证码不能为空");
+			return voRes;
+		}
+		if(StringUtils.isEmpty(vo.getNewPassword())) {
+			voRes.setFail(voRes);
+			voRes.setData("密码不能为空");
+			return voRes;
+		}
+		voRes = sysUserService.lookUserPwd(vo);
+		return voRes;
+	}
+	
+	@PostMapping("sendEmailCode")
+	public Object sendEmailCode(@RequestBody VoPwd vo){
+		VoResponse voRes = new VoResponse();
+		if(!sysUserService.sendEmailCode(vo.getEmail())) {
+			voRes.setFail(voRes);
+		}
 		return voRes;
 	}
 	

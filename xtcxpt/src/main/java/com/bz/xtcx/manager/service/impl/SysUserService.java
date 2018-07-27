@@ -33,6 +33,7 @@ import com.bz.xtcx.manager.mapper.SysRoleMapper;
 import com.bz.xtcx.manager.mapper.SysUserMapper;
 import com.bz.xtcx.manager.service.IEmailService;
 import com.bz.xtcx.manager.service.ISysUserService;
+import com.bz.xtcx.manager.vo.VoPwd;
 import com.bz.xtcx.manager.vo.VoResponse;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -67,6 +68,42 @@ public class SysUserService extends BaseService implements ISysUserService {
 	}
 	
 	@Override
+	public VoResponse updateUserPwd(VoPwd vo) {
+		VoResponse voRes = new VoResponse();
+		User u = this.getUser();
+		BusUser busUser = busUserMapper.findById(u.getUserId());
+		String md5Password = DigestUtils.md5DigestAsHex(vo.getPassword().getBytes());
+		if(busUser.getPassword().equals(md5Password)) {
+			md5Password = DigestUtils.md5DigestAsHex(vo.getNewPassword().getBytes());
+			busUser.setPassword(md5Password);
+			busUserMapper.update(busUser);
+		}else {
+			voRes.setFail(voRes);
+			voRes.setMessage("密码错误");
+		}
+		return voRes;
+	}
+	
+	@Override
+	public VoResponse lookUserPwd(VoPwd vo) {
+		VoResponse voRes = new VoResponse();
+		Object obj = this.getRedisTemplate().opsForValue().get(vo.getCode());
+		if(obj != null) {
+			if(obj.toString().equals(vo.getEmail())) {
+				BusUser user = busUserMapper.findByEmail(vo.getEmail());
+				String md5Password = DigestUtils.md5DigestAsHex(vo.getNewPassword().getBytes());
+				user.setPassword(md5Password);
+				busUserMapper.update(user);
+				this.getRedisTemplate().delete(vo.getCode());
+				return voRes;
+			}
+		}
+		voRes.setFail(voRes);
+		voRes.setMessage("错误");
+		return voRes;
+	}
+	
+	@Override
 	public int updateUser(BusUser user) {
 		User u = this.getUser();
 		BusUser old = busUserMapper.findById(u.getUserId());
@@ -85,7 +122,7 @@ public class SysUserService extends BaseService implements ISysUserService {
 	
 	@Override
 	public boolean sendEmailCode(String email) {
-		String id = String.valueOf(((Math.random()*9+1)*1000));
+		String id = String.valueOf((int)((Math.random()*9+1)*1000));
 		if(emailService.sendCodeEmail(email, id)) {
 			this.getRedisTemplate().opsForValue().set(id, email);
 			return true;
@@ -133,6 +170,7 @@ public class SysUserService extends BaseService implements ISysUserService {
 			BusUser user = busUserMapper.findByEmail(email);
 			user.setCheckStatus(1);
 			int result = busUserMapper.update(user);
+			this.getRedisTemplate().delete(uuid);
 			if(result > 0) {
 				voRes.setData(obj + "激活成功");
 			}else {

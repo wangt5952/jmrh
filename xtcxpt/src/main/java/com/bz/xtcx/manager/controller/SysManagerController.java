@@ -147,7 +147,7 @@ public class SysManagerController extends BaseController{
 	
 	@DeleteMapping("menu")
 	public Object delMenu(@RequestParam("id") String id) {
-		VoResponse voRes = getVoResponse();
+		VoResponse voRes = new VoResponse();
 		int result = sysMenuService.del(id);
 		if(result > 0) return voRes;
 		voRes.setFail(voRes);

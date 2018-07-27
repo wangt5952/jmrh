@@ -30,7 +30,7 @@ public interface SysOrgMapper {
 	int insert(SysOrg sysOrg);
 	
 	@Update("update `sys_org` set org_name=#{orgName, jdbcType=VARCHAR},"
-			+ " sort_order=#{sortOrder, jdbcType=VARCHAR},"
+			+ " sort_order=#{sortOrder, jdbcType=INTEGER},"
 			+ " remark=#{remark, jdbcType=VARCHAR},"
 			+ " status=#{status, jdbcType=INTEGER},"
 			+ " updater=#{updater, jdbcType=VARCHAR}"

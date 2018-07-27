@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.mapping.StatementType;
 
 import com.bz.xtcx.manager.entity.SysMenu;
@@ -33,7 +34,18 @@ public interface SysMenuMapper {
     @SelectKey(before = true, keyProperty = "id", resultType = String.class, statementType = StatementType.STATEMENT, statement="select uuid()")
 	int insert(SysMenu menu);
 	
-	@Delete("delete from `sys_menu` where menu_id = ${id}")
+	@Update("update `sys_menu` set menu_name=#{menuName, jdbcType=VARCHAR},"
+			+ " menu_url=#{menuUrl, jdbcType=VARCHAR},"
+			+ " icon=#{icon, jdbcType=VARCHAR},"
+			+ " method=#{method, jdbcType=VARCHAR},"
+			+ " sort_order=#{sortOrder, jdbcType=INTEGER},"
+			+ " remark=#{remark, jdbcType=VARCHAR},"
+			+ " status=#{status, jdbcType=INTEGER},"
+			+ " updater=#{updater, jdbcType=VARCHAR}"
+			+ " where menu_id=#{id}")
+	int update(SysMenu e);
+	
+	@Delete("delete from `sys_menu` where menu_id = #{id}")
 	int del(String id);
 	
 	@Select("select * from `sys_menu` where ifnull(parent_id,'')='' order by sort_order")
