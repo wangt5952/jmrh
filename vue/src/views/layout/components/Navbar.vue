@@ -13,7 +13,7 @@
       </router-link>
       <router-link class="inlineBlock" to="">
         <el-dropdown-item>
-          <span @click="dialogFormVisible = true" >密码修改</span>
+          <span @click="dialogFormVisible = true">密码修改</span>
         </el-dropdown-item>
       </router-link>
       <router-link class="inlineBlock" to="/index/userBaseDetail">
@@ -43,13 +43,13 @@
       <el-row :gutter="24">
 
         <el-form-item label="旧密码">
-          <el-input v-model="obj.oldpaw" placeholder="请输入旧密码" style="width:80%"></el-input>
+          <el-input v-model="obj.password" placeholder="请输入旧密码" style="width:80%"></el-input>
         </el-form-item>
         <el-form-item label="新密码">
-          <el-input v-model="obj.newpaw" placeholder="请输入新密码" style="width:80%"></el-input>
+          <el-input v-model="obj.newPassword" placeholder="请输入新密码" style="width:80%"></el-input>
         </el-form-item>
         <el-form-item label="重复输入新密码">
-          <el-input v-model="obj.rewpaw" placeholder="请输入新密码" style="width:80%"></el-input>
+          <el-input v-model="obj.rePassword" placeholder="请输入新密码" style="width:80%"></el-input>
         </el-form-item>
       </el-row>
     </el-form>
@@ -68,6 +68,13 @@ import {
   mapGetters
 } from 'vuex'
 import Hamburger from '@/components/Hamburger'
+import {
+  resetPwd
+} from '@/api/user'
+
+import {
+  Message
+} from 'element-ui'
 
 export default {
 
@@ -77,9 +84,9 @@ export default {
       name: '',
       dialogFormVisible: false,
       obj: {
-        oldpaw: '',
-        newpaw: '',
-        rewpaw: '',
+        password: '',
+        newPassword: '',
+        rePassword: '',
       },
     };
   },
@@ -95,8 +102,24 @@ export default {
     this.name = window.sessionStorage.getItem('userName')
   },
   methods: {
-    savePaw() {
-
+    async savePaw(obj) {
+      let {
+        message,
+        success
+      } = await resetPwd(obj)
+      if (success) {
+        Message({
+          message: '修改成功',
+          type: 'success',
+          duration: 5 * 1000
+        })
+      } else {
+        Message({
+          message: message,
+          type: 'error',
+          duration: 5 * 1000
+        })
+      }
     },
     toggleSideBar() {
       this.$store.dispatch('ToggleSideBar')

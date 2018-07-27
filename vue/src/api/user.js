@@ -35,3 +35,25 @@ export function delUser(id) {
 
   });
 }
+
+export function resetPwd(data) {
+  return request({
+    url: '/xtcx/user/resetPwd',
+    method: 'post',
+    data
+  });
+}
+export function sendEmailCode(data) {
+  return request({
+    url: '/xtcx/user/sendEmailCode',
+    method: 'post',
+    data
+  });
+}
+export function lookPwd(data) {
+  return request({
+    url: '/xtcx/user/lookPwd',
+    method: 'post',
+    data
+  });
+}
