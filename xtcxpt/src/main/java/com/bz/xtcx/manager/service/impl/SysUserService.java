@@ -1,13 +1,16 @@
 package com.bz.xtcx.manager.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
@@ -167,7 +170,7 @@ public class SysUserService extends BaseService implements ISysUserService {
 				e.setToken(session.getId());
 				e.setEmail(user.getEmail());
 				e.setCellphone(user.getCellphone());
-				this.createRedisUser(user.getId(), e);
+				this.createRedisUser(e);
 				voRes.setData(e);
 				return voRes;
 			}
@@ -182,7 +185,7 @@ public class SysUserService extends BaseService implements ISysUserService {
 				e.setToken(session.getId());
 				e.setEmail(user.getEmail());
 				e.setCellphone(user.getCellphone());
-				this.createRedisUser(user.getId(), e);
+				this.createRedisUser(e);
 				voRes.setData(e);
 				return voRes;
 			}
@@ -365,6 +368,23 @@ public class SysUserService extends BaseService implements ISysUserService {
 	
 	int saveEnterprise(JSONObject json){
 		return 0;
+	}
+
+	@Override
+	public Object getRedisUser(String userId) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		RedisOperations<String, Object> redis = this.getRedisTemplate().opsForValue().getOperations();
+		if(redis.hasKey(userId)) {
+			String token = (String) this.getRedisTemplate().opsForValue().get(userId);
+			map.put("token", token);
+			if(redis.hasKey(token)) {
+				map.put("user", this.getRedisTemplate().opsForValue().get(token));
+			}
+		}
+		String id = this.getSession().getId();
+		Object obj = this.getRedisTemplate().opsForValue().get(id);
+		map.put("currUser", obj);
+		return map;
 	}
 	
 }

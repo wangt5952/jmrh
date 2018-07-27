@@ -47,6 +47,9 @@ public class LibService extends BaseService implements ILibService{
 	@Autowired
 	private BusUserDetailMapper busUserDetailMapper;
 	
+	@Autowired
+	private BusUserMapper busUserMapper;
+	
 	@Override
 	public BusUserForm getUserForm(int type) {
 		BusUserForm from = busUserFormMapper.findByType(type);
@@ -59,8 +62,7 @@ public class LibService extends BaseService implements ILibService{
 		if(StringUtils.isEmpty(form.getId())) {
 			//BusUserForm from = busUserFormMapper.findByType(form.getFormType());
 		}
-		User user = this.getUser();
-		form.setCreater(user.getUserName());
+		form.setCreater(getUserName());
 		busUserFormMapper.insert(form);
 		return voRes;
 	}
@@ -70,7 +72,7 @@ public class LibService extends BaseService implements ILibService{
 		User user = this.getUser();
 		BusUserForm form = null;
 		if(isDraft) {
-			form = busUserFormHisMapper.findByUserId(user.getUserId(), -1);
+			form = busUserFormHisMapper.findByUserIdAndCheck(user.getUserId(), -1);
 			if(form != null) {
 				return form;
 			}
@@ -84,9 +86,10 @@ public class LibService extends BaseService implements ILibService{
 		VoResponse voRes = new VoResponse();
 		User user = this.getUser();
 		int result = 0;
-		BusUserForm form = busUserFormHisMapper.findByUserId(user.getUserId(), 0);
+		BusUserForm form = busUserFormHisMapper.findByUserIdAndCheck(user.getUserId(), 0);
 		if(form == null) {
 			form = new BusUserForm();
+			form.setFormType(user.getUserType());
 			form.setDetail(detail);
 			form.setCheckStatus(0);
 			form.setUserId(user.getUserId());
@@ -138,11 +141,12 @@ public class LibService extends BaseService implements ILibService{
 	@Override
 	public int saveFormHis(String form) {
 		User user = this.getUser();
-		BusUserForm e = busUserFormHisMapper.findByUserId(user.getUserId(), -1);
+		BusUserForm e = busUserFormHisMapper.findByUserIdAndCheck(user.getUserId(), -1);
 		int result = 0;
 		if(e == null) {
 			e = new BusUserForm();
 			e.setDetail(form);
+			e.setFormType(user.getUserType());
 			e.setCheckStatus(-1);
 			e.setUserId(user.getUserId());
 			e.setCreater(user.getUserName());
@@ -180,17 +184,17 @@ public class LibService extends BaseService implements ILibService{
 			if(e == null) {
 				e = new LibEnterprise();
 				e.setUserId(form.getUserId());
-				e.setEnterprise_name(json.getString("enterprise_name"));
+				e.setName(json.getString("enterprise_name"));
 				e.setRegistered_capital(json.getString("registered_capital"));
 				e.setRegistered_type(json.getString("registered_type"));
 				e.setIs_high_new_tech(json.getIntValue("is_high_new_tech"));
 				e.setDomain(json.getString("domain"));
 				e.setCountry(json.getString("country"));
-				e.setCheck_status(0);
+				e.setCheckStatus(0);
 				e.setCreater(form.getCreater());
 				result = libEnterpriseMapper.insert(e);
 			}else{
-				e.setEnterprise_name(json.getString("enterprise_name"));
+				e.setName(json.getString("enterprise_name"));
 				e.setRegistered_capital(json.getString("registered_capital"));
 				e.setRegistered_type(json.getString("registered_type"));
 				e.setIs_high_new_tech(json.getIntValue("is_high_new_tech"));
@@ -264,9 +268,9 @@ public class LibService extends BaseService implements ILibService{
 				e = new LibCollege();
 				e.setUserId(form.getUserId());
 				e.setName(json.getString("name"));
-				e.setOrg_code(json.getString("org_code"));
+				e.setCode(json.getString("org_code"));
 				e.setCountry(json.getString("country"));
-				e.setAdress(json.getString("adress"));
+				e.setAddress(json.getString("adress"));
 				e.setZip_code(json.getString("zip_code"));
 				e.setUnit_url(json.getString("unit_url"));
 				e.setMajor_platform(json.getString("major_platform"));
@@ -275,9 +279,9 @@ public class LibService extends BaseService implements ILibService{
 				result = libCollegeMapper.insert(e);
 			}else {
 				e.setName(json.getString("name"));
-				e.setOrg_code(json.getString("org_code"));
+				e.setCode(json.getString("org_code"));
 				e.setCountry(json.getString("country"));
-				e.setAdress(json.getString("adress"));
+				e.setAddress(json.getString("adress"));
 				e.setZip_code(json.getString("zip_code"));
 				e.setUnit_url(json.getString("unit_url"));
 				e.setMajor_platform(json.getString("major_platform"));

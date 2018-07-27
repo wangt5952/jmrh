@@ -69,6 +69,11 @@ public class LoginController extends BaseController{
 		return voRes;
 	}
 	
+	@GetMapping("getRedisUser")
+	public Object getRedisUser(@RequestParam("userId") String id){
+		return sysUserService.getRedisUser(id);
+	}
+	
 	public static void main(String[] args) {
 		UUID uuid = UUID.randomUUID();
 		//对密码进行 md5 加密
