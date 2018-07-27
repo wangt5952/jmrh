@@ -7,6 +7,7 @@ import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,7 +33,15 @@ public class LoginController extends BaseController{
 		return voRes;
 	}
 	
-	@PostMapping("logout")
+	@PutMapping
+	public Object updateBusUser(@RequestBody BusUser user) {
+		VoResponse voRes = getVoResponse();
+		if(StringUtils.isEmpty(user.getId())) return voRes;
+		voRes.setData(sysUserService.updateUser(user));
+		return voRes;
+	}
+	
+	@GetMapping("logout")
 	public Object logout(){
 		VoResponse voRes = new VoResponse();
 		sysUserService.signOut();
@@ -57,6 +66,11 @@ public class LoginController extends BaseController{
 		if(StringUtils.isEmpty(user.getPassword())) {
 			voRes.setNull(voRes);
 			voRes.setMessage("密码不能为空");
+			return voRes;
+		}
+		if(user.getUserType() == 0) {
+			voRes.setNull(voRes);
+			voRes.setMessage("用户类型不能为空");
 			return voRes;
 		}
 		voRes = sysUserService.register(user);

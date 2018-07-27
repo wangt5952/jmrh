@@ -10,6 +10,7 @@ import com.bz.xtcx.manager.entity.BusUserForm;
 import com.bz.xtcx.manager.entity.LibCollege;
 import com.bz.xtcx.manager.entity.LibEnterprise;
 import com.bz.xtcx.manager.entity.LibExpert;
+import com.bz.xtcx.manager.entity.LibServices;
 import com.bz.xtcx.manager.entity.User;
 import com.bz.xtcx.manager.enums.UserTypeEnum;
 import com.bz.xtcx.manager.mapper.BusUserDetailMapper;
@@ -22,6 +23,9 @@ import com.bz.xtcx.manager.mapper.LibExpertMapper;
 import com.bz.xtcx.manager.mapper.LibServiceMapper;
 import com.bz.xtcx.manager.service.ILibService;
 import com.bz.xtcx.manager.vo.VoResponse;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 @Service
 public class LibService extends BaseService implements ILibService{
@@ -127,7 +131,7 @@ public class LibService extends BaseService implements ILibService{
 	}
 
 	@Override
-	public VoResponse addOrUpdateService(com.bz.xtcx.manager.entity.LibService e) {
+	public VoResponse addOrUpdateService(com.bz.xtcx.manager.entity.LibServices e) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -204,10 +208,10 @@ public class LibService extends BaseService implements ILibService{
 				libEnterpriseMapper.update(e);
 			}
 		}else if(form.getFormType() == UserTypeEnum.Service.key()) {
-			com.bz.xtcx.manager.entity.LibService e = null;
+			com.bz.xtcx.manager.entity.LibServices e = null;
 			e = libServiceMapper.findByUserId(form.getUserId());
 			if(e == null) {
-				e = new com.bz.xtcx.manager.entity.LibService();
+				e = new com.bz.xtcx.manager.entity.LibServices();
 				e.setUserId(form.getUserId());
 				e.setName(json.getString("name"));
 				e.setOrg_type(json.getString("org_type"));
@@ -308,5 +312,58 @@ public class LibService extends BaseService implements ILibService{
 			}
 		}
 		return voRes;
+	}
+
+	@Override
+	public PageInfo<LibExpert> getExpertPageByCondition(LibExpert lib, int pageNum, int pageSize, String orderBy) {
+		Page<LibExpert> page = PageHelper.startPage(pageNum, pageSize);
+		if(StringUtils.isEmpty(orderBy)) {
+			PageHelper.orderBy("create_time desc");
+		}else {
+			PageHelper.orderBy(orderBy);
+		}
+		libExpertMapper.findByCondition(lib);
+		PageInfo<LibExpert> info = new PageInfo<LibExpert>(page);
+		return info;
+	}
+
+	@Override
+	public PageInfo<LibCollege> getCollegePageByCondition(LibCollege lib, int pageNum, int pageSize, String orderBy) {
+		Page<LibCollege> page = PageHelper.startPage(pageNum, pageSize);
+		if(StringUtils.isEmpty(orderBy)) {
+			PageHelper.orderBy("create_time desc");
+		}else {
+			PageHelper.orderBy(orderBy);
+		}
+		libCollegeMapper.findByCondition(lib);
+		PageInfo<LibCollege> info = new PageInfo<LibCollege>(page);
+		return info;
+	}
+
+	@Override
+	public PageInfo<LibEnterprise> getEnterprisePageByCondition(LibEnterprise lib, int pageNum, int pageSize,
+			String orderBy) {
+		Page<LibEnterprise> page = PageHelper.startPage(pageNum, pageSize);
+		if(StringUtils.isEmpty(orderBy)) {
+			PageHelper.orderBy("create_time desc");
+		}else {
+			PageHelper.orderBy(orderBy);
+		}
+		libEnterpriseMapper.findByCondition(lib);
+		PageInfo<LibEnterprise> info = new PageInfo<LibEnterprise>(page);
+		return info;
+	}
+
+	@Override
+	public PageInfo<LibServices> getServicePageByCondition(LibServices lib, int pageNum, int pageSize, String orderBy) {
+		Page<LibServices> page = PageHelper.startPage(pageNum, pageSize);
+		if(StringUtils.isEmpty(orderBy)) {
+			PageHelper.orderBy("create_time desc");
+		}else {
+			PageHelper.orderBy(orderBy);
+		}
+		libServiceMapper.findByCondition(lib);
+		PageInfo<LibServices> info = new PageInfo<LibServices>(page);
+		return info;
 	}
 }

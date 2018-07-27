@@ -67,6 +67,17 @@ public class SysUserService extends BaseService implements ISysUserService {
 	}
 	
 	@Override
+	public int updateUser(BusUser user) {
+		User u = this.getUser();
+		BusUser old = busUserMapper.findById(u.getUserId());
+		old.setCellphone(user.getCellphone());
+		old.setUserName(user.getUserName());
+		int result = busUserMapper.update(old);
+		return result;
+	}
+
+	
+	@Override
 	public VoResponse register(BusUser user) {
 		VoResponse voRes = new VoResponse();
 		//检查邮箱是否已经注册
@@ -77,7 +88,8 @@ public class SysUserService extends BaseService implements ISysUserService {
 			return voRes;
 		}
 		UUID uuid = UUID.randomUUID();
-		String url = "http://localhost:8080/xtcx/user/activate?activateId=" + uuid.toString();
+		//String url = "http://localhost:8080/xtcx/user/activate?activateId=" + uuid.toString();
+		String url = "http://106.14.172.38:8990/jmrh/xtcx/user/activate?activateId=" + uuid.toString();
 		if(!emailService.sendRegisterEmail(user.getEmail(), url)) {
 			voRes.setFail(voRes);
 			voRes.setMessage("邮箱验证有误，请重新输入邮箱");
@@ -177,6 +189,11 @@ public class SysUserService extends BaseService implements ISysUserService {
 		}else {
 			BusUser user = busUserMapper.findByEmail(username);//邮箱
 			if(user != null && user.getPassword().equals(md5Password)) {
+				if(user.getCheckStatus() == 0) {
+					voRes.setFail(voRes);
+					voRes.setMessage("用户未激活");
+					return voRes;
+				}
 				HttpSession session = getSession();
 				User e = new User();
 				e.setUserId(user.getId());
@@ -386,5 +403,6 @@ public class SysUserService extends BaseService implements ISysUserService {
 		map.put("currUser", obj);
 		return map;
 	}
+
 	
 }

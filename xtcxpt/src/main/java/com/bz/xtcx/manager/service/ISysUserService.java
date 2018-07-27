@@ -11,6 +11,13 @@ import com.github.pagehelper.PageInfo;
 public interface ISysUserService extends IBaseService<SysUser>{
 	
 	public int updateUserStatus(SysUser user);
+	
+	/**
+	 * 更新用户资料
+	 * @param user
+	 * @return
+	 */
+	int updateUser(BusUser user);
 
 	public VoResponse register(BusUser user);
 	

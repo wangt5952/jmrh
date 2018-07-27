@@ -14,8 +14,7 @@ import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.mapping.StatementType;
 
 import com.bz.xtcx.manager.entity.LibCollege;
-import com.bz.xtcx.manager.entity.LibExpert;
-import com.bz.xtcx.manager.mapper.provider.LibExpertProvider;
+import com.bz.xtcx.manager.mapper.provider.LibCollegeProvider;
 
 public interface LibCollegeMapper {
 
@@ -52,7 +51,7 @@ public interface LibCollegeMapper {
 			+ " where user_id=#{id}")
 	int update(LibCollege e);
 	
-	@SelectProvider(type = LibExpertProvider.class, method = "findByCondition")
+	@SelectProvider(type = LibCollegeProvider.class, method = "findByCondition")
 	@Results(
 		id = "libCollege",
 		value = {
@@ -73,7 +72,7 @@ public interface LibCollegeMapper {
 		    @Result(property = "updateTime", column = "update_time")
 	    }
 	)
-    List<LibCollege> findByCondition(LibExpert e);
+    List<LibCollege> findByCondition(LibCollege e);
 	
 	@Select("select * from `bus_user_college` where user_id = #{userId}")
 	@ResultMap("libCollege")
