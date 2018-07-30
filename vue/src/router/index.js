@@ -44,6 +44,13 @@ export const constantRouterMap = [{
     hidden: true
   },
   {
+    path: '/xtcx/user/activate',
+    component: _import('activate/index'),
+    name: 'resetPaw',
+    leaf: true,
+    hidden: true
+  },
+  {
     path: '/index',
     component: Layout,
     name: '完善信息',
@@ -56,6 +63,10 @@ export const constantRouterMap = [{
     children: [{
       path: 'userDetail',
       component: _import('userDetail/index'),
+      leaf: true,
+    },{
+      path: 'userBaseDetail',
+      component: _import('userBaseDetail/index'),
       leaf: true,
     }]
   },
@@ -81,9 +92,9 @@ export const constantRouterMap = [{
     path: '/index',
     leaf: false,
     component: Layout,
-    name: '我的工作台',
+    name: '我的待办',
     meta: {
-      title: '我的工作台',
+      title: '我的待办',
       icon: 'dashboard'
     },
     children: [{
@@ -301,7 +312,7 @@ export const constantRouterMap = [{
 
 
 export default new Router({
-  mode: 'history', //后端支持可开
+  // mode: 'history', //后端支持可开
   // scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap
 })

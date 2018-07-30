@@ -97,7 +97,7 @@
 
 <script>
 import {
-  menuEdit,
+  getUserMenus,
   addCreate,
   saveEdit,
   delMenu
@@ -143,10 +143,12 @@ export default {
 
   methods: {
     async loadTree() {
-      let data = await menuEdit()
-      this.treeData = data.data
-      this.dialogFormVisible = false
-      this.loading = false
+      let {data,success} = await getUserMenus()
+      if(success){
+        this.treeData = data
+        this.dialogFormVisible = false
+        this.loading = false
+      }
     },
     handleNodeClick(val) {
       this.dialogFormVisible = true
@@ -233,7 +235,8 @@ export default {
 
     },
     async subSaveCreate() {
-      if (!this.validata.validaTree(this.obj)) return
+      // if (!this.validata.validaTree(this.obj)) return
+      debugger
       let obj = this.obj
       obj.method = 'put'
       let data = await saveEdit(obj)

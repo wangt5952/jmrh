@@ -19,18 +19,12 @@ export function addRole(data) {
 }
 export function saveRoleMenus(data) {
   return request({
-    url: '/mdm/role/addRoleMenus',
+    url: '/xtcx/sysManager/role',
     method: 'post',
     data
   });
 }
-export function saveRole(data) {
-  return request({
-    url: '/mdm/role',
-    method: 'put',
-    data
-  });
-}
+
 export function getRoleId(id) {//用户详情
   return request({
     url: '/mdm/role?id='+id,

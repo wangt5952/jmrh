@@ -4,7 +4,7 @@ var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
 var webpack = require('webpack');
 
-function resolve (dir) {
+function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
@@ -15,9 +15,8 @@ module.exports = {
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production'
-      ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
+    publicPath: process.env.NODE_ENV === 'production' ?
+      config.build.assetsPublicPath : config.dev.assetsPublicPath
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
@@ -25,33 +24,18 @@ module.exports = {
       'vue$': 'vue/dist/vue.esm.js',
       'jquery': 'jquery',
       '@': resolve('src'),
-      // 'jsBezier':  path.resolve(__dirname, '../src/vendor/jsBezier-0.7.js'),
-      // 'mottle':  path.resolve(__dirname, '../src/vendor/mottle-0.7.1.js'),
-      // 'biltong':  path.resolve(__dirname, '../src/vendor/biltong-0.2.js'),
-      // 'katavorio':  path.resolve(__dirname, '../src/vendor/katavorio-0.13.0.js'),
-      // 'util':  path.resolve(__dirname, '../src/vendor/util.js'),
-      // 'browser':  path.resolve(__dirname, '../src/vendor/browser-util.js'),
-      // 'domAdapter':  path.resolve(__dirname, '../src/vendor/dom-adapter.js'),
-      // 'overlay':  path.resolve(__dirname, '../src/vendor/overlay-component.js'),
-      // 'endpoint':  path.resolve(__dirname, '../src/vendor/endpoint.js'),
-      // 'connection':  path.resolve(__dirname, '../src/vendor/connection.js'),
-      // 'anchors':  path.resolve(__dirname, '../src/vendor/anchors.js'),
-      // 'defaults':  path.resolve(__dirname, '../src/vendor/defaults.js'),
-      // 'connectorsBezier':  path.resolve(__dirname, '../src/vendor/connectors-bezier.js'),
-      // 'connectorsStatemachine':  path.resolve(__dirname, '../src/vendor/connectors-statemachine.js'),
-      // 'connectorsFlowchart':  path.resolve(__dirname, '../src/vendor/connectors-flowchart.js'),
-      // 'renderersSvg':  path.resolve(__dirname, '../src/vendor/renderers-svg.js'),
-      // 'base':  path.resolve(__dirname, '../src/vendor/base-library-adapter.js'),
-      // 'domjsPlumb':  path.resolve(__dirname, '../src/vendor/dom.jsPlumb.js'),
-      // 'demo':  path.resolve(__dirname, '../src/vendor/demo.js'),
+      'table2excel': 'jquery-table2excel/dist/jquery.table2excel.min.js',
+      'printArea': path.resolve(__dirname, '../src/components/PrintArea/jquery.PrintArea.js'),
     }
   },
   // 增加一个plugins
   plugins: [
-     new webpack.ProvidePlugin({
-         $: "jquery",
-         jQuery: "jquery",
-     })
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+      table2excel: "table2excel",
+      printArea: "printArea"
+    })
   ],
   module: {
     rules: [

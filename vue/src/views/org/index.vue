@@ -1,7 +1,7 @@
 <template>
 <div class="tab-container">
   <!-- <el-input placeholder="Filter keyword" v-model="filterText" style="margin-bottom:30px;"></el-input> -->
-  <el-button style="margin-left: 10px;" @click="addCreatefsub" type="primary" icon="el-icon-edit">添加组织</el-button>
+  <!-- <el-button style="margin-left: 10px;" @click="addCreatefsub" type="primary" icon="el-icon-edit">添加组织</el-button> -->
 
   <el-tree v-loading="loading" style=" padding: 50px;" class="filter-tree" :data="treeData" :props="defaultProps" @node-click="handleNodeClick" :expand-on-click-node="false" default-expand-all ref="tree2"></el-tree>
 
@@ -16,17 +16,6 @@
           <el-input v-model="obj.label" placeholder="请输入内容" style="width:80%"></el-input>
         </el-form-item>
 
-        <el-form-item label="路径">
-          <el-input v-model="obj.menuUrl" placeholder="请输入内容" style="width:80%"></el-input>
-        </el-form-item>
-
-        <el-form-item label="图标">
-          <el-input v-model="obj.icon" placeholder="请输入内容" style="width:80%"></el-input>
-        </el-form-item>
-
-        <el-form-item label="排序">
-          <el-input v-model="obj.sortOrder" placeholder="请输入内容" style="width:80%"></el-input>
-        </el-form-item>
         <el-form-item label="备注">
           <el-input v-model="obj.remark" placeholder="请输入内容" style="width:80%"></el-input>
         </el-form-item>
@@ -52,27 +41,6 @@
             <el-input v-if='obj.label != "主数据管理"' v-model="obj.label" placeholder="请输入内容" style="width:80%"></el-input>
           </el-form-item>
 
-          <el-form-item label="路径">
-            <el-input v-model="obj.menuUrl" placeholder="请输入内容" style="width:80%"></el-input>
-          </el-form-item>
-
-
-          <el-form-item label="按钮">
-            <el-select style="width:120px" v-model="obj.level" placeholder="请选择">
-              <el-option label="是" key="1000" value='1000'>
-              </el-option>
-              <el-option label="否" key="0" value='0'>
-              </el-option>
-            </el-select>
-          </el-form-item>
-
-          <el-form-item label="图标">
-            <el-input v-model="obj.icon" placeholder="请输入内容" style="width:80%"></el-input>
-          </el-form-item>
-
-          <el-form-item label="排序">
-            <el-input v-model="obj.sortOrder" placeholder="请输入内容" style="width:80%"></el-input>
-          </el-form-item>
           <el-form-item label="备注">
             <el-input v-model="obj.remark" placeholder="请输入内容" style="width:80%"></el-input>
           </el-form-item>
@@ -97,11 +65,11 @@
 
 <script>
 import {
-  menuEdit,
+  getOrgMenus,
   addCreate,
   saveEdit,
-  delMenu
-} from '@/api/menu'
+  delOrg
+} from '@/api/org'
 
 export default {
   data() {
@@ -143,10 +111,12 @@ export default {
 
   methods: {
     async loadTree() {
-      let data = await menuEdit()
-      this.treeData = data.data[0].children
-      this.dialogFormVisible = false
-      this.loading = false
+      let {data,success} = await getOrgMenus()
+      if(success){
+        this.treeData = data
+        this.dialogFormVisible = false
+        this.loading = false
+      }
     },
     handleNodeClick(val) {
       this.dialogFormVisible = true
@@ -194,7 +164,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(async () => {
-        let del = await delMenu(this.treeTemp.id)
+        let del = await delOrg(this.treeTemp.id)
         this.loadTree()
         this.$message({
           type: 'success',
@@ -210,13 +180,14 @@ export default {
 
     },
     async subAddCreate() {
-      if (!this.validata.validaTree(this.obj)) return
+      // if (!this.validata.validaTree(this.obj)) return
       let obj = this.obj
       if (this.treeTemp.id) {
         obj.parentId = this.treeTemp.id
       }
       obj.method = 'post'
       let data = await addCreate(obj)
+      debugger
       if (this.treeTemp.id) {
         this.treeTemp.children.push(this.obj)
         this.dialogEditVisible = false
@@ -232,7 +203,8 @@ export default {
 
     },
     async subSaveCreate() {
-      if (!this.validata.validaTree(this.obj)) return
+      // if (!this.validata.validaTree(this.obj)) return
+      debugger
       let obj = this.obj
       obj.method = 'put'
       let data = await saveEdit(obj)

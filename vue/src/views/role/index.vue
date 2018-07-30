@@ -132,18 +132,17 @@
 import {
   getAllrole,
   addRole,
-  saveRole,
   delRole,
   dataPermissionAll,
   dataTreeAll,
-  saveRoleMenus,
   getRoleId
 } from '@/api/role'
 
 import {
+  getUserMenus,
   saveEdit,
-  loadmenu1
 } from '@/api/menu'
+
 export default {
   data() {
     return {
@@ -198,7 +197,7 @@ export default {
   computed: {},
   methods: {
     async loadTree() {
-      let data = await loadmenu1()
+      let data = await getUserMenus()
 
       this.treeData = data.data
       this.dialogFormVisible = false
@@ -224,9 +223,8 @@ export default {
       }
 
     },
-    async loadgetRoleId() {
-      let getRoleIddata = await getRoleId(this.obj.id)
-      getRoleIddata = getRoleIddata.data.menus
+    async loadgetRoleId(data) {
+      let getRoleIddata = data
       let arr = [];
       for (let i = 0; i < getRoleIddata.length; i++) {
         arr.push(getRoleIddata[i].id)
@@ -265,7 +263,7 @@ export default {
 
       let arr =[]
       obj.method = 'put'
-      let data = await saveRole(obj)
+      let data = await addRole(obj)
 
       if (data.code === 10000) {
         this.$message({
@@ -282,7 +280,7 @@ export default {
 
     },
 
-    async subSaveCreate() {
+    async subSaveCreate() {//菜单保存
       let obj = this.obj
       obj.method = 'put'
       obj.menus = this.$refs.tree.getCheckedNodes()
@@ -296,12 +294,13 @@ export default {
     },
 
     async handleShow(data, type) {
+
       if (type === 'menu') {
         this.obj = data
         this.dialogStatus = 'menu'
         this.dialogShowMenu = true
         this.loadTree()
-        this.loadgetRoleId()
+        this.loadgetRoleId(data.menus)
 
       } else if (type === 'data') {
         this.obj = data

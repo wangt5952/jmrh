@@ -19,9 +19,31 @@ export function login(data) {
 
 export function getUserDetail(activateId) {
   return request({
-    url: '/xtcx/user/getUserDetail?userId=f2ef9bf2-8fce-11e8-8493-80ce62501f15',
+    url: '/xtcx/lib/getUserDetail?isDraft=false',
     method: 'get'
   })
+}
+
+export function setUserDetail(data) {
+  return request({
+    url: '/xtcx/lib/setUserDetail?isDraft=false',
+    method: 'post',
+    data
+  });
+}
+export function getBaseUserDetail() {
+  return request({
+    url: '/xtcx/user',
+    method: 'get'
+  })
+}
+
+export function setBaseUserDetail(data) {
+  return request({
+    url: '/xtcx/user',
+    method: 'put',
+    data
+  });
 }
 
 export function getActivate(activateId) {
@@ -30,6 +52,11 @@ export function getActivate(activateId) {
     method: 'get'
   })
 }
+
+
+
+
+
 export function getInfo(token) {
   return request({
     url: '/user/info',

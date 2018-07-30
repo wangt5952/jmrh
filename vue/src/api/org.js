@@ -3,9 +3,9 @@ import request from '@/utils/request'
 
 
 
-export function getUserMenus(data) {
+export function getOrgMenus(data) {
   return request({
-    url: '/xtcx/sysManager/menu/tree',
+    url: '/xtcx/sysManager/org/tree',
     method: 'get',
     data
   });
@@ -13,21 +13,21 @@ export function getUserMenus(data) {
 
 export function addCreate(data) {
   return request({
-    url: '/xtcx/sysManager/menu',
+    url: '/xtcx/sysManager/org',
     method: 'post',
     data
   });
 }
 export function saveEdit(data) {
   return request({
-    url: '/xtcx/sysManager/menu',
+    url: '/xtcx/sysManager/org',
     method: 'post',
     data
   });
 }
-export function delMenu(id) {
+export function delOrg(id) {
   return request({
-    url: '/xtcx/sysManager/menu?id='+id,
+    url: '/xtcx/sysManager/org?id='+id,
     method: 'delete',
 
   });
