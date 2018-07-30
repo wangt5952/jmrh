@@ -249,8 +249,7 @@
     </el-tabs>
     <el-row>
       <div style="padding-left: 35%;margin: 40px 0  0  0;">
-        <el-button type="primary" style="width: 120px;" @click="saveFile(expert)">完善并保存</el-button>
-        <el-button type="primary" style="width: 120px;">不完善并保存</el-button>
+        <el-button type="primary" style="width: 120px;" @click="saveFile(expert)">保存</el-button>
       </div>
     </el-row>
   </div>
@@ -656,8 +655,7 @@
 
     <el-row>
       <div style="padding-left: 35%;margin: 40px 0  0  0;">
-        <el-button type="primary" style="width: 120px;" @click="saveFile(com)">完善并保存</el-button>
-        <el-button type="primary" style="width: 120px;">不完善并保存</el-button>
+        <el-button type="primary" style="width: 120px;" @click="saveFile(com)">保存</el-button>
       </div>
     </el-row>
 
@@ -965,8 +963,7 @@
     </el-tabs>
     <el-row>
       <div style="padding-left: 35%;margin: 40px 0  0  0;">
-        <el-button type="primary" style="width: 120px;" @click="saveFile(mech)">完善并保存</el-button>
-        <el-button type="primary" style="width: 120px;">不完善并保存</el-button>
+        <el-button type="primary" style="width: 120px;" @click="saveFile(mech)">保存</el-button>
       </div>
     </el-row>
   </div>
@@ -1051,8 +1048,7 @@
     </el-tabs>
     <el-row>
       <div style="padding-left: 35%;margin: 40px 0  0  0;">
-        <el-button type="primary" style="width: 120px;" @click="saveFile(school)">完善并保存</el-button>
-        <el-button type="primary" style="width: 120px;">不完善并保存</el-button>
+        <el-button type="primary" style="width: 120px;" @click="saveFile(school)">保存</el-button>
       </div>
     </el-row>
   </div>

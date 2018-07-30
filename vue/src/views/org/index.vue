@@ -1,7 +1,7 @@
 <template>
 <div class="tab-container">
   <!-- <el-input placeholder="Filter keyword" v-model="filterText" style="margin-bottom:30px;"></el-input> -->
-  <el-button style="margin-left: 10px;" @click="addCreatefsub" type="primary" icon="el-icon-edit">添加组织</el-button>
+  <!-- <el-button style="margin-left: 10px;" @click="addCreatefsub" type="primary" icon="el-icon-edit">添加组织</el-button> -->
 
   <el-tree v-loading="loading" style=" padding: 50px;" class="filter-tree" :data="treeData" :props="defaultProps" @node-click="handleNodeClick" :expand-on-click-node="false" default-expand-all ref="tree2"></el-tree>
 
@@ -16,17 +16,6 @@
           <el-input v-model="obj.label" placeholder="请输入内容" style="width:80%"></el-input>
         </el-form-item>
 
-        <el-form-item label="路径">
-          <el-input v-model="obj.menuUrl" placeholder="请输入内容" style="width:80%"></el-input>
-        </el-form-item>
-
-        <el-form-item label="图标">
-          <el-input v-model="obj.icon" placeholder="请输入内容" style="width:80%"></el-input>
-        </el-form-item>
-
-        <el-form-item label="排序">
-          <el-input v-model="obj.sortOrder" placeholder="请输入内容" style="width:80%"></el-input>
-        </el-form-item>
         <el-form-item label="备注">
           <el-input v-model="obj.remark" placeholder="请输入内容" style="width:80%"></el-input>
         </el-form-item>
@@ -52,27 +41,6 @@
             <el-input v-if='obj.label != "主数据管理"' v-model="obj.label" placeholder="请输入内容" style="width:80%"></el-input>
           </el-form-item>
 
-          <el-form-item label="路径">
-            <el-input v-model="obj.menuUrl" placeholder="请输入内容" style="width:80%"></el-input>
-          </el-form-item>
-
-
-          <el-form-item label="按钮">
-            <el-select style="width:120px" v-model="obj.level" placeholder="请选择">
-              <el-option label="是" key="1000" value='1000'>
-              </el-option>
-              <el-option label="否" key="0" value='0'>
-              </el-option>
-            </el-select>
-          </el-form-item>
-
-          <el-form-item label="图标">
-            <el-input v-model="obj.icon" placeholder="请输入内容" style="width:80%"></el-input>
-          </el-form-item>
-
-          <el-form-item label="排序">
-            <el-input v-model="obj.sortOrder" placeholder="请输入内容" style="width:80%"></el-input>
-          </el-form-item>
           <el-form-item label="备注">
             <el-input v-model="obj.remark" placeholder="请输入内容" style="width:80%"></el-input>
           </el-form-item>

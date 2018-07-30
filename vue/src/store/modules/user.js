@@ -14,7 +14,7 @@ const user = {
     token: getToken(),
     name: '',
     avatar: '',
-    roles: [],
+    roles: '',
     message: ''
   },
 
@@ -49,6 +49,7 @@ const user = {
             setToken(data.token)
             commit('SET_TOKEN', data.token)
             commit('SET_NAME', data.userName)
+            commit('SET_ROLES', data.userType)
             window.sessionStorage.setItem('userName', data.userName)
             window.sessionStorage.setItem('userId', data.userId)
             window.sessionStorage.setItem('userType', data.userType)

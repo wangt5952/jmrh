@@ -44,6 +44,13 @@ export const constantRouterMap = [{
     hidden: true
   },
   {
+    path: '/xtcx/user/activate',
+    component: _import('activate/index'),
+    name: 'resetPaw',
+    leaf: true,
+    hidden: true
+  },
+  {
     path: '/index',
     component: Layout,
     name: '完善信息',
@@ -85,9 +92,9 @@ export const constantRouterMap = [{
     path: '/index',
     leaf: false,
     component: Layout,
-    name: '我的工作台',
+    name: '我的待办',
     meta: {
-      title: '我的工作台',
+      title: '我的待办',
       icon: 'dashboard'
     },
     children: [{

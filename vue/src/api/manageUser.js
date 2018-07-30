@@ -1,5 +1,12 @@
 import request from '@/utils/request'
 
+export function activate(data) {
+  return request({
+    url: '/xtcx/user/activate?activateId=?'+data,
+    method: 'get',
+    data
+  });
+}
 
 export function getUser(data) {
   return request({

@@ -186,10 +186,6 @@
 <script>
 import {
   getUser,
-  addUser,
-  saveUser,
-  delUser,
-  getUserId
 } from '@/api/user'
 
 import {

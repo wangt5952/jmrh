@@ -30,3 +30,18 @@ export function getservices(data) {
     data
   });
 }
+export function addLib(data) {
+  return request({
+    url: '/xtcx/lib/addLib',
+    method: 'post',
+    data
+  });
+}
+
+export function isInLibs(data) {
+  return request({
+    url: 'xtcx/lib/isInLibs',
+    method: 'post',
+    data
+  });
+}

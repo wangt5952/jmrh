@@ -10,9 +10,7 @@
   </div>
 
   <el-table v-loading="loading" class="tableH" :data="list" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
-      <el-table-column
-      type="index"
-      width="50" align="center" label="ID">
+    <el-table-column type="index" width="50" align="center" label="ID">
     </el-table-column>
     <el-table-column align="center" label="名称(单位)">
       <template slot-scope="scope">
@@ -33,10 +31,19 @@
 
     <el-table-column align="center" label="用户类别">
       <template slot-scope="scope">
-                    <span>
-                        {{ scope.row.userType}}</span>
+                    <span v-if="scope.row.userType =='1'">
+                        个人/专家</span>
+                  <span v-if="scope.row.userType =='2'">
+                          企业</span>
+                    <span v-if="scope.row.userType =='3'">
+                      服务机构  </span>
+                      <span v-if="scope.row.userType =='4'">
+                    高校院校</span>
+                    <span v-if="scope.row.userType =='5'">
+                    军方</span>
                 </template>
     </el-table-column>
+
     <el-table-column align="center" label="邮箱">
       <template slot-scope="scope">
                     <span>
@@ -49,14 +56,22 @@
                         {{ scope.row.idNumber}}</span>
                 </template>
     </el-table-column>
-    <!-- <el-table-column align="center" label="操作">
+
+
+    <el-table-column align="center" label="用户状态">
+      <template slot-scope="scope">
+        <span v-if="scope.row.status =='1'">开启</span>
+        <span v-if="scope.row.status =='2'">关闭</span>
+                    </template>
+    </el-table-column>
+   <el-table-column v-if="userType =='0'" align="center" label="操作">
       <template slot-scope="scope">
                     <div style="margin:2% 2% 2% 2%">
-                        <el-button size="small" @click="handleEdit(scope.row,'edit')" type=""  class="el-icon-edit colorblue borderblue"></el-button>
-                        <el-button size="small" @click="handleEdit(scope.row,'del')"  type=""  class="el-icon-delete colorred borderred"></el-button>
+                        <el-button size="small" v-if="scope.row.status =='2'" @click="handleEdit('1')" type="" style="border-radius: 5px;">开启</el-button>
+                        <el-button size="small" v-if="scope.row.status =='1'" @click="handleEdit('2')" type="" style="background: #f44;color: #fff;border-radius: 5px;">禁用</el-button>
                     </div>
                 </template>
-    </el-table-column> -->
+    </el-table-column>
 
   </el-table>
 
@@ -111,10 +126,6 @@
 <script>
 import {
   getUser,
-  addUser,
-  saveUser,
-  delUser,
-  getUserId
 } from '@/api/user'
 
 import {
@@ -170,12 +181,14 @@ export default {
         value: 'coo'
       }],
       treeData: [],
-      loading: true
+      loading: true,
+        userType:'',
     }
   },
   async mounted() {
     this.listLoading = false
     this.loadPageList()
+    this.userType =  window.sessionStorage.getItem('userType')
 
   },
   computed: {},
@@ -186,8 +199,11 @@ export default {
       } else {
         this.listQuery.email = ''
       }
-      let {data,success} = await getUser(this.listQuery)
-      if(success){
+      let {
+        data,
+        success
+      } = await getUser(this.listQuery)
+      if (success) {
         this.list = data.list
         this.loading = false
       }
@@ -320,35 +336,12 @@ export default {
     // }
     async handleEdit(data, type) {
 
-
-      if (type === 'edit') {
-        this.obj = data
-        this.selected = data.roles
-        this.dialogStatus = 'update'
-        this.dialogsave = true
-        this.dialogadd = false
-        this.dialogFormVisible = true
-        this.loadoptions()
-      } else if (type === 'del') {
-        this.$confirm('此操作将删除该记录, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(async () => {
-          let del = await delUser(data.id)
-          this.list.splice(this.list.indexOf(data), 1)
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          });
-          // this.splice(data.id, 1);
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          });
-        });
-      }
+      // let del = await delUser(data.id)
+      // this.list.splice(this.list.indexOf(data), 1)
+      // this.$message({
+      //   type: 'success',
+      //   message: '删除成功!'
+      // });
     },
     onDate1Change(val) {
       this.obj.loanDate = val

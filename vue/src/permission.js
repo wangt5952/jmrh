@@ -20,7 +20,7 @@ import MenuUtils from '@/views/MenuUtils'
 //   window.sessionStorage.removeItem('isLoadNodes')
 // }
 
-const whiteList = ['/login','/register','/registerDetail','/resetPaw'] // 不重定向白名单
+const whiteList = ['/login','/register','/registerDetail','/resetPaw','/xtcx/user/activate'] // 不重定向白名单
 router.beforeEach((route, redirect, next) => {
   let data = JSON.parse(window.sessionStorage.getItem('user'))
 

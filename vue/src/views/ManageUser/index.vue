@@ -4,7 +4,7 @@
     <div class="paddingb textl paddingr">
       <el-input v-model="input" placeholder="请输入内容" style="width: 15%;"></el-input>
       <el-button style="margin-left:20px" @click="loadPageList" type="primary" icon="el-icon-search"></el-button>
-      <el-button style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">添加管理员</el-button>
+      <el-button v-if="userType =='0'" style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">添加管理员</el-button>
 
     </div>
   </div>
@@ -24,6 +24,12 @@
                     <span>{{ scope.row.userName }}</span>
                 </template>
     </el-table-column>
+    <el-table-column align="center" label="邮箱">
+      <template slot-scope="scope">
+                    <span>
+                        {{ scope.row.email}}</span>
+                </template>
+    </el-table-column>
     <el-table-column align="center" label="手机号">
       <template slot-scope="scope">
                     <span>
@@ -31,19 +37,36 @@
                 </template>
     </el-table-column>
 
-    <!-- <el-table-column align="center" label="所属组织机构">
+    <el-table-column align="center" label="所属组织机构">
       <template slot-scope="scope">
                     <span>
-                        {{ scope.row.org.label }} - {{ scope.row.org.remark }} - {{ scope.row.org.children[0].label }}  - {{ scope.row.org.children[0].remark }}</span>
+                      <!-- {{ scope.row.org.label }} -->
+                        {{ scope.row.org.label }} - {{ scope.row.org.remark }} - {{ scope.row.org.children[0].label }}  - {{ scope.row.org.children[0].remark }}
+                        </span>
                 </template>
-    </el-table-column> -->
-        <el-table-column align="center" label="所属角色">
-          <template slot-scope="scope">
+    </el-table-column>
+    <el-table-column align="center" label="所属角色">
+      <template slot-scope="scope">
                         <span>
                             {{ scope.row.roles[0].roleName}}</span>
                     </template>
-        </el-table-column>
-    <el-table-column align="center" label="操作">
+    </el-table-column>
+    <el-table-column align="center" label="用户状态">
+      <template slot-scope="scope">
+            <span v-if="scope.row.status =='1'">开启</span>
+            <span v-if="scope.row.status =='2'">关闭</span>
+                        </template>
+    </el-table-column>
+    <el-table-column v-if="userType =='0'" align="center" label="">
+      <template slot-scope="scope">
+                        <div style="margin:2% 2% 2% 2%">
+                            <el-button size="small" v-if="scope.row.status =='2'" @click="handleEdit('1')" type="" style="border-radius: 5px;">开启</el-button>
+                            <el-button size="small" v-if="scope.row.status =='1'" @click="handleEdit('2')" type="" style="background: #f44;color: #fff;border-radius: 5px;">禁用</el-button>
+                        </div>
+                    </template>
+    </el-table-column>
+
+    <el-table-column v-if="userType =='0'" align="center" label="操作">
       <template slot-scope="scope">
                     <div style="margin:2% 2% 2% 2%">
                         <el-button size="small" @click="handleEdit(scope.row,'edit')" type=""  class="el-icon-edit colorblue borderblue"></el-button>
@@ -99,17 +122,23 @@
         <el-form-item label="用户名">
           <el-input v-model="obj.userName" placeholder="请输入内容" style="width:80%"></el-input>
         </el-form-item>
-        <el-form-item label="全名">
+        <!-- <el-form-item label="全名">
           <el-input v-model="obj.fullName" placeholder="请输入内容" style="width:80%"></el-input>
+        </el-form-item> -->
+        <el-form-item label="手机号">
+          <el-input v-model="obj.cellphone" placeholder="请输入内容" style="width:80%"></el-input>
+        </el-form-item>
+        <el-form-item label="邮件">
+          <el-input v-model="obj.email" placeholder="请输入内容" style="width:80%"></el-input>
         </el-form-item>
         <el-form-item label="密码">
-          <el-input v-model="obj.userPassword" placeholder="请输入内容" style="width:80%"></el-input>
+          <el-input type="password" v-model="obj.password" placeholder="请输入内容" style="width:80%"></el-input>
         </el-form-item>
         <el-form-item label="角色">
           <v-select multiple v-model="selected" :options="options" style="width:80%"></v-select>
         </el-form-item>
-        <el-form-item label="部门">
-          <el-select v-model="obj.org" placeholder="请选择" style="width:80%">
+        <el-form-item label="组织架构">
+          <el-select v-model="obj.orgId" placeholder="请选择" style="width:80%">
             <el-option-group v-for="group in treeData" :key="group.label" :label="group.label">
               <el-option v-for="item in group.children" :key="item.id" :label="item.label" :value="item.id">
               </el-option>
@@ -147,6 +176,7 @@ import {
 export default {
   data() {
     return {
+      userType:'',
       input: '',
       bank: '1',
       list: [],
@@ -198,7 +228,7 @@ export default {
   async mounted() {
     this.listLoading = false
     this.loadPageList()
-
+    this.userType =  window.sessionStorage.getItem('userType')
   },
   computed: {},
   methods: {
@@ -208,8 +238,11 @@ export default {
       } else {
         this.listQuery.objName = ''
       }
-      let {data,success} = await getUser(this.listQuery)
-      if(success){
+      let {
+        data,
+        success
+      } = await getUser(this.listQuery)
+      if (success) {
         this.list = data.list
         this.loading = false
       }
@@ -237,14 +270,16 @@ export default {
         fullName: '',
         department: '',
       }
-      this.selected =[]
+      this.selected = []
       this.loadoptions()
     },
     async loadoptions() {
-      let obj ={}
+      let obj = {}
       obj.page = 1
       obj.limit = 100
-      let {data} = await getAllrole(obj)
+      let {
+        data
+      } = await getAllrole(obj)
       let arr = []
       let getAlldata = data.list
 
@@ -271,8 +306,11 @@ export default {
     //
     // },
     async loadgetdep() {
-      let {data,success} = await getOrgMenus()
-      if(success){
+      let {
+        data,
+        success
+      } = await getOrgMenus()
+      if (success) {
         this.treeData = data
       }
     },
@@ -326,6 +364,7 @@ export default {
           type: 'success'
         });
         this.dialogFormVisible = false
+        this.loadPageList()
       } else {
         this.$message({
           message: data.message,
@@ -357,6 +396,7 @@ export default {
       }
     },
     async handleEdit(data, type) {
+      debugger
       if (type === 'edit') {
         this.obj = data
 

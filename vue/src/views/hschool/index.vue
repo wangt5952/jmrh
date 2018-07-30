@@ -4,19 +4,14 @@
     <div class="paddingb textl paddingr">
       <el-input v-model="input" placeholder="请输入内容" style="width: 15%;"></el-input>
       <el-button style="margin-left:20px" @click="loadPageList" type="primary" icon="el-icon-search"></el-button>
-
+      <el-button v-if="userType =='0'" style="margin-left: 10px;" @click="handleEdit" type="primary" icon="el-icon-edit">添加高校</el-button>
     </div>
   </div>
 
 
   <el-table v-loading="loading" class="tableH" :data="list" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
-    <el-table-column type="index" align="center" label="序号">
+    <el-table-column type="index" align="center" label="ID">
 
-    </el-table-column>
-    <el-table-column align="center" label="ID">
-      <template slot-scope="scope">
-                    <span>{{ scope.row.userName }}</span>
-                </template>
     </el-table-column>
     <el-table-column align="center" label="高校院所名">
       <template slot-scope="scope">
@@ -53,7 +48,15 @@
                             {{ scope.row.dpartmentId}}</span>
                     </template>
     </el-table-column>
-    <el-table-column align="center" label="操作">
+    <el-table-column align="center" label="">
+      <template slot-scope="scope">
+
+                      <div style="margin:2% 2% 2% 2%">
+                          <el-button size="small" @click="showDetail(scope.row,'edit')" type=""  class="el-icon-edit colorblue borderblue">查看详情</el-button>
+                      </div>
+                    </template>
+    </el-table-column>
+    <el-table-column v-if="userType =='0'" align="center" label="操作">
       <template slot-scope="scope">
                     <div style="margin:2% 2% 2% 2%">
                         <el-button size="small" @click="handleEdit(scope.row,'edit')" type=""  class="el-icon-edit colorblue borderblue"></el-button>
@@ -68,64 +71,148 @@
     <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-sizes="[10,20,30, 50]" :page-size="listQuery.limit" layout="total, sizes, prev, pager, next, jumper" :total="total"></el-pagination>
   </div>
 
-  <!-- <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogShowDep" width="30%" top='5%'>
-    <el-tree :data="treeData" show-checkbox default-expand-all node-key="id" ref="tree" highlight-current :props="defaultProps">
-    </el-tree>
+
+  <el-dialog title="高校院所详情" :visible.sync="dialogShowDep" width="60%" top='5%'>
+    <div class="textr paddinga">
+      <el-button class="filter-item" type="primary" icon="el-icon-download" @click="handlePrint">打印</el-button>
+
+      <el-button class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">导出</el-button>
+    </div>
+
+    <div id="tablePrint" class="textc" style="font-size:12px;height:100%;">
+      <table id="tableExcel" cellpadding=0 cellspacing=0 border="1px solid#000;" style='margin:0%;width:100%'>
+        <tr height=27>
+          <td colspan=4 id='tc0' height=27 class=x21>军民科技协同创新高校院所信息表</td>
+        </tr>
+        <tr height=19 id='r1'>
+          <td height=19 class=x22 style='height:14.25pt;'>名称</td>
+          <td colspan=3 id='tc1' class=x23 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'></td>
+        </tr>
+        <tr height=19 id='r2'>
+          <td height=19 class=x24 style='height:14.25pt;overflow:hidden;'>统一社会信用代码</td>
+          <td colspan=3 id='tc2' class=x23 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'></td>
+        </tr>
+        <tr height=19 id='r3'>
+          <td height=19 class=x22 style='height:14.25pt;'>所在地区</td>
+          <td colspan=3 id='tc3' class=x28 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;overflow:hidden;'><span style='mso-spacerun:yes'>&nbsp; </span>省<span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>市<span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>区（县）（下拉选择）</td>
+        </tr>
+        <tr height=19 id='r4'>
+          <td height=19 class=x22 style='height:14.25pt;'>通信地址</td>
+          <td class=x28></td>
+          <td class=x29>邮编</td>
+          <td class=x29></td>
+        </tr>
+        <tr height=19 id='r5'>
+          <td height=19 class=x22 style='height:14.25pt;'>单位网址</td>
+          <td colspan=3 id='tc4' class=x23 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'></td>
+        </tr>
+        <tr height=19 id='r6'>
+          <td height=19 class=x22 style='height:14.25pt;'>单位简介</td>
+          <td colspan=3 id='tc5' class=x23 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'></td>
+        </tr>
+        <tr height=19 id='r7'>
+          <td height=19 class=x22 style='height:14.25pt;'>重大平台</td>
+          <td colspan=3 id='tc6' class=x23 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'></td>
+        </tr>
+        <tr height=0 style='display:none'>
+          <td width=72 style='width:54pt'></td>
+          <td width=72 style='width:54pt'></td>
+          <td width=72 style='width:54pt'></td>
+          <td width=72 style='width:54pt'></td>
+        </tr>
+      </table>
+
+    </div>
+
     <span slot="footer" class="dialog-footer">
-      <el-button type="primary" @click="dialogShowDep = false">关闭</el-button>
-    </span>
-  </el-dialog> -->
-
-  <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogShowRole" width="30%" top='5%'>
-
-    <el-table class="tableH" :data="selected" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
-      <el-table-column type="index" align="center" label="序号">
-
-      </el-table-column>
-      <el-table-column align="center" label="角色名">
-        <template slot-scope="scope">
-                  <span>{{ scope.row.roleName }}</span>
-              </template>
-      </el-table-column>
-      <el-table-column align="center" label="角色描述">
-        <template slot-scope="scope">
-                  <span>{{ scope.row.roleDesc }}</span>
-              </template>
-      </el-table-column>
-
-
-    </el-table>
-    <span slot="footer" class="dialog-footer">
-      <el-button type="primary" @click="dialogShowRole = false">关闭</el-button>
-    </span>
+        <el-button type="primary" @click="dialogShowDep = false">关闭</el-button>
+      </span>
   </el-dialog>
 
-  <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="30%" top='5%'>
+  <el-dialog title="高校信息填写" :visible.sync="dialogFormVisible" width="60%" top='5%'>
 
     <el-form class="" label-width="30%" style="text-align:left">
 
       <el-row :gutter="24">
 
-        <el-form-item label="用户名">
-          <el-input v-model="obj.userName" placeholder="请输入内容" style="width:80%"></el-input>
-        </el-form-item>
-        <el-form-item label="全名">
-          <el-input v-model="obj.fullName" placeholder="请输入内容" style="width:80%"></el-input>
-        </el-form-item>
-        <el-form-item label="密码">
-          <el-input v-model="obj.userPassword" placeholder="请输入内容" style="width:80%"></el-input>
-        </el-form-item>
-        <el-form-item label="角色">
-          <v-select multiple v-model="selected" :options="options" style="width:80%"></v-select>
-        </el-form-item>
-        <el-form-item label="部门">
-          <el-select v-model="obj.dpartmentId" placeholder="请选择" style="width:80%">
-            <el-option-group v-for="group in treeData" :key="group.label" :label="group.label">
-              <el-option v-for="item in group.children" :key="item.id" :label="item.label" :value="item.label">
-              </el-option>
-            </el-option-group>
-          </el-select>
-        </el-form-item>
+
+        <el-tabs type="border-card">
+          <el-tab-pane>
+            <span slot="label"><i class="el-icon-date"></i> 高校基本信息</span>
+            <el-form class="" label-width="30%" style="text-align:left">
+              <el-row :gutter="20">
+                <el-col :span="20">
+
+                  <el-form-item label="名称">
+                    <el-input placeholder="请输入名称" v-model="school.name" style="width:80%"></el-input>
+                  </el-form-item>
+                  <el-form-item label="统一社会信用代码">
+                    <el-input placeholder="请输入统一社会信用代码" v-model="school.org_code" style="width:80%"></el-input>
+                  </el-form-item>
+                  <el-form-item label="事业单位法人证书正本">
+                    <div>
+                      <!--这是背面照-->
+                      <div class="photo photo1">
+                        <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="school.zhengben" list-type="picture">
+                          <el-button size="small" type="primary">点击上传</el-button>
+                        </el-upload>
+
+                      </div>
+                    </div>
+                  </el-form-item>
+                  <el-form-item label="事业单位法人证书副本">
+                    <div>
+                      <!--这是背面照-->
+                      <div class="photo photo1">
+                        <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="school.fuben" list-type="picture">
+                          <el-button size="small" type="primary">点击上传</el-button>
+                        </el-upload>
+
+                      </div>
+                    </div>
+                  </el-form-item>
+                  <el-form-item label="高校logo">
+                    <div>
+                      <!--这是背面照-->
+                      <div class="photo photo1">
+                        <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="school.logo" list-type="picture">
+                          <el-button size="small" type="primary">点击上传</el-button>
+                        </el-upload>
+
+                      </div>
+                    </div>
+                  </el-form-item>
+                  <el-form-item label="所在地区">
+                    <area-cascader :level="1" v-model="school.country" :data="pcaa"></area-cascader>
+                    <!-- <area-cascader v-model="selected" :level="1" :data="pca"></area-cascader> -->
+                  </el-form-item>
+                  <el-form-item label="联系地址">
+                    <el-input placeholder="请输入联系地址" v-model="school.address" style="width:80%"></el-input>
+                  </el-form-item>
+                  <el-form-item label="邮箱">
+                    <el-input placeholder="请输入邮箱" v-model="school.zip_code" style="width:80%"></el-input>
+                  </el-form-item>
+
+                  <el-form-item label="单位网址">
+                    <el-input placeholder="请输入单位网址" v-model="school.unit_url" style="width:80%"></el-input>
+                  </el-form-item>
+
+                  <el-form-item label="单位简介">
+                    <el-input placeholder="请输入单位简介" v-model="school.major_platform" style="width:80%"></el-input>
+                  </el-form-item>
+                  <el-form-item label="重大平台">
+                    <el-input placeholder="请输入重大平台" v-model="school.introduction" style="width:80%"></el-input>
+                  </el-form-item>
+                </el-col>
+
+
+
+              </el-row>
+            </el-form>
+
+          </el-tab-pane>
+
+        </el-tabs>
       </el-row>
     </el-form>
 
@@ -142,7 +229,12 @@
 
 <script>
 import {
+  getUserDetail,
+  setUserDetail
+} from '@/api/login'
+import {
   getcollege,
+  addLib
 } from '@/api/library'
 
 import {
@@ -151,6 +243,13 @@ import {
 import {
   depgetAll
 } from '@/api/department'
+import {
+  pca,
+  pcaa
+} from "area-data";
+
+import table2excel from 'table2excel'
+import printArea from 'printArea'
 export default {
   data() {
     return {
@@ -181,43 +280,68 @@ export default {
         role: '角色详情',
         create: '添加'
       },
-      obj: {
-        userName: '',
-        userPassword: '',
-        fullName: '',
-        department: '',
+
+      pcaa: pcaa, //最多省市区三级，结合:level='2'选择，0省、1省市、2省市区
+      school: {
+        zhengben: [],
+        fuben: [],
+        logo: [],
+        introduction: '',
+        major_platform: '',
+        unit_url: '',
+        zip_code: '',
+        address: '',
+        country: '',
+        org_code: '',
+        name: '',
       },
-      selected: [],
-      options: [{
-        label: 'foo',
-        value: 'Foo'
-      }, {
-        label: 'boo',
-        value: 'boo'
-      }, {
-        label: 'coo',
-        value: 'coo'
-      }],
       treeData: [],
-      loading: true
+      loading: true,
+      userType: '',
     }
   },
   async mounted() {
     this.listLoading = false
     this.loadPageList()
+    this.userType = window.sessionStorage.getItem('userType')
 
   },
   computed: {},
   methods: {
+
+    showDetail() {
+      this.dialogShowDep = true
+    },
+    handlePrint() {
+      $("#tablePrint").printArea();
+    },
+    handleDownload() { //导出
+      $("#tableExcel").table2excel({
+        exclude: ".noExl", //过滤位置的 css 类名
+        filename: new Date().getTime() + ".xls", //文件名称
+        name: "Excel Document Name.xlsx",
+        exclude_img: true,
+        exclude_links: true,
+        exclude_inputs: true
+      })
+    },
     async loadPageList() {
       if (this.input) {
         this.listQuery.objName = this.input
       } else {
         this.listQuery.objName = ''
       }
-      let {data,success} = await getcollege(this.listQuery)
-      if(success){
-        this.list = data.list
+      let {
+        data,
+        success
+      } = await getcollege(this.listQuery)
+      if (success) {
+        // this.list = data.list
+        this.list = [{
+          'name': 1
+        }, {
+          'name': 1
+        }]
         this.loading = false
       }
     },
@@ -296,20 +420,15 @@ export default {
       }
     },
     async saveCreate(obj) {
-      if (!this.validata.validausr(obj)) return
-      obj.method = 'put'
-      let arr = []
-      let getAlldata = this.selected
-      for (let i = 0; i < getAlldata.length; i++) {
-        let obja = {}
-        obja.id = getAlldata[i].value
-        arr.push(obja)
-      }
-      obj.roles = arr
-      let data = await saveUser(obj)
-      if (data.code === 10000) {
+      // if (!this.validata.validausr(obj)) return
+      let {
+        data,
+        success
+      } = await addLib(obj)
+
+      if (success) {
         this.$message({
-          message: '修改成功',
+          message: '保存成功',
           type: 'success'
         });
         this.dialogFormVisible = false
@@ -320,41 +439,9 @@ export default {
         });
       }
     },
-    //
-    // async subSaveCreate() {
-    //   let obj = this.obj
-    //   obj.method = 'put'
-    //   obj.dpartmentId = this.$refs.tree.getCheckedNodes()
-    //
-    //
-    //   let data = await saveUser(obj)
-    //   this.dialogEditVisible = false
-    //   this.$message({
-    //     type: 'success',
-    //     message: '修改成功!'
-    //   });
-    // }
-    async handleShow(data, type) {
-      if (type === 'role') {
-        this.obj = data
-        this.dialogStatus = 'role'
-        this.dialogShowRole = true
-        this.loadgetUserId()
 
-      }
-    },
     async handleEdit(data, type) {
-
-
-      if (type === 'edit') {
-        this.obj = data
-        this.selected = data.roles
-        this.dialogStatus = 'update'
-        this.dialogsave = true
-        this.dialogadd = false
-        this.dialogFormVisible = true
-        this.loadoptions()
-      } else if (type === 'del') {
+      if (type === 'del') {
         this.$confirm('此操作将删除该记录, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -373,6 +460,15 @@ export default {
             message: '已取消删除'
           });
         });
+      } else if (type === 'edit') {
+        this.expert = data
+        this.dialogsave = true
+        this.dialogadd = false
+        this.dialogFormVisible = true
+      } else {
+        this.dialogsave = true
+        this.dialogadd = false
+        this.dialogFormVisible = true
       }
     },
     onDate1Change(val) {

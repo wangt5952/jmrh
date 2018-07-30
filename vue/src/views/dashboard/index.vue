@@ -2,11 +2,11 @@
 <div class="dashboard-container">
 
   <el-row class="table-group" :gutter="40">
-    <el-col :span="24" style="padding:0px">
+    <el-col :span="24" style="padding:0px;background: #fff;" >
       <div class="maintextc fa13  bg martop5">
-        <div class="paddingl10 paddingt5 paddingb5  borderb">今日主数据状态</div>
+        <div class="paddingl10 paddingt5 paddingb5  borderb">今日状态</div>
         <div class="paddinga15">
-          <el-col v-for='x in modelList' :span="8" style="padding-left: 5px;padding-right: 5px;">
+          <!-- <el-col v-for='x in modelList' :span="8" style="padding-left: 5px;padding-right: 5px;">
             <div class="table">
               <div class="table-description">
                 <div class="fk1"></div>
@@ -14,16 +14,16 @@
                 <div class="table-numt">同步{{x.successNum}}</div>
               </div>
             </div>
-          </el-col>
+          </el-col> -->
         </div>
       </div>
     </el-col>
 
-    <el-col :span="24" style="padding:0px">
-      <div class="maintextc fa13  bg">
-        <div class="paddingl10 paddingt5 paddingb5  borderb">今日异常状态</div>
+    <el-col :span="24" style="padding:0px;background: #fff;">
+      <div class="maintextc fa13  bg" style="background: #fff;">
+        <div class="paddingl10 paddingt5 paddingb5  borderb">今日代办状态</div>
         <div class="paddinga15">
-          <el-col v-for='x in modelfailList' :span="8" style="padding-left: 5px;padding-right: 5px;">
+          <!-- <el-col v-for='x in modelfailList' :span="8" style="padding-left: 5px;padding-right: 5px;">
             <div class="table">
               <div class="table-description">
                 <div class="fk1"></div>
@@ -31,124 +31,25 @@
                 <div style="  color: #ff2727;" class="table-numt">同步{{x.failNum}}</div>
               </div>
             </div>
-          </el-col>
+          </el-col> -->
 
         </div>
       </div>
     </el-col>
   </el-row>
   <div class="martop5" style="padding:30px;border:solid 1px #e6e6e6;">
-    <h3 style="margin:0">主数据-数据一览</h3>
-    <el-table class="tableH" :data="list" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
+    <h3 style="margin:0">代办列表一览</h3>
+    <el-table class="tableH"  border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
 
-      <el-table-column v-for='x in listtop' align="center" :label="x">
+      <!-- <el-table-column v-for='x in listtop' align="center" :label="x">
 
         <template slot-scope="scope">
                       <span>{{ scope.row.children[x] }}</span>
                       </template>
-      </el-table-column>
+      </el-table-column> -->
 
 
     </el-table>
-  </div>
-
-
-
-  <div class="martop5" style="padding:30px;border:solid 1px #e6e6e6;">
-    <h3 style="margin:0">主数据-流程规则一览</h3>
-    <table class="imagetable" style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
-      <thead>
-        <tr>
-          <th>数据类别</th>
-          <th>数据生产者</th>
-          <th>MDM</th>
-          <th>数据消费者</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="t-middle">人员</td>
-          <td class="t-middle" colspan="3">
-            <div>EHR</div>
-            <img :src="writeImg">
-            <img :src="greenImg">
-            <img :src="toolsImg">
-            <img :src="greenImg">
-            <img :src="dataImg">
-          </td>
-        </tr>
-        <tr>
-          <td class="t-middle">行政组织</td>
-          <td class="t-middle" colspan="3">
-
-            <div>EHR</div>
-            <img :src="writeImg">
-            <img :src="greenImg">
-            <img :src="toolsImg">
-            <img :src="greenImg">
-            <img :src="dataImg">
-            <img :src="greenImg">
-            <img :src="toolsImg">
-            <img :src="greenImg">
-            <img :src="comImg">
-          </td>
-        </tr>
-        <tr>
-          <td class="t-middle">财务组织</td>
-          <td class="t-middle" colspan="3">
-
-            <div>NC</div>
-            <img :src="writeImg">
-            <img :src="greenImg">
-            <img :src="toolsImg">
-            <img :src="greenImg">
-            <img :src="dataImg">
-          </td>
-        </tr>
-        <tr>
-          <td class="t-middle">产品</td>
-          <td class="t-middle" colspan="3">
-            <img :src="dataImg">
-            <img :src="greenImg">
-            <img :src="toolsImg">
-            <img :src="greenImg">
-            <img :src="comImg">
-          </td>
-          </td>
-        </tr>
-        <tr>
-          <td class="t-middle">项目</td>
-          <td class="t-middle" colspan="3">
-
-
-            <div>ERP</div>
-            <img :src="writeImg">
-            <img :src="greenImg">
-            <img :src="toolsImg">
-            <img :src="greenImg">
-            <img :src="dataImg">
-            <img :src="greenImg">
-            <img :src="toolsImg">
-            <img :src="greenImg">
-            <img :src="comImg"></td>
-        </tr>
-        <tr>
-          <td class="t-middle">用户</td>
-          <td class="t-middle" colspan="3">
-
-            <div>MDM</div>
-            <img :src="writeImg">
-            <img :src="greenImg">
-            <img :src="toolsImg">
-            <img :src="greenImg">
-            <img :src="dataImg">
-            <img :src="greenImg">
-            <img :src="toolsImg">
-            <img :src="greenImg">
-            <img :src="comImg"></td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 
 </div>
@@ -159,26 +60,13 @@ import {
   mapGetters
 } from 'vuex'
 
-import bookImg from '@/assets/images/weixin.png'
-import dataImg from '@/assets/images/weixin.png'
-import greenImg from '@/assets/images/weixin.png'
-import redImg from '@/assets/images/weixin.png'
-import toolsImg from '@/assets/images/weixin.png'
-import comImg from '@/assets/images/weixin.png'
-import writeImg from '@/assets/images/weixin.png'
+
 
 export default {
 
   data() {
     return {
-      bookImg,
-      dataImg,
-      greenImg,
-      redImg,
-      toolsImg,
-      comImg,
-      writeImg,
-      listtop: ['数据类型', '数据量'],
+      // listtop: ['数据类型', '数据量'],
       modelList: [{
           mdmModel: '人员',
           successNum: '10',
@@ -280,34 +168,34 @@ export default {
   },
   methods: {
     async loadMain() {
-      let data = await getMain()
-      let main1 = data.data.main1
-      let model = {}
-      let arr = []
-      for (var x in main1) {
-        if (main1[x].model != null) {
-          model.mdmModel = main1[x].model.mdmModel
-          model.successNum = main1[x].successNum
-          model.failNum = main1[x].failNum
-          arr.push(model)
-        }
-      }
-      this.modelList = arr
-      this.modelfailList = arr
-
-      let main2 = data.data.main2
-      let listch = main2[0].children
-      for (var x in listch) {
-        this.listtop.push(x)
-      }
-      let dataType = this.listtop
-
-      for (var x in main2) {
-        main2[x].children.数据类型 = main2[x].name
-        main2[x].children.数据量 = main2[x].count
-      }
-
-      this.list = main2
+      // let data = await getMain()
+      // let main1 = data.data.main1
+      // let model = {}
+      // let arr = []
+      // for (var x in main1) {
+      //   if (main1[x].model != null) {
+      //     model.mdmModel = main1[x].model.mdmModel
+      //     model.successNum = main1[x].successNum
+      //     model.failNum = main1[x].failNum
+      //     arr.push(model)
+      //   }
+      // }
+      // this.modelList = arr
+      // this.modelfailList = arr
+      //
+      // let main2 = data.data.main2
+      // let listch = main2[0].children
+      // for (var x in listch) {
+      //   this.listtop.push(x)
+      // }
+      // let dataType = this.listtop
+      //
+      // for (var x in main2) {
+      //   main2[x].children.数据类型 = main2[x].name
+      //   main2[x].children.数据量 = main2[x].count
+      // }
+      //
+      // this.list = main2
     }
   }
 }
