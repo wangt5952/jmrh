@@ -2,7 +2,7 @@ package com.bz.xtcx.manager.entity;
 
 import com.bz.xtcx.manager.comom.BasicEntity;
 
-public class BaseLib extends BasicEntity{
+public class LibBase extends BasicEntity{
 
 	/**
 	 * 
@@ -14,6 +14,8 @@ public class BaseLib extends BasicEntity{
 	private String country;//所在地区
 	private String address;//通信地址
 	private int checkStatus;//审核状态
+	private String formId;//表格Id
+	private BusUserForm form;
 	
 	public String getName() {
 		return name;
@@ -50,5 +52,17 @@ public class BaseLib extends BasicEntity{
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	public BusUserForm getForm() {
+		return form;
+	}
+	public void setForm(BusUserForm form) {
+		this.form = form;
+	}
+	public String getFormId() {
+		return formId;
+	}
+	public void setFormId(String formId) {
+		this.formId = formId;
 	}
 }

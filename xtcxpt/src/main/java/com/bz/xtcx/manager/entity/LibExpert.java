@@ -5,7 +5,7 @@ package com.bz.xtcx.manager.entity;
  * @author zhangkj
  *
  */
-public class LibExpert extends BaseLib{
+public class LibExpert extends LibBase{
 
 	/**
 	 * 

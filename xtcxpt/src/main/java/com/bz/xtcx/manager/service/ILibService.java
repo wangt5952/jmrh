@@ -5,7 +5,6 @@ import com.bz.xtcx.manager.entity.LibCollege;
 import com.bz.xtcx.manager.entity.LibEnterprise;
 import com.bz.xtcx.manager.entity.LibExpert;
 import com.bz.xtcx.manager.entity.LibServices;
-import com.bz.xtcx.manager.entity.SysUser;
 import com.bz.xtcx.manager.vo.VoResponse;
 import com.github.pagehelper.PageInfo;
 
@@ -16,11 +15,27 @@ public interface ILibService{
 	VoResponse setUserForm(BusUserForm form);
 	
 	/**
-	 * 用户提交表格数据
+	 * 用户 提交/更新 用户的资源库表格数据
 	 * @param detail
 	 * @return
 	 */
 	VoResponse setUserDetail(String detail);
+	
+	/**
+	 * 管理员 添加/更新 资源库信息
+	 * @param form
+	 * @return
+	 */
+	VoResponse setUserDetail(BusUserForm form);
+	
+	/**
+	 * 根据用户类别、名称和证件号查找资源库中是否存在对应的信息
+	 * @param userType
+	 * @param name
+	 * @param idNumber
+	 * @return
+	 */
+	VoResponse getLibsByUser(int userType, String name, String idNumber);
 	
 	BusUserForm getUserDetail(boolean isDraft);
 	

@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.One;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Results;
@@ -18,14 +20,17 @@ import com.bz.xtcx.manager.mapper.provider.LibEnterpriseProvider;
 
 public interface LibEnterpriseMapper {
 
-	@Insert("insert into `bus_user_enterprise`(id, user_id, enterprise_name, registered_capital, registered_type, is_high_new_tech, domain, country, status, creater)"
+	@Insert("insert into `bus_user_enterprise`(id, user_id, form_id, enterprise_name, business_license, registered_capital, registered_type, is_high_new_tech, domain, address, country, status, creater)"
 		    + " VALUES(#{id, jdbcType=VARCHAR},"
 		    + " #{userId, jdbcType=VARCHAR},"
+		    + " #{formId, jdbcType=VARCHAR},"
 		    + " #{name, jdbcType=VARCHAR},"
+		    + " #{code, jdbcType=VARCHAR},"
 		    + " #{registered_capital, jdbcType=VARCHAR},"
 		    + " #{registered_type, jdbcType=VARCHAR},"
 		    + " #{is_high_new_tech, jdbcType=INTEGER},"
 		    + " #{domain, jdbcType=VARCHAR},"
+		    + " #{address, jdbcType=VARCHAR},"
 		    + " #{country, jdbcType=VARCHAR},"
 		    + " #{status, jdbcType=INTEGER},"
 		    + " #{creater, jdbcType=VARCHAR})"
@@ -37,10 +42,12 @@ public interface LibEnterpriseMapper {
 	int del(String id);
 	
 	@Update("update `bus_user_enterprise` set enterprise_name=#{name, jdbcType=VARCHAR},"
+			+ " business_license=#{code, jdbcType=VARCHAR},"
 			+ " registered_capital=#{registered_capital, jdbcType=VARCHAR},"
 			+ " registered_type=#{registered_type, jdbcType=VARCHAR},"
 			+ " is_high_new_tech=#{is_high_new_tech, jdbcType=INTEGER},"
 			+ " domain=#{domain, jdbcType=VARCHAR},"
+			+ " address=#{address, jdbcType=VARCHAR},"
 			+ " country=#{country, jdbcType=VARCHAR},"
 			+ " status=#{status, jdbcType=INTEGER},"
 			+ " updater=#{updater, jdbcType=VARCHAR}"
@@ -54,11 +61,14 @@ public interface LibEnterpriseMapper {
 		    @Result(id = true, property = "id", column = "id"),
 		    @Result(property = "userId", column = "user_id"),
 		    @Result(property = "name", column = "enterprise_name"),
+		    @Result(property = "code", column = "business_license"),
 		    @Result(property = "registered_capital", column = "registered_capital"),
 		    @Result(property = "registered_type", column = "registered_type"),
 		    @Result(property = "is_high_new_tech", column = "is_high_new_tech"),
 		    @Result(property = "domain", column = "domain"),
+		    @Result(property = "address", column = "address"),
 		    @Result(property = "country", column = "country"),
+		    @Result(property = "form", column = "id", one = @One(select = "com.bz.xtcx.manager.mapper.BusUserFormHisMapper.findById") ),
 		    @Result(property = "status", column = "status"),
 		    @Result(property = "creater", column = "creater"),
 		    @Result(property = "createTime", column = "create_time"),
@@ -71,4 +81,12 @@ public interface LibEnterpriseMapper {
 	@Select("select * from `bus_user_enterprise` where user_id = #{userId}")
 	@ResultMap("libEnterprise")
 	LibEnterprise findByUserId(String userId);
+	
+	@Select("select * from `bus_user_enterprise` where enterprise_name = #{name} and business_license = #{code}")
+	@ResultMap("libEnterprise")
+	LibEnterprise findByNameAndCode(@Param("name")String name, @Param("code")String code);
+	
+	@Select("select * from `bus_user_enterprise` where id = #{id}")
+	@ResultMap("libEnterprise")
+	LibEnterprise findById(String id);
 }

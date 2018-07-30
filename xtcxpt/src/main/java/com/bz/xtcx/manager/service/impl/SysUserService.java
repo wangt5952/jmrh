@@ -114,8 +114,11 @@ public class SysUserService extends BaseService implements ISysUserService {
 	}
 	
 	@Override
-	public BusUser getBusUser() {
+	public Object getUserInfo() {
 		User u = this.getUser();
+		if(u.getUserType() == 0) {
+			return sysUserMapper.findById(u.getUserId());
+		}
 		BusUser user = busUserMapper.findById(u.getUserId());
 		return user;
 	}

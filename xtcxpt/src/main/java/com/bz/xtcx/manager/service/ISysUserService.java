@@ -30,7 +30,11 @@ public interface ISysUserService extends IBaseService<SysUser>{
 	 */
 	int updateUser(BusUser user);
 	
-	BusUser getBusUser();
+	/**
+	 * 获取用户信息
+	 * @return
+	 */
+	Object getUserInfo();
 	
 	/**
 	 * 发送邮箱验证码

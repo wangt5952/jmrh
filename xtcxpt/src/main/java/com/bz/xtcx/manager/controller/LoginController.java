@@ -88,7 +88,7 @@ public class LoginController extends BaseController{
 	@GetMapping
 	public Object getUser(){
 		VoResponse voRes = new VoResponse();
-		voRes.setData(sysUserService.getBusUser());
+		voRes.setData(sysUserService.getUserInfo());
 		return voRes;
 	}
 	

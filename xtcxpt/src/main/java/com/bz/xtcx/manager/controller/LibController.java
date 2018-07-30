@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bz.xtcx.manager.entity.BusUser;
 import com.bz.xtcx.manager.entity.BusUserForm;
 import com.bz.xtcx.manager.entity.LibCollege;
 import com.bz.xtcx.manager.entity.LibEnterprise;
@@ -66,15 +67,26 @@ public class LibController {
 	}
 	
 	/**
-	 * 新增资源库信息
+	 * 新增/更新资源库信息
 	 * @param detail
 	 * @param isDraft
 	 * @return
 	 */
 	@PostMapping("addLib")
-	public Object addLib(@RequestBody String detail, @RequestParam("type") int type){
+	public Object addLib(@RequestBody BusUserForm form){
 		VoResponse voRes = new VoResponse();
-		libService.setUserDetail(detail);
+		voRes = libService.setUserDetail(form);
+		return voRes;
+	}
+	
+	/**
+	 * 根据用户类别、名称和证件号查找资源库中是否存在对应的信息
+	 * @param user
+	 * @return
+	 */
+	@PostMapping("isInLibs")
+	public Object isInLibs(@RequestBody BusUser user){
+		VoResponse voRes = libService.getLibsByUser(user.getUserType(), user.getName(), user.getIdNumber());
 		return voRes;
 	}
 	

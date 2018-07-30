@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.One;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Results;
@@ -18,12 +20,15 @@ import com.bz.xtcx.manager.mapper.provider.LibExpertProvider;
 
 public interface LibExpertMapper {
 
-	@Insert("insert into `bus_user_expert`(id, user_id, name, research_field, country, research_area, work_unit, success_record, project_desc, status, creater)"
+	@Insert("insert into `bus_user_expert`(id, user_id, form_id, name, id_number, address, country, research_field, research_area, work_unit, success_record, project_desc, status, creater)"
 		    + " VALUES(#{id, jdbcType=VARCHAR},"
 		    + " #{userId, jdbcType=VARCHAR},"
+		    + " #{formId, jdbcType=VARCHAR},"
 		    + " #{name, jdbcType=VARCHAR},"
-		    + " #{research_field, jdbcType=VARCHAR},"
+		    + " #{code, jdbcType=VARCHAR},"
+		    + " #{address, jdbcType=VARCHAR},"
 		    + " #{country, jdbcType=VARCHAR},"
+		    + " #{research_field, jdbcType=VARCHAR},"
 		    + " #{research_area, jdbcType=INTEGER},"
 		    + " #{work_unit, jdbcType=VARCHAR},"
 		    + " #{success_record, jdbcType=VARCHAR},"
@@ -38,8 +43,10 @@ public interface LibExpertMapper {
 	int del(String id);
 	
 	@Update("update `bus_user_expert` set name=#{name, jdbcType=VARCHAR},"
-			+ " research_field=#{research_field, jdbcType=VARCHAR},"
+			+ " id_number=#{code, jdbcType=VARCHAR},"
+			+ " address=#{address, jdbcType=VARCHAR},"
 			+ " country=#{country, jdbcType=VARCHAR},"
+			+ " research_field=#{research_field, jdbcType=VARCHAR},"
 			+ " research_area=#{research_area, jdbcType=VARCHAR},"
 			+ " work_unit=#{work_unit, jdbcType=VARCHAR},"
 			+ " success_record=#{success_record, jdbcType=VARCHAR},"
@@ -56,12 +63,15 @@ public interface LibExpertMapper {
 		    @Result(id = true, property = "id", column = "id"),
 		    @Result(property = "userId", column = "user_id"),
 		    @Result(property = "name", column = "name"),
-		    @Result(property = "research_field", column = "research_field"),
+		    @Result(property = "code", column = "id_number"),
+		    @Result(property = "address", column = "address"),
 		    @Result(property = "country", column = "country"),
+		    @Result(property = "research_field", column = "research_field"),
 		    @Result(property = "research_area", column = "research_area"),
 		    @Result(property = "work_unit", column = "work_unit"),
 		    @Result(property = "success_record", column = "success_record"),
 		    @Result(property = "project_desc", column = "project_desc"),
+		    @Result(property = "form", column = "id", one = @One(select = "com.bz.xtcx.manager.mapper.BusUserFormHisMapper.findById") ),
 		    @Result(property = "status", column = "status"),
 		    @Result(property = "creater", column = "creater"),
 		    @Result(property = "createTime", column = "create_time"),
@@ -74,4 +84,12 @@ public interface LibExpertMapper {
 	@Select("select * from `bus_user_expert` where user_id = #{userId}")
 	@ResultMap("libExpert")
 	LibExpert findByUserId(String userId);
+	
+	@Select("select * from `bus_user_expert` where name = #{name} and id_number = #{code}")
+	@ResultMap("libExpert")
+	LibExpert findByNameAndCode(@Param("name")String name, @Param("code")String code);
+	
+	@Select("select * from `bus_user_expert` where id = #{id}")
+	@ResultMap("libExpert")
+	LibExpert findById(String id);
 }

@@ -5,7 +5,7 @@ package com.bz.xtcx.manager.entity;
  * @author zhangkj
  *
  */
-public class LibCollege extends BaseLib{
+public class LibCollege extends LibBase{
 
 	/**
 	 * 

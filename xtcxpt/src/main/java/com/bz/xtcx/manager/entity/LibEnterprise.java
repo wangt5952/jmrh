@@ -5,7 +5,7 @@ package com.bz.xtcx.manager.entity;
  * @author zhangkj
  *
  */
-public class LibEnterprise extends BaseLib {
+public class LibEnterprise extends LibBase {
 
 	/**
 	 * 

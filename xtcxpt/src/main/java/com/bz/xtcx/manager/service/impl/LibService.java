@@ -110,6 +110,31 @@ public class LibService extends BaseService implements ILibService{
 		}
 		return voRes;
 	}
+	
+	@Override
+	public VoResponse setUserDetail(BusUserForm form) {
+		VoResponse voRes = new VoResponse();
+		int result = 0;
+		if(form.getId() == null) {
+			form.setCreater(getUserName());
+			form.setCheckStatus(1);
+			form.setUserId(null);
+			result = busUserFormHisMapper.insert(form);
+			
+		}else {
+			BusUserForm old = busUserFormHisMapper.findById(form.getId());
+			old.setDetail(form.getDetail());
+			old.setUpdater(getUserName());
+			old.setCheckStatus(1);
+			result = busUserFormHisMapper.update(old);
+		}
+		if(result <= 0) {
+			voRes.setFail(voRes);
+			return voRes;
+		}
+		voRes = this.saveFormHisToLib(form);
+		return voRes;
+	}
 
 	@Override
 	public VoResponse addOrUpdateExpert(LibExpert e) {
@@ -184,10 +209,11 @@ public class LibService extends BaseService implements ILibService{
 		int result = 0;
 		if(form.getFormType() == UserTypeEnum.Enterprise.key()) {
 			LibEnterprise e = null;
-			e = libEnterpriseMapper.findByUserId(form.getUserId());
+			e = libEnterpriseMapper.findById(form.getId());
 			if(e == null) {
 				e = new LibEnterprise();
 				e.setUserId(form.getUserId());
+				e.setFormId(form.getId());
 				e.setName(json.getString("enterprise_name"));
 				e.setRegistered_capital(json.getString("registered_capital"));
 				e.setRegistered_type(json.getString("registered_type"));
@@ -204,15 +230,16 @@ public class LibService extends BaseService implements ILibService{
 				e.setIs_high_new_tech(json.getIntValue("is_high_new_tech"));
 				e.setDomain(json.getString("domain"));
 				e.setCountry(json.getString("country"));
-				e.setUpdater(form.getCreater());
-				libEnterpriseMapper.update(e);
+				e.setUpdater(form.getUpdater());
+				result = libEnterpriseMapper.update(e);
 			}
 		}else if(form.getFormType() == UserTypeEnum.Service.key()) {
-			com.bz.xtcx.manager.entity.LibServices e = null;
-			e = libServiceMapper.findByUserId(form.getUserId());
+			LibServices e = null;
+			e = libServiceMapper.findById(form.getId());
 			if(e == null) {
 				e = new com.bz.xtcx.manager.entity.LibServices();
 				e.setUserId(form.getUserId());
+				e.setFormId(form.getId());
 				e.setName(json.getString("name"));
 				e.setOrg_type(json.getString("org_type"));
 				e.setLinkman(json.getString("linkman"));
@@ -236,15 +263,16 @@ public class LibService extends BaseService implements ILibService{
 				e.setService_quantity_before(json.getIntValue("service_quantity_before"));
 				e.setService_quantity_previous(json.getIntValue("service_quantity_previous"));
 				e.setHonor(json.getString("honor"));
-				e.setUpdater(form.getCreater());
-				libServiceMapper.update(e);
+				e.setUpdater(form.getUpdater());
+				result = libServiceMapper.update(e);
 			}
 		}else if(form.getFormType() == UserTypeEnum.Expert.key()) {
 			LibExpert e = null;
-			e = libExpertMapper.findByUserId(form.getUserId());
+			e = libExpertMapper.findById(form.getId());
 			if(e == null) {
 				e = new LibExpert();
 				e.setUserId(form.getUserId());
+				e.setFormId(form.getId());
 				e.setName(json.getString("name"));
 				e.setResearch_field(json.getString("research_field"));
 				e.setResearch_area(json.getString("research_area"));
@@ -262,15 +290,16 @@ public class LibService extends BaseService implements ILibService{
 				e.setProject_desc(json.getString("project_desc"));
 				e.setSuccess_record(json.getString("success_record"));
 				e.setWork_unit(json.getString("work_unit"));
-				e.setUpdater(form.getCreater());
+				e.setUpdater(form.getUpdater());
 				result = libExpertMapper.update(e);
 			}
-			
 		}else if(form.getFormType() == UserTypeEnum.College.key()) {
-			LibCollege e = libCollegeMapper.findByUserId(form.getUserId());
+			LibCollege e = null;
+			e = libCollegeMapper.findById(form.getId());
 			if(e == null) {
 				e = new LibCollege();
 				e.setUserId(form.getUserId());
+				e.setFormId(form.getId());
 				e.setName(json.getString("name"));
 				e.setCode(json.getString("org_code"));
 				e.setCountry(json.getString("country"));
@@ -290,9 +319,13 @@ public class LibService extends BaseService implements ILibService{
 				e.setUnit_url(json.getString("unit_url"));
 				e.setMajor_platform(json.getString("major_platform"));
 				e.setIntroduction(json.getString("introduction"));
-				e.setUpdater(form.getCreater());
+				e.setUpdater(form.getUpdater());
 				result = libCollegeMapper.update(e);
 			}
+		}
+		if(result == 0) {
+			voRes.setFail(voRes);
+			return voRes;
 		}
 		voRes.setData(result);
 		return voRes;
@@ -306,9 +339,13 @@ public class LibService extends BaseService implements ILibService{
 		if(form == null) {
 			voRes.setNull(voRes);
 		}else if(form.getCheckStatus() == 0){
+			voRes = this.saveFormHisToLib(form);
+			if(!voRes.getSuccess()) {
+				return voRes;
+			}
 			result = busUserFormHisMapper.updateCheck(1, id);
-			if(result > 0) {
-				voRes = this.saveFormHisToLib(form);
+			if(result <= 0) {
+				voRes.setFail(voRes);
 			}
 		}
 		return voRes;
@@ -365,5 +402,31 @@ public class LibService extends BaseService implements ILibService{
 		libServiceMapper.findByCondition(lib);
 		PageInfo<LibServices> info = new PageInfo<LibServices>(page);
 		return info;
+	}
+
+	@Override
+	public VoResponse getLibsByUser(int userType, String name, String code) {
+		VoResponse voRes = new VoResponse();
+		switch(userType) {
+		case 1 : 
+			LibExpert expert = libExpertMapper.findByNameAndCode(name, code);
+			voRes.setData(expert);
+			break;
+		case 2 : 
+			LibEnterprise enterprise = libEnterpriseMapper.findByNameAndCode(name, code);
+			voRes.setData(enterprise);
+			break;
+		case 3 : 
+			LibServices services = libServiceMapper.findByNameAndCode(name, code);
+			voRes.setData(services);
+			break;
+		case 4 : 
+			LibCollege college = libCollegeMapper.findByNameAndCode(name, code);
+			voRes.setData(college);
+			break;
+		default:
+			voRes.setFail(voRes);
+		}
+		return voRes;
 	}
 }

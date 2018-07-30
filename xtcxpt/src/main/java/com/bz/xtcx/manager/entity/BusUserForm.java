@@ -38,5 +38,4 @@ public class BusUserForm extends BasicEntity {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	
 }
