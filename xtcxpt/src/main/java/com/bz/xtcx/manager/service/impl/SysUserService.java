@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,18 +16,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bz.xtcx.manager.entity.BusUser;
-import com.bz.xtcx.manager.entity.BusUserDetail;
-import com.bz.xtcx.manager.entity.BusUserForm;
 import com.bz.xtcx.manager.entity.SysMenu;
 import com.bz.xtcx.manager.entity.SysRole;
 import com.bz.xtcx.manager.entity.SysUser;
 import com.bz.xtcx.manager.entity.User;
 import com.bz.xtcx.manager.enums.UserTypeEnum;
-import com.bz.xtcx.manager.mapper.BusUserDetailMapper;
-import com.bz.xtcx.manager.mapper.BusUserFormMapper;
 import com.bz.xtcx.manager.mapper.BusUserMapper;
 import com.bz.xtcx.manager.mapper.SysMenuMapper;
 import com.bz.xtcx.manager.mapper.SysRoleMapper;
@@ -127,10 +123,22 @@ public class SysUserService extends BaseService implements ISysUserService {
 	public boolean sendEmailCode(String email) {
 		String id = String.valueOf((int)((Math.random()*9+1)*1000));
 		if(emailService.sendCodeEmail(email, id)) {
-			this.getRedisTemplate().opsForValue().set(id, email);
+			this.getRedisTemplate().opsForValue().set(id, email, 180, TimeUnit.SECONDS);
 			return true;
 		}
 		return false;
+	}
+	
+	@Override
+	public boolean sendEmailActivate(String email) {
+		UUID uuid = UUID.randomUUID();
+		//String url = "http://localhost:8080/xtcx/user/activate?activateId=" + uuid.toString();
+		String url = "http://106.14.172.38:8990/jmrh/#/xtcx/user/activate?activateId=" + uuid.toString();
+		if(!emailService.sendRegisterEmail(email, url)) {
+			return false;
+		}
+		this.getRedisTemplate().opsForValue().set(uuid.toString(), email, 180, TimeUnit.SECONDS);
+		return true;
 	}
 	
 	@Override
@@ -143,15 +151,11 @@ public class SysUserService extends BaseService implements ISysUserService {
 			voRes.setMessage("邮箱已经被注册");
 			return voRes;
 		}
-		UUID uuid = UUID.randomUUID();
-		//String url = "http://localhost:8080/xtcx/user/activate?activateId=" + uuid.toString();
-		String url = "http://106.14.172.38:8990/jmrh/xtcx/user/activate?activateId=" + uuid.toString();
-		if(!emailService.sendRegisterEmail(user.getEmail(), url)) {
+		if(!this.sendEmailActivate(user.getEmail())) {
 			voRes.setFail(voRes);
 			voRes.setMessage("邮箱验证有误，请重新输入邮箱");
 			return voRes;
 		}
-		this.getRedisTemplate().opsForValue().set(uuid.toString(), user.getEmail());
 		user.setUserName(user.getEmail().split("@")[0]);
 		user.setCheckStatus(0);//未激活
 		String md5Password = DigestUtils.md5DigestAsHex(user.getPassword().getBytes());//md5加密
@@ -175,13 +179,25 @@ public class SysUserService extends BaseService implements ISysUserService {
 			int result = busUserMapper.update(user);
 			this.getRedisTemplate().delete(uuid);
 			if(result > 0) {
-				voRes.setData(obj + "激活成功");
+				//激活成功后自动登录
+				HttpSession session = getSession();
+				User e = new User();
+				e.setUserId(user.getId());
+				e.setUserName(user.getUserName());
+				e.setUserType(user.getUserType());
+				e.setToken(session.getId());
+				e.setEmail(user.getEmail());
+				e.setCellphone(user.getCellphone());
+				this.createRedisUser(e);
+				voRes.setData(e);
+				
+				voRes.setMessage(obj + "激活成功");
 			}else {
-				voRes.setData(obj + "激活失败");
+				voRes.setMessage(obj + "激活失败");
 			}
 		}else {
 			voRes.setFail(voRes);
-			voRes.setData("激活失败");
+			voRes.setMessage("激活失败");
 		}
 		return voRes;
 	}

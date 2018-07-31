@@ -81,6 +81,15 @@ public class LoginController extends BaseController{
 		return voRes;
 	}
 	
+	@PostMapping("sendEmailActivate")
+	public Object sendEmailActivate(@RequestBody VoPwd vo){
+		VoResponse voRes = new VoResponse();
+		if(!sysUserService.sendEmailActivate(vo.getEmail())) {
+			voRes.setFail(voRes);
+		}
+		return voRes;
+	}
+	
 	/**
 	 * 获取用户资料
 	 * @return

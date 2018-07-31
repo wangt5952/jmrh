@@ -41,6 +41,12 @@ public interface ISysUserService extends IBaseService<SysUser>{
 	 * @return
 	 */
 	boolean sendEmailCode(String email);
+	
+	/**
+	 * 发送邮箱激活码
+	 * @return
+	 */
+	boolean sendEmailActivate(String email);
 
 	public VoResponse register(BusUser user);
 	
