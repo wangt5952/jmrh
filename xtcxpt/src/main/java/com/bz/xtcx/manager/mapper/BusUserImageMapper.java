@@ -31,11 +31,11 @@ public interface BusUserImageMapper {
 	int del(String id);
 	
 	@Update("update `bus_user_image` set field1=#{field1, jdbcType=VARCHAR},"
-			+ " field1=#{field1, jdbcType=VARCHAR}"
-			+ " field2=#{field2, jdbcType=VARCHAR}"
-			+ " field3=#{field3, jdbcType=VARCHAR}"
-			+ " field4=#{field4, jdbcType=VARCHAR}"
-			+ " field5=#{field5, jdbcType=VARCHAR}"
+			+ " field1=#{field1, jdbcType=VARCHAR},"
+			+ " field2=#{field2, jdbcType=VARCHAR},"
+			+ " field3=#{field3, jdbcType=VARCHAR},"
+			+ " field4=#{field4, jdbcType=VARCHAR},"
+			+ " field5=#{field5, jdbcType=VARCHAR},"
 			+ " status=#{status, jdbcType=INTEGER}"
 			+ " where id=#{id}")
 	int update(BusUserImage e);

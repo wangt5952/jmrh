@@ -71,7 +71,7 @@ public interface LibExpertMapper {
 		    @Result(property = "work_unit", column = "work_unit"),
 		    @Result(property = "success_record", column = "success_record"),
 		    @Result(property = "project_desc", column = "project_desc"),
-		    @Result(property = "form", column = "id", one = @One(select = "com.bz.xtcx.manager.mapper.BusUserFormHisMapper.findById") ),
+		    @Result(property = "form", column = "form_id", one = @One(select = "com.bz.xtcx.manager.mapper.BusUserFormHisMapper.findById") ),
 		    @Result(property = "status", column = "status"),
 		    @Result(property = "creater", column = "creater"),
 		    @Result(property = "createTime", column = "create_time"),

@@ -33,6 +33,8 @@ public class UserImageService extends BaseService implements IUserImageService {
 			t.setField4(filename);
 		}else if(type == 5){
 			t.setField5(filename);
+		}else{
+			return 0;
 		}
 		int result = 0;
 		if(t.getId() == null) {

@@ -84,9 +84,9 @@ public class LibController {
 	 * @param user
 	 * @return
 	 */
-	@PostMapping("isInLibs")
-	public Object isInLibs(@RequestBody BusUser user){
-		VoResponse voRes = libService.getLibsByUser(user.getUserType(), user.getName(), user.getIdNumber());
+	@GetMapping("isInLibs")
+	public Object isInLibs(){
+		VoResponse voRes = libService.getLibsByUser();
 		return voRes;
 	}
 	

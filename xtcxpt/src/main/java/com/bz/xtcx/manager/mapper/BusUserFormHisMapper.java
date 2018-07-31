@@ -15,10 +15,9 @@ import com.bz.xtcx.manager.entity.BusUserForm;
 
 public interface BusUserFormHisMapper {
 	
-	@Insert("insert into `bus_user_form_his`(id, user_id, detail_id, form_type, detail, check_status, status, creater)"
+	@Insert("insert into `bus_user_form_his`(id, user_id, form_type, detail, check_status, status, creater)"
 		    + " VALUES(#{id, jdbcType=VARCHAR},"
 		    + " #{userId, jdbcType=VARCHAR},"
-		    + " #{detailId, jdbcType=VARCHAR},"
 		    + " #{formType, jdbcType=VARCHAR},"
 		    + " #{detail, jdbcType=VARCHAR},"
 		    + " #{checkStatus, jdbcType=INTEGER},"
@@ -46,7 +45,6 @@ public interface BusUserFormHisMapper {
 			value = {
 			    @Result(id = true, property = "id", column = "id"),
 			    @Result(property = "userId", column = "user_id"),
-			    @Result(property = "detailId", column = "detail_id"),
 			    @Result(property = "formType", column = "form_type"),
 			    @Result(property = "detail", column = "detail"),
 			    @Result(property = "checkStatus", column = "check_status"),
@@ -62,10 +60,6 @@ public interface BusUserFormHisMapper {
 	@Select("select * from `bus_user_form_his` where check_status!=-1 and user_id=#{userId} order by create_time desc limit 1")
 	@ResultMap("busUserFormHis")
 	BusUserForm findByUserId(String userId);
-	
-	@Select("select * from `bus_user_form_his` where detail_id=#{id}")
-	@ResultMap("busUserFormHis")
-	BusUserForm findByDetailId(String id);
 	
 	@Select("select * from `bus_user_form_his` where id=#{id}")
 	@ResultMap("busUserFormHis")

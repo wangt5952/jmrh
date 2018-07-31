@@ -35,7 +35,9 @@ public interface ILibService{
 	 * @param idNumber
 	 * @return
 	 */
-	VoResponse getLibsByUser(int userType, String name, String idNumber);
+	Object getLibsByUser(int userType, String name, String idNumber);
+	
+	VoResponse getLibsByUser();
 	
 	BusUserForm getUserDetail(boolean isDraft);
 	

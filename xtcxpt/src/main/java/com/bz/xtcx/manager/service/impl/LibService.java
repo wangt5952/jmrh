@@ -6,6 +6,7 @@ import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.bz.xtcx.manager.entity.BusUser;
 import com.bz.xtcx.manager.entity.BusUserForm;
 import com.bz.xtcx.manager.entity.LibCollege;
 import com.bz.xtcx.manager.entity.LibEnterprise;
@@ -405,28 +406,31 @@ public class LibService extends BaseService implements ILibService{
 	}
 
 	@Override
-	public VoResponse getLibsByUser(int userType, String name, String code) {
-		VoResponse voRes = new VoResponse();
+	public Object getLibsByUser(int userType, String name, String code) {
 		switch(userType) {
 		case 1 : 
 			LibExpert expert = libExpertMapper.findByNameAndCode(name, code);
-			voRes.setData(expert);
-			break;
+			return expert;
 		case 2 : 
 			LibEnterprise enterprise = libEnterpriseMapper.findByNameAndCode(name, code);
-			voRes.setData(enterprise);
-			break;
+			return enterprise;
 		case 3 : 
 			LibServices services = libServiceMapper.findByNameAndCode(name, code);
-			voRes.setData(services);
-			break;
+			return services;
 		case 4 : 
 			LibCollege college = libCollegeMapper.findByNameAndCode(name, code);
-			voRes.setData(college);
-			break;
+			return college;
 		default:
-			voRes.setFail(voRes);
+			return null;
 		}
+	}
+	
+	@Override
+	public VoResponse getLibsByUser() {
+		VoResponse voRes = new VoResponse();
+		User user = this.getUser();
+		BusUser busUser = busUserMapper.findById(user.getUserId());
+		voRes.setData(this.getLibsByUser(busUser.getUserType(), busUser.getName(), busUser.getIdNumber()));
 		return voRes;
 	}
 }

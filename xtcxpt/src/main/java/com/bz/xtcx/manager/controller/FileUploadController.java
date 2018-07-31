@@ -46,7 +46,7 @@ public class FileUploadController {
 		// 获取文件的后缀名
 		String suffixName = fileName.substring(fileName.lastIndexOf("."));
 		// 文件上传后的路径
-		//String filePath = "D://test//";
+		//String filePath = "D://test//";//win 本地地址
 		String filePath = "/root/java/xtcx/";
 		fileName = UUID.randomUUID() + suffixName;
 		File dest = new File(filePath + fileName);
@@ -57,8 +57,9 @@ public class FileUploadController {
 		System.out.println(dest.getPath());
 		try {
 			file.transferTo(dest);
-			voRes.setData(userImageService.saveOrUpdate(type, fileName));
-			return voRes;
+			if(userImageService.saveOrUpdate(type, fileName) > 0) {
+				return voRes;
+			}
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -71,12 +72,14 @@ public class FileUploadController {
 
 	// 文件下载相关代码
 	@GetMapping("/download")
-	public String downloadFile(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String fileName = "readme.txt";
+	public Object downloadFile(HttpServletRequest request, HttpServletResponse response, @RequestParam("fileName") String fileName) {
+		//String fileName = "readme.txt";
+		VoResponse voRes = new VoResponse();
 		if (fileName != null) {
 			// 当前是从该工程的WEB-INF//File//下获取文件(该目录可以在下面一行代码配置)然后下载到C:\\users\\downloads即本机的默认下载的目录
 			//String realPath = request.getServletContext().getRealPath("//WEB-INF//");
-			String realPath = "D://test//";
+			//String realPath = "D://test//";
+			String realPath = "/root/java/xtcx/";
 			File file = new File(realPath, fileName);
 			if (file.exists()) {
 			    response.setCharacterEncoding("utf-8");
@@ -96,12 +99,13 @@ public class FileUploadController {
 			        // 这里主要关闭。
 			        os.close();
 			        inputStream.close();
+			        return null;
 			    }catch (Exception e){
-			        throw e;
+			        e.printStackTrace();
 			    }
 			}
 		}
-		return null;
+		return voRes;
 	}
 
 	// 多文件上传
