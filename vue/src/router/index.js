@@ -8,6 +8,36 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '@/views/layout/index.vue'
+ // const login = r => require.ensure([], () => r(_import('login/index')), 'login')
+const login = r => require.ensure([], () => r(require('@/views/login/index')), 'login')
+const register = r => require.ensure([], () => r(require("@/views/register/index")), 'register');
+const registerDetail = r => require.ensure([], () => r(require("@/views/registerDetail/index")), 'registerDetail');
+const resetPaw = r => require.ensure([], () => r(require("@/views/resetPaw/index")), 'resetPaw');
+const activate = r => require.ensure([], () => r(require("@/views/activate/index")), 'activate');
+const userBaseDetail = r => require.ensure([], () => r(require("@/views/userBaseDetail/index")), 'userBaseDetail');
+const userDetail = r => require.ensure([], () => r(require("@/views/userDetail/index")), 'userDetail');
+const page404 = r => require.ensure([], () => r(require("@/views/404.vue")), 'page404');
+
+const dashboard = r => require.ensure([], () => r(require("@/views/dashboard/index")), 'dashboard');
+const user = r => require.ensure([], () => r(require("@/views/user/index")), 'user');
+const ManageUser = r => require.ensure([], () => r(require("@/views/ManageUser/index")), 'ManageUser');
+const org = r => require.ensure([], () => r(require("@/views/org/index")), 'org');
+const role = r => require.ensure([], () => r(require("@/views/role/index")), 'role');
+const tree = r => require.ensure([], () => r(require("@/views/tree/index")), 'tree');
+const columnManage = r => require.ensure([], () => r(require("@/views/columnManage/index")), 'columnManage');
+const contentManage = r => require.ensure([], () => r(require("@/views/contentManage/index")), 'contentManage');
+const expert = r => require.ensure([], () => r(require("@/views/expert/index")), 'expert');
+const expertEdit = r => require.ensure([], () => r(require("@/views/expert/edit/index")), 'expert');
+const enterprise = r => require.ensure([], () => r(require("@/views/enterprise/index")), 'enterprise');
+const enterpriseEdit = r => require.ensure([], () => r(require("@/views/enterprise/edit/index")), 'enterprise');
+const hschool = r => require.ensure([], () => r(require("@/views/hschool/index")), 'hschool');
+const hschoolEdit = r => require.ensure([], () => r(require("@/views/hschool/edit/index")), 'hschool');
+const mechanism = r => require.ensure([], () => r(require("@/views/mechanism/index")), 'mechanism');
+const mechanismEdit = r => require.ensure([], () => r(require("@/views/mechanism/edit/index")), 'mechanism');
+const demandLibrary = r => require.ensure([], () => r(require("@/views/demandLibrary/index")), 'demandLibrary');
+const achieveLibrary = r => require.ensure([], () => r(require("@/views/achieveLibrary/index")), 'achieveLibrary');
+
+
 
 /**
 * hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
@@ -20,32 +50,32 @@ import Layout from '@/views/layout/index.vue'
 **/
 export const constantRouterMap = [{
     path: '/login',
-    component: _import('login/index'),
+    component: login,
     name: 'login',
     leaf: true,
     hidden: true
   }, {
     path: '/register',
-    component: _import('register/index'),
+    component: register,
     name: 'register',
     leaf: true,
     hidden: true
   }, {
     path: '/registerDetail',
-    component: _import('registerDetail/index'),
+    component: registerDetail,
     name: 'registerDetail',
     leaf: true,
     hidden: true
   },{
     path: '/resetPaw',
-    component: _import('resetPaw/index'),
+    component: resetPaw,
     name: 'resetPaw',
     leaf: true,
     hidden: true
   },
   {
     path: '/xtcx/user/activate',
-    component: _import('activate/index'),
+    component: activate,
     name: 'resetPaw',
     leaf: true,
     hidden: true
@@ -62,17 +92,17 @@ export const constantRouterMap = [{
     },
     children: [{
       path: 'userDetail',
-      component: _import('userDetail/index'),
+      component: userDetail,
       leaf: true,
     },{
       path: 'userBaseDetail',
-      component: _import('userBaseDetail/index'),
+      component: userBaseDetail,
       leaf: true,
     }]
   },
   {
     path: '/404',
-    component: _import('404'),
+    component: page404,
     name: '404',
     leaf: true,
     hidden: true
@@ -85,7 +115,7 @@ export const constantRouterMap = [{
     hidden: true,
     children: [{
       path: 'dashboard',
-      component: _import('dashboard/index')
+      component: dashboard
     }]
   },
   {
@@ -99,7 +129,7 @@ export const constantRouterMap = [{
     },
     children: [{
       path: 'dashboard',
-      component: _import('dashboard/index'),
+      component: dashboard,
       leaf: true,
       meta: {
         title: '我的工作台',
@@ -119,7 +149,7 @@ export const constantRouterMap = [{
     children: [{
       path: 'user',
       name: '注册用户列表',
-      component: _import('user/index'),
+      component: user,
       leaf: true,
       meta: {
         title: '注册用户列表',
@@ -128,7 +158,7 @@ export const constantRouterMap = [{
     }, {
       path: 'ManageUser',
       name: '管理用户列表',
-      component: _import('ManageUser/index'),
+      component: ManageUser,
       leaf: true,
       meta: {
         title: '管理用户列表',
@@ -137,7 +167,7 @@ export const constantRouterMap = [{
     }, {
       path: 'org',
       name: '组织架构列表',
-      component: _import('org/index'),
+      component: org,
       leaf: true,
       meta: {
         title: '组织架构列表',
@@ -146,7 +176,7 @@ export const constantRouterMap = [{
     },{
       path: 'role',
       name: '角色列表',
-      component: _import('role/index'),
+      component: role,
       leaf: true,
       meta: {
         title: '角色列表',
@@ -155,7 +185,7 @@ export const constantRouterMap = [{
     }, {
       path: 'tree',
       name: '功能列表',
-      component: _import('tree/index'),
+      component:tree,
       leaf: true,
       meta: {
         title: '功能列表',
@@ -175,7 +205,7 @@ export const constantRouterMap = [{
     children: [{
       path: 'columnManage',
       name: '栏目管理',
-      component: _import('columnManage/index'),
+      component: columnManage,
       leaf: true,
       meta: {
         title: '栏目管理',
@@ -184,7 +214,7 @@ export const constantRouterMap = [{
     },{
       path: 'contentManage',
       name: '内容管理',
-      component: _import('contentManage/index'),
+      component: contentManage,
       leaf: true,
       meta: {
         title: '内容管理',
@@ -204,7 +234,7 @@ export const constantRouterMap = [{
     children: [{
       path: 'expert',
       name: '专家库管理',
-      component: _import('expert/index'),
+      component: expert,
       leaf: true,
       meta: {
         title: '专家库管理',
@@ -213,7 +243,7 @@ export const constantRouterMap = [{
     },{
       path: 'enterprise',
       name: '企业库管理',
-      component: _import('enterprise/index'),
+      component: enterprise,
       leaf: true,
       meta: {
         title: '企业库管理',
@@ -222,17 +252,48 @@ export const constantRouterMap = [{
     },{
       path: 'hschool',
       name: '高校院所库管理',
-      component: _import('hschool/index'),
+      component: hschool,
       leaf: true,
       meta: {
         title: '高校院所库管理',
         icon: 'table'
       }
     },{
-      path: 'mechanism',
-      name: '服务机构库管理',
-      component: _import('mechanism/index'),
+      path: 'expertEdit',
+      name: 'expertEdit',
+      component: expertEdit,
       leaf: true,
+      hidden: true,
+      meta: {
+        title: '专家库资料填写',
+        icon: 'table'
+      }
+    },{
+      path: 'enterpriseEdit',
+      name: 'enterpriseEdit',
+      component: enterpriseEdit,
+      leaf: true,
+      hidden: true,
+      meta: {
+        title: '企业库资料填写',
+        icon: 'table'
+      }
+    },{
+      path: 'hschoolEdit',
+      name: 'hschoolEdit',
+      component: hschoolEdit,
+      leaf: true,
+      hidden: true,
+      meta: {
+        title: '高校院所库资料填写',
+        icon: 'table'
+      }
+    },{
+      path: 'mechanismEdit',
+      name: 'mechanismEdit',
+      component: mechanismEdit,
+      leaf: true,
+      hidden: true,
       meta: {
         title: '服务机构库管理',
         icon: 'table'
@@ -240,7 +301,7 @@ export const constantRouterMap = [{
     },{
       path: 'demandLibrary',
       name: '需求库管理',
-      component: _import('demandLibrary/index'),
+      component: demandLibrary,
       leaf: true,
       meta: {
         title: '需求库管理',
@@ -249,7 +310,7 @@ export const constantRouterMap = [{
     },{
       path: 'achieveLibrary',
       name: '成果库管理',
-      component: _import('achieveLibrary/index'),
+      component: achieveLibrary,
       leaf: true,
       meta: {
         title: '成果库管理',
@@ -269,7 +330,7 @@ export const constantRouterMap = [{
 //   hidden: true,
 //   children: [{
 //     path: 'dashboard',
-//     component: _import('dashboard/index')
+//     component: dashboard
 //   }]
 // },
 //

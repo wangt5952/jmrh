@@ -1,6 +1,6 @@
 <template>
 <el-menu class="navbar" mode="horizontal">
-  <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
+  <!-- <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger> -->
   <el-dropdown class="avatar-container" trigger="click">
     <div class="avatar-wrapper">
       <img class="user-avatar" :src="avatar+'?imageView2/1/w/80/h/80'">
@@ -21,7 +21,7 @@
           修改用户信息
         </el-dropdown-item>
       </router-link>
-      <router-link class="inlineBlock" to="/index/userDetail">
+      <router-link  v-if="userType !='0'" class="inlineBlock" to="/index/userDetail">
         <el-dropdown-item>
           加入社区
         </el-dropdown-item>
@@ -88,6 +88,7 @@ export default {
         newPassword: '',
         rePassword: '',
       },
+      userType: '',
     };
   },
   components: {
@@ -100,6 +101,7 @@ export default {
   },
   mounted() {
     this.name = window.sessionStorage.getItem('userName')
+    this.userType =  window.sessionStorage.getItem('userType')
   },
   methods: {
     async savePaw(obj) {
@@ -138,7 +140,7 @@ export default {
     height: 57px;
     line-height: 50px;
     border-radius: 0 !important;
-    background: #1e88e5;
+    background: #0056B8;
     color: #fff;
     -webkit-box-shadow: 1px 0 5px rgba(0, 0, 0, 0.5);
     box-shadow: 1px 0 5px rgba(0, 0, 0, 0.5);

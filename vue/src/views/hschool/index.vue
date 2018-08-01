@@ -218,7 +218,7 @@
 
     <span slot="footer" class="dialog-footer">
       <el-button type="primary" v-if="dialogadd == true" @click="addCreate(obj)">添加</el-button>
-      <el-button type="primary" v-if="dialogsave == true"  @click="saveCreate(obj)">修改</el-button>
+      <el-button type="primary" v-if="dialogsave == true"  @click="saveCreate(school)">修改</el-button>
       <el-button type="primary" @click="dialogFormVisible = false">关闭</el-button>
     </span>
   </el-dialog>
@@ -234,7 +234,8 @@ import {
 } from '@/api/login'
 import {
   getcollege,
-  addLib
+  addLib,
+  delLib
 } from '@/api/library'
 
 import {
@@ -336,12 +337,8 @@ export default {
         success
       } = await getcollege(this.listQuery)
       if (success) {
-        // this.list = data.list
-        this.list = [{
-          'name': 1
-        }, {
-          'name': 1
-        }]
+       this.list = data.list
+
         this.loading = false
       }
     },
@@ -379,7 +376,6 @@ export default {
         getUserIddata[i].label = getUserIddata[i].roleName
         getUserIddata[i].value = getUserIddata[i].id
       }
-      debugger
       this.selected = getUserIddata
 
     },
@@ -421,17 +417,20 @@ export default {
     },
     async saveCreate(obj) {
       // if (!this.validata.validausr(obj)) return
+      let arr ={}
+      arr.formType = '4'
+      arr.detail = JSON.stringify(obj)
       let {
         data,
         success
-      } = await addLib(obj)
-
+      } = await addLib(arr)
       if (success) {
         this.$message({
           message: '保存成功',
           type: 'success'
         });
         this.dialogFormVisible = false
+        this.loadPageList()
       } else {
         this.$message({
           message: data.message,
@@ -447,7 +446,7 @@ export default {
           cancelButtonText: '取消',
           type: 'warning'
         }).then(async () => {
-          let del = await delUser(data.id)
+          let del = await delLib(data.id)
           this.list.splice(this.list.indexOf(data), 1)
           this.$message({
             type: 'success',
@@ -461,14 +460,17 @@ export default {
           });
         });
       } else if (type === 'edit') {
-        this.expert = data
-        this.dialogsave = true
-        this.dialogadd = false
-        this.dialogFormVisible = true
+        this.$router.push({
+          name: 'hschoolEdit',
+          params: {
+            objData: data
+          }
+        })
+
       } else {
-        this.dialogsave = true
-        this.dialogadd = false
-        this.dialogFormVisible = true
+        this.$router.push({
+          name: 'hschoolEdit'
+        })
       }
     },
     onDate1Change(val) {
@@ -486,49 +488,4 @@ export default {
 
 <style lang="scss">
 @import '../../styles/index.scss'; // 全局自定义的css样式
-</style>
-
-<style>
-.tab-container {
-  padding: 30px;
-}
-
-.el-table__body-wrapper {
-  overflow: auto;
-  position: relative;
-  height: 89%;
-}
-
-.el-dialog__header {
-  border-bottom: 1px solid#d8d6d6;
-  padding-bottom: 10px;
-}
-
-/*
-.el-dialog__title {
-  line-height: 1;
-  font-size: 25px;
-  font-weight: 700;
-  text-align: center;
-  color: #1f2d3d;
-} */
-
-.el-dialog__body {
-  margin-top: 30px;
-  padding: 0px 20px;
-  color: #48576a;
-  font-size: 14px;
-}
-
-.el-dialog__footer {
-  text-align: center;
-}
-
-.aaa {
-  width: 95%
-}
-
-.el-dialog__wrapper {
-  overflow: none;
-}
 </style>

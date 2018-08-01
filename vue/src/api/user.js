@@ -8,6 +8,15 @@ export function getUser(data) {
     data
   });
 }
+export function setStatus(data) {
+  return request({
+    url: '/xtcx/sysManager/bususer/status',
+    method: 'put',
+    data
+  });
+}
+
+
 // export function addUser(data) {
 //   return request({
 //     url: '/xtcx/sysManager/user',

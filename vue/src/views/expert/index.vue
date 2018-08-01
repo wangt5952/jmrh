@@ -75,147 +75,147 @@
     </div>
 
     <div id="tablePrint" class="textc" style="font-size:12px;height:100%;">
-    <table id="tableExcel" cellpadding=0 cellspacing=0  border="1px solid#000;" style='margin:0%;width:100%'>
+      <table id="tableExcel" cellpadding=0 cellspacing=0 border="1px solid#000;" style='margin:0%;width:100%'>
 
-      <tr height=27 style='mso-height-source:userset;height:20.25pt' id='r0'>
-        <td colspan=13 id='tc0' height=27 >军民科技协同创新专家信息表</td>
-      </tr>
-      <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r1'>
-        <td height=19 style='height:14.25pt;'>姓名</td>
-        <td colspan=2 id='tc1' ></td>
-        <td colspan=2 id='tc2'>性别</td>
-        <td></td>
-        <td>出生年月</td>
-        <td></td>
-        <td colspan=2 id='tc3'>身份证号</td>
-        <td colspan=3 id='tc4' ></td>
-      </tr>
-      <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r2'>
-        <td height=19 style='height:14.25pt;'>毕业院校</td>
-        <td colspan=2 id='tc5' ></td>
-        <td colspan=2 id='tc6'>学历</td>
-        <td colspan=3 id='tc7' ></td>
-        <td colspan=2 id='tc8'>学位</td>
-        <td colspan=3 id='tc9' ></td>
-      </tr>
-      <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r3'>
-        <td height=19 style='height:14.25pt;'>研究领域</td>
-        <td colspan=12 id='tc10' >□智能装备<span style='mso-spacerun:yes'>&nbsp; </span>□电子信息<span style='mso-spacerun:yes'>&nbsp; </span>□新材料<span style='mso-spacerun:yes'>&nbsp; </span>□航空航天<span style='mso-spacerun:yes'>&nbsp; </span>□生物技术与新医药<span style='mso-spacerun:yes'>&nbsp; </span>□能源与环保
-          <span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp; </span>□管理<span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>□其他</td>
-      </tr>
-      <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r4'>
-        <td height=19 style='height:14.25pt;'>研究方向</td>
-        <td colspan=12 id='tc11'></td>
-      </tr>
-      <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r5'>
-        <td height=19 style='height:14.25pt;'>工作单位</td>
-        <td colspan=5 id='tc12'></td>
-        <td>工作部门</td>
-        <td colspan=6 id='tc13'></td>
-      </tr>
-      <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r6'>
-        <td height=19 style='height:14.25pt;'>现任职务</td>
-        <td colspan=5 id='tc14'></td>
-        <td>职称</td>
-        <td colspan=2 id='tc15'></td>
-        <td>职称级别</td>
-        <td colspan=3 id='tc16'> □正高<br> □副高</td>
-      </tr>
-      <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r7'>
-        <td height=19 style='height:14.25pt;'>手机号码</td>
-        <td colspan=5 id='tc17'></td>
-        <td>办公电话</td>
-        <td colspan=2 id='tc18'></td>
-        <td>邮箱</td>
-        <td colspan=3 id='tc19'></td>
-      </tr>
-      <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r8'>
-        <td height=19 style='height:14.25pt;'>所在地区</td>
-        <td colspan=5 id='tc20' style='border-bottom:1px solid windowtext;'>省<span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>市<span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp; </span>区（县）（下拉选择）</td>
-        <td>通讯地址</td>
-        <td colspan=6 id='tc21'></td>
-      </tr>
-      <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r9'>
-        <td colspan=13 id='tc22' height=19 >主要学术成就/研究成果/管理成就</td>
-      </tr>
-      <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r10'>
-        <td colspan=13 id='tc23' height=19  ></td>
-      </tr>
-      <tr >
-        <td colspan=13 id='tc24' height=19  >主要产学研合作项目情况（国防军工类项目）</td>
-      </tr>
-      <tr >
-        <td colspan=13 id='tc25' height=19  ></td>
-      </tr>
-      <tr >
-        <td colspan=13 id='tc26' height=19  >近5年专业研究及获奖情况</td>
-      </tr>
-      <tr >
-        <td colspan=13 id='tc27' height=19  >（注：“项目或课题来源”指下达或委托任务单位，国际合作、国家、部门、地方、企业、单位自有等。奖励情况以获国家、省（部）级为主。）</td>
-      </tr>
-      <tr >
-        <td height=34 style='height:25.5pt;overflow:hidden;'>项目或课题名称</td>
-        <td style='overflow:hidden;'>项目或课题来源</td>
-        <td colspan=2 id='tc28'>完成情况</td>
-        <td colspan=2 id='tc29'>完成时间</td>
-        <td colspan=3 id='tc30'>奖项名称</td>
-        <td colspan=3 id='tc31'>获奖等级</td>
-        <td>获奖时间</td>
-      </tr>
-      <tr >
-        <td height=19  style='height:14.25pt;'></td>
-        <td ></td>
-        <td colspan=2 id='tc32' ></td>
-        <td colspan=2 id='tc33' ></td>
-        <td colspan=3 id='tc34' ></td>
-        <td colspan=3 id='tc35'>备注：可动态添加</td>
-        <td ></td>
-      </tr>
-      <tr >
-        <td height=19  style='height:14.25pt;'></td>
-        <td ></td>
-        <td colspan=2 id='tc36' ></td>
-        <td colspan=2 id='tc37' ></td>
-        <td colspan=3 id='tc38' ></td>
-        <td colspan=3 id='tc39' ></td>
-        <td ></td>
-      </tr>
-      <tr >
-        <td height=19  style='height:14.25pt;'></td>
-        <td ></td>
-        <td colspan=2 id='tc40' ></td>
-        <td colspan=2 id='tc41' ></td>
-        <td colspan=3 id='tc42' ></td>
-        <td colspan=3 id='tc43' ></td>
-        <td ></td>
-      </tr>
-      <tr >
-        <td height=19  style='height:14.25pt;'></td>
-        <td ></td>
-        <td colspan=2 id='tc44' ></td>
-        <td colspan=2 id='tc45' ></td>
-        <td colspan=3 id='tc46' ></td>
-        <td colspan=3 id='tc47' ></td>
-        <td ></td>
-      </tr>
-      <tr >
-        <td width=72 style='width:54pt'></td>
-        <td width=72 style='width:54pt'></td>
-        <td width=72 style='width:54pt'></td>
-        <td width=72 style='width:54pt'></td>
-        <td width=72 style='width:54pt'></td>
-        <td width=72 style='width:54pt'></td>
-        <td width=72 style='width:54pt'></td>
-        <td width=72 style='width:54pt'></td>
-        <td width=72 style='width:54pt'></td>
-        <td width=72 style='width:54pt'></td>
-        <td width=72 style='width:54pt'></td>
-        <td width=72 style='width:54pt'></td>
-        <td width=72 style='width:54pt'></td>
-      </tr>
-    </table>
+        <tr height=27 style='mso-height-source:userset;height:20.25pt' id='r0'>
+          <td colspan=13 id='tc0' height=27>军民科技协同创新专家信息表</td>
+        </tr>
+        <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r1'>
+          <td height=19 style='height:14.25pt;'>姓名</td>
+          <td colspan=2 id='tc1'></td>
+          <td colspan=2 id='tc2'>性别</td>
+          <td></td>
+          <td>出生年月</td>
+          <td></td>
+          <td colspan=2 id='tc3'>身份证号</td>
+          <td colspan=3 id='tc4'></td>
+        </tr>
+        <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r2'>
+          <td height=19 style='height:14.25pt;'>毕业院校</td>
+          <td colspan=2 id='tc5'></td>
+          <td colspan=2 id='tc6'>学历</td>
+          <td colspan=3 id='tc7'></td>
+          <td colspan=2 id='tc8'>学位</td>
+          <td colspan=3 id='tc9'></td>
+        </tr>
+        <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r3'>
+          <td height=19 style='height:14.25pt;'>研究领域</td>
+          <td colspan=12 id='tc10'>□智能装备<span style='mso-spacerun:yes'>&nbsp; </span>□电子信息<span style='mso-spacerun:yes'>&nbsp; </span>□新材料<span style='mso-spacerun:yes'>&nbsp; </span>□航空航天<span style='mso-spacerun:yes'>&nbsp; </span>□生物技术与新医药<span style='mso-spacerun:yes'>&nbsp; </span>□能源与环保
+            <span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp; </span>□管理<span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>□其他</td>
+        </tr>
+        <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r4'>
+          <td height=19 style='height:14.25pt;'>研究方向</td>
+          <td colspan=12 id='tc11'></td>
+        </tr>
+        <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r5'>
+          <td height=19 style='height:14.25pt;'>工作单位</td>
+          <td colspan=5 id='tc12'></td>
+          <td>工作部门</td>
+          <td colspan=6 id='tc13'></td>
+        </tr>
+        <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r6'>
+          <td height=19 style='height:14.25pt;'>现任职务</td>
+          <td colspan=5 id='tc14'></td>
+          <td>职称</td>
+          <td colspan=2 id='tc15'></td>
+          <td>职称级别</td>
+          <td colspan=3 id='tc16'> □正高<br> □副高</td>
+        </tr>
+        <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r7'>
+          <td height=19 style='height:14.25pt;'>手机号码</td>
+          <td colspan=5 id='tc17'></td>
+          <td>办公电话</td>
+          <td colspan=2 id='tc18'></td>
+          <td>邮箱</td>
+          <td colspan=3 id='tc19'></td>
+        </tr>
+        <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r8'>
+          <td height=19 style='height:14.25pt;'>所在地区</td>
+          <td colspan=5 id='tc20' style='border-bottom:1px solid windowtext;'>省<span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>市<span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp; </span>区（县）（下拉选择）</td>
+          <td>通讯地址</td>
+          <td colspan=6 id='tc21'></td>
+        </tr>
+        <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r9'>
+          <td colspan=13 id='tc22' height=19>主要学术成就/研究成果/管理成就</td>
+        </tr>
+        <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r10'>
+          <td colspan=13 id='tc23' height=19></td>
+        </tr>
+        <tr>
+          <td colspan=13 id='tc24' height=19>主要产学研合作项目情况（国防军工类项目）</td>
+        </tr>
+        <tr>
+          <td colspan=13 id='tc25' height=19></td>
+        </tr>
+        <tr>
+          <td colspan=13 id='tc26' height=19>近5年专业研究及获奖情况</td>
+        </tr>
+        <tr>
+          <td colspan=13 id='tc27' height=19>（注：“项目或课题来源”指下达或委托任务单位，国际合作、国家、部门、地方、企业、单位自有等。奖励情况以获国家、省（部）级为主。）</td>
+        </tr>
+        <tr>
+          <td height=34 style='height:25.5pt;overflow:hidden;'>项目或课题名称</td>
+          <td style='overflow:hidden;'>项目或课题来源</td>
+          <td colspan=2 id='tc28'>完成情况</td>
+          <td colspan=2 id='tc29'>完成时间</td>
+          <td colspan=3 id='tc30'>奖项名称</td>
+          <td colspan=3 id='tc31'>获奖等级</td>
+          <td>获奖时间</td>
+        </tr>
+        <tr>
+          <td height=19 style='height:14.25pt;'></td>
+          <td></td>
+          <td colspan=2 id='tc32'></td>
+          <td colspan=2 id='tc33'></td>
+          <td colspan=3 id='tc34'></td>
+          <td colspan=3 id='tc35'>备注：可动态添加</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td height=19 style='height:14.25pt;'></td>
+          <td></td>
+          <td colspan=2 id='tc36'></td>
+          <td colspan=2 id='tc37'></td>
+          <td colspan=3 id='tc38'></td>
+          <td colspan=3 id='tc39'></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td height=19 style='height:14.25pt;'></td>
+          <td></td>
+          <td colspan=2 id='tc40'></td>
+          <td colspan=2 id='tc41'></td>
+          <td colspan=3 id='tc42'></td>
+          <td colspan=3 id='tc43'></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td height=19 style='height:14.25pt;'></td>
+          <td></td>
+          <td colspan=2 id='tc44'></td>
+          <td colspan=2 id='tc45'></td>
+          <td colspan=3 id='tc46'></td>
+          <td colspan=3 id='tc47'></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td width=72 style='width:54pt'></td>
+          <td width=72 style='width:54pt'></td>
+          <td width=72 style='width:54pt'></td>
+          <td width=72 style='width:54pt'></td>
+          <td width=72 style='width:54pt'></td>
+          <td width=72 style='width:54pt'></td>
+          <td width=72 style='width:54pt'></td>
+          <td width=72 style='width:54pt'></td>
+          <td width=72 style='width:54pt'></td>
+          <td width=72 style='width:54pt'></td>
+          <td width=72 style='width:54pt'></td>
+          <td width=72 style='width:54pt'></td>
+          <td width=72 style='width:54pt'></td>
+        </tr>
+      </table>
 
-      </div>
+    </div>
 
     <span slot="footer" class="dialog-footer">
       <el-button type="primary" @click="dialogShowDep = false">关闭</el-button>
@@ -224,7 +224,7 @@
 
 
 
-  <el-dialog title="专家信息填写" :visible.sync="dialogFormVisible" width="60%" top='5%'>
+  <el-dialog title="专家信息填写" :visible.sync="dialogFormVisible" width="100%" top='0%'>
 
     <el-form class="" label-width="30%" style="text-align:left">
 
@@ -488,7 +488,8 @@
 <script>
 import {
   getexpert,
-  addLib
+  addLib,
+  delLib
 } from '@/api/library'
 
 import {
@@ -590,21 +591,33 @@ export default {
   },
   computed: {},
   methods: {
-  showDetail() {
-    this.dialogShowDep = true
-  },
+
+    addProjectexpert() {
+      this.expert.research_record.push({
+        projectname: '',
+        projectSrc: '',
+        finishcon: '',
+        finishtime: '',
+        rewname: '',
+        rewlevel: '',
+        rewtime: ''
+      })
+    },
+    showDetail() {
+      this.dialogShowDep = true
+    },
     handlePrint() {
       $("#tablePrint").printArea();
     },
     handleDownload() { //导出
       $("#tableExcel").table2excel({
-          exclude: ".noExl", //过滤位置的 css 类名
-          filename: new Date().getTime() + ".xls", //文件名称
-          name: "Excel Document Name.xlsx",
-          exclude_img: true,
-          exclude_links: true,
-          exclude_inputs: true
-        })
+        exclude: ".noExl", //过滤位置的 css 类名
+        filename: new Date().getTime() + ".xls", //文件名称
+        name: "Excel Document Name.xlsx",
+        exclude_img: true,
+        exclude_links: true,
+        exclude_inputs: true
+      })
     },
     async loadPageList() {
       if (this.input) {
@@ -617,8 +630,7 @@ export default {
         success
       } = await getexpert(this.listQuery)
       if (success) {
-        // this.list = data.list
-        this.list = [{'name':1},{'name':1}]
+        this.list = data.list
         this.loading = false
       }
     },
@@ -659,10 +671,13 @@ export default {
     },
     async saveCreate(obj) {
       // if (!this.validata.validausr(obj)) return
+      let arr = {}
+      arr.formType = '1'
+      arr.detail = JSON.stringify(obj)
       let {
         data,
         success
-      } = await addLib(obj)
+      } = await addLib(arr)
 
       if (success) {
         this.$message({
@@ -670,6 +685,7 @@ export default {
           type: 'success'
         });
         this.dialogFormVisible = false
+        this.loadPageList()
       } else {
         this.$message({
           message: data.message,
@@ -684,7 +700,7 @@ export default {
           cancelButtonText: '取消',
           type: 'warning'
         }).then(async () => {
-          let del = await delUser(data.id)
+          let del = await delLib(data)
           this.list.splice(this.list.indexOf(data), 1)
           this.$message({
             type: 'success',
@@ -698,14 +714,17 @@ export default {
           });
         });
       } else if (type === 'edit') {
-        this.expert = data
-        this.dialogsave = true
-        this.dialogadd = false
-        this.dialogFormVisible = true
+        this.$router.push({
+          name: 'expertEdit',
+          params: {
+            objData: data.form.detail
+          }
+        })
+
       } else {
-        this.dialogsave = true
-        this.dialogadd = false
-        this.dialogFormVisible = true
+        this.$router.push({
+          name: 'expertEdit'
+        })
       }
     },
     onDate1Change(val) {
@@ -723,50 +742,4 @@ export default {
 
 <style lang="scss">
 @import '../../styles/index.scss'; // 全局自定义的css样式
-</style>
-
-<style>
-.tab-container {
-  padding: 30px;
-}
-
-.el-table__body-wrapper {
-  overflow: auto;
-  position: relative;
-  height: 89%;
-}
-
-.el-dialog__header {
-  border-bottom: 1px solid#d8d6d6;
-  padding-bottom: 10px;
-}
-
-/*
-.el-dialog__title {
-  line-height: 1;
-  font-size: 25px;
-  font-weight: 700;
-  text-align: center;
-  color: #1f2d3d;
-} */
-
-.el-dialog__body {
-  margin-top: 30px;
-  padding: 0px 20px;
-  color: #48576a;
-  font-size: 14px;
-}
-
-.el-dialog__footer {
-  text-align: center;
-}
-
-.aaa {
-  width: 95%
-}
-
-.el-dialog__wrapper {
-  overflow: none;
-}
-
 </style>

@@ -4,7 +4,7 @@
 
     <!-- <div class="left-content" :style="{'background-image': `url('${leftImage}')`}"></div> -->
 
-    <div class="detail-content">
+    <div class="detail-content" style="overflow: auto;">
       <el-card class="box-card">
         <div slot="header" class="clearfix">
           <span><span v-if="userType == '1'">专家</span> <span v-if="userType == '2'">企业</span><span v-if="userType == '3'">服务机构</span><span v-if="userType == '4'">高校院所</span>注册</span>
@@ -257,7 +257,7 @@
             <el-row>
               <div style="padding-left: 35%;margin: 40px 0  0  0;">
                 <el-button type="primary" style="width: 120px;" @click="saveFile(expert)">完善并保存</el-button>
-                <el-button type="primary" style="width: 120px;">不完善并保存</el-button>
+                <el-button type="primary" style="width: 120px;" @click="toIndex">去首页</el-button>
               </div>
             </el-row>
           </div>
@@ -271,7 +271,7 @@
 
                 <el-form class="" label-width="30%" style="text-align:left">
                   <el-row :gutter="20">
-                    <el-col :span="10">
+                    <el-col :span="20">
                       <el-form-item label="姓名">
                         <el-input placeholder="请输入姓名" v-model="com.lxname" style="width:80%"></el-input>
                       </el-form-item>
@@ -284,11 +284,6 @@
                       <el-form-item label="邮箱">
                         <el-input placeholder="请输入邮箱" v-model="com.lxemail" style="width:80%"></el-input>
                       </el-form-item>
-                    </el-col>
-
-                    <el-col :span="10">
-
-
                     </el-col>
 
                   </el-row>
@@ -588,6 +583,21 @@
                       <el-form-item label="有参军潜力的技术成果">
                         <el-input placeholder="请输入有参军潜力的技术成果" v-model="com.jscg" style="width:80%"></el-input>
                       </el-form-item>
+
+                      <el-form-item label="服务部门">
+                        <el-radio v-model="com.fwbm" label="1">海军</el-radio>
+                        <el-radio v-model="com.fwbm" label="2">陆军</el-radio>
+                        <el-radio v-model="com.fwbm" label="3">空军</el-radio>
+                        <el-radio v-model="com.fwbm" label="4">火箭军</el-radio>
+                        <el-radio v-model="com.fwbm" label="5">战略支援部队</el-radio>
+                        <el-radio v-model="com.fwbm" label="6">军工企业</el-radio>
+                      </el-form-item>
+
+                      <el-form-item label="执行情况">
+                        <el-radio v-model="com.zxqk" label="1">申请</el-radio>
+                        <el-radio v-model="com.zxqk" label="2">在研</el-radio>
+                        <el-radio v-model="com.zxqk" label="3">验收/结题 </el-radio>
+                      </el-form-item>
                       <el-form-item label="可用于军民融合共享的资源情况（不超过200字）">
 
                         <textarea v-model="com.zyqk" rows="3" cols="20" style="width:100%;height: 350px;">
@@ -612,21 +622,6 @@
                   <el-row :gutter="20">
                     <el-col :span="20">
 
-
-                      <el-form-item label="服务部门">
-                        <el-radio v-model="com.fwbm" label="1">海军</el-radio>
-                        <el-radio v-model="com.fwbm" label="2">陆军</el-radio>
-                        <el-radio v-model="com.fwbm" label="3">空军</el-radio>
-                        <el-radio v-model="com.fwbm" label="4">火箭军</el-radio>
-                        <el-radio v-model="com.fwbm" label="5">战略支援部队</el-radio>
-                        <el-radio v-model="com.fwbm" label="6">军工企业</el-radio>
-                      </el-form-item>
-
-                      <el-form-item label="执行情况">
-                        <el-radio v-model="com.zxqk" label="1">申请</el-radio>
-                        <el-radio v-model="com.zxqk" label="2">在研</el-radio>
-                        <el-radio v-model="com.zxqk" label="3">验收/结题 </el-radio>
-                      </el-form-item>
                       <div style="margin:0 auto">
 
                         <el-button size="small" @click="addProjectcom()">
@@ -664,7 +659,7 @@
             <el-row>
               <div style="padding-left: 35%;margin: 40px 0  0  0;">
                 <el-button type="primary" style="width: 120px;" @click="saveFile(com)">完善并保存</el-button>
-                <el-button type="primary" style="width: 120px;">不完善并保存</el-button>
+                <el-button type="primary" style="width: 120px;" @click="toIndex">去首页</el-button>
               </div>
             </el-row>
 
@@ -973,7 +968,7 @@
             <el-row>
               <div style="padding-left: 35%;margin: 40px 0  0  0;">
                 <el-button type="primary" style="width: 120px;" @click="saveFile(mech)">完善并保存</el-button>
-                <el-button type="primary" style="width: 120px;">不完善并保存</el-button>
+                <el-button type="primary" style="width: 120px;" @click="toIndex">去首页</el-button>
               </div>
             </el-row>
           </div>
@@ -1059,7 +1054,7 @@
             <el-row>
               <div style="padding-left: 35%;margin: 40px 0  0  0;">
                 <el-button type="primary" style="width: 120px;" @click="saveFile(school)">完善并保存</el-button>
-                <el-button type="primary" style="width: 120px;">不完善并保存</el-button>
+                <el-button type="primary" style="width: 120px;" @click="toIndex">去首页</el-button>
               </div>
             </el-row>
           </div>
@@ -1084,8 +1079,11 @@ import {
   pcaa
 } from "area-data";
 import {
-  getUserDetail
+  getUserDetail,
+  setUserDetail,
+  isInLibs
 } from '@/api/login'
+
 export default {
   data() {
     return {
@@ -1134,9 +1132,9 @@ export default {
         }]
       },
       school: {
-        zhengben:[],
-        fuben:[],
-        logo:[],
+        zhengben: [],
+        fuben: [],
+        logo: [],
         introduction: '',
         major_platform: '',
         unit_url: '',
@@ -1147,9 +1145,9 @@ export default {
         name: '',
       },
       mech: {
-        zhengben:[],
-        fuben:[],
-        logo:[],
+        zhengben: [],
+        fuben: [],
+        logo: [],
         registerNature: '',
         org_type: '',
         serviceAbout: '',
@@ -1192,9 +1190,9 @@ export default {
         linkman: ''
       },
       com: {
-        zhengben:[],
-        fuben:[],
-        logo:[],
+        zhengben: [],
+        fuben: [],
+        logo: [],
         lxname: '',
         lxzw: '',
         lxphone: '',
@@ -1251,7 +1249,7 @@ export default {
           source: ''
         }],
       },
-      userType: '3',
+      userType: '1',
       registerValue: '',
       loginVerify: { // 普通登录
         phone: '',
@@ -1262,15 +1260,39 @@ export default {
     }
   },
   async mounted() {
+
     if (this.$route.params.userType) {
       this.userType = this.$route.params.userType
-      // let {
-      //   data,
-      //   success
-      // } = await getUserDetail()
-      // if (this.userType == '2') {
-      //   this.com = JSON.parse(data.detail)
-      // }
+      let {
+        data,
+        success
+      } = await isInLibs()
+      debugger
+      if (success) {
+        if (data == null) {
+          this.$message({
+            message: '还没有加入社区，请完善信息！',
+            type: 'success'
+          });
+          return
+        } else {
+          this.userType = data.form.formType
+          if (data.form.formType == '1') {
+            this.expert = JSON.parse(data.form.detail)
+          }
+          if (data.form.formType == '2') {
+            this.com = JSON.parse(data.form.detail)
+          }
+          if (data.form.formType == '3') {
+            this.mech = JSON.parse(data.form.detail)
+          }
+          if (data.form.formType == '4') {
+            this.school = JSON.parse(data.form.detail)
+          }
+        }
+
+      }
+
     }
     var myDate = new Date();
     this.service_amount_lastt = myDate.getFullYear() + '年服务收入（万元）';
@@ -1331,30 +1353,51 @@ export default {
       console.log(file)
       // do something...
     },
-    saveFile() {
-      let obj = this.per
-      let obj2 = this.com
-      let obj3 = JSON.stringify(this.mech)
-      let obj4 = this.school
-      debugger
-      return
+    toIndex() {
+      this.$router.push({
+        path: '/dashboard'
+      })
+    },
+    async saveFile(obj) {
+      // if (!this.validata.validaRole(obj)) return
+
+      let arr = []
+      obj.method = 'post'
+      let {
+        data,
+        success
+      } = await setUserDetail(obj)
+
+      if (success) {
+        this.$message({
+          message: '保存成功',
+          type: 'success'
+        });
+        this.dialogFormVisible = false
+      } else {
+        this.$message({
+          message: data.message,
+          type: 'success'
+        });
+      }
+
     },
     addProjectexpert() {
       this.expert.research_record.push({
-          projectname: '',
-          projectSrc: '',
-          finishcon: '',
-          finishtime: '',
-          rewname: '',
-          rewlevel: '',
-          rewtime: ''
+        projectname: '',
+        projectSrc: '',
+        finishcon: '',
+        finishtime: '',
+        rewname: '',
+        rewlevel: '',
+        rewtime: ''
       })
     },
     addProjectcom() {
       this.com.comPorcolumnDefinitions.push({
-          name: '',
-          time: '',
-          source: ''
+        name: '',
+        time: '',
+        source: ''
       })
     },
     addProjectmech() {

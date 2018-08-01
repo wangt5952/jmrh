@@ -2,11 +2,14 @@
 <scroll-bar>
   <el-menu mode="vertical" unique-opened :default-active="$route.path" :collapse="isCollapse" background-color="#fff" text-color="#616265" active-text-color="#fff">
 
-    <div class="navbar-header">
-      <el-row>
-        <img :src="logo_light_icon" alt="homepage" class="" />
-        <!-- <el-col :span="10"> <img :src="logo_light" class="" alt="homepage" /></el-col> -->
-      </el-row>
+    <div class="navbar-header" style="display:flex">
+      <div class="" style="flex:1;overflow:hidden;text-align:left;">
+          <img :src="logo_light_icon" alt="homepage" class="" style="height:57px;padding: 5px;background:#fff"/>
+      </div>
+      <!-- <div  style="flex:4;color:#fff;font-size:13px; display: flex;justify-content:center; align-items:Center;font-wetght:bold">
+
+          苏南自创区国家军民科技协同创新平台
+      </div> -->
     </div>
 
     <sidebar-item :nodes="$router.options.routes"></sidebar-item>
@@ -16,7 +19,7 @@
 
 <script>
 import logo_icon from '@/assets/logo/logo_icon.png'
-import logo_light_icon from '@/assets/logo/logo_light_icon.png'
+import logo_light_icon from '@/assets/logo/logo.png'
 import logo_text from '@/assets/logo/logo_text.png'
 import logo_light from '@/assets/logo/logo_light.png'
 import {
@@ -68,9 +71,8 @@ export default {
 }
 .navbar-header {
     height: 57px;
-    background: #167fdc;
+    background: #004696;
     text-align: center;
-    padding: 10px;
 }
 .logo_light_icon {
     width: 10%;

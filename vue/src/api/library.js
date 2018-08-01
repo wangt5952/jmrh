@@ -36,12 +36,10 @@ export function addLib(data) {
     method: 'post',
     data
   });
-}
-
-export function isInLibs(data) {
+}export function delLib(data) {
   return request({
-    url: 'xtcx/lib/isInLibs',
-    method: 'post',
+    url: '/xtcx/lib/delLib?id='+data.id+'&type='+data.form.formType,
+    method: 'delete',
     data
   });
 }

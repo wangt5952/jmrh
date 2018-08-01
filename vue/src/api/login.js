@@ -1,5 +1,26 @@
 import request from '@/utils/request'
 
+export function isInLibs(data) {
+  return request({
+    url: 'xtcx/lib/isInLibs',
+    method: 'get',
+    data
+  });
+}
+export function activate(data) {
+  return request({
+    url: '/xtcx/user/activate?activateId='+data,
+    method: 'get',
+    data
+  });
+}
+export function sendEmailActivate(data) {
+  return request({
+    url: '/xtcx/user/sendEmailActivate',
+    method: 'post',
+    data
+  });
+}
 
 export function registers(data) {
   return request({
@@ -69,7 +90,7 @@ export function getInfo(token) {
 
 export function logout() {
   return request({
-    url: '/user/logout',
-    method: 'post'
+    url: '/xtcx/user/logout',
+    method: 'get'
   })
 }

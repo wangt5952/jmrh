@@ -76,166 +76,66 @@ let verify = {
 
 }
 
-function validaRole(str) {
-  if (!str || verify.isNull(str.roleName)) {
-    Message({
-      message: '名称不能为空',
-      type: 'error'
-    });
-    return false;
-  }
-  return true;
-}
-
-function validaTree(str) {
-  if (!str || verify.isNull(str.label)) {
-    Message({
-      message: '名称不能为空',
-      type: 'error'
-    });
-    return false;
-  }
-  if (!str || verify.isNull(str.menuUrl)) {
-    Message({
-      message: '路径不能为空',
-      type: 'error'
-    });
-    return false;
-  }
-  if (!str || verify.isNull(str.icon)) {
-    Message({
-      message: '图标不能为空',
-      type: 'error'
-    });
-    return false;
-  }
-  return true;
-}
-
-
-function validausr(str) {
+function validaManageUser(str) {
+  debugger
   if (!str || verify.isNull(str.userName)) {
-    Message({
-      message: '用户名不能为空',
-      type: 'error'
-    });
-    return false;
-  }
-  if (!str || verify.isNull(str.userPassword)) {
-    Message({
-      message: '密码不能为空',
-      type: 'error'
-    });
-    return false;
-  }
-  return true;
-}
 
-function validadep(str) {
-  if (!str || verify.isNull(str.label)) {
     Message({
-      message: '名称不能为空',
+      message: '用户名不能为空！',
       type: 'error'
     });
     return false;
   }
-  if (!str || verify.isNull(str.departCode)) {
+  if (!str || verify.isNull(str.cellphone)) {
     Message({
-      message: '编号不能为空',
+      message: '手机号不能为空！',
       type: 'error'
     });
     return false;
   }
-  return true;
-}
-
-function validamdm(str) {
-  if (!str) {
+  if (!str || verify.isPoneAvailable(str.cellphone)) {
     Message({
-      message: '请输入内容！',
+      message: '手机号格式不正确！',
       type: 'error'
     });
     return false;
   }
-  return true;
-}
-
-function validaserviceInter(str) {
-  if (!str || verify.isNull(str.wsdlLocation)) {
+  if (!str || verify.isNull(str.email)) {
     Message({
-      message: 'WSDL地址不能为空',
+      message: '邮箱不能为空！',
       type: 'error'
     });
     return false;
   }
-  if (!str || verify.isNull(str.dburl)) {
+  if (!str || verify.checkEmail(str.email)) {
     Message({
-      message: '数据库地址不能为空',
-      type: 'error'
-    });
-    return false;
-  }
-  if (!str || verify.isNull(str.username)) {
-    Message({
-      message: '用户名不能为空',
+      message: '请输入正确的邮箱地址！',
       type: 'error'
     });
     return false;
   }
   if (!str || verify.isNull(str.password)) {
     Message({
-      message: '密码不能为空',
+      message: '密码不能为空！',
       type: 'error'
     });
     return false;
   }
-  return true;
-}
+  if (!str || verify.isNull(str.selected)) {
+    Message({
+      message: '角色不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.orgId)) {
+    Message({
+      message: '组织架构不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
 
-function validaservice(str) {
-  if (!str || verify.isNull(str.bsName)) {
-    Message({
-      message: '业务名不能为空',
-      type: 'error'
-    });
-    return false;
-  }
-  return true;
-}
-
-function validamodelDiy(str) {
-  if (!str || verify.isNull(str.modelId)) {
-    Message({
-      message: '请选择模型',
-      type: 'error'
-    });
-    return false;
-  }
-  if (!str || verify.isNull(str.tableName)) {
-    Message({
-      message: '数据库表名不能为空',
-      type: 'error'
-    });
-    return false;
-  }
-  if (!str || verify.isNull(str.tableLabel)) {
-    Message({
-      message: '中文名表名不能为空',
-      type: 'error'
-    });
-    return false;
-  }
-  return true;
-}
-
-function validamodule(str) {
-  if (!str || verify.isNull(str.mdmModel)) {
-    Message({
-      message: '模块名不能为空',
-      type: 'error'
-    });
-    return false;
-  }
   return true;
 }
 
@@ -254,9 +154,31 @@ function validatoRegistere(str) {
     });
     return false;
   }
-  if (!str || verify.isNull(str.ecode)) {
+
+  if (!str || verify.isNull(str.password)) {
     Message({
-      message: '验证码不能为空！',
+      message: '密码不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.repassword)) {
+    Message({
+      message: '请再次输入密码！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.name)) {
+    Message({
+      message: '名字不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.idNumber)) {
+    Message({
+      message: '唯一识别码不能为空！',
       type: 'error'
     });
     return false;
@@ -265,41 +187,9 @@ function validatoRegistere(str) {
   return true;
 }
 
-function validatoRegisterp(str) {
-  if (!str || verify.isNull(str.phone)) {
-    Message({
-      message: '手机号不能为空！',
-      type: 'error'
-    });
-    return false;
-  }
-  if (!str || verify.isPoneAvailable(str.phone)) {
-    Message({
-      message: '手机号格式不正确！',
-      type: 'error'
-    });
-    return false;
-  }
-  if (!str || verify.isNull(str.verity)) {
-    Message({
-      message: '验证码不能为空！',
-      type: 'error'
-    });
-    return false;
-  }
-  return true;
-}
+
 //success/warning/info/error
 export default {
-  validaRole,
-  validaTree,
-  validausr,
-  validadep,
-  validamdm,
-  validaserviceInter,
-  validaservice,
-  validamodelDiy,
-  validamodule,
   validatoRegistere,
-  validatoRegisterp
+  validaManageUser
 }

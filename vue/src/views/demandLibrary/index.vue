@@ -411,46 +411,5 @@ export default {
 </style>
 
 <style>
-.tab-container {
-  padding: 30px;
-}
 
-.el-table__body-wrapper {
-  overflow: auto;
-  position: relative;
-  height: 89%;
-}
-
-.el-dialog__header {
-  border-bottom: 1px solid#d8d6d6;
-  padding-bottom: 10px;
-}
-
-/*
-.el-dialog__title {
-  line-height: 1;
-  font-size: 25px;
-  font-weight: 700;
-  text-align: center;
-  color: #1f2d3d;
-} */
-
-.el-dialog__body {
-  margin-top: 30px;
-  padding: 0px 20px;
-  color: #48576a;
-  font-size: 14px;
-}
-
-.el-dialog__footer {
-  text-align: center;
-}
-
-.aaa {
-  width: 95%
-}
-
-.el-dialog__wrapper {
-  overflow: none;
-}
 </style>

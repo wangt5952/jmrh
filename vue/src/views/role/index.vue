@@ -59,7 +59,7 @@
     </el-tree>
 
     <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="subSaveCreate">修改</el-button>
+        <el-button type="primary" @click="subSaveCreate">保存</el-button>
         <el-button type="primary" @click="dialogShowMenu = false">关闭</el-button>
       </span>
   </el-dialog>
@@ -102,13 +102,13 @@
           <el-input v-model="obj.roleDesc" placeholder="请输入内容" style="width:80%"></el-input>
         </el-form-item>
         <el-form-item label="类型">
+
           <el-select v-model="obj.roleType" style="width:100px" placeholder="请选择">
-            <el-option label="管理员" key="1" value='1'>
+            <el-option label="管理员" :key=1 :value=1>
             </el-option>
-            <el-option label="用户" key="2" value='2'>
+            <el-option label="用户" :key=2 :value=2>
             </el-option>
           </el-select>
-
         </el-form-item>
       </el-row>
     </el-form>
@@ -133,7 +133,7 @@ import {
   getAllrole,
   addRole,
   delRole,
-  dataPermissionAll,
+  saveRoleMenus,
   dataTreeAll,
   getRoleId
 } from '@/api/role'
@@ -259,7 +259,7 @@ export default {
       }
     },
     async saveCreate(obj) {
-      if (!this.validata.validaRole(obj)) return
+      // if (!this.validata.validaRole(obj)) return
 
       let arr =[]
       obj.method = 'put'
@@ -317,6 +317,7 @@ export default {
         this.dialogsave = true
         this.dialogadd = false
         this.dialogFormVisible = true
+
       } else if (type === 'del') {
         this.$confirm('此操作将删除该记录, 是否继续?', '提示', {
           confirmButtonText: '确定',
@@ -367,57 +368,4 @@ export default {
 
 <style lang="scss">
 @import '../../styles/index.scss'; // 全局自定义的css样式
-</style>
-
-<style>
-.tab-container {
-  padding: 30px;
-}
-
-.el-table__body-wrapper {
-  overflow: auto;
-  position: relative;
-  height: 89%;
-}
-
-.el-dialog__header {
-  border-bottom: 1px solid#d8d6d6;
-  padding-bottom: 10px;
-}
-
-/*
-.el-dialog__title {
-  line-height: 1;
-  font-size: 25px;
-  font-weight: 700;
-  text-align: center;
-  color: #1f2d3d;
-} */
-
-.el-dialog__body {
-  margin-top: 30px;
-  padding: 0px 20px;
-  color: #48576a;
-  font-size: 14px;
-}
-
-.el-dialog__footer {
-  text-align: center;
-}
-.el-table td {
-    padding: 0px 0;
-    min-width: 0;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    text-overflow: ellipsis;
-    vertical-align: middle;
-    position: relative;
-}
-.aaa {
-  width: 95%
-}
-
-.el-dialog__wrapper {
-  overflow: none;
-}
 </style>

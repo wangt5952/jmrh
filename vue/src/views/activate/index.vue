@@ -10,7 +10,13 @@
       </div>
       <div class="bullshit__oops">{{text}}</div>
       <div class="">
-        <a href="http://106.14.172.38:8990/jmrh" class="bullshit__return-home" >返回登录页</a>
+
+        <div class="">
+          <a class="bullshit__return-home" @click="toIndex">不加入社区直接登录</a>
+        </div>
+        <div v-if="pic == '1'" class="" style="padding:10px">
+          <a class="bullshit__return-home" @click="toNext">下一步，加入社区</a>
+        </div>
       </div>
 
     </div>
@@ -23,8 +29,14 @@
 import img_404 from '@/assets/404_images/404.png'
 import img_404_cloud from '@/assets/404_images/404_cloud.png'
 import {
-  activate
-} from '@/api/manageUser'
+  activate,
+} from '@/api/login'
+
+import {
+  getToken,
+  setToken,
+  removeToken
+} from '@/utils/auth'
 
 export default {
   data() {
@@ -32,30 +44,58 @@ export default {
       img_404,
       img_404_cloud,
       text: '',
-      pic: ''
+      pic: '',
+      userType: ''
     }
   },
   computed: {
-    message() {
-      return '特朗普说这个页面你不能进......'
-    }
+
   },
   mounted() {
     this.loadPageList()
 
   },
   methods: {
+    toIndex() {
+      this.$router.push({
+        path: '/'
+      })
+    },
+    toNext() {
+      this.$router.push({
+        name: 'registerDetail',
+        params: {
+          userType: this.userType
+        }
+      })
+
+    },
     async loadPageList() {
       if (this.$route.query.activateId) {
         let {
           data,
-          success
+          success,
+          message
         } = await activate(this.$route.query.activateId)
         if (success) {
-          this.text = data
+          this.text = message
           this.pic = '1'
+          this.userType = data.userType
+          setToken(data.token)
+          this.$store.commit('SET_TOKEN', {
+            token: data.token
+          })
+          this.$store.commit('SET_NAME', {
+            userName: data.userName
+          })
+          this.$store.commit('SET_ROLES', {
+            userType: data.userType
+          })
+          window.sessionStorage.setItem('userName', data.userName)
+          window.sessionStorage.setItem('userId', data.userId)
+          window.sessionStorage.setItem('userType', data.userType)
         } else {
-          this.text = data
+          this.text = message
           this.pic = '2'
         }
       }
@@ -65,11 +105,10 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-
 .wscn-http404 .bullshit__return-home {
     display: initial!important;
-     float: none!important;
-     padding: 10px;
+    float: none!important;
+    padding: 10px;
     width: 110px;
     height: 36px;
     background: #1482f0;

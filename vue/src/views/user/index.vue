@@ -61,14 +61,14 @@
     <el-table-column align="center" label="用户状态">
       <template slot-scope="scope">
         <span v-if="scope.row.status =='1'">开启</span>
-        <span v-if="scope.row.status =='2'">关闭</span>
+        <span v-if="scope.row.status =='0'">禁用</span>
                     </template>
     </el-table-column>
    <el-table-column v-if="userType =='0'" align="center" label="操作">
       <template slot-scope="scope">
                     <div style="margin:2% 2% 2% 2%">
-                        <el-button size="small" v-if="scope.row.status =='2'" @click="handleEdit('1')" type="" style="border-radius: 5px;">开启</el-button>
-                        <el-button size="small" v-if="scope.row.status =='1'" @click="handleEdit('2')" type="" style="background: #f44;color: #fff;border-radius: 5px;">禁用</el-button>
+                        <el-button size="small" v-if="scope.row.status =='0'" @click="handleEdit(scope.row,'1')" type="" style="border-radius: 5px;">开启</el-button>
+                        <el-button size="small" v-if="scope.row.status =='1'" @click="handleEdit(scope.row,'0')" type="" style="background: #f44;color: #fff;border-radius: 5px;">禁用</el-button>
                     </div>
                 </template>
     </el-table-column>
@@ -126,6 +126,7 @@
 <script>
 import {
   getUser,
+  setStatus
 } from '@/api/user'
 
 import {
@@ -195,9 +196,9 @@ export default {
   methods: {
     async loadPageList() {
       if (this.input) {
-        this.listQuery.email = this.input
+        this.listQuery.objName = this.input
       } else {
-        this.listQuery.email = ''
+        this.listQuery.objName = ''
       }
       let {
         data,
@@ -334,14 +335,27 @@ export default {
     //     message: '修改成功!'
     //   });
     // }
-    async handleEdit(data, type) {
-
-      // let del = await delUser(data.id)
-      // this.list.splice(this.list.indexOf(data), 1)
-      // this.$message({
-      //   type: 'success',
-      //   message: '删除成功!'
-      // });
+    async handleEdit(obj,num) {
+      let arr ={}
+      arr.status = num
+      arr.id = obj.id
+      let {
+        data,
+        success,
+        message
+      } = await setStatus(arr)
+      if (success) {
+        this.$message({
+          message: '操作成功',
+          type: 'success'
+        });
+        this.loadPageList()
+      } else {
+        this.$message({
+          message: data.message,
+          type: 'success'
+        });
+      }
     },
     onDate1Change(val) {
       this.obj.loanDate = val
@@ -358,49 +372,4 @@ export default {
 
 <style lang="scss">
 @import '../../styles/index.scss'; // 全局自定义的css样式
-</style>
-
-<style>
-.tab-container {
-  padding: 30px;
-}
-
-.el-table__body-wrapper {
-  overflow: auto;
-  position: relative;
-  height: 89%;
-}
-
-.el-dialog__header {
-  border-bottom: 1px solid#d8d6d6;
-  padding-bottom: 10px;
-}
-
-/*
-.el-dialog__title {
-  line-height: 1;
-  font-size: 25px;
-  font-weight: 700;
-  text-align: center;
-  color: #1f2d3d;
-} */
-
-.el-dialog__body {
-  margin-top: 30px;
-  padding: 0px 20px;
-  color: #48576a;
-  font-size: 14px;
-}
-
-.el-dialog__footer {
-  text-align: center;
-}
-
-.aaa {
-  width: 95%
-}
-
-.el-dialog__wrapper {
-  overflow: none;
-}
 </style>

@@ -37,31 +37,31 @@
                 </template>
     </el-table-column>
 
-    <el-table-column align="center" label="所属组织机构">
+    <!-- <el-table-column align="center" label="所属组织机构">
       <template slot-scope="scope">
-                    <span>
+                    <span> -->
                       <!-- {{ scope.row.org.label }} -->
-                        {{ scope.row.org.label }} - {{ scope.row.org.remark }} - {{ scope.row.org.children[0].label }}  - {{ scope.row.org.children[0].remark }}
+                        <!-- {{ scope.row.org.label }} - {{ scope.row.org.remark }} - {{ scope.row.org.children[0].label }}  - {{ scope.row.org.children[0].remark }}
                         </span>
                 </template>
-    </el-table-column>
+    </el-table-column> -->
     <el-table-column align="center" label="所属角色">
       <template slot-scope="scope">
-                        <span>
-                            {{ scope.row.roles[0].roleName}}</span>
+                        <span v-for="item in  scope.row.roles">
+                            {{item.roleName}},</span>
                     </template>
     </el-table-column>
     <el-table-column align="center" label="用户状态">
       <template slot-scope="scope">
             <span v-if="scope.row.status =='1'">开启</span>
-            <span v-if="scope.row.status =='2'">关闭</span>
+            <span v-if="scope.row.status =='0'">禁用</span>
                         </template>
     </el-table-column>
     <el-table-column v-if="userType =='0'" align="center" label="">
       <template slot-scope="scope">
                         <div style="margin:2% 2% 2% 2%">
-                            <el-button size="small" v-if="scope.row.status =='2'" @click="handleEdit('1')" type="" style="border-radius: 5px;">开启</el-button>
-                            <el-button size="small" v-if="scope.row.status =='1'" @click="handleEdit('2')" type="" style="background: #f44;color: #fff;border-radius: 5px;">禁用</el-button>
+                            <el-button size="small" v-if="scope.row.status =='0'" @click="handleEditjy(scope.row,'1')" type="" style="border-radius: 5px;">开启</el-button>
+                            <el-button size="small" v-if="scope.row.status =='1'" @click="handleEditjy(scope.row,'0')" type="" style="background: #f44;color: #fff;border-radius: 5px;">禁用</el-button>
                         </div>
                     </template>
     </el-table-column>
@@ -70,7 +70,7 @@
       <template slot-scope="scope">
                     <div style="margin:2% 2% 2% 2%">
                         <el-button size="small" @click="handleEdit(scope.row,'edit')" type=""  class="el-icon-edit colorblue borderblue"></el-button>
-                        <el-button size="small" @click="handleEdit(scope.row,'del')"  type=""  class="el-icon-delete colorred borderred"></el-button>
+                        <!-- <el-button size="small" @click="handleEdit(scope.row,'del')"  type=""  class="el-icon-delete colorred borderred"></el-button> -->
                     </div>
                 </template>
     </el-table-column>
@@ -128,7 +128,7 @@
         <el-form-item label="手机号">
           <el-input v-model="obj.cellphone" placeholder="请输入内容" style="width:80%"></el-input>
         </el-form-item>
-        <el-form-item label="邮件">
+        <el-form-item label="邮箱">
           <el-input v-model="obj.email" placeholder="请输入内容" style="width:80%"></el-input>
         </el-form-item>
         <el-form-item label="密码">
@@ -165,6 +165,7 @@ import {
   addUser,
   saveUser,
   delUser,
+  setUserStatus
 } from '@/api/manageUser'
 
 import {
@@ -320,8 +321,8 @@ export default {
       }
     },
     async addCreate(obj) {
-
-      // if (!this.validata.validausr(obj)) return
+      obj.selected = this.selected
+      if (!this.validata.validaManageUser(obj)) return
       obj.method = 'post'
       let arr = []
       let getAlldata = this.selected
@@ -347,7 +348,8 @@ export default {
       }
     },
     async saveCreate(obj) {
-      // if (!this.validata.validausr(obj)) return
+      obj.selected = this.selected
+      if (!this.validata.validaManageUser(obj)) return
       obj.method = 'put'
       let arr = []
       let getAlldata = this.selected
@@ -395,11 +397,31 @@ export default {
 
       }
     },
+    async handleEditjy(obj, num) {
+      let arr ={}
+      arr.status = num
+      arr.id = obj.id
+      let {
+        data,
+        success,
+        message
+      } = await setUserStatus(arr)
+      if (success) {
+        this.$message({
+          message: '操作成功',
+          type: 'success'
+        });
+        this.loadPageList()
+      } else {
+        this.$message({
+          message: data.message,
+          type: 'success'
+        });
+      }
+    },
     async handleEdit(data, type) {
-      debugger
       if (type === 'edit') {
         this.obj = data
-
         let arr = []
         let getAlldata = data.roles
 
@@ -410,7 +432,7 @@ export default {
           arr.push(obja)
         }
         this.selected = arr
-
+        this.obj.orgId = data.org
         this.dialogStatus = 'update'
         this.dialogsave = true
         this.dialogadd = false
@@ -452,49 +474,4 @@ export default {
 
 <style lang="scss">
 @import '../../styles/index.scss'; // 全局自定义的css样式
-</style>
-
-<style>
-.tab-container {
-  padding: 30px;
-}
-
-.el-table__body-wrapper {
-  overflow: auto;
-  position: relative;
-  height: 89%;
-}
-
-.el-dialog__header {
-  border-bottom: 1px solid#d8d6d6;
-  padding-bottom: 10px;
-}
-
-/*
-.el-dialog__title {
-  line-height: 1;
-  font-size: 25px;
-  font-weight: 700;
-  text-align: center;
-  color: #1f2d3d;
-} */
-
-.el-dialog__body {
-  margin-top: 30px;
-  padding: 0px 20px;
-  color: #48576a;
-  font-size: 14px;
-}
-
-.el-dialog__footer {
-  text-align: center;
-}
-
-.aaa {
-  width: 95%
-}
-
-.el-dialog__wrapper {
-  overflow: none;
-}
 </style>

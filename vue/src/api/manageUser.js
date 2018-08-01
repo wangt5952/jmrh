@@ -1,12 +1,6 @@
 import request from '@/utils/request'
 
-export function activate(data) {
-  return request({
-    url: '/xtcx/user/activate?activateId=?'+data,
-    method: 'get',
-    data
-  });
-}
+
 
 export function getUser(data) {
   return request({
@@ -22,6 +16,14 @@ export function addUser(data) {
     data
   });
 }
+export function setUserStatus(data) {
+  return request({
+    url: '/xtcx/sysManager/sysuser/status',
+    method: 'put',
+    data
+  });
+}
+
 export function saveUser(data) {
   return request({
     url: '/xtcx/sysManager/user',
@@ -37,7 +39,7 @@ export function getUserId(id) {//用户详情
 }
 export function delUser(id) {
   return request({
-    url: '/mdm/user?id='+id,
+    url: '/xtcx/sysManager/user?id='+id,
     method: 'delete',
 
   });

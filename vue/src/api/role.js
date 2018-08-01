@@ -33,7 +33,7 @@ export function getRoleId(id) {//用户详情
 }
 export function delRole(id) {
   return request({
-    url: '/mdm/role?id='+id,
+    url: '/xtcx/sysManager/role?id='+id,
     method: 'delete',
 
   });

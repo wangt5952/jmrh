@@ -50,7 +50,8 @@
             </el-form-item>
 
             <el-form-item>
-              <el-button @click="toRegisterDetail" type="primary">提交</el-button>
+              <el-button v-if="!restEmail" @click="toRegisterDetail" type="primary">提交</el-button>
+              <el-button v-if="restEmail" @click="tosendEmailActivate" type="primary">重新发送</el-button>
               <span @click="toLogin" class="toLogin">立即登录</span>
             </el-form-item>
           </el-form>
@@ -78,7 +79,8 @@
 
 <script>
 import {
-  registers
+  registers,
+  sendEmailActivate
 } from '@/api/login'
 export default {
   data() {
@@ -86,7 +88,8 @@ export default {
       idNumberName: '请输入名字',
       idNumberCode: '请输入身份证号',
       labelPosition: 'top',
-      userType: '0',
+      userType: '1',
+      restEmail:false,
       registerForm: { // 普通登录
         email: '',
         password: '',
@@ -107,7 +110,26 @@ export default {
         path: '/login'
       })
     },
+    async tosendEmailActivate(){
+      let {
+        data,
+        success,
+        message
+      } = await sendEmailActivate(this.registerForm)
+      if (success) {
+        this.$message({
+          message: message,
+          type: 'success'
+        });
+      }else {
+        this.$message({
+          message: message,
+          type: 'success'
+        });
+      }
+    },
     async toRegisterDetail() {
+       if (!this.validata.validatoRegistere(this.registerForm)) return
       this.registerForm.userType = this.userType
       let {
         data,
@@ -122,11 +144,14 @@ export default {
             style: 'color: teal'
           }, '激活帐户邮件已发送到你的邮箱中'+data.email+'，点击里面的激活链接')
         });
+        this.restEmail = true
       }else {
         this.$message({
           message: message,
           type: 'success'
         });
+        if(message != '邮箱地址不能为空'&& message != "邮箱已经被注册")
+        this.restEmail = true
       }
     }
 

@@ -50,8 +50,9 @@ export default {
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
 .el-menu-item.is-active {
-   background-color: #26c6da !important;
-
+   // background-color: #ecf5ff !important;一级菜单触摸北背景色
+   background-color: none !important;
+color: #0056B8 !important;
 }
 
 

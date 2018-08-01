@@ -14,7 +14,8 @@ module.exports = {
   },
   output: {
     path: config.build.assetsRoot,
-    filename: '[name].js',
+    filename: 'js/[name].js',
+    chunkFilename: 'js/[chunkhash:8].chunk.js',
     publicPath: process.env.NODE_ENV === 'production' ?
       config.build.assetsPublicPath : config.dev.assetsPublicPath
   },
@@ -27,6 +28,10 @@ module.exports = {
       'table2excel': 'jquery-table2excel/dist/jquery.table2excel.min.js',
       'printArea': path.resolve(__dirname, '../src/components/PrintArea/jquery.PrintArea.js'),
     }
+  },
+  externals: {
+    "element-ui": "ELEMENT",
+    "vue": "Vue"
   },
   // 增加一个plugins
   plugins: [

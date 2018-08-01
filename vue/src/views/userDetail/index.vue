@@ -263,7 +263,7 @@
 
         <el-form class="" label-width="30%" style="text-align:left">
           <el-row :gutter="20">
-            <el-col :span="10">
+            <el-col :span="20">
               <el-form-item label="姓名">
                 <el-input placeholder="请输入姓名" v-model="com.lxname" style="width:80%"></el-input>
               </el-form-item>
@@ -276,11 +276,6 @@
               <el-form-item label="邮箱">
                 <el-input placeholder="请输入邮箱" v-model="com.lxemail" style="width:80%"></el-input>
               </el-form-item>
-            </el-col>
-
-            <el-col :span="10">
-
-
             </el-col>
 
           </el-row>
@@ -580,6 +575,21 @@
               <el-form-item label="有参军潜力的技术成果">
                 <el-input placeholder="请输入有参军潜力的技术成果" v-model="com.jscg" style="width:80%"></el-input>
               </el-form-item>
+
+              <el-form-item label="服务部门">
+                <el-radio v-model="com.fwbm" label="1">海军</el-radio>
+                <el-radio v-model="com.fwbm" label="2">陆军</el-radio>
+                <el-radio v-model="com.fwbm" label="3">空军</el-radio>
+                <el-radio v-model="com.fwbm" label="4">火箭军</el-radio>
+                <el-radio v-model="com.fwbm" label="5">战略支援部队</el-radio>
+                <el-radio v-model="com.fwbm" label="6">军工企业</el-radio>
+              </el-form-item>
+
+              <el-form-item label="执行情况">
+                <el-radio v-model="com.zxqk" label="1">申请</el-radio>
+                <el-radio v-model="com.zxqk" label="2">在研</el-radio>
+                <el-radio v-model="com.zxqk" label="3">验收/结题 </el-radio>
+              </el-form-item>
               <el-form-item label="可用于军民融合共享的资源情况（不超过200字）">
 
                 <textarea v-model="com.zyqk" rows="3" cols="20" style="width:100%;height: 350px;">
@@ -604,21 +614,6 @@
           <el-row :gutter="20">
             <el-col :span="20">
 
-
-              <el-form-item label="服务部门">
-                <el-radio v-model="com.fwbm" label="1">海军</el-radio>
-                <el-radio v-model="com.fwbm" label="2">陆军</el-radio>
-                <el-radio v-model="com.fwbm" label="3">空军</el-radio>
-                <el-radio v-model="com.fwbm" label="4">火箭军</el-radio>
-                <el-radio v-model="com.fwbm" label="5">战略支援部队</el-radio>
-                <el-radio v-model="com.fwbm" label="6">军工企业</el-radio>
-              </el-form-item>
-
-              <el-form-item label="执行情况">
-                <el-radio v-model="com.zxqk" label="1">申请</el-radio>
-                <el-radio v-model="com.zxqk" label="2">在研</el-radio>
-                <el-radio v-model="com.zxqk" label="3">验收/结题 </el-radio>
-              </el-form-item>
               <div style="margin:0 auto">
 
                 <el-button size="small" @click="addProjectcom()">
@@ -1129,9 +1124,9 @@ export default {
         }]
       },
       school: {
-        zhengben:[],
-        fuben:[],
-        logo:[],
+        zhengben: [],
+        fuben: [],
+        logo: [],
         introduction: '',
         major_platform: '',
         unit_url: '',
@@ -1142,9 +1137,9 @@ export default {
         name: '',
       },
       mech: {
-        zhengben:[],
-        fuben:[],
-        logo:[],
+        zhengben: [],
+        fuben: [],
+        logo: [],
         registerNature: '',
         org_type: '',
         serviceAbout: '',
@@ -1187,9 +1182,9 @@ export default {
         linkman: ''
       },
       com: {
-        zhengben:[],
-        fuben:[],
-        logo:[],
+        zhengben: [],
+        fuben: [],
+        logo: [],
         lxname: '',
         lxzw: '',
         lxphone: '',
@@ -1388,6 +1383,7 @@ export default {
 <style>
 .tab-container {
   padding: 30px;
+  overflow: auto;
 }
 
 .tools {

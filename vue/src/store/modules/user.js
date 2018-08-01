@@ -87,17 +87,16 @@ const user = {
       state
     }) {
       return new Promise((resolve, reject) => {
-        // logout(state.token).then(() => {
+        logout(state.token).then(() => {
         commit('SET_TOKEN', '')
         commit('SET_ROLES', [])
         removeToken()
         resolve()
         window.sessionStorage.removeItem('user')
         window.sessionStorage.removeItem('isLoadNodes')
-
-        // }).catch(error => {
-        //   reject(error)
-        // })
+        }).catch(error => {
+          reject(error)
+        })
       })
     },
 
