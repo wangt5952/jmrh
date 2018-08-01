@@ -1,13 +1,7 @@
 <template>
 <div class="tab-container">
-  <div class="" style="padding-left:35%;margin: 0 0 40px 0;">
-    <h2>{{titleName}}</h2>
-  </div>
 
-
-
-
-  <div class="">
+    <div class="" style="height: 80% !important;overflow-y: auto;">
     <el-tabs type="border-card">
       <el-tab-pane>
         <span slot="label"><i class="el-icon-date"></i> 机构联系人</span>
@@ -101,6 +95,9 @@
               <el-form-item label="单位名称">
                 <el-input placeholder="请输入单位名称" v-model="mech.name" style="width:80%"></el-input>
               </el-form-item>
+                <el-form-item label="单位编码">
+                  <el-input placeholder="请输入单位编码" v-model="mech.code" style="width:80%"></el-input>
+                </el-form-item>
               <el-form-item label="所在地区">
                 <area-cascader :level="1" v-model="mech.selected" :data="pcaa"></area-cascader>
                 <!-- <area-cascader v-model="selected" :level="1" :data="pca"></area-cascader> -->
@@ -308,13 +305,14 @@
         </el-form>
       </el-tab-pane>
     </el-tabs>
-    <el-row>
-      <div style="padding-left: 35%;margin: 40px 0  0  0;">
-        <el-button type="primary" style="width: 120px;" @click="saveFile(mech)">保存</el-button>
-      </div>
-    </el-row>
   </div>
 
+  <el-row>
+    <div style="padding-left: 35%;margin: 40px 0  0  0;">
+      <el-button type="primary" style="width: 120px;" @click="saveFile(mech)">保存</el-button>
+      <el-button type="primary" style="width: 120px;" @click="back">返回</el-button>
+    </div>
+  </el-row>
 
 
 </div>
@@ -335,7 +333,10 @@ import {
   getUserDetail,
   setUserDetail
 } from '@/api/login'
-
+import {
+  getexpert,
+  addLib
+} from '@/api/library'
 export default {
   data() {
     return {
@@ -400,13 +401,14 @@ export default {
         zip_code: '',
         address: '',
         country: '',
-        org_code: '',
+        code: '',
         name: '',
       },
       mech: {
         zhengben: [],
         fuben: [],
         logo: [],
+        code :'',
         registerNature: '',
         org_type: '',
         serviceAbout: '',
@@ -448,113 +450,30 @@ export default {
         lxzw: '',
         linkman: ''
       },
-      com: {
-        zhengben: [],
-        fuben: [],
-        logo: [],
-        lxname: '',
-        lxzw: '',
-        lxphone: '',
-        lxemail: '',
-        lpname: '',
-        lpzw: '',
-        lpphone: '',
-        lpemail: '',
-        enterprise_name: '',
-        registered_capital: '1',
-        registerDate: '',
-        registered_type: '',
-        country: '',
-        registeraddress: '',
-        registerecode: '',
-        is_high_new_tech: '',
-        registerSite: '',
-        registerHSite: '',
-        registerMarket: '',
-        registerMarkeSite: '',
-        domain: '',
-        product: '',
-        inventionNum: '',
-        newDrugnum: '',
-        utilityModel: '',
-        integratedCircuitnum: '',
-        designnum: '',
-        nationalNum: '',
-        softwareNum: '',
-        othernum: '',
-        researchTeamnum: '',
-        bachelorAbovenum: '',
-        middleLevelnum: '',
-        highleveltalentsnum: '',
-        highleveltalentType: '',
-        service_research_last: '',
-        service_research_before: '',
-        service_research_previous: '',
-        platform: '',
-        sfkyrw: '',
-        qdtime: '',
-        szwhd: '',
-        jmrhgn: '',
-        ydkn: '',
-        problem: '',
-        jscg: '',
-        zyqk: '',
-        xgjy: '',
-        fwbm: '',
-        zxqk: '',
-        comPorcolumnDefinitions: [{
-          name: '',
-          time: '',
-          source: ''
-        }],
-      },
     }
   },
   async mounted() {
     this.listLoading = false
-    if (window.sessionStorage.getItem('userType')) {
-      this.userType = window.sessionStorage.getItem('userType')
+    if (this.$route.params.objData) {
+      this.mech = JSON.parse(this.$route.params.objData)
     }
-    if (this.userType == '1') {
-      this.titleName = '专家资料完善'
-    } else if (this.userType == '2') {
-
-      this.titleName = '企业资料完善'
-    } else if (this.userType == '3') {
-      this.titleName = '服务机构资料完善'
-    } else if (this.userType == '4') {
-      this.titleName = '高效院所资料完善'
-    }
-    this.loadPageList()
   },
   computed: {},
   methods: {
-    async loadPageList() {
-      let {
-        data,
-        success
-      } = await getUserDetail()
-      if (this.userType == '1') {
-        this.expert = JSON.parse(data.detail)
-      } else if (this.userType == '2') {
-        this.com = JSON.parse(data.detail)
-      } else if (this.userType == '3') {
-        this.mech = JSON.parse(data.detail)
-      } else if (this.userType == '4') {
-        this.school = JSON.parse(data.detail)
-      }
-      this.loading = false
+    back() {
+      window.history.go(-1);
     },
-
     async saveFile(obj) {
       // if (!this.validata.validaRole(obj)) return
 
-      let arr = []
-      obj.method = 'post'
+      let arr = {}
+      arr.formType = '3'
+      arr.id = this.$route.params.objId
+      arr.detail = JSON.stringify(this.mech)
       let {
         data,
         success
-      } = await setUserDetail(obj)
+      } = await addLib(arr)
 
       if (success) {
         this.$message({
@@ -568,6 +487,7 @@ export default {
           type: 'success'
         });
       }
+
 
     },
 

@@ -30,7 +30,7 @@
               </el-form-item>
 
               <el-form-item label="身份证号">
-                <el-input placeholder="请输入身份证号" v-model="expert.id" style="width:80%"></el-input>
+                <el-input placeholder="请输入身份证号" v-model="expert.code" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="上传身份证正面">
                 <div>
@@ -349,7 +349,10 @@
             <el-col :span="20">
 
               <el-form-item label="企业名称">
-                <el-input placeholder="请输入企业名称" v-model="com.enterprise_name" style="width:80%"></el-input>
+                <el-input placeholder="请输入企业名称" v-model="com.name" style="width:80%"></el-input>
+              </el-form-item>
+              <el-form-item label="企业编码">
+                <el-input placeholder="请输入企业编码" v-model="com.code" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="企业规模（注册资金）">
                 <el-radio v-model="com.registered_capital" label="1">小于2000万（含）</el-radio>
@@ -749,6 +752,9 @@
               <el-form-item label="单位名称">
                 <el-input placeholder="请输入单位名称" v-model="mech.name" style="width:80%"></el-input>
               </el-form-item>
+                <el-form-item label="单位编码">
+                  <el-input placeholder="请输入单位编码" v-model="mech.code" style="width:80%"></el-input>
+                </el-form-item>
               <el-form-item label="所在地区">
                 <area-cascader :level="1" v-model="mech.selected" :data="pcaa"></area-cascader>
                 <!-- <area-cascader v-model="selected" :level="1" :data="pca"></area-cascader> -->
@@ -975,7 +981,7 @@
                 <el-input placeholder="请输入名称" v-model="school.name" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="统一社会信用代码">
-                <el-input placeholder="请输入统一社会信用代码" v-model="school.org_code" style="width:80%"></el-input>
+                <el-input placeholder="请输入统一社会信用代码" v-model="school.code" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="事业单位法人证书正本">
                 <div>
@@ -1096,7 +1102,7 @@ export default {
         name: '',
         sex: '',
         bornDate: '',
-        id: '',
+        code: '',
         shcool: '',
         edu: '',
         academic: '',
@@ -1133,13 +1139,14 @@ export default {
         zip_code: '',
         address: '',
         country: '',
-        org_code: '',
+        code: '',
         name: '',
       },
       mech: {
         zhengben: [],
         fuben: [],
         logo: [],
+        code :'',
         registerNature: '',
         org_type: '',
         serviceAbout: '',
@@ -1193,7 +1200,8 @@ export default {
         lpzw: '',
         lpphone: '',
         lpemail: '',
-        enterprise_name: '',
+        name: '',
+        code:'',
         registered_capital: '1',
         registerDate: '',
         registered_type: '',

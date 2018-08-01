@@ -15,39 +15,21 @@
     </el-table-column>
     <el-table-column align="center" label="高校院所名">
       <template slot-scope="scope">
-                    <span>{{ scope.row.fullName }}</span>
+                    <span>{{ scope.row.name }}</span>
                 </template>
     </el-table-column>
     <el-table-column align="center" label="高校代码">
       <template slot-scope="scope">
-                    <span>{{ scope.row.fullName }}</span>
+                    <span>{{ scope.row.code }}</span>
                 </template>
     </el-table-column>
-    <el-table-column align="center" label="联系人姓名">
+    <el-table-column align="center" label="单位网址">
       <template slot-scope="scope">
                     <span>
-                        {{ scope.row.dpartmentId}}</span>
-                </template>
-    </el-table-column>
-    <el-table-column align="center" label="联系人手机号">
-      <template slot-scope="scope">
-                    <span>
-                        {{ scope.row.dpartmentId}}</span>
+                        {{ scope.row.unit_url}}</span>
                 </template>
     </el-table-column>
 
-    <el-table-column align="center" label="领域">
-      <template slot-scope="scope">
-                    <span>
-                        {{ scope.row.dpartmentId}}</span>
-                </template>
-    </el-table-column>
-    <el-table-column align="center" label="状态">
-      <template slot-scope="scope">
-                        <span>
-                            {{ scope.row.dpartmentId}}</span>
-                    </template>
-    </el-table-column>
     <el-table-column align="center" label="">
       <template slot-scope="scope">
 
@@ -129,100 +111,6 @@
       </span>
   </el-dialog>
 
-  <el-dialog title="高校信息填写" :visible.sync="dialogFormVisible" width="60%" top='5%'>
-
-    <el-form class="" label-width="30%" style="text-align:left">
-
-      <el-row :gutter="24">
-
-
-        <el-tabs type="border-card">
-          <el-tab-pane>
-            <span slot="label"><i class="el-icon-date"></i> 高校基本信息</span>
-            <el-form class="" label-width="30%" style="text-align:left">
-              <el-row :gutter="20">
-                <el-col :span="20">
-
-                  <el-form-item label="名称">
-                    <el-input placeholder="请输入名称" v-model="school.name" style="width:80%"></el-input>
-                  </el-form-item>
-                  <el-form-item label="统一社会信用代码">
-                    <el-input placeholder="请输入统一社会信用代码" v-model="school.org_code" style="width:80%"></el-input>
-                  </el-form-item>
-                  <el-form-item label="事业单位法人证书正本">
-                    <div>
-                      <!--这是背面照-->
-                      <div class="photo photo1">
-                        <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="school.zhengben" list-type="picture">
-                          <el-button size="small" type="primary">点击上传</el-button>
-                        </el-upload>
-
-                      </div>
-                    </div>
-                  </el-form-item>
-                  <el-form-item label="事业单位法人证书副本">
-                    <div>
-                      <!--这是背面照-->
-                      <div class="photo photo1">
-                        <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="school.fuben" list-type="picture">
-                          <el-button size="small" type="primary">点击上传</el-button>
-                        </el-upload>
-
-                      </div>
-                    </div>
-                  </el-form-item>
-                  <el-form-item label="高校logo">
-                    <div>
-                      <!--这是背面照-->
-                      <div class="photo photo1">
-                        <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="school.logo" list-type="picture">
-                          <el-button size="small" type="primary">点击上传</el-button>
-                        </el-upload>
-
-                      </div>
-                    </div>
-                  </el-form-item>
-                  <el-form-item label="所在地区">
-                    <area-cascader :level="1" v-model="school.country" :data="pcaa"></area-cascader>
-                    <!-- <area-cascader v-model="selected" :level="1" :data="pca"></area-cascader> -->
-                  </el-form-item>
-                  <el-form-item label="联系地址">
-                    <el-input placeholder="请输入联系地址" v-model="school.address" style="width:80%"></el-input>
-                  </el-form-item>
-                  <el-form-item label="邮箱">
-                    <el-input placeholder="请输入邮箱" v-model="school.zip_code" style="width:80%"></el-input>
-                  </el-form-item>
-
-                  <el-form-item label="单位网址">
-                    <el-input placeholder="请输入单位网址" v-model="school.unit_url" style="width:80%"></el-input>
-                  </el-form-item>
-
-                  <el-form-item label="单位简介">
-                    <el-input placeholder="请输入单位简介" v-model="school.major_platform" style="width:80%"></el-input>
-                  </el-form-item>
-                  <el-form-item label="重大平台">
-                    <el-input placeholder="请输入重大平台" v-model="school.introduction" style="width:80%"></el-input>
-                  </el-form-item>
-                </el-col>
-
-
-
-              </el-row>
-            </el-form>
-
-          </el-tab-pane>
-
-        </el-tabs>
-      </el-row>
-    </el-form>
-
-    <span slot="footer" class="dialog-footer">
-      <el-button type="primary" v-if="dialogadd == true" @click="addCreate(obj)">添加</el-button>
-      <el-button type="primary" v-if="dialogsave == true"  @click="saveCreate(school)">修改</el-button>
-      <el-button type="primary" @click="dialogFormVisible = false">关闭</el-button>
-    </span>
-  </el-dialog>
-
 
 </div>
 </template>
@@ -293,7 +181,7 @@ export default {
         zip_code: '',
         address: '',
         country: '',
-        org_code: '',
+        code: '',
         name: '',
       },
       treeData: [],
@@ -446,7 +334,8 @@ export default {
           cancelButtonText: '取消',
           type: 'warning'
         }).then(async () => {
-          let del = await delLib(data.id)
+          debugger
+          let del = await delLib(data)
           this.list.splice(this.list.indexOf(data), 1)
           this.$message({
             type: 'success',
@@ -463,7 +352,8 @@ export default {
         this.$router.push({
           name: 'hschoolEdit',
           params: {
-            objData: data
+            objId :data.form.id,
+            objData: data.form.detail
           }
         })
 

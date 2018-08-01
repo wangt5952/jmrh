@@ -4,6 +4,12 @@
     <div class="paddingb textl paddingr">
       <el-input v-model="input" placeholder="请输入内容" style="width: 15%;"></el-input>
       <el-button style="margin-left:20px" @click="loadPageList" type="primary" icon="el-icon-search"></el-button>
+      <el-select v-model="obj.roleType" style="width:100px" placeholder="请选择">
+        <el-option label="管理员" :key="1" :value="1">
+        </el-option>
+        <el-option label="用户" :key="2" :value="2">
+        </el-option>
+      </el-select>
       <!-- <el-button style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">添加用户</el-button> -->
 
     </div>

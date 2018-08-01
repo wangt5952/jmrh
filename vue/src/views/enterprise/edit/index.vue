@@ -1,12 +1,6 @@
 <template>
 <div class="tab-container">
-  <div class="" style="padding-left:35%;margin: 0 0 40px 0;">
-    <h2>{{titleName}}</h2>
-  </div>
-
-
-
-  <div  class="">
+  <div class="" style="height: 80% !important;overflow-y: auto;">
 
     <el-tabs type="border-card">
       <el-tab-pane>
@@ -100,7 +94,11 @@
             <el-col :span="20">
 
               <el-form-item label="企业名称">
-                <el-input placeholder="请输入企业名称" v-model="com.enterprise_name" style="width:80%"></el-input>
+                <el-input placeholder="请输入企业名称" v-model="com.name" style="width:80%"></el-input>
+              </el-form-item>
+
+              <el-form-item label="企业编码">
+                <el-input placeholder="请输入企业编码" v-model="com.code" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="企业规模（注册资金）">
                 <el-radio v-model="com.registered_capital" label="1">小于2000万（含）</el-radio>
@@ -397,17 +395,11 @@
         </el-form>
       </el-tab-pane>
     </el-tabs>
-
-
-    <el-row>
-      <div style="padding-left: 35%;margin: 40px 0  0  0;">
-        <el-button type="primary" style="width: 120px;" @click="saveFile(com)">保存</el-button>
-      </div>
-    </el-row>
-
   </div>
-
-
+  <div style="padding-left: 35%;margin: 40px 0  0  0;">
+    <el-button type="primary" style="width: 120px;" @click="saveFile(com)">保存</el-button>
+    <el-button type="primary" style="width: 120px;" @click="back">返回</el-button>
+  </div>
 
 </div>
 </template>
@@ -427,7 +419,10 @@ import {
   getUserDetail,
   setUserDetail
 } from '@/api/login'
-
+import {
+  getexpert,
+  addLib
+} from '@/api/library'
 export default {
   data() {
     return {
@@ -492,7 +487,7 @@ export default {
         zip_code: '',
         address: '',
         country: '',
-        org_code: '',
+        code: '',
         name: '',
       },
       mech: {
@@ -552,7 +547,8 @@ export default {
         lpzw: '',
         lpphone: '',
         lpemail: '',
-        enterprise_name: '',
+        name: '',
+        code:'',
         registered_capital: '1',
         registerDate: '',
         registered_type: '',
@@ -604,49 +600,27 @@ export default {
   },
   async mounted() {
     this.listLoading = false
-    if (window.sessionStorage.getItem('userType')) {
-      this.userType = window.sessionStorage.getItem('userType')
+    if (this.$route.params.objData) {
+      this.com = JSON.parse(this.$route.params.objData)
     }
-    if (this.userType == '1') {
-      this.titleName = '专家资料完善'
-    } else if (this.userType == '2') {
-
-      this.titleName = '企业资料完善'
-    } else if (this.userType == '3') {
-      this.titleName = '服务机构资料完善'
-    } else if (this.userType == '4') {
-      this.titleName = '高效院所资料完善'
-    }
-    this.loadPageList()
   },
   computed: {},
   methods: {
-    async loadPageList() {
-      let {
-        data,
-        success
-      } = await getUserDetail()
-      if (this.userType == '1') {
-        this.expert = JSON.parse(data.detail)
-      } else if (this.userType == '2') {
-        this.com = JSON.parse(data.detail)
-      } else if (this.userType == '3') {
-        this.mech = JSON.parse(data.detail)
-      } else if (this.userType == '4') {
-        this.school = JSON.parse(data.detail)
-      }
-      this.loading = false
+    back() {
+      window.history.go(-1);
     },
 
-    async saveFile(obj) {
+    async saveFile() {
       // if (!this.validata.validaRole(obj)) return
-
-      let arr = []
-      obj.method = 'post'
+      let arr = {}
+      arr.formType = '2'
+      arr.id = this.$route.params.objId
+      arr.detail = JSON.stringify(this.com)
+      debugger
       let {
         data,
         success
-      } = await setUserDetail(obj)
+      } = await addLib(arr)
 
       if (success) {
         this.$message({
@@ -660,7 +634,6 @@ export default {
           type: 'success'
         });
       }
-
     },
 
 

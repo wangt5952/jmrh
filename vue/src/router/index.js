@@ -259,6 +259,15 @@ export const constantRouterMap = [{
         icon: 'table'
       }
     },{
+      path: 'mechanism',
+      name: 'mechanism',
+      component: mechanism,
+      leaf: true,
+      meta: {
+        title: '服务机构库管理',
+        icon: 'table'
+      }
+    },{
       path: 'expertEdit',
       name: 'expertEdit',
       component: expertEdit,
@@ -295,7 +304,7 @@ export const constantRouterMap = [{
       leaf: true,
       hidden: true,
       meta: {
-        title: '服务机构库管理',
+        title: '服务机构库资料填写',
         icon: 'table'
       }
     },{

@@ -13,7 +13,7 @@
                 <el-input placeholder="请输入名称" v-model="school.name" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="统一社会信用代码">
-                <el-input placeholder="请输入统一社会信用代码" v-model="school.org_code" style="width:80%"></el-input>
+                <el-input placeholder="请输入统一社会信用代码" v-model="school.code" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="事业单位法人证书正本">
                 <div>
@@ -177,7 +177,7 @@ export default {
         zip_code: '',
         address: '',
         country: '',
-        org_code: '',
+        code: '',
         name: '',
       },
       mech: {
@@ -237,7 +237,7 @@ export default {
         lpzw: '',
         lpphone: '',
         lpemail: '',
-        enterprise_name: '',
+        name: '',
         registered_capital: '1',
         registerDate: '',
         registered_type: '',
@@ -288,47 +288,24 @@ export default {
     }
   },
   async mounted() {
-    this.listLoading = false
-    if (window.sessionStorage.getItem('userType')) {
-      this.userType = window.sessionStorage.getItem('userType')
+    if (this.$route.params.objData) {
+      this.school = JSON.parse(this.$route.params.objData)
     }
-    if (this.userType == '1') {
-      this.titleName = '专家资料完善'
-    } else if (this.userType == '2') {
-
-      this.titleName = '企业资料完善'
-    } else if (this.userType == '3') {
-      this.titleName = '服务机构资料完善'
-    } else if (this.userType == '4') {
-      this.titleName = '高效院所资料完善'
-    }
-    this.loadPageList()
   },
   computed: {},
   methods: {
-    async loadPageList() {
-      let {
-        data,
-        success
-      } = await getUserDetail()
-      if (this.userType == '1') {
-        this.expert = JSON.parse(data.detail)
-      } else if (this.userType == '2') {
-        this.com = JSON.parse(data.detail)
-      } else if (this.userType == '3') {
-        this.mech = JSON.parse(data.detail)
-      } else if (this.userType == '4') {
-        this.school = JSON.parse(data.detail)
-      }
-      this.loading = false
-    },
 
+
+      back() {
+        window.history.go(-1);
+      },
     async saveFile(obj) {
       // if (!this.validata.validaRole(obj)) return
 
         let arr ={}
         arr.formType = '4'
-        arr.detail = JSON.stringify(obj)
+        arr.id = this.$route.params.objId
+        arr.detail = JSON.stringify(this.school)
         let {
           data,
           success

@@ -40,9 +40,9 @@
           </div>
 
           <div  class="item">
-            <el-tabs v-model="login_method" @tab-click="handleClick">
-              <!-- 普通登录 -->
-              <el-tab-pane label="普通登录" name="first">
+            <!-- <el-tabs v-model="login_method" @tab-click="handleClick">
+
+              <el-tab-pane label="普通登录" name="first"> -->
                 <el-form  :model="loginForm" :rules="loginRules" ref="loginForm" :label-position="labelPosition" label-width="100px">
                   <el-form-item label="">
                     <el-input v-model="loginForm.userName" placeholder="请输入用户名">
@@ -75,10 +75,10 @@
                     </ul>
                   </div>
                 </div> -->
-              </el-tab-pane>
+              <!-- </el-tab-pane> -->
 
               <!-- 验证登录 -->
-              <el-tab-pane label="验证登录" name="second">
+              <!--  <el-tab-pane label="验证登录" name="second">
                 <el-form :label-position="labelPosition" label-width="80px" :model="loginVerify">
                   <el-form-item label="手机号码">
                     <el-input v-model="loginVerify.phone" placeholder="请输入手机号"></el-input>
@@ -92,7 +92,7 @@
                   <span @click="toRegister" class="toLogin">立即注册</span>
                 </el-form-item>
                 </el-form>
-                <!-- <div class="loginQuick">
+               <div class="loginQuick">
                   <p><span>快速登录</span></p>
                   <div class="quick-content">
                     <ul class="quickList">
@@ -100,8 +100,8 @@
                       <li><img :src="weiXinImage"/></li>
                     </ul>
                   </div>
-                </div> -->
-              </el-tab-pane>
+                </div>
+             </el-tab-pane> -->
             </el-tabs>
           </div>
 

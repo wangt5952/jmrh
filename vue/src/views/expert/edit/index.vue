@@ -27,7 +27,7 @@
               </el-form-item>
 
               <el-form-item label="身份证号">
-                <el-input placeholder="请输入身份证号" v-model="expert.id" style="width:80%"></el-input>
+                <el-input placeholder="请输入身份证号" v-model="expert.code" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="上传身份证正面">
                 <div>
@@ -303,7 +303,7 @@ export default {
         name: '',
         sex: '',
         bornDate: '',
-        id: '',
+        code: '',
         shcool: '',
         edu: '',
         academic: '',
@@ -340,7 +340,7 @@ export default {
         zip_code: '',
         address: '',
         country: '',
-        org_code: '',
+        code: '',
         name: '',
       },
       mech: {
@@ -400,7 +400,7 @@ export default {
         lpzw: '',
         lpphone: '',
         lpemail: '',
-        enterprise_name: '',
+        name: '',
         registered_capital: '1',
         registerDate: '',
         registered_type: '',
@@ -466,9 +466,7 @@ export default {
       let arr = {}
       arr.formType = '1'
       arr.id = this.$route.params.objId
-        debugger
       arr.detail = JSON.stringify(this.expert)
-      debugger
       let {
         data,
         success

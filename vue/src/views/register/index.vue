@@ -44,7 +44,7 @@
               </el-input>
             </el-form-item>
             <el-form-item label="">
-              <el-input type="text" v-model="registerForm.idNumber" :placeholder="idNumberCode">
+              <el-input type="text" v-model="registerForm.code" :placeholder="idNumberCode">
                 <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
               </el-input>
             </el-form-item>
