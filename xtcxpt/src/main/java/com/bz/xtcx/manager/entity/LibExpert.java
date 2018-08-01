@@ -17,6 +17,7 @@ public class LibExpert extends LibBase{
 	private String work_unit;//工作单位
 	private String success_record;//主要学术成就/研究成果/管理成就
 	private String project_desc;//主要产学研合作项目情况（国防军工类项目）
+	private String cellphone;//手机号
 	
 	public String getResearch_field() {
 		return research_field;
@@ -47,5 +48,11 @@ public class LibExpert extends LibBase{
 	}
 	public void setProject_desc(String project_desc) {
 		this.project_desc = project_desc;
+	}
+	public String getCellphone() {
+		return cellphone;
+	}
+	public void setCellphone(String cellphone) {
+		this.cellphone = cellphone;
 	}
 }

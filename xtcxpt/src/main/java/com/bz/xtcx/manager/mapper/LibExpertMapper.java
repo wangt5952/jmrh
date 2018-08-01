@@ -21,7 +21,8 @@ import com.bz.xtcx.manager.vo.VoQuery;
 
 public interface LibExpertMapper {
 
-	@Insert("insert into `bus_user_expert`(id, user_id, form_id, name, id_number, address, country, research_field, research_area, work_unit, success_record, project_desc, status, creater)"
+	@Insert("insert into `bus_user_expert`(id, user_id, form_id, name, id_number, address, country, cellphone, "
+			+ "research_field, research_area, work_unit, success_record, project_desc, status, creater)"
 		    + " VALUES(#{id, jdbcType=VARCHAR},"
 		    + " #{userId, jdbcType=VARCHAR},"
 		    + " #{formId, jdbcType=VARCHAR},"
@@ -29,8 +30,9 @@ public interface LibExpertMapper {
 		    + " #{code, jdbcType=VARCHAR},"
 		    + " #{address, jdbcType=VARCHAR},"
 		    + " #{country, jdbcType=VARCHAR},"
+		    + " #{cellphone, jdbcType=VARCHAR},"
 		    + " #{research_field, jdbcType=VARCHAR},"
-		    + " #{research_area, jdbcType=INTEGER},"
+		    + " #{research_area, jdbcType=VARCHAR},"
 		    + " #{work_unit, jdbcType=VARCHAR},"
 		    + " #{success_record, jdbcType=VARCHAR},"
 		    + " #{project_desc, jdbcType=VARCHAR},"
@@ -47,6 +49,7 @@ public interface LibExpertMapper {
 			+ " id_number=#{code, jdbcType=VARCHAR},"
 			+ " address=#{address, jdbcType=VARCHAR},"
 			+ " country=#{country, jdbcType=VARCHAR},"
+			+ " cellphone=#{cellphone, jdbcType=VARCHAR},"
 			+ " research_field=#{research_field, jdbcType=VARCHAR},"
 			+ " research_area=#{research_area, jdbcType=VARCHAR},"
 			+ " work_unit=#{work_unit, jdbcType=VARCHAR},"
@@ -54,7 +57,7 @@ public interface LibExpertMapper {
 			+ " project_desc=#{project_desc, jdbcType=VARCHAR},"
 			+ " status=#{status, jdbcType=INTEGER},"
 			+ " updater=#{updater, jdbcType=VARCHAR}"
-			+ " where user_id=#{id}")
+			+ " where id=#{id}")
 	int update(LibExpert e);
 	
 	@SelectProvider(type = LibExpertProvider.class, method = "findByCondition")
@@ -67,6 +70,7 @@ public interface LibExpertMapper {
 		    @Result(property = "code", column = "id_number"),
 		    @Result(property = "address", column = "address"),
 		    @Result(property = "country", column = "country"),
+		    @Result(property = "cellphone", column = "cellphone"),
 		    @Result(property = "research_field", column = "research_field"),
 		    @Result(property = "research_area", column = "research_area"),
 		    @Result(property = "work_unit", column = "work_unit"),
@@ -93,4 +97,8 @@ public interface LibExpertMapper {
 	@Select("select * from `bus_user_expert` where id = #{id}")
 	@ResultMap("libExpert")
 	LibExpert findById(String id);
+	
+	@Select("select * from `bus_user_expert` where form_id = #{id}")
+	@ResultMap("libExpert")
+	LibExpert findByFormId(String id);
 }

@@ -149,10 +149,20 @@ public class LibService extends BaseService implements ILibService{
 	@Override
 	public VoResponse setUserDetail(BusUserForm form) {
 		VoResponse voRes = new VoResponse();
+		JSONObject json = null;
+		try {
+			json = JSON.parseObject(form.getDetail());
+		}catch (Exception e) {
+			e.printStackTrace();
+			voRes.setFail(voRes);
+			voRes.setData("数据异常");
+			return voRes;
+		}
+		
 		int result = 0;
 		if(form.getId() == null) {
 			form.setCreater(getUserName());
-			form.setCheckStatus(1);
+			form.setCheckStatus(1);//已审核状态
 			form.setUserId(null);
 			result = busUserFormHisMapper.insert(form);
 			
@@ -167,7 +177,7 @@ public class LibService extends BaseService implements ILibService{
 			voRes.setFail(voRes);
 			return voRes;
 		}
-		voRes = this.saveFormHisToLib(form);
+		voRes = this.saveFormHisToLib(form, json);
 		return voRes;
 	}
 
@@ -223,6 +233,16 @@ public class LibService extends BaseService implements ILibService{
 		return result;
 	}
 	
+	int saveOrUpdate(LibExpert e) {
+		int result;
+		if(e.getId() == null) {
+			result = libExpertMapper.insert(e);
+		}else {
+			result = libExpertMapper.update(e);
+		}
+		return result;
+	}
+	
 	int saveOrUpdate(LibEnterprise e) {
 		int result;
 		if(e.getId() == null) {
@@ -233,32 +253,81 @@ public class LibService extends BaseService implements ILibService{
 		return result;
 	}
 	
+	int saveOrUpdate(LibServices e) {
+		int result;
+		if(e.getId() == null) {
+			result = libServiceMapper.insert(e);
+		}else {
+			result = libServiceMapper.update(e);
+		}
+		return result;
+	}
+	
+	int saveOrUpdate(LibCollege e) {
+		int result;
+		if(e.getId() == null) {
+			result = libCollegeMapper.insert(e);
+		}else {
+			result = libCollegeMapper.update(e);
+		}
+		return result;
+	}
+	
 	/**
 	 * 表格数据保存到对应的资源库中
 	 * @param form
 	 * @param username
 	 * @return
 	 */
-	VoResponse saveFormHisToLib(BusUserForm form) {
+	VoResponse saveFormHisToLib(BusUserForm form, JSONObject json) {
 		VoResponse voRes = new VoResponse();
-		JSONObject json = null;
-		try {
-			json = JSON.parseObject(form.getDetail());
-		}catch (Exception e) {
-			e.printStackTrace();
-			voRes.setFail(voRes);
-			voRes.setData(e.getMessage());
-			return voRes;
-		}
 		//System.out.println(jsonObject.get("registerNature"));
 		int result = 0;
-		if(form.getFormType() == UserTypeEnum.Enterprise.key()) {//userType=2
+		if(form.getFormType() == UserTypeEnum.Expert.key()) {
+			LibExpert e = null;
+			e = libExpertMapper.findByFormId(form.getId());
+			if(e == null) {
+				e = new LibExpert();
+				e.setUserId(form.getUserId());
+				e.setFormId(form.getId());
+				e.setName(json.getString("name"));//专家姓名
+				e.setCode(json.getString("id"));//专家身份证号
+				e.setCreater(form.getCreater());
+				if(StringUtils.isEmpty(e.getName()) || StringUtils.isEmpty(e.getCode())) {
+					voRes.setFail(voRes);
+					voRes.setMessage("专家姓名和身份证号不能为空");
+					return voRes;
+				}
+				if(libExpertMapper.findByNameAndCode(e.getName(), e.getCode()) != null) {
+					voRes.setFail(voRes);
+					voRes.setMessage("专家已经存在");
+					return voRes;
+				}
+			}else {
+				e.setUpdater(form.getUpdater());
+			}
+			e.setCellphone(json.getString("mobilephone"));//手机号
+			e.setResearch_field(json.getString("research_field"));
+			e.setResearch_area(json.getString("research_area"));
+			e.setCountry(json.getString("country"));
+			e.setAddress(json.getString("address"));
+			e.setProject_desc(json.getString("project_desc"));
+			e.setSuccess_record(json.getString("success_record"));
+			e.setWork_unit(json.getString("work_unit"));
+			result = this.saveOrUpdate(e);
+			
+		} else if(form.getFormType() == UserTypeEnum.Enterprise.key()) {//userType=2
 			LibEnterprise e = null;
-			e = libEnterpriseMapper.findById(form.getId());
+			e = libEnterpriseMapper.findByFormId(form.getId());
 			if(e == null) {
 				e = new LibEnterprise();
 				e.setName(json.getString("enterprise_name"));
 				e.setCode(json.getString("code"));
+				if(StringUtils.isEmpty(e.getName()) || StringUtils.isEmpty(e.getCode())) {
+					voRes.setFail(voRes);
+					voRes.setMessage("企业名称和唯一识别码不能为空");
+					return voRes;
+				}
 				if(libEnterpriseMapper.findByNameAndCode(e.getName(), e.getCode()) != null) {
 					voRes.setFail(voRes);
 					voRes.setMessage("企业已经存在");
@@ -287,113 +356,73 @@ public class LibService extends BaseService implements ILibService{
 			
 		}else if(form.getFormType() == UserTypeEnum.Service.key()) {
 			LibServices e = null;
-			e = libServiceMapper.findById(form.getId());
+			e = libServiceMapper.findByFormId(form.getId());
 			if(e == null) {
-				e = new com.bz.xtcx.manager.entity.LibServices();
+				e = new LibServices();
 				e.setUserId(form.getUserId());
 				e.setFormId(form.getId());
 				e.setName(json.getString("name"));
-				e.setOrg_type(json.getString("org_type"));
-				e.setLinkman(json.getString("linkman"));
-				e.setService_amount_last(json.getString("service_amount_last"));
-				e.setService_amount_before(json.getString("service_amount_before"));
-				e.setService_amount_previous(json.getString("service_amount_previous"));
-				e.setService_quantity_last(json.getString("service_quantity_last"));
-				e.setService_quantity_before(json.getString("service_quantity_before"));
-				e.setService_quantity_previous(json.getString("service_quantity_previous"));
-				e.setHonor(json.getString("honor"));
+				e.setCode(json.getString("code"));
 				e.setCreater(form.getCreater());
+				if(StringUtils.isEmpty(e.getName()) || StringUtils.isEmpty(e.getCode())) {
+					voRes.setFail(voRes);
+					voRes.setMessage("服务机构名称和唯一识别码不能为空");
+					return voRes;
+				}
 				if(libServiceMapper.findByNameAndCode(e.getName(), e.getCode()) != null) {
 					voRes.setFail(voRes);
 					voRes.setMessage("服务机构已经存在");
 					return voRes;
 				}
-				result = libServiceMapper.insert(e);
 			}else {
-				e.setName(json.getString("name"));
-				e.setOrg_type(json.getString("org_type"));
-				e.setLinkman(json.getString("linkman"));
-				e.setService_amount_last(json.getString("service_amount_last"));
-				e.setService_amount_before(json.getString("service_amount_before"));
-				e.setService_amount_previous(json.getString("service_amount_previous"));
-				e.setService_quantity_last(json.getString("service_quantity_last"));
-				e.setService_quantity_before(json.getString("service_quantity_before"));
-				e.setService_quantity_previous(json.getString("service_quantity_previous"));
-				e.setHonor(json.getString("honor"));
 				e.setUpdater(form.getUpdater());
-				result = libServiceMapper.update(e);
 			}
-		}else if(form.getFormType() == UserTypeEnum.Expert.key()) {
-			LibExpert e = null;
-			e = libExpertMapper.findById(form.getId());
-			if(e == null) {
-				e = new LibExpert();
-				e.setUserId(form.getUserId());
-				e.setFormId(form.getId());
-				e.setName(json.getString("name"));
-				e.setCode(json.getString("id"));
-				e.setResearch_field(json.getString("research_field"));
-				e.setResearch_area(json.getString("research_area"));
-				e.setCountry(json.getString("country"));
-				e.setProject_desc(json.getString("project_desc"));
-				e.setSuccess_record(json.getString("success_record"));
-				e.setWork_unit(json.getString("work_unit"));
-				e.setCreater(form.getCreater());
-				if(libExpertMapper.findByNameAndCode(e.getName(), e.getCode()) != null) {
-					voRes.setFail(voRes);
-					voRes.setMessage("专家已经存在");
-					return voRes;
-				}
-				result = libExpertMapper.insert(e);
-			}else {
-				e.setName(json.getString("name"));
-				e.setCode(json.getString("id"));
-				e.setResearch_field(json.getString("research_field"));
-				e.setResearch_area(json.getString("research_area"));
-				e.setCountry(json.getString("country"));
-				e.setProject_desc(json.getString("project_desc"));
-				e.setSuccess_record(json.getString("success_record"));
-				e.setWork_unit(json.getString("work_unit"));
-				e.setUpdater(form.getUpdater());
-				result = libExpertMapper.update(e);
-			}
+			e.setOrg_type(json.getString("org_type"));
+			e.setLinkman(json.getString("linkman"));
+			e.setService_amount_last(json.getString("service_amount_last"));
+			e.setService_amount_before(json.getString("service_amount_before"));
+			e.setService_amount_previous(json.getString("service_amount_previous"));
+			e.setService_quantity_last(json.getString("service_quantity_last"));
+			e.setService_quantity_before(json.getString("service_quantity_before"));
+			e.setService_quantity_previous(json.getString("service_quantity_previous"));
+			e.setHonor(json.getString("honor"));
+			result = this.saveOrUpdate(e);
+			
 		}else if(form.getFormType() == UserTypeEnum.College.key()) {
 			LibCollege e = null;
-			e = libCollegeMapper.findById(form.getId());
+			e = libCollegeMapper.findByFormId(form.getId());
 			if(e == null) {
 				e = new LibCollege();
 				e.setUserId(form.getUserId());
 				e.setFormId(form.getId());
 				e.setName(json.getString("name"));
 				e.setCode(json.getString("org_code"));
-				e.setCountry(json.getString("country"));
-				e.setAddress(json.getString("adress"));
-				e.setZip_code(json.getString("zip_code"));
-				e.setUnit_url(json.getString("unit_url"));
-				e.setMajor_platform(json.getString("major_platform"));
-				e.setIntroduction(json.getString("introduction"));
 				e.setCreater(form.getCreater());
+				if(StringUtils.isEmpty(e.getName()) || StringUtils.isEmpty(e.getCode())) {
+					voRes.setFail(voRes);
+					voRes.setMessage("高校院所名称和唯一识别码不能为空");
+					return voRes;
+				}
 				if(libExpertMapper.findByNameAndCode(e.getName(), e.getCode()) != null) {
 					voRes.setFail(voRes);
 					voRes.setMessage("高校院所已经存在");
 					return voRes;
 				}
-				result = libCollegeMapper.insert(e);
 			}else {
-				e.setName(json.getString("name"));
-				e.setCode(json.getString("org_code"));
-				e.setCountry(json.getString("country"));
-				e.setAddress(json.getString("adress"));
-				e.setZip_code(json.getString("zip_code"));
-				e.setUnit_url(json.getString("unit_url"));
-				e.setMajor_platform(json.getString("major_platform"));
-				e.setIntroduction(json.getString("introduction"));
 				e.setUpdater(form.getUpdater());
-				result = libCollegeMapper.update(e);
 			}
+			e.setCountry(json.getString("country"));
+			e.setAddress(json.getString("adress"));
+			e.setZip_code(json.getString("zip_code"));
+			e.setUnit_url(json.getString("unit_url"));
+			e.setMajor_platform(json.getString("major_platform"));
+			e.setIntroduction(json.getString("introduction"));
+			result = this.saveOrUpdate(e);
+			
 		}
 		if(result == 0) {
 			voRes.setFail(voRes);
+			voRes.setMessage("更新资源库失败");
 			return voRes;
 		}
 		voRes.setData(result);
@@ -408,7 +437,16 @@ public class LibService extends BaseService implements ILibService{
 		if(form == null) {
 			voRes.setNull(voRes);
 		}else if(form.getCheckStatus() == 0){
-			voRes = this.saveFormHisToLib(form);
+			JSONObject json = null;
+			try {
+				json = JSON.parseObject(form.getDetail());
+			}catch (Exception e) {
+				e.printStackTrace();
+				voRes.setFail(voRes);
+				voRes.setData("数据异常");
+				return voRes;
+			}
+			voRes = this.saveFormHisToLib(form,json);
 			if(!voRes.getSuccess()) {
 				return voRes;
 			}

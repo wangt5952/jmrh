@@ -76,6 +76,10 @@ public class LibController {
 	@PostMapping("addLib")
 	public Object addLib(@RequestBody BusUserForm form){
 		VoResponse voRes = new VoResponse();
+		if(form.getFormType()<=0 || form.getFormType()>=5) {
+			voRes.setFail(voRes);
+			return voRes;
+		}
 		voRes = libService.setUserDetail(form);
 		return voRes;
 	}

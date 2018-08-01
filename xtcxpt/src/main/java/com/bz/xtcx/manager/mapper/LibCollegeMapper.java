@@ -52,7 +52,7 @@ public interface LibCollegeMapper {
 			+ " introduction=#{introduction, jdbcType=VARCHAR},"
 			+ " status=#{status, jdbcType=INTEGER},"
 			+ " updater=#{updater, jdbcType=VARCHAR}"
-			+ " where user_id=#{id}")
+			+ " where id=#{id}")
 	int update(LibCollege e);
 	
 	@SelectProvider(type = LibCollegeProvider.class, method = "findByCondition")
@@ -90,4 +90,8 @@ public interface LibCollegeMapper {
 	@Select("select * from `bus_user_college` where id = #{id}")
 	@ResultMap("libCollege")
 	LibCollege findById(String id);
+	
+	@Select("select * from `bus_user_college` where form_id = #{id}")
+	@ResultMap("libCollege")
+	LibCollege findByFormId(String id);
 }

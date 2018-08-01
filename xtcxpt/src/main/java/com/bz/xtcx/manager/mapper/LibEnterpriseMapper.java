@@ -69,7 +69,7 @@ public interface LibEnterpriseMapper {
 			+ " lpemail=#{lpemail, jdbcType=VARCHAR},"
 			+ " status=#{status, jdbcType=INTEGER},"
 			+ " updater=#{updater, jdbcType=VARCHAR}"
-			+ " where user_id=#{id}")
+			+ " where id=#{id}")
 	int update(LibEnterprise e);
 	
 	@SelectProvider(type = LibEnterpriseProvider.class, method = "findByCondition")
@@ -115,4 +115,8 @@ public interface LibEnterpriseMapper {
 	@Select("select * from `bus_user_enterprise` where id = #{id}")
 	@ResultMap("libEnterprise")
 	LibEnterprise findById(String id);
+	
+	@Select("select * from `bus_user_enterprise` where form_id = #{id}")
+	@ResultMap("libEnterprise")
+	LibEnterprise findByFormId(String id);
 }

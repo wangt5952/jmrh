@@ -63,7 +63,7 @@ public interface LibServiceMapper {
 			+ " honor=#{honor, jdbcType=VARCHAR},"
 			+ " status=#{status, jdbcType=INTEGER},"
 			+ " updater=#{updater, jdbcType=VARCHAR}"
-			+ " where user_id=#{id}")
+			+ " where id=#{id}")
 	int update(LibServices e);
 	
 	@SelectProvider(type = LibServiceProvider.class, method = "findByCondition")
@@ -106,4 +106,8 @@ public interface LibServiceMapper {
 	@Select("select * from `bus_user_service` where id = #{id}")
 	@ResultMap("libService")
 	LibServices findById(String id);
+	
+	@Select("select * from `bus_user_service` where form_id = #{id}")
+	@ResultMap("libService")
+	LibServices findByFormId(String id);
 }
