@@ -453,7 +453,6 @@ export default {
   async mounted() {
     this.listLoading = false
     if (this.$route.params.objData) {
-      debugger
       this.expert = JSON.parse(this.$route.params.objData)
     }
   },
@@ -466,6 +465,8 @@ export default {
       // if (!this.validata.validaRole(obj)) return
       let arr = {}
       arr.formType = '1'
+      arr.id = this.$route.params.objId
+        debugger
       arr.detail = JSON.stringify(this.expert)
       debugger
       let {

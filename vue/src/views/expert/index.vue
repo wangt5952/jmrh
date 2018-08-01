@@ -714,9 +714,11 @@ export default {
           });
         });
       } else if (type === 'edit') {
+        debugger
         this.$router.push({
           name: 'expertEdit',
           params: {
+            objId :data.form.id,
             objData: data.form.detail
           }
         })
