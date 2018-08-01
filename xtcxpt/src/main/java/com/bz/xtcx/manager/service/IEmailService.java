@@ -6,6 +6,14 @@ package com.bz.xtcx.manager.service;
 public interface IEmailService {
 	
 	/**
+	* 发送平台注册激活邮件HTML
+	 * @param to
+	 * @param uuid
+	 * @return
+	 */
+	public boolean sendRegisterEmailHtml(String to, String uuid);
+	
+	/**
 	 * 发送平台注册激活邮件
 	 * @param to
 	 * @param uuid

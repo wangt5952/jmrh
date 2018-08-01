@@ -29,21 +29,41 @@ public class EmailService implements IEmailService{
     private String from;
 
     @Override
+	public boolean sendRegisterEmailHtml(String to, String uuid) {
+        String subject = "协同创新平台注册";
+        StringBuilder  content = new StringBuilder();
+        content.append(uuid);
+		MimeMessage message = mailSender.createMimeMessage();//创建一个MINE消息
+        try {
+            //true表示需要创建一个multipart message
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setFrom(from);
+            helper.setTo(to);
+            helper.setSubject(subject);
+            helper.setText(content.toString(), true);
+            mailSender.send(message);
+            return true;
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+        return false;
+	}
+    
+    @Override
 	public boolean sendRegisterEmail(String to, String uuid) {
         String subject = "协同创新平台注册";
         StringBuilder  content = new StringBuilder();
         content.append(uuid);
         SimpleMailMessage message = new SimpleMailMessage();//创建简单邮件消息
-        message.setFrom(from);//设置发送人
-        message.setTo(to);//设置收件人
-        message.setSubject(subject);//设置主题
-        message.setText(content.toString());//设置内容
+        message.setFrom(from);
+        message.setTo(to);
+        message.setSubject(subject);
+        message.setText(content.toString());
         try {
-            mailSender.send(message);//执行发送邮件
-            logger.info("简单邮件已经发送。");
+            mailSender.send(message);
             return true;
         } catch (Exception e) {
-            logger.error("发送简单邮件时发生异常！", e);
+        	 e.printStackTrace();
         }
 		return false;
 	}

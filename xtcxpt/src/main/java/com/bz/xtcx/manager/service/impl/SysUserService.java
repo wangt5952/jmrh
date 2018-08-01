@@ -157,8 +157,9 @@ public class SysUserService extends BaseService implements ISysUserService {
 	public boolean sendEmailActivate(String email) {
 		UUID uuid = UUID.randomUUID();
 		//String url = "http://localhost:8080/xtcx/user/activate?activateId=" + uuid.toString();
-		String url = "http://106.14.172.38:8990/jmrh/#/xtcx/user/activate?activateId=" + uuid.toString();
-		if(!emailService.sendRegisterEmail(email, url)) {
+		//String url = "http://106.14.172.38:8990/jmrh/#/xtcx/user/activate?activateId=" + uuid.toString();
+		String url = "<a href=\"http://106.14.172.38:8990/jmrh/#/xtcx/user/activate?activateId="+uuid.toString()+"\" target=\"_blank\">点击此处激活</a>";
+		if(!emailService.sendRegisterEmailHtml(email, url)) {
 			return false;
 		}
 		this.getRedisTemplate().opsForValue().set(uuid.toString(), email, 180, TimeUnit.SECONDS);
