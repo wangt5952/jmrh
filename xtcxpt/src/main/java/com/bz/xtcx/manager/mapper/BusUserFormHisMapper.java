@@ -1,5 +1,7 @@
 package com.bz.xtcx.manager.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
@@ -64,4 +66,8 @@ public interface BusUserFormHisMapper {
 	@Select("select * from `bus_user_form_his` where id=#{id}")
 	@ResultMap("busUserFormHis")
 	BusUserForm findById(String id);
+	
+	@Select("select * from `bus_user_form_his` where check_status=#{check}")
+	@ResultMap("busUserFormHis")
+	List<BusUserForm> findByCheck(int check);
 }

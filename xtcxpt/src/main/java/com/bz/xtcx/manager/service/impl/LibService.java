@@ -1,5 +1,7 @@
 package com.bz.xtcx.manager.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -23,6 +25,7 @@ import com.bz.xtcx.manager.mapper.LibEnterpriseMapper;
 import com.bz.xtcx.manager.mapper.LibExpertMapper;
 import com.bz.xtcx.manager.mapper.LibServiceMapper;
 import com.bz.xtcx.manager.service.ILibService;
+import com.bz.xtcx.manager.vo.VoQuery;
 import com.bz.xtcx.manager.vo.VoResponse;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -113,6 +116,37 @@ public class LibService extends BaseService implements ILibService{
 	}
 	
 	@Override
+	public VoResponse delUserDetail(String id, String type) {
+		VoResponse voRes = new VoResponse();
+		if(type.equals("1")) {
+			LibExpert lib = libExpertMapper.findById(id);
+			if(lib != null) {
+				libExpertMapper.del(id);
+				busUserFormHisMapper.del(lib.getFormId());
+			}
+		}else if(type.equals("2")) {
+			LibEnterprise lib = libEnterpriseMapper.findById(id);
+			if(lib != null) {
+				libEnterpriseMapper.del(id);
+				busUserFormHisMapper.del(lib.getFormId());
+			}
+		}else if(type.equals("3")) {
+			LibServices lib = libServiceMapper.findById(id);
+			if(lib != null) {
+				libServiceMapper.del(id);
+				busUserFormHisMapper.del(lib.getFormId());
+			}
+		}else if(type.equals("4")) {
+			LibCollege lib = libCollegeMapper.findById(id);
+			if(lib != null) {
+				libCollegeMapper.del(id);
+				busUserFormHisMapper.del(lib.getFormId());
+			}
+		}
+		return voRes;
+	}
+	
+	@Override
 	public VoResponse setUserDetail(BusUserForm form) {
 		VoResponse voRes = new VoResponse();
 		int result = 0;
@@ -189,6 +223,16 @@ public class LibService extends BaseService implements ILibService{
 		return result;
 	}
 	
+	int saveOrUpdate(LibEnterprise e) {
+		int result;
+		if(e.getId() == null) {
+			result = libEnterpriseMapper.insert(e);
+		}else {
+			result = libEnterpriseMapper.update(e);
+		}
+		return result;
+	}
+	
 	/**
 	 * 表格数据保存到对应的资源库中
 	 * @param form
@@ -208,32 +252,39 @@ public class LibService extends BaseService implements ILibService{
 		}
 		//System.out.println(jsonObject.get("registerNature"));
 		int result = 0;
-		if(form.getFormType() == UserTypeEnum.Enterprise.key()) {
+		if(form.getFormType() == UserTypeEnum.Enterprise.key()) {//userType=2
 			LibEnterprise e = null;
 			e = libEnterpriseMapper.findById(form.getId());
 			if(e == null) {
 				e = new LibEnterprise();
+				e.setName(json.getString("enterprise_name"));
+				e.setCode(json.getString("code"));
+				if(libEnterpriseMapper.findByNameAndCode(e.getName(), e.getCode()) != null) {
+					voRes.setFail(voRes);
+					voRes.setMessage("企业已经存在");
+					return voRes;
+				}
 				e.setUserId(form.getUserId());
 				e.setFormId(form.getId());
-				e.setName(json.getString("enterprise_name"));
-				e.setRegistered_capital(json.getString("registered_capital"));
-				e.setRegistered_type(json.getString("registered_type"));
-				e.setIs_high_new_tech(json.getIntValue("is_high_new_tech"));
-				e.setDomain(json.getString("domain"));
-				e.setCountry(json.getString("country"));
-				e.setCheckStatus(0);
 				e.setCreater(form.getCreater());
-				result = libEnterpriseMapper.insert(e);
 			}else{
-				e.setName(json.getString("enterprise_name"));
-				e.setRegistered_capital(json.getString("registered_capital"));
-				e.setRegistered_type(json.getString("registered_type"));
-				e.setIs_high_new_tech(json.getIntValue("is_high_new_tech"));
-				e.setDomain(json.getString("domain"));
-				e.setCountry(json.getString("country"));
 				e.setUpdater(form.getUpdater());
-				result = libEnterpriseMapper.update(e);
 			}
+			e.setRegistered_capital(json.getString("registered_capital"));
+			e.setRegistered_type(json.getString("registered_type"));
+			e.setIs_high_new_tech(json.getString("is_high_new_tech"));
+			e.setDomain(json.getString("domain"));
+			e.setCountry(json.getString("country"));
+			e.setLxname(json.getString("lxname"));
+			e.setLxzw(json.getString("lxzw"));
+			e.setLxphone(json.getString("lxphone"));
+			e.setLxemail(json.getString("lxemail"));
+			e.setLpname(json.getString("lpname"));
+			e.setLpzw(json.getString("lpzw"));
+			e.setLpphone(json.getString("lpphone"));
+			e.setLpemail(json.getString("lpemail"));
+			result = this.saveOrUpdate(e);
+			
 		}else if(form.getFormType() == UserTypeEnum.Service.key()) {
 			LibServices e = null;
 			e = libServiceMapper.findById(form.getId());
@@ -244,25 +295,30 @@ public class LibService extends BaseService implements ILibService{
 				e.setName(json.getString("name"));
 				e.setOrg_type(json.getString("org_type"));
 				e.setLinkman(json.getString("linkman"));
-				e.setService_amount_last(json.getIntValue("service_amount_last"));
-				e.setService_amount_before(json.getIntValue("service_amount_before"));
-				e.setService_amount_previous(json.getIntValue("service_amount_previous"));
-				e.setService_quantity_last(json.getIntValue("service_quantity_last"));
-				e.setService_quantity_before(json.getIntValue("service_quantity_before"));
-				e.setService_quantity_previous(json.getIntValue("service_quantity_previous"));
+				e.setService_amount_last(json.getString("service_amount_last"));
+				e.setService_amount_before(json.getString("service_amount_before"));
+				e.setService_amount_previous(json.getString("service_amount_previous"));
+				e.setService_quantity_last(json.getString("service_quantity_last"));
+				e.setService_quantity_before(json.getString("service_quantity_before"));
+				e.setService_quantity_previous(json.getString("service_quantity_previous"));
 				e.setHonor(json.getString("honor"));
 				e.setCreater(form.getCreater());
+				if(libServiceMapper.findByNameAndCode(e.getName(), e.getCode()) != null) {
+					voRes.setFail(voRes);
+					voRes.setMessage("服务机构已经存在");
+					return voRes;
+				}
 				result = libServiceMapper.insert(e);
 			}else {
 				e.setName(json.getString("name"));
 				e.setOrg_type(json.getString("org_type"));
 				e.setLinkman(json.getString("linkman"));
-				e.setService_amount_last(json.getIntValue("service_amount_last"));
-				e.setService_amount_before(json.getIntValue("service_amount_before"));
-				e.setService_amount_previous(json.getIntValue("service_amount_previous"));
-				e.setService_quantity_last(json.getIntValue("service_quantity_last"));
-				e.setService_quantity_before(json.getIntValue("service_quantity_before"));
-				e.setService_quantity_previous(json.getIntValue("service_quantity_previous"));
+				e.setService_amount_last(json.getString("service_amount_last"));
+				e.setService_amount_before(json.getString("service_amount_before"));
+				e.setService_amount_previous(json.getString("service_amount_previous"));
+				e.setService_quantity_last(json.getString("service_quantity_last"));
+				e.setService_quantity_before(json.getString("service_quantity_before"));
+				e.setService_quantity_previous(json.getString("service_quantity_previous"));
 				e.setHonor(json.getString("honor"));
 				e.setUpdater(form.getUpdater());
 				result = libServiceMapper.update(e);
@@ -275,6 +331,7 @@ public class LibService extends BaseService implements ILibService{
 				e.setUserId(form.getUserId());
 				e.setFormId(form.getId());
 				e.setName(json.getString("name"));
+				e.setCode(json.getString("id"));
 				e.setResearch_field(json.getString("research_field"));
 				e.setResearch_area(json.getString("research_area"));
 				e.setCountry(json.getString("country"));
@@ -282,9 +339,15 @@ public class LibService extends BaseService implements ILibService{
 				e.setSuccess_record(json.getString("success_record"));
 				e.setWork_unit(json.getString("work_unit"));
 				e.setCreater(form.getCreater());
+				if(libExpertMapper.findByNameAndCode(e.getName(), e.getCode()) != null) {
+					voRes.setFail(voRes);
+					voRes.setMessage("专家已经存在");
+					return voRes;
+				}
 				result = libExpertMapper.insert(e);
 			}else {
 				e.setName(json.getString("name"));
+				e.setCode(json.getString("id"));
 				e.setResearch_field(json.getString("research_field"));
 				e.setResearch_area(json.getString("research_area"));
 				e.setCountry(json.getString("country"));
@@ -310,6 +373,11 @@ public class LibService extends BaseService implements ILibService{
 				e.setMajor_platform(json.getString("major_platform"));
 				e.setIntroduction(json.getString("introduction"));
 				e.setCreater(form.getCreater());
+				if(libExpertMapper.findByNameAndCode(e.getName(), e.getCode()) != null) {
+					voRes.setFail(voRes);
+					voRes.setMessage("高校院所已经存在");
+					return voRes;
+				}
 				result = libCollegeMapper.insert(e);
 			}else {
 				e.setName(json.getString("name"));
@@ -353,7 +421,7 @@ public class LibService extends BaseService implements ILibService{
 	}
 
 	@Override
-	public PageInfo<LibExpert> getExpertPageByCondition(LibExpert lib, int pageNum, int pageSize, String orderBy) {
+	public PageInfo<LibExpert> getExpertPageByCondition(VoQuery lib, int pageNum, int pageSize, String orderBy) {
 		Page<LibExpert> page = PageHelper.startPage(pageNum, pageSize);
 		if(StringUtils.isEmpty(orderBy)) {
 			PageHelper.orderBy("create_time desc");
@@ -366,7 +434,7 @@ public class LibService extends BaseService implements ILibService{
 	}
 
 	@Override
-	public PageInfo<LibCollege> getCollegePageByCondition(LibCollege lib, int pageNum, int pageSize, String orderBy) {
+	public PageInfo<LibCollege> getCollegePageByCondition(VoQuery lib, int pageNum, int pageSize, String orderBy) {
 		Page<LibCollege> page = PageHelper.startPage(pageNum, pageSize);
 		if(StringUtils.isEmpty(orderBy)) {
 			PageHelper.orderBy("create_time desc");
@@ -379,7 +447,7 @@ public class LibService extends BaseService implements ILibService{
 	}
 
 	@Override
-	public PageInfo<LibEnterprise> getEnterprisePageByCondition(LibEnterprise lib, int pageNum, int pageSize,
+	public PageInfo<LibEnterprise> getEnterprisePageByCondition(VoQuery lib, int pageNum, int pageSize,
 			String orderBy) {
 		Page<LibEnterprise> page = PageHelper.startPage(pageNum, pageSize);
 		if(StringUtils.isEmpty(orderBy)) {
@@ -393,7 +461,7 @@ public class LibService extends BaseService implements ILibService{
 	}
 
 	@Override
-	public PageInfo<LibServices> getServicePageByCondition(LibServices lib, int pageNum, int pageSize, String orderBy) {
+	public PageInfo<LibServices> getServicePageByCondition(VoQuery lib, int pageNum, int pageSize, String orderBy) {
 		Page<LibServices> page = PageHelper.startPage(pageNum, pageSize);
 		if(StringUtils.isEmpty(orderBy)) {
 			PageHelper.orderBy("create_time desc");
@@ -431,6 +499,14 @@ public class LibService extends BaseService implements ILibService{
 		User user = this.getUser();
 		BusUser busUser = busUserMapper.findById(user.getUserId());
 		voRes.setData(this.getLibsByUser(busUser.getUserType(), busUser.getName(), busUser.getIdNumber()));
+		return voRes;
+	}
+
+	@Override
+	public VoResponse taskDoing() {
+		VoResponse voRes = new VoResponse();
+		List<BusUserForm> list = busUserFormHisMapper.findByCheck(0);
+		voRes.setData(list);
 		return voRes;
 	}
 }

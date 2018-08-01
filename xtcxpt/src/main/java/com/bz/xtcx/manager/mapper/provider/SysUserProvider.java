@@ -2,31 +2,45 @@ package com.bz.xtcx.manager.mapper.provider;
 
 import java.text.MessageFormat;
 
+import org.springframework.util.StringUtils;
+
 import com.bz.xtcx.manager.entity.SysUser;
+import com.bz.xtcx.manager.vo.VoQuery;
 
 public class SysUserProvider {
 
-	public String findCount(SysUser user){
+	public String findCount(VoQuery user){
         StringBuilder sql = new StringBuilder("select count(*) from `sys_user` where 1=1");
         sql.append(queryCondition(user));
         return sql.toString();
     }
 	
-	public String findByCondition(SysUser user) {
+	public String findByCondition(VoQuery user) {
 		StringBuilder sql = new StringBuilder("select * from `sys_user` where 1=1");
 		sql.append(queryCondition(user));
         return sql.toString();
 	}
 	
-	StringBuilder queryCondition(SysUser user) {
+	StringBuilder queryCondition(VoQuery user) {
 		StringBuilder sql = new StringBuilder();
 		if(user != null) {
-			if (user.getUserName() != null)
+			if(!StringUtils.isEmpty(user.getStatus())) {
+				sql.append(" and status = '"+user.getStatus()+"'");
+			}
+			if(!StringUtils.isEmpty(user.getObjName())) {
+				sql.append(" and (");
+				sql.append("user_name like '%"+user.getObjName()+"%'");
+				sql.append(" or email like '%"+user.getObjName()+"%'");
+				sql.append(" or cellphone like '%"+user.getObjName()+"%'");
+				sql.append(")");
+			}
+			
+			/*if (user.getUserName() != null)
 	            sql.append(" and user_name like '%"+user.getUserName()+"%'");
 	        if (user.getCellphone() != null)
 	            sql.append(" and cellphone='"+user.getCellphone()+"'");
 	        if (user.getEmail() != null)
-	            sql.append(" and email='"+user.getEmail()+"'");
+	            sql.append(" and email='"+user.getEmail()+"'");*/
 		}
 		return sql;
 	}

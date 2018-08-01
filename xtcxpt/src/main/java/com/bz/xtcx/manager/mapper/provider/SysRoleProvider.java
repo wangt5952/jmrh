@@ -2,29 +2,30 @@ package com.bz.xtcx.manager.mapper.provider;
 
 import java.text.MessageFormat;
 
+import org.springframework.util.StringUtils;
+
 import com.bz.xtcx.manager.entity.SysRole;
+import com.bz.xtcx.manager.vo.VoQuery;
 
 public class SysRoleProvider {
 
-	public String findCount(SysRole e){
+	public String findCount(VoQuery e){
         StringBuilder sql = new StringBuilder("select count(*) from `sys_role` where 1=1");
         sql.append(queryCondition(e));
         return sql.toString();
     }
 	
-	public String findByCondition(SysRole e) {
+	public String findByCondition(VoQuery e) {
 		StringBuilder sql = new StringBuilder("select * from `sys_role` where 1=1");
 		sql.append(queryCondition(e));
         return sql.toString();
 	}
 	
-	StringBuilder queryCondition(SysRole e) {
+	StringBuilder queryCondition(VoQuery e) {
 		StringBuilder sql = new StringBuilder();
 		if(e != null) {
-			if (e.getRoleName() != null)
-	            sql.append(" and role_name like '%"+e.getRoleName()+"%'");
-			if (e.getRoleType() != 0)
-	            sql.append(" and role_type = "+e.getRoleType());
+			if (!StringUtils.isEmpty(e.getObjName()))
+	            sql.append(" and role_name like '%"+e.getObjName()+"%'");
 		}
 		return sql;
 	}

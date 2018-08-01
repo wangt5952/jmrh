@@ -18,6 +18,7 @@ import org.apache.ibatis.mapping.StatementType;
 import com.bz.xtcx.manager.entity.BusUser;
 import com.bz.xtcx.manager.mapper.provider.BusUserProvider;
 import com.bz.xtcx.manager.mapper.provider.SysUserProvider;
+import com.bz.xtcx.manager.vo.VoQuery;
 
 public interface BusUserMapper {
 	
@@ -70,7 +71,7 @@ public interface BusUserMapper {
 		    @Result(property = "roles", column = "user_id", many = @Many(select = "com.bz.xtcx.manager.mapper.SysRoleMapper.findRolesByUserId") ) 
 	    }
 	)
-    List<BusUser> findByCondition(BusUser user);
+    List<BusUser> findByCondition(VoQuery user);
 	
 	@Select("select * from `bus_user` where user_id = #{id}")
     @ResultMap("busUser")

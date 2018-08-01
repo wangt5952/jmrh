@@ -9,6 +9,7 @@ import org.springframework.util.StringUtils;
 import com.bz.xtcx.manager.entity.SysOrg;
 import com.bz.xtcx.manager.mapper.SysOrgMapper;
 import com.bz.xtcx.manager.service.ISysOrgService;
+import com.bz.xtcx.manager.vo.VoQuery;
 import com.bz.xtcx.manager.vo.VoResponse;
 import com.github.pagehelper.PageInfo;
 
@@ -58,12 +59,12 @@ public class SysOrgService implements ISysOrgService {
 	
 	@Override
 	public int del(String id) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = sysOrgMapper.del(id);
+		return result;
 	}
 
 	@Override
-	public PageInfo<SysOrg> getPageByCondition(SysOrg t, int pageNum, int pageSize, String orderBy) {
+	public PageInfo<SysOrg> getPageByCondition(VoQuery t, int pageNum, int pageSize, String orderBy) {
 		// TODO Auto-generated method stub
 		return null;
 	}

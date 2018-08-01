@@ -17,6 +17,7 @@ import org.apache.ibatis.mapping.StatementType;
 
 import com.bz.xtcx.manager.entity.LibExpert;
 import com.bz.xtcx.manager.mapper.provider.LibExpertProvider;
+import com.bz.xtcx.manager.vo.VoQuery;
 
 public interface LibExpertMapper {
 
@@ -79,7 +80,7 @@ public interface LibExpertMapper {
 		    @Result(property = "updateTime", column = "update_time")
 	    }
 	)
-    List<LibExpert> findByCondition(LibExpert e);
+    List<LibExpert> findByCondition(VoQuery e);
 	
 	@Select("select * from `bus_user_expert` where user_id = #{userId}")
 	@ResultMap("libExpert")

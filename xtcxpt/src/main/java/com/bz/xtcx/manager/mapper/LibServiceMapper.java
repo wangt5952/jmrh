@@ -17,6 +17,7 @@ import org.apache.ibatis.mapping.StatementType;
 
 import com.bz.xtcx.manager.entity.LibServices;
 import com.bz.xtcx.manager.mapper.provider.LibServiceProvider;
+import com.bz.xtcx.manager.vo.VoQuery;
 
 public interface LibServiceMapper {
 
@@ -92,7 +93,7 @@ public interface LibServiceMapper {
 		    @Result(property = "updateTime", column = "update_time")
 	    }
 	)
-    List<LibServices> findByCondition(LibServices e);
+    List<LibServices> findByCondition(VoQuery e);
 	
 	@Select("select * from `bus_user_service` where user_id = #{userId}")
 	@ResultMap("libService")

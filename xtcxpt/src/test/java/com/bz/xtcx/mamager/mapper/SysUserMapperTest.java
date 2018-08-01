@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.bz.xtcx.manager.SampleWarApplication;
 import com.bz.xtcx.manager.entity.SysUser;
 import com.bz.xtcx.manager.mapper.SysUserMapper;
+import com.bz.xtcx.manager.vo.VoQuery;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -31,7 +32,7 @@ public class SysUserMapperTest {
 	
 	@Test
 	public void findByPage() {
-		SysUser user = new SysUser();
+		VoQuery user = new VoQuery();
 		Page<SysUser> page = PageHelper.startPage(1, 3);
 		List<SysUser> list = sysUserMapper.findByCondition(user);
 		PageInfo<SysUser> info = new PageInfo<SysUser>(page);

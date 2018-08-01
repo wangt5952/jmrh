@@ -30,6 +30,7 @@ import com.bz.xtcx.manager.mapper.SysUserMapper;
 import com.bz.xtcx.manager.service.IEmailService;
 import com.bz.xtcx.manager.service.ISysUserService;
 import com.bz.xtcx.manager.vo.VoPwd;
+import com.bz.xtcx.manager.vo.VoQuery;
 import com.bz.xtcx.manager.vo.VoResponse;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -55,6 +56,16 @@ public class SysUserService extends BaseService implements ISysUserService {
 	
 	@Override
 	public int updateUserStatus(SysUser user) {
+		SysUser oldUser = sysUserMapper.findById(user.getId());
+		if(oldUser != null && !oldUser.getStatus().equals(user.getStatus())) {
+			oldUser.setStatus(user.getStatus());
+			return sysUserMapper.update(oldUser);
+		}
+		return 0;
+	}
+	
+	@Override
+	public int updateUserStatus(BusUser user) {
 		BusUser oldUser = busUserMapper.findById(user.getId());
 		if(oldUser != null && !oldUser.getStatus().equals(user.getStatus())) {
 			oldUser.setStatus(user.getStatus());
@@ -67,15 +78,28 @@ public class SysUserService extends BaseService implements ISysUserService {
 	public VoResponse updateUserPwd(VoPwd vo) {
 		VoResponse voRes = new VoResponse();
 		User u = this.getUser();
-		BusUser busUser = busUserMapper.findById(u.getUserId());
-		String md5Password = DigestUtils.md5DigestAsHex(vo.getPassword().getBytes());
-		if(busUser.getPassword().equals(md5Password)) {
-			md5Password = DigestUtils.md5DigestAsHex(vo.getNewPassword().getBytes());
-			busUser.setPassword(md5Password);
-			busUserMapper.update(busUser);
+		if(u.getUserType() == 0) {
+			SysUser user = sysUserMapper.findById(u.getUserId());
+			String md5Password = DigestUtils.md5DigestAsHex(vo.getPassword().getBytes());
+			if(user.getPassword().equals(md5Password)) {
+				md5Password = DigestUtils.md5DigestAsHex(vo.getNewPassword().getBytes());
+				user.setPassword(md5Password);
+				sysUserMapper.update(user);
+			}else {
+				voRes.setFail(voRes);
+				voRes.setMessage("密码错误");
+			}
 		}else {
-			voRes.setFail(voRes);
-			voRes.setMessage("密码错误");
+			BusUser busUser = busUserMapper.findById(u.getUserId());
+			String md5Password = DigestUtils.md5DigestAsHex(vo.getPassword().getBytes());
+			if(busUser.getPassword().equals(md5Password)) {
+				md5Password = DigestUtils.md5DigestAsHex(vo.getNewPassword().getBytes());
+				busUser.setPassword(md5Password);
+				busUserMapper.update(busUser);
+			}else {
+				voRes.setFail(voRes);
+				voRes.setMessage("密码错误");
+			}
 		}
 		return voRes;
 	}
@@ -207,14 +231,13 @@ public class SysUserService extends BaseService implements ISysUserService {
 		VoResponse voRes = new VoResponse();
 		int result = 0;
 		if(user.getId() == null) {//add
-			SysUser query = new SysUser();
-			query.setUserName(user.getUserName());
-			List<SysUser> list = sysUserMapper.findByCondition(query);
-			if(list != null && list.size() > 0) {
+			SysUser e = sysUserMapper.findByUserame(user.getUserName());
+			if(e != null ) {
 				voRes.setFail(voRes);
 				voRes.setMessage("用户名已经存在");
 				return voRes;
 			}
+			
 			String md5Password = DigestUtils.md5DigestAsHex(user.getPassword().getBytes());//md5加密
 			user.setPassword(md5Password);
 			user.setCreater(this.getUserName());
@@ -234,6 +257,8 @@ public class SysUserService extends BaseService implements ISysUserService {
 		if(roles != null && roles.size() > 0) {//add role
 			result = sysUserMapper.delUserRoles(user.getId());
 			result = sysUserMapper.addUserRoles(user);
+		}else if(roles != null && roles.size() == 0){
+			result = sysUserMapper.delUserRoles(user.getId());
 		}
 		voRes.setData(result);
 		return voRes;
@@ -263,8 +288,15 @@ public class SysUserService extends BaseService implements ISysUserService {
 			BusUser user = busUserMapper.findByEmail(username);//邮箱
 			if(user != null && user.getPassword().equals(md5Password)) {
 				if(user.getCheckStatus() == 0) {
-					voRes.setFail(voRes);
+					voRes.setCode(10002);
+					voRes.setSuccess(false);
 					voRes.setMessage("用户未激活");
+					return voRes;
+				}
+				if(user.getStatus() == 0) {
+					voRes.setCode(10003);
+					voRes.setSuccess(false);
+					voRes.setMessage("用户被禁用");
 					return voRes;
 				}
 				HttpSession session = getSession();
@@ -280,7 +312,8 @@ public class SysUserService extends BaseService implements ISysUserService {
 				return voRes;
 			}
 		}
-		voRes.setFail(voRes);
+		voRes.setCode(10001);
+		voRes.setSuccess(false);
 		voRes.setMessage("用户名或者密码错误");
 		return voRes;
 	}
@@ -297,7 +330,7 @@ public class SysUserService extends BaseService implements ISysUserService {
 	}
 
 	@Override
-	public PageInfo<SysUser> getPageByCondition(SysUser user, int pageNum, int pageSize, String orderBy) {
+	public PageInfo<SysUser> getPageByCondition(VoQuery user, int pageNum, int pageSize, String orderBy) {
 		Page<SysUser> page = PageHelper.startPage(pageNum, pageSize);
 		if(StringUtils.isEmpty(orderBy)) {
 			PageHelper.orderBy("create_time desc");
@@ -443,14 +476,14 @@ public class SysUserService extends BaseService implements ISysUserService {
 	}
 	
 	@Override
-	public PageInfo<BusUser> getPageBusUserByCondition(BusUser user, int pageNum, int pageSize, String orderBy) {
+	public PageInfo<BusUser> getPageBusUserByCondition(VoQuery query, int pageNum, int pageSize, String orderBy) {
 		Page<BusUser> page = PageHelper.startPage(pageNum, pageSize);
 		if(StringUtils.isEmpty(orderBy)) {
 			PageHelper.orderBy("create_time desc");
 		}else {
 			PageHelper.orderBy(orderBy);
 		}
-		busUserMapper.findByCondition(user);
+		busUserMapper.findByCondition(query);
 		PageInfo<BusUser> info = new PageInfo<BusUser>(page);
 		return info;
 	}

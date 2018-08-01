@@ -18,6 +18,7 @@ import org.apache.ibatis.mapping.StatementType;
 
 import com.bz.xtcx.manager.entity.SysUser;
 import com.bz.xtcx.manager.mapper.provider.SysUserProvider;
+import com.bz.xtcx.manager.vo.VoQuery;
 
 public interface SysUserMapper {
 	
@@ -67,11 +68,15 @@ public interface SysUserMapper {
 		    @Result(property = "org", column = "org_id", one = @One(select = "com.bz.xtcx.manager.mapper.SysOrgMapper.findById") ),
 	    }
 	)
-    List<SysUser> findByCondition(SysUser user);
+    List<SysUser> findByCondition(VoQuery user);
 	
 	@Select("select * from `sys_user` where user_name = #{username} or email = #{username}")
     @ResultMap("sysUser")
 	SysUser findByUserameOrEmail(String username);
+	
+	@Select("select * from `sys_user` where user_name = #{username} ")
+    @ResultMap("sysUser")
+	SysUser findByUserame(String username);
 	
 	@Select("select * from `sys_user` where user_id = #{id}")
     @ResultMap("sysUser")

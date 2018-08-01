@@ -17,15 +17,25 @@ import org.apache.ibatis.mapping.StatementType;
 
 import com.bz.xtcx.manager.entity.LibEnterprise;
 import com.bz.xtcx.manager.mapper.provider.LibEnterpriseProvider;
+import com.bz.xtcx.manager.vo.VoQuery;
 
 public interface LibEnterpriseMapper {
 
-	@Insert("insert into `bus_user_enterprise`(id, user_id, form_id, enterprise_name, business_license, registered_capital, registered_type, is_high_new_tech, domain, address, country, status, creater)"
+	@Insert("insert into `bus_user_enterprise`(id, user_id, form_id, enterprise_name, business_license, lxname, lxzw, lxphone, lxemail, lpname, lpzw, lpphone, lpemail,"
+			+ " registered_capital, registered_type, is_high_new_tech, domain, address, country, status, creater)"
 		    + " VALUES(#{id, jdbcType=VARCHAR},"
 		    + " #{userId, jdbcType=VARCHAR},"
 		    + " #{formId, jdbcType=VARCHAR},"
 		    + " #{name, jdbcType=VARCHAR},"
 		    + " #{code, jdbcType=VARCHAR},"
+		    + " #{lxname, jdbcType=VARCHAR},"
+		    + " #{lxzw, jdbcType=VARCHAR},"
+		    + " #{lxphone, jdbcType=VARCHAR},"
+		    + " #{lxemail, jdbcType=VARCHAR},"
+		    + " #{lpname, jdbcType=VARCHAR},"
+		    + " #{lpzw, jdbcType=VARCHAR},"
+		    + " #{lpphone, jdbcType=VARCHAR},"
+		    + " #{lpemail, jdbcType=VARCHAR},"
 		    + " #{registered_capital, jdbcType=VARCHAR},"
 		    + " #{registered_type, jdbcType=VARCHAR},"
 		    + " #{is_high_new_tech, jdbcType=INTEGER},"
@@ -49,6 +59,14 @@ public interface LibEnterpriseMapper {
 			+ " domain=#{domain, jdbcType=VARCHAR},"
 			+ " address=#{address, jdbcType=VARCHAR},"
 			+ " country=#{country, jdbcType=VARCHAR},"
+			+ " lxname=#{lxname, jdbcType=VARCHAR},"
+			+ " lxzw=#{lxzw, jdbcType=VARCHAR},"
+			+ " lxphone=#{lxphone, jdbcType=VARCHAR},"
+			+ " lxemail=#{lxemail, jdbcType=VARCHAR},"
+			+ " lpname=#{lpname, jdbcType=VARCHAR},"
+			+ " lpzw=#{lpzw, jdbcType=VARCHAR},"
+			+ " lpphone=#{lpphone, jdbcType=VARCHAR},"
+			+ " lpemail=#{lpemail, jdbcType=VARCHAR},"
 			+ " status=#{status, jdbcType=INTEGER},"
 			+ " updater=#{updater, jdbcType=VARCHAR}"
 			+ " where user_id=#{id}")
@@ -62,13 +80,21 @@ public interface LibEnterpriseMapper {
 		    @Result(property = "userId", column = "user_id"),
 		    @Result(property = "name", column = "enterprise_name"),
 		    @Result(property = "code", column = "business_license"),
+		    @Result(property = "lxname", column = "lxname"),
+		    @Result(property = "lxzw", column = "lxzw"),
+		    @Result(property = "lxphone", column = "lxphone"),
+		    @Result(property = "lxemail", column = "lxemail"),
+		    @Result(property = "lpname", column = "lpname"),
+		    @Result(property = "lpzw", column = "lpzw"),
+		    @Result(property = "lpphone", column = "lpphone"),
+		    @Result(property = "lpemail", column = "lpemail"),
 		    @Result(property = "registered_capital", column = "registered_capital"),
 		    @Result(property = "registered_type", column = "registered_type"),
 		    @Result(property = "is_high_new_tech", column = "is_high_new_tech"),
 		    @Result(property = "domain", column = "domain"),
 		    @Result(property = "address", column = "address"),
 		    @Result(property = "country", column = "country"),
-		    @Result(property = "form", column = "id", one = @One(select = "com.bz.xtcx.manager.mapper.BusUserFormHisMapper.findById") ),
+		    @Result(property = "form", column = "form_id", one = @One(select = "com.bz.xtcx.manager.mapper.BusUserFormHisMapper.findById") ),
 		    @Result(property = "status", column = "status"),
 		    @Result(property = "creater", column = "creater"),
 		    @Result(property = "createTime", column = "create_time"),
@@ -76,7 +102,7 @@ public interface LibEnterpriseMapper {
 		    @Result(property = "updateTime", column = "update_time")
 	    }
 	)
-    List<LibEnterprise> findByCondition(LibEnterprise e);
+    List<LibEnterprise> findByCondition(VoQuery e);
 	
 	@Select("select * from `bus_user_enterprise` where user_id = #{userId}")
 	@ResultMap("libEnterprise")

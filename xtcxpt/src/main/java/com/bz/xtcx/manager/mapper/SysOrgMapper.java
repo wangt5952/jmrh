@@ -2,6 +2,7 @@ package com.bz.xtcx.manager.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.annotations.Result;
@@ -36,6 +37,9 @@ public interface SysOrgMapper {
 			+ " updater=#{updater, jdbcType=VARCHAR}"
 			+ " where org_id=#{id}")
 	int update(SysOrg sysOrg);
+	
+	@Delete("delete from `sys_org` where org_id = #{id}")
+	int del(String id);
 	
 	@Select("select * from `sys_org` where parent_id is null order by sort_order")
     @Results(id = "sysOrg", 

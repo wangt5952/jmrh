@@ -9,6 +9,7 @@ import org.springframework.util.StringUtils;
 import com.bz.xtcx.manager.entity.SysMenu;
 import com.bz.xtcx.manager.mapper.SysMenuMapper;
 import com.bz.xtcx.manager.service.ISysMenuService;
+import com.bz.xtcx.manager.vo.VoQuery;
 import com.bz.xtcx.manager.vo.VoResponse;
 import com.github.pagehelper.PageInfo;
 
@@ -53,7 +54,7 @@ public class SysMenuService extends BaseService implements ISysMenuService{
 	}
 
 	@Override
-	public PageInfo<SysMenu> getPageByCondition(SysMenu t, int pageNum, int pageSize, String orderBy) {
+	public PageInfo<SysMenu> getPageByCondition(VoQuery t, int pageNum, int pageSize, String orderBy) {
 		// TODO Auto-generated method stub
 		return null;
 	}

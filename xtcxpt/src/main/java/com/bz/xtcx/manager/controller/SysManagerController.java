@@ -20,6 +20,7 @@ import com.bz.xtcx.manager.service.ISysMenuService;
 import com.bz.xtcx.manager.service.ISysOrgService;
 import com.bz.xtcx.manager.service.ISysRoleService;
 import com.bz.xtcx.manager.service.ISysUserService;
+import com.bz.xtcx.manager.vo.VoQuery;
 import com.bz.xtcx.manager.vo.VoResponse;
 import com.github.pagehelper.PageInfo;
 
@@ -40,7 +41,7 @@ public class SysManagerController extends BaseController{
 	private ISysMenuService sysMenuService;
 	
 	@PostMapping("user/page")
-	public Object getAllUsers(@RequestBody(required=false) SysUser user, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
+	public Object getAllUsers(@RequestBody(required=false) VoQuery user, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
 			@RequestParam(value="orderBy",required=false)  String orderBy) {
 		VoResponse voRes = new VoResponse();
 		PageInfo<SysUser> info = sysUserService.getPageByCondition(user, pageNum, pageSize, orderBy);
@@ -65,7 +66,7 @@ public class SysManagerController extends BaseController{
 		return voRes;
 	}
 	
-	@PutMapping("user/status")
+	@PutMapping("sysuser/status")
 	public Object updateSysUserStatus(@RequestBody SysUser user) {
 		VoResponse voRes = getVoResponse();
 		if(StringUtils.isEmpty(user.getId()) || user.getStatus() == null ) return voRes;
@@ -121,7 +122,7 @@ public class SysManagerController extends BaseController{
 	}
 	
 	@PostMapping("role/page")
-	public Object getAllRoles(@RequestBody(required=false) SysRole role, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
+	public Object getAllRoles(@RequestBody(required=false) VoQuery role, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
 			@RequestParam(value="orderBy",required=false)  String orderBy) {
 		VoResponse voRes = new VoResponse();
 		PageInfo<SysRole> info = sysRoleService.getPageByCondition(role, pageNum, pageSize, orderBy);
@@ -167,11 +168,25 @@ public class SysManagerController extends BaseController{
 	}
 
 	@PostMapping("bususer/page")
-	public Object getAllBusUsers(@RequestBody(required=false) BusUser user, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
+	public Object getAllBusUsers(@RequestBody(required=false) VoQuery user, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
 			@RequestParam(value="orderBy",required=false)  String orderBy) {
 		VoResponse voRes = new VoResponse();
 		PageInfo<BusUser> info = sysUserService.getPageBusUserByCondition(user, pageNum, pageSize, orderBy);
 		voRes.setData(info);
+		return voRes;
+	}
+	
+	@PutMapping("bususer/status")
+	public Object updateBusUserStatus(@RequestBody BusUser user) {
+		VoResponse voRes = getVoResponse();
+		if(StringUtils.isEmpty(user.getId()) || user.getStatus() == null ) return voRes;
+		if(user.getStatus() == 0 || user.getStatus() == 1) {
+			int result = sysUserService.updateUserStatus(user);
+			if(result > 0) {
+				voRes.setSuccess(voRes);
+				voRes.setData(result);
+			}
+		}
 		return voRes;
 	}
 }

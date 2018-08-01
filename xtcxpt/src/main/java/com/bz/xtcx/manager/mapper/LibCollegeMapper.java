@@ -17,6 +17,7 @@ import org.apache.ibatis.mapping.StatementType;
 
 import com.bz.xtcx.manager.entity.LibCollege;
 import com.bz.xtcx.manager.mapper.provider.LibCollegeProvider;
+import com.bz.xtcx.manager.vo.VoQuery;
 
 public interface LibCollegeMapper {
 
@@ -76,7 +77,7 @@ public interface LibCollegeMapper {
 		    @Result(property = "updateTime", column = "update_time")
 	    }
 	)
-    List<LibCollege> findByCondition(LibCollege e);
+    List<LibCollege> findByCondition(VoQuery e);
 	
 	@Select("select * from `bus_user_college` where user_id = #{userId}")
 	@ResultMap("libCollege")

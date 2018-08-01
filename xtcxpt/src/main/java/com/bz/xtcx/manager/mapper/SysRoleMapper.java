@@ -17,6 +17,7 @@ import org.apache.ibatis.mapping.StatementType;
 
 import com.bz.xtcx.manager.entity.SysRole;
 import com.bz.xtcx.manager.mapper.provider.SysRoleProvider;
+import com.bz.xtcx.manager.vo.VoQuery;
 
 public interface SysRoleMapper {
 
@@ -61,7 +62,7 @@ public interface SysRoleMapper {
 		    @Result(property = "menus", column = "role_id", many = @Many(select = "com.bz.xtcx.manager.mapper.SysMenuMapper.findMenusByRoleId") ) 
 	    }
 	)
-    List<SysRole> findByCondition(SysRole role);
+    List<SysRole> findByCondition(VoQuery role);
 	
     @InsertProvider(type = SysRoleProvider.class, method = "addRoleMenus")
     int addRoleMenus(SysRole role);

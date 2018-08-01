@@ -6,6 +6,7 @@ import com.bz.xtcx.manager.entity.BusUser;
 import com.bz.xtcx.manager.entity.SysMenu;
 import com.bz.xtcx.manager.entity.SysUser;
 import com.bz.xtcx.manager.vo.VoPwd;
+import com.bz.xtcx.manager.vo.VoQuery;
 import com.bz.xtcx.manager.vo.VoResponse;
 import com.github.pagehelper.PageInfo;
 
@@ -18,6 +19,12 @@ public interface ISysUserService extends IBaseService<SysUser>{
 	 */
 	public int updateUserStatus(SysUser user);
 	
+	/**
+	 * 修改用户状态
+	 * @param user
+	 * @return
+	 */
+	public int updateUserStatus(BusUser user);
 	
 	VoResponse updateUserPwd(VoPwd vo);
 	
@@ -74,7 +81,7 @@ public interface ISysUserService extends IBaseService<SysUser>{
 	
 	public List<SysMenu> getCurrentUserMenus();
 	
-	PageInfo<BusUser> getPageBusUserByCondition(BusUser user, int pageNum, int pageSize, String orderBy);
+	PageInfo<BusUser> getPageBusUserByCondition( VoQuery query, int pageNum, int pageSize, String orderBy);
 
 	Object getRedisUser(String userId);
 }

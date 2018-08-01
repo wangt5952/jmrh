@@ -1,6 +1,7 @@
 package com.bz.xtcx.manager.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -8,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bz.xtcx.manager.entity.BusUser;
 import com.bz.xtcx.manager.entity.BusUserForm;
 import com.bz.xtcx.manager.entity.LibCollege;
 import com.bz.xtcx.manager.entity.LibEnterprise;
 import com.bz.xtcx.manager.entity.LibExpert;
 import com.bz.xtcx.manager.entity.LibServices;
 import com.bz.xtcx.manager.service.ILibService;
+import com.bz.xtcx.manager.vo.VoQuery;
 import com.bz.xtcx.manager.vo.VoResponse;
 import com.github.pagehelper.PageInfo;
 
@@ -80,13 +81,36 @@ public class LibController {
 	}
 	
 	/**
-	 * 根据用户类别、名称和证件号查找资源库中是否存在对应的信息
+	 * 删除资源库信息
+	 * @return
+	 */
+	@DeleteMapping("delLib")
+	public Object delLib(@RequestParam("id") String id, @RequestParam("type") String type){
+		VoResponse voRes = new VoResponse();
+		libService.delUserDetail(id, type);
+		return voRes;
+	}
+	
+	/**
+	 * 获取用户 在资源库中是否存在对应的信息
 	 * @param user
 	 * @return
 	 */
 	@GetMapping("isInLibs")
 	public Object isInLibs(){
 		VoResponse voRes = libService.getLibsByUser();
+		return voRes;
+	}
+	
+	/**
+	 * 根据用户类别、名称和证件号查找资源库中是否存在对应的信息
+	 * @param user
+	 * @return
+	 */
+	@GetMapping("isInLib")
+	public Object isInLib(@RequestParam("name") String name, @RequestParam("code") String code,@RequestParam("userType") int userType){
+		VoResponse voRes = new VoResponse();
+		voRes.setData(libService.getLibsByUser(userType, name, code));
 		return voRes;
 	}
 	
@@ -108,8 +132,8 @@ public class LibController {
 	 * @return
 	 */
 	@GetMapping("getSubmitLibs")
-	public Object getSubmitUserDetail(@RequestParam("id") String id){
-		VoResponse voRes = new VoResponse();
+	public Object getSubmitUserDetail(){
+		VoResponse voRes = libService.taskDoing();
 		return voRes;
 	}
 	
@@ -126,7 +150,7 @@ public class LibController {
 	}
 	
 	@PostMapping("expert/page")
-	public Object getAllExperts(@RequestBody(required=false) LibExpert lib, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
+	public Object getAllExperts(@RequestBody(required=false) VoQuery lib, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
 			@RequestParam(value="orderBy",required=false)  String orderBy) {
 		VoResponse voRes = new VoResponse();
 		PageInfo<LibExpert> info = libService.getExpertPageByCondition(lib, pageNum, pageSize, orderBy);
@@ -135,7 +159,7 @@ public class LibController {
 	}
 	
 	@PostMapping("college/page")
-	public Object getAllColleges(@RequestBody(required=false) LibCollege lib, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
+	public Object getAllColleges(@RequestBody(required=false) VoQuery lib, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
 			@RequestParam(value="orderBy",required=false)  String orderBy) {
 		VoResponse voRes = new VoResponse();
 		PageInfo<LibCollege> info = libService.getCollegePageByCondition(lib, pageNum, pageSize, orderBy);
@@ -144,7 +168,7 @@ public class LibController {
 	}
 	
 	@PostMapping("enterprise/page")
-	public Object getAllEnterprises(@RequestBody(required=false) LibEnterprise lib, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
+	public Object getAllEnterprises(@RequestBody(required=false) VoQuery lib, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
 			@RequestParam(value="orderBy",required=false)  String orderBy) {
 		VoResponse voRes = new VoResponse();
 		PageInfo<LibEnterprise> info = libService.getEnterprisePageByCondition(lib, pageNum, pageSize, orderBy);
@@ -153,7 +177,7 @@ public class LibController {
 	}
 	
 	@PostMapping("services/page")
-	public Object getAllServices(@RequestBody(required=false) LibServices lib, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
+	public Object getAllServices(@RequestBody(required=false) VoQuery lib, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
 			@RequestParam(value="orderBy",required=false)  String orderBy) {
 		VoResponse voRes = new VoResponse();
 		PageInfo<LibServices> info = libService.getServicePageByCondition(lib, pageNum, pageSize, orderBy);
