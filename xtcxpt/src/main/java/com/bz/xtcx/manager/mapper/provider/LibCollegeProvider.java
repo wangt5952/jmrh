@@ -8,7 +8,7 @@ import com.bz.xtcx.manager.vo.VoQuery;
 public class LibCollegeProvider {
 
 	public String findByCondition(VoQuery e) {
-		StringBuilder sql = new StringBuilder("select * from `bus_user_college` where 1=1");
+		StringBuilder sql = new StringBuilder("select * from `lib_college` where 1=1");
 		sql.append(queryCondition(e));
         return sql.toString();
 	}

@@ -21,7 +21,7 @@ import com.bz.xtcx.manager.vo.VoQuery;
 
 public interface LibEnterpriseMapper {
 
-	@Insert("insert into `bus_user_enterprise`(id, user_id, form_id, enterprise_name, business_license, lxname, lxzw, lxphone, lxemail, lpname, lpzw, lpphone, lpemail,"
+	@Insert("insert into `lib_enterprise`(id, user_id, form_id, enterprise_name, business_license, lxname, lxzw, lxphone, lxemail, lpname, lpzw, lpphone, lpemail,"
 			+ " registered_capital, registered_type, is_high_new_tech, domain, address, country, status, creater)"
 		    + " VALUES(#{id, jdbcType=VARCHAR},"
 		    + " #{userId, jdbcType=VARCHAR},"
@@ -48,10 +48,10 @@ public interface LibEnterpriseMapper {
     @SelectKey(before = true, keyProperty = "id", resultType = String.class, statementType = StatementType.STATEMENT, statement="select uuid()")
 	int insert(LibEnterprise e);
 	
-	@Delete("delete from `bus_user_enterprise` where id = #{id}")
+	@Delete("delete from `lib_enterprise` where id = #{id}")
 	int del(String id);
 	
-	@Update("update `bus_user_enterprise` set enterprise_name=#{name, jdbcType=VARCHAR},"
+	@Update("update `lib_enterprise` set enterprise_name=#{name, jdbcType=VARCHAR},"
 			+ " business_license=#{code, jdbcType=VARCHAR},"
 			+ " registered_capital=#{registered_capital, jdbcType=VARCHAR},"
 			+ " registered_type=#{registered_type, jdbcType=VARCHAR},"
@@ -104,19 +104,19 @@ public interface LibEnterpriseMapper {
 	)
     List<LibEnterprise> findByCondition(VoQuery e);
 	
-	@Select("select * from `bus_user_enterprise` where user_id = #{userId}")
+	@Select("select * from `lib_enterprise` where user_id = #{userId}")
 	@ResultMap("libEnterprise")
 	LibEnterprise findByUserId(String userId);
 	
-	@Select("select * from `bus_user_enterprise` where enterprise_name = #{name} and business_license = #{code} limit 1")
+	@Select("select * from `lib_enterprise` where enterprise_name = #{name} and business_license = #{code} limit 1")
 	@ResultMap("libEnterprise")
 	LibEnterprise findByNameAndCode(@Param("name")String name, @Param("code")String code);
 	
-	@Select("select * from `bus_user_enterprise` where id = #{id}")
+	@Select("select * from `lib_enterprise` where id = #{id}")
 	@ResultMap("libEnterprise")
 	LibEnterprise findById(String id);
 	
-	@Select("select * from `bus_user_enterprise` where form_id = #{id}")
+	@Select("select * from `lib_enterprise` where form_id = #{id}")
 	@ResultMap("libEnterprise")
 	LibEnterprise findByFormId(String id);
 }

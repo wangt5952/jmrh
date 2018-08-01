@@ -40,10 +40,10 @@ public interface ILibService{
 	 * 根据用户类别、名称和证件号查找资源库中是否存在对应的信息
 	 * @param userType
 	 * @param name
-	 * @param idNumber
+	 * @param code
 	 * @return
 	 */
-	Object getLibsByUser(int userType, String name, String idNumber);
+	Object getLibsByUser(int userType, String name, String code);
 	
 	/**
 	 * 获取用户是否存在资源库中信息

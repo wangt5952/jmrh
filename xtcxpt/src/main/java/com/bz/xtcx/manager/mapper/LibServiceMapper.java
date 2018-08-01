@@ -21,7 +21,7 @@ import com.bz.xtcx.manager.vo.VoQuery;
 
 public interface LibServiceMapper {
 
-	@Insert("insert into `bus_user_service`(id, user_id, form_id, name, org_code, org_type, linkman, address, country, service_amount_last, service_amount_before, service_amount_previous,"
+	@Insert("insert into `lib_service`(id, user_id, form_id, name, org_code, org_type, linkman, address, country, service_amount_last, service_amount_before, service_amount_previous,"
 			+ " service_quantity_last, service_quantity_before, service_quantity_previous, honor, status, creater)"
 		    + " VALUES(#{id, jdbcType=VARCHAR},"
 		    + " #{userId, jdbcType=VARCHAR},"
@@ -45,15 +45,15 @@ public interface LibServiceMapper {
     @SelectKey(before = true, keyProperty = "id", resultType = String.class, statementType = StatementType.STATEMENT, statement="select uuid()")
 	int insert(LibServices e);
 	
-	@Delete("delete from `bus_user_service` where id = #{id}")
+	@Delete("delete from `lib_service` where id = #{id}")
 	int del(String id);
 	
-	@Update("update `bus_user_service` set name=#{name, jdbcType=VARCHAR},"
+	@Update("update `lib_service` set name=#{name, jdbcType=VARCHAR},"
 			+ " org_code=#{code, jdbcType=VARCHAR},"
 			+ " org_type=#{org_type, jdbcType=VARCHAR},"
 			+ " linkman=#{linkman, jdbcType=VARCHAR},"
-			+ " #{address, jdbcType=VARCHAR},"
-		    + " #{country, jdbcType=VARCHAR},"
+			+ " address=#{address, jdbcType=VARCHAR},"
+		    + " country=#{country, jdbcType=VARCHAR},"
 			+ " service_amount_last=#{service_amount_last, jdbcType=INTEGER},"
 			+ " service_amount_before=#{service_amount_before, jdbcType=INTEGER},"
 			+ " service_amount_previous=#{service_amount_previous, jdbcType=INTEGER},"
@@ -85,7 +85,7 @@ public interface LibServiceMapper {
 		    @Result(property = "service_quantity_before", column = "service_quantity_before"),
 		    @Result(property = "service_quantity_previous", column = "service_quantity_previous"),
 		    @Result(property = "honor", column = "honor"),
-		    @Result(property = "form", column = "id", one = @One(select = "com.bz.xtcx.manager.mapper.BusUserFormHisMapper.findById") ),
+		    @Result(property = "form", column = "form_id", one = @One(select = "com.bz.xtcx.manager.mapper.BusUserFormHisMapper.findById") ),
 		    @Result(property = "status", column = "status"),
 		    @Result(property = "creater", column = "creater"),
 		    @Result(property = "createTime", column = "create_time"),
@@ -95,19 +95,19 @@ public interface LibServiceMapper {
 	)
     List<LibServices> findByCondition(VoQuery e);
 	
-	@Select("select * from `bus_user_service` where user_id = #{userId}")
+	@Select("select * from `lib_service` where user_id = #{userId}")
 	@ResultMap("libService")
 	LibServices findByUserId(String userId);
 	
-	@Select("select * from `bus_user_service` where name = #{name} and org_code = #{code} limit 1")
+	@Select("select * from `lib_service` where name = #{name} and org_code = #{code} limit 1")
 	@ResultMap("libService")
 	LibServices findByNameAndCode(@Param("name")String name, @Param("code")String code);
 	
-	@Select("select * from `bus_user_service` where id = #{id}")
+	@Select("select * from `lib_service` where id = #{id}")
 	@ResultMap("libService")
 	LibServices findById(String id);
 	
-	@Select("select * from `bus_user_service` where form_id = #{id}")
+	@Select("select * from `lib_service` where form_id = #{id}")
 	@ResultMap("libService")
 	LibServices findByFormId(String id);
 }

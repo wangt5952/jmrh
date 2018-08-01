@@ -21,7 +21,7 @@ import com.bz.xtcx.manager.vo.VoQuery;
 
 public interface LibCollegeMapper {
 
-	@Insert("insert into `bus_user_college`(id, user_id, form_id, name, org_code, country, address, zip_code, unit_url, major_platform, introduction, status, creater)"
+	@Insert("insert into `lib_college`(id, user_id, form_id, name, org_code, country, address, zip_code, unit_url, major_platform, introduction, status, creater)"
 		    + " VALUES(#{id, jdbcType=VARCHAR},"
 		    + " #{userId, jdbcType=VARCHAR},"
 		    + " #{formId, jdbcType=VARCHAR},"
@@ -39,10 +39,10 @@ public interface LibCollegeMapper {
     @SelectKey(before = true, keyProperty = "id", resultType = String.class, statementType = StatementType.STATEMENT, statement="select uuid()")
 	int insert(LibCollege e);
 	
-	@Delete("delete from `bus_user_college` where id = #{id}")
+	@Delete("delete from `lib_college` where id = #{id}")
 	int del(String id);
 	
-	@Update("update `bus_user_college` set name=#{name, jdbcType=VARCHAR},"
+	@Update("update `lib_college` set name=#{name, jdbcType=VARCHAR},"
 			+ " org_code=#{code, jdbcType=VARCHAR},"
 			+ " country=#{country, jdbcType=VARCHAR},"
 			+ " address=#{address, jdbcType=VARCHAR},"
@@ -69,7 +69,7 @@ public interface LibCollegeMapper {
 		    @Result(property = "unit_url", column = "unit_url"),
 		    @Result(property = "major_platform", column = "major_platform"),
 		    @Result(property = "introduction", column = "introduction"),
-		    @Result(property = "form", column = "id", one = @One(select = "com.bz.xtcx.manager.mapper.BusUserFormHisMapper.findById") ),
+		    @Result(property = "form", column = "form_id", one = @One(select = "com.bz.xtcx.manager.mapper.BusUserFormHisMapper.findById") ),
 		    @Result(property = "status", column = "status"),
 		    @Result(property = "creater", column = "creater"),
 		    @Result(property = "createTime", column = "create_time"),
@@ -79,19 +79,19 @@ public interface LibCollegeMapper {
 	)
     List<LibCollege> findByCondition(VoQuery e);
 	
-	@Select("select * from `bus_user_college` where user_id = #{userId}")
+	@Select("select * from `lib_college` where user_id = #{userId}")
 	@ResultMap("libCollege")
 	LibCollege findByUserId(String userId);
 	
-	@Select("select * from `bus_user_college` where name = #{name} and org_code = #{code} limit 1")
+	@Select("select * from `lib_college` where name = #{name} and org_code = #{code} limit 1")
 	@ResultMap("libCollege")
 	LibCollege findByNameAndCode(@Param("name")String name, @Param("code")String code);
 	
-	@Select("select * from `bus_user_college` where id = #{id}")
+	@Select("select * from `lib_college` where id = #{id}")
 	@ResultMap("libCollege")
 	LibCollege findById(String id);
 	
-	@Select("select * from `bus_user_college` where form_id = #{id}")
+	@Select("select * from `lib_college` where form_id = #{id}")
 	@ResultMap("libCollege")
 	LibCollege findByFormId(String id);
 }

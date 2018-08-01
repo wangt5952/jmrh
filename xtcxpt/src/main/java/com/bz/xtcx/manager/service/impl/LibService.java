@@ -291,7 +291,7 @@ public class LibService extends BaseService implements ILibService{
 				e.setUserId(form.getUserId());
 				e.setFormId(form.getId());
 				e.setName(json.getString("name"));//专家姓名
-				e.setCode(json.getString("id"));//专家身份证号
+				e.setCode(json.getString("code"));//专家身份证号
 				e.setCreater(form.getCreater());
 				if(StringUtils.isEmpty(e.getName()) || StringUtils.isEmpty(e.getCode())) {
 					voRes.setFail(voRes);
@@ -321,11 +321,11 @@ public class LibService extends BaseService implements ILibService{
 			e = libEnterpriseMapper.findByFormId(form.getId());
 			if(e == null) {
 				e = new LibEnterprise();
-				e.setName(json.getString("enterprise_name"));
+				e.setName(json.getString("name"));
 				e.setCode(json.getString("code"));
 				if(StringUtils.isEmpty(e.getName()) || StringUtils.isEmpty(e.getCode())) {
 					voRes.setFail(voRes);
-					voRes.setMessage("企业名称和唯一识别码不能为空");
+					voRes.setMessage("企业名称和统一社会信用代码不能为空");
 					return voRes;
 				}
 				if(libEnterpriseMapper.findByNameAndCode(e.getName(), e.getCode()) != null) {
@@ -366,7 +366,7 @@ public class LibService extends BaseService implements ILibService{
 				e.setCreater(form.getCreater());
 				if(StringUtils.isEmpty(e.getName()) || StringUtils.isEmpty(e.getCode())) {
 					voRes.setFail(voRes);
-					voRes.setMessage("服务机构名称和唯一识别码不能为空");
+					voRes.setMessage("服务机构名称和统一社会信用代码不能为空");
 					return voRes;
 				}
 				if(libServiceMapper.findByNameAndCode(e.getName(), e.getCode()) != null) {
@@ -396,11 +396,11 @@ public class LibService extends BaseService implements ILibService{
 				e.setUserId(form.getUserId());
 				e.setFormId(form.getId());
 				e.setName(json.getString("name"));
-				e.setCode(json.getString("org_code"));
+				e.setCode(json.getString("code"));
 				e.setCreater(form.getCreater());
 				if(StringUtils.isEmpty(e.getName()) || StringUtils.isEmpty(e.getCode())) {
 					voRes.setFail(voRes);
-					voRes.setMessage("高校院所名称和唯一识别码不能为空");
+					voRes.setMessage("高校院所名称和统一社会信用代码不能为空");
 					return voRes;
 				}
 				if(libExpertMapper.findByNameAndCode(e.getName(), e.getCode()) != null) {
@@ -536,7 +536,7 @@ public class LibService extends BaseService implements ILibService{
 		VoResponse voRes = new VoResponse();
 		User user = this.getUser();
 		BusUser busUser = busUserMapper.findById(user.getUserId());
-		voRes.setData(this.getLibsByUser(busUser.getUserType(), busUser.getName(), busUser.getIdNumber()));
+		voRes.setData(this.getLibsByUser(busUser.getUserType(), busUser.getName(), busUser.getCode()));
 		return voRes;
 	}
 
