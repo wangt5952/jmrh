@@ -90,7 +90,7 @@ public interface LibExpertMapper {
 	@ResultMap("libExpert")
 	LibExpert findByUserId(String userId);
 	
-	@Select("select * from `bus_user_expert` where name = #{name} and id_number = #{code}")
+	@Select("select * from `bus_user_expert` where name = #{name} and id_number = #{code} limit 1")
 	@ResultMap("libExpert")
 	LibExpert findByNameAndCode(@Param("name")String name, @Param("code")String code);
 	

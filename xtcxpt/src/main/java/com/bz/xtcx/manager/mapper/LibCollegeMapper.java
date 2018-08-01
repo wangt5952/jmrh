@@ -83,7 +83,7 @@ public interface LibCollegeMapper {
 	@ResultMap("libCollege")
 	LibCollege findByUserId(String userId);
 	
-	@Select("select * from `bus_user_college` where name = #{name} and org_code = #{code}")
+	@Select("select * from `bus_user_college` where name = #{name} and org_code = #{code} limit 1")
 	@ResultMap("libCollege")
 	LibCollege findByNameAndCode(@Param("name")String name, @Param("code")String code);
 	

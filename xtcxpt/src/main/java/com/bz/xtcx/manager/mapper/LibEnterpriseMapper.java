@@ -108,7 +108,7 @@ public interface LibEnterpriseMapper {
 	@ResultMap("libEnterprise")
 	LibEnterprise findByUserId(String userId);
 	
-	@Select("select * from `bus_user_enterprise` where enterprise_name = #{name} and business_license = #{code}")
+	@Select("select * from `bus_user_enterprise` where enterprise_name = #{name} and business_license = #{code} limit 1")
 	@ResultMap("libEnterprise")
 	LibEnterprise findByNameAndCode(@Param("name")String name, @Param("code")String code);
 	

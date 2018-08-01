@@ -99,7 +99,7 @@ public interface LibServiceMapper {
 	@ResultMap("libService")
 	LibServices findByUserId(String userId);
 	
-	@Select("select * from `bus_user_service` where name = #{name} and org_code = #{code}")
+	@Select("select * from `bus_user_service` where name = #{name} and org_code = #{code} limit 1")
 	@ResultMap("libService")
 	LibServices findByNameAndCode(@Param("name")String name, @Param("code")String code);
 	
