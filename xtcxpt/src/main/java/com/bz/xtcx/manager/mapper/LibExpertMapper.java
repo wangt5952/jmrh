@@ -21,7 +21,7 @@ import com.bz.xtcx.manager.vo.VoQuery;
 
 public interface LibExpertMapper {
 
-	@Insert("insert into `bus_user_expert`(id, user_id, form_id, name, id_number, address, country, cellphone, "
+	@Insert("insert into `lib_expert`(id, user_id, form_id, name, id_number, address, country, cellphone, "
 			+ "research_field, research_area, work_unit, success_record, project_desc, status, creater)"
 		    + " VALUES(#{id, jdbcType=VARCHAR},"
 		    + " #{userId, jdbcType=VARCHAR},"
@@ -42,10 +42,10 @@ public interface LibExpertMapper {
     @SelectKey(before = true, keyProperty = "id", resultType = String.class, statementType = StatementType.STATEMENT, statement="select uuid()")
 	int insert(LibExpert e);
 	
-	@Delete("delete from `bus_user_expert` where id = #{id}")
+	@Delete("delete from `lib_expert` where id = #{id}")
 	int del(String id);
 	
-	@Update("update `bus_user_expert` set name=#{name, jdbcType=VARCHAR},"
+	@Update("update `lib_expert` set name=#{name, jdbcType=VARCHAR},"
 			+ " id_number=#{code, jdbcType=VARCHAR},"
 			+ " address=#{address, jdbcType=VARCHAR},"
 			+ " country=#{country, jdbcType=VARCHAR},"
@@ -86,19 +86,19 @@ public interface LibExpertMapper {
 	)
     List<LibExpert> findByCondition(VoQuery e);
 	
-	@Select("select * from `bus_user_expert` where user_id = #{userId}")
+	@Select("select * from `lib_expert` where user_id = #{userId}")
 	@ResultMap("libExpert")
 	LibExpert findByUserId(String userId);
 	
-	@Select("select * from `bus_user_expert` where name = #{name} and id_number = #{code} limit 1")
+	@Select("select * from `lib_expert` where name = #{name} and id_number = #{code} limit 1")
 	@ResultMap("libExpert")
 	LibExpert findByNameAndCode(@Param("name")String name, @Param("code")String code);
 	
-	@Select("select * from `bus_user_expert` where id = #{id}")
+	@Select("select * from `lib_expert` where id = #{id}")
 	@ResultMap("libExpert")
 	LibExpert findById(String id);
 	
-	@Select("select * from `bus_user_expert` where form_id = #{id}")
+	@Select("select * from `lib_expert` where form_id = #{id}")
 	@ResultMap("libExpert")
 	LibExpert findByFormId(String id);
 }

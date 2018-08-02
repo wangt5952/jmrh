@@ -30,7 +30,7 @@ public interface BusUserMapper {
 		    + " #{email, jdbcType=VARCHAR},"
 		    + " #{userType, jdbcType=INTEGER},"
 		    + " #{name, jdbcType=VARCHAR},"
-		    + " #{idNumber, jdbcType=VARCHAR},"
+		    + " #{code, jdbcType=VARCHAR},"
 		    + " #{checkStatus, jdbcType=INTEGER},"
 		    + " #{status, jdbcType=INTEGER})"
 		    )
@@ -63,7 +63,7 @@ public interface BusUserMapper {
 		    @Result(property = "email", column = "email"),
 		    @Result(property = "userType", column = "user_type"),
 		    @Result(property = "name", column = "name"),
-		    @Result(property = "idNumber", column = "id_number"),
+		    @Result(property = "code", column = "id_number"),
 		    @Result(property = "checkStatus", column = "check_status"),
 		    @Result(property = "status", column = "status"),
 		    @Result(property = "createTime", column = "create_time"),

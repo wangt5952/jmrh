@@ -8,7 +8,7 @@ import com.bz.xtcx.manager.vo.VoQuery;
 public class LibExpertProvider {
 
 	public String findByCondition(VoQuery e) {
-		StringBuilder sql = new StringBuilder("select * from `bus_user_expert` where 1=1");
+		StringBuilder sql = new StringBuilder("select * from `lib_expert` where 1=1");
 		sql.append(queryCondition(e));
 		System.out.println(sql);
         return sql.toString();

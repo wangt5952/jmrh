@@ -16,7 +16,7 @@ public class BusUser extends BasicEntity {
 	private String cellphone;
 	private int userType;
 	private String name;
-	private String idNumber;
+	private String code;
 	private String country;
 	private String adress;
 	private int checkStatus;
@@ -76,17 +76,17 @@ public class BusUser extends BasicEntity {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getIdNumber() {
-		return idNumber;
-	}
-	public void setIdNumber(String idNumber) {
-		this.idNumber = idNumber;
-	}
 	public List<SysRole> getRoles() {
 		return roles;
 	}
 	public void setRoles(List<SysRole> roles) {
 		this.roles = roles;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 	
 	

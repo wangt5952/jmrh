@@ -147,7 +147,7 @@ public class SysUserService extends BaseService implements ISysUserService {
 	public boolean sendEmailCode(String email) {
 		String id = String.valueOf((int)((Math.random()*9+1)*1000));
 		if(emailService.sendCodeEmail(email, id)) {
-			this.getRedisTemplate().opsForValue().set(id, email, 180, TimeUnit.SECONDS);
+			this.getRedisTemplate().opsForValue().set(id, email, 360, TimeUnit.SECONDS);
 			return true;
 		}
 		return false;
@@ -157,11 +157,12 @@ public class SysUserService extends BaseService implements ISysUserService {
 	public boolean sendEmailActivate(String email) {
 		UUID uuid = UUID.randomUUID();
 		//String url = "http://localhost:8080/xtcx/user/activate?activateId=" + uuid.toString();
-		String url = "http://106.14.172.38:8990/jmrh/#/xtcx/user/activate?activateId=" + uuid.toString();
-		if(!emailService.sendRegisterEmail(email, url)) {
+		//String url = "http://106.14.172.38:8990/jmrh/#/xtcx/user/activate?activateId=" + uuid.toString();
+		String url = "<a href=\"http://106.14.172.38:8990/jmrh/#/xtcx/user/activate?activateId="+uuid.toString()+"\" target=\"_blank\">点击此处激活</a>";
+		if(!emailService.sendRegisterEmailHtml(email, url)) {
 			return false;
 		}
-		this.getRedisTemplate().opsForValue().set(uuid.toString(), email, 180, TimeUnit.SECONDS);
+		this.getRedisTemplate().opsForValue().set(uuid.toString(), email, 360, TimeUnit.SECONDS);
 		return true;
 	}
 	
@@ -198,26 +199,31 @@ public class SysUserService extends BaseService implements ISysUserService {
 		Object obj = this.getRedisTemplate().opsForValue().get(uuid);
 		if(!StringUtils.isEmpty(obj)){
 			String email = obj.toString();
+			System.out.println(email);
 			BusUser user = busUserMapper.findByEmail(email);
-			user.setCheckStatus(1);
-			int result = busUserMapper.update(user);
-			this.getRedisTemplate().delete(uuid);
-			if(result > 0) {
-				//激活成功后自动登录
-				HttpSession session = getSession();
-				User e = new User();
-				e.setUserId(user.getId());
-				e.setUserName(user.getUserName());
-				e.setUserType(user.getUserType());
-				e.setToken(session.getId());
-				e.setEmail(user.getEmail());
-				e.setCellphone(user.getCellphone());
-				this.createRedisUser(e);
-				voRes.setData(e);
-				
-				voRes.setMessage(obj + "激活成功");
-			}else {
-				voRes.setMessage(obj + "激活失败");
+			if(user != null) {
+				user.setCheckStatus(1);
+				int result = busUserMapper.update(user);
+				this.getRedisTemplate().delete(uuid);
+				if(result > 0) {
+					//激活成功后自动登录
+					HttpSession session = getSession();
+					User e = new User();
+					e.setUserId(user.getId());
+					e.setUserName(user.getUserName());
+					e.setUserType(user.getUserType());
+					e.setToken(session.getId());
+					e.setEmail(user.getEmail());
+					e.setCellphone(user.getCellphone());
+					e.setName(user.getName());
+					e.setCode(user.getCode());
+					this.createRedisUser(e);
+					voRes.setData(e);
+					
+					voRes.setMessage(obj + "激活成功");
+				}else {
+					voRes.setMessage(obj + "激活失败");
+				}
 			}
 		}else {
 			voRes.setFail(voRes);
@@ -290,7 +296,7 @@ public class SysUserService extends BaseService implements ISysUserService {
 				if(user.getCheckStatus() == 0) {
 					voRes.setCode(10002);
 					voRes.setSuccess(false);
-					voRes.setMessage("用户未激活");
+					voRes.setMessage("用户未激活,请重新发送邮箱进行激活！");
 					return voRes;
 				}
 				if(user.getStatus() == 0) {
@@ -307,6 +313,8 @@ public class SysUserService extends BaseService implements ISysUserService {
 				e.setToken(session.getId());
 				e.setEmail(user.getEmail());
 				e.setCellphone(user.getCellphone());
+				e.setName(user.getName());
+				e.setCode(user.getCode());
 				this.createRedisUser(e);
 				voRes.setData(e);
 				return voRes;

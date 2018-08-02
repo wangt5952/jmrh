@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.sql.Date;
 
 import com.bz.xtcx.manager.enums.StatusEnum;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BasicEntity implements Serializable {
 	/**
 	 * 
