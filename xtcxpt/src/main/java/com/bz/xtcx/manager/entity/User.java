@@ -12,6 +12,8 @@ public class User implements Serializable {
 	private String userName;
 	private String email;
 	private String cellphone;
+	private String name;
+	private String code;
 	private int userType;
 	private String token;
 	
@@ -50,6 +52,18 @@ public class User implements Serializable {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 	
 	

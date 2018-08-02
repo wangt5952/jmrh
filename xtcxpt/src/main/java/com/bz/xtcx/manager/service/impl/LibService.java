@@ -535,8 +535,14 @@ public class LibService extends BaseService implements ILibService{
 	public VoResponse getLibsByUser() {
 		VoResponse voRes = new VoResponse();
 		User user = this.getUser();
-		BusUser busUser = busUserMapper.findById(user.getUserId());
-		voRes.setData(this.getLibsByUser(busUser.getUserType(), busUser.getName(), busUser.getCode()));
+		System.out.println(user);
+		if(user != null) {
+			BusUser busUser = busUserMapper.findById(user.getUserId());
+			if(busUser != null) {
+				voRes.setData(this.getLibsByUser(busUser.getUserType(), busUser.getName(), busUser.getCode()));
+			}
+		}
+		
 		return voRes;
 	}
 

@@ -81,12 +81,15 @@ public class BaseService {
 	 */
 	public void destroyedRedisUser() {
 		String userId = this.getUserId();
-		if(redisTemplate.opsForValue().getOperations().hasKey(userId)) {
-			String token = redisTemplate.opsForValue().get(userId).toString();
-			boolean result = redisTemplate.delete(userId);
-			System.out.println(result);
-			result = redisTemplate.delete(token);
-			System.out.println(result);
+		System.out.println(userId);
+		if(userId != null) {
+			if(redisTemplate.opsForValue().getOperations().hasKey(userId)) {
+				String token = redisTemplate.opsForValue().get(userId).toString();
+				boolean result = redisTemplate.delete(userId);
+				System.out.println(result);
+				result = redisTemplate.delete(token);
+				System.out.println(result);
+			}
 		}
 	}
 	
