@@ -28,7 +28,7 @@
     <el-table-column align="center" label="手机号">
       <template slot-scope="scope">
                     <span>
-                        {{ scope.row.dpartmentId}}</span>
+                        {{ scope.row.cellphone}}</span>
                 </template>
     </el-table-column>
 

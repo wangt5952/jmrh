@@ -10,6 +10,8 @@ const app = {
     TOGGLE_SIDEBAR: state => {
       if (state.sidebar.opened) {
         Cookies.set('sidebarStatus', 1)
+        var div = document.getElementById("mainLogo")
+        div.setAttribute('style', 'display: none');
       } else {
         Cookies.set('sidebarStatus', 0)
       }

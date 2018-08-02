@@ -1,6 +1,6 @@
 <template>
-<div class="register-container" style="background: #1896d2;height:100%">
-  <div class="content" style="width:100%;overflow: auto;">
+<div class="registerd-container" style="background: #1896d2;height:100%">
+  <div class="content" style="width:100%;top: 50%;">
 
     <!-- <div class="left-content" :style="{'background-image': `url('${leftImage}')`}"></div> -->
 
@@ -1102,6 +1102,7 @@ export default {
       service_research_lastt: '',
       service_research_beforet: '',
       service_research_previoust: '',
+      code:'',
       expert: {
         cardPositive: [],
         cardSide: [],
@@ -1270,7 +1271,9 @@ export default {
   async mounted() {
 
     if (this.$route.params.userType) {
+      debugger
       this.userType = this.$route.params.userType
+      this.code = this.$route.params.code
       let {
         data,
         success
@@ -1287,15 +1290,19 @@ export default {
           this.userType = data.form.formType
           if (data.form.formType == '1') {
             this.expert = JSON.parse(data.form.detail)
+            this.expert.code = this.code
           }
           if (data.form.formType == '2') {
             this.com = JSON.parse(data.form.detail)
+            this.com.code = this.code
           }
           if (data.form.formType == '3') {
             this.mech = JSON.parse(data.form.detail)
+            this.mech.code = this.code
           }
           if (data.form.formType == '4') {
             this.school = JSON.parse(data.form.detail)
+            this.school.code = this.code
           }
         }
 
@@ -1510,10 +1517,10 @@ export default {
 .el-card__body {
     // height: 600px;
 }
-.el-tabs--border-card {
-    height: 500px;
-}
-.register-container {
+// .el-card {
+// height: 100%;
+// }
+.registerd-container {
     width: 100%;
     height: 100%;
     z-index: 1;
@@ -1523,14 +1530,13 @@ export default {
     }
     .el-tabs__content {
         overflow-y: auto;
-        height: 400px;
+        height: 600px;
         position: relative;
     }
     .content {
         width: 100%;
         height: 80%;
         position: absolute;
-        top: 60%;
         left: 50%;
         z-index: 2;
         // border:1px solid #ccc;
@@ -1538,7 +1544,6 @@ export default {
         .detail-content,
         .left-content {
             width: 60%;
-            height: 700px;
             // border: 2px dashed  #CBBD63;
             // background-color: rgba(225, 255, 255, 0.1);
             -webkit-filter: drop-shadow(4px 4px 4px #CBBD63);

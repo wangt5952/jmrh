@@ -2,7 +2,23 @@
 <div class="tab-container">
   <div class="tools">
     <div class="paddingb textl paddingr">
-      <el-input v-model="input" placeholder="请输入内容" style="width: 15%;"></el-input>
+      <el-input v-model="input.objName" placeholder="请输入ID/管理员/邮箱" style="width: 11%;"></el-input>
+      <el-select v-model="input.userType" style="width:120px" placeholder="用户类型">
+        <el-option label="专家" key="1" value="1">
+        </el-option>
+        <el-option label="企业" key="2" value="2">
+        </el-option>
+        <el-option label="服务机构" key="3" value="3">
+        </el-option>
+        <el-option label="高校院所" key="4" value="4">
+        </el-option>
+      </el-select>
+      <el-select v-model="input.status" style="width:100px" placeholder="状态">
+        <el-option label="开启" key="1" value="1">
+        </el-option>
+        <el-option label="禁用" key="0" value="0">
+        </el-option>
+      </el-select>
       <el-button style="margin-left:20px" @click="loadPageList" type="primary" icon="el-icon-search"></el-button>
       <el-button v-if="userType =='0'" style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">添加管理员</el-button>
 
@@ -11,13 +27,8 @@
 
 
   <el-table v-loading="loading" class="tableH" :data="list" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
-    <el-table-column type="index" align="center" label="序号">
+    <el-table-column type="index" align="center" label="ID">
 
-    </el-table-column>
-    <el-table-column align="center" label="ID">
-      <template slot-scope="scope">
-                    <span>{{ scope.row.userName }}</span>
-                </template>
     </el-table-column>
     <el-table-column align="center" label="管理员名称">
       <template slot-scope="scope">
@@ -40,8 +51,8 @@
     <!-- <el-table-column align="center" label="所属组织机构">
       <template slot-scope="scope">
                     <span> -->
-                      <!-- {{ scope.row.org.label }} -->
-                        <!-- {{ scope.row.org.label }} - {{ scope.row.org.remark }} - {{ scope.row.org.children[0].label }}  - {{ scope.row.org.children[0].remark }}
+    <!-- {{ scope.row.org.label }} -->
+    <!-- {{ scope.row.org.label }} - {{ scope.row.org.remark }} - {{ scope.row.org.children[0].label }}  - {{ scope.row.org.children[0].remark }}
                         </span>
                 </template>
     </el-table-column> -->
@@ -177,8 +188,12 @@ import {
 export default {
   data() {
     return {
-      userType:'',
-      input: '',
+      userType: '',
+      input: {
+        objName: '',
+        userType: '',
+        status: '',
+      },
       bank: '1',
       list: [],
       timeType: '1',
@@ -229,13 +244,15 @@ export default {
   async mounted() {
     this.listLoading = false
     this.loadPageList()
-    this.userType =  window.sessionStorage.getItem('userType')
+    this.userType = window.sessionStorage.getItem('userType')//权限控制
   },
   computed: {},
   methods: {
     async loadPageList() {
       if (this.input) {
-        this.listQuery.objName = this.input
+        this.listQuery.objName = this.input.objName
+        this.listQuery.userType = this.input.userType
+        this.listQuery.status = this.input.status
       } else {
         this.listQuery.objName = ''
       }
@@ -398,7 +415,7 @@ export default {
       }
     },
     async handleEditjy(obj, num) {
-      let arr ={}
+      let arr = {}
       arr.status = num
       arr.id = obj.id
       let {

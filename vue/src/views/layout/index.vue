@@ -31,7 +31,7 @@ export default {
 .app-wrapper {
   @include clearfix;
   position: relative;
-  background: #FAFCFF;
+  background: #f2f7ff;
   height: 100%;
   width: 100%;
 }

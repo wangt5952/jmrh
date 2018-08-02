@@ -2,14 +2,24 @@
 <div class="tab-container">
   <div class="tools">
     <div class="paddingb textl paddingr">
-      <el-input v-model="input" placeholder="请输入内容" style="width: 15%;"></el-input>
-      <el-button style="margin-left:20px" @click="loadPageList" type="primary" icon="el-icon-search"></el-button>
-      <el-select v-model="obj.roleType" style="width:100px" placeholder="请选择">
-        <el-option label="管理员" :key="1" :value="1">
+      <el-input v-model="input.objName" placeholder="请输入名称/昵称/手机号" style="width: 12%;"></el-input>
+      <el-select v-model="input.userType" style="width:120px" placeholder="用户类型">
+        <el-option label="专家" key="1" value="1">
         </el-option>
-        <el-option label="用户" :key="2" :value="2">
+        <el-option label="企业" key="2" value="2">
+        </el-option>
+        <el-option label="服务机构" key="3" value="3">
+        </el-option>
+        <el-option label="高校院所" key="4" value="4">
         </el-option>
       </el-select>
+      <el-select v-model="input.status" style="width:100px" placeholder="状态">
+        <el-option label="开启" key="1" value="1">
+        </el-option>
+        <el-option label="禁用" key="0" value="0">
+        </el-option>
+      </el-select>
+      <el-button style="margin-left:20px" @click="loadPageList" type="primary" icon="el-icon-search"></el-button>
       <!-- <el-button style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">添加用户</el-button> -->
 
     </div>
@@ -28,12 +38,12 @@
                     <span>{{ scope.row.userName }}</span>
                 </template>
     </el-table-column>
-    <el-table-column align="center" label="手机号">
+    <!-- <el-table-column align="center" label="手机号">
       <template slot-scope="scope">
                     <span>
                         {{ scope.row.cellphone}}</span>
                 </template>
-    </el-table-column>
+    </el-table-column> -->
 
     <el-table-column align="center" label="用户类别">
       <template slot-scope="scope">
@@ -59,7 +69,7 @@
     <el-table-column align="center" label="身份证号">
       <template slot-scope="scope">
                     <span>
-                        {{ scope.row.idNumber}}</span>
+                        {{ scope.row.code}}</span>
                 </template>
     </el-table-column>
 
@@ -70,7 +80,7 @@
         <span v-if="scope.row.status =='0'">禁用</span>
                     </template>
     </el-table-column>
-   <el-table-column v-if="userType =='0'" align="center" label="操作">
+    <el-table-column v-if="userType =='0'" align="center" label="操作">
       <template slot-scope="scope">
                     <div style="margin:2% 2% 2% 2%">
                         <el-button size="small" v-if="scope.row.status =='0'" @click="handleEdit(scope.row,'1')" type="" style="border-radius: 5px;">开启</el-button>
@@ -144,7 +154,11 @@ import {
 export default {
   data() {
     return {
-      input: '',
+      input: {
+        objName: '',
+        userType: '',
+        status: '',
+      },
       bank: '1',
       list: [],
       timeType: '1',
@@ -189,20 +203,22 @@ export default {
       }],
       treeData: [],
       loading: true,
-        userType:'',
+      userType: '',
     }
   },
   async mounted() {
     this.listLoading = false
     this.loadPageList()
-    this.userType =  window.sessionStorage.getItem('userType')
+    this.userType = window.sessionStorage.getItem('userType')
 
   },
   computed: {},
   methods: {
     async loadPageList() {
       if (this.input) {
-        this.listQuery.objName = this.input
+        this.listQuery.objName = this.input.objName
+        this.listQuery.userType = this.input.userType
+        this.listQuery.status = this.input.status
       } else {
         this.listQuery.objName = ''
       }
@@ -341,8 +357,8 @@ export default {
     //     message: '修改成功!'
     //   });
     // }
-    async handleEdit(obj,num) {
-      let arr ={}
+    async handleEdit(obj, num) {
+      let arr = {}
       arr.status = num
       arr.id = obj.id
       let {
