@@ -2,309 +2,347 @@
 <div class="tab-container">
 
     <div class="" style="height: 80% !important;overflow-y: auto;">
-    <el-tabs type="border-card">
-      <el-tab-pane>
-        <span slot="label"><i class="el-icon-date"></i> 机构联系人</span>
-        <el-form class="" label-width="30%" style="text-align:left">
-          <el-row :gutter="20">
-            <el-col :span="20">
+      <el-tabs type="border-card">
+        <el-tab-pane>
+          <span slot="label"><i class="el-icon-date"></i> 机构联系人</span>
+          <el-form class="" label-width="30%" style="text-align:left">
+            <el-row :gutter="20">
+              <el-col :span="20">
 
-              <el-form-item label="姓名">
-                <el-input placeholder="请输入姓名" v-model="mech.linkman" style="width:80%"></el-input>
-              </el-form-item>
-              <el-form-item label="职务">
-                <el-input placeholder="请输入职务" v-model="mech.lxzw" style="width:80%"></el-input>
-              </el-form-item>
-              <el-form-item label="手机号">
-                <el-input placeholder="请输入手机号" v-model="mech.lxphone" style="width:80%"></el-input>
-              </el-form-item>
-              <el-form-item label="邮箱">
-                <el-input placeholder="请输入邮箱" v-model="mech.lxemail" style="width:80%"></el-input>
-              </el-form-item>
-            </el-col>
+                <el-form-item label="姓名">
+                  <span style='position: relative;left: -60px;color: #f60d0d;'>*</span>
+                  <el-input placeholder="请输入姓名" v-model="mech.linkman" style="width:80%"></el-input>
+                </el-form-item>
+                <el-form-item label="职务">
+                  <span style='position: relative;left: -60px;color: #f60d0d;'>*</span>
+                  <el-input placeholder="请输入职务" v-model="mech.lxzw" style="width:80%"></el-input>
+                </el-form-item>
+                <el-form-item label="手机号">
+                  <span style='position: relative;left: -70px;color: #f60d0d;'>*</span>
+                  <el-input placeholder="请输入手机号" v-model="mech.lxphone" style="width:80%"></el-input>
+                </el-form-item>
+                <el-form-item label="邮箱">
+                  <span style='position: relative;left: -60px;color: #f60d0d;'>*</span>
+                  <el-input placeholder="请输入邮箱" v-model="mech.lxemail" style="width:80%"></el-input>
+                </el-form-item>
+              </el-col>
 
-            <el-col :span="10">
+              <el-col :span="10">
 
 
-            </el-col>
+              </el-col>
 
-          </el-row>
-        </el-form>
+            </el-row>
+          </el-form>
 
-      </el-tab-pane>
-      <el-tab-pane label="机构法定代表人">
-        <el-form class="" label-width="30%" style="text-align:left">
-          <el-row :gutter="20">
-            <el-col :span="20">
+        </el-tab-pane>
+        <el-tab-pane label="机构法定代表人">
+          <el-form class="" label-width="30%" style="text-align:left">
+            <el-row :gutter="20">
+              <el-col :span="20">
 
-              <el-form-item label="姓名">
-                <el-input placeholder="请输入姓名" v-model="mech.fdname" style="width:80%"></el-input>
-              </el-form-item>
-              <el-form-item label="手机号">
-                <el-input placeholder="请输入手机号" v-model="mech.fdphone" style="width:80%"></el-input>
-              </el-form-item>
-              <el-form-item label="邮箱">
-                <el-input placeholder="请输入邮箱" v-model="mech.fdemail" style="width:80%"></el-input>
-              </el-form-item>
-              <el-form-item label="事业单位法人证书正本">
-                <div>
-                  <!--这是背面照-->
-                  <div class="photo photo1">
-                    <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="mech.zhengben" list-type="picture">
-                      <el-button size="small" type="primary">点击上传</el-button>
-                    </el-upload>
+                <el-form-item label="姓名">
+                  <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                  <el-input placeholder="请输入姓名" v-model="mech.fdname" style="width:80%"></el-input>
+                </el-form-item>
+                <el-form-item label="手机号">
+                  <span style='position: relative;left: -60px;color: #f60d0d;'>*</span>
+                  <el-input placeholder="请输入手机号" v-model="mech.fdphone" style="width:80%"></el-input>
+                </el-form-item>
+                <el-form-item label="邮箱">
+                  <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                  <el-input placeholder="请输入邮箱" v-model="mech.fdemail" style="width:80%"></el-input>
+                </el-form-item>
+                <el-form-item label="事业单位法人证书正本">
+                  <span style='position: absolute;left: -160px;color: #f60d0d;'>*</span>
+                  <div>
+                    <!--这是背面照-->
+                    <div class="photo photo1">
+                      <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="mech.zhengben" list-type="picture">
+                        <el-button size="small" type="primary">点击上传</el-button>
+                      </el-upload>
 
+                    </div>
                   </div>
-                </div>
-              </el-form-item>
-              <el-form-item label="事业单位法人证书副本">
-                <div>
-                  <!--这是背面照-->
-                  <div class="photo photo1">
-                    <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="mech.fuben" list-type="picture">
-                      <el-button size="small" type="primary">点击上传</el-button>
-                    </el-upload>
+                </el-form-item>
+                <el-form-item label="事业单位法人证书副本">
+                  <span style='position: absolute;left: -160px;color: #f60d0d;'>*</span>
+                  <div>
+                    <!--这是背面照-->
+                    <div class="photo photo1">
+                      <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="mech.fuben" list-type="picture">
+                        <el-button size="small" type="primary">点击上传</el-button>
+                      </el-upload>
 
+                    </div>
                   </div>
-                </div>
-              </el-form-item>
-              <el-form-item label="机构logo">
-                <div>
-                  <!--这是背面照-->
-                  <div class="photo photo1">
-                    <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="mech.logo" list-type="picture">
-                      <el-button size="small" type="primary">点击上传</el-button>
-                    </el-upload>
+                </el-form-item>
+                <el-form-item label="机构logo">
+                  <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                  <div>
+                    <!--这是背面照-->
+                    <div class="photo photo1">
+                      <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="mech.logo" list-type="picture">
+                        <el-button size="small" type="primary">点击上传</el-button>
+                      </el-upload>
 
+                    </div>
                   </div>
-                </div>
-              </el-form-item>
-            </el-col>
-            <el-col :span="10">
+                </el-form-item>
+              </el-col>
+              <el-col :span="10">
 
 
-            </el-col>
+              </el-col>
 
-          </el-row>
-        </el-form>
-      </el-tab-pane>
-      <el-tab-pane label="机构信息">
-        <el-form class="" label-width="30%" style="text-align:left">
-          <el-row :gutter="20">
-            <el-col :span="20">
-              <el-form-item label="单位名称">
-                <el-input placeholder="请输入单位名称" v-model="mech.name" style="width:80%"></el-input>
-              </el-form-item>
+            </el-row>
+          </el-form>
+        </el-tab-pane>
+        <el-tab-pane label="机构信息">
+          <el-form class="" label-width="30%" style="text-align:left">
+            <el-row :gutter="20">
+              <el-col :span="20">
+                <el-form-item label="单位名称">
+                  <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                  <el-input placeholder="请输入单位名称" v-model="mech.name" style="width:80%"></el-input>
+                </el-form-item>
                 <el-form-item label="单位编码">
+                  <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
                   <el-input placeholder="请输入单位编码" v-model="mech.code" style="width:80%"></el-input>
                 </el-form-item>
-              <el-form-item label="所在地区">
-                <area-cascader :level="1" v-model="mech.selected" :data="pcaa"></area-cascader>
-                <!-- <area-cascader v-model="selected" :level="1" :data="pca"></area-cascader> -->
-              </el-form-item>
-              <el-form-item label="联系地址">
-                <el-input placeholder="请输入联系地址" v-model="mech.address" style="width:80%"></el-input>
-              </el-form-item>
-              <el-form-item label="邮编">
-                <el-input placeholder="请输入邮编" v-model="mech.ecode" style="width:80%"></el-input>
-              </el-form-item>
+                <el-form-item label="所在地区">
+                  <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                  <area-cascader :level="1" v-model="mech.selected" :data="pcaa"></area-cascader>
+                  <!-- <area-cascader v-model="selected" :level="1" :data="pca"></area-cascader> -->
+                </el-form-item>
+                <el-form-item label="联系地址">
+                  <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                  <el-input placeholder="请输入联系地址" v-model="mech.address" style="width:80%"></el-input>
+                </el-form-item>
+                <el-form-item label="邮编">
+                  <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                  <el-input placeholder="请输入邮编" v-model="mech.ecode" style="width:80%"></el-input>
+                </el-form-item>
 
-              <el-form-item label="机构性质">
-                <el-radio v-model="mech.registerNature" label="1">企业</el-radio>
-                <el-radio v-model="mech.registerNature" label="2">科研院所</el-radio>
-                <el-radio v-model="mech.registerNature" label="3">高等院校 </el-radio>
-                <el-radio v-model="mech.registerNature" label="4">其他</el-radio>
-              </el-form-item>
+                <el-form-item label="机构性质">
+                  <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                    <el-checkbox-group v-model="mech.registerNature">
+                  <el-checkbox label="1">企业</el-checkbox>
+                  <el-checkbox label="2">科研院所</el-checkbox>
+                  <el-checkbox label="3">高等院校 </el-checkbox>
+                  <el-checkbox label="4">其他</el-checkbox>
+                  <el-input v-if="mech.registerNature.includes('4')" placeholder="请输入其他" v-model="mech.mechregisterNatureOther" style="width:80%"></el-input>
+                </el-checkbox-group>
+                </el-form-item>
 
-              <el-form-item label="机构类别">
-                <el-radio v-model="mech.org_type" label="1">研究开发</el-radio>
-                <el-radio v-model="mech.org_type" label="2">科技投融资</el-radio>
-                <el-radio v-model="mech.org_type" label="3">技术转移 </el-radio>
-                <el-radio v-model="mech.org_type" label="4">检验检测</el-radio>
-                <el-radio v-model="mech.org_type" label="5">创业孵化</el-radio>
-                <el-radio v-model="mech.org_type" label="6">知识产权</el-radio>
-                <el-radio v-model="mech.org_type" label="7">科技评估</el-radio>
-                <el-radio v-model="mech.org_type" label="8">标准认证</el-radio>
-                <el-radio v-model="mech.org_type" label="9">管理咨询</el-radio>
-                <el-radio v-model="mech.org_type" label="10">综合科技服务</el-radio>
-                <el-radio v-model="mech.org_type" label="11">其他</el-radio>
-              </el-form-item>
+                <el-form-item label="机构类别">
+                  <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                    <el-checkbox-group v-model="mech.org_type">
+                  <el-checkbox  label="1">研究开发</el-checkbox>
+                  <el-checkbox  label="2">科技投融资</el-checkbox>
+                  <el-checkbox  label="3">技术转移 </el-checkbox>
+                  <el-checkbox  label="4">检验检测</el-checkbox>
+                  <el-checkbox  label="5">创业孵化</el-checkbox>
+                  <el-checkbox  label="6">知识产权</el-checkbox>
+                  <el-checkbox  label="7">科技评估</el-checkbox>
+                  <el-checkbox  label="8">标准认证</el-checkbox>
+                  <el-checkbox  label="9">管理咨询</el-checkbox>
+                  <el-checkbox  label="10">综合科技服务</el-checkbox>
+                  <el-checkbox  label="11">其他</el-checkbox>
+                  <el-input v-if="mech.org_type.includes('11')" placeholder="请输入其他" v-model="mech.mechorg_typeOther" style="width:80%"></el-input>
+                </el-checkbox-group>
+                </el-form-item>
 
-              <el-form-item label="可提供的服务简介（200字以内">
+                <el-form-item label="可提供的服务简介（200字以内">
+                  <span style='position: relative;left: -210px;color: #f60d0d;'>*</span>
 
-                <textarea rows="3" v-model="mech.serviceAbout" cols="20" style="width:100%;height: 250px;">
-                  </textarea>
-              </el-form-item>
+                  <textarea rows="3" v-model="mech.serviceAbout" cols="20" style="width:100%;height: 250px;">
+                    </textarea>
+                </el-form-item>
 
-              <el-form-item :label="service_amount_lastt">
-                <el-input placeholder="请输入服务收入" v-model="mech.service_amount_last" style="width:80%"></el-input>
-              </el-form-item>
-              <el-form-item :label="service_amount_beforet">
-                <el-input placeholder="请输入服务收入" v-model="mech.service_amount_before" style="width:80%"></el-input>
-              </el-form-item>
-              <el-form-item :label="service_amount_previoust">
-                <el-input placeholder="请输入服务收入" v-model="mech.service_amount_previous" style="width:80%"></el-input>
-              </el-form-item>
+                <el-form-item :label="service_amount_lastt">
+                  <span style='position: relative;left: -180px;color: #f60d0d;'>*</span>
+                  <el-input placeholder="请输入服务收入" v-model="mech.service_amount_last" style="width:80%"></el-input>
+                </el-form-item>
+                <el-form-item :label="service_amount_beforet">
+                  <span style='position: relative;left: -180px;color: #f60d0d;'>*</span>
+                  <el-input placeholder="请输入服务收入" v-model="mech.service_amount_before" style="width:80%"></el-input>
+                </el-form-item>
+                <el-form-item :label="service_amount_previoust">
+                  <span style='position: relative;left: -180px;color: #f60d0d;'>*</span>
+                  <el-input placeholder="请输入服务收入" v-model="mech.service_amount_previous" style="width:80%"></el-input>
+                </el-form-item>
 
-              <el-form-item :label="service_quantity_lastt">
-                <el-input placeholder="请输入服务数量" v-model="mech.service_quantity_last" style="width:80%"></el-input>
-              </el-form-item>
-              <el-form-item :label="service_quantity_beforet">
-                <el-input placeholder="请输入服务数量" v-model="mech.service_quantity_before" style="width:80%"></el-input>
-              </el-form-item>
-              <el-form-item :label="service_quantity_previoust">
-                <el-input placeholder="请输入服务数量" v-model="mech.service_quantity_previous" style="width:80%"></el-input>
-              </el-form-item>
-            </el-col>
+                <el-form-item :label="service_quantity_lastt">
+                  <span style='position: relative;left: -160px;color: #f60d0d;'>*</span>
+                  <el-input placeholder="请输入服务数量" v-model="mech.service_quantity_last" style="width:80%"></el-input>
+                </el-form-item>
+                <el-form-item :label="service_quantity_beforet">
+                  <span style='position: relative;left: -160px;color: #f60d0d;'>*</span>
+                  <el-input placeholder="请输入服务数量" v-model="mech.service_quantity_before" style="width:80%"></el-input>
+                </el-form-item>
+                <el-form-item :label="service_quantity_previoust">
+                  <span style='position: relative;left: -160px;color: #f60d0d;'>*</span>
+                  <el-input placeholder="请输入服务数量" v-model="mech.service_quantity_previous" style="width:80%"></el-input>
+                </el-form-item>
+              </el-col>
 
-          </el-row>
-        </el-form>
-      </el-tab-pane>
+            </el-row>
+          </el-form>
+        </el-tab-pane>
 
-      <el-tab-pane label="人才队伍情况">
+        <el-tab-pane label="人才队伍情况">
 
-        <el-form class="" label-width="30%" style="text-align:left">
-          <el-row :gutter="20">
-            <el-col :span="20">
-              <el-form-item label="人员总数">
-                <el-input v-model="mech.perNum" placeholder="请输入人员总数" style="width:80%"></el-input>
-              </el-form-item>
-              <el-form-item label="本科及以上学历人员占比">
-                <el-input v-model="mech.underPer" placeholder="请输入人员本科及以上学历人员占比" style="width:80%"></el-input>
-              </el-form-item>
-              <el-form-item label="中高级职称以上人员占比">
-                <el-input v-model="mech.MHPer" placeholder="请输入中高级职称以上人员占比编" style="width:80%"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-        </el-form>
+          <el-form class="" label-width="30%" style="text-align:left">
+            <el-row :gutter="20">
+              <el-col :span="20">
+                <el-form-item label="人员总数">
+                  <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                  <el-input v-model="mech.perNum" placeholder="请输入人员总数" style="width:80%"></el-input>
+                </el-form-item>
+                <el-form-item label="本科及以上学历人员占比">
+                  <span style='position: relative;left: -180px;color: #f60d0d;'>*</span>
+                  <el-input v-model="mech.underPer" placeholder="请输入人员本科及以上学历人员占比" style="width:80%"></el-input>
+                </el-form-item>
+                <el-form-item label="中高级职称以上人员占比">
+                  <span style='position: relative;left: -180px;color: #f60d0d;'>*</span>
+                  <el-input v-model="mech.MHPer" placeholder="请输入中高级职称以上人员占比编" style="width:80%"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+          </el-form>
 
-      </el-tab-pane>
+        </el-tab-pane>
 
-      <el-tab-pane label="项目情况">
-        <el-form class="" label-width="30%" style="text-align:left">
-          <el-row :gutter="20">
-            <el-col :span="20">
-              <el-form-item label="资助方式">
-                <el-radio v-model="mech.registerSupport" label="1">拨款</el-radio>
-                <el-radio v-model="mech.registerSupport" label="2">贴息</el-radio>
-                <el-radio v-model="mech.registerSupport" label="3">减免税 </el-radio>
-                <el-radio v-model="mech.registerSupport" label="4">其他</el-radio>
-                <el-radio v-model="mech.registerSupport" label="5">以上全无</el-radio>
-              </el-form-item>
-              <el-form-item label="执行情况">
-                <el-radio v-model="mech.registerImplement" label="1">申请</el-radio>
-                <el-radio v-model="mech.registerImplement" label="2">在研</el-radio>
-                <el-radio v-model="mech.registerImplement" label="3">验收/结题 </el-radio>
-              </el-form-item>
+        <el-tab-pane label="项目情况">
+          <el-form class="" label-width="30%" style="text-align:left">
+            <el-row :gutter="20">
+              <el-col :span="20">
+                <el-form-item label="资助方式">
+                  <el-checkbox-group v-model="mech.registerSupport">
+                  <el-checkbox label="1">拨款</el-checkbox>
+                  <el-checkbox label="2">贴息</el-checkbox>
+                  <el-checkbox label="3">减免税 </el-checkbox>
+                  <el-checkbox label="4">以上全无</el-checkbox>
+                  <el-checkbox label="5">其他</el-checkbox>
+                  <el-input v-if="mech.registerSupport.includes('5')" placeholder="请输入其他" v-model="mech.mechregisterSupportOther" style="width:80%"></el-input>
+                  </el-checkbox-group>
+                </el-form-item>
+                <el-form-item label="执行情况">
+                  <el-checkbox-group v-model="mech.registerImplement">
+                  <el-checkbox  label="1">申请</el-checkbox>
+                  <el-checkbox  label="2">在研</el-checkbox>
+                  <el-checkbox  label="3">验收/结题 </el-checkbox>
+                  </el-checkbox-group>
+                </el-form-item>
 
 
-            </el-col>
-          </el-row>
-          <!-- <el-form-item label=""> -->
-
-          <div style="margin:0 auto">
-
-            <el-button size="small" @click="addProjectmech()">
-              添加项目
-            </el-button>
-            <el-table class="tableH" :data="mech.PorcolumnDefinitions" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
-
-              <el-table-column align="center" label="项目名称">
-                <template slot-scope="scope">
-                  <input  type="text" v-model="scope.row.name">
-                                  </template>
-              </el-table-column>
-              <el-table-column align="center" label="起止时间">
-                <template slot-scope="scope">
-                                        <span>
-                                          <input  type="text" v-model="scope.row.time">
-                                        </span>
-                                    </template>
-              </el-table-column>
-              <el-table-column align="center" label="项目来源">
-                <template slot-scope="scope">
-                  <input  type="text" v-model="scope.row.source">
-                                  </template>
-              </el-table-column>
-            </el-table>
-          </div>
-          <!-- </el-form-item> -->
-
-        </el-form>
-      </el-tab-pane>
-      <el-tab-pane label="所获资质及荣誉">
-        <el-form class="" label-width="30%" style="text-align:left">
-          <el-row :gutter="22">
+              </el-col>
+            </el-row>
             <!-- <el-form-item label=""> -->
 
             <div style="margin:0 auto">
 
-              <el-button size="small" @click="addhonrmech()">
-                添加荣誉
+              <el-button size="small" @click="addProjectmech()">
+                添加项目
               </el-button>
-              <el-table class="tableH" :data="mech.honor" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
+              <el-table class="tableH" :data="mech.PorcolumnDefinitions" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
 
-                <el-table-column align="center" label="名称">
+                <el-table-column align="center" label="项目名称">
                   <template slot-scope="scope">
                     <input  type="text" v-model="scope.row.name">
                                     </template>
                 </el-table-column>
-                <el-table-column align="center" label="获得时间">
+                <el-table-column align="center" label="起止时间">
                   <template slot-scope="scope">
                                           <span>
                                             <input  type="text" v-model="scope.row.time">
                                           </span>
                                       </template>
                 </el-table-column>
-                <el-table-column align="center" label="颁发机构">
+                <el-table-column align="center" label="项目来源">
                   <template slot-scope="scope">
-                    <input  type="text" v-model="scope.row.issuingAgency">
+                    <input  type="text" v-model="scope.row.source">
                                     </template>
                 </el-table-column>
               </el-table>
             </div>
             <!-- </el-form-item> -->
 
-          </el-row>
-        </el-form>
-      </el-tab-pane>
-      <el-tab-pane label="主要工作成效">
-        <el-form class="" label-width="30%" style="text-align:left">
-          <el-row :gutter="22">
-            <!-- <el-form-item label=""> -->
+          </el-form>
+        </el-tab-pane>
+        <el-tab-pane label="所获资质及荣誉">
+          <el-form class="" label-width="30%" style="text-align:left">
+            <el-row :gutter="22">
+              <!-- <el-form-item label=""> -->
 
-            <div style="margin:0 auto">
+              <div style="margin:0 auto">
 
-              <el-button size="small" @click="addcjmech()">
-                添加成效
-              </el-button>
-              <el-table class="tableH" :data="mech.workrPorcolumnDefinitions" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
+                <el-button size="small" @click="addhonrmech()">
+                  添加荣誉
+                </el-button>
+                <el-table class="tableH" :data="mech.honor" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
 
-                <el-table-column align="center" label="服务项目名称">
-                  <template slot-scope="scope">
-                    <input  type="text" v-model="scope.row.name">
-                                    </template>
-                </el-table-column>
-                <el-table-column align="center" label="服务对象">
-                  <template slot-scope="scope">
-                                          <span>
-                                            <input  type="text" v-model="scope.row.object">
-                                          </span>
+                  <el-table-column align="center" label="名称">
+                    <template slot-scope="scope">
+                      <input  type="text" v-model="scope.row.name">
                                       </template>
-                </el-table-column>
-                <el-table-column align="center" label="服务时间">
-                  <template slot-scope="scope">
-                    <input  type="text" v-model="scope.row.time">
-                                    </template>
-                </el-table-column>
-              </el-table>
-            </div>
-            <!-- </el-form-item> -->
-          </el-row>
-        </el-form>
-      </el-tab-pane>
-    </el-tabs>
+                  </el-table-column>
+                  <el-table-column align="center" label="获得时间">
+                    <template slot-scope="scope">
+                                            <span>
+                                              <input  type="text" v-model="scope.row.time">
+                                            </span>
+                                        </template>
+                  </el-table-column>
+                  <el-table-column align="center" label="颁发机构">
+                    <template slot-scope="scope">
+                      <input  type="text" v-model="scope.row.issuingAgency">
+                                      </template>
+                  </el-table-column>
+                </el-table>
+              </div>
+              <!-- </el-form-item> -->
+
+            </el-row>
+          </el-form>
+        </el-tab-pane>
+        <el-tab-pane label="主要工作成效">
+          <el-form class="" label-width="30%" style="text-align:left">
+            <el-row :gutter="22">
+              <!-- <el-form-item label=""> -->
+
+              <div style="margin:0 auto">
+
+                <el-button size="small" @click="addcjmech()">
+                  添加成效
+                </el-button>
+                <el-table class="tableH" :data="mech.workrPorcolumnDefinitions" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
+
+                  <el-table-column align="center" label="服务项目名称">
+                    <template slot-scope="scope">
+                      <input  type="text" v-model="scope.row.name">
+                                      </template>
+                  </el-table-column>
+                  <el-table-column align="center" label="服务对象">
+                    <template slot-scope="scope">
+                                            <span>
+                                              <input  type="text" v-model="scope.row.object">
+                                            </span>
+                                        </template>
+                  </el-table-column>
+                  <el-table-column align="center" label="服务时间">
+                    <template slot-scope="scope">
+                      <input  type="text" v-model="scope.row.time">
+                                      </template>
+                  </el-table-column>
+                </el-table>
+              </div>
+              <!-- </el-form-item> -->
+            </el-row>
+          </el-form>
+        </el-tab-pane>
+      </el-tabs>
   </div>
 
   <el-row>
@@ -356,61 +394,15 @@ export default {
       service_research_lastt: '',
       service_research_beforet: '',
       service_research_previoust: '',
-      expert: {
-        cardPositive: [],
-        cardSide: [],
-        cardHands: [],
-        onepicture: [],
-        name: '',
-        sex: '',
-        bornDate: '',
-        id: '',
-        shcool: '',
-        edu: '',
-        academic: '',
-        research_field: '',
-        research_area: '',
-        zwname: '',
-        zcname: '',
-        zclevel: '',
-        work_unit: '',
-        mobilephone: '',
-        telphone: '',
-        fdemail: '',
-        country: '',
-        address: '',
-        success_record: '',
-        project_desc: '',
-        research_record: [{
-          projectname: '',
-          projectSrc: '',
-          finishcon: '',
-          finishtime: '',
-          rewname: '',
-          rewlevel: '',
-          rewtime: ''
-        }]
-      },
-      school: {
-        zhengben: [],
-        fuben: [],
-        logo: [],
-        introduction: '',
-        major_platform: '',
-        unit_url: '',
-        zip_code: '',
-        address: '',
-        country: '',
-        code: '',
-        name: '',
-      },
       mech: {
         zhengben: [],
         fuben: [],
         logo: [],
-        code :'',
-        registerNature: '',
-        org_type: '',
+        code: '',
+        registerNature: [],
+        mechregisterNatureOther:'',
+        org_type: [],
+        mechorg_typeOther:'',
         serviceAbout: '',
         service_amount_last: '',
         service_amount_before: '',
@@ -418,8 +410,9 @@ export default {
         service_quantity_last: '',
         service_quantity_before: '',
         service_quantity_previous: '',
-        registerImplement: '',
-        registerSupport: '',
+        registerImplement: [],
+        registerSupport: [],
+        mechregisterSupportOther:'',
         honor: [{
           name: '',
           time: '',

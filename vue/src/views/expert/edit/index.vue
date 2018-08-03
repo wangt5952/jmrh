@@ -10,9 +10,11 @@
             <el-col :span="20">
 
               <el-form-item label="姓名">
+                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入姓名" v-model="expert.name" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="性别">
+                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
                 <el-select v-model="expert.sex" style="width:100px" placeholder="请选择">
                   <el-option label="男" key="1" value='1'>
                   </el-option>
@@ -22,11 +24,13 @@
               </el-form-item>
 
               <el-form-item label="出生日期">
+                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
                 <el-date-picker v-model="expert.bornDate" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期">
                 </el-date-picker>
               </el-form-item>
 
               <el-form-item label="身份证号">
+                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入身份证号" v-model="expert.code" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="上传身份证正面">
@@ -76,26 +80,34 @@
                 </div>
               </el-form-item>
               <el-form-item label="毕业院校">
+                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入毕业院校" v-model="expert.shcool" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="学历">
+                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入学历" v-model="expert.edu" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="学位">
                 <el-input placeholder="请输入学位" v-model="expert.academic" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="研究领域">
-                <el-radio v-model="expert.research_field" label="1">智能装备</el-radio>
-                <el-radio v-model="expert.research_field" label="2">电子信息</el-radio>
-                <el-radio v-model="expert.research_field" label="3">新材料 </el-radio>
-                <el-radio v-model="expert.research_field" label="4">航空航天</el-radio>
-                <el-radio v-model="expert.research_field" label="5">生物技术与新医药</el-radio>
-                <el-radio v-model="expert.research_field" label="6">能源与环保</el-radio>
-                <el-radio v-model="expert.research_field" label="7">管理</el-radio>
-                <el-radio v-model="expert.research_field" label="8">其他</el-radio>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+
+                <el-checkbox-group v-model="expert.research_field">
+                  <el-checkbox label="1">智能装备</el-checkbox>
+                  <el-checkbox label="2">电子信息</el-checkbox>
+                  <el-checkbox label="3">新材料 </el-checkbox>
+                  <el-checkbox label="4">航空航天</el-checkbox>
+                  <el-checkbox label="5">生物技术与新医药</el-checkbox>
+                  <el-checkbox label="6">能源与环保</el-checkbox>
+                  <el-checkbox label="7">管理</el-checkbox>
+                  <el-checkbox label="8">其他</el-checkbox>
+                  <el-input v-if="expert.research_field.includes('8')" placeholder="请输入其他" v-model="expert.research_fieldOther" style="width:80%"></el-input>
+                </el-checkbox-group>
               </el-form-item>
 
               <el-form-item label="研究方向">
+                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入研究方向" v-model="expert.research_area" style="width:80%"></el-input>
               </el-form-item>
 
@@ -122,25 +134,33 @@
                 <el-input placeholder="请输入职称" v-model="expert.zcname" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="职称级别">
-                <el-radio v-model="expert.zclevel" label="1">正高</el-radio>
-                <el-radio v-model="expert.zclevel" label="2">副高</el-radio>
+                <el-checkbox-group v-model="expert.zclevel">
+                  <el-checkbox label="1">正高</el-checkbox>
+                  <el-checkbox label="2">副高</el-checkbox>
+                </el-checkbox-group>
               </el-form-item>
               <el-form-item label="工作单位">
+                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入职称" v-model="expert.work_unit" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="手机号">
+                <span style='position: relative;left: -60px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入手机号" v-model="expert.mobilephone" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="办公电话">
+                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入办公电话" v-model="expert.telphone" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="邮箱">
+                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入邮箱" v-model="expert.fdemail" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="所在地区">
+                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                 <area-cascader :level="1" v-model="expert.country" :data="pcaa"></area-cascader>
               </el-form-item>
               <el-form-item label="通讯地址">
+                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入通讯地址" v-model="expert.address" style="width:80%"></el-input>
               </el-form-item>
             </el-col>
@@ -307,11 +327,12 @@ export default {
         shcool: '',
         edu: '',
         academic: '',
-        research_field: '',
+        research_field: [],
+        research_fieldOther:'',
         research_area: '',
         zwname: '',
         zcname: '',
-        zclevel: '',
+        zclevel: [],
         work_unit: '',
         mobilephone: '',
         telphone: '',
@@ -329,124 +350,6 @@ export default {
           rewlevel: '',
           rewtime: ''
         }]
-      },
-      school: {
-        zhengben: [],
-        fuben: [],
-        logo: [],
-        introduction: '',
-        major_platform: '',
-        unit_url: '',
-        zip_code: '',
-        address: '',
-        country: '',
-        code: '',
-        name: '',
-      },
-      mech: {
-        zhengben: [],
-        fuben: [],
-        logo: [],
-        registerNature: '',
-        org_type: '',
-        serviceAbout: '',
-        service_amount_last: '',
-        service_amount_before: '',
-        service_amount_previous: '',
-        service_quantity_last: '',
-        service_quantity_before: '',
-        service_quantity_previous: '',
-        registerImplement: '',
-        registerSupport: '',
-        honor: [{
-          name: '',
-          time: '',
-          issuingAgency: ''
-        }],
-        PorcolumnDefinitions: [{
-          name: '',
-          time: '',
-          source: ''
-        }],
-        workrPorcolumnDefinitions: [{
-          name: '',
-          object: '',
-          time: ''
-        }],
-        MHPer: '',
-        underPer: '',
-        perNum: '',
-        ecode: '',
-        address: '',
-        selected: '',
-        name: '',
-        fdemail: '',
-        fdphone: '',
-        fdname: '',
-        lxemail: '',
-        lxphone: '',
-        lxzw: '',
-        linkman: ''
-      },
-      com: {
-        zhengben: [],
-        fuben: [],
-        logo: [],
-        lxname: '',
-        lxzw: '',
-        lxphone: '',
-        lxemail: '',
-        lpname: '',
-        lpzw: '',
-        lpphone: '',
-        lpemail: '',
-        name: '',
-        registered_capital: '1',
-        registerDate: '',
-        registered_type: '',
-        country: '',
-        registeraddress: '',
-        registerecode: '',
-        is_high_new_tech: '',
-        registerSite: '',
-        registerHSite: '',
-        registerMarket: '',
-        registerMarkeSite: '',
-        domain: '',
-        product: '',
-        inventionNum: '',
-        newDrugnum: '',
-        utilityModel: '',
-        integratedCircuitnum: '',
-        designnum: '',
-        nationalNum: '',
-        softwareNum: '',
-        othernum: '',
-        researchTeamnum: '',
-        bachelorAbovenum: '',
-        middleLevelnum: '',
-        highleveltalentsnum: '',
-        highleveltalentType: '',
-        service_research_last: '',
-        service_research_before: '',
-        service_research_previous: '',
-        platform: '',
-        sfkyrw: '',
-        qdtime: '',
-        szwhd: '',
-        jmrhgn: '',
-        ydkn: '',
-        problem: '',
-        jscg: '',
-        zyqk: '',
-        xgjy: '',
-        fwbm: '',
-        zxqk: '',
-        comPorcolumnDefinitions: [{
-          name: '',
-          time: '',
-          source: ''
-        }],
       },
     }
   },
