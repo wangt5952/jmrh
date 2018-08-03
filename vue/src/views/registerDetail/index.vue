@@ -10,6 +10,7 @@
           <span><span v-if="userType == '1'">专家</span> <span v-if="userType == '2'">企业</span><span v-if="userType == '3'">服务机构</span><span v-if="userType == '4'">高校院所</span>注册</span>
         </div>
 
+
         <div class="item">
           <div v-if="userType == '1'" class="">
             <el-tabs type="border-card">
@@ -1080,6 +1081,8 @@
 </template>
 
 <script>
+
+import 'vue-area-linkage/dist/index.css'; // v2 or higher
 import {
   pca,
   pcaa
@@ -1465,7 +1468,7 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
-@import "src/styles/mixin.scss";
+@import '../../styles/index.scss'; // 全局自定义的css样式
 .upload-demo {
     display: flex;
 }
