@@ -25,6 +25,9 @@ public class BusUserProvider {
 	StringBuilder queryCondition(VoQuery user) {
 		StringBuilder sql = new StringBuilder();
 		if(user != null) {
+			if(!StringUtils.isEmpty(user.getStatus())) {
+				sql.append(" and status = '"+user.getStatus()+"'");
+			}
 			if(!StringUtils.isEmpty(user.getUserType())) {
 				sql.append(" and user_type = '"+user.getUserType()+"'");
 			}

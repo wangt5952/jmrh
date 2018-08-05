@@ -136,8 +136,8 @@ public class LibController {
 	 * @return
 	 */
 	@GetMapping("getSubmitLibs")
-	public Object getSubmitUserDetail(){
-		VoResponse voRes = libService.taskDoing();
+	public Object getSubmitUserDetail(@RequestParam("type") int type){
+		VoResponse voRes = libService.taskDoing(type);
 		return voRes;
 	}
 	

@@ -12,9 +12,6 @@ public class LibRequirements extends LibBase{
 	 */
 	private static final long serialVersionUID = 2556790987748742049L;
 
-	private String formId;
-	private BusUserForm form;
-	private String userId;
 	private String reqName;
 	private String fzname;
 	private String fzzw;
@@ -30,12 +27,7 @@ public class LibRequirements extends LibBase{
 	private String reqOther;
 	private String reqBack;
 	private String reqGet;
-	public String getFormId() {
-		return formId;
-	}
-	public String getUserId() {
-		return userId;
-	}
+
 	public String getReqName() {
 		return reqName;
 	}
@@ -81,12 +73,6 @@ public class LibRequirements extends LibBase{
 	public String getReqGet() {
 		return reqGet;
 	}
-	public void setFormId(String formId) {
-		this.formId = formId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
 	public void setReqName(String reqName) {
 		this.reqName = reqName;
 	}
@@ -131,12 +117,6 @@ public class LibRequirements extends LibBase{
 	}
 	public void setReqGet(String reqGet) {
 		this.reqGet = reqGet;
-	}
-	public BusUserForm getForm() {
-		return form;
-	}
-	public void setForm(BusUserForm form) {
-		this.form = form;
 	}
 	
 }

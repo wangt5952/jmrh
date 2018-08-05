@@ -12,9 +12,6 @@ public class LibResults extends LibBase{
 	 */
 	private static final long serialVersionUID = 536966430891722084L;
 
-	private String formId;
-	private BusUserForm form;
-	private String userId;
 	private String resName;
 	private String fzname;
 	private String fzphone;
@@ -32,12 +29,6 @@ public class LibResults extends LibBase{
 	private String stage;
 	private String cooperation;
 	
-	public String getFormId() {
-		return formId;
-	}
-	public String getUserId() {
-		return userId;
-	}
 	public String getResName() {
 		return resName;
 	}
@@ -86,12 +77,6 @@ public class LibResults extends LibBase{
 	public String getCooperation() {
 		return cooperation;
 	}
-	public void setFormId(String formId) {
-		this.formId = formId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
 	public void setResName(String resName) {
 		this.resName = resName;
 	}
@@ -139,11 +124,5 @@ public class LibResults extends LibBase{
 	}
 	public void setCooperation(String cooperation) {
 		this.cooperation = cooperation;
-	}
-	public BusUserForm getForm() {
-		return form;
-	}
-	public void setForm(BusUserForm form) {
-		this.form = form;
 	}
 }

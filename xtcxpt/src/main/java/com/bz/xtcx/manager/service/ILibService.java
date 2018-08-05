@@ -82,5 +82,5 @@ public interface ILibService{
 	 * 获取资源库待办任务
 	 * @return
 	 */
-	VoResponse taskDoing();
+	VoResponse taskDoing(int type);
 }

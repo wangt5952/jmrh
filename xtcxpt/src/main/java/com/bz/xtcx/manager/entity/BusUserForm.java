@@ -10,6 +10,8 @@ public class BusUserForm extends BasicEntity {
 	private static final long serialVersionUID = 9125060355274617641L;
 
 	private String userId;
+	private String name;
+	private String code;
 	private int formType;
 	private String detail;
 	private int checkStatus;
@@ -37,5 +39,17 @@ public class BusUserForm extends BasicEntity {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 }

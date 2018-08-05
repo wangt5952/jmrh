@@ -547,7 +547,7 @@ public class LibService extends BaseService implements ILibService{
 	}
 
 	@Override
-	public VoResponse taskDoing() {
+	public VoResponse taskDoing(int type) {
 		VoResponse voRes = new VoResponse();
 		List<BusUserForm> list = busUserFormHisMapper.findByCheck(0);
 		voRes.setData(list);
