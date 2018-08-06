@@ -11,7 +11,7 @@
         </el-form-item>
 
         <el-form-item label="身份证号">
-          <el-input placeholder="请输入身份证号" disabled v-model="per.idNumber" style="width:80%"></el-input>
+          <el-input placeholder="请输入身份证号" disabled v-model="per.code" style="width:80%"></el-input>
         </el-form-item>
         <el-form-item label="昵称">
           <el-input v-model="per.userName" placeholder="请输入姓名" style="width:80%"></el-input>

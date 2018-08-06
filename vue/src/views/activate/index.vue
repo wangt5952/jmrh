@@ -10,10 +10,13 @@
       </div>
       <div class="bullshit__oops">{{text}}</div>
       <div class="">
-
+        <!-- <div v-if="pic == '2'" class="" style="padding:10px">
+          <a class="bullshit__return-home" @click="tosendEmailActivate">重新发送邮件</a>
+        </div> -->
         <div class="">
           <a class="bullshit__return-home" @click="toIndex">不加入社区直接登录</a>
         </div>
+
         <div v-if="pic == '1'" class="" style="padding:10px">
           <a class="bullshit__return-home" @click="toNext">下一步，加入社区</a>
         </div>
@@ -45,7 +48,8 @@ export default {
       img_404_cloud,
       text: '',
       pic: '',
-      userType: ''
+      userType: '',
+      code:''
     }
   },
   computed: {
@@ -53,7 +57,7 @@ export default {
   },
   mounted() {
     this.loadPageList()
-
+      debugger
   },
   methods: {
     toIndex() {
@@ -65,7 +69,8 @@ export default {
       this.$router.push({
         name: 'registerDetail',
         params: {
-          userType: this.userType
+          userType: this.userType,
+          code: this.code
         }
       })
 
@@ -81,6 +86,7 @@ export default {
           this.text = message
           this.pic = '1'
           this.userType = data.userType
+          this.code = data.code
           setToken(data.token)
           this.$store.commit('SET_TOKEN', {
             token: data.token
@@ -99,7 +105,25 @@ export default {
           this.pic = '2'
         }
       }
-    }
+    },
+    // async tosendEmailActivate(){
+    //   let {
+    //     data,
+    //     success,
+    //     message
+    //   } = await sendEmailActivate(this.registerForm)
+    //   if (success) {
+    //     this.$message({
+    //       message: message,
+    //       type: 'success'
+    //     });
+    //   }else {
+    //     this.$message({
+    //       message: message,
+    //       type: 'success'
+    //     });
+    //   }
+    // },
   }
 }
 </script>

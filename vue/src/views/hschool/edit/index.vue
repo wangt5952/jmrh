@@ -2,83 +2,94 @@
 <div class="tab-container">
 
     <div class="" style="height: 80% !important;overflow-y: auto;">
-    <el-tabs type="border-card">
-      <el-tab-pane>
-        <span slot="label"><i class="el-icon-date"></i> 高校基本信息</span>
-        <el-form class="" label-width="30%" style="text-align:left">
-          <el-row :gutter="20">
-            <el-col :span="20">
+      <el-tabs type="border-card">
+        <el-tab-pane>
+          <span slot="label"><i class="el-icon-date"></i> 高校基本信息</span>
+          <el-form class="" label-width="30%" style="text-align:left">
+            <el-row :gutter="20">
+              <el-col :span="20">
 
-              <el-form-item label="名称">
-                <el-input placeholder="请输入名称" v-model="school.name" style="width:80%"></el-input>
-              </el-form-item>
-              <el-form-item label="统一社会信用代码">
-                <el-input placeholder="请输入统一社会信用代码" v-model="school.org_code" style="width:80%"></el-input>
-              </el-form-item>
-              <el-form-item label="事业单位法人证书正本">
-                <div>
-                  <!--这是背面照-->
-                  <div class="photo photo1">
-                    <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="school.zhengben" list-type="picture">
-                      <el-button size="small" type="primary">点击上传</el-button>
-                    </el-upload>
+                <el-form-item label="名称">
+                  <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                  <el-input placeholder="请输入名称" v-model="school.name" style="width:80%"></el-input>
+                </el-form-item>
+                <el-form-item label="统一社会信用代码">
+                  <span style='position: relative;left: -140px;color: #f60d0d;'>*</span>
+                  <el-input placeholder="请输入统一社会信用代码" v-model="school.code" style="width:80%"></el-input>
+                </el-form-item>
+                <el-form-item label="事业单位法人证书正本">
+                  <span style='position: absolute;left: -160px;color: #f60d0d;'>*</span>
+                  <div>
+                    <!--这是背面照-->
+                    <div class="photo photo1">
+                      <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="school.zhengben" list-type="picture">
+                        <el-button size="small" type="primary">点击上传</el-button>
+                      </el-upload>
 
+                    </div>
                   </div>
-                </div>
-              </el-form-item>
-              <el-form-item label="事业单位法人证书副本">
-                <div>
-                  <!--这是背面照-->
-                  <div class="photo photo1">
-                    <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="school.fuben" list-type="picture">
-                      <el-button size="small" type="primary">点击上传</el-button>
-                    </el-upload>
+                </el-form-item>
+                <el-form-item label="事业单位法人证书副本">
+                  <span style='position: absolute;left: -160px;color: #f60d0d;'>*</span>
+                  <div>
+                    <!--这是背面照-->
+                    <div class="photo photo1">
+                      <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="school.fuben" list-type="picture">
+                        <el-button size="small" type="primary">点击上传</el-button>
+                      </el-upload>
 
+                    </div>
                   </div>
-                </div>
-              </el-form-item>
-              <el-form-item label="高校logo">
-                <div>
-                  <!--这是背面照-->
-                  <div class="photo photo1">
-                    <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="school.logo" list-type="picture">
-                      <el-button size="small" type="primary">点击上传</el-button>
-                    </el-upload>
+                </el-form-item>
+                <el-form-item label="高校logo">
+                  <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                  <div>
+                    <!--这是背面照-->
+                    <div class="photo photo1">
+                      <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="school.logo" list-type="picture">
+                        <el-button size="small" type="primary">点击上传</el-button>
+                      </el-upload>
 
+                    </div>
                   </div>
-                </div>
-              </el-form-item>
-              <el-form-item label="所在地区">
-                <area-cascader :level="1" v-model="school.country" :data="pcaa"></area-cascader>
-                <!-- <area-cascader v-model="selected" :level="1" :data="pca"></area-cascader> -->
-              </el-form-item>
-              <el-form-item label="联系地址">
-                <el-input placeholder="请输入联系地址" v-model="school.address" style="width:80%"></el-input>
-              </el-form-item>
-              <el-form-item label="邮箱">
-                <el-input placeholder="请输入邮箱" v-model="school.zip_code" style="width:80%"></el-input>
-              </el-form-item>
+                </el-form-item>
+                <el-form-item label="所在地区">
+                  <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                  <area-cascader :level="1" v-model="school.country" :data="pcaa"></area-cascader>
+                  <!-- <area-cascader v-model="selected" :level="1" :data="pca"></area-cascader> -->
+                </el-form-item>
+                <el-form-item label="联系地址">
+                  <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                  <el-input placeholder="请输入联系地址" v-model="school.address" style="width:80%"></el-input>
+                </el-form-item>
+                <el-form-item label="邮箱">
+                  <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                  <el-input placeholder="请输入邮箱" v-model="school.zip_code" style="width:80%"></el-input>
+                </el-form-item>
 
-              <el-form-item label="单位网址">
-                <el-input placeholder="请输入单位网址" v-model="school.unit_url" style="width:80%"></el-input>
-              </el-form-item>
+                <el-form-item label="单位网址">
+                  <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                  <el-input placeholder="请输入单位网址" v-model="school.unit_url" style="width:80%"></el-input>
+                </el-form-item>
 
-              <el-form-item label="单位简介">
-                <el-input placeholder="请输入单位简介" v-model="school.major_platform" style="width:80%"></el-input>
-              </el-form-item>
-              <el-form-item label="重大平台">
-                <el-input placeholder="请输入重大平台" v-model="school.introduction" style="width:80%"></el-input>
-              </el-form-item>
-            </el-col>
+                <el-form-item label="单位简介">
+                  <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                  <el-input placeholder="请输入单位简介" v-model="school.major_platform" style="width:80%"></el-input>
+                </el-form-item>
+                <el-form-item label="重大平台">
+                  <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                  <el-input placeholder="请输入重大平台" v-model="school.introduction" style="width:80%"></el-input>
+                </el-form-item>
+              </el-col>
 
 
 
-          </el-row>
-        </el-form>
+            </el-row>
+          </el-form>
 
-      </el-tab-pane>
+        </el-tab-pane>
 
-    </el-tabs>
+      </el-tabs>
 
   </div>
 
@@ -132,41 +143,6 @@ export default {
       service_research_lastt: '',
       service_research_beforet: '',
       service_research_previoust: '',
-      expert: {
-        cardPositive: [],
-        cardSide: [],
-        cardHands: [],
-        onepicture: [],
-        name: '',
-        sex: '',
-        bornDate: '',
-        id: '',
-        shcool: '',
-        edu: '',
-        academic: '',
-        research_field: '',
-        research_area: '',
-        zwname: '',
-        zcname: '',
-        zclevel: '',
-        work_unit: '',
-        mobilephone: '',
-        telphone: '',
-        fdemail: '',
-        country: '',
-        address: '',
-        success_record: '',
-        project_desc: '',
-        research_record: [{
-          projectname: '',
-          projectSrc: '',
-          finishcon: '',
-          finishtime: '',
-          rewname: '',
-          rewlevel: '',
-          rewtime: ''
-        }]
-      },
       school: {
         zhengben: [],
         fuben: [],
@@ -177,158 +153,30 @@ export default {
         zip_code: '',
         address: '',
         country: '',
-        org_code: '',
+        code: '',
         name: '',
-      },
-      mech: {
-        zhengben: [],
-        fuben: [],
-        logo: [],
-        registerNature: '',
-        org_type: '',
-        serviceAbout: '',
-        service_amount_last: '',
-        service_amount_before: '',
-        service_amount_previous: '',
-        service_quantity_last: '',
-        service_quantity_before: '',
-        service_quantity_previous: '',
-        registerImplement: '',
-        registerSupport: '',
-        honor: [{
-          name: '',
-          time: '',
-          issuingAgency: ''
-        }],
-        PorcolumnDefinitions: [{
-          name: '',
-          time: '',
-          source: ''
-        }],
-        workrPorcolumnDefinitions: [{
-          name: '',
-          object: '',
-          time: ''
-        }],
-        MHPer: '',
-        underPer: '',
-        perNum: '',
-        ecode: '',
-        address: '',
-        selected: '',
-        name: '',
-        fdemail: '',
-        fdphone: '',
-        fdname: '',
-        lxemail: '',
-        lxphone: '',
-        lxzw: '',
-        linkman: ''
-      },
-      com: {
-        zhengben: [],
-        fuben: [],
-        logo: [],
-        lxname: '',
-        lxzw: '',
-        lxphone: '',
-        lxemail: '',
-        lpname: '',
-        lpzw: '',
-        lpphone: '',
-        lpemail: '',
-        enterprise_name: '',
-        registered_capital: '1',
-        registerDate: '',
-        registered_type: '',
-        country: '',
-        registeraddress: '',
-        registerecode: '',
-        is_high_new_tech: '',
-        registerSite: '',
-        registerHSite: '',
-        registerMarket: '',
-        registerMarkeSite: '',
-        domain: '',
-        product: '',
-        inventionNum: '',
-        newDrugnum: '',
-        utilityModel: '',
-        integratedCircuitnum: '',
-        designnum: '',
-        nationalNum: '',
-        softwareNum: '',
-        othernum: '',
-        researchTeamnum: '',
-        bachelorAbovenum: '',
-        middleLevelnum: '',
-        highleveltalentsnum: '',
-        highleveltalentType: '',
-        service_research_last: '',
-        service_research_before: '',
-        service_research_previous: '',
-        platform: '',
-        sfkyrw: '',
-        qdtime: '',
-        szwhd: '',
-        jmrhgn: '',
-        ydkn: '',
-        problem: '',
-        jscg: '',
-        zyqk: '',
-        xgjy: '',
-        fwbm: '',
-        zxqk: '',
-        comPorcolumnDefinitions: [{
-          name: '',
-          time: '',
-          source: ''
-        }],
       },
     }
   },
   async mounted() {
-    this.listLoading = false
-    if (window.sessionStorage.getItem('userType')) {
-      this.userType = window.sessionStorage.getItem('userType')
+    if (this.$route.params.objData) {
+      this.school = JSON.parse(this.$route.params.objData)
     }
-    if (this.userType == '1') {
-      this.titleName = '专家资料完善'
-    } else if (this.userType == '2') {
-
-      this.titleName = '企业资料完善'
-    } else if (this.userType == '3') {
-      this.titleName = '服务机构资料完善'
-    } else if (this.userType == '4') {
-      this.titleName = '高效院所资料完善'
-    }
-    this.loadPageList()
   },
   computed: {},
   methods: {
-    async loadPageList() {
-      let {
-        data,
-        success
-      } = await getUserDetail()
-      if (this.userType == '1') {
-        this.expert = JSON.parse(data.detail)
-      } else if (this.userType == '2') {
-        this.com = JSON.parse(data.detail)
-      } else if (this.userType == '3') {
-        this.mech = JSON.parse(data.detail)
-      } else if (this.userType == '4') {
-        this.school = JSON.parse(data.detail)
-      }
-      this.loading = false
-    },
 
+
+      back() {
+        window.history.go(-1);
+      },
     async saveFile(obj) {
       // if (!this.validata.validaRole(obj)) return
 
         let arr ={}
         arr.formType = '4'
-        arr.detail = JSON.stringify(obj)
+        arr.id = this.$route.params.objId
+        arr.detail = JSON.stringify(this.school)
         let {
           data,
           success

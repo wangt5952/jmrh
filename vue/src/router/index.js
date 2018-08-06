@@ -38,6 +38,17 @@ const demandLibrary = r => require.ensure([], () => r(require("@/views/demandLib
 const achieveLibrary = r => require.ensure([], () => r(require("@/views/achieveLibrary/index")), 'achieveLibrary');
 
 
+const buttExpert = r => require.ensure([], () => r(require("@/views/butt/buttExpert/index")), 'buttExpert');
+const buttDemand = r => require.ensure([], () => r(require("@/views/butt/buttDemand/index")), 'buttDemand');
+const buttAchiev = r => require.ensure([], () => r(require("@/views/butt/buttAchiev/index")), 'buttAchiev');
+const registerSee = r => require.ensure([], () => r(require("@/views/statistics/registerSee/index")), 'registerSee');
+const registerUser = r => require.ensure([], () => r(require("@/views/statistics/registerUser/index")), 'registerUser');
+const registerExpert = r => require.ensure([], () => r(require("@/views/statistics/registerExpert/index")), 'registerExpert');
+const registerxqcg = r => require.ensure([], () => r(require("@/views/statistics/registerxqcg/index")), 'registerxqcg');
+const registerDj = r => require.ensure([], () => r(require("@/views/statistics/registerDj/index")), 'registerDj');
+const robotResponse = r => require.ensure([], () => r(require("@/views/robot/robotResponse/index")), 'robotResponse');
+
+
 
 /**
 * hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
@@ -132,7 +143,7 @@ export const constantRouterMap = [{
       component: dashboard,
       leaf: true,
       meta: {
-        title: '我的工作台',
+        title: '我的待办',
         icon: 'dashboard'
       },
     }]
@@ -195,7 +206,6 @@ export const constantRouterMap = [{
   },{
     path: '/manage2',
     component: Layout,
-    redirect: '/manage2/role',
     name: '门户管理',
     meta: {
       title: '门户管理',
@@ -259,6 +269,15 @@ export const constantRouterMap = [{
         icon: 'table'
       }
     },{
+      path: 'mechanism',
+      name: 'mechanism',
+      component: mechanism,
+      leaf: true,
+      meta: {
+        title: '服务机构库管理',
+        icon: 'table'
+      }
+    },{
       path: 'expertEdit',
       name: 'expertEdit',
       component: expertEdit,
@@ -295,7 +314,7 @@ export const constantRouterMap = [{
       leaf: true,
       hidden: true,
       meta: {
-        title: '服务机构库管理',
+        title: '服务机构库资料填写',
         icon: 'table'
       }
     },{
@@ -318,6 +337,118 @@ export const constantRouterMap = [{
       }
     }]
   },
+  {
+    path: '/buttManage',
+    component: Layout,
+    name: '对接管理',
+    meta: {
+      title: '对接管理',
+      icon: 'tree'
+    },
+    leaf: false,
+    children: [{
+      path: 'buttExpert',
+      name: '专家对接',
+      component: buttExpert,
+      leaf: true,
+      meta: {
+        title: '专家对接',
+        icon: 'table'
+      }
+    },{
+      path: 'buttDemand',
+      name: '需求对接',
+      component: buttDemand,
+      leaf: true,
+      meta: {
+        title: '需求对接',
+        icon: 'table'
+      }
+    },{
+      path: 'buttAchiev',
+      name: '成果对接',
+      component: buttAchiev,
+      leaf: true,
+      meta: {
+        title: '成果对接',
+        icon: 'table'
+      }
+    }]
+  },  {
+      path: '/register',
+      component: Layout,
+      name: '统计',
+      meta: {
+        title: '统计',
+        icon: 'tree'
+      },
+      leaf: false,
+      children: [{
+        path: 'registerSee',
+        name: '访问统计',
+        component: registerSee,
+        leaf: true,
+        meta: {
+          title: '访问统计',
+          icon: 'table'
+        }
+      },{
+        path: 'registerUser',
+        name: '注册用户统计',
+        component: registerUser,
+        leaf: true,
+        meta: {
+          title: '注册用户统计',
+          icon: 'table'
+        }
+      },{
+        path: 'registerExpert',
+        name: '专家机构统计',
+        component: registerExpert,
+        leaf: true,
+        meta: {
+          title: '专家机构统计',
+          icon: 'table'
+        }
+      },{
+        path: 'registerxqcg',
+        name: '需求成果统计',
+        component: registerxqcg,
+        leaf: true,
+        meta: {
+          title: '需求成果统计',
+          icon: 'table'
+        }
+      },{
+        path: 'registerDj',
+        name: '对接统计',
+        component: registerDj,
+        leaf: true,
+        meta: {
+          title: '对接统计',
+          icon: 'table'
+        }
+      }]
+    },{
+      path: '/robot',
+      component: Layout,
+      name: '机器人',
+      meta: {
+        title: '机器人',
+        icon: 'tree'
+      },
+      leaf: false,
+      children: [{
+        path: 'robotResponse',
+        name: '应答设置',
+        component: robotResponse,
+        leaf: true,
+        meta: {
+          title: '应答设置',
+          icon: 'table'
+        }
+      }]
+    },
 ]
 // { path: '/login', component: _import('login/index'), hidden: true },
 // { path: '/404', component: _import('404'), hidden: true },

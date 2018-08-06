@@ -2,8 +2,24 @@
 <div class="tab-container">
   <div class="tools">
     <div class="paddingb textl paddingr">
-      <!-- <el-input v-model="input" placeholder="请输入内容" style="width: 15%;"></el-input>
-      <el-button style="margin-left:20px" @click="loadPageList" type="primary" icon="el-icon-search"></el-button> -->
+      <el-input v-model="input.objName" placeholder="请输入内容" style="width: 15%;"></el-input>
+      <!-- <el-select v-model="input.userType" style="width:100px" placeholder="用户类型选择">
+        <el-option label="专家" key="1" value="1">
+        </el-option>
+        <el-option label="企业" key="2" value="2">
+        </el-option>
+        <el-option label="服务机构" key="3" value="3">
+        </el-option>
+        <el-option label="高校院所" key="4" value="4">
+        </el-option>
+      </el-select>
+      <el-select v-model="input.status" style="width:100px" placeholder="状态选择">
+        <el-option label="开启" key="1" value="1">
+        </el-option>
+        <el-option label="禁用" key="0" value="0">
+        </el-option>
+      </el-select> -->
+      <el-button style="margin-left:20px" @click="loadPageList" type="primary" icon="el-icon-search"></el-button>
       <el-button style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">添加角色</el-button>
 
     </div>
@@ -11,7 +27,7 @@
 
 
   <el-table v-loading="loading" class="tableH" :data="list" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
-    <el-table-column type="index" align="center" label="序号">
+    <el-table-column type="index" align="center" label="ID">
 
     </el-table-column>
     <el-table-column align="center" label="名称">
@@ -146,7 +162,11 @@ import {
 export default {
   data() {
     return {
-      input: '',
+      input: {
+        objName: '',
+        userType: '',
+        status: '',
+      },
       bank: '1',
       list: [],
       timeType: '1',
@@ -208,6 +228,13 @@ export default {
     //
     // },
     async loadPageList() {
+      if (this.input) {
+        this.listQuery.objName = this.input.objName
+        this.listQuery.userType = this.input.userType
+        this.listQuery.status = this.input.status
+      } else {
+        this.listQuery.objName = ''
+      }
       let {data} = await getAllrole(this.listQuery)
       this.list = data.list
       this.loading = false

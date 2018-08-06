@@ -1,6 +1,6 @@
 <template>
 <div class="register-container" style="background: #1896d2">
-  <div class="content">
+  <div class="content" style="top: 50%;">
 
     <!-- <div class="left-content" :style="{'background-image': `url('${leftImage}')`}"></div> -->
 
@@ -13,7 +13,6 @@
 
         <div class="item">
           <el-form :label-position="labelPosition" label-width="100px">
-
             <el-form-item label="">
               <div class="paddingb textl paddingr">
                 <el-radio v-model="userType" label="1">专家</el-radio>
@@ -44,7 +43,7 @@
               </el-input>
             </el-form-item>
             <el-form-item label="">
-              <el-input type="text" v-model="registerForm.idNumber" :placeholder="idNumberCode">
+              <el-input type="text" v-model="registerForm.code" :placeholder="idNumberCode">
                 <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
               </el-input>
             </el-form-item>
@@ -52,7 +51,7 @@
             <el-form-item>
               <el-button v-if="!restEmail" @click="toRegisterDetail" type="primary">提交</el-button>
               <el-button v-if="restEmail" @click="tosendEmailActivate" type="primary">重新发送</el-button>
-              <span @click="toLogin" class="toLogin">立即登录</span>
+              <span @click="toLogin" class="toLogin">已有账号，返回登录</span>
             </el-form-item>
           </el-form>
           <!-- <div class="loginQuick">
@@ -218,7 +217,6 @@ export default {
         width: 986px;
         height: 518px;
         position: absolute;
-        top: 50%;
         left: 50%;
         z-index: 2;
         // border:1px solid #ccc;

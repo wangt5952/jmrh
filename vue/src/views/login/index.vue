@@ -28,7 +28,7 @@
 
 <template>
   <div class="login-container" style="background: #1896d2">
-    <div class="content">
+    <div class="content" style="top: 50%;">
 
       <div class="left-content" :style="{'background-image': `url('${leftImage}')`}"></div>
 
@@ -40,9 +40,9 @@
           </div>
 
           <div  class="item">
-            <el-tabs v-model="login_method" @tab-click="handleClick">
-              <!-- 普通登录 -->
-              <el-tab-pane label="普通登录" name="first">
+            <!-- <el-tabs v-model="login_method" @tab-click="handleClick">
+
+              <el-tab-pane label="普通登录" name="first"> -->
                 <el-form  :model="loginForm" :rules="loginRules" ref="loginForm" :label-position="labelPosition" label-width="100px">
                   <el-form-item label="">
                     <el-input v-model="loginForm.userName" placeholder="请输入用户名">
@@ -59,11 +59,12 @@
 
                                     <el-form-item label="" style="margin: 0;">
                                         <el-checkbox v-model="loginForm.isAdmin" style="float: left;">管理员</el-checkbox>
-                                      <p class="resetPaw" @click="toresetPaw">忘记密码?</p>
                                   </el-form-item>
                   <el-form-item>
-                    <el-button type="primary" @click.native.prevent="handleLogin">登录</el-button>
+                    <el-button  v-if="!restEmail"  type="primary" @click.native.prevent="handleLogin">登录</el-button>
+                    <el-button v-if="restEmail" @click="tosendEmailActivate" type="primary">重新发送</el-button>
                     <span @click="toRegister" class="toLogin">立即注册</span>
+                    <span @click="toresetPaw" class="resetPaw">忘记密码?</span>
                   </el-form-item>
                 </el-form>
                 <!-- <div class="loginQuick">
@@ -75,10 +76,10 @@
                     </ul>
                   </div>
                 </div> -->
-              </el-tab-pane>
+              <!-- </el-tab-pane> -->
 
               <!-- 验证登录 -->
-              <el-tab-pane label="验证登录" name="second">
+              <!--  <el-tab-pane label="验证登录" name="second">
                 <el-form :label-position="labelPosition" label-width="80px" :model="loginVerify">
                   <el-form-item label="手机号码">
                     <el-input v-model="loginVerify.phone" placeholder="请输入手机号"></el-input>
@@ -92,7 +93,7 @@
                   <span @click="toRegister" class="toLogin">立即注册</span>
                 </el-form-item>
                 </el-form>
-                <!-- <div class="loginQuick">
+               <div class="loginQuick">
                   <p><span>快速登录</span></p>
                   <div class="quick-content">
                     <ul class="quickList">
@@ -100,8 +101,8 @@
                       <li><img :src="weiXinImage"/></li>
                     </ul>
                   </div>
-                </div> -->
-              </el-tab-pane>
+                </div>
+             </el-tab-pane> -->
             </el-tabs>
           </div>
 
@@ -114,6 +115,10 @@
   </div>
 </template>
 <script>
+import {
+  registers,
+  sendEmailActivate
+} from '@/api/login'
 import {
   isvalidUsername
 } from '@/utils/validate'
@@ -144,6 +149,7 @@ export default {
     }
     return {
       leftImage,
+      restEmail:false,
       labelPosition: 'top',
       login_method: 'first', // 登录方式
       loginVerify: { // 普通登录
@@ -172,6 +178,31 @@ export default {
     }
   },
   methods: {
+
+    async tosendEmailActivate(){
+      let obj ={}
+      obj.email = this.loginForm.userName
+      let {
+        data,
+        success,
+        message
+      } = await sendEmailActivate(obj)
+      if (success) {
+        const h = this.$createElement;
+        this.$notify({
+          title: '用户激活提醒',
+          message: h('i', {
+            style: 'color: teal'
+          }, '激活帐户邮件已发送到你的邮箱中'+this.loginForm.userName+'，点击里面的激活链接')
+        });
+        this.restEmail = false
+      }else {
+        this.$message({
+          message: message,
+          type: 'success'
+        });
+      }
+    },
     handleClick(tab, event) {
       console.log(tab, event)
     },
@@ -250,6 +281,7 @@ export default {
     handleLogin() {
       this.loading = true
       this.$store.dispatch('Login', this.loginForm).then(async () => {
+
         if (this.$store.getters.token && this.$store.getters.token != undefined && this.$store.getters.token != '') {
           this.loading = false
           window.sessionStorage.setItem('user', JSON.stringify('true'))
@@ -261,6 +293,9 @@ export default {
             message: this.$store.getters.message,
             type: 'warning'
           });
+          if (this.$store.getters.message == '用户未激活,请重新发送邮箱进行激活！') {
+          this.restEmail = true
+          }
         }
 
       }).catch(() => {
@@ -290,7 +325,6 @@ export default {
     width: 986px;
     height:518px;
     position: absolute;
-    top: 50%;
     left: 50%;
     z-index: 2;
     // border:1px solid #ccc;
@@ -319,7 +353,7 @@ export default {
     .right-content{
       position: absolute;
       right: 0;
-      bottom:0;
+      bottom:-6%;
       z-index: 3;
 
       .box-card{

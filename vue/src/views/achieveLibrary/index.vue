@@ -11,13 +11,8 @@
 
 
   <el-table v-loading="loading" class="tableH" :data="list" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
-    <el-table-column type="index" align="center" label="序号">
+    <el-table-column type="index" align="center" label="ID">
 
-    </el-table-column>
-    <el-table-column align="center" label="ID">
-      <template slot-scope="scope">
-                    <span>{{ scope.row.userName }}</span>
-                </template>
     </el-table-column>
     <el-table-column align="center" label="成果名">
       <template slot-scope="scope">

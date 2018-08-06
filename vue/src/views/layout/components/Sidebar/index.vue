@@ -3,8 +3,8 @@
   <el-menu mode="vertical" unique-opened :default-active="$route.path" :collapse="isCollapse" background-color="#fff" text-color="#616265" active-text-color="#fff">
 
     <div class="navbar-header" style="display:flex">
-      <div class="" style="flex:1;overflow:hidden;text-align:left;">
-          <img :src="logo_light_icon" alt="homepage" class="" style="height:57px;padding: 5px;background:#fff"/>
+      <div id="mainLogo" class="" style="flex:1;overflow:hidden;text-align:left;">
+          <img :src="logo_light_icon" alt="homepage"  style="height:57px;padding: 5px;"/>
       </div>
       <!-- <div  style="flex:4;color:#fff;font-size:13px; display: flex;justify-content:center; align-items:Center;font-wetght:bold">
 

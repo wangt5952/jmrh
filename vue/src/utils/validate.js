@@ -176,7 +176,7 @@ function validatoRegistere(str) {
     });
     return false;
   }
-  if (!str || verify.isNull(str.idNumber)) {
+  if (!str || verify.isNull(str.code)) {
     Message({
       message: '唯一识别码不能为空！',
       type: 'error'

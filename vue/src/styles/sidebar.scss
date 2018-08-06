@@ -3,11 +3,11 @@
   .main-container {
     height: 100%;
     transition: margin-left 0.28s;
-    margin-left: 320px;
+    margin-left: 270px;
   } // 侧边栏
   .sidebar-container {
     transition: width 0.28s;
-    width: 320px!important;
+    width: 270px!important;
     height: 100%;
     position: fixed;
     top: 0;
@@ -100,11 +100,11 @@
   }//layout 页面修改其他一级颜色
 
   .el-menu-item {
-    padding: 0 40px!important;
+    // padding: 0 40px!important;
 
 }
 .el-submenu {
-  padding: 0 40px!important;
+  // padding: 0 40px!important;
 }
   .el-menu--collapse .el-menu .el-submenu{
     min-width: 180px!important;
