@@ -76,10 +76,10 @@
                             {{ scope.row.createTime  | formatTime}}</span>
                     </template>
     </el-table-column>
-    <el-table-column v-if="tfcheckStatus == 1" align="center" label="置顶排序">
+    <el-table-column v-if="tfcheckStatus == 1" align="center" label="是否置顶">
       <template slot-scope="scope">
-                        <span>
-                            {{ scope.row.stickSort}}</span>
+                                <span v-show="scope.row.stickSort == 0">是</span>
+                                <span v-show="scope.row.stickSort == 9999">否</span>
                     </template>
     </el-table-column>
     <el-table-column v-if="tfcheckStatus == 1" align="center" label="状态" style="width:50px">
@@ -92,7 +92,7 @@
     <el-table-column v-if="tfcheckStatus == 1" align="center" label="审核用户">
       <template slot-scope="scope">
                         <span>
-                            {{ scope.row.creater}}</span>
+                            {{ scope.row.checkUserId}}</span>
                     </template>
     </el-table-column>
 
@@ -140,7 +140,7 @@
       <el-row :gutter="24">
         <el-col :span="24">
 
-          <table class="showDetailTable" v-show="show" cellpadding=0 cellspacing=0 border="0"  style="width:100%;border: 1px solid#ccc;">
+          <table class="showDetailTable" v-show="show" cellpadding=0 cellspacing=0 border="0" style="width:100%;border: 1px solid#ccc;">
             <tr v-show="content.typeId == 1" style="border-bottom: 1px solid#ccc;">
               <td style="width:100px;padding:10px">标题</td>
               <td>
@@ -158,13 +158,13 @@
             <tr style="border-bottom: 1px solid#ccc;">
               <td style="width:100px;padding:10px">封面</td>
               <td>
-                {{content.cover}}
+                <img :src="content.cover" alt="" style="width:100px">
               </td>
               <td style="width:100px;padding:10px">内容类型</td>
               <td>
 
-              <span v-show="content.typeId == 1" style="">文章</span>
-              <span v-show="content.typeId == 2" style="">轮播</span>
+                <span v-show="content.typeId == 1" style="">文章</span>
+                <span v-show="content.typeId == 2" style="">轮播</span>
               </td>
             </tr>
             <tr v-show="content.typeId == 1">
@@ -218,7 +218,8 @@
             <tr v-show="content.typeId == 1" style="border-bottom: 1px solid#ccc;">
               <td style="width:100px;padding:10px">置顶</td>
               <td>
-                {{content.stickSort}}
+                <span v-show="content.stickSort == 0">是</span>
+                <span v-show="content.stickSort == 9999">否</span>
               </td>
               <td style="width:100px;padding:10px">推荐</td>
               <td>
@@ -230,7 +231,7 @@
             <tr v-show="content.typeId == 1" style="border-bottom: 1px solid#ccc;">
               <td style="width:100px;padding:10px">活动内容</td>
               <td colspan=3>
-               <div class="editor-content" v-html="content.contentTxt" style="width:100%"></div>
+                <div class="editor-content" v-html="content.contentTxt" style="width:100%"></div>
               </td>
             </tr>
           </table>
@@ -317,7 +318,6 @@
 </template>
 
 <script>
-
 import {
   getCategory,
   postCategoryC,
@@ -343,8 +343,7 @@ import {
 import table2excel from 'table2excel'
 import printArea from 'printArea'
 export default {
-  components: {
-  },
+  components: {},
   data() {
     return {
       defaultMsg: '<span style="orphans: 2; widows: 2; font-size: 22px; font-family: KaiTi_GB2312; background-color: rgb(229, 51, 51);"><strong>测试内容</strong></span>',
@@ -392,7 +391,7 @@ export default {
       detailData: '',
       tfcheckStatus: '',
       checkStatus: -1,
-      leafNodeslist:[],
+      leafNodeslist: [],
       content: {
         title: '',
         categroyId: '',
@@ -416,7 +415,7 @@ export default {
     }
   },
   async mounted() {
-    if (typeof this.$route.query.checkStatus == 'number' ) {
+    if (typeof this.$route.query.checkStatus == 'number') {
       this.input.checkStatus = this.$route.query.checkStatus
     }
     this.loadPageList()
@@ -426,7 +425,7 @@ export default {
   computed: {},
   methods: {
     async loadPageList() {
-     this.tfcheckStatus = this.input.checkStatus
+      this.tfcheckStatus = this.input.checkStatus
       if (this.input) {
         this.input.page = this.listQuery.page
         this.input.limit = this.listQuery.limit
@@ -440,7 +439,7 @@ export default {
         this.list = data.list
       }
     },
-    async loadgetLeafNodes(){
+    async loadgetLeafNodes() {
       let {
         data,
         success
@@ -552,7 +551,7 @@ export default {
           message: '取消置顶',
           type: 'success'
         });
-      } else{
+      } else {
         this.xyset.id = item.id
         this.xyset.order = '0'
         let {
@@ -638,7 +637,7 @@ export default {
           name: 'contentEdit',
           params: {
             itemId: item.id,
-            checkStatus : this.tfcheckStatus
+            checkStatus: this.tfcheckStatus
           }
         })
       } else if (type === 'add') {

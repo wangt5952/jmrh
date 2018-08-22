@@ -15,7 +15,7 @@
     <tr style="border-bottom: 1px solid#ccc;">
       <td style="width:100px;padding:10px">封面</td>
       <td>
-        <el-upload  class="avatar-uploader" :action="coverUrl" list-type="picture-card" :file-list="active.cover" :on-success="handleAvatarSuccess" :on-remove="handleRemove">
+        <el-upload class="avatar-uploader" :http-request="uploadSectionFile" list-type="picture-card" :file-list="active.covers" :on-success="handleAvatarSuccess" :on-remove="handleRemove">
           <i class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
         <!-- <img v-if="active.cover!=''" width="100%" :src="cover" alt=""> -->
@@ -117,7 +117,12 @@
     <tr style="border-bottom: 1px solid#ccc;">
       <td style="width:100px;padding:10px">置顶</td>
       <td>
-        <el-input v-model="active.stickSort" placeholder="" style="width:80%"></el-input>
+          <el-select v-model="active.stickSort" style="height:30px;width:80%" placeholder="请选择">
+            <el-option label="是" :key=0 :value=0>
+            </el-option>
+            <el-option label="否" :key=9999 :value=9999>
+            </el-option>
+          </el-select>
       </td>
 
     </tr>
@@ -127,7 +132,7 @@
       <td colspan=3>
         <div>
           <!-- <tinymce :height="300" v-model="active.exContent"></tinymce> -->
-          <editor v-model="active.exContent" :setting="editorSetting" :init="{plugins: 'image'}"></editor>
+          <editor v-model="active.exContent" :setting="editorSetting" :init="editorInit"></editor>
         </div>
         <!-- <div class="editor-content" v-html="active.exContent"></div> -->
       </td>
@@ -135,8 +140,8 @@
     <tr style="border-bottom: 1px solid#ccc;">
       <td style="width:100px;padding:10px">附件</td>
       <td colspan=3>
-        <div >
-          <div class="iconfont" style="float:left;padding-right: 15px;" v-for="item in active.cmsFileList" >
+        <div>
+          <div class="iconfont" style="float:left;padding-right: 15px;" v-for="item in active.cmsFileList">
             <el-dropdown>
               <span class="el-dropdown-link">
                   <i v-show="item.fileObj == 'video'" class="iconfont  icon-shipin" slot="right"></i>
@@ -148,17 +153,17 @@
                </span>
               <el-dropdown-menu slot="dropdown">
                 <div class="" @click="subDownloadExchanges(item)">
-                   <el-dropdown-item  >下载</el-dropdown-item>
+                  <el-dropdown-item>下载</el-dropdown-item>
                 </div>
                 <div class="" @click="subDelFile(item)">
-                <el-dropdown-item style="color:red" >删除</el-dropdown-item>
+                  <el-dropdown-item style="color:red">删除</el-dropdown-item>
                 </div>
               </el-dropdown-menu>
             </el-dropdown>
           </div>
-          <div class="iconfont"  style="float:left;padding-left: 5px;">
+          <div class="iconfont" style="float:left;padding-left: 5px;">
             <el-upload :action="uploadUrl" :show-file-list="false" :on-preview="handlePictureCardPreview" :on-success="handleVideoSuccess" :before-upload="beforeUploadVideo" :on-progress="uploadVideoProcess">
-            <i  class="iconfont  icon-htmal5icon18" ></i>
+              <i class="iconfont  icon-htmal5icon18"></i>
             </el-upload>
           </div>
           <!-- <el-progress v-if="videoFlag == true" type="circle" :percentage="videoUploadPercent" style="position: relative;left: 20%;"></el-progress> -->
@@ -203,7 +208,9 @@ import {
   topExchanges,
   getExchangesC,
   downloadExchanges,
-  delFile
+  delFile,
+  uploadFile,
+  uploadExchanges
 } from '@/api/columnManage'
 import {
   addLib,
@@ -226,17 +233,25 @@ export default {
   },
   data() {
     return {
-      uploadUrl: '/xtcx/exchanges/upload?token=' + getToken(),
-      coverUrl: '/xtcx/file/upload?token=' + getToken(),
-      tinymceHtml: '请输入内容',
-      init: {
-        language_url: '/static/tinymce/zh_CN',
+      formDatas: '',
+      uploadUrl: 'http://106.14.172.38:8080/xtcx/exchanges/upload?token=' + getToken(),
+      editorInit: {
         language: 'zh_CN',
-        skin_url: '/static/tinymce/skins/lightgray',
-        height: 300,
-        plugins: 'link lists image code table colorpicker textcolor wordcount contextmenu',
-        toolbar: 'bold italic underline strikethrough | fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | undo redo | link unlink image code | removeformat',
-        branding: false
+        plugins: [
+          'image'
+        ],
+        toolbar: ['bold italic underline strikethrough alignleft aligncenter alignright outdent indent  blockquote undo redo removeformat subscript superscript ',
+          'hr bullist numlist link image charmap preview anchor pagebreak fullscreen media table emoticons forecolor backcolor'
+        ],
+        images_upload_handler(blobInfo, success, failure) {
+          const formData = new FormData()
+          formData.append('file', blobInfo.blob())
+          uploadExchanges(formData, '1').then(res => {
+            success("http://106.14.172.38:8990/jmrhupload" + res.data.savePath)
+          }).catch(() => {
+            failure('上传失败，请重新上传')
+          })
+        },
       },
       showFile: '',
       rej: {
@@ -282,7 +297,8 @@ export default {
         title: '',
         subject: '',
         typeId: 1,
-        cover: [],
+        cover: '',
+        covers: [],
         exAddr: '',
         enrollStart: '',
         enrollEnd: '',
@@ -317,20 +333,20 @@ export default {
   },
   computed: {},
   methods: {
-    async subDownloadExchanges(item){
-       window.open("http://106.14.172.38:8990/jmrhupload"+item.savePath);
+    async subDownloadExchanges(item) {
+      window.open("http://106.14.172.38:8990/jmrhupload" + item.savePath);
     },
-      async subDelFile(item){
-        let {
-          data,
-          success
-        } = await delFile(item.id)
-        this.active.cmsFileList.splice(this.active.cmsFileList.indexOf(item), 1)
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-        });
-      },
+    async subDelFile(item) {
+      let {
+        data,
+        success
+      } = await delFile(item.id)
+      this.active.cmsFileList.splice(this.active.cmsFileList.indexOf(item), 1)
+      this.$message({
+        type: 'success',
+        message: '删除成功!'
+      });
+    },
     async loadData(id) {
       let {
         data,
@@ -338,10 +354,10 @@ export default {
       } = await getExchangesC(id)
       var myFilter = Vue.filter('formatTime')
       this.active = data
-       let arr = data.cmsFileList
-       if(arr.length >0){
-         for (var i  in arr){
-          let name  = arr[i].fileName
+      let arr = data.cmsFileList
+      if (arr.length > 0) {
+        for (var i in arr) {
+          let name = arr[i].fileName
           if (name.indexOf('mp4') > -1 || name.indexOf('avi') > -1 || name.indexOf('rmvb') > -1) {
             name = 'video'
           } else if (name.indexOf('jpg') > -1 || name.indexOf('jpeg') > -1 || name.indexOf('png') > -1) {
@@ -356,10 +372,14 @@ export default {
             name = 'file'
           }
           arr[i].fileObj = name
-         }
-       }
+        }
+      }
       this.active.cmsFileList = data.cmsFileList
-      this.active.cover = [{name: 'food.jpeg',url:"http://106.14.172.38:8990/jmrhupload/cover/"+data.cover}]
+      this.active.covers = [{
+        name: 'name.jpg',
+        url: data.cover
+      }] //封面赋值显示仅仅
+
       this.active.enrollStart = myFilter(data.enrollStart)
       this.active.enrollEnd = myFilter(data.enrollEnd)
       this.active.exStart = myFilter(data.exStart)
@@ -367,7 +387,7 @@ export default {
       this.active.publishDate = myFilter(data.publishDate)
     },
 
-//附件返回
+    //附件返回
     handleVideoSuccess(res, file) {
       let obj = file.response.data
       if (obj.fileName) {
@@ -387,15 +407,6 @@ export default {
         this.active.cmsFileList.push(obj)
       }
     },
-//封面返回
-    handleAvatarSuccess(res, file) {
-      let obj = file.response.data
-      this.active.cover = obj
-    },
-    handlePictureCardPreview(file) {
-      this.dialogImageUrl = file.url;
-      this.dialogVisible = true;
-    },
     beforeUploadVideo(file) {
       const isLt10M = file.size / 1024 / 1024 < 10;
       // if (['video/mp4', 'video/ogg', 'video/flv','video/avi','video/wmv','video/rmvb'].indexOf(file.type) == -1) {
@@ -406,6 +417,30 @@ export default {
         this.$message.error('上传文件大小不能超过10MB哦!');
         return false;
       }
+    },
+
+    //封面上传
+    async uploadSectionFile(param) { //自定义文件上传
+      this.active.covers = []
+      var fileObj = param.file;
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await uploadFile(form)
+      let obj = {
+        name: data.fileName,
+        url: "http://106.14.172.38:8990/jmrhupload" + data.savePath
+      }
+      this.active.covers.push(obj)
+    },
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
     },
     // uploadVideoProcess(event, file, fileList) {
     //   this.videoFlag = true;
@@ -433,207 +468,6 @@ export default {
       this.loadPageList()
     },
 
-    async saveReject(rej) {
-      if (rej.way == '1') {
-        let arr = []
-        arr.push(rej.id)
-        let {
-          data,
-          success
-        } = await checkExchanges(arr)
-        if (success) {
-          this.$message({
-            message: '审核成功',
-            type: 'success'
-          });
-          this.loadPageList()
-        }
-      } else {
-        let {
-          data,
-          success
-        } = await rejectExchanges(rej)
-        if (success) {
-          this.$message({
-            message: '提交成功',
-            type: 'success'
-          });
-          this.loadPageList()
-        }
-      }
-      this.dialogShowSH = false
-
-    },
-    handleSelectionChange(val) {
-      let arr = []
-      for (let i in val) {
-        arr.push(val[i].id)
-      }
-      this.multipleSelection = arr;
-    },
-    async plsh() {
-      let {
-        data,
-        success
-      } = await PLrejectUserDetail(this.multipleSelection)
-      if (success) {
-        this.$message({
-          type: 'success',
-          message: '审核成功!'
-        });
-        this.loadPageList()
-      }
-
-
-    },
-    async plxj() {
-      let {
-        data,
-        success
-      } = await offExchanges(this.multipleSelection)
-      if (success) {
-        this.$message({
-          type: 'success',
-          message: '下架成功!'
-        });
-        this.loadPageList()
-      }
-    },
-    pldc() {
-      this.$message({
-        type: 'success',
-        message: '导出成功!'
-      });
-    },
-    async handlexy(item, num) {
-      if (num == 0) {
-        this.xyset.id = item.id
-        this.xyset.order = '9999'
-        let {
-          data,
-          success
-        } = await topExchanges(this.xyset)
-        this.$message({
-          message: '取消置顶',
-          type: 'success'
-        });
-      } else {
-        this.xyset.id = item.id
-        this.xyset.order = '0'
-        let {
-          data,
-          success
-        } = await topExchanges(this.xyset)
-        this.$message({
-          message: '置顶成功',
-          type: 'success'
-        });
-      }
-      this.loadPageList()
-    },
-    handlesh(data) {
-      this.dialogShowSH = true
-      this.rej.id = data.id
-    },
-    async handlexj(params) {
-      let obj = []
-      obj.push(params.id)
-      let {
-        data,
-        success
-      } = await offExchanges(obj)
-      if (success) {
-        this.$message({
-          message: '下架成功',
-          type: 'success'
-        });
-        this.loadPageList()
-      }
-    },
-    async handlesj(params) {
-      let obj = {}
-      obj.id = params.id
-      let {
-        data,
-        success
-      } = await onExchanges(obj)
-      if (success) {
-        this.$message({
-          message: '上架成功',
-          type: 'success'
-        });
-        this.loadPageList()
-      }
-    },
-    showDetail() {
-      this.dialogShowDep = true
-    },
-    handlePrint() {
-      $("#tablePrint").printArea();
-    },
-    handleDownload() { //导出
-      $("#tableExcel").table2excel({
-        exclude: ".noExl", //过滤位置的 css 类名
-        filename: new Date().getTime() + ".xls", //文件名称
-        name: "Excel Document Name.xlsx",
-        exclude_img: true,
-        exclude_links: true,
-        exclude_inputs: true
-      })
-    },
-
-    handleSizeChange(val) {
-      if (!isNaN(val)) {
-        this.listQuery.limit = val
-      }
-      this.loadPageList()
-    },
-    handleCurrentChange(val) {
-      if (!isNaN(val)) {
-        this.listQuery.page = val
-      }
-      this.loadPageList()
-    },
-
-
-    async handleEdit(data, type) {
-      if (type === 'edit') {
-        this.title = '编辑活动'
-        this.dialogFormVisible = true
-        this.active = data
-      } else if (type === 'add') {
-        this.title = '添加活动'
-        this.show = false
-        this.dialogFormVisible = true
-      } else if (type === 'show') {
-        this.dialogFormVisible = true
-        this.active = data
-        this.show = true
-        this.title = '查看活动详情'
-
-      }
-    },
-    delObj(item) {
-      this.$confirm('此操作将删除该记录, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(async () => {
-        let del = await delexchanges(item)
-        this.list.splice(this.list.indexOf(item), 1)
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-        });
-        // this.splice(data.id, 1);
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        });
-      });
-    },
-
     async saveObj(checkStatus) {
       if (!this.active.publishDate && this.active.publishNow == 0) {
         this.active.publishDate = this.getformatTime()
@@ -641,9 +475,6 @@ export default {
       if (!this.validata.validactive(this.active)) return
       let arr = {}
       arr = this.active
-      if(this.active.cover.length == 0){
-      this.active.cover = ''
-      }
       arr.checkStatus = checkStatus
 
       let {

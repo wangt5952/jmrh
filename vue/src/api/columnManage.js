@@ -1,5 +1,9 @@
 import request from '@/utils/request'
 
+import {
+  getToken,
+} from '@/utils/auth'
+let token= getToken()
 
 export function getCategoryTree(data) {
   return request({
@@ -196,12 +200,31 @@ export function downloadExchanges(data) {
     method: 'get'
   });
 }
-export function uploadFile(data) {
+
+
+
+export function uploadExchanges(data,num) {//活动上传附件以及富文本图片
   return request({
-    url: '/xtcx/file/upload?token='+data,
-    method: 'post'
+    url: '/xtcx/exchanges/upload?token='+token+'&fileType='+num,
+    method: 'post',
+    data
   });
 }
+export function uploadCategory(data,num) {//内容上传附件以及富文本图片
+  return request({
+    url: '/xtcx/category/content/upload?token='+token+'&fileType='+num,
+    method: 'post',
+    data
+  });
+}
+export function uploadFile(data) {//封面
+  return request({
+    url: '/xtcx/file/upload?token='+token,
+    method: 'post',
+    data
+  });
+}
+
 
 export function delFile(data) {
   return request({

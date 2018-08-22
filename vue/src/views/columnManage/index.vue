@@ -69,7 +69,7 @@
             <tr style="border-bottom: 1px solid#ccc;">
               <td style="width:100px;padding:10px">栏目Icon</td>
               <td>
-                <el-upload class="avatar-uploader" :action="coverUrl" list-type="picture-card" :file-list="column.icon" :on-success="handleAvatarSuccess" :on-remove="handleRemove">
+                <el-upload class="avatar-uploader" ref="my-upload" :http-request="uploadSectionFile" list-type="picture-card" :file-list="column.icons" :on-success="handleAvatarSuccess" :on-remove="handleRemove">
                   <i class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
                 <!-- <img v-if="dialogImageUrl!=''" width="100%" :src="dialogImageUrl" alt=""> -->
@@ -141,8 +141,7 @@
             <tr style="border-bottom: 1px solid#ccc;">
               <td style="width:100px;padding:10px">栏目Icon</td>
               <td>
-                {{column.icon}}
-                <!-- <img v-if="dialogImageUrl!=''" width="100%" :src="dialogImageUrl" alt=""> -->
+                <img :src="column.icon" alt="" style="width:100px">
               </td>
               <td style="width:100px;padding:10px">栏目类型</td>
               <td>
@@ -210,6 +209,7 @@ import {
   putCategory,
   postCategory,
   delcategory,
+  uploadFile
 } from '@/api/columnManage'
 import {
   libupload2
@@ -223,7 +223,6 @@ export default {
   },
   data() {
     return {
-      coverUrl: '/xtcx/file/upload?token=' + getToken(),
       func: treeToArray,
       expandAll: false,
       list: [],
@@ -243,7 +242,8 @@ export default {
         code: '',
         readable: 1,
         typeId: 0,
-        icon: '',
+        icon: [],
+        icons: [],
         onlyUrl: 0,
         contentUrl: '',
         tags: '',
@@ -309,10 +309,11 @@ export default {
         obj.children = null
       }
       this.column = obj
-      this.column.icon = [{
-        name: 'food.jpeg',
-        url: "http://106.14.172.38:8990/jmrhupload/cover/" + obj.icon
-      }]
+      this.column.icons = [{
+        name: 'name.jpg',
+        url: obj.icon
+      }]//封面赋值显示仅仅
+
       this.dialogsave = true
     },
     async handleCreate(item, parentId) {
@@ -320,6 +321,12 @@ export default {
       if (item) {
         if (parentId && parentId == "show") {
           this.column = item
+
+          this.column.icons = [{
+            name: 'name.jpg',
+            url: item.icon
+          }]//封面赋值显示仅仅
+
           this.show = true
           this.title = '查看栏目详情'
         } else {
@@ -351,7 +358,7 @@ export default {
         }
         this.dialogsave = true //子目录标识
       } else {
-      this.dialogsave = false //切换回 添加功能
+        this.dialogsave = false //切换回 添加功能
         this.show = false
         this.title = '新增栏目'
         this.editlm = false
@@ -361,7 +368,8 @@ export default {
           code: '',
           readable: 1,
           typeId: 0,
-          icon: [],
+          icon: '',
+          icons: [],
           onlyUrl: 0,
           contentUrl: '',
           tags: '',
@@ -374,9 +382,6 @@ export default {
     },
     async saveObj() {
       if (!this.validata.validacolumn(this.column)) return
-      if (this.column.icon.length == 0) {
-        this.column.icon = ''
-      }
       if (this.dialogsave) {
         if (this.title == '添加子栏目') {
           var {
@@ -399,9 +404,9 @@ export default {
       if (success) {
         let text
         this.dialogsave ? text = '保存成功' : text = '添加成功'
-        if (this.title = '添加子栏目') text = '添加成功'
-        if (this.title = '编辑栏目') text = '编辑成功'
-        if (this.title = '新增栏目') text = '新增成功'
+        if (this.title == '添加子栏目') text = '添加成功'
+        if (this.title == '编辑栏目') text = '编辑成功'
+        if (this.title == '新增栏目') text = '新增成功'
         this.$message({
           message: text,
           type: 'success'
@@ -436,11 +441,32 @@ export default {
         });
       });
     },
-    //封面返回
-    handleAvatarSuccess(res, file) {
-      let obj = file.response.data
-      this.column.icon = obj
+    //封面上传
+    async uploadSectionFile(param) { //自定义文件上传
+      this.column.icons = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await uploadFile(form)
+      let obj = {
+        name: data.fileName,
+        url: "http://106.14.172.38:8990/jmrhupload" + data.savePath
+      }
+      this.column.icons.push(obj)
     },
+    //封面返回
+    // handleAvatarSuccess(res, file) {
+    //   let obj = file.response.data
+    //
+    // },
     beforeAvatarUpload(file) {
       const isJPG = file.type === 'image/jpeg';
       const isLt2M = file.size / 1024 / 1024 < 2;

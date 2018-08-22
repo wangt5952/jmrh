@@ -19,7 +19,7 @@
     <tr style="border-bottom: 1px solid#ccc;">
       <td style="width:100px;padding:10px">封面</td>
       <td>
-        <el-upload  class="avatar-uploader" :action="coverUrl" list-type="picture-card" :file-list="content.cover" :on-success="handleAvatarSuccess" :on-remove="handleRemove">
+        <el-upload class="avatar-uploader" :http-request="uploadSectionFile" list-type="picture-card" :file-list="content.covers" :on-success="handleAvatarSuccess" :on-remove="handleRemove">
           <i class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </td>
@@ -96,7 +96,12 @@
     <tr v-show="content.typeId == 1" style="border-bottom: 1px solid#ccc;">
       <td style="width:100px;padding:10px">置顶</td>
       <td>
-        <el-input v-model="content.stickSort" placeholder="" style="width:80%"></el-input>
+            <el-select v-model="content.stickSort" style="height:30px;width:80%" placeholder="请选择">
+              <el-option label="是" :key=0 :value=0>
+              </el-option>
+              <el-option label="否" :key=9999 :value=9999>
+              </el-option>
+            </el-select>
       </td>
       <td style="width:100px;padding:10px">推荐</td>
       <td>
@@ -113,7 +118,8 @@
     <tr v-show="content.typeId == 1" style="border-bottom: 1px solid#ccc;">
       <td style="width:100px;padding:10px">活动内容</td>
       <td colspan=3>
-        <tinymce :height="300" v-model="content.contentTxt"></tinymce>
+        <!-- <tinymce :height="300" v-model="content.contentTxt"></tinymce> -->
+        <editor v-model="content.contentTxt" :setting="editorSetting" :init="editorInit"></editor>
       </td>
     </tr>
   </table>
@@ -134,7 +140,8 @@
 </template>
 
 <script>
-import Tinymce from '@/components/Tinymce'
+// import Tinymce from '@/components/Tinymce'
+import Editor from '@tinymce/tinymce-vue';
 import {
   getCategory,
   postCategoryC,
@@ -145,7 +152,9 @@ import {
   onCategory,
   offCategory,
   topCategory,
-  getLeafNodes
+  getLeafNodes,
+  uploadFile,
+  uploadCategory
 } from '@/api/columnManage'
 
 import {
@@ -164,11 +173,29 @@ import {
 } from '@/utils/auth'
 export default {
   components: {
-    Tinymce
+    // Tinymce
+    'editor': Editor
   },
   data() {
     return {
-      coverUrl: '/xtcx/file/upload?token=' + getToken(),
+      editorInit: {
+        language: 'zh_CN',
+        plugins: [
+          'image'
+        ],
+        toolbar: ['bold italic underline strikethrough alignleft aligncenter alignright outdent indent  blockquote undo redo removeformat subscript superscript ',
+          'hr bullist numlist link image charmap preview anchor pagebreak fullscreen media table emoticons forecolor backcolor'
+        ],
+        images_upload_handler(blobInfo, success, failure) {
+          const formData = new FormData()
+          formData.append('file', blobInfo.blob())
+          uploadCategory(formData, '1').then(res => {
+            success("http://106.14.172.38:8990/jmrhupload" + res.data.savePath)
+          }).catch(() => {
+            failure('上传失败，请重新上传')
+          })
+        },
+      },
       rej: {
         way: '1',
         info: '',
@@ -218,7 +245,8 @@ export default {
         copyFromUrl: '',
         author: '',
         editor: '',
-        cover: [],
+        cover: '',
+        covers: [],
         tags: '',
         description: '',
         onlyUrl: 0,
@@ -247,11 +275,36 @@ export default {
   },
   computed: {},
   methods: {
-    //封面返回
-    handleAvatarSuccess(res, file) {
-      let obj = file.response.data
-      this.content.cover = obj
+    //封面上传
+    async uploadSectionFile(param) { //自定义文件上传
+      this.content.covers = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await uploadFile(form)
+      let obj = {
+        name: data.fileName,
+        url: "http://106.14.172.38:8990/jmrhupload" + data.savePath
+      }
+      this.content.covers.push(obj)
     },
+    // //封面返回
+    // handleAvatarSuccess(res, file) {
+    //   let obj = file.response.data
+    //   this.content.cover = obj
+    //   this.content.covers = [{
+    //     name: 'food.jpeg',
+    //     url: "http://106.14.172.38:8990/jmrhupload" + obj.savePath
+    //   }]
+    // },
     back() {
       window.history.go(-1);
     },
@@ -263,7 +316,10 @@ export default {
       var myFilter = Vue.filter('formatTime')
       this.content = data
       this.content.publishDate = myFilter(data.publishDate)
-      this.content.cover = [{name: 'food.jpeg',url:"http://106.14.172.38:8990/jmrhupload/cover/"+data.cover}]
+      this.content.covers = [{
+        name: 'name.jpg',
+        url: data.cover
+      }] //封面赋值显示仅仅
       this.loadgetLeafNodes()
     },
     async loadgetLeafNodes() {
@@ -275,148 +331,38 @@ export default {
         this.leafNodeslist = data
       }
     },
-    async saveFile(objdata) {
-      if (objdata.order == '') {
-        this.$message({
-          message: '请输入置顶排序！',
-          type: 'success'
-        });
-        return
-      }
-      let {
-        data,
-        success
-      } = await topCategory(objdata)
-      this.$message({
-        message: '设置成功',
-        type: 'success'
-      });
-      this.loadPageList()
-    },
 
-    async saveReject(rej) {
-      if (rej.way == '1') {
-        let arr = []
-        arr.push(rej.formId)
-        let {
-          data,
-          success
-        } = await PLrejectUserDetail(arr)
-        if (success) {
-          this.$message({
-            message: '保存成功',
-            type: 'success'
-          });
-          this.loadPageList()
-        }
+    async saveObj(checkStatus) {
+      if (!this.content.publishDate && this.content.publishNow == 0) {
+        this.content.publishDate = this.getformatTime()
+      }
+      if (this.content.typeId == 1) {
+        if (!this.validata.validacontent(this.content)) return
       } else {
-        let {
-          data,
-          success
-        } = await rejectUserDetail(rej)
-        if (success) {
-          this.$message({
-            message: '保存成功',
-            type: 'success'
-          });
-          this.loadPageList()
-        }
+        if (!this.validata.validacontent2(this.content)) return
       }
-
-
-    },
-    handleSelectionChange(val) {
-      let arr = []
-      for (let i in val) {
-        arr.push(val[i].id)
-      }
-      this.multipleSelection = arr;
-    },
-    async plsh() {
+      let arr = {}
+      arr = this.content
+      arr.checkStatus = checkStatus
       let {
         data,
         success
-      } = await PLrejectUserDetail(this.multipleSelection)
+      } = await postCategoryC(arr)
+
       if (success) {
         this.$message({
-          type: 'success',
-          message: '审核成功!'
-        });
-        this.loadPageList()
-      }
-
-
-    },
-    async plxj() {
-      let {
-        data,
-        success
-      } = await offCategory(this.multipleSelection)
-      if (success) {
-        this.$message({
-          type: 'success',
-          message: '下架成功!'
-        });
-        this.loadPageList()
-      }
-    },
-    pldc() {
-      this.$message({
-        type: 'success',
-        message: '导出成功!'
-      });
-    },
-    async handlexy(item, num) {
-      if (num == 0) {
-        this.dialogShowLevel = true
-        this.xyset.id = item.id
-      } else if (num == 1) {
-        this.xyset.id = item.id
-        let {
-          data,
-          success
-        } = await topCategory(this.xyset)
-        this.$message({
-          message: '置顶成功',
+          message: '保存成功',
           type: 'success'
         });
-        this.loadPageList()
-      }
-    },
-    handlesh(data) {
-      this.dialogShowSH = true
-      this.rej.formId = data.id
-    },
-    async handlexj(params) {
-      let obj = []
-      obj.push(params.id)
-      let {
-        data,
-        success
-      } = await offCategory(obj)
-      if (success) {
+        this.dialogFormVisible = false
+      } else {
         this.$message({
-          message: '下架成功',
+          message: data.message,
           type: 'success'
         });
-        this.loadPageList()
       }
     },
-    async handlesj(params) {
-      let obj = {}
-      obj.id = params.id
-      let {
-        data,
-        success
-      } = await onCategory(obj)
-      if (success) {
-        this.$message({
-          message: '上架成功',
-          type: 'success'
-        });
-        this.loadPageList()
-      }
-    },
+
     showDetail() {
       this.dialogShowDep = true
     },
@@ -498,40 +444,6 @@ export default {
       });
     },
 
-    async saveObj(checkStatus) {
-      if (!this.content.publishDate && this.content.publishNow == 0) {
-        this.content.publishDate = this.getformatTime()
-      }
-      if (this.content.typeId == 1) {
-        if (!this.validata.validacontent(this.content)) return
-      } else {
-        if (!this.validata.validacontent2(this.content)) return
-      }
-      let arr = {}
-      arr = this.content
-      if(this.content.cover.length == 0){
-      arr.cover = ''
-      }
-      arr.checkStatus = checkStatus
-      let {
-        data,
-        success
-      } = await postCategoryC(arr)
-
-      if (success) {
-        this.$message({
-          message: '保存成功',
-          type: 'success'
-        });
-        this.dialogFormVisible = false
-        this.loadPageList()
-      } else {
-        this.$message({
-          message: data.message,
-          type: 'success'
-        });
-      }
-    },
 
   }
 }

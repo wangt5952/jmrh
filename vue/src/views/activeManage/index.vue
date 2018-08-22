@@ -70,10 +70,10 @@
                             {{ scope.row.createTime  | formatTime}}</span>
                     </template>
     </el-table-column>
-    <el-table-column v-if="tfcheckStatus == 1" align="center" label="置顶排序">
+    <el-table-column v-if="tfcheckStatus == 1" align="center" label="是否置顶">
       <template slot-scope="scope">
-                        <span>
-                            {{ scope.row.stickSort}}</span>
+                                <span v-show="scope.row.stickSort == 0">是</span>
+                                <span v-show="scope.row.stickSort == 9999">否</span>
                     </template>
     </el-table-column>
     <el-table-column v-if="tfcheckStatus == 1" align="center" label="状态">
@@ -86,7 +86,7 @@
     <el-table-column v-if="tfcheckStatus == 1" align="center" label="审核用户">
       <template slot-scope="scope">
                         <span>
-                            {{ scope.row.creater}}</span>
+                            {{ scope.row.checkUserId}}</span>
                     </template>
     </el-table-column>
 
@@ -147,8 +147,7 @@
             <tr style="border-bottom: 1px solid#ccc;">
               <td style="width:100px;padding:10px">封面</td>
               <td>
-                {{active.cover}}
-                <!-- <img v-if="active.cover!=''" width="100%" :src="cover" alt=""> -->
+                  <img :src="active.cover" alt="" style="width:100px">
               </td>
               <td style="width:100px;padding:10px">活动类型</td>
               <td>
@@ -229,7 +228,8 @@
             <tr style="border-bottom: 1px solid#ccc;">
               <td style="width:100px;padding:10px">置顶</td>
               <td>
-                {{active.stickSort}}
+                  <span v-show="active.stickSort == 0">是</span>
+                  <span v-show="active.stickSort == 9999">否</span>
               </td>
 
             </tr>
@@ -540,11 +540,20 @@ export default {
     },
     async handlexy(item, num) {
       if (num == 0) {
-        this.dialogShowLevel = true
         this.xyset.id = item.id
-      } else if (num == 1) {
+        this.xyset.order = '9999'
+        let {
+          data,
+          success
+        } = await topExchanges(this.xyset)
+        this.$message({
+          message: '取消置顶',
+          type: 'success'
+        });
+        this.loadPageList()
+      } else{
         this.xyset.id = item.id
-        debugger
+        this.xyset.order = '0'
         let {
           data,
           success
