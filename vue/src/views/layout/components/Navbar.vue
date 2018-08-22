@@ -69,7 +69,8 @@ import {
 } from 'vuex'
 import Hamburger from '@/components/Hamburger'
 import {
-  resetPwd
+  resetPwd,
+  sendCellphoneCode
 } from '@/api/user'
 
 import {

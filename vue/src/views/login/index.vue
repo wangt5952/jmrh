@@ -27,47 +27,47 @@
 
 
 <template>
-  <div class="login-container" style="background: #1896d2">
-    <div class="content" style="top: 50%;">
+<div class="login-container" style="background: #1896d2">
+  <div class="content" style="top: 50%;">
 
-      <div class="left-content" :style="{'background-image': `url('${leftImage}')`}"></div>
+    <div class="left-content" :style="{'background-image': `url('${leftImage}')`}"></div>
 
-      <div class="right-content">
-        <el-card class="box-card">
+    <div class="right-content">
+      <el-card class="box-card">
 
-          <div slot="header" class="clearfix">
-            <span>登录</span>
-          </div>
+        <div slot="header" class="clearfix">
+          <span>登录</span>
+        </div>
 
-          <div  class="item">
-            <!-- <el-tabs v-model="login_method" @tab-click="handleClick">
+        <div class="item">
+          <!-- <el-tabs v-model="login_method" @tab-click="handleClick">
 
               <el-tab-pane label="普通登录" name="first"> -->
-                <el-form  :model="loginForm" :rules="loginRules" ref="loginForm" :label-position="labelPosition" label-width="100px">
-                  <el-form-item label="">
-                    <el-input v-model="loginForm.userName" placeholder="请输入用户名">
-                    <i  slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
-                  </el-form-item>
+          <el-form :model="loginForm" :rules="loginRules" ref="loginForm" :label-position="labelPosition" label-width="100px">
+            <el-form-item label="">
+              <el-input v-model="loginForm.userName" placeholder="请输入用户名">
+                <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
+            </el-form-item>
 
 
-                  <el-form-item label="" style="margin: 0;">
-                    <el-input type="password" v-model="loginForm.password" placeholder="请输入密码">
+            <el-form-item label="" style="margin: 0;">
+              <el-input type="password" v-model="loginForm.password" placeholder="请输入密码">
 
-                      <i  slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
-                    </el-input>
-                  </el-form-item>
+                <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
+              </el-input>
+            </el-form-item>
 
-                                    <el-form-item label="" style="margin: 0;">
-                                        <el-checkbox v-model="loginForm.isAdmin" style="float: left;">管理员</el-checkbox>
-                                  </el-form-item>
-                  <el-form-item>
-                    <el-button  v-if="!restEmail"  type="primary" @click.native.prevent="handleLogin">登录</el-button>
-                    <el-button v-if="restEmail" @click="tosendEmailActivate" type="primary">重新发送</el-button>
-                    <span @click="toRegister" class="toLogin">立即注册</span>
-                    <span @click="toresetPaw" class="resetPaw">忘记密码?</span>
-                  </el-form-item>
-                </el-form>
-                <!-- <div class="loginQuick">
+            <el-form-item label="" style="margin: 0;">
+              <el-checkbox v-model="loginForm.isAdmin" style="float: left;">管理员</el-checkbox>
+            </el-form-item>
+            <el-form-item>
+              <el-button v-if="!restEmail" @keyup.enter="handleLogin" type="primary" @click.native.prevent="handleLogin">登录</el-button>
+              <el-button v-if="restEmail" @click="tosendEmailActivate" type="primary">重新发送</el-button>
+              <span @click="toRegister" class="toLogin">立即注册</span>
+              <span @click="toresetPaw" class="resetPaw">忘记密码?</span>
+            </el-form-item>
+          </el-form>
+          <!-- <div class="loginQuick">
                   <p><span>快速登录</span></p>
                   <div class="quick-content">
                     <ul class="quickList">
@@ -76,10 +76,10 @@
                     </ul>
                   </div>
                 </div> -->
-              <!-- </el-tab-pane> -->
+          <!-- </el-tab-pane> -->
 
-              <!-- 验证登录 -->
-              <!--  <el-tab-pane label="验证登录" name="second">
+          <!-- 验证登录 -->
+          <!--  <el-tab-pane label="验证登录" name="second">
                 <el-form :label-position="labelPosition" label-width="80px" :model="loginVerify">
                   <el-form-item label="手机号码">
                     <el-input v-model="loginVerify.phone" placeholder="请输入手机号"></el-input>
@@ -103,16 +103,16 @@
                   </div>
                 </div>
              </el-tab-pane> -->
-            </el-tabs>
-          </div>
+          </el-tabs>
+        </div>
 
-        </el-card>
-      </div>
-      <!-- <div class="center-content"></div> -->
-      <!-- <div class="right-top"></div> -->
-      <!-- <div class="left-bottom"></div> -->
+      </el-card>
     </div>
+    <!-- <div class="center-content"></div> -->
+    <!-- <div class="right-top"></div> -->
+    <!-- <div class="left-bottom"></div> -->
   </div>
+</div>
 </template>
 <script>
 import {
@@ -149,7 +149,7 @@ export default {
     }
     return {
       leftImage,
-      restEmail:false,
+      restEmail: false,
       labelPosition: 'top',
       login_method: 'first', // 登录方式
       loginVerify: { // 普通登录
@@ -157,9 +157,9 @@ export default {
         number: ''
       },
       loginForm: {
-        userName: '269274122@qq.com',
+        userName: 'gyx',
         password: '123',
-        isAdmin:false,
+        isAdmin: false,
       },
       loginRules: {
         username: [{
@@ -177,10 +177,21 @@ export default {
       pwdType: 'password'
     }
   },
-  methods: {
+  created() {
+    this.keyupSubmit()
+  },
 
-    async tosendEmailActivate(){
-      let obj ={}
+  methods: {
+    keyupSubmit(){
+      document.onkeydown=e=>{
+        let _key=window.event.keyCode;
+        if(_key===13){
+          this.handleLogin()
+        }
+      }
+    },
+    async tosendEmailActivate() {
+      let obj = {}
       obj.email = this.loginForm.userName
       let {
         data,
@@ -193,10 +204,10 @@ export default {
           title: '用户激活提醒',
           message: h('i', {
             style: 'color: teal'
-          }, '激活帐户邮件已发送到你的邮箱中'+this.loginForm.userName+'，点击里面的激活链接')
+          }, '激活帐户邮件已发送到你的邮箱中' + this.loginForm.userName + '，点击里面的激活链接')
         });
         this.restEmail = false
-      }else {
+      } else {
         this.$message({
           message: message,
           type: 'success'
@@ -206,7 +217,7 @@ export default {
     handleClick(tab, event) {
       console.log(tab, event)
     },
-    toresetPaw(){
+    toresetPaw() {
       this.$router.push({
         path: '/resetPaw'
       })
@@ -294,7 +305,7 @@ export default {
             type: 'warning'
           });
           if (this.$store.getters.message == '用户未激活,请重新发送邮箱进行激活！') {
-          this.restEmail = true
+            this.restEmail = true
           }
         }
 
@@ -309,150 +320,150 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss">
 @import "src/styles/mixin.scss";
-.login-container{
-  width: 100%;
-  height: 100vh;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
-  background-attachment: fixed;
-  position: relative;
-  z-index:1;
-  overflow: hidden;
-  font-size: 20px;
+.login-container {
+    width: 100%;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    font-size: 20px;
 
-  .content{
-    width: 986px;
-    height:518px;
-    position: absolute;
-    left: 50%;
-    z-index: 2;
-    // border:1px solid #ccc;
-    transform: translate(-50%,-50%);
-
-    .left-content,.right-content,{
-      width: 500px;
-      height: 500px;
-      // border: 2px dashed  #CBBD63;
-      // background-color: rgba(225, 255, 255, 0.1);
-      -webkit-filter: drop-shadow(4px 4px 4px #CBBD63);
-      filter: drop-shadow(4px 4px 4px #CBBD63);
-
-    }
-
-    .left-content{
-      position: absolute;
-      left: 0;
-      top:0;
-      z-index: 2;
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: cover;
-    }
-
-    .right-content{
-      position: absolute;
-      right: 0;
-      bottom:-6%;
-      z-index: 3;
-
-      .box-card{
-        .clearfix{
+    .content {
+        width: 986px;
+        height: 518px;
+        position: absolute;
+        left: 50%;
+        z-index: 2;
+        // border:1px solid #ccc;
+        transform: translate(-50%,-50%);
+        .left-content,
+        .right-content {
+            width: 500px;
+            height: 500px;
+            // border: 2px dashed  #CBBD63;
+            // background-color: rgba(225, 255, 255, 0.1);
+            -webkit-filter: drop-shadow(4px 4px 4px #CBBD63);
+            filter: drop-shadow(4px 4px 4px #CBBD63);
 
         }
-        .item{
-          position: relative;
-          // tabs
-          .el-tabs__nav-wrap{
-            width: 180px;
-            padding-left: 12px;
-            overflow: hidden;
-          }
-          // lable
-          .el-form-item__label{
-            display: block;
-            margin-left: 60px;
-            height: 36px;
-            // float: left;
-            color: #9ba3af;
-          }
-          .resetPaw{
-            font-size: 14px;
-            color: #9ba3af;
-            float: right;
-            margin-right: 60px;
-            cursor: pointer;
-          }
 
-          // input-box
-          .el-form-item__content{
-            width: 340px;
+        .left-content {
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 2;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+        }
 
-            .el-button{
-              width: 100px;
-            }
-          }
-          .toLogin{
-            display: inline-block;
-            margin-left: 20px;
-            color: darkslateblue;
-            cursor: pointer;
-            font-size: 14px;
-          }
-          .loginQuick{
-            margin-top: 30px;
-            p{
-              // display: block;
-              height: 24px;
-              line-height: 24px;
-              color: #9ba3af;
-              font-size: 14px;
+        .right-content {
+            position: absolute;
+            right: 0;
+            bottom: -6%;
+            z-index: 3;
 
-              &::before,&::after{
-                content: "";
-                position: absolute;
-                height: 1px;
-                width: 20%;
-                background-color: #eee;
-                margin-top: 10px;
-                // box-shadow: 0px 0px 1px 0.2px #ccc;
-                // display: block;
-                // top: 50%;left: 50%;
-                // transform: translate(-50%,-50%)
+            .box-card {
+                .clearfix {
+                    }
+                .item {
+                    position: relative;
+                    // tabs
+                    .el-tabs__nav-wrap {
+                        width: 180px;
+                        padding-left: 12px;
+                        overflow: hidden;
+                    }
+                    // lable
+                    .el-form-item__label {
+                        display: block;
+                        margin-left: 60px;
+                        height: 36px;
+                        // float: left;
+                        color: #9ba3af;
+                    }
+                    .resetPaw {
+                        font-size: 14px;
+                        color: #9ba3af;
+                        float: right;
+                        margin-right: 60px;
+                        cursor: pointer;
+                    }
 
-              }
-              &::before{
-                left: 20%;
-              }
-              &::after{
-                right:20%;
-              }
-              span{
-                display: inline-block;
-                margin-top: -10px;
-              }
-            }
-            .quick-content{
-              ul{
-                list-style: none;
-                li{
-                  width: 50px;
-                  height: 50px;
-                  display: inline-block;
-                  cursor: pointer;
-                  img{
-                    width: 40px;
-                    height: 40px;
-                  }
+                    // input-box
+                    .el-form-item__content {
+                        width: 340px;
 
+                        .el-button {
+                            width: 100px;
+                        }
+                    }
+                    .toLogin {
+                        display: inline-block;
+                        margin-left: 20px;
+                        color: darkslateblue;
+                        cursor: pointer;
+                        font-size: 14px;
+                    }
+                    .loginQuick {
+                        margin-top: 30px;
+                        p {
+                            // display: block;
+                            height: 24px;
+                            line-height: 24px;
+                            color: #9ba3af;
+                            font-size: 14px;
+
+                            &::after,
+                            &::before {
+                                content: "";
+                                position: absolute;
+                                height: 1px;
+                                width: 20%;
+                                background-color: #eee;
+                                margin-top: 10px;
+                                // box-shadow: 0px 0px 1px 0.2px #ccc;
+                                // display: block;
+                                // top: 50%;left: 50%;
+                                // transform: translate(-50%,-50%)
+
+                            }
+                            &::before {
+                                left: 20%;
+                            }
+                            &::after {
+                                right: 20%;
+                            }
+                            span {
+                                display: inline-block;
+                                margin-top: -10px;
+                            }
+                        }
+                        .quick-content {
+                            ul {
+                                list-style: none;
+                                li {
+                                    width: 50px;
+                                    height: 50px;
+                                    display: inline-block;
+                                    cursor: pointer;
+                                    img {
+                                        width: 40px;
+                                        height: 40px;
+                                    }
+
+                                }
+                            }
+                        }
+                    }
                 }
-              }
             }
-          }
         }
-      }
-    }
 
-  }
+    }
 }
 </style>

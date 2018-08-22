@@ -1,48 +1,141 @@
 <template>
 <div class="tab-container">
-  <div class="tools">
-    <div class="paddingb textl paddingr">
-      <el-input v-model="input" placeholder="请输入内容" style="width: 15%;"></el-input>
-      <el-button style="margin-left:20px" @click="loadPageList" type="primary" icon="el-icon-search"></el-button>
-      <el-button v-if="userType =='0'" style="margin-left: 10px;" @click="handleEdit" type="primary" icon="el-icon-edit">添加高校</el-button>
+  <div class="">
+    <div class="paddingb textl paddingr" style="font-size:14px">
+      <span>关键字</span>
+      <el-input v-model="input.objName" placeholder="" style="width:100px;"></el-input>
+      <span style="margin-left: 15px;">是否可见</span>
+      <el-select v-model="input.status" style="width:100px;height:30px" placeholder="请选择">
+        <el-option label="请选择" key="" value="">
+        </el-option>
+        <el-option label="可见" key=1 value=1>
+        </el-option>
+        <el-option label="不可见" key=0 value=0>
+        </el-option>
+      </el-select>
+      <span style="margin-left: 15px;">状态</span>
+      <el-select v-model="input.checkStatus" style="width:100px;height:30px" placeholder="请选择">
+        <el-option label="草稿" :key=-1 :value=-1>
+        </el-option>
+        <el-option label="待审核" :key=0 :value=0>
+        </el-option>
+        <el-option label="已发布" :key=1 :value=1>
+        </el-option>
+        <el-option label="驳回" :key=2 :value=2>
+        </el-option>
+      </el-select>
+      <span style="margin-left: 15px;">信用级别</span>
+      <el-select v-model="input.creditLevel" style="width:100px;height:30px" placeholder="请选择">
+        <el-option label="请选择" key="" value="">
+        </el-option>
+        <el-option label="1" key="1" value="1">
+        </el-option>
+        <el-option label="2" key="2" value="2">
+        </el-option>
+        <el-option label="3" key="3" value="3">
+        </el-option>
+        <el-option label="4" key="4" value="4">
+        </el-option>
+        <el-option label="5" key="5" value="4">
+        </el-option>
+      </el-select>
+      <el-button style="margin-left:20px" @click="loadPageList" type="primary">查询</el-button>
+      <div class="" style="padding:10px 0px;">
+        <el-button v-if="userType =='0' " style="" @click="handleEdit" type="primary">添加高校</el-button>
+        <el-button v-if="userType =='0' && tfcheckStatus == 0" style="" @click="plsh" type="primary">批量审核</el-button>
+        <el-button v-if="userType =='0' && tfcheckStatus == 1" style="" @click="plxj" type="primary">批量下架</el-button>
+        <el-button v-if="userType =='0' && tfcheckStatus == 1" style="" @click="pldc" type="primary">批量导出</el-button>
+      </div>
+
     </div>
   </div>
 
 
-  <el-table v-loading="loading" class="tableH" :data="list" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
-    <el-table-column type="index" align="center" label="ID">
-
+  <el-table v-loading="loading" ref="multipleTable" @selection-change="handleSelectionChange" class="tableH" :data="list" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
+    <el-table-column type="selection" width="55">
+    </el-table-column>
+    <el-table-column align="center" label="编号">
+      <template slot-scope="scope">
+                    <!-- <span>{{ scope.row.id }}</span> -->
+                </template>
     </el-table-column>
     <el-table-column align="center" label="高校院所名">
       <template slot-scope="scope">
-                    <span>{{ scope.row.name }}</span>
+                    <div @click="showDetail(scope.row,'edit')" class="clickText" >{{ scope.row.name }}</div>
                 </template>
     </el-table-column>
     <el-table-column align="center" label="高校代码">
       <template slot-scope="scope">
-                    <span>{{ scope.row.code }}</span>
+                    <span>
+                        {{ scope.row.code}}</span>
                 </template>
     </el-table-column>
-    <el-table-column align="center" label="单位网址">
+    <el-table-column v-if="tfcheckStatus == 0" align="center" label="创建时间">
       <template slot-scope="scope">
                     <span>
-                        {{ scope.row.unit_url}}</span>
+                        {{ scope.row.createTime}}</span>
+                </template>
+    </el-table-column>
+    <el-table-column v-if="tfcheckStatus == 0" align="center" label="修改时间 ">
+      <template slot-scope="scope">
+                    <span>
+                        {{ scope.row.updateTime}}</span>
                 </template>
     </el-table-column>
 
-    <el-table-column align="center" label="">
-      <template slot-scope="scope">
 
-                      <div style="margin:2% 2% 2% 2%">
-                          <el-button size="small" @click="showDetail(scope.row,'edit')" type=""  class="el-icon-edit colorblue borderblue">查看详情</el-button>
-                      </div>
+
+    <el-table-column v-if="tfcheckStatus == 1" align="center" label="所属领域">
+      <template slot-scope="scope">
+                    <span>
+                        {{ scope.row.research_area}}</span>
+                </template>
+    </el-table-column>
+    <el-table-column v-if="tfcheckStatus == 1" align="center" label="信用级别">
+      <template slot-scope="scope">
+                        <span>
+                            {{ scope.row.creditLevel}}</span>
                     </template>
     </el-table-column>
+    <el-table-column v-if="tfcheckStatus == 1" align="center" label="是否可见">
+      <template slot-scope="scope">
+                        <span v-if="scope.row.status == 1">可见</span>
+                        <span v-if="scope.row.status == 0">不可见</span>
+                    </template>
+    </el-table-column>
+    <el-table-column v-if="tfcheckStatus == 1" align="center" label="发布人">
+      <template slot-scope="scope">
+                        <span>
+                            {{ scope.row.creater}}</span>
+                    </template>
+    </el-table-column>
+
+    <el-table-column v-if="tfcheckStatus == 1" align="center" label="审核用户">
+      <template slot-scope="scope">
+                        <span>
+                            {{ scope.row.creater}}</span>
+                    </template>
+    </el-table-column>
+
     <el-table-column v-if="userType =='0'" align="center" label="操作">
       <template slot-scope="scope">
-                    <div style="margin:2% 2% 2% 2%">
-                        <el-button size="small" @click="handleEdit(scope.row,'edit')" type=""  class="el-icon-edit colorblue borderblue"></el-button>
-                        <el-button size="small" @click="handleEdit(scope.row,'del')"  type=""  class="el-icon-delete colorred borderred"></el-button>
+                    <div style="">
+                      <div v-if="tfcheckStatus == 1" @click="handlexy(scope.row)" class="clickText" style="float:left">
+                        信用
+                      </div>
+                        <div v-if="tfcheckStatus == 0" @click="handlesh(scope.row)" class="clickText" style="float:left">
+                          审核
+                        </div>
+                      <div @click="handleEdit(scope.row,'edit')" class="clickText" style="float:left">
+                        编辑
+                      </div>
+                  <span v-if="scope.row.status == 1 && tfcheckStatus == 1">  <div @click="handlexj(scope.row)" class="clickText" style="float:left">
+                                            下架
+                            </div></span>
+                  <span v-if="scope.row.status == 0 && tfcheckStatus == 1">  <div @click="handlesj(scope.row)" class="clickText" style="float:left">
+                                            上架
+                  </div></span>
+
                     </div>
                 </template>
     </el-table-column>
@@ -111,6 +204,71 @@
       </span>
   </el-dialog>
 
+    <el-dialog title="信用等级" :visible.sync="dialogShowLevel" width="30%" top='5%'>
+
+      <el-form class="" label-width="30%" style="text-align:left">
+        <el-row :gutter="24">
+          <el-col :span="24">
+
+            <el-form-item label="信用等级">
+              <el-select v-model="xyset.creditLevel" style="height:30px" placeholder="请选择">
+                <el-option label="请选择" key="" value="">
+                </el-option>
+                <el-option label="1" key="1" value="1">
+                </el-option>
+                <el-option label="2" key="2" value="2">
+                </el-option>
+                <el-option label="3" key="3" value="3">
+                </el-option>
+                <el-option label="4" key="4" value="4">
+                </el-option>
+                <el-option label="5" key="5" value="4">
+                </el-option>
+              </el-select>
+            </el-form-item>
+
+          </el-col>
+
+        </el-row>
+      </el-form>
+
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" style="" @click="saveFile(xyset)">保存</el-button>
+        <el-button type="primary" @click="dialogShowLevel = false">关闭</el-button>
+      </span>
+    </el-dialog>
+
+
+    <el-dialog title="审核" :visible.sync="dialogShowSH" width="30%" top='5%'>
+
+      <el-form class="" label-width="30%" style="text-align:left">
+        <el-row :gutter="24">
+          <el-col :span="24">
+
+            <el-form-item label="审核">
+              <el-select v-model="rej.way" style="height:30px" placeholder="请选择">
+
+                <el-option label="通过" key="1" value="1">
+                </el-option>
+                <el-option label="驳回" key="2" value="2">
+                </el-option>
+              </el-select>
+            </el-form-item>
+
+
+            <el-form-item v-if="rej.way == '2'" label="驳回原因">
+              <el-input v-model="rej.info" placeholder=""></el-input>
+            </el-form-item>
+          </el-col>
+
+        </el-row>
+      </el-form>
+
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" style="" @click="saveReject(rej)">保存</el-button>
+        <el-button type="primary" @click="dialogShowSH = false">关闭</el-button>
+      </span>
+    </el-dialog>
 
 </div>
 </template>
@@ -120,11 +278,7 @@ import {
   getUserDetail,
   setUserDetail
 } from '@/api/login'
-import {
-  getcollege,
-  addLib,
-  delLib
-} from '@/api/library'
+
 
 import {
   getAllrole
@@ -136,13 +290,37 @@ import {
   pca,
   pcaa
 } from "area-data";
-
+import {
+  getcollege,
+  addLib,
+  delLib,
+  rejectUserDetail,
+  offUserDetail,
+  onUserDetail,
+  PLrejectUserDetail,
+  PLoffUserDetails,
+  updateLevel
+} from '@/api/library'
 import table2excel from 'table2excel'
 import printArea from 'printArea'
 export default {
   data() {
     return {
-      input: '',
+      rej: {
+        way: '1',
+        info: '',
+        formId: ''
+      },
+      xyset: {
+        creditLevel: '',
+        id: ''
+      },
+      input: {
+        objName: '',
+        status: '',
+        checkStatus: 1,
+        creditLevel: '',
+      },
       bank: '1',
       list: [],
       timeType: '1',
@@ -150,17 +328,14 @@ export default {
       dialogFormVisible: false,
       dialogShowRole: false,
       dialogShowDep: false,
+      dialogShowSH: false,
+      dialogShowLevel: false,
       dialogadd: false,
       dialogsave: false,
       listLoading: true,
       listQuery: {
         page: 1,
         limit: 10,
-        importance: undefined,
-        title: undefined,
-        type: undefined,
-        sort: '+id',
-        objName: ''
       },
       total: null,
       textMap: {
@@ -187,17 +362,147 @@ export default {
       treeData: [],
       loading: true,
       userType: '',
+      multipleSelection: [],
+      detailData: '',
+      tfcheckStatus: '',
     }
   },
   async mounted() {
+    if (typeof this.$route.query.checkStatus == 'number' ) {
+      this.input.checkStatus = this.$route.query.checkStatus
+    }
     this.listLoading = false
     this.loadPageList()
+    this.tfcheckStatus = this.input.checkStatus
     this.userType = window.sessionStorage.getItem('userType')
 
   },
   computed: {},
   methods: {
+    async saveFile(objdata) {
+      let {
+        data,
+        success
+      } = await updateLevel(objdata,'4')
+      this.$message({
+        message: '保存成功',
+        type: 'success'
+      });
+      this.loadPageList()
+    },
 
+    async saveReject(rej) {
+      if (rej.way == '1') {
+        let arr = []
+        arr.push(rej.formId)
+        let {
+          data,
+          success
+        } = await PLrejectUserDetail(arr)
+        if (success) {
+          this.$message({
+            message: '保存成功',
+            type: 'success'
+          });
+          this.loadPageList()
+        }
+      } else {
+        let {
+          data,
+          success
+        } = await rejectUserDetail(rej)
+        if (success) {
+          this.$message({
+            message: '保存成功',
+            type: 'success'
+          });
+          this.loadPageList()
+        }
+      }
+
+
+    },
+    handleSelectionChange(val) {
+      let arr = []
+      for (let i in val) {
+        arr.push(val[i].id)
+      }
+      this.multipleSelection = arr;
+    },
+        async plsh() {
+          let {
+            data,
+            success
+          } = await PLrejectUserDetail(this.multipleSelection)
+          if (success) {
+            this.$message({
+              type: 'success',
+              message: '审核成功!'
+            });
+            this.loadPageList()
+          }
+
+
+        },
+        async plxj() {
+          let {
+            data,
+            success
+          } = await PLoffUserDetails(this.multipleSelection,'4')
+          if (success) {
+            this.$message({
+              type: 'success',
+              message: '下架成功!'
+            });
+            this.loadPageList()
+          }
+        },
+        pldc() {
+          this.$message({
+            type: 'success',
+            message: '导出成功!'
+          });
+        },
+      handlexy(data) {
+        this.dialogShowLevel = true
+        this.xyset.id = data.id
+      },
+    handlesh(data) {
+      this.dialogShowSH = true
+      this.rej.formId = data.id
+    },
+    async handlexj(params) {
+      let obj = {}
+      obj.id = params.id
+      obj.type = '4'
+      let {
+        data,
+        success
+      } = await offUserDetail(obj)
+      if (success) {
+        this.$message({
+          message: '下架成功',
+          type: 'success'
+        });
+        this.loadPageList()
+      }
+    },
+    async handlesj(params) {
+      let obj = {}
+      obj.id = params.id
+      obj.type = '4'
+      let {
+        data,
+        success
+      } = await onUserDetail(obj)
+      if (success) {
+        this.$message({
+          message: '上架成功',
+          type: 'success'
+        });
+        this.loadPageList()
+      }
+    },
     showDetail() {
       this.dialogShowDep = true
     },
@@ -215,8 +520,15 @@ export default {
       })
     },
     async loadPageList() {
+
       if (this.input) {
-        this.listQuery.objName = this.input
+        this.listQuery.objName = this.input.objName
+        this.listQuery.status = this.input.status
+        this.listQuery.checkStatus = this.input.checkStatus
+
+        this.tfcheckStatus = this.input.checkStatus
+
+        this.listQuery.creditLevel = this.input.creditLevel
       } else {
         this.listQuery.objName = ''
       }
@@ -225,7 +537,7 @@ export default {
         success
       } = await getcollege(this.listQuery)
       if (success) {
-       this.list = data.list
+        this.list = data.list
 
         this.loading = false
       }
@@ -305,7 +617,7 @@ export default {
     },
     async saveCreate(obj) {
       // if (!this.validata.validausr(obj)) return
-      let arr ={}
+      let arr = {}
       arr.formType = '4'
       arr.detail = JSON.stringify(obj)
       let {
@@ -352,7 +664,7 @@ export default {
         this.$router.push({
           name: 'hschoolEdit',
           params: {
-            objId :data.form.id,
+            objId: data.form.id,
             objData: data.form.detail
           }
         })

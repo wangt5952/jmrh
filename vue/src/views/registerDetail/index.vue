@@ -48,7 +48,7 @@
                         <div>
                           <!--这是正面照-->
                           <div class="photo">
-                            <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="expert.cardPositive" list-type="picture">
+                            <el-upload class="upload-demo" :on-preview="handlePreview" :on-remove="handleRemove" action="/xtcx/file/upload" :file-list="expert.cardPositive" list-type="picture">
                               <el-button size="small" type="primary">点击上传</el-button>
                             </el-upload>
                             <!-- <input type="file" @change="uploadImg($event)" id="IdCard"> -->
@@ -95,16 +95,48 @@
                         <el-input placeholder="请输入毕业院校" v-model="expert.shcool" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="学历">
-                        <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
-                        <el-input placeholder="请输入学历" v-model="expert.edu" style="width:80%"></el-input>
+                        <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
+
+                        <el-select v-model="expert.edu" style="width:100px;height:30px" placeholder="请选择">
+                          <el-option label="请选择" key="" value="">
+                          </el-option>
+                          <el-option label="小学" key="1" value="1">
+                          </el-option>
+                          <el-option label="初中" key="2" value="2">
+                          </el-option>
+                          <el-option label="高中" key="3" value="3">
+                          </el-option>
+                          <el-option label="大专" key="4" value="4">
+                          </el-option>
+                          <el-option label="本科" key="5" value="5">
+                          </el-option>
+                          <el-option label="研究生" key="6" value="6">
+                          </el-option>
+                          <el-option label="博士" key="7" value="7">
+                          </el-option>
+                          <el-option label="其他" key="8" value="8">
+                          </el-option>
+                        </el-select>
                       </el-form-item>
                       <el-form-item label="学位">
-                        <el-input placeholder="请输入学位" v-model="expert.academic" style="width:80%"></el-input>
+                        <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
+                        <el-select  v-model="expert.academic" style="width:100px;height:30px" placeholder="请选择">
+                          <el-option label="请选择" key="" value="">
+                          </el-option>
+                          <el-option label="学士" key="1" value="1">
+                          </el-option>
+                          <el-option label="硕士" key="2" value="2">
+                          </el-option>
+                          <el-option label="博士" key="3" value="3">
+                          </el-option>
+                          <el-option label="其他" key="4" value="4">
+                          </el-option>
+                        </el-select>
                       </el-form-item>
                       <el-form-item label="研究领域">
                         <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
 
-                        <el-checkbox-group v-model="expert.research_field">
+                        <el-checkbox-group  v-model="expert.research_field">
                           <el-checkbox label="1">智能装备</el-checkbox>
                           <el-checkbox label="2">电子信息</el-checkbox>
                           <el-checkbox label="3">新材料 </el-checkbox>
@@ -139,12 +171,15 @@
                     <el-col :span="20">
 
                       <el-form-item label="现任职务">
+                        <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
                         <el-input placeholder="请输入现任职务" v-model="expert.zwname" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="职称">
+                        <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
                         <el-input placeholder="请输入职称" v-model="expert.zcname" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="职称级别">
+                        <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
                         <el-checkbox-group v-model="expert.zclevel">
                           <el-checkbox label="1">正高</el-checkbox>
                           <el-checkbox label="2">副高</el-checkbox>
@@ -153,6 +188,10 @@
                       <el-form-item label="工作单位">
                         <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
                         <el-input placeholder="请输入职称" v-model="expert.work_unit" style="width:80%"></el-input>
+                      </el-form-item>
+                      <el-form-item label="工作部门">
+                        <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                        <el-input placeholder="请输入工作部门" v-model="expert.work_BM" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="手机号">
                         <span style='position: relative;left: -60px;color: #f60d0d;'>*</span>
@@ -190,8 +229,12 @@
                 <el-form class="" label-width="30%" style="text-align:left">
                   <el-row :gutter="24">
                     <el-col :span="24">
-                      <textarea v-model="expert.success_record" rows="3" cols="20" style="width:100%;height: 350px;">
-                      </textarea>
+                      <el-form-item label="主要学术成就/研究成果/管理成就">
+                        <span style='position: absolute;left: -230px;color: #f60d0d;'>*</span>
+                        <textarea v-model="expert.success_record" rows="3" cols="20" style="width:60%;height: 350px;">
+                        </textarea>
+                      </el-form-item>
+
                     </el-col>
 
                     <el-col :span="10">
@@ -206,8 +249,10 @@
                 <el-form class="" label-width="30%" style="text-align:left">
                   <el-row :gutter="24">
                     <el-col :span="24">
-                      <textarea v-model="expert.project_desc" rows="3" cols="20" style="width:100%;height: 350px;">
-                      </textarea>
+                      <el-form-item label="主要产学研合作项目情况（国防军工类项目）">
+                        <textarea v-model="expert.project_desc" rows="3" cols="20" style="width:60%;height: 350px;">
+                        </textarea>
+                      </el-form-item>
                     </el-col>
 
                     <el-col :span="10">
@@ -232,39 +277,41 @@
 
                         <el-table-column align="center" label="项目或课题名称">
                           <template slot-scope="scope">
-                          <input  type="text" v-model="scope.row.projectname">
+                          <input  type="text" v-model="scope.row.projectname" style="width: 50%;">
                                           </template>
                         </el-table-column>
                         <el-table-column align="center" label="项目或课题来源">
                           <template slot-scope="scope">
                                                 <span>
-                                                  <input  type="text" v-model="scope.row.projectSrc">
+                                                  <input  type="text" v-model="scope.row.projectSrc" style="width: 50%;">
                                                 </span>
                                             </template>
                         </el-table-column>
                         <el-table-column align="center" label="完成情况">
                           <template slot-scope="scope">
-                          <input  type="text" v-model="scope.row.finishcon">
+                          <input  type="text" v-model="scope.row.finishcon" style="width: 50%;">
                                           </template>
                         </el-table-column>
                         <el-table-column align="center" label="完成时间">
                           <template slot-scope="scope">
-                          <input  type="text" v-model="scope.row.finishtime">
+                          <el-date-picker v-model="scope.row.finishtime" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期" style="width: 70%;">
+                          </el-date-picker>
                                           </template>
                         </el-table-column>
                         <el-table-column align="center" label="奖项名称">
                           <template slot-scope="scope">
-                          <input  type="text" v-model="scope.row.rewname">
+                          <input  type="text" v-model="scope.row.rewname" style="width: 50%;">
                                           </template>
                         </el-table-column>
                         <el-table-column align="center" label="获奖等级">
                           <template slot-scope="scope">
-                          <input  type="text" v-model="scope.row.rewlevel">
+                          <input  type="text" v-model="scope.row.rewlevel" style="width: 50%;">
                                           </template>
                         </el-table-column>
                         <el-table-column align="center" label="获奖时间">
                           <template slot-scope="scope">
-                          <input  type="text" v-model="scope.row.rewtime">
+                          <el-date-picker v-model="scope.row.rewtime" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期" style="width: 70%;">
+                          </el-date-picker>
                                           </template>
                         </el-table-column>
                       </el-table>
@@ -1274,6 +1321,7 @@ export default {
         zcname: '',
         zclevel: [],
         work_unit: '',
+        work_BM: '',
         mobilephone: '',
         telphone: '',
         fdemail: '',
@@ -1433,7 +1481,6 @@ export default {
   async mounted() {
 
     if (this.$route.params.userType) {
-      debugger
       this.userType = this.$route.params.userType
       this.code = this.$route.params.code
       let {
@@ -1453,6 +1500,19 @@ export default {
           if (data.form.formType == '1') {
             this.expert = JSON.parse(data.form.detail)
             this.expert.code = this.code
+            if(!this.expert.cardPositive){
+              this.expert.cardPositive  =  []
+            }
+            if(!this.expert.cardSide){
+              this.expert.cardSide  =  []
+            }
+            if(!this.expert.cardHands){
+              this.expert.cardHands  =  []
+            }
+
+            if(!this.expert.onepicture){
+              this.expert.onepicture  =  []
+            }
           }
           if (data.form.formType == '2') {
             this.com = JSON.parse(data.form.detail)
@@ -1492,6 +1552,23 @@ export default {
 
   },
   methods: {
+
+      async handleAvatarSuccess(res, file) {
+        let base64 = this.img2base64(file.url)
+        let obj = {}
+        obj.img
+        let {
+          data,
+          success
+        } = await libupload2(this.urlencode(base64))
+        if (success) {
+          let arro = {}
+          arro.name = data
+          arro.url = `http://106.14.172.38:8990/jmrhupload/user/` + data
+
+          this.demandLibrary.cardSide.push(arro)
+        }
+      },
     handleChange1(file, fileList) {
       let obj = {}
       obj.name = fileList.slice(-3)[0].name
@@ -1523,6 +1600,7 @@ export default {
       this.per.cardHands = []
     },
     handlePreview(file) {
+      debugger
       console.log(file);
     },
     uploadImg: function(event) {
@@ -1537,7 +1615,6 @@ export default {
     },
     async saveFile(obj) {
       // if (!this.validata.validaRole(obj)) return
-
       let arr = []
       obj.method = 'post'
       let {

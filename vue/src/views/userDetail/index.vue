@@ -19,6 +19,8 @@
               <el-form-item label="性别">
                 <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
                 <el-select v-model="expert.sex" style="width:100px" placeholder="请选择">
+                  <el-option label="请选择" key="" value="">
+                  </el-option>
                   <el-option label="男" key="1" value='1'>
                   </el-option>
                   <el-option label="女" key="0" value='0'>
@@ -40,7 +42,7 @@
                 <div>
                   <!--这是正面照-->
                   <div class="photo">
-                    <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="expert.cardPositive" list-type="picture">
+                    <el-upload :on-success="handleAvatarSuccess" class="upload-demo" action="/xtcx/file/upload" :file-list="expert.cardPositive" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
                     <!-- <input type="file" @change="uploadImg($event)" id="IdCard"> -->
@@ -87,11 +89,43 @@
                 <el-input placeholder="请输入毕业院校" v-model="expert.shcool" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="学历">
-                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入学历" v-model="expert.edu" style="width:80%"></el-input>
+                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
+
+                <el-select v-model="expert.edu" style="width:100px;height:30px" placeholder="请选择">
+                  <el-option label="请选择" key="" value="">
+                  </el-option>
+                  <el-option label="小学" key="1" value="1">
+                  </el-option>
+                  <el-option label="初中" key="2" value="2">
+                  </el-option>
+                  <el-option label="高中" key="3" value="3">
+                  </el-option>
+                  <el-option label="大专" key="4" value="4">
+                  </el-option>
+                  <el-option label="本科" key="5" value="5">
+                  </el-option>
+                  <el-option label="研究生" key="6" value="6">
+                  </el-option>
+                  <el-option label="博士" key="7" value="7">
+                  </el-option>
+                  <el-option label="其他" key="8" value="8">
+                  </el-option>
+                </el-select>
               </el-form-item>
               <el-form-item label="学位">
-                <el-input placeholder="请输入学位" v-model="expert.academic" style="width:80%"></el-input>
+                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
+                <el-select v-model="expert.academic" style="width:100px;height:30px" placeholder="请选择">
+                  <el-option label="请选择" key="" value="">
+                  </el-option>
+                  <el-option label="学士" key="1" value="1">
+                  </el-option>
+                  <el-option label="硕士" key="2" value="2">
+                  </el-option>
+                  <el-option label="博士" key="3" value="3">
+                  </el-option>
+                  <el-option label="其他" key="4" value="4">
+                  </el-option>
+                </el-select>
               </el-form-item>
               <el-form-item label="研究领域">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
@@ -131,12 +165,15 @@
             <el-col :span="20">
 
               <el-form-item label="现任职务">
+                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入现任职务" v-model="expert.zwname" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="职称">
+                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入职称" v-model="expert.zcname" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="职称级别">
+                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
                 <el-checkbox-group v-model="expert.zclevel">
                   <el-checkbox label="1">正高</el-checkbox>
                   <el-checkbox label="2">副高</el-checkbox>
@@ -145,6 +182,11 @@
               <el-form-item label="工作单位">
                 <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入职称" v-model="expert.work_unit" style="width:80%"></el-input>
+              </el-form-item>
+
+              <el-form-item label="工作部门">
+                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                <el-input placeholder="请输入工作部门" v-model="expert.work_BM" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="手机号">
                 <span style='position: relative;left: -60px;color: #f60d0d;'>*</span>
@@ -182,8 +224,12 @@
         <el-form class="" label-width="30%" style="text-align:left">
           <el-row :gutter="24">
             <el-col :span="24">
-              <textarea v-model="expert.success_record" rows="3" cols="20" style="width:100%;height: 350px;">
-              </textarea>
+              <el-form-item label="主要学术成就/研究成果/管理成就">
+                <span style='position: absolute;left: -230px;color: #f60d0d;'>*</span>
+                <textarea v-model="expert.success_record" rows="3" cols="20" style="width:60%;height: 350px;">
+                </textarea>
+              </el-form-item>
+
             </el-col>
 
             <el-col :span="10">
@@ -198,8 +244,10 @@
         <el-form class="" label-width="30%" style="text-align:left">
           <el-row :gutter="24">
             <el-col :span="24">
-              <textarea v-model="expert.project_desc" rows="3" cols="20" style="width:100%;height: 350px;">
-              </textarea>
+              <el-form-item label="主要产学研合作项目情况（国防军工类项目）">
+                <textarea v-model="expert.project_desc" rows="3" cols="20" style="width:100%;height: 350px;">
+                </textarea>
+              </el-form-item>
             </el-col>
 
             <el-col :span="10">
@@ -220,43 +268,45 @@
               <el-button size="small" @click="addProjectexpert()">
                 添加课题
               </el-button>
-              <el-table class="tableH" :data="expert.research_record" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
+              <el-table class="tableH" :data="expert.research_record" border style="margin-top:20px;width:60%;font-size:12px;overflow-y:auto">
 
                 <el-table-column align="center" label="项目或课题名称">
                   <template slot-scope="scope">
-                  <input  type="text" v-model="scope.row.projectname">
+                  <input  type="text" v-model="scope.row.projectname" style="width: 50%;">
                                   </template>
                 </el-table-column>
                 <el-table-column align="center" label="项目或课题来源">
                   <template slot-scope="scope">
                                         <span>
-                                          <input  type="text" v-model="scope.row.projectSrc">
+                                          <input  type="text" v-model="scope.row.projectSrc" style="width: 50%;">
                                         </span>
                                     </template>
                 </el-table-column>
                 <el-table-column align="center" label="完成情况">
                   <template slot-scope="scope">
-                  <input  type="text" v-model="scope.row.finishcon">
+                  <input  type="text" v-model="scope.row.finishcon" style="width: 50%;">
                                   </template>
                 </el-table-column>
                 <el-table-column align="center" label="完成时间">
                   <template slot-scope="scope">
-                  <input  type="text" v-model="scope.row.finishtime">
+                  <el-date-picker v-model="scope.row.finishtime" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期" style="width: 70%;">
+                  </el-date-picker>
                                   </template>
                 </el-table-column>
-                <el-table-column align="center" label="奖项名称">
+                <el-table-column align="center" label="奖项名称" style="width: 50%;">
                   <template slot-scope="scope">
                   <input  type="text" v-model="scope.row.rewname">
                                   </template>
                 </el-table-column>
                 <el-table-column align="center" label="获奖等级">
                   <template slot-scope="scope">
-                  <input  type="text" v-model="scope.row.rewlevel">
+                  <input  type="text" v-model="scope.row.rewlevel" style="width: 50%;">
                                   </template>
                 </el-table-column>
                 <el-table-column align="center" label="获奖时间">
                   <template slot-scope="scope">
-                  <input  type="text" v-model="scope.row.rewtime">
+                  <el-date-picker v-model="scope.row.rewtime" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期" style="width: 70%;">
+                  </el-date-picker>
                                   </template>
                 </el-table-column>
               </el-table>
@@ -616,18 +666,18 @@
               <el-form-item label="是否承担过武器装备科研生产任务">
                 <span style='position: absolute;left: -230px;color: #f60d0d;'>*</span>
                 <el-checkbox-group v-model="com.sfkyrw">
-                  <el-checkbox  label="1">是</el-checkbox>
-                  <el-checkbox  label="2">否</el-checkbox>
+                  <el-checkbox label="1">是</el-checkbox>
+                  <el-checkbox label="2">否</el-checkbox>
                 </el-checkbox-group>
               </el-form-item>
 
               <el-form-item label="“三证”已获得">
                 <span style='position: absolute;left: -100px;color: #f60d0d;'>*</span>
                 <el-checkbox-group v-model="com.szget">
-                <el-checkbox label="1">武器装备科研生产单位保密资格认证（一级、二级、三级） </el-checkbox>
-                <el-checkbox label="2">武器装备科研生产许可证 </el-checkbox>
-                <el-checkbox label="3">装备承制单位资格认证 </el-checkbox>
-              </el-checkbox-group>
+                  <el-checkbox label="1">武器装备科研生产单位保密资格认证（一级、二级、三级） </el-checkbox>
+                  <el-checkbox label="2">武器装备科研生产许可证 </el-checkbox>
+                  <el-checkbox label="3">装备承制单位资格认证 </el-checkbox>
+                </el-checkbox-group>
               </el-form-item>
               <el-form-item label="取得时间">
                 <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
@@ -638,40 +688,40 @@
               <el-form-item label="“三证”未获得是否计划申请">
                 <span style='position: absolute;left: -190px;color: #f60d0d;'>*</span>
                 <el-checkbox-group v-model="com.szwhd">
-                <el-checkbox  label="1">是 </el-checkbox>
-                <el-checkbox  label="2">否 </el-checkbox>
-              </el-checkbox-group>
+                  <el-checkbox label="1">是 </el-checkbox>
+                  <el-checkbox label="2">否 </el-checkbox>
+                </el-checkbox-group>
               </el-form-item>
 
               <el-form-item label="军民融合建设管理情况">
                 <span style='position: absolute;left: -160px;color: #f60d0d;'>*</span>
                 <el-checkbox-group v-model="com.jmrhgn">
-                <el-checkbox  label="1">内设专门机构</el-checkbox>
-                <el-checkbox  label="2">设有专项经费</el-checkbox>
-                <el-checkbox  label="3">有专人负责 </el-checkbox>
-              </el-checkbox-group>
+                  <el-checkbox label="1">内设专门机构</el-checkbox>
+                  <el-checkbox label="2">设有专项经费</el-checkbox>
+                  <el-checkbox label="3">有专人负责 </el-checkbox>
+                </el-checkbox-group>
               </el-form-item>
               <el-form-item label="“民参军”过程中，遇到的障碍及困难">
                 <span style='position: absolute;left: -240px;color: #f60d0d;'>*</span>
                 <el-checkbox-group v-model="com.ydkn">
-                <el-checkbox  label="1">需求信息</el-checkbox>
-                <el-checkbox  label="2">产品准入</el-checkbox>
-                <el-checkbox  label="3">人才保障 </el-checkbox>
-                <el-checkbox  label="4">审批程序 </el-checkbox>
-                <el-checkbox  label="5">资质认证 </el-checkbox>
-                <el-checkbox  label="6">无人管理 </el-checkbox>
-                <el-checkbox  label="7">其他 </el-checkbox>
-                <el-input v-if="com.ydkn.includes('7')" placeholder="请输入其他" v-model="com.comydknOther" style="width:80%"></el-input>
-              </el-checkbox-group>
+                  <el-checkbox label="1">需求信息</el-checkbox>
+                  <el-checkbox label="2">产品准入</el-checkbox>
+                  <el-checkbox label="3">人才保障 </el-checkbox>
+                  <el-checkbox label="4">审批程序 </el-checkbox>
+                  <el-checkbox label="5">资质认证 </el-checkbox>
+                  <el-checkbox label="6">无人管理 </el-checkbox>
+                  <el-checkbox label="7">其他 </el-checkbox>
+                  <el-input v-if="com.ydkn.includes('7')" placeholder="请输入其他" v-model="com.comydknOther" style="width:80%"></el-input>
+                </el-checkbox-group>
               </el-form-item>
               <el-form-item label="“民参军”过程中企业自身存在的问题">
                 <span style='position: absolute;left: -240px;color: #f60d0d;'>*</span>
                 <el-checkbox-group v-model="com.problem">
-                <el-checkbox  label="1">技术人才不足</el-checkbox>
-                <el-checkbox  label="2">资金保障困难</el-checkbox>
-                <el-checkbox  label="3">保密设施设备不足 </el-checkbox>
-                <el-checkbox  label="4">需求信息不了解 </el-checkbox>
-              </el-checkbox-group>
+                  <el-checkbox label="1">技术人才不足</el-checkbox>
+                  <el-checkbox label="2">资金保障困难</el-checkbox>
+                  <el-checkbox label="3">保密设施设备不足 </el-checkbox>
+                  <el-checkbox label="4">需求信息不了解 </el-checkbox>
+                </el-checkbox-group>
               </el-form-item>
 
               <el-form-item label="有参军潜力的技术成果">
@@ -679,22 +729,22 @@
               </el-form-item>
 
               <el-form-item label="服务部门">
-              <el-checkbox-group v-model="com.fwbm">
-                <el-checkbox  label="1">海军</el-checkbox>
-                <el-checkbox  label="2">陆军</el-checkbox>
-                <el-checkbox  label="3">空军</el-checkbox>
-                <el-checkbox  label="4">火箭军</el-checkbox>
-                <el-checkbox  label="5">战略支援部队</el-checkbox>
-                <el-checkbox  label="6">军工企业</el-checkbox>
-              </el-checkbox-group>
+                <el-checkbox-group v-model="com.fwbm">
+                  <el-checkbox label="1">海军</el-checkbox>
+                  <el-checkbox label="2">陆军</el-checkbox>
+                  <el-checkbox label="3">空军</el-checkbox>
+                  <el-checkbox label="4">火箭军</el-checkbox>
+                  <el-checkbox label="5">战略支援部队</el-checkbox>
+                  <el-checkbox label="6">军工企业</el-checkbox>
+                </el-checkbox-group>
               </el-form-item>
 
               <el-form-item label="执行情况">
-              <el-checkbox-group v-model="com.zxqk">
-                <el-checkbox  label="1">申请</el-checkbox>
-                <el-checkbox  label="2">在研</el-checkbox>
-                <el-checkbox  label="3">验收/结题 </el-checkbox>
-              </el-checkbox-group>
+                <el-checkbox-group v-model="com.zxqk">
+                  <el-checkbox label="1">申请</el-checkbox>
+                  <el-checkbox label="2">在研</el-checkbox>
+                  <el-checkbox label="3">验收/结题 </el-checkbox>
+                </el-checkbox-group>
               </el-form-item>
               <el-form-item label="可用于军民融合共享的资源情况（不超过200字）">
 
@@ -887,31 +937,31 @@
 
               <el-form-item label="机构性质">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
-                  <el-checkbox-group v-model="mech.registerNature">
-                <el-checkbox label="1">企业</el-checkbox>
-                <el-checkbox label="2">科研院所</el-checkbox>
-                <el-checkbox label="3">高等院校 </el-checkbox>
-                <el-checkbox label="4">其他</el-checkbox>
-                <el-input v-if="mech.registerNature.includes('4')" placeholder="请输入其他" v-model="mech.mechregisterNatureOther" style="width:80%"></el-input>
-              </el-checkbox-group>
+                <el-checkbox-group v-model="mech.registerNature">
+                  <el-checkbox label="1">企业</el-checkbox>
+                  <el-checkbox label="2">科研院所</el-checkbox>
+                  <el-checkbox label="3">高等院校 </el-checkbox>
+                  <el-checkbox label="4">其他</el-checkbox>
+                  <el-input v-if="mech.registerNature.includes('4')" placeholder="请输入其他" v-model="mech.mechregisterNatureOther" style="width:80%"></el-input>
+                </el-checkbox-group>
               </el-form-item>
 
               <el-form-item label="机构类别">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
-                  <el-checkbox-group v-model="mech.org_type">
-                <el-checkbox  label="1">研究开发</el-checkbox>
-                <el-checkbox  label="2">科技投融资</el-checkbox>
-                <el-checkbox  label="3">技术转移 </el-checkbox>
-                <el-checkbox  label="4">检验检测</el-checkbox>
-                <el-checkbox  label="5">创业孵化</el-checkbox>
-                <el-checkbox  label="6">知识产权</el-checkbox>
-                <el-checkbox  label="7">科技评估</el-checkbox>
-                <el-checkbox  label="8">标准认证</el-checkbox>
-                <el-checkbox  label="9">管理咨询</el-checkbox>
-                <el-checkbox  label="10">综合科技服务</el-checkbox>
-                <el-checkbox  label="11">其他</el-checkbox>
-                <el-input v-if="mech.org_type.includes('11')" placeholder="请输入其他" v-model="mech.mechorg_typeOther" style="width:80%"></el-input>
-              </el-checkbox-group>
+                <el-checkbox-group v-model="mech.org_type">
+                  <el-checkbox label="1">研究开发</el-checkbox>
+                  <el-checkbox label="2">科技投融资</el-checkbox>
+                  <el-checkbox label="3">技术转移 </el-checkbox>
+                  <el-checkbox label="4">检验检测</el-checkbox>
+                  <el-checkbox label="5">创业孵化</el-checkbox>
+                  <el-checkbox label="6">知识产权</el-checkbox>
+                  <el-checkbox label="7">科技评估</el-checkbox>
+                  <el-checkbox label="8">标准认证</el-checkbox>
+                  <el-checkbox label="9">管理咨询</el-checkbox>
+                  <el-checkbox label="10">综合科技服务</el-checkbox>
+                  <el-checkbox label="11">其他</el-checkbox>
+                  <el-input v-if="mech.org_type.includes('11')" placeholder="请输入其他" v-model="mech.mechorg_typeOther" style="width:80%"></el-input>
+                </el-checkbox-group>
               </el-form-item>
 
               <el-form-item label="可提供的服务简介（200字以内">
@@ -981,19 +1031,19 @@
             <el-col :span="20">
               <el-form-item label="资助方式">
                 <el-checkbox-group v-model="mech.registerSupport">
-                <el-checkbox label="1">拨款</el-checkbox>
-                <el-checkbox label="2">贴息</el-checkbox>
-                <el-checkbox label="3">减免税 </el-checkbox>
-                <el-checkbox label="4">以上全无</el-checkbox>
-                <el-checkbox label="5">其他</el-checkbox>
-                <el-input v-if="mech.registerSupport.includes('5')" placeholder="请输入其他" v-model="mech.mechregisterSupportOther" style="width:80%"></el-input>
+                  <el-checkbox label="1">拨款</el-checkbox>
+                  <el-checkbox label="2">贴息</el-checkbox>
+                  <el-checkbox label="3">减免税 </el-checkbox>
+                  <el-checkbox label="4">以上全无</el-checkbox>
+                  <el-checkbox label="5">其他</el-checkbox>
+                  <el-input v-if="mech.registerSupport.includes('5')" placeholder="请输入其他" v-model="mech.mechregisterSupportOther" style="width:80%"></el-input>
                 </el-checkbox-group>
               </el-form-item>
               <el-form-item label="执行情况">
                 <el-checkbox-group v-model="mech.registerImplement">
-                <el-checkbox  label="1">申请</el-checkbox>
-                <el-checkbox  label="2">在研</el-checkbox>
-                <el-checkbox  label="3">验收/结题 </el-checkbox>
+                  <el-checkbox label="1">申请</el-checkbox>
+                  <el-checkbox label="2">在研</el-checkbox>
+                  <el-checkbox label="3">验收/结题 </el-checkbox>
                 </el-checkbox-group>
               </el-form-item>
 
@@ -1223,9 +1273,13 @@ import {
 } from '@/api/role'
 import {
   getUserDetail,
-  setUserDetail
+  setUserDetail,
+  isInLibs
 } from '@/api/login'
 
+import {
+  libupload2
+} from '@/api/library'
 export default {
   data() {
     return {
@@ -1256,12 +1310,13 @@ export default {
         edu: '',
         academic: '',
         research_field: [],
-        research_fieldOther:'',
+        research_fieldOther: '',
         research_area: '',
         zwname: '',
         zcname: '',
         zclevel: [],
         work_unit: '',
+        work_BM: '',
         mobilephone: '',
         telphone: '',
         fdemail: '',
@@ -1298,9 +1353,9 @@ export default {
         logo: [],
         code: '',
         registerNature: [],
-        mechregisterNatureOther:'',
+        mechregisterNatureOther: '',
         org_type: [],
-        mechorg_typeOther:'',
+        mechorg_typeOther: '',
         serviceAbout: '',
         service_amount_last: '',
         service_amount_before: '',
@@ -1310,7 +1365,7 @@ export default {
         service_quantity_previous: '',
         registerImplement: [],
         registerSupport: [],
-        mechregisterSupportOther:'',
+        mechregisterSupportOther: '',
         honor: [{
           name: '',
           time: '',
@@ -1363,13 +1418,13 @@ export default {
         registerecode: '',
         is_high_new_tech: [],
         registerSite: [],
-        registerSiteOther:'',
+        registerSiteOther: '',
         registerHSite: [],
-        registerHSiteOther:'',
+        registerHSiteOther: '',
         registerMarket: [],
         registerMarkeSite: [],
         domain: [],
-        comdomainOther :'',
+        comdomainOther: '',
         product: '',
         inventionNum: '',
         newDrugnum: '',
@@ -1384,7 +1439,7 @@ export default {
         middleLevelnum: '',
         highleveltalentsnum: '',
         highleveltalentType: [],
-        comhighleveltalentTypeOther:'',
+        comhighleveltalentTypeOther: '',
         service_research_last: '',
         service_research_before: '',
         service_research_previous: '',
@@ -1395,7 +1450,7 @@ export default {
         szwhd: [],
         jmrhgn: [],
         ydkn: [],
-        comydknOther:'',
+        comydknOther: '',
         problem: [],
         jscg: '',
         zyqk: '',
@@ -1417,15 +1472,19 @@ export default {
     }
     if (this.userType == '1') {
       this.titleName = '专家资料完善'
-    } else if (this.userType == '2') {
 
+    } else if (this.userType == '2') {
       this.titleName = '企业资料完善'
+
     } else if (this.userType == '3') {
       this.titleName = '服务机构资料完善'
+
     } else if (this.userType == '4') {
       this.titleName = '高效院所资料完善'
+
     }
-    // this.loadPageList()
+
+    this.loadPageList()
     var myDate = new Date();
     this.service_amount_lastt = myDate.getFullYear() + '年服务收入（万元）';
     this.service_amount_beforet = parseInt(myDate.getFullYear() - 1) + '年服务收入（万元）';
@@ -1442,6 +1501,22 @@ export default {
   },
   computed: {},
   methods: {
+    async handleAvatarSuccess(res, file,path) {
+      let base64 = this.img2base64(file.url)
+      let obj = {}
+      obj.img
+      let {
+        data,
+        success
+      } = await libupload2(this.urlencode(base64))
+      if (success) {
+        let arro = {}
+        arro.name = data
+        arro.url = `http://106.14.172.38:8990/jmrhupload/user/` + data
+
+        this.demandLibrary[path].push(arro)
+      }
+    },
     async loadPageList() {
       let {
         data,
@@ -1449,12 +1524,37 @@ export default {
       } = await getUserDetail()
       if (this.userType == '1') {
         this.expert = JSON.parse(data.detail)
+        if(!this.expert.cardPositive){
+          this.expert.cardPositive  =  []
+        }
+        if(!this.expert.cardSide){
+          this.expert.cardSide  =  []
+        }
+        if(!this.expert.cardHands){
+          this.expert.cardHands  =  []
+        }
+
+        if(!this.expert.onepicture){
+          this.expert.onepicture  =  []
+        }
       } else if (this.userType == '2') {
         this.com = JSON.parse(data.detail)
       } else if (this.userType == '3') {
         this.mech = JSON.parse(data.detail)
       } else if (this.userType == '4') {
         this.school = JSON.parse(data.detail)
+      }
+      if(data.checkStatus=0){
+        this.$message({
+          message: '您的提交的信息等待审核中...',
+          type: 'success'
+        });
+      }
+      if(data.checkStatus=2){
+        this.$message({
+          message: '您的信息已被驳回。',
+          type: 'success'
+        });
       }
       this.loading = false
     },

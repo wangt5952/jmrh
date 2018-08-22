@@ -346,10 +346,21 @@
   </div>
 
   <el-row>
-    <div style="padding-left: 35%;margin: 40px 0  0  0;">
-      <el-button type="primary" style="width: 120px;" @click="saveFile(mech)">保存</el-button>
-      <el-button type="primary" style="width: 120px;" @click="back">返回</el-button>
-    </div>
+
+      <div style="padding-left: 35%;margin: 40px 0  0  0;">
+        <div class="" style="padding:15px" v-if="!$route.params.objData">
+          <el-radio-group v-model="checkStatus">
+            <el-radio :label="-1">草稿</el-radio>
+            <el-radio :label="0">提交待审</el-radio>
+            <el-radio :label="1">直接审核</el-radio>
+          </el-radio-group>
+        </div>
+        <div class="">
+          <el-button type="primary" style="width: 120px;" @click="saveFile(checkStatus)">保存</el-button>
+          <el-button type="primary" style="width: 120px;" @click="back">返回</el-button>
+        </div>
+
+      </div>
   </el-row>
 
 
@@ -443,6 +454,7 @@ export default {
         lxzw: '',
         linkman: ''
       },
+      checkStatus:-1
     }
   },
   async mounted() {
@@ -456,11 +468,12 @@ export default {
     back() {
       window.history.go(-1);
     },
-    async saveFile(obj) {
+    async saveFile(checkStatus) {
       // if (!this.validata.validaRole(obj)) return
 
       let arr = {}
       arr.formType = '3'
+      arr.checkStatus = checkStatus
       arr.id = this.$route.params.objId
       arr.detail = JSON.stringify(this.mech)
       let {

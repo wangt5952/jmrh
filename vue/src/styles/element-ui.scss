@@ -8,7 +8,9 @@
 .el-upload__input {
   display: none;
 }
-
+.el-table td, .el-table th.is-leaf {
+    text-align: center;
+}
 //暂时性解决diolag 问题 https://github.com/ElemeFE/element/issues/2461
 .el-dialog {
   transform: none;
@@ -16,7 +18,11 @@
   position: relative;
   margin: 0 auto;
 }
-
+.el-button {
+  height: 30px!important;
+  line-height: 30px!important;
+  padding: 0 20px!important;
+}
 //element ui upload
 .upload-container {
   .el-upload {
@@ -26,4 +32,37 @@
       height: 200px;
     }
   }
+}
+.el-upload--picture-card i {
+  font-size: 16px;
+  color: #8c939d;
+}
+.editor-content img{
+  width: 120px;
+}
+.el-upload--picture-card {
+  background-color: #fbfdff;
+  border: 1px dashed #c0ccda;
+  border-radius: 6px;
+  box-sizing: border-box;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  vertical-align: top;
+}
+
+.el-upload-list--picture-card .el-upload-list__item {
+  overflow: hidden;
+  background-color: #fff;
+  border: 1px solid #c0ccda;
+  border-radius: 6px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 50px;
+  height: 50px;
+  margin: 0 8px 8px 0;
+  display: inline-block;
+}
+.el-table .cell, .el-table th div, .el-table--border td:first-child .cell, .el-table--border th:first-child .cell {
+    padding-left: 0px;
 }

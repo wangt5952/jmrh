@@ -2,37 +2,30 @@
  * Created by gyx on 18/03/16.
  */
 
-export function parseTime(time, cFormat) {
-  if (arguments.length === 0) {
-    return null
-  }
-  const format = cFormat || '{y}-{m}-{d} {h}:{i}:{s}'
-  let date
-  if (typeof time === 'object') {
-    date = time
-  } else {
-    if (('' + time).length === 10) time = parseInt(time) * 1000
-    date = new Date(time)
-  }
-  const formatObj = {
-    y: date.getFullYear(),
-    m: date.getMonth() + 1,
-    d: date.getDate(),
-    h: date.getHours(),
-    i: date.getMinutes(),
-    s: date.getSeconds(),
-    a: date.getDay()
-  }
-  const time_str = format.replace(/{(y|m|d|h|i|s|a)+}/g, (result, key) => {
-    let value = formatObj[key]
-    if (key === 'a') return ['一', '二', '三', '四', '五', '六', '日'][value - 1]
-    if (result.length > 0 && value < 10) {
-      value = '0' + value
-    }
-    return value || 0
-  })
-  return time_str
-}
+ // function to encode file data to base64 encoded string
+ export function base64_encode(file) {
+     // read binary data
+     return new Buffer(file).toString('base64');
+ }
+
+ // function to create file from base64 encoded string
+// export function base64_decode(base64str, file) {
+//      // create buffer object from base64 encoded string, it is important to tell the constructor that the string is base64 encoded
+//      var bitmap = new Buffer(base64str, 'base64');
+//      // write buffer to file
+//      fs.writeFileSync(file, bitmap);
+//      console.log('******** File created from base64 encoded string ********');
+//  }
+//  export function base64_file(base64str,file){
+//  	var bitmap = new Buffer(base64str);
+//  	fs.writeFileSync(file, bitmap);
+//  	console.log('******** base64 encoded string ********');
+//  }
+ // input
+ // var base64str = base64_encode('1.png');
+ // // output
+ // base64_file(base64str,'1.png.base64.txt')
+ // base64_decode(base64str,'2.png');
 
 export function formatTime(time, option) {
   time = +time * 1000

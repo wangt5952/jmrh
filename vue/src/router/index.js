@@ -26,6 +26,9 @@ const role = r => require.ensure([], () => r(require("@/views/role/index")), 'ro
 const tree = r => require.ensure([], () => r(require("@/views/tree/index")), 'tree');
 const columnManage = r => require.ensure([], () => r(require("@/views/columnManage/index")), 'columnManage');
 const contentManage = r => require.ensure([], () => r(require("@/views/contentManage/index")), 'contentManage');
+const contentEdit = r => require.ensure([], () => r(require("@/views/contentManage/edit/index")), 'contentEdit');
+const activeManage = r => require.ensure([], () => r(require("@/views/activeManage/index")), 'activeManage');
+const activeEdit = r => require.ensure([], () => r(require("@/views/activeManage/edit/index")), 'activeEdit');
 const expert = r => require.ensure([], () => r(require("@/views/expert/index")), 'expert');
 const expertEdit = r => require.ensure([], () => r(require("@/views/expert/edit/index")), 'expert');
 const enterprise = r => require.ensure([], () => r(require("@/views/enterprise/index")), 'enterprise');
@@ -34,9 +37,11 @@ const hschool = r => require.ensure([], () => r(require("@/views/hschool/index")
 const hschoolEdit = r => require.ensure([], () => r(require("@/views/hschool/edit/index")), 'hschool');
 const mechanism = r => require.ensure([], () => r(require("@/views/mechanism/index")), 'mechanism');
 const mechanismEdit = r => require.ensure([], () => r(require("@/views/mechanism/edit/index")), 'mechanism');
-const demandLibrary = r => require.ensure([], () => r(require("@/views/demandLibrary/index")), 'demandLibrary');
-const achieveLibrary = r => require.ensure([], () => r(require("@/views/achieveLibrary/index")), 'achieveLibrary');
 
+const demandLibrary = r => require.ensure([], () => r(require("@/views/demandLibrary/index")), 'demandLibrary');
+const achieveLibraryEdit = r => require.ensure([], () => r(require("@/views/achieveLibrary/edit/index")), 'achieveLibrary');
+const achieveLibrary = r => require.ensure([], () => r(require("@/views/achieveLibrary/index")), 'achieveLibrary');
+const demandLibraryEdit = r => require.ensure([], () => r(require("@/views/demandLibrary/edit/index")), 'demandLibrary');
 
 const buttExpert = r => require.ensure([], () => r(require("@/views/butt/buttExpert/index")), 'buttExpert');
 const buttDemand = r => require.ensure([], () => r(require("@/views/butt/buttDemand/index")), 'buttDemand');
@@ -230,6 +235,35 @@ export const constantRouterMap = [{
         title: '内容管理',
         icon: 'table'
       }
+    },{
+      path: 'contentEdit',
+      name: 'contentEdit',
+      component: contentEdit,
+      hidden: true,
+      leaf: true,
+      meta: {
+        title: '内容编辑',
+        icon: 'table'
+      }
+    },{
+      path: 'activeManage',
+      name: '活动管理',
+      component: activeManage,
+      leaf: true,
+      meta: {
+        title: '活动管理',
+        icon: 'table'
+      }
+    },{
+      path: 'activeEdit',
+      name: 'activeEdit',
+      component: activeEdit,
+      leaf: true,
+      hidden: true,
+      meta: {
+        title: '活动编辑',
+        icon: 'table'
+      }
     }]
   },{
     path: '/manage3',
@@ -327,12 +361,33 @@ export const constantRouterMap = [{
         icon: 'table'
       }
     },{
+      path: 'demandLibraryEdit',
+      name: 'demandLibraryEdit',
+      component: demandLibraryEdit,
+      leaf: true,
+      hidden: true,
+      meta: {
+        title: '需求库资料填写',
+        icon: 'table'
+      }
+    },
+    {
       path: 'achieveLibrary',
       name: '成果库管理',
       component: achieveLibrary,
       leaf: true,
       meta: {
         title: '成果库管理',
+        icon: 'table'
+      }
+    },{
+      path: 'achieveLibraryEdit',
+      name: 'achieveLibraryEdit',
+      component: achieveLibraryEdit,
+      leaf: true,
+      hidden: true,
+      meta: {
+        title: '成果库资料填写',
         icon: 'table'
       }
     }]

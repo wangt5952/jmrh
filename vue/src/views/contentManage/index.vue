@@ -1,89 +1,128 @@
 <template>
 <div class="tab-container">
-  <div class="tools">
-    <div class="paddingb textl paddingr">
-      <el-input v-model="input" placeholder="请输入内容" style="width: 15%;"></el-input>
-      <el-button style="margin-left:20px" @click="loadPageList" type="primary" icon="el-icon-search"></el-button>
-      <el-button style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">添加文章</el-button>
+  <div class="">
+    <div class="paddingb textl paddingr" style="font-size:14px">
+      <span>内容名</span>
+      <el-input v-model="input.objName" placeholder="" style="width:100px;"></el-input>
+      <span style="margin-left: 15px;">发布日期</span>
+      <el-date-picker v-model="input.publishStart" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期" style="width:140px">
+      </el-date-picker>
+      <el-date-picker v-model="input.publishEnd" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期" style="width:140px">
+      </el-date-picker>
+      <span style="margin-left: 15px;">状态</span>
+      <el-select v-model="input.checkStatus" style="width:100px;height:30px" placeholder="请选择">
+        <el-option label="草稿" :key=-1 :value=-1>
+        </el-option>
+        <el-option label="待审核" :key=0 :value=0>
+        </el-option>
+        <el-option label="已发布" :key=1 :value=1>
+        </el-option>
+        <el-option label="驳回" :key=2 :value=2>
+        </el-option>
+      </el-select>
+
+      <el-button style="margin-left:20px" @click="loadPageList" type="primary">查询</el-button>
+      <div class="" style="padding:10px 0px;">
+        <el-button v-if="userType =='0' " style="" @click="handleEdit('','add')" type="primary">添加内容</el-button>
+        <el-button v-if="userType =='0' && tfcheckStatus == 0" style="" @click="plsh" type="primary">批量审核</el-button>
+        <el-button v-if="userType =='0' && tfcheckStatus == 1" style="" @click="plxj" type="primary">批量下架</el-button>
+        <el-button v-if="userType =='0' && tfcheckStatus == 1" style="" @click="pldc" type="primary">批量导出</el-button>
+      </div>
 
     </div>
   </div>
 
-
-  <el-table v-loading="loading" class="tableH" :data="list" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
+  <el-table v-loading="loading" ref="multipleTable" @selection-change="handleSelectionChange" class="tableH" :data="list" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
+    <el-table-column type="selection" width="55">
+    </el-table-column>
     <el-table-column type="index" align="center" label="ID">
 
     </el-table-column>
     <el-table-column align="center" label="标题">
       <template slot-scope="scope">
-                    <span>{{ scope.row.fullName }}</span>
+                    <div @click="handleEdit(scope.row,'show')" class="clickText" >{{ scope.row.title }}</div>
                 </template>
     </el-table-column>
-    <el-table-column align="center" label="发布">
-      <template slot-scope="scope">
-                    <span>{{ scope.row.fullName }}</span>
-                </template>
-    </el-table-column>
-    <el-table-column align="center" label="分类">
+    <el-table-column align="center" label="发布人">
       <template slot-scope="scope">
                     <span>
-                        {{ scope.row.dpartmentId}}</span>
+                        {{ scope.row.publishUserId}}</span>
                 </template>
     </el-table-column>
-    <el-table-column align="center" label="模型">
+    <el-table-column align="center" label="所属栏目">
       <template slot-scope="scope">
                     <span>
-                        {{ scope.row.dpartmentId}}</span>
-                </template>
-    </el-table-column>
-    <el-table-column align="center" label="分数">
-      <template slot-scope="scope">
-                    <span>
-                        {{ scope.row.dpartmentId}}</span>
+                        {{ scope.row.categroyId}}</span>
                 </template>
     </el-table-column>
 
-    <el-table-column align="center" label="点评数">
+
+    <el-table-column v-if="tfcheckStatus == 1" align="center" label="点击数">
       <template slot-scope="scope">
                     <span>
-                        {{ scope.row.dpartmentId}}</span>
+                        {{ scope.row.clicks}}</span>
                 </template>
     </el-table-column>
-    <el-table-column align="center" label="点击数">
+
+    <el-table-column v-if="tfcheckStatus == 1" align="center" label="发布日期">
+      <template slot-scope="scope">
+                    <span>
+                        {{ scope.row.publishDate  | formatTime}}</span>
+                </template>
+    </el-table-column>
+    <el-table-column v-if="tfcheckStatus == 1" align="center" label="创建日期">
       <template slot-scope="scope">
                         <span>
-                            {{ scope.row.dpartmentId}}</span>
+                            {{ scope.row.createTime  | formatTime}}</span>
                     </template>
     </el-table-column>
-    <el-table-column align="center" label="发布日期">
+    <el-table-column v-if="tfcheckStatus == 1" align="center" label="置顶排序">
       <template slot-scope="scope">
                         <span>
-                            {{ scope.row.dpartmentId}}</span>
+                            {{ scope.row.stickSort}}</span>
                     </template>
     </el-table-column>
-    <el-table-column align="center" label="创建日期">
+    <el-table-column v-if="tfcheckStatus == 1" align="center" label="状态" style="width:50px">
+      <template slot-scope="scope">
+                        <span v-if="scope.row.readable == 1">可见</span>
+                        <span v-if="scope.row.readable == 0">不可见</span>
+                    </template>
+    </el-table-column>
+
+    <el-table-column v-if="tfcheckStatus == 1" align="center" label="审核用户">
       <template slot-scope="scope">
                         <span>
-                            {{ scope.row.dpartmentId}}</span>
+                            {{ scope.row.creater}}</span>
                     </template>
     </el-table-column>
-    <el-table-column align="center" label="置顶级别">
-      <template slot-scope="scope">
-                        <span>
-                            {{ scope.row.dpartmentId}}</span>
-                    </template>
-    </el-table-column>
-    <el-table-column align="center" label="状态">
-      <template slot-scope="scope">
-                        <span>
-                            {{ scope.row.dpartmentId}}</span>
-                    </template>
-    </el-table-column>
+
     <el-table-column align="center" label="操作">
       <template slot-scope="scope">
-                    <div style="margin:2% 2% 2% 2%">
-                        <el-button size="small" @click="handleEdit(scope.row,'edit')" type=""  class="el-icon-edit colorblue borderblue"></el-button>
-                        <el-button size="small" @click="handleEdit(scope.row,'del')"  type=""  class="el-icon-delete colorred borderred"></el-button>
+                    <div style="">
+                        <div v-if="tfcheckStatus == 0" @click="handlesh(scope.row)" class="clickText" style="float:left;padding-left:5px">
+                          审核
+                        </div>
+                      <div  v-if="tfcheckStatus != 0" @click="handleEdit(scope.row,'edit')" class="clickText" style="float:left;padding-left:5px">
+                        编辑
+                      </div>
+
+                  <span v-if="tfcheckStatus == 1 && scope.row.stickSort > 0">  <div @click="handlexy(scope.row,1)" class="clickText" style="float:left;padding-left:5px">
+                                            置顶
+                            </div></span>
+                    <span v-if="tfcheckStatus == 1 && scope.row.stickSort == 0">  <div @click="handlexy(scope.row,0)" class="clickText" style="float:left;padding-left:5px">
+                                                      取消置顶
+                    </div></span>
+
+                  <span v-if="scope.row.readable == 1 && tfcheckStatus == 1">  <div @click="handlexj(scope.row)" class="clickText" style="float:left;padding-left:5px">
+                                            下架
+                            </div></span>
+                  <span v-if="scope.row.readable == 0 && tfcheckStatus == 1">  <div @click="handlesj(scope.row)" class="clickText" style="float:left;padding-left:5px">
+                                            上架
+                  </div></span>
+                  <span >  <div @click="delObj(scope.row)" class="clickText" style="float:left;padding-left:5px;color:red">
+                                            删除
+                  </div></span>
+
                     </div>
                 </template>
     </el-table-column>
@@ -94,123 +133,242 @@
     <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-sizes="[10,20,30, 50]" :page-size="listQuery.limit" layout="total, sizes, prev, pager, next, jumper" :total="total"></el-pagination>
   </div>
 
-  <!-- <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogShowDep" width="30%" top='5%'>
-    <el-tree :data="treeData" show-checkbox default-expand-all node-key="id" ref="tree" highlight-current :props="defaultProps">
-    </el-tree>
-    <span slot="footer" class="dialog-footer">
-      <el-button type="primary" @click="dialogShowDep = false">关闭</el-button>
-    </span>
-  </el-dialog> -->
 
-  <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogShowRole" width="30%" top='5%'>
+  <el-dialog :title="title" :visible.sync="dialogFormVisible" width="40%" top='5%'>
 
-    <el-table class="tableH" :data="selected" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
-      <el-table-column type="index" align="center" label="序号">
+    <el-form class="" label-width="30%" style="text-align:left">
+      <el-row :gutter="24">
+        <el-col :span="24">
 
-      </el-table-column>
-      <el-table-column align="center" label="角色名">
-        <template slot-scope="scope">
-                  <span>{{ scope.row.roleName }}</span>
-              </template>
-      </el-table-column>
-      <el-table-column align="center" label="角色描述">
-        <template slot-scope="scope">
-                  <span>{{ scope.row.roleDesc }}</span>
-              </template>
-      </el-table-column>
+          <table class="showDetailTable" v-show="show" cellpadding=0 cellspacing=0 border="0"  style="width:100%;border: 1px solid#ccc;">
+            <tr v-show="content.typeId == 1" style="border-bottom: 1px solid#ccc;">
+              <td style="width:100px;padding:10px">标题</td>
+              <td>
+                {{content.title}}
+              </td>
+              <td style="width:100px;padding:10px">所属栏目</td>
+              <td>
+                <el-select disabled v-model="content.categroyId" style="height:30px;width:80%" placeholder="请选择">
 
+                  <el-option v-for="item in leafNodeslist" :label="item.name" :key="item.name" :value="item.id">
+                  </el-option>
+                </el-select>
+              </td>
+            </tr>
+            <tr style="border-bottom: 1px solid#ccc;">
+              <td style="width:100px;padding:10px">封面</td>
+              <td>
+                {{content.cover}}
+              </td>
+              <td style="width:100px;padding:10px">内容类型</td>
+              <td>
 
-    </el-table>
-    <span slot="footer" class="dialog-footer">
-      <el-button type="primary" @click="dialogShowRole = false">关闭</el-button>
-    </span>
+              <span v-show="content.typeId == 1" style="">文章</span>
+              <span v-show="content.typeId == 2" style="">轮播</span>
+              </td>
+            </tr>
+            <tr v-show="content.typeId == 1">
+              <td style="width:100px;padding:10px">是否转载</td>
+              <td>
+                <span v-show="content.copied == 1">转载</span>
+                <span v-show="content.copied == 0">非转载</span>
+              </td>
+            </tr>
+            <tr v-show="content.copied == 1 && content.typeId == 1" style="border-bottom: 1px solid#ccc;">
+              <td style="width:100px;padding:10px">来源</td>
+              <td>
+                {{content.copyFrom}}
+              </td>
+              <td style="width:100px;padding:10px">来源网址</td>
+              <td>
+                {{content.copyFromUrl}}
+              </td>
+            </tr>
+            <tr v-show="content.typeId == 1" style="border-bottom: 1px solid#ccc;">
+              <td style="width:100px;padding:10px">作者</td>
+              <td>
+                {{content.author}}
+              </td>
+              <td style="width:100px;padding:10px">编辑</td>
+              <td>
+                {{content.editor}}
+              </td>
+            </tr>
+            <tr style="border-bottom: 1px solid#ccc;">
+              <td v-show="content.typeId == 1" style="width:100px;padding:10px">标签</td>
+              <td v-show="content.typeId == 1">
+                {{content.tags}}
+              </td>
+              <td style="width:100px;padding:10px">描述</td>
+              <td>
+                {{content.description}}
+              </td>
+            </tr>
+            <tr v-show="content.typeId == 1" style="border-bottom: 1px solid#ccc;">
+              <td style="width:100px;padding:10px">定时发布</td>
+              <td>
+                <span v-show="content.publishNow == 1">是</span>
+                <span v-show="content.publishNow == 0">否</span>
+              </td>
+              <td v-show="content.publishNow == 1" style="width:100px;padding:10px">发布日期</td>
+              <td v-show="content.publishNow == 1">
+                {{content.publishDate | formatTime}}
+              </td>
+            </tr>
+            <tr v-show="content.typeId == 1" style="border-bottom: 1px solid#ccc;">
+              <td style="width:100px;padding:10px">置顶</td>
+              <td>
+                {{content.stickSort}}
+              </td>
+              <td style="width:100px;padding:10px">推荐</td>
+              <td>
+                <span v-show="content.recommend == 1">是</span>
+                <span v-show="content.recommend == 0">否</span>
+              </td>
+            </tr>
+
+            <tr v-show="content.typeId == 1" style="border-bottom: 1px solid#ccc;">
+              <td style="width:100px;padding:10px">活动内容</td>
+              <td colspan=3>
+               <div class="editor-content" v-html="content.contentTxt" style="width:100%"></div>
+              </td>
+            </tr>
+          </table>
+
+        </el-col>
+
+      </el-row>
+    </el-form>
+    <div v-show="!show" style="padding-left: 35%;margin: 40px 0  0  0;height: 100px;">
+      <div class="" style="padding:15px" v-if="!$route.params.objData">
+        <el-radio-group v-model="checkStatus">
+          <el-radio :label="-1">草稿</el-radio>
+          <el-radio :label="0">提交待审</el-radio>
+          <el-radio :label="1">直接审核</el-radio>
+        </el-radio-group>
+      </div>
+      <div class="">
+        <el-button type="primary" style="width: 120px;" @click="saveObj(checkStatus)">保存</el-button>
+        <el-button type="primary" @click="dialogFormVisible = false">关闭</el-button>
+      </div>
+    </div>
+    <div v-show="show" style="height: 100px;">
+
+    </div>
   </el-dialog>
 
-  <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="60%" top='5%'>
 
 
-            <el-form class="" label-width="30%" style="text-align:left">
-              <el-row :gutter="22">
-                <el-col :span="22">
-                  <el-form-item label="分类">
-                    <el-select  style="width:100px" placeholder="请选择">
-                      <el-option label="1" key="1" value='1'>
-                      </el-option>
-                      <el-option label="2" key="0" value='0'>
-                      </el-option>
-                    </el-select>
-                  </el-form-item>
-                  <el-form-item label="标题">
-                    <el-input  placeholder="请输入标题" style="width:80%"></el-input>
-                  </el-form-item>
-                  <el-form-item label="作者">
-                    <el-input  placeholder="请输入作者" style="width:80%"></el-input>
-                  </el-form-item>
-                  <el-form-item label="标签">
-                    <el-input  placeholder="请输入标签" style="width:80%"></el-input>
-                  </el-form-item>
-                  <el-form-item label="描述">
-                    <el-input placeholder="请输入联系地址"  style="width:80%"></el-input>
-                  </el-form-item>
-                  <el-form-item label="定时发布">
-                    <el-checkbox v-model="send"></el-checkbox>
-                  </el-form-item>
-                  <el-form-item label="封面">
-                    <el-input placeholder="请输入封面"  style="width:80%"></el-input>
-                  </el-form-item>
+  <el-dialog title="置顶" :visible.sync="dialogShowLevel" width="30%" top='5%'>
 
-                  <el-form-item label="正文">
-                  <div class="editor-container">
-                    <UE :defaultMsg=defaultMsg :config=config :id=ue1 ref="ue"></UE>
-                  </div>
-                  <button @click="getUEContentTxt()">获取无文本内容</button>
-                </el-form-item>
+    <el-form class="" label-width="30%" style="text-align:left">
+      <el-row :gutter="12">
+        <el-col :span="20">
 
-                </el-col>
+          <el-form-item label="置顶排序">
+            <el-input v-model="xyset.order" placeholder=""></el-input>
+          </el-form-item>
 
-              </el-row>
-            </el-form>
+        </el-col>
 
+      </el-row>
+    </el-form>
 
     <span slot="footer" class="dialog-footer">
-      <el-button type="primary" v-if="dialogadd == true" @click="addCreate(obj)">添加</el-button>
-      <el-button type="primary" v-if="dialogsave == true"  @click="saveCreate(obj)">修改</el-button>
-      <el-button type="primary" @click="dialogFormVisible = false">关闭</el-button>
-    </span>
+        <el-button type="primary" style="" @click="saveFile(xyset)">保存</el-button>
+        <el-button type="primary" @click="dialogShowLevel = false">关闭</el-button>
+      </span>
   </el-dialog>
 
+
+
+  <el-dialog title="审核" :visible.sync="dialogShowSH" width="30%" top='5%'>
+
+    <el-form class="" label-width="30%" style="text-align:left">
+      <el-row :gutter="24">
+        <el-col :span="24">
+
+          <el-form-item label="审核">
+            <el-select v-model="rej.way" style="height:30px" placeholder="请选择">
+
+              <el-option label="通过" key="1" value="1">
+              </el-option>
+              <el-option label="驳回" key="2" value="2">
+              </el-option>
+            </el-select>
+          </el-form-item>
+
+
+          <el-form-item v-if="rej.way == '2'" label="驳回原因">
+            <el-input v-model="rej.info" placeholder=""></el-input>
+          </el-form-item>
+        </el-col>
+
+      </el-row>
+    </el-form>
+
+    <span slot="footer" class="dialog-footer" style="">
+        <el-button type="primary" style="" @click="saveReject(rej)">保存</el-button>
+        <el-button type="primary" @click="dialogShowSH = false">关闭</el-button>
+      </span>
+  </el-dialog>
 
 </div>
 </template>
 
 <script>
-import {
-  getUser,
-} from '@/api/user'
 
 import {
-  getAllrole
-} from '@/api/role'
+  getCategory,
+  postCategoryC,
+  getCategoryC,
+  delCategoryC,
+  rejectCategory,
+  checkCategory,
+  onCategory,
+  offCategory,
+  topCategory,
+  getLeafNodes
+} from '@/api/columnManage'
+
 import {
-  depgetAll
-} from '@/api/department'
-
-
-import UE from '@/components/ue/ue.vue';
+  addLib,
+  delLib,
+  rejectUserDetail,
+  offUserDetail,
+  onUserDetail,
+  PLrejectUserDetail,
+  PLoffUserDetails,
+} from '@/api/library'
+import table2excel from 'table2excel'
+import printArea from 'printArea'
 export default {
   components: {
-    UE
   },
   data() {
     return {
-      send:true,
       defaultMsg: '<span style="orphans: 2; widows: 2; font-size: 22px; font-family: KaiTi_GB2312; background-color: rgb(229, 51, 51);"><strong>测试内容</strong></span>',
       config: {
         initialFrameWidth: null,
         initialFrameHeight: 350
       },
       ue1: "ue1", // 不同编辑器必须不同的id
-      input: '',
+      rej: {
+        way: '1',
+        info: '',
+        id: ''
+      },
+      xyset: {
+        order: '',
+        id: ''
+      },
+      title: "",
+      input: {
+        objName: '',
+        publishStart: '',
+        publishEnd: '',
+        checkStatus: 1,
+      },
       bank: '1',
       list: [],
       timeType: '1',
@@ -218,72 +376,247 @@ export default {
       dialogFormVisible: false,
       dialogShowRole: false,
       dialogShowDep: false,
+      dialogShowSH: false,
+      dialogShowLevel: false,
       dialogadd: false,
       dialogsave: false,
       listLoading: true,
       listQuery: {
         page: 1,
         limit: 10,
-        importance: undefined,
-        title: undefined,
-        type: undefined,
-        sort: '+id',
-        objName: ''
       },
-      total: null,
-      textMap: {
-        update: '编辑',
-        dep: '部门详情',
-        role: '角色详情',
-        create: '添加'
-      },
-      obj: {
-        userName: '',
-        userPassword: '',
-        fullName: '',
-        department: '',
-      },
-      selected: [],
-      options: [{
-        label: 'foo',
-        value: 'Foo'
-      }, {
-        label: 'boo',
-        value: 'boo'
-      }, {
-        label: 'coo',
-        value: 'coo'
-      }],
       treeData: [],
-      loading: true
+      loading: true,
+      userType: '',
+      multipleSelection: [],
+      detailData: '',
+      tfcheckStatus: '',
+      checkStatus: -1,
+      leafNodeslist:[],
+      content: {
+        title: '',
+        categroyId: '',
+        typeId: 1,
+        copied: 0,
+        copyFrom: '',
+        copyFromUrl: '',
+        author: '',
+        editor: '',
+        cover: '',
+        tags: '',
+        description: '',
+        onlyUrl: 0,
+        contentUrl: '',
+        publishNow: 1,
+        publishDate: '',
+        contentTxt: '',
+        stickSort: 1,
+        recommend: 1,
+      }
     }
   },
   async mounted() {
-    this.listLoading = false
+    if (typeof this.$route.query.checkStatus == 'number' ) {
+      this.input.checkStatus = this.$route.query.checkStatus
+    }
     this.loadPageList()
+    this.userType = window.sessionStorage.getItem('userType')
 
   },
   computed: {},
   methods: {
-
-    getUEContentTxt() {
-      let content = this.$refs.ue.getUEContentTxt(); // 调用子组件方法
-      // this.$notify({
-      //   title: '获取成功，可在控制台查看！',
-      //   message: content,
-      //   type: 'success'
-      // });
-    },
     async loadPageList() {
+     this.tfcheckStatus = this.input.checkStatus
       if (this.input) {
-        this.listQuery.objName = this.input
-      } else {
-        this.listQuery.objName = ''
+        this.input.page = this.listQuery.page
+        this.input.limit = this.listQuery.limit
       }
-      let data = await getUser(this.listQuery)
-      this.list = data.data.rows
-      this.loading = false
+      let {
+        data,
+        success
+      } = await getCategory(this.input)
+      if (success) {
+        this.loading = false
+        this.list = data.list
+      }
     },
+    async loadgetLeafNodes(){
+      let {
+        data,
+        success
+      } = await getLeafNodes()
+      if (success) {
+        this.leafNodeslist = data
+      }
+    },
+    async saveFile(objdata) {
+      if (objdata.order == '') {
+        this.$message({
+          message: '请输入置顶排序！',
+          type: 'success'
+        });
+        return
+      }
+      let {
+        data,
+        success
+      } = await topCategory(objdata)
+      this.$message({
+        message: '设置成功',
+        type: 'success'
+      });
+      this.loadPageList()
+    },
+
+    async saveReject(rej) {
+      if (rej.way == '1') {
+        let arr = []
+        arr.push(rej.id)
+        let {
+          data,
+          success
+        } = await checkCategory(arr)
+        if (success) {
+          this.$message({
+            message: '保存成功',
+            type: 'success'
+          });
+          this.loadPageList()
+        }
+      } else {
+        let {
+          data,
+          success
+        } = await rejectCategory(rej)
+        if (success) {
+          this.$message({
+            message: '保存成功',
+            type: 'success'
+          });
+          this.loadPageList()
+        }
+      }
+
+
+    },
+    handleSelectionChange(val) {
+      let arr = []
+      for (let i in val) {
+        arr.push(val[i].id)
+      }
+      this.multipleSelection = arr;
+    },
+    async plsh() {
+      let {
+        data,
+        success
+      } = await checkCategory(this.multipleSelection)
+      if (success) {
+        this.$message({
+          type: 'success',
+          message: '审核成功!'
+        });
+        this.loadPageList()
+      }
+
+
+    },
+    async plxj() {
+      let {
+        data,
+        success
+      } = await offCategory(this.multipleSelection)
+      if (success) {
+        this.$message({
+          type: 'success',
+          message: '下架成功!'
+        });
+        this.loadPageList()
+      }
+    },
+    pldc() {
+      this.$message({
+        type: 'success',
+        message: '导出成功!'
+      });
+    },
+    async handlexy(item, num) {
+      if (num == 0) {
+        this.xyset.id = item.id
+        this.xyset.order = '9999'
+        let {
+          data,
+          success
+        } = await topCategory(this.xyset)
+        this.$message({
+          message: '取消置顶',
+          type: 'success'
+        });
+      } else{
+        this.xyset.id = item.id
+        this.xyset.order = '0'
+        let {
+          data,
+          success
+        } = await topCategory(this.xyset)
+        this.$message({
+          message: '置顶成功',
+          type: 'success'
+        });
+      }
+      this.loadPageList()
+    },
+    handlesh(data) {
+      this.dialogShowSH = true
+      this.rej.id = data.id
+    },
+    async handlexj(params) {
+      let obj = []
+      obj.push(params.id)
+      let {
+        data,
+        success
+      } = await offCategory(obj)
+      if (success) {
+        this.$message({
+          message: '下架成功',
+          type: 'success'
+        });
+        this.loadPageList()
+      }
+    },
+    async handlesj(params) {
+      let obj = {}
+      obj.id = params.id
+      let {
+        data,
+        success
+      } = await onCategory(obj)
+      if (success) {
+        this.$message({
+          message: '上架成功',
+          type: 'success'
+        });
+        this.loadPageList()
+      }
+    },
+    showDetail() {
+      this.dialogShowDep = true
+    },
+    handlePrint() {
+      $("#tablePrint").printArea();
+    },
+    handleDownload() { //导出
+      $("#tableExcel").table2excel({
+        exclude: ".noExl", //过滤位置的 css 类名
+        filename: new Date().getTime() + ".xls", //文件名称
+        name: "Excel Document Name.xlsx",
+        exclude_img: true,
+        exclude_links: true,
+        exclude_inputs: true
+      })
+    },
+
     handleSizeChange(val) {
       if (!isNaN(val)) {
         this.listQuery.limit = val
@@ -296,185 +629,85 @@ export default {
       }
       this.loadPageList()
     },
-    async handleCreate() {
-      this.dialogStatus = 'create'
-      this.dialogFormVisible = true
-      this.dialogadd = true
-      this.dialogsave = false
-      this.obj = {
-        userName: '',
-        userPassword: '',
-        fullName: '',
-        department: '',
-      }
-      this.loadoptions()
-    },
-    async loadoptions() {
-      let getAlldata = await getAllrole()
-      let arr = []
-      getAlldata = getAlldata.data
-      for (let i = 0; i < getAlldata.length; i++) {
-        let obja = {}
-        obja.label = getAlldata[i].roleName
-        obja.value = getAlldata[i].id
-        arr.push(obja)
-      }
-      this.options = arr
-      this.loadgetUserId()
-      this.loadgetdep()
-    },
-    async loadgetUserId() {
-      let aa = this.obj
-      let getUserIddata = await getUserId(this.obj.id)
-      getUserIddata = getUserIddata.data.roles
-      for (let i = 0; i < getUserIddata.length; i++) {
-        getUserIddata[i].label = getUserIddata[i].roleName
-        getUserIddata[i].value = getUserIddata[i].id
-      }
-      debugger
-      this.selected = getUserIddata
-
-    },
-    async loadgetdep() {
-      let depData = await depgetAll()
-      this.treeData = depData.data
-    },
-    async ondep1Change(val) {
-      if (val) {
-        val = val
-      }
-    },
-    async addCreate(obj) {
-
-      if (!this.validata.validausr(obj)) return
-      obj.method = 'post'
-      let arr = []
-      let getAlldata = this.selected
-      for (let i = 0; i < getAlldata.length; i++) {
-        let obja = {}
-        obja.id = getAlldata[i].value
-        arr.push(obja)
-      }
-      obj.roles = arr
-      let data = await addUser(obj)
-      if (data.code === 10000) {
-        this.$message({
-          message: '添加成功',
-          type: 'success'
-        });
-        this.loadPageList()
-        this.dialogFormVisible = false
-      } else {
-        this.$message({
-          message: data.message,
-          type: 'success'
-        });
-      }
-    },
-    async saveCreate(obj) {
-      if (!this.validata.validausr(obj)) return
-      obj.method = 'put'
-      let arr = []
-      let getAlldata = this.selected
-      for (let i = 0; i < getAlldata.length; i++) {
-        let obja = {}
-        obja.id = getAlldata[i].value
-        arr.push(obja)
-      }
-      obj.roles = arr
-      let data = await saveUser(obj)
-      if (data.code === 10000) {
-        this.$message({
-          message: '修改成功',
-          type: 'success'
-        });
-        this.dialogFormVisible = false
-      } else {
-        this.$message({
-          message: data.message,
-          type: 'success'
-        });
-      }
-    },
-    //
-    // async subSaveCreate() {
-    //   let obj = this.obj
-    //   obj.method = 'put'
-    //   obj.dpartmentId = this.$refs.tree.getCheckedNodes()
-    //
-    //
-    //   let data = await saveUser(obj)
-    //   this.dialogEditVisible = false
-    //   this.$message({
-    //     type: 'success',
-    //     message: '修改成功!'
-    //   });
-    // }
-    async handleShow(data, type) {
-      if (type === 'role') {
-        this.obj = data
-        this.dialogStatus = 'role'
-        this.dialogShowRole = true
-        this.loadgetUserId()
-
-      }
-    },
-    async handleEdit(data, type) {
 
 
+    async handleEdit(item, type) {
       if (type === 'edit') {
-        this.obj = data
-        this.selected = data.roles
-        this.dialogStatus = 'update'
-        this.dialogsave = true
-        this.dialogadd = false
+        this.title = '编辑内容'
+        this.$router.push({
+          name: 'contentEdit',
+          params: {
+            itemId: item.id,
+            checkStatus : this.tfcheckStatus
+          }
+        })
+      } else if (type === 'add') {
+        this.title = '添加内容'
+        this.$router.push({
+          name: 'contentEdit',
+        })
+      } else if (type === 'show') {
+        this.loadgetLeafNodes()
+        let {
+          data,
+          success
+        } = await getCategoryC(item.id)
+        this.content = data
         this.dialogFormVisible = true
-        this.loadoptions()
-      } else if (type === 'del') {
-        this.$confirm('此操作将删除该记录, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(async () => {
-          let del = await delUser(data.id)
-          this.list.splice(this.list.indexOf(data), 1)
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          });
-          // this.splice(data.id, 1);
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          });
+        this.show = true
+        this.title = '查看内容详情'
+      }
+    },
+    delObj(item) {
+      this.$confirm('此操作将删除该记录, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        let del = await delCategoryC(item)
+        this.list.splice(this.list.indexOf(item), 1)
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        });
+        // this.splice(data.id, 1);
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
+      });
+    },
+
+    async saveObj(checkStatus) {
+      // if (!this.validata.validausr(obj)) return
+      let arr = {}
+      arr = this.content
+      arr.checkStatus = checkStatus
+      let {
+        data,
+        success
+      } = await postCategoryC(arr)
+
+      if (success) {
+        this.$message({
+          message: '保存成功',
+          type: 'success'
+        });
+        this.dialogFormVisible = false
+        this.loadPageList()
+      } else {
+        this.$message({
+          message: data.message,
+          type: 'success'
         });
       }
     },
-    onDate1Change(val) {
-      this.obj.loanDate = val
-    },
-    onDate2Change(val) {
-      this.obj.appointmentRepaymentDate = val
-    },
-    onDate3Change(val) {
-      this.obj.interestPayTime = val
-    },
+
   }
 }
 </script>
 
 <style lang="scss">
 @import '../../styles/index.scss'; // 全局自定义的css样式
-</style>
-
-<style>
-.info {
-  border-radius: 10px;
-  line-height: 20px;
-  padding: 10px;
-  margin: 10px;
-  background-color: #ffffff;
-}
-
 </style>

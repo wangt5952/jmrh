@@ -59,6 +59,13 @@ export function sendEmailCode(data) {
     data
   });
 }
+export function sendCellphoneCode(data) {
+  return request({
+    url: '/xtcx/user/sendCellphoneCode',
+    method: 'post',
+    data
+  });
+}
 export function lookPwd(data) {
   return request({
     url: '/xtcx/user/lookPwd',

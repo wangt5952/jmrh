@@ -11,16 +11,42 @@ import validate from './utils/validate' // 验证
 import jsPlumb from 'jsplumb'
 import VueAreaLinkage from 'vue-area-linkage';
 
-
-import '../static/UE/ueditor.config.js'
-import '../static/UE/ueditor.all.min.js'
-import '../static/UE/lang/zh-cn/zh-cn.js'
-import '../static/UE/ueditor.parse.min.js'
-
-
-
+Vue.prototype.urlencode = function(str) {
+  str = (str + '').toString();
+  return encodeURIComponent(str).replace(/!/g, '%21').replace(/'/g, '%27').replace(/\(/g, '%28').
+  replace(/\)/g, '%29').replace(/\*/g, '%2A').replace(/%20/g, '+');
+}
+Vue.prototype.getformatTime = function() {
+  var d = new Date(); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+  let year = d.getFullYear()
+  let month = parseInt(d.getMonth() + 1)
+  let date = d.getDate()
+  if (month < 10) {
+    month = '0' + month
+  }
+  if (date < 10) {
+    date = '0' + date
+  }
+  return year + '-' + month + '-' + date
+}
+Vue.filter('formatTime', value => {
+  var d = new Date(value); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+  let year = d.getFullYear()
+  let month = parseInt(d.getMonth() + 1)
+  let date = d.getDate()
+  if (month < 10) {
+    month = '0' + month
+  }
+  if (date < 10) {
+    date = '0' + date
+  }
+  return year + '-' + month + '-' + date
+})
 Vue.prototype.$jsPlumb = jsPlumb.jsPlumb
-Vue.prototype.validata =  validate
+Vue.prototype.validata = validate
+import img2base64 from './img2base64'; //引入转图片为base64
+Vue.prototype.img2base64 = img2base64
+
 import vSelect from 'vue-select'
 Vue.component('v-select', vSelect)
 
@@ -34,5 +60,7 @@ new Vue({
   router,
   store,
   template: '<App/>',
-  components: { App }
+  components: {
+    App
+  }
 })

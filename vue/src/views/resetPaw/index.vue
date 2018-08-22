@@ -4,7 +4,16 @@
     <h3 class="title">忘记密码</h3>
     <el-form :label-position="labelPosition" label-width="80px" :model="loginVerify">
       <el-form-item label="">
+        <el-radio-group v-model="checkStatus">
+          <el-radio :label="0">邮箱验证</el-radio>
+          <el-radio :label="1">手机号验证</el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item v-if="checkStatus == 0" label="">
         <el-input v-model="obj.email" placeholder="请输入邮箱地址"></el-input>
+      </el-form-item>
+      <el-form-item v-if="checkStatus == 1" label="">
+        <el-input v-model="cellphone" placeholder="请输入手机号"></el-input>
       </el-form-item>
       <el-form-item label="">
         <el-input v-model="obj.code" placeholder="请输入验证码" style="width:230px">13</el-input>
@@ -24,7 +33,8 @@
 <script>
 import {
   sendEmailCode,
-  lookPwd
+  lookPwd,
+  sendCellphoneCode
 } from '@/api/user'
 
 export default {
@@ -35,28 +45,54 @@ export default {
       obj: {
         email: '',
         code: '',
-        newPassword:''
+        newPassword: ''
       },
-
+      obj2: {
+        code: '',
+        newPassword: ''
+      },
+      cellphone: '',
+      checkStatus: 0
     }
   },
   methods: {
     async sendcode() {
-      let {
-        message,
-        success
-      } = await sendEmailCode(this.obj)
-      if (success) {
-        this.$message({
-          message: '发送成功',
-          type: 'success'
-        });
-      } else {
-        this.$message({
-          message: '发送失败',
-          type: 'success'
-        });
+      if (this.checkStatus == 0) {
+        const {
+          message,
+          success
+        } = await sendEmailCode(this.obj)
+        if (success) {
+          this.$message({
+            message: '发送成功',
+            type: 'success'
+          });
+        } else {
+          this.$message({
+            message: '发送失败',
+            type: 'success'
+          });
+        }
+      } else if (this.checkStatus == 1) {
+        this.obj2.code = this.obj.code
+        this.obj2.cellphone = this.cellphone
+        const {
+          message,
+          success
+        } = await sendCellphoneCode(this.obj2)
+        if (success) {
+          this.$message({
+            message: '发送成功',
+            type: 'success'
+          });
+        } else {
+          this.$message({
+            message: '发送失败',
+            type: 'success'
+          });
+        }
       }
+
 
     },
     async tolookPwd() {
@@ -86,6 +122,16 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss">
 @import "src/styles/mixin.scss";
+.el-radio__input.is-checked+.el-radio__label {
+    color: #000000;
+}
+.el-radio {
+    color: #000000;
+}
+.el-radio__input.is-checked .el-radio__inner {
+    border-color: #000;
+    background: #000;
+}
 .reset-container {
     width: 100%;
     height: 100vh;

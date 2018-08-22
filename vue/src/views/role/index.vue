@@ -287,7 +287,6 @@ export default {
     },
     async saveCreate(obj) {
       // if (!this.validata.validaRole(obj)) return
-
       let arr =[]
       obj.method = 'put'
       let data = await addRole(obj)

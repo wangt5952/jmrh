@@ -1,5 +1,5 @@
 <template>
-<div class="tab-container">
+<div class="tab-container" style="overflow-y: auto;">
   <!-- <el-input placeholder="Filter keyword" v-model="filterText" style="margin-bottom:30px;"></el-input> -->
   <el-button style="margin-left: 10px;" @click="addCreatefsub" type="primary" icon="el-icon-edit">添加</el-button>
 

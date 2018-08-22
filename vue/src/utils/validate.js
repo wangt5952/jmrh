@@ -51,7 +51,7 @@ let verify = {
     return y.test(s) ? true : false;
   },
   isNull: function(a) {
-    return (a === "" || a === null || a === undefined ? true : false);
+    return (a === "" || a.length === 0 || a === null || a === undefined ? true : false);
   },
   isNumber: function(a) {
     return !this.isNull(a) && !isNaN(a) ? true : false;
@@ -188,8 +188,128 @@ function validatoRegistere(str) {
 }
 
 
+function validacolumn(str) {
+  if (!str || verify.isNull(str.code)) {
+    Message({
+      message: '栏目编码不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.name)) {
+    Message({
+      message: '栏目名不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  return true;
+}
+
+function validacontent(str) {
+  if (!str || verify.isNull(str.title)) {
+    Message({
+      message: '标题不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.categroyId)) {
+    Message({
+      message: '所属栏目不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.publishDate)) {
+    Message({
+      message: '发布时间不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+
+  return true;
+}
+
+function validacontent2(str) {
+  if (!str || verify.isNull(str.cover)) {
+    Message({
+      message: '封面不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.description)) {
+    Message({
+      message: '描述不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  return true;
+}
+
+function validactive(str) {
+  debugger
+  if (!str || verify.isNull(str.title)) {
+    Message({
+      message: '标题不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+
+  if (!str || verify.isNull(str.subject)) {
+    Message({
+      message: '主题不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.enrollStart)) {
+    Message({
+      message: '报名开始时间不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.enrollEnd)) {
+    Message({
+      message: '报名结束时间不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.exStart)) {
+    Message({
+      message: '活动开始时间不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.exEnd)) {
+    Message({
+      message: '报名结束时间不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.publishDate)) {
+    Message({
+      message: '发布时间不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  return true;
+}
 //success/warning/info/error
 export default {
   validatoRegistere,
-  validaManageUser
+  validaManageUser,
+  validacolumn,
+  validacontent,
+  validacontent2,
+  validactive
 }
