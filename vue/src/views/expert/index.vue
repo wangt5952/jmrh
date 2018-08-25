@@ -156,7 +156,7 @@
     </div>
 
     <div id="tablePrint" class="textc" style="font-size:12px;height:100%;">
-      <table id="tableExcel" cellpadding=0 cellspacing=0 border="1px solid#000;" style='margin:0%;width:100%'>
+      <table class="tableExcelText" id="tableExcel" cellpadding=0 cellspacing=0 border="1px solid#000;" style='margin:0%;width:100%'>
 
         <tr height=27 style='mso-height-source:userset;height:20.25pt' id='r0'>
           <td colspan=13 id='tc0' height=27>军民科技协同创新专家信息表</td>
@@ -207,47 +207,52 @@
         </tr>
         <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r4'>
           <td height=19 style='height:14.25pt;'>研究方向</td>
-          <td colspan=12 id='tc11'></td>
+          <td colspan=12 id='tc11'>{{detailData.research_area}}</td>
         </tr>
         <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r5'>
           <td height=19 style='height:14.25pt;'>工作单位</td>
-          <td colspan=5 id='tc12'></td>
+          <td colspan=5 id='tc12'>{{detailData.work_unit}}</td>
           <td>工作部门</td>
-          <td colspan=6 id='tc13'></td>
+          <td colspan=6 id='tc13'>{{detailData.work_BM}}</td>
         </tr>
         <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r6'>
           <td height=19 style='height:14.25pt;'>现任职务</td>
-          <td colspan=5 id='tc14'></td>
+          <td colspan=5 id='tc14'>{{detailData.zwname}}</td>
           <td>职称</td>
-          <td colspan=2 id='tc15'></td>
+          <td colspan=2 id='tc15'>{{detailData.zcname}}</td>
           <td>职称级别</td>
-          <td colspan=3 id='tc16'> □正高<br> □副高</td>
+          <td colspan=3 id='tc16'>
+              <el-checkbox-group v-model="detailData.zclevel">
+                <el-checkbox label="1">正高</el-checkbox>
+                <el-checkbox label="2">副高</el-checkbox>
+              </el-checkbox-group>
+          </td>
         </tr>
         <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r7'>
           <td height=19 style='height:14.25pt;'>手机号码</td>
-          <td colspan=5 id='tc17'></td>
+          <td colspan=5 id='tc17'>{{detailData.mobilephone}}</td>
           <td>办公电话</td>
-          <td colspan=2 id='tc18'></td>
+          <td colspan=2 id='tc18'>{{detailData.telphone}}</td>
           <td>邮箱</td>
-          <td colspan=3 id='tc19'></td>
+          <td colspan=3 id='tc19'>{{detailData.fdemail}}</td>
         </tr>
         <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r8'>
           <td height=19 style='height:14.25pt;'>所在地区</td>
           <td colspan=5 id='tc20' style='border-bottom:1px solid windowtext;'>省<span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>市<span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp; </span>区（县）（下拉选择）</td>
           <td>通讯地址</td>
-          <td colspan=6 id='tc21'></td>
+          <td colspan=6 id='tc21'>{{detailData.address}}</td>
         </tr>
         <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r9'>
           <td colspan=13 id='tc22' height=19>主要学术成就/研究成果/管理成就</td>
         </tr>
         <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r10'>
-          <td colspan=13 id='tc23' height=19></td>
+          <td colspan=13 id='tc23' height=19>{{detailData.success_record}}</td>
         </tr>
         <tr>
           <td colspan=13 id='tc24' height=19>主要产学研合作项目情况（国防军工类项目）</td>
         </tr>
         <tr>
-          <td colspan=13 id='tc25' height=19></td>
+          <td colspan=13 id='tc25' height=19>{{detailData.project_desc}}</td>
         </tr>
         <tr>
           <td colspan=13 id='tc26' height=19>近5年专业研究及获奖情况</td>
@@ -777,5 +782,12 @@ export default {
 .el-input__inner {
     height: 30px!important;
     line-height: 30px!important;
+}
+.tableExcelText .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+    background-color: #94989c;
+    border-color: #94989c;
+}
+.tableExcelText  .el-checkbox__input.is-checked+.el-checkbox__label {
+    color: #000;
 }
 </style>
