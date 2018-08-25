@@ -32,7 +32,7 @@
     </div>
   </div>
 
-  <el-table v-loading="loading" ref="multipleTable" @selection-change="handleSelectionChange" class="tableH" :data="list" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
+  <el-table v-loading="loading" ref="multipleTable" @selection-change="handleSelectionChange" class="tableH" :data="list" border style="margin-top:20px;width:100%;font-size:12px;">
     <el-table-column type="selection" width="55">
     </el-table-column>
     <el-table-column type="index" align="center" label="ID">
@@ -96,7 +96,7 @@
                         <div v-if="tfcheckStatus == 0" @click="handlesh(scope.row)" class="clickText" style="float:left;padding-left:5px">
                           审核
                         </div>
-                      <div  v-if="tfcheckStatus != 0" @click="handleEdit(scope.row,'edit')" class="clickText" style="float:left;padding-left:5px">
+                      <div  v-if="tfcheckStatus != 0 && tfcheckStatus != 1" @click="handleEdit(scope.row,'edit')" class="clickText" style="float:left;padding-left:5px">
                         编辑
                       </div>
 

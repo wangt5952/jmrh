@@ -25,7 +25,7 @@
     </div>
   </div>
 
-  <el-table v-loading="loading" class="tableH" :data="list" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
+  <el-table v-loading="loading" class="tableH" :data="list" border style="margin-top:20px;width:100%;font-size:12px;">
     <el-table-column type="index" width="50" align="center" label="ID">
     </el-table-column>
     <el-table-column align="center" label="名称(单位)">

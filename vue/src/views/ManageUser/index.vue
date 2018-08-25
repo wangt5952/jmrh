@@ -26,7 +26,7 @@
   </div>
 
 
-  <el-table v-loading="loading" class="tableH" :data="list" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
+  <el-table v-loading="loading" class="tableH" :data="list" border style="margin-top:20px;width:100%;font-size:12px;">
     <el-table-column type="index" align="center" label="ID">
 
     </el-table-column>

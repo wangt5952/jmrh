@@ -26,7 +26,7 @@
   </div>
 
 
-  <el-table v-loading="loading" class="tableH" :data="list" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
+  <el-table v-loading="loading" class="tableH" :data="list" border style="margin-top:20px;width:100%;font-size:12px;">
     <el-table-column type="index" align="center" label="ID">
 
     </el-table-column>
@@ -49,7 +49,7 @@
     <el-table-column align="center" label="菜单分配">
       <template slot-scope="scope">
                     <span>
-                        <el-button size="small" @click="handleShow(scope.row,'menu')" type=""  class="colorblue borderblue">编辑</el-button></span></span>
+                        <el-button size="small" @click="handleShow(scope.row,'menu')" type=""  class="colorblue borderblue">分配</el-button></span></span>
                 </template>
     </el-table-column>
 

@@ -32,7 +32,7 @@
     </div>
   </div>
 
-  <el-table v-loading="loading" ref="multipleTable" @selection-change="handleSelectionChange" class="tableH" :data="list" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
+  <el-table v-loading="loading" ref="multipleTable" @selection-change="handleSelectionChange" class="tableH" :data="list" border style="margin-top:20px;width:100%;font-size:12px;">
     <el-table-column type="selection" width="55">
     </el-table-column>
     <el-table-column type="index" align="center" label="ID">

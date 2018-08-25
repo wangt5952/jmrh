@@ -8,7 +8,7 @@
         </el-menu-item>
       </router-link>
 
-      <el-submenu v-if="!item.hidden&&item.children&&item.children.length>=1&&item.path != '/index'" :index="item.name||item.path" :key="item.name">
+      <el-submenu v-if="!item.hidden&&item.children&&item.children.length>=1&&item.path != '/index'" :index="item.name||item.path" :key="item.name" >
         <template slot="title">
           <i v-if="item.meta&&item.meta.icon" :class="item.meta.icon"></i>
           <svg-icon v-if="item.meta&&item.meta.icon" :icon-class="item.meta.icon"></svg-icon>
@@ -54,6 +54,8 @@ export default {
    background-color: none !important;
 color: #0056B8 !important;
 }
-
+.el-submenu__title{
+      font-size: 12px!important;
+}
 
 </style>
