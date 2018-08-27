@@ -22,7 +22,7 @@
                   <div>
                     <!--这是背面照-->
                     <div class="photo photo1">
-                      <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="school.zhengben" list-type="picture">
+                      <el-upload class="upload-demo" :http-request="uploadSectionFile1" :file-list="school.zhengben" list-type="picture">
                         <el-button size="small" type="primary">点击上传</el-button>
                       </el-upload>
 
@@ -34,7 +34,7 @@
                   <div>
                     <!--这是背面照-->
                     <div class="photo photo1">
-                      <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="school.fuben" list-type="picture">
+                      <el-upload class="upload-demo" :http-request="uploadSectionFile2" :file-list="school.fuben" list-type="picture">
                         <el-button size="small" type="primary">点击上传</el-button>
                       </el-upload>
 
@@ -46,7 +46,7 @@
                   <div>
                     <!--这是背面照-->
                     <div class="photo photo1">
-                      <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="school.logo" list-type="picture">
+                      <el-upload class="upload-demo" :http-request="uploadSectionFile3" :file-list="school.logo" list-type="picture">
                         <el-button size="small" type="primary">点击上传</el-button>
                       </el-upload>
 
@@ -132,7 +132,8 @@ import {
 } from '@/api/login'
 import {
   getcollege,
-  addLib
+  addLib,
+  libupload
 } from '@/api/library'
 
 export default {
@@ -178,7 +179,70 @@ export default {
   computed: {},
   methods: {
 
+    async uploadSectionFile1(param) {
+      this.school.zhengben = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.school.zhengben.push(arro)
+      }
+    },
 
+    async uploadSectionFile2(param) {
+      this.school.fuben = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.school.fuben.push(arro)
+      }
+    },
+    async uploadSectionFile3(param) {
+      this.school.logo = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.school.logo.push(arro)
+      }
+    },
       back() {
         window.history.go(-1);
       },

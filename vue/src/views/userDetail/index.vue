@@ -42,7 +42,7 @@
                 <div>
                   <!--这是正面照-->
                   <div class="photo">
-                    <el-upload :on-success="handleAvatarSuccess" class="upload-demo" action="/xtcx/file/upload" :file-list="expert.cardPositive" list-type="picture">
+                    <el-upload  class="upload-demo" :http-request="uploadSectionFile1" :file-list="expert.cardPositive" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
                     <!-- <input type="file" @change="uploadImg($event)" id="IdCard"> -->
@@ -55,7 +55,7 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="expert.cardSide" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile2" :file-list="expert.cardSide" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -66,7 +66,7 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="expert.cardHands" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile3" :file-list="expert.cardHands" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -77,7 +77,7 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="expert.onepicture" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile4" :file-list="expert.onepicture" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -328,102 +328,7 @@
   <div v-if="userType == '2'" class="">
 
     <el-tabs type="border-card">
-      <el-tab-pane>
-        <span slot="label"><i class="el-icon-date"></i> 联系人信息</span>
 
-        <el-form class="" label-width="30%" style="text-align:left">
-          <el-row :gutter="20">
-            <el-col :span="20">
-              <el-form-item label="姓名">
-                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入姓名" v-model="com.lxname" style="width:80%"></el-input>
-              </el-form-item>
-              <el-form-item label="职务">
-                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入职务" v-model="com.lxzw" style="width:80%"></el-input>
-              </el-form-item>
-              <el-form-item label="手机号">
-                <span style='position: relative;left: -60px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入手机号" v-model="com.lxphone" style="width:80%"></el-input>
-              </el-form-item>
-              <el-form-item label="邮箱">
-                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入邮箱" v-model="com.lxemail" style="width:80%"></el-input>
-              </el-form-item>
-            </el-col>
-
-          </el-row>
-        </el-form>
-
-
-      </el-tab-pane>
-      <el-tab-pane label="企业法人信息">
-        <el-form class="" label-width="30%" style="text-align:left">
-          <el-row :gutter="20">
-            <el-col :span="20">
-
-              <el-form-item label="姓名">
-                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入姓名" v-model="com.lpname" style="width:80%"></el-input>
-              </el-form-item>
-              <el-form-item label="职务">
-                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入职务" v-model="com.lpzw" style="width:80%"></el-input>
-              </el-form-item>
-              <el-form-item label="手机号">
-                <span style='position: relative;left: -60px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入手机号" v-model="com.lpphone" style="width:80%"></el-input>
-              </el-form-item>
-              <el-form-item label="邮箱">
-                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入邮箱" v-model="com.lpemail" style="width:80%"></el-input>
-              </el-form-item>
-              <el-form-item label="营业执照正本">
-                <span style='position: absolute;left: -110px;color: #f60d0d;'>*</span>
-                <div>
-                  <!--这是背面照-->
-                  <div class="photo photo1">
-                    <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="com.zhengben" list-type="picture">
-                      <el-button size="small" type="primary">点击上传</el-button>
-                    </el-upload>
-
-                  </div>
-                </div>
-              </el-form-item>
-              <el-form-item label="营业执照副本">
-                <span style='position: absolute;left: -110px;color: #f60d0d;'>*</span>
-                <div>
-                  <!--这是背面照-->
-                  <div class="photo photo1">
-                    <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="com.fuben" list-type="picture">
-                      <el-button size="small" type="primary">点击上传</el-button>
-                    </el-upload>
-
-                  </div>
-                </div>
-              </el-form-item>
-              <el-form-item label="企业logo">
-                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
-                <div>
-                  <!--这是背面照-->
-                  <div class="photo photo1">
-                    <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="com.logo" list-type="picture">
-                      <el-button size="small" type="primary">点击上传</el-button>
-                    </el-upload>
-
-                  </div>
-                </div>
-              </el-form-item>
-            </el-col>
-
-            <el-col :span="10">
-
-
-            </el-col>
-
-          </el-row>
-        </el-form>
-      </el-tab-pane>
       <el-tab-pane label="企业基础信息">
         <el-form class="" label-width="40%" style="text-align:left">
           <el-row :gutter="20">
@@ -450,7 +355,7 @@
               </el-form-item>
               <el-form-item label="注册时间">
                 <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
-                <el-date-picker v-model="com.registerDate" type="date" placeholder="选择日期">
+                <el-date-picker v-model="com.registerDate" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期">
                 </el-date-picker>
               </el-form-item>
               <el-form-item label="注册类型">
@@ -549,6 +454,103 @@
           </el-row>
         </el-form>
       </el-tab-pane>
+      <el-tab-pane label="企业法人信息">
+        <el-form class="" label-width="30%" style="text-align:left">
+          <el-row :gutter="20">
+            <el-col :span="20">
+
+              <el-form-item label="姓名">
+                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                <el-input placeholder="请输入姓名" v-model="com.lpname" style="width:80%"></el-input>
+              </el-form-item>
+              <el-form-item label="职务">
+                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                <el-input placeholder="请输入职务" v-model="com.lpzw" style="width:80%"></el-input>
+              </el-form-item>
+              <el-form-item label="手机号">
+                <span style='position: relative;left: -60px;color: #f60d0d;'>*</span>
+                <el-input placeholder="请输入手机号" v-model="com.lpphone" style="width:80%"></el-input>
+              </el-form-item>
+              <el-form-item label="邮箱">
+                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                <el-input placeholder="请输入邮箱" v-model="com.lpemail" style="width:80%"></el-input>
+              </el-form-item>
+              <el-form-item label="营业执照正本">
+                <span style='position: absolute;left: -110px;color: #f60d0d;'>*</span>
+                <div>
+                  <!--这是背面照-->
+                  <div class="photo photo1">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile5" :file-list="com.zhengben" list-type="picture">
+                      <el-button size="small" type="primary">点击上传</el-button>
+                    </el-upload>
+
+                  </div>
+                </div>
+              </el-form-item>
+              <el-form-item label="营业执照副本">
+                <span style='position: absolute;left: -110px;color: #f60d0d;'>*</span>
+                <div>
+                  <!--这是背面照-->
+                  <div class="photo photo1">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile6" :file-list="com.fuben" list-type="picture">
+                      <el-button size="small" type="primary">点击上传</el-button>
+                    </el-upload>
+
+                  </div>
+                </div>
+              </el-form-item>
+              <el-form-item label="企业logo">
+                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                <div>
+                  <!--这是背面照-->
+                  <div class="photo photo1">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile7" :file-list="com.logo" list-type="picture">
+                      <el-button size="small" type="primary">点击上传</el-button>
+                    </el-upload>
+
+                  </div>
+                </div>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="10">
+
+
+            </el-col>
+
+          </el-row>
+        </el-form>
+      </el-tab-pane>
+      <el-tab-pane>
+        <span slot="label"><i class="el-icon-date"></i> 联系人信息</span>
+
+        <el-form class="" label-width="30%" style="text-align:left">
+          <el-row :gutter="20">
+            <el-col :span="20">
+              <el-form-item label="姓名">
+                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                <el-input placeholder="请输入姓名" v-model="com.lxname" style="width:80%"></el-input>
+              </el-form-item>
+              <el-form-item label="职务">
+                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                <el-input placeholder="请输入职务" v-model="com.lxzw" style="width:80%"></el-input>
+              </el-form-item>
+              <el-form-item label="手机号">
+                <span style='position: relative;left: -60px;color: #f60d0d;'>*</span>
+                <el-input placeholder="请输入手机号" v-model="com.lxphone" style="width:80%"></el-input>
+              </el-form-item>
+              <el-form-item label="邮箱">
+                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                <el-input placeholder="请输入邮箱" v-model="com.lxemail" style="width:80%"></el-input>
+              </el-form-item>
+            </el-col>
+
+          </el-row>
+        </el-form>
+
+
+      </el-tab-pane>
+
 
       <el-tab-pane label="获得知识产权情况">
         <el-form class="" label-width="40%" style="text-align:left">
@@ -679,9 +681,20 @@
                   <el-checkbox label="3">装备承制单位资格认证 </el-checkbox>
                 </el-checkbox-group>
               </el-form-item>
-              <el-form-item label="取得时间">
+
+              <el-form-item label="取得时间" v-if="com.szget.includes('1')">
                 <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
-                <el-date-picker v-model="com.qdtime" type="date" placeholder="选择日期">
+                <el-date-picker v-model="com.qdtime" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期">
+                </el-date-picker>
+              </el-form-item>
+              <el-form-item label="取得时间" v-if="com.szget.includes('2')">
+                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                <el-date-picker v-model="com.qdtime2" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期">
+                </el-date-picker>
+              </el-form-item>
+              <el-form-item label="取得时间" v-if="com.szget.includes('3')">
+                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                <el-date-picker v-model="com.qdtime3" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期">
                 </el-date-picker>
               </el-form-item>
 
@@ -785,7 +798,8 @@
                   <el-table-column align="center" label="起止时间">
                     <template slot-scope="scope">
                                             <span>
-                                              <input  type="text" v-model="scope.row.time">
+                                              <el-date-picker v-model="scope.row.time" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="">
+                                              </el-date-picker>
                                             </span>
                                         </template>
                   </el-table-column>
@@ -869,7 +883,7 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="mech.zhengben" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile8" :file-list="mech.zhengben" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -881,7 +895,7 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="mech.fuben" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile9" :file-list="mech.fuben" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -893,7 +907,7 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="mech.logo" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile10" :file-list="mech.logo" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -1067,7 +1081,8 @@
               <el-table-column align="center" label="起止时间">
                 <template slot-scope="scope">
                                         <span>
-                                          <input  type="text" v-model="scope.row.time">
+                                          <el-date-picker v-model="scope.row.time" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="">
+                                          </el-date-picker>
                                         </span>
                                     </template>
               </el-table-column>
@@ -1102,7 +1117,8 @@
                 <el-table-column align="center" label="获得时间">
                   <template slot-scope="scope">
                                           <span>
-                                            <input  type="text" v-model="scope.row.time">
+                                            <el-date-picker v-model="scope.row.time" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="">
+                                            </el-date-picker>
                                           </span>
                                       </template>
                 </el-table-column>
@@ -1144,7 +1160,8 @@
                 </el-table-column>
                 <el-table-column align="center" label="服务时间">
                   <template slot-scope="scope">
-                    <input  type="text" v-model="scope.row.time">
+                    <el-date-picker v-model="scope.row.time" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="">
+                    </el-date-picker>
                                     </template>
                 </el-table-column>
               </el-table>
@@ -1182,7 +1199,7 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="school.zhengben" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile11" :file-list="school.zhengben" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -1194,7 +1211,7 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="school.fuben" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile12" :file-list="school.fuben" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -1206,7 +1223,7 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="school.logo" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile13" :file-list="school.logo" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -1278,7 +1295,7 @@ import {
 } from '@/api/login'
 
 import {
-  libupload2
+  libupload
 } from '@/api/library'
 export default {
   data() {
@@ -1447,6 +1464,8 @@ export default {
         sfkyrw: [],
         szget: [],
         qdtime: '',
+        qdtime2: '',
+        qdtime3: '',
         szwhd: [],
         jmrhgn: [],
         ydkn: [],
@@ -1501,22 +1520,7 @@ export default {
   },
   computed: {},
   methods: {
-    async handleAvatarSuccess(res, file,path) {
-      let base64 = this.img2base64(file.url)
-      let obj = {}
-      obj.img
-      let {
-        data,
-        success
-      } = await libupload2(this.urlencode(base64))
-      if (success) {
-        let arro = {}
-        arro.name = data
-        arro.url = this.imgBaseUrl+`/jmrhupload/user/` + data
 
-        this.demandLibrary[path].push(arro)
-      }
-    },
     async loadPageList() {
       let {
         data,
@@ -1651,6 +1655,283 @@ export default {
         object: '',
         time: ''
       })
+    },
+    async uploadSectionFile1(param) {
+      this.expert.cardPositive = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.expert.cardPositive.push(arro)
+      }
+    },
+
+    async uploadSectionFile2(param) {
+      this.expert.cardSide = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.expert.cardSide.push(arro)
+      }
+    },
+    async uploadSectionFile3(param) {
+      this.expert.cardHands = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.expert.cardHands.push(arro)
+      }
+    },
+    async uploadSectionFile4(param) {
+      this.expert.onepicture = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.expert.onepicture.push(arro)
+      }
+    },
+
+    async uploadSectionFile5(param) {
+      this.com.zhengben = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.com.zhengben.push(arro)
+      }
+    },
+    async uploadSectionFile6(param) {
+      this.com.fuben = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.com.fuben.push(arro)
+      }
+    },
+    async uploadSectionFile7(param) {
+      this.com.logo = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.com.logo.push(arro)
+      }
+    },
+
+    async uploadSectionFile8(param) {
+      this.mech.zhengben = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.mech.zhengben.push(arro)
+      }
+    },
+    async uploadSectionFile9(param) {
+      this.mech.fuben = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.mech.fuben.push(arro)
+      }
+    },
+    async uploadSectionFile10(param) {
+      this.mech.logo = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.mech.logo.push(arro)
+      }
+    },
+
+    async uploadSectionFile11(param) {
+      this.school.zhengben = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.school.zhengben.push(arro)
+      }
+    },
+    async uploadSectionFile12(param) {
+      this.school.fuben = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.school.fuben.push(arro)
+      }
+    },
+    async uploadSectionFile13(param) {
+      this.school.logo = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.school.logo.push(arro)
+      }
     },
   }
 }

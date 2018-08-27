@@ -37,7 +37,7 @@
                 <div>
                   <!--这是正面照-->
                   <div class="photo">
-                    <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="expert.cardPositive" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile1" :file-list="expert.cardPositive" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
                     <!-- <input type="file" @change="uploadImg($event)" id="IdCard"> -->
@@ -50,7 +50,7 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="expert.cardSide" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile2" :file-list="expert.cardSide" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -61,7 +61,7 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="expert.cardHands" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile3" :file-list="expert.cardHands" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -72,7 +72,7 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="expert.onepicture" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile4" :file-list="expert.onepicture" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -133,7 +133,7 @@
                   <el-checkbox label="6">能源与环保</el-checkbox>
                   <el-checkbox label="7">管理</el-checkbox>
                   <el-checkbox label="8">其他</el-checkbox>
-                  <el-input v-if="expert.research_field.includes('8')" placeholder="请输入其他" v-model="expert.research_fieldOther" style="width:80%"></el-input>
+                  <!-- <el-input v-if="expert.research_field.includes('8')" placeholder="请输入其他" v-model="expert.research_fieldOther" style="width:80%"></el-input> -->
                 </el-checkbox-group>
               </el-form-item>
 
@@ -353,7 +353,7 @@ import {
 import {
   getexpert,
   addLib,
-  libupload2
+  libupload
 } from '@/api/library'
 export default {
   data() {
@@ -411,46 +411,114 @@ export default {
           rewtime: ''
         }]
       },
-      checkStatus:-1
+      checkStatus: -1
     }
   },
   async mounted() {
     this.listLoading = false
     if (this.$route.params.objData) {
       this.expert = JSON.parse(this.$route.params.objData)
-      if(!this.expert.cardPositive){
-        this.expert.cardPositive  =  []
+      if (!this.expert.cardPositive) {
+        this.expert.cardPositive = []
       }
-      if(!this.expert.cardSide){
-        this.expert.cardSide  =  []
+      if (!this.expert.cardSide) {
+        this.expert.cardSide = []
       }
-      if(!this.expert.cardHands){
-        this.expert.cardHands  =  []
+      if (!this.expert.cardHands) {
+        this.expert.cardHands = []
       }
 
-      if(!this.expert.onepicture){
-        this.expert.onepicture  =  []
+      if (!this.expert.onepicture) {
+        this.expert.onepicture = []
       }
     }
   },
   computed: {},
   methods: {
-      async handleAvatarSuccess(res, file) {
-        let base64 = this.img2base64(file.url)
-        let obj = {}
-        obj.img
-        let {
-          data,
-          success
-        } = await libupload2(this.urlencode(base64))
-        if (success) {
-          let arro = {}
-          arro.name = data
-          arro.url = this.imgBaseUrl+`/jmrhupload/user/` + data
-
-          this.demandLibrary.cardSide.push(arro)
-        }
-      },
+    async uploadSectionFile1(param) {
+      this.expert.cardPositive = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.expert.cardPositive.push(arro)
+      }
+    },
+    async uploadSectionFile2(param) {
+      this.expert.cardSide = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.expert.cardSide.push(arro)
+      }
+    },
+    async uploadSectionFile3(param) {
+      this.expert.cardHands = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.expert.cardHands.push(arro)
+      }
+    },
+    async uploadSectionFile4(param) {
+      this.expert.onepicture = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.expert.onepicture.push(arro)
+      }
+    },
     back() {
       window.history.go(-1);
     },
@@ -558,10 +626,6 @@ export default {
 </style>
 
 <style>
-.tools {
-  height: 5%
-}
-
 .area-select .area-selected-trigger {
   position: relative;
   display: block;

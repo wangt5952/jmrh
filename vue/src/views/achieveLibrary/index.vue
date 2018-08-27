@@ -169,73 +169,86 @@
 
   <el-dialog title="成果详情" :visible.sync="dialogShowDep" width="60%" top='5%'>
     <div class="textr paddinga">
-      <el-button class="filter-item" type="primary" icon="el-icon-download" @click="handlePrint">打印</el-button>
+      <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handlePrint">打印</el-button>
 
       <el-button class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">导出</el-button>
     </div>
 
     <div id="tablePrint" class="textc" style="font-size:12px;height:100%;">
-      <table id="tableExcel" cellpadding=0 cellspacing=0 border="1px solid#000;" style='margin:0%;width:100%'>
+      <table class="tableExcelText" id="tableExcel" cellpadding=0 cellspacing=0 border="1px solid#000;" style='margin:0%;width:100%'>
         <col width=72 span=8 style='width:54pt'>
         <tr height=23 style='mso-height-source:userset;height:17.4pt' id='r0'>
           <td colspan=8 id='tc0' height=23 class=x21 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;height:17.4pt;'>军民科技协同创新技术成果信息登记表</td>
         </tr>
         <tr height=38 style='mso-height-source:userset;height:28.8pt' id='r2'>
           <td height=38 class=x23 style='height:28.8pt;'>技术成果名称</td>
-          <td colspan=7 id='tc2' class=x24 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'></td>
+          <td colspan=7 id='tc2' class=x24 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>{{detailData.re_name}}</td>
         </tr>
         <tr height=38 style='mso-height-source:userset;height:28.8pt' id='r3'>
           <td height=38 class=x25 style='height:28.8pt;'>企业名称</td>
-          <td colspan=2 id='tc3' class=x54 style='border-bottom:1px solid windowtext;'></td>
+          <td colspan=2 id='tc3' class=x54 style='border-bottom:1px solid windowtext;'>{{detailData.name}}</td>
           <td class=x25>通讯地址</td>
-          <td class=x28></td>
+          <td class=x28>{{detailData.address}}</td>
           <td class=x25>所在地区</td>
-          <td colspan=2 id='tc4' class=x54 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'><span style='mso-spacerun:yes'>&nbsp;&nbsp; </span>省<span style='mso-spacerun:yes'>&nbsp;&nbsp; </span>市<span style='mso-spacerun:yes'>&nbsp; </span>区（县）<br>下拉选择</td>
+          <td colspan=2 id='tc4' class=x54 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>
+            <area-cascader :level="1" v-model="detailData.country" :data="pcaa"></area-cascader>
+          </td>
         </tr>
         <tr height=38 style='mso-height-source:userset;height:28.8pt' id='r4'>
           <td height=38 class=x25 style='height:28.8pt;'>项目负责人</td>
-          <td colspan=3 id='tc5' class=x54 style='border-bottom:1px solid windowtext;'></td>
+          <td colspan=3 id='tc5' class=x54 style='border-bottom:1px solid windowtext;'>{{detailData.fzname}}</td>
           <td class=x25>电话</td>
-          <td class=x30></td>
+          <td class=x30>{{detailData.fzphone}}</td>
           <td class=x31>邮箱</td>
-          <td class=x32></td>
+          <td class=x32>{{detailData.fzemail}}</td>
         </tr>
         <tr height=38 style='mso-height-source:userset;height:28.8pt' id='r5'>
           <td height=38 class=x25 style='height:28.8pt;'>项目联系人</td>
-          <td colspan=3 id='tc6' class=x54 style='border-bottom:1px solid windowtext;'></td>
+          <td colspan=3 id='tc6' class=x54 style='border-bottom:1px solid windowtext;'>{{detailData.fzname2}}</td>
           <td class=x33>电话</td>
-          <td class=x30></td>
+          <td class=x30>{{detailData.fzphone2}}</td>
           <td class=x34>邮箱</td>
-          <td class=x35></td>
+          <td class=x35>{{detailData.fzemail2}}</td>
         </tr>
         <tr height=38 style='mso-height-source:userset;height:28.8pt' id='r6'>
           <td height=38 class=x36 style='height:28.8pt;'>所属领域</td>
-          <td colspan=7 id='tc7' class=x37 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>□智能装备<span style='mso-spacerun:yes'>&nbsp; </span>□电子信息<span style='mso-spacerun:yes'>&nbsp; </span>□新材料<span style='mso-spacerun:yes'>&nbsp; </span>□航空航天<span style='mso-spacerun:yes'>&nbsp; </span>□生物技术与新医药 <br> □能源与环保<span style='mso-spacerun:yes'>&nbsp; </span>□其他</td>
+          <td colspan=7 id='tc7' class=x37 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>
+            <el-checkbox-group v-model="detailData.domain">
+              <el-checkbox label="1">智能装备</el-checkbox>
+              <el-checkbox label="2">电子信息</el-checkbox>
+              <el-checkbox label="3">新材料</el-checkbox>
+              <el-checkbox label="4">航空航天</el-checkbox>
+              <el-checkbox label="5">生物技术与新医药</el-checkbox>
+              <el-checkbox label="6">能源与环保</el-checkbox>
+              <el-checkbox label="7">其他</el-checkbox>
+              <!-- <el-input v-if="achieveLibrary.domain.includes('7')" placeholder="请输入其他" v-model="achieveLibrary.domainOther" style="width:80%"></el-input> -->
+            </el-checkbox-group>
+          </td>
         </tr>
         <tr height=38 style='mso-height-source:userset;height:28.8pt' id='r7'>
           <td height=38 class=x23 style='height:28.8pt;'>技术成果简介</td>
-          <td colspan=7 id='tc8' class=x55 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'></td>
+          <td colspan=7 id='tc8' class=x55 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>{{detailData.resDesc}}</td>
         </tr>
         <tr height=38 style='mso-height-source:userset;height:28.8pt' id='r8'>
           <td height=38 class=x41 style='height:28.8pt;'>技术创新点</td>
-          <td colspan=7 id='tc9' class=x42 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'></td>
+          <td colspan=7 id='tc9' class=x42 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>{{detailData.newIdea}}</td>
         </tr>
         <tr height=19 style='mso-height-source:userset;height:14.4pt' id='r9'>
           <td rowspan=4 height=76 class=x44 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;height:57.6pt;'>知识产权情况</td>
           <td colspan=7 id='tc10' class=x43 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>
-            <font class="font3">□已申请专利</font>
+            <font class="font3">已申请专利</font>
             <font class="font11"> </font>
             <font class="font12"><span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></font>
-            <font class="font11"> </font>
+            <font class="font11">{{detailData.sqPatent}}</font>
             <font class="font3">件</font>
             <font class="font11"><span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><br></font>
             <font class="font3">□获授权专利</font>
-            <font class="font11"> </font>
+            <font class="font11">{{detailData.havePatent}}</font>
             <font class="font12"><span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></font>
             <font class="font3">件</font>
             <font class="font11"><span style='mso-spacerun:yes'>&nbsp; </span><br></font>
-            <font class="font3">□其他知识产权</font>
-            <font class="font11"> </font>
+            <font class="font3">其他知识产权</font>
+            <font class="font11">{{detailData.otherPatentotherPatent}}</font>
             <font class="font12"><span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></font>
             <font class="font3">件</font>
           </td>
@@ -248,40 +261,37 @@
           <td class=x44>专利权人</td>
           <td colspan=2 id='tc11' class=x44 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>有效期</td>
         </tr>
-        <tr height=19 style='mso-height-source:userset;height:14.4pt' id='r11'>
-          <td class=x45></td>
-          <td class=x46></td>
-          <td class=x47></td>
-          <td class=x48></td>
-          <td class=x45></td>
-          <td colspan=2 id='tc12' class=x49 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>备注：可动态添加</td>
+        <tr v-for="item in detailData.patents" height=19 style='mso-height-source:userset;height:14.4pt' id='r11'>
+          <td class=x46>{{item.projectname}}</td>
+          <td class=x47>{{item.projecType}}</td>
+          <td class=x48>{{item.projectNum}}</td>
+          <td class=x45>{{item.projectPer}}</td>
+          <td class=x45>{{item.projectTime}}</td>
         </tr>
-        <tr height=19 style='mso-height-source:userset;height:14.4pt' id='r12'>
-          <td class=x45></td>
-          <td class=x46></td>
-          <td class=x47></td>
-          <td class=x48></td>
-          <td class=x45></td>
-          <td colspan=2 id='tc13' class=x24 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'></td>
-        </tr>
+
         <tr height=38 style='mso-height-source:userset;height:28.8pt' id='r13'>
           <td height=38 class=x50 style='height:28.8pt;'>所处阶段</td>
-          <td colspan=7 id='tc14' class=x56 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>□实验室阶段<span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>□试制阶段<span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>□产业化阶段<span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp; </span></td>
+          <td colspan=7 id='tc14' class=x56 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>
+            <el-checkbox-group v-model="detailData.stage">
+              <el-checkbox label="1">实验室阶段</el-checkbox>
+              <el-checkbox label="2">试制阶段</el-checkbox>
+              <el-checkbox label="3">产业化阶段</el-checkbox>
+            </el-checkbox-group>
+      </td>
         </tr>
         <tr height=38 style='mso-height-source:userset;height:28.8pt' id='r14'>
           <td height=38 class=x41 style='height:28.8pt;'>合作方式</td>
-          <td colspan=7 id='tc15' class=x56 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>□技术转让<span style='mso-spacerun:yes'>&nbsp;&nbsp; </span>□技术许可<span style='mso-spacerun:yes'>&nbsp;&nbsp; </span>□技术开发<span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp; </span>□技术服务<span style='mso-spacerun:yes'>&nbsp;&nbsp; </span>□技术入股</td>
+          <td colspan=7 id='tc15' class=x56 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>
+            <el-checkbox-group v-model="detailData.cooperation">
+              <el-checkbox label="1">技术转让</el-checkbox>
+              <el-checkbox label="2">技术许可</el-checkbox>
+              <el-checkbox label="3">技术开发</el-checkbox>
+              <el-checkbox label="4">技术服务</el-checkbox>
+              <el-checkbox label="5">技术入股</el-checkbox>
+            </el-checkbox-group>
+          </td>
         </tr>
-        <tr height=0 style='display:none'>
-          <td width=72 style='width:54pt'></td>
-          <td width=72 style='width:54pt'></td>
-          <td width=72 style='width:54pt'></td>
-          <td width=72 style='width:54pt'></td>
-          <td width=72 style='width:54pt'></td>
-          <td width=72 style='width:54pt'></td>
-          <td width=72 style='width:54pt'></td>
-          <td width=72 style='width:54pt'></td>
-        </tr>
+
       </table>
     </div>
 
@@ -293,6 +303,7 @@
 </template>
 
 <script>
+import 'vue-area-linkage/dist/index.css'; // v2 or higher
 import {
   getAllrole
 } from '@/api/role'
@@ -721,7 +732,12 @@ export default {
 
 <style lang="scss">
 @import '../../styles/index.scss'; // 全局自定义的css样式
-</style>
-
-<style>
+.el-checkbox__input.is-indeterminate .el-checkbox__inner,
+.tableExcelText .el-checkbox__input.is-checked .el-checkbox__inner {
+    background-color: #94989c;
+    border-color: #94989c;
+}
+.tableExcelText .el-checkbox__input.is-checked+.el-checkbox__label {
+    color: #000;
+}
 </style>

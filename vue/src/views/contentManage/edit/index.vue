@@ -190,7 +190,8 @@ export default {
           const formData = new FormData()
           formData.append('file', blobInfo.blob())
           uploadCategory(formData, '1').then(res => {
-            success(this.imgBaseUrl+"/jmrhupload" + res.data.savePath)
+            debugger
+            success(Vue.prototype.imgBaseUrl+"/jmrhupload" + res.data.savePath)
           }).catch(() => {
             failure('上传失败，请重新上传')
           })
@@ -290,6 +291,7 @@ export default {
         data,
         success
       } = await uploadFile(form)
+      debugger
       let obj = {
         name: data.fileName,
         url: this.imgBaseUrl+"/jmrhupload" + data.savePath

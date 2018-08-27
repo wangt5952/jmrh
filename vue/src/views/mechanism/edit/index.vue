@@ -58,7 +58,7 @@
                   <div>
                     <!--这是背面照-->
                     <div class="photo photo1">
-                      <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="mech.zhengben" list-type="picture">
+                      <el-upload class="upload-demo" :http-request="uploadSectionFile1" :file-list="mech.zhengben" list-type="picture">
                         <el-button size="small" type="primary">点击上传</el-button>
                       </el-upload>
 
@@ -70,7 +70,7 @@
                   <div>
                     <!--这是背面照-->
                     <div class="photo photo1">
-                      <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="mech.fuben" list-type="picture">
+                      <el-upload class="upload-demo" :http-request="uploadSectionFile2" :file-list="mech.fuben" list-type="picture">
                         <el-button size="small" type="primary">点击上传</el-button>
                       </el-upload>
 
@@ -82,7 +82,7 @@
                   <div>
                     <!--这是背面照-->
                     <div class="photo photo1">
-                      <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="mech.logo" list-type="picture">
+                      <el-upload class="upload-demo" :http-request="uploadSectionFile3" :file-list="mech.logo" list-type="picture">
                         <el-button size="small" type="primary">点击上传</el-button>
                       </el-upload>
 
@@ -256,7 +256,8 @@
                 <el-table-column align="center" label="起止时间">
                   <template slot-scope="scope">
                                           <span>
-                                            <input  type="text" v-model="scope.row.time">
+                                            <el-date-picker v-model="scope.row.time" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="">
+                                            </el-date-picker>
                                           </span>
                                       </template>
                 </el-table-column>
@@ -291,7 +292,8 @@
                   <el-table-column align="center" label="获得时间">
                     <template slot-scope="scope">
                                             <span>
-                                              <input  type="text" v-model="scope.row.time">
+                                              <el-date-picker v-model="scope.row.time" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="">
+                                              </el-date-picker>
                                             </span>
                                         </template>
                   </el-table-column>
@@ -333,7 +335,8 @@
                   </el-table-column>
                   <el-table-column align="center" label="服务时间">
                     <template slot-scope="scope">
-                      <input  type="text" v-model="scope.row.time">
+                      <el-date-picker v-model="scope.row.time" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="">
+                      </el-date-picker>
                                       </template>
                   </el-table-column>
                 </el-table>
@@ -384,7 +387,8 @@ import {
 } from '@/api/login'
 import {
   getexpert,
-  addLib
+  addLib,
+  libupload
 } from '@/api/library'
 export default {
   data() {
@@ -462,9 +466,86 @@ export default {
     if (this.$route.params.objData) {
       this.mech = JSON.parse(this.$route.params.objData)
     }
+    var myDate = new Date();
+    this.service_amount_lastt = myDate.getFullYear() + '年服务收入（万元）';
+    this.service_amount_beforet = parseInt(myDate.getFullYear() - 1) + '年服务收入（万元）';
+    this.service_amount_previoust = parseInt(myDate.getFullYear() - 2) + '年服务收入（万元）';
+
+    this.service_quantity_lastt = myDate.getFullYear() + '年服务数量（次）';
+    this.service_quantity_beforet = parseInt(myDate.getFullYear() - 1) + '年服务数量（次）';
+    this.service_quantity_previoust = parseInt(myDate.getFullYear() - 2) + '年服务数量（次）';
+
+
+    this.service_research_lastt = myDate.getFullYear() + '年研发投入（万元）';
+    this.service_research_beforet = parseInt(myDate.getFullYear() - 1) + '年研发投入（万元）';
+    this.service_research_previoust = parseInt(myDate.getFullYear() - 2) + '年研发投入（万元）';
   },
   computed: {},
   methods: {
+    async uploadSectionFile1(param) {
+      this.mech.zhengben = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.mech.zhengben.push(arro)
+      }
+    },
+
+    async uploadSectionFile2(param) {
+      this.mech.fuben = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.mech.fuben.push(arro)
+      }
+    },
+    async uploadSectionFile3(param) {
+      this.mech.logo = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.mech.logo.push(arro)
+      }
+    },
     back() {
       window.history.go(-1);
     },

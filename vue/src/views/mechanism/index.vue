@@ -149,71 +149,92 @@
 
   <el-dialog title="服务机构详情" :visible.sync="dialogShowDep" width="60%" top='5%'>
     <div class="textr paddinga">
-      <el-button class="filter-item" type="primary" icon="el-icon-download" @click="handlePrint">打印</el-button>
+      <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handlePrint">打印</el-button>
 
       <el-button class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">导出</el-button>
     </div>
 
     <div id="tablePrint" class="textc" style="font-size:12px;height:100%;">
-      <table id="tableExcel" cellpadding=0 cellspacing=0 border="1px solid#000;" style='margin:0%;width:100%'>
+      <table class="tableExcelText" id="tableExcel" cellpadding=0 cellspacing=0 border="1px solid#000;" style='margin:0%;width:100%'>
         <tr height=25 style='mso-height-source:userset;height:18.75pt' id='r0'>
           <td colspan=9 id='tc0' height=25 class=x40>军民科技协同创新服务机构信息表</td>
         </tr>
         <tr height=64 style='mso-height-source:userset;height:48pt' id='r1'>
           <td height=64 class=x35 style='height:48pt;'>单位名称</td>
-          <td class=x22></td>
+          <td class=x22>{{detailData.name}}</td>
           <td class=x21>所在地区</td>
-          <td class=x25><span> </span>省<span> </span>市<span> </span>区（县）<br>（下拉选择）</td>
-          <td class=x25>通信地址</td>
-          <td colspan=4 class=x28>邮编</td>
+          <td class=x25>
+            <area-cascader :level="1" v-model="detailData.selected" :data="pcaa"></area-cascader>
+          </td>
+          <td class=x25>通信地址{{detailData.address}}</td>
+          <td colspan=4 class=x28>邮编{{detailData.ecode}}</td>
         </tr>
         <tr height=19 id='r2'>
           <td height=19 class=x42>机构性质</td>
-          <td colspan=8 id='tc1' class=x90>□企业<span> </span>□科研院所<span> </span>□高等院校<span> </span>□其他：<span> </span>（注明）</td>
+          <td colspan=8 id='tc1' class=x90>
+            <el-checkbox-group v-model="detailData.registerNature">
+              <el-checkbox label="1">企业</el-checkbox>
+              <el-checkbox label="2">科研院所</el-checkbox>
+              <el-checkbox label="3">高等院校 </el-checkbox>
+              <el-checkbox label="4">其他</el-checkbox>
+              <!-- <el-input v-if="detailData.registerNature.includes('4')" placeholder="请输入其他" v-model="detailData.mechregisterNatureOther" style="width:80%"></el-input> -->
+            </el-checkbox-group>
+          </td>
         </tr>
         <tr height=19 id='r3'>
           <td height=19 class=x35>机构类别</td>
-          <td colspan=8 id='tc2' class=x90>□研究开发<span> </span>□技术转移<span> </span>□创业孵化<span> </span>□科技评估<span> </span>□管理咨询<br>□科技投融资
-            <span> </span>□检验检测<span> </span>□知识产权<span> </span>□标准认证<span> </span>□综合科技服务
-            <span> </span>□其他<br></td>
+          <td colspan=8 id='tc2' class=x90>
+            <el-checkbox-group v-model="detailData.org_type">
+          <el-checkbox  label="1">研究开发</el-checkbox>
+          <el-checkbox  label="2">科技投融资</el-checkbox>
+          <el-checkbox  label="3">技术转移 </el-checkbox>
+          <el-checkbox  label="4">检验检测</el-checkbox>
+          <el-checkbox  label="5">创业孵化</el-checkbox>
+          <el-checkbox  label="6">知识产权</el-checkbox>
+          <el-checkbox  label="7">科技评估</el-checkbox>
+          <el-checkbox  label="8">标准认证</el-checkbox>
+          <el-checkbox  label="9">管理咨询</el-checkbox>
+          <el-checkbox  label="10">综合科技服务</el-checkbox>
+          <el-checkbox  label="11">其他</el-checkbox>
+          <!-- <el-input v-if="detailData.org_type.includes('11')" placeholder="请输入其他" v-model="detailData.mechorg_typeOther" style="width:80%"></el-input> -->
+        </el-checkbox-group>
+          </td>
         </tr>
         <tr height=32 id='r4'>
           <td height=32 class=x46>统一社会信用代码</td>
-          <td colspan=9 class=x47></td>
+          <td colspan=9 class=x47>{{detailData.ecode}}</td>
         </tr>
         <tr height=32 id='r5'>
-          <td height=32>机构法定代表人</td>
-          <td>姓名</td>
-          <td>电话</td>
-          <td colspan=3>手机</td>
-          <td colspan=3>邮箱</td>
+          <td height=32>机构法定代表人{{detailData.ecode}}</td>
+          <td>姓名{{detailData.ecode}}</td>
+          <td>电话{{detailData.ecode}}</td>
+          <td colspan=3>手机{{detailData.ecode}}</td>
+          <td colspan=3>邮箱{{detailData.ecode}}</td>
         </tr>
         <tr height=19 id='r6'>
-          <td height=19 class=x42>机构联系人</td>
-          <td class=x49>姓名<span> </span></td>
-          <td class=x52>职务</td>
-          <td id='tc7' class=x49>电话</td>
-          <td colspan=2 id='tc8' class=x49>手机</td>
-          <td colspan=3 id='tc9' class=x49>邮箱</td>
+          <td height=19 class=x42>机构联系人{{detailData.ecode}}</td>
+          <td class=x49>姓名<span>{{detailData.ecode}} </span></td>
+          <td class=x52>职务{{detailData.ecode}}</td>
+          <td id='tc7' class=x49>电话{{detailData.ecode}}</td>
+          <td colspan=2 id='tc8' class=x49>手机{{detailData.ecode}}</td>
+          <td colspan=3 id='tc9' class=x49>邮箱{{detailData.ecode}}</td>
         </tr>
         <tr height=19 id='r7'>
           <td rowspan=3 height=83 class=x89>近三年服务情况</td>
-          <td class=x21>年度</td>
-          <td class=x21>2017年</td>
-          <td class=x21>2016年</td>
-          <td colspan=5 id='tc10' class=x21>2015年</td>
+          <td class=x21>{{lastt}}服务情况</td>
+          <td colspan=2 class=x21>{{beforet}}服务情况</td>
+          <td colspan=3 class=x21>{{previoust}}服务情况</td>
         </tr>
         <tr height=32 id='r8'>
-          <td class=x21>服务收入（万元）</td>
-          <td class=x21></td>
-          <td class=x25></td>
-          <td colspan=5 id='tc11' class=x25>备注：具体年份根据实际情况可变化</td>
+          <td class=x21>{{detailData.service_amount_last}}</td>
+          <td colspan=2 class=x21>{{detailData.service_amount_before}}</td>
+          <td colspan=3 class=x25>{{detailData.service_amount_previous}}</td>
         </tr>
         <tr height=32 id='r9'>
           <td class=x21>服务数量（次）</td>
-          <td class=x21></td>
-          <td class=x25></td>
-          <td colspan=5 id='tc12' class=x25></td>
+          <td class=x21>{{detailData.service_quantity_last}}</td>
+          <td class=x25>{{detailData.service_quantity_before}}</td>
+          <td colspan=5 id='tc12' class=x25>{{detailData.service_quantity_previous}}</td>
         </tr>
         <tr height=32 id='r10'>
           <td height=32 class=x36>人才队伍情况</td>
@@ -224,91 +245,78 @@
         <tr height=19 id='r11'>
           <td height=19 class=x34></td>
           <td class=x36>
-            <font class="font3"><span> </span></font>
-            <font class="font5"><span> </span></font>
+            <font class="font3"><span></span></font>
+            <font class="font5"><span>{{detailData.perNum}}</span></font>
             <font class="font3">人</font>
           </td>
           <td colspan=2 id='tc15' class=x91 style='border-right:1px solid windowtext;'>
-            <font class="font6"><span> </span></font>
+            <font class="font6"><span>{{detailData.underPer}}</span></font>
             <font class="font4">人（</font>
             <font class="font6"><span> </span></font>
             <font class="font4">%）</font>
           </td>
-          <td colspan=5 id='tc16' class=x27><span> </span>人（<span> </span>%）</td>
+          <td colspan=5 id='tc16' class=x27><span>{{detailData.MHPer}}</span>人（<span> </span>%）</td>
         </tr>
         <tr height=120 style='mso-height-source:userset;height:90pt' id='r12'>
           <td rowspan=4 height=190 class=x91>承担的政府项目情况</td>
-          <td class=x65>项目名称</td>
-          <td class=x65>起止时间<br><span> </span>年<span> </span>月--<span> </span>年<span> </span>月</td>
-          <td class=x66>项目来源<br>(按照“国家/省级XX项目”的形式填写，如江苏省军民融合发展引导资金项目)</td>
-          <td class=x67>资助方式<br></td>
-          <td colspan=4 id='tc17' class=x92>执行情况</td>
+          <td colspan=2 class=x65>项目名称</td>
+          <td colspan=2 class=x65>起止时间<br><span> </span>年<span> </span>月--<span> </span>年<span> </span>月</td>
+          <td colspan=2 class=x66>项目来源<br></td>
         </tr>
-        <tr height=32 id='r13'>
-          <td class=x72>备注：可动态添加</td>
-          <td class=x37></td>
-          <td class=x37></td>
-          <td rowspan=3 height=70 class=x91>□拨款<span> </span>□贴息<span> </span><br>□减免税<span> </span>□其他<span> </span><br>□以上全无</td>
-          <td colspan=4 id='tc18' rowspan=3 height=70 class=x92>□申请<br>□在研<br>□验收/结题</td>
+        <tr v-for="item in detailData.PorcolumnDefinitions" height=32 id='r13'>
+          <td colspan=2 class=x72>{{item.name}}</td>
+          <td colspan=2 class=x37>{{item.time}}</td>
+          <td colspan=2 class=x37>{{item.source}}</td>
         </tr>
-        <tr height=19 id='r14'>
-          <td class=x37></td>
-          <td class=x37></td>
-          <td class=x37></td>
+        <tr height=19 id='r40'>
+          <td colspan=2 id='tc27' height=19 class=x71 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;height:14.25pt;overflow:hidden;'>资助方式</td>
+          <td colspan=5 id='tc28' class=x120>
+            <el-checkbox-group v-model="detailData.registerSupport">
+            <el-checkbox label="1">拨款</el-checkbox>
+            <el-checkbox label="2">贴息</el-checkbox>
+            <el-checkbox label="3">减免税 </el-checkbox>
+            <el-checkbox label="4">以上全无</el-checkbox>
+            <el-checkbox label="5">其他</el-checkbox>
+            <!-- <el-input v-if="mech.registerSupport.includes('5')" placeholder="请输入其他" v-model="mech.mechregisterSupportOther" style="width:80%"></el-input> -->
+            </el-checkbox-group>
+          </td>
         </tr>
-        <tr height=19 id='r15'>
-          <td class=x37></td>
-          <td class=x37></td>
-          <td class=x37></td>
+        <tr height=19 id='r40'>
+          <td colspan=2 id='tc27' height=19 class=x71 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;height:14.25pt;overflow:hidden;'>执行情况</td>
+          <td colspan=5 id='tc28' class=x120>
+            <el-checkbox-group v-model="detailData.registerImplement">
+            <el-checkbox  label="1">申请</el-checkbox>
+            <el-checkbox  label="2">在研</el-checkbox>
+            <el-checkbox  label="3">验收/结题 </el-checkbox>
+            </el-checkbox-group>
+          </td>
         </tr>
         <tr height=19 id='r16'>
           <td rowspan=3 height=57 class=x89>所获资质及荣誉</td>
-          <td class=x32>名称</td>
-          <td class=x32>获得时间</td>
-          <td class=x26>颁发机构</td>
-          <td class=x26></td>
-          <td colspan=4 class=x26></td>
+          <td colspan=2 class=x32>名称</td>
+          <td colspan=2 class=x32>获得时间</td>
+          <td colspan=2  class=x26>颁发机构</td>
         </tr>
-        <tr height=19 id='r17'>
-          <td class=x25></td>
-          <td class=x32></td>
-          <td colspan=6 id='tc19' class=x93>备注：可动态添加</td>
+        <tr  v-for="item in detailData.honor" height=19 id='r17'>
+          <td colspan=2 class=x25>{{item.name}}</td>
+          <td colspan=2 class=x32>{{item.time}}</td>
+          <td colspan=6 id='tc19' class=x93>{{item.issuingAgency}}</td>
         </tr>
-        <tr height=19 id='r18'>
-          <td class=x83></td>
-          <td class=x32></td>
-          <td colspan=6 id='tc20' class=x25></td>
-        </tr>
+
         <tr height=32 id='r19'>
           <td rowspan=3 height=70 class=x89>主要工作成效（围绕国家军民融合公共服务开展的服务情况）</td>
           <td class=x41>服务项目名称</td>
           <td class=x25>服务对象</td>
           <td colspan=6 id='tc21' class=x37>服务时间</td>
         </tr>
-        <tr height=19 id='r20'>
-          <td class=x88></td>
-          <td class=x25></td>
-          <td colspan=6 id='tc22' class=x93>备注：可动态添加</td>
-        </tr>
-        <tr height=19 id='r21'>
-          <td class=x25></td>
-          <td class=x25></td>
-          <td colspan=6 id='tc23' class=x91></td>
+        <tr  v-for="item in detailData.workrPorcolumnDefinitions" height=19 id='r20'>
+          <td class=x88>{{item.name}}</td>
+          <td class=x25>{{item.object}}</td>
+          <td colspan=6 id='tc22' class=x93>{{item.time}}</td>
         </tr>
         <tr height=64 style='mso-height-source:userset;height:48pt' id='r22'>
           <td height=64 class=x89 style='height:48pt;overflow:hidden;'>可提供的服务简介（200字以内）</td>
-          <td colspan=8 id='tc24' class=x91></td>
-        </tr>
-        <tr height=0 style='display:none'>
-          <td width=72 style='width:54pt'></td>
-          <td width=72 style='width:54pt'></td>
-          <td width=72 style='width:54pt'></td>
-          <td width=72 style='width:54pt'></td>
-          <td width=72 style='width:54pt'></td>
-          <td width=72 style='width:54pt'></td>
-          <td width=72 style='width:54pt'></td>
-          <td width=72 style='width:54pt'></td>
-          <td width=72 style='width:54pt'></td>
+          <td colspan=8 id='tc24' class=x91>{{detailData.serviceAbout}}</td>
         </tr>
       </table>
 
@@ -396,7 +404,7 @@ import {
   setUserDetail
 } from '@/api/login'
 
-
+import 'vue-area-linkage/dist/index.css'; // v2 or higher
 import {
   getAllrole
 } from '@/api/role'
@@ -530,7 +538,7 @@ export default {
     }
   },
   async mounted() {
-    if (typeof this.$route.query.checkStatus == 'number' ) {
+    if (typeof this.$route.query.checkStatus == 'number') {
       this.input.checkStatus = this.$route.query.checkStatus
     }
     this.listLoading = false
@@ -545,7 +553,7 @@ export default {
       let {
         data,
         success
-      } = await updateLevel(objdata,'3')
+      } = await updateLevel(objdata, '3')
       this.$message({
         message: '保存成功',
         type: 'success'
@@ -589,44 +597,44 @@ export default {
       }
       this.multipleSelection = arr;
     },
-        async plsh() {
-          let {
-            data,
-            success
-          } = await PLrejectUserDetail(this.multipleSelection)
-          if (success) {
-            this.$message({
-              type: 'success',
-              message: '审核成功!'
-            });
-            this.loadPageList()
-          }
+    async plsh() {
+      let {
+        data,
+        success
+      } = await PLrejectUserDetail(this.multipleSelection)
+      if (success) {
+        this.$message({
+          type: 'success',
+          message: '审核成功!'
+        });
+        this.loadPageList()
+      }
 
 
-        },
-        async plxj() {
-          let {
-            data,
-            success
-          } = await PLoffUserDetails(this.multipleSelection,'3')
-          if (success) {
-            this.$message({
-              type: 'success',
-              message: '下架成功!'
-            });
-            this.loadPageList()
-          }
-        },
-        pldc() {
-          this.$message({
-            type: 'success',
-            message: '导出成功!'
-          });
-        },
-      handlexy(data) {
-        this.dialogShowLevel = true
-        this.xyset.id = data.id
-      },
+    },
+    async plxj() {
+      let {
+        data,
+        success
+      } = await PLoffUserDetails(this.multipleSelection, '3')
+      if (success) {
+        this.$message({
+          type: 'success',
+          message: '下架成功!'
+        });
+        this.loadPageList()
+      }
+    },
+    pldc() {
+      this.$message({
+        type: 'success',
+        message: '导出成功!'
+      });
+    },
+    handlexy(data) {
+      this.dialogShowLevel = true
+      this.xyset.id = data.id
+    },
     handlesh(data) {
       this.dialogShowSH = true
       this.rej.formId = data.id
@@ -663,8 +671,9 @@ export default {
         this.loadPageList()
       }
     },
-    showDetail() {
+    showDetail(data) {
       this.dialogShowDep = true
+      this.detailData = JSON.parse(data.form.detail)
     },
     handlePrint() {
       $("#tablePrint").printArea();
@@ -850,4 +859,12 @@ export default {
 
 <style lang="scss">
 @import '../../styles/index.scss'; // 全局自定义的css样式
+.el-checkbox__input.is-indeterminate .el-checkbox__inner,
+.tableExcelText .el-checkbox__input.is-checked .el-checkbox__inner {
+    background-color: #94989c;
+    border-color: #94989c;
+}
+.tableExcelText .el-checkbox__input.is-checked+.el-checkbox__label {
+    color: #000;
+}
 </style>

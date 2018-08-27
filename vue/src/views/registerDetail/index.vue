@@ -48,7 +48,7 @@
                         <div>
                           <!--这是正面照-->
                           <div class="photo">
-                            <el-upload class="upload-demo" :on-preview="handlePreview" :on-remove="handleRemove" action="/xtcx/file/upload" :file-list="expert.cardPositive" list-type="picture">
+                            <el-upload class="upload-demo" :http-request="uploadSectionFile1" :file-list="expert.cardPositive" list-type="picture">
                               <el-button size="small" type="primary">点击上传</el-button>
                             </el-upload>
                             <!-- <input type="file" @change="uploadImg($event)" id="IdCard"> -->
@@ -61,7 +61,7 @@
                         <div>
                           <!--这是背面照-->
                           <div class="photo photo1">
-                            <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="expert.cardSide" list-type="picture">
+                            <el-upload class="upload-demo" :http-request="uploadSectionFile2" :file-list="expert.cardSide" list-type="picture">
                               <el-button size="small" type="primary">点击上传</el-button>
                             </el-upload>
 
@@ -72,7 +72,7 @@
                         <div>
                           <!--这是背面照-->
                           <div class="photo photo1">
-                            <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="expert.cardHands" list-type="picture">
+                            <el-upload class="upload-demo" :http-request="uploadSectionFile3" :file-list="expert.cardHands" list-type="picture">
                               <el-button size="small" type="primary">点击上传</el-button>
                             </el-upload>
 
@@ -83,7 +83,7 @@
                         <div>
                           <!--这是背面照-->
                           <div class="photo photo1">
-                            <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="expert.onepicture" list-type="picture">
+                            <el-upload class="upload-demo" :http-request="uploadSectionFile4" :file-list="expert.onepicture" list-type="picture">
                               <el-button size="small" type="primary">点击上传</el-button>
                             </el-upload>
 
@@ -120,7 +120,7 @@
                       </el-form-item>
                       <el-form-item label="学位">
                         <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
-                        <el-select  v-model="expert.academic" style="width:100px;height:30px" placeholder="请选择">
+                        <el-select v-model="expert.academic" style="width:100px;height:30px" placeholder="请选择">
                           <el-option label="请选择" key="" value="">
                           </el-option>
                           <el-option label="学士" key="1" value="1">
@@ -136,7 +136,7 @@
                       <el-form-item label="研究领域">
                         <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
 
-                        <el-checkbox-group  v-model="expert.research_field">
+                        <el-checkbox-group v-model="expert.research_field">
                           <el-checkbox label="1">智能装备</el-checkbox>
                           <el-checkbox label="2">电子信息</el-checkbox>
                           <el-checkbox label="3">新材料 </el-checkbox>
@@ -333,102 +333,6 @@
           <div v-if="userType == '2'" class="">
 
             <el-tabs type="border-card">
-              <el-tab-pane>
-                <span slot="label"><i class="el-icon-date"></i> 联系人信息</span>
-
-                <el-form class="" label-width="30%" style="text-align:left">
-                  <el-row :gutter="20">
-                    <el-col :span="20">
-                      <el-form-item label="姓名">
-                        <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
-                        <el-input placeholder="请输入姓名" v-model="com.lxname" style="width:80%"></el-input>
-                      </el-form-item>
-                      <el-form-item label="职务">
-                        <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
-                        <el-input placeholder="请输入职务" v-model="com.lxzw" style="width:80%"></el-input>
-                      </el-form-item>
-                      <el-form-item label="手机号">
-                        <span style='position: relative;left: -60px;color: #f60d0d;'>*</span>
-                        <el-input placeholder="请输入手机号" v-model="com.lxphone" style="width:80%"></el-input>
-                      </el-form-item>
-                      <el-form-item label="邮箱">
-                        <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
-                        <el-input placeholder="请输入邮箱" v-model="com.lxemail" style="width:80%"></el-input>
-                      </el-form-item>
-                    </el-col>
-
-                  </el-row>
-                </el-form>
-
-
-              </el-tab-pane>
-              <el-tab-pane label="企业法人信息">
-                <el-form class="" label-width="30%" style="text-align:left">
-                  <el-row :gutter="20">
-                    <el-col :span="20">
-
-                      <el-form-item label="姓名">
-                        <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
-                        <el-input placeholder="请输入姓名" v-model="com.lpname" style="width:80%"></el-input>
-                      </el-form-item>
-                      <el-form-item label="职务">
-                        <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
-                        <el-input placeholder="请输入职务" v-model="com.lpzw" style="width:80%"></el-input>
-                      </el-form-item>
-                      <el-form-item label="手机号">
-                        <span style='position: relative;left: -60px;color: #f60d0d;'>*</span>
-                        <el-input placeholder="请输入手机号" v-model="com.lpphone" style="width:80%"></el-input>
-                      </el-form-item>
-                      <el-form-item label="邮箱">
-                        <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
-                        <el-input placeholder="请输入邮箱" v-model="com.lpemail" style="width:80%"></el-input>
-                      </el-form-item>
-                      <el-form-item label="营业执照正本">
-                        <span style='position: absolute;left: -110px;color: #f60d0d;'>*</span>
-                        <div>
-                          <!--这是背面照-->
-                          <div class="photo photo1">
-                            <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="com.zhengben" list-type="picture">
-                              <el-button size="small" type="primary">点击上传</el-button>
-                            </el-upload>
-
-                          </div>
-                        </div>
-                      </el-form-item>
-                      <el-form-item label="营业执照副本">
-                        <span style='position: absolute;left: -110px;color: #f60d0d;'>*</span>
-                        <div>
-                          <!--这是背面照-->
-                          <div class="photo photo1">
-                            <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="com.fuben" list-type="picture">
-                              <el-button size="small" type="primary">点击上传</el-button>
-                            </el-upload>
-
-                          </div>
-                        </div>
-                      </el-form-item>
-                      <el-form-item label="企业logo">
-                        <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
-                        <div>
-                          <!--这是背面照-->
-                          <div class="photo photo1">
-                            <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="com.logo" list-type="picture">
-                              <el-button size="small" type="primary">点击上传</el-button>
-                            </el-upload>
-
-                          </div>
-                        </div>
-                      </el-form-item>
-                    </el-col>
-
-                    <el-col :span="10">
-
-
-                    </el-col>
-
-                  </el-row>
-                </el-form>
-              </el-tab-pane>
               <el-tab-pane label="企业基础信息">
                 <el-form class="" label-width="40%" style="text-align:left">
                   <el-row :gutter="20">
@@ -455,7 +359,7 @@
                       </el-form-item>
                       <el-form-item label="注册时间">
                         <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
-                        <el-date-picker v-model="com.registerDate" type="date" placeholder="选择日期">
+                        <el-date-picker v-model="com.registerDate" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期">
                         </el-date-picker>
                       </el-form-item>
                       <el-form-item label="注册类型">
@@ -554,6 +458,103 @@
                   </el-row>
                 </el-form>
               </el-tab-pane>
+              <el-tab-pane label="企业法人信息">
+                <el-form class="" label-width="30%" style="text-align:left">
+                  <el-row :gutter="20">
+                    <el-col :span="20">
+
+                      <el-form-item label="姓名">
+                        <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                        <el-input placeholder="请输入姓名" v-model="com.lpname" style="width:80%"></el-input>
+                      </el-form-item>
+                      <el-form-item label="职务">
+                        <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                        <el-input placeholder="请输入职务" v-model="com.lpzw" style="width:80%"></el-input>
+                      </el-form-item>
+                      <el-form-item label="手机号">
+                        <span style='position: relative;left: -60px;color: #f60d0d;'>*</span>
+                        <el-input placeholder="请输入手机号" v-model="com.lpphone" style="width:80%"></el-input>
+                      </el-form-item>
+                      <el-form-item label="邮箱">
+                        <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                        <el-input placeholder="请输入邮箱" v-model="com.lpemail" style="width:80%"></el-input>
+                      </el-form-item>
+                      <el-form-item label="营业执照正本">
+                        <span style='position: absolute;left: -110px;color: #f60d0d;'>*</span>
+                        <div>
+                          <!--这是背面照-->
+                          <div class="photo photo1">
+                            <el-upload class="upload-demo" :http-request="uploadSectionFile5" :file-list="com.zhengben" list-type="picture">
+                              <el-button size="small" type="primary">点击上传</el-button>
+                            </el-upload>
+
+                          </div>
+                        </div>
+                      </el-form-item>
+                      <el-form-item label="营业执照副本">
+                        <span style='position: absolute;left: -110px;color: #f60d0d;'>*</span>
+                        <div>
+                          <!--这是背面照-->
+                          <div class="photo photo1">
+                            <el-upload class="upload-demo" :http-request="uploadSectionFile6" :file-list="com.fuben" list-type="picture">
+                              <el-button size="small" type="primary">点击上传</el-button>
+                            </el-upload>
+
+                          </div>
+                        </div>
+                      </el-form-item>
+                      <el-form-item label="企业logo">
+                        <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                        <div>
+                          <!--这是背面照-->
+                          <div class="photo photo1">
+                            <el-upload class="upload-demo" :http-request="uploadSectionFile7" :file-list="com.logo" list-type="picture">
+                              <el-button size="small" type="primary">点击上传</el-button>
+                            </el-upload>
+
+                          </div>
+                        </div>
+                      </el-form-item>
+                    </el-col>
+
+                    <el-col :span="10">
+
+
+                    </el-col>
+
+                  </el-row>
+                </el-form>
+              </el-tab-pane>
+              <el-tab-pane>
+                <span slot="label"><i class="el-icon-date"></i> 联系人信息</span>
+
+                <el-form class="" label-width="30%" style="text-align:left">
+                  <el-row :gutter="20">
+                    <el-col :span="20">
+                      <el-form-item label="姓名">
+                        <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                        <el-input placeholder="请输入姓名" v-model="com.lxname" style="width:80%"></el-input>
+                      </el-form-item>
+                      <el-form-item label="职务">
+                        <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                        <el-input placeholder="请输入职务" v-model="com.lxzw" style="width:80%"></el-input>
+                      </el-form-item>
+                      <el-form-item label="手机号">
+                        <span style='position: relative;left: -60px;color: #f60d0d;'>*</span>
+                        <el-input placeholder="请输入手机号" v-model="com.lxphone" style="width:80%"></el-input>
+                      </el-form-item>
+                      <el-form-item label="邮箱">
+                        <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                        <el-input placeholder="请输入邮箱" v-model="com.lxemail" style="width:80%"></el-input>
+                      </el-form-item>
+                    </el-col>
+
+                  </el-row>
+                </el-form>
+
+
+              </el-tab-pane>
+
 
               <el-tab-pane label="获得知识产权情况">
                 <el-form class="" label-width="40%" style="text-align:left">
@@ -671,62 +672,72 @@
                       <el-form-item label="是否承担过武器装备科研生产任务">
                         <span style='position: absolute;left: -230px;color: #f60d0d;'>*</span>
                         <el-checkbox-group v-model="com.sfkyrw">
-                          <el-checkbox  label="1">是</el-checkbox>
-                          <el-checkbox  label="2">否</el-checkbox>
+                          <el-checkbox label="1">是</el-checkbox>
+                          <el-checkbox label="2">否</el-checkbox>
                         </el-checkbox-group>
                       </el-form-item>
 
                       <el-form-item label="“三证”已获得">
                         <span style='position: absolute;left: -100px;color: #f60d0d;'>*</span>
                         <el-checkbox-group v-model="com.szget">
-                        <el-checkbox label="1">武器装备科研生产单位保密资格认证（一级、二级、三级） </el-checkbox>
-                        <el-checkbox label="2">武器装备科研生产许可证 </el-checkbox>
-                        <el-checkbox label="3">装备承制单位资格认证 </el-checkbox>
-                      </el-checkbox-group>
-                      </el-form-item>
-                      <el-form-item label="取得时间">
-                        <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
-                        <el-date-picker v-model="com.qdtime" type="date" placeholder="选择日期">
-                        </el-date-picker>
+                          <el-checkbox label="1">武器装备科研生产单位保密资格认证（一级、二级、三级） </el-checkbox>
+                          <el-checkbox label="2">武器装备科研生产许可证 </el-checkbox>
+                          <el-checkbox label="3">装备承制单位资格认证 </el-checkbox>
+                        </el-checkbox-group>
                       </el-form-item>
 
+                      <el-form-item label="取得时间" v-if="com.szget.includes('1')">
+                        <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                        <el-date-picker v-model="com.qdtime" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期">
+                        </el-date-picker>
+                      </el-form-item>
+                      <el-form-item label="取得时间" v-if="com.szget.includes('2')">
+                        <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                        <el-date-picker v-model="com.qdtime2" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期">
+                        </el-date-picker>
+                      </el-form-item>
+                      <el-form-item label="取得时间" v-if="com.szget.includes('3')">
+                        <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                        <el-date-picker v-model="com.qdtime3" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期">
+                        </el-date-picker>
+                      </el-form-item>
                       <el-form-item label="“三证”未获得是否计划申请">
                         <span style='position: absolute;left: -190px;color: #f60d0d;'>*</span>
                         <el-checkbox-group v-model="com.szwhd">
-                        <el-checkbox  label="1">是 </el-checkbox>
-                        <el-checkbox  label="2">否 </el-checkbox>
-                      </el-checkbox-group>
+                          <el-checkbox label="1">是 </el-checkbox>
+                          <el-checkbox label="2">否 </el-checkbox>
+                        </el-checkbox-group>
                       </el-form-item>
 
                       <el-form-item label="军民融合建设管理情况">
                         <span style='position: absolute;left: -160px;color: #f60d0d;'>*</span>
                         <el-checkbox-group v-model="com.jmrhgn">
-                        <el-checkbox  label="1">内设专门机构</el-checkbox>
-                        <el-checkbox  label="2">设有专项经费</el-checkbox>
-                        <el-checkbox  label="3">有专人负责 </el-checkbox>
-                      </el-checkbox-group>
+                          <el-checkbox label="1">内设专门机构</el-checkbox>
+                          <el-checkbox label="2">设有专项经费</el-checkbox>
+                          <el-checkbox label="3">有专人负责 </el-checkbox>
+                        </el-checkbox-group>
                       </el-form-item>
                       <el-form-item label="“民参军”过程中，遇到的障碍及困难">
                         <span style='position: absolute;left: -240px;color: #f60d0d;'>*</span>
                         <el-checkbox-group v-model="com.ydkn">
-                        <el-checkbox  label="1">需求信息</el-checkbox>
-                        <el-checkbox  label="2">产品准入</el-checkbox>
-                        <el-checkbox  label="3">人才保障 </el-checkbox>
-                        <el-checkbox  label="4">审批程序 </el-checkbox>
-                        <el-checkbox  label="5">资质认证 </el-checkbox>
-                        <el-checkbox  label="6">无人管理 </el-checkbox>
-                        <el-checkbox  label="7">其他 </el-checkbox>
-                        <el-input v-if="com.ydkn.includes('7')" placeholder="请输入其他" v-model="com.comydknOther" style="width:80%"></el-input>
-                      </el-checkbox-group>
+                          <el-checkbox label="1">需求信息</el-checkbox>
+                          <el-checkbox label="2">产品准入</el-checkbox>
+                          <el-checkbox label="3">人才保障 </el-checkbox>
+                          <el-checkbox label="4">审批程序 </el-checkbox>
+                          <el-checkbox label="5">资质认证 </el-checkbox>
+                          <el-checkbox label="6">无人管理 </el-checkbox>
+                          <el-checkbox label="7">其他 </el-checkbox>
+                          <el-input v-if="com.ydkn.includes('7')" placeholder="请输入其他" v-model="com.comydknOther" style="width:80%"></el-input>
+                        </el-checkbox-group>
                       </el-form-item>
                       <el-form-item label="“民参军”过程中企业自身存在的问题">
                         <span style='position: absolute;left: -240px;color: #f60d0d;'>*</span>
                         <el-checkbox-group v-model="com.problem">
-                        <el-checkbox  label="1">技术人才不足</el-checkbox>
-                        <el-checkbox  label="2">资金保障困难</el-checkbox>
-                        <el-checkbox  label="3">保密设施设备不足 </el-checkbox>
-                        <el-checkbox  label="4">需求信息不了解 </el-checkbox>
-                      </el-checkbox-group>
+                          <el-checkbox label="1">技术人才不足</el-checkbox>
+                          <el-checkbox label="2">资金保障困难</el-checkbox>
+                          <el-checkbox label="3">保密设施设备不足 </el-checkbox>
+                          <el-checkbox label="4">需求信息不了解 </el-checkbox>
+                        </el-checkbox-group>
                       </el-form-item>
 
                       <el-form-item label="有参军潜力的技术成果">
@@ -734,22 +745,22 @@
                       </el-form-item>
 
                       <el-form-item label="服务部门">
-                      <el-checkbox-group v-model="com.fwbm">
-                        <el-checkbox  label="1">海军</el-checkbox>
-                        <el-checkbox  label="2">陆军</el-checkbox>
-                        <el-checkbox  label="3">空军</el-checkbox>
-                        <el-checkbox  label="4">火箭军</el-checkbox>
-                        <el-checkbox  label="5">战略支援部队</el-checkbox>
-                        <el-checkbox  label="6">军工企业</el-checkbox>
-                      </el-checkbox-group>
+                        <el-checkbox-group v-model="com.fwbm">
+                          <el-checkbox label="1">海军</el-checkbox>
+                          <el-checkbox label="2">陆军</el-checkbox>
+                          <el-checkbox label="3">空军</el-checkbox>
+                          <el-checkbox label="4">火箭军</el-checkbox>
+                          <el-checkbox label="5">战略支援部队</el-checkbox>
+                          <el-checkbox label="6">军工企业</el-checkbox>
+                        </el-checkbox-group>
                       </el-form-item>
 
                       <el-form-item label="执行情况">
-                      <el-checkbox-group v-model="com.zxqk">
-                        <el-checkbox  label="1">申请</el-checkbox>
-                        <el-checkbox  label="2">在研</el-checkbox>
-                        <el-checkbox  label="3">验收/结题 </el-checkbox>
-                      </el-checkbox-group>
+                        <el-checkbox-group v-model="com.zxqk">
+                          <el-checkbox label="1">申请</el-checkbox>
+                          <el-checkbox label="2">在研</el-checkbox>
+                          <el-checkbox label="3">验收/结题 </el-checkbox>
+                        </el-checkbox-group>
                       </el-form-item>
                       <el-form-item label="可用于军民融合共享的资源情况（不超过200字）">
 
@@ -790,7 +801,8 @@
                           <el-table-column align="center" label="起止时间">
                             <template slot-scope="scope">
                                                     <span>
-                                                      <input  type="text" v-model="scope.row.time">
+                                                      <el-date-picker v-model="scope.row.time" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="">
+                                                      </el-date-picker>
                                                     </span>
                                                 </template>
                           </el-table-column>
@@ -874,7 +886,7 @@
                         <div>
                           <!--这是背面照-->
                           <div class="photo photo1">
-                            <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="mech.zhengben" list-type="picture">
+                            <el-upload class="upload-demo" :http-request="uploadSectionFile8" :file-list="mech.zhengben" list-type="picture">
                               <el-button size="small" type="primary">点击上传</el-button>
                             </el-upload>
 
@@ -886,7 +898,7 @@
                         <div>
                           <!--这是背面照-->
                           <div class="photo photo1">
-                            <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="mech.fuben" list-type="picture">
+                            <el-upload class="upload-demo" :http-request="uploadSectionFile9" :file-list="mech.fuben" list-type="picture">
                               <el-button size="small" type="primary">点击上传</el-button>
                             </el-upload>
 
@@ -898,7 +910,7 @@
                         <div>
                           <!--这是背面照-->
                           <div class="photo photo1">
-                            <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="mech.logo" list-type="picture">
+                            <el-upload class="upload-demo" :http-request="uploadSectionFile10" :file-list="mech.logo" list-type="picture">
                               <el-button size="small" type="primary">点击上传</el-button>
                             </el-upload>
 
@@ -942,31 +954,31 @@
 
                       <el-form-item label="机构性质">
                         <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
-                          <el-checkbox-group v-model="mech.registerNature">
-                        <el-checkbox label="1">企业</el-checkbox>
-                        <el-checkbox label="2">科研院所</el-checkbox>
-                        <el-checkbox label="3">高等院校 </el-checkbox>
-                        <el-checkbox label="4">其他</el-checkbox>
-                        <el-input v-if="mech.registerNature.includes('4')" placeholder="请输入其他" v-model="mech.mechregisterNatureOther" style="width:80%"></el-input>
-                      </el-checkbox-group>
+                        <el-checkbox-group v-model="mech.registerNature">
+                          <el-checkbox label="1">企业</el-checkbox>
+                          <el-checkbox label="2">科研院所</el-checkbox>
+                          <el-checkbox label="3">高等院校 </el-checkbox>
+                          <el-checkbox label="4">其他</el-checkbox>
+                          <el-input v-if="mech.registerNature.includes('4')" placeholder="请输入其他" v-model="mech.mechregisterNatureOther" style="width:80%"></el-input>
+                        </el-checkbox-group>
                       </el-form-item>
 
                       <el-form-item label="机构类别">
                         <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
-                          <el-checkbox-group v-model="mech.org_type">
-                        <el-checkbox  label="1">研究开发</el-checkbox>
-                        <el-checkbox  label="2">科技投融资</el-checkbox>
-                        <el-checkbox  label="3">技术转移 </el-checkbox>
-                        <el-checkbox  label="4">检验检测</el-checkbox>
-                        <el-checkbox  label="5">创业孵化</el-checkbox>
-                        <el-checkbox  label="6">知识产权</el-checkbox>
-                        <el-checkbox  label="7">科技评估</el-checkbox>
-                        <el-checkbox  label="8">标准认证</el-checkbox>
-                        <el-checkbox  label="9">管理咨询</el-checkbox>
-                        <el-checkbox  label="10">综合科技服务</el-checkbox>
-                        <el-checkbox  label="11">其他</el-checkbox>
-                        <el-input v-if="mech.org_type.includes('11')" placeholder="请输入其他" v-model="mech.mechorg_typeOther" style="width:80%"></el-input>
-                      </el-checkbox-group>
+                        <el-checkbox-group v-model="mech.org_type">
+                          <el-checkbox label="1">研究开发</el-checkbox>
+                          <el-checkbox label="2">科技投融资</el-checkbox>
+                          <el-checkbox label="3">技术转移 </el-checkbox>
+                          <el-checkbox label="4">检验检测</el-checkbox>
+                          <el-checkbox label="5">创业孵化</el-checkbox>
+                          <el-checkbox label="6">知识产权</el-checkbox>
+                          <el-checkbox label="7">科技评估</el-checkbox>
+                          <el-checkbox label="8">标准认证</el-checkbox>
+                          <el-checkbox label="9">管理咨询</el-checkbox>
+                          <el-checkbox label="10">综合科技服务</el-checkbox>
+                          <el-checkbox label="11">其他</el-checkbox>
+                          <el-input v-if="mech.org_type.includes('11')" placeholder="请输入其他" v-model="mech.mechorg_typeOther" style="width:80%"></el-input>
+                        </el-checkbox-group>
                       </el-form-item>
 
                       <el-form-item label="可提供的服务简介（200字以内">
@@ -1036,19 +1048,19 @@
                     <el-col :span="20">
                       <el-form-item label="资助方式">
                         <el-checkbox-group v-model="mech.registerSupport">
-                        <el-checkbox label="1">拨款</el-checkbox>
-                        <el-checkbox label="2">贴息</el-checkbox>
-                        <el-checkbox label="3">减免税 </el-checkbox>
-                        <el-checkbox label="4">以上全无</el-checkbox>
-                        <el-checkbox label="5">其他</el-checkbox>
-                        <el-input v-if="mech.registerSupport.includes('5')" placeholder="请输入其他" v-model="mech.mechregisterSupportOther" style="width:80%"></el-input>
+                          <el-checkbox label="1">拨款</el-checkbox>
+                          <el-checkbox label="2">贴息</el-checkbox>
+                          <el-checkbox label="3">减免税 </el-checkbox>
+                          <el-checkbox label="4">以上全无</el-checkbox>
+                          <el-checkbox label="5">其他</el-checkbox>
+                          <el-input v-if="mech.registerSupport.includes('5')" placeholder="请输入其他" v-model="mech.mechregisterSupportOther" style="width:80%"></el-input>
                         </el-checkbox-group>
                       </el-form-item>
                       <el-form-item label="执行情况">
                         <el-checkbox-group v-model="mech.registerImplement">
-                        <el-checkbox  label="1">申请</el-checkbox>
-                        <el-checkbox  label="2">在研</el-checkbox>
-                        <el-checkbox  label="3">验收/结题 </el-checkbox>
+                          <el-checkbox label="1">申请</el-checkbox>
+                          <el-checkbox label="2">在研</el-checkbox>
+                          <el-checkbox label="3">验收/结题 </el-checkbox>
                         </el-checkbox-group>
                       </el-form-item>
 
@@ -1072,7 +1084,8 @@
                       <el-table-column align="center" label="起止时间">
                         <template slot-scope="scope">
                                                 <span>
-                                                  <input  type="text" v-model="scope.row.time">
+                                                  <el-date-picker v-model="scope.row.time" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="">
+                                                  </el-date-picker>
                                                 </span>
                                             </template>
                       </el-table-column>
@@ -1107,7 +1120,8 @@
                         <el-table-column align="center" label="获得时间">
                           <template slot-scope="scope">
                                                   <span>
-                                                    <input  type="text" v-model="scope.row.time">
+                                                    <el-date-picker v-model="scope.row.time" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="">
+                                                    </el-date-picker>
                                                   </span>
                                               </template>
                         </el-table-column>
@@ -1149,7 +1163,8 @@
                         </el-table-column>
                         <el-table-column align="center" label="服务时间">
                           <template slot-scope="scope">
-                            <input  type="text" v-model="scope.row.time">
+                            <el-date-picker v-model="scope.row.time" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="">
+                            </el-date-picker>
                                             </template>
                         </el-table-column>
                       </el-table>
@@ -1187,7 +1202,7 @@
                         <div>
                           <!--这是背面照-->
                           <div class="photo photo1">
-                            <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="school.zhengben" list-type="picture">
+                            <el-upload class="upload-demo" :http-request="uploadSectionFile11" :file-list="school.zhengben" list-type="picture">
                               <el-button size="small" type="primary">点击上传</el-button>
                             </el-upload>
 
@@ -1199,7 +1214,7 @@
                         <div>
                           <!--这是背面照-->
                           <div class="photo photo1">
-                            <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="school.fuben" list-type="picture">
+                            <el-upload class="upload-demo" :http-request="uploadSectionFile12" :file-list="school.fuben" list-type="picture">
                               <el-button size="small" type="primary">点击上传</el-button>
                             </el-upload>
 
@@ -1211,7 +1226,7 @@
                         <div>
                           <!--这是背面照-->
                           <div class="photo photo1">
-                            <el-upload class="upload-demo" action="/xtcx/file/upload" :file-list="school.logo" list-type="picture">
+                            <el-upload class="upload-demo" :http-request="uploadSectionFile13" :file-list="school.logo" list-type="picture">
                               <el-button size="small" type="primary">点击上传</el-button>
                             </el-upload>
 
@@ -1277,7 +1292,6 @@
 </template>
 
 <script>
-
 import 'vue-area-linkage/dist/index.css'; // v2 or higher
 import {
   pca,
@@ -1288,7 +1302,9 @@ import {
   setUserDetail,
   isInLibs
 } from '@/api/login'
-
+import {
+  libupload
+} from '@/api/library'
 export default {
   data() {
     return {
@@ -1301,7 +1317,7 @@ export default {
       service_research_lastt: '',
       service_research_beforet: '',
       service_research_previoust: '',
-      code:'',
+      code: '',
       expert: {
         cardPositive: [],
         cardSide: [],
@@ -1315,7 +1331,7 @@ export default {
         edu: '',
         academic: '',
         research_field: [],
-        research_fieldOther:'',
+        research_fieldOther: '',
         research_area: '',
         zwname: '',
         zcname: '',
@@ -1358,9 +1374,9 @@ export default {
         logo: [],
         code: '',
         registerNature: [],
-        mechregisterNatureOther:'',
+        mechregisterNatureOther: '',
         org_type: [],
-        mechorg_typeOther:'',
+        mechorg_typeOther: '',
         serviceAbout: '',
         service_amount_last: '',
         service_amount_before: '',
@@ -1370,7 +1386,7 @@ export default {
         service_quantity_previous: '',
         registerImplement: [],
         registerSupport: [],
-        mechregisterSupportOther:'',
+        mechregisterSupportOther: '',
         honor: [{
           name: '',
           time: '',
@@ -1423,13 +1439,13 @@ export default {
         registerecode: '',
         is_high_new_tech: [],
         registerSite: [],
-        registerSiteOther:'',
+        registerSiteOther: '',
         registerHSite: [],
-        registerHSiteOther:'',
+        registerHSiteOther: '',
         registerMarket: [],
         registerMarkeSite: [],
         domain: [],
-        comdomainOther :'',
+        comdomainOther: '',
         product: '',
         inventionNum: '',
         newDrugnum: '',
@@ -1444,7 +1460,7 @@ export default {
         middleLevelnum: '',
         highleveltalentsnum: '',
         highleveltalentType: [],
-        comhighleveltalentTypeOther:'',
+        comhighleveltalentTypeOther: '',
         service_research_last: '',
         service_research_before: '',
         service_research_previous: '',
@@ -1452,10 +1468,12 @@ export default {
         sfkyrw: [],
         szget: [],
         qdtime: '',
+        qdtime2: '',
+        qdtime3: '',
         szwhd: [],
         jmrhgn: [],
         ydkn: [],
-        comydknOther:'',
+        comydknOther: '',
         problem: [],
         jscg: '',
         zyqk: '',
@@ -1500,18 +1518,18 @@ export default {
           if (data.form.formType == '1') {
             this.expert = JSON.parse(data.form.detail)
             this.expert.code = this.code
-            if(!this.expert.cardPositive){
-              this.expert.cardPositive  =  []
+            if (!this.expert.cardPositive) {
+              this.expert.cardPositive = []
             }
-            if(!this.expert.cardSide){
-              this.expert.cardSide  =  []
+            if (!this.expert.cardSide) {
+              this.expert.cardSide = []
             }
-            if(!this.expert.cardHands){
-              this.expert.cardHands  =  []
+            if (!this.expert.cardHands) {
+              this.expert.cardHands = []
             }
 
-            if(!this.expert.onepicture){
-              this.expert.onepicture  =  []
+            if (!this.expert.onepicture) {
+              this.expert.onepicture = []
             }
           }
           if (data.form.formType == '2') {
@@ -1553,22 +1571,6 @@ export default {
   },
   methods: {
 
-      async handleAvatarSuccess(res, file) {
-        let base64 = this.img2base64(file.url)
-        let obj = {}
-        obj.img
-        let {
-          data,
-          success
-        } = await libupload2(this.urlencode(base64))
-        if (success) {
-          let arro = {}
-          arro.name = data
-          arro.url = this.imgBaseUrl+`/jmrhupload/user/` + data
-
-          this.demandLibrary.cardSide.push(arro)
-        }
-      },
     handleChange1(file, fileList) {
       let obj = {}
       obj.name = fileList.slice(-3)[0].name
@@ -1698,7 +1700,285 @@ export default {
         });
       }
 
-    }
+    },
+
+    async uploadSectionFile1(param) {
+      this.expert.cardPositive = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.expert.cardPositive.push(arro)
+      }
+    },
+
+    async uploadSectionFile2(param) {
+      this.expert.cardSide = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.expert.cardSide.push(arro)
+      }
+    },
+    async uploadSectionFile3(param) {
+      this.expert.cardHands = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.expert.cardHands.push(arro)
+      }
+    },
+    async uploadSectionFile4(param) {
+      this.expert.onepicture = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.expert.onepicture.push(arro)
+      }
+    },
+
+    async uploadSectionFile5(param) {
+      this.com.zhengben = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.com.zhengben.push(arro)
+      }
+    },
+    async uploadSectionFile6(param) {
+      this.com.fuben = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.com.fuben.push(arro)
+      }
+    },
+    async uploadSectionFile7(param) {
+      this.com.logo = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.com.logo.push(arro)
+      }
+    },
+
+    async uploadSectionFile8(param) {
+      this.mech.zhengben = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.mech.zhengben.push(arro)
+      }
+    },
+    async uploadSectionFile9(param) {
+      this.mech.fuben = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.mech.fuben.push(arro)
+      }
+    },
+    async uploadSectionFile10(param) {
+      this.mech.logo = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.mech.logo.push(arro)
+      }
+    },
+
+    async uploadSectionFile11(param) {
+      this.school.zhengben = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.school.zhengben.push(arro)
+      }
+    },
+    async uploadSectionFile12(param) {
+      this.school.fuben = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.school.fuben.push(arro)
+      }
+    },
+    async uploadSectionFile13(param) {
+      this.school.logo = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.school.logo.push(arro)
+      }
+    },
   }
 }
 </script>

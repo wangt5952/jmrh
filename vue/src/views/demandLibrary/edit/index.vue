@@ -25,7 +25,7 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload :on-preview="handlePictureCardPreview" :on-success="handleAvatarSuccess" class="upload-demo" action="/xtcx/file/upload" :file-list="demandLibrary.cardSide" list-type="picture">
+                    <el-upload :http-request="uploadSectionFile1" class="upload-demo"  :file-list="demandLibrary.cardSide" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -228,8 +228,7 @@ import {
   getrequirement,
   addpublish,
   downloadfileName,
-  libupload,
-  libupload2
+  libupload
 } from '@/api/library'
 export default {
   data() {
@@ -288,26 +287,28 @@ export default {
   },
   computed: {},
   methods: {
+        async uploadSectionFile1(param) {
+          this.demandLibrary.cardSide = []
+          var fileObj = param.file;
+          // 接收上传文件的后台地址
+          // FormData 对象
+          var form = new FormData();
+          // 文件对象
+          form.append("file", fileObj);
+          // 其他参数
+          // form.append("xxx", xxx);
+          let {
+            data,
+            success
+          } = await libupload(form)
+          if (success) {
+            let arro = {}
+            arro.name = data.fileName,
+              arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+            this.demandLibrary.cardSide.push(arro)
+          }
+        },
 
-      async handleAvatarSuccess(res, file) {
-        let base64 = this.img2base64(file.url)
-        let {
-          data,
-          success
-        } = await libupload2(base64)
-        if (success) {
-          let arro = {}
-          arro.name = data
-          arro.url = this.imgBaseUrl+`/jmrhupload/user/` + data
-
-          this.demandLibrary.cardSide.push(arro)
-        }
-      },
-      handlePictureCardPreview(file) {
-        debugger
-       this.dialogImageUrl = file.url;
-       this.dialogVisible = true;
-     },
     back() {
       window.history.go(-1);
     },

@@ -248,7 +248,7 @@ export default {
           const formData = new FormData()
           formData.append('file', blobInfo.blob())
           uploadExchanges(formData, '1').then(res => {
-            success(this.imgBaseUrl+"/jmrhupload" + res.data.savePath)
+            success(Vue.prototype.imgBaseUrl+"/jmrhupload" + res.data.savePath)
           }).catch(() => {
             failure('上传失败，请重新上传')
           })

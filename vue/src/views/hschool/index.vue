@@ -149,45 +149,47 @@
 
   <el-dialog title="高校院所详情" :visible.sync="dialogShowDep" width="60%" top='5%'>
     <div class="textr paddinga">
-      <el-button class="filter-item" type="primary" icon="el-icon-download" @click="handlePrint">打印</el-button>
+      <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handlePrint">打印</el-button>
 
       <el-button class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">导出</el-button>
     </div>
 
     <div id="tablePrint" class="textc" style="font-size:12px;height:100%;">
-      <table id="tableExcel" cellpadding=0 cellspacing=0 border="1px solid#000;" style='margin:0%;width:100%'>
+      <table  class="tableExcelText" id="tableExcel" cellpadding=0 cellspacing=0 border="1px solid#000;" style='margin:0%;width:100%'>
         <tr height=27>
           <td colspan=4 id='tc0' height=27 class=x21>军民科技协同创新高校院所信息表</td>
         </tr>
         <tr height=19 id='r1'>
           <td height=19 class=x22 style='height:14.25pt;'>名称</td>
-          <td colspan=3 id='tc1' class=x23 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'></td>
+          <td colspan=3 id='tc1' class=x23 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>{{detailData.name}}</td>
         </tr>
         <tr height=19 id='r2'>
           <td height=19 class=x24 style='height:14.25pt;overflow:hidden;'>统一社会信用代码</td>
-          <td colspan=3 id='tc2' class=x23 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'></td>
+          <td colspan=3 id='tc2' class=x23 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>{{detailData.code}}</td>
         </tr>
         <tr height=19 id='r3'>
           <td height=19 class=x22 style='height:14.25pt;'>所在地区</td>
-          <td colspan=3 id='tc3' class=x28 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;overflow:hidden;'><span style='mso-spacerun:yes'>&nbsp; </span>省<span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>市<span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>区（县）（下拉选择）</td>
+          <td colspan=3 id='tc3' class=x28 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;overflow:hidden;'>
+            <area-cascader :level="1" v-model="detailData.country" :data="pcaa"></area-cascader>
+          </td>
         </tr>
         <tr height=19 id='r4'>
           <td height=19 class=x22 style='height:14.25pt;'>通信地址</td>
-          <td class=x28></td>
+          <td class=x28>{{detailData.address}}</td>
           <td class=x29>邮编</td>
-          <td class=x29></td>
+          <td class=x29>{{detailData.zip_code}}</td>
         </tr>
         <tr height=19 id='r5'>
           <td height=19 class=x22 style='height:14.25pt;'>单位网址</td>
-          <td colspan=3 id='tc4' class=x23 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'></td>
+          <td colspan=3 id='tc4' class=x23 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>{{detailData.unit_url}}</td>
         </tr>
         <tr height=19 id='r6'>
           <td height=19 class=x22 style='height:14.25pt;'>单位简介</td>
-          <td colspan=3 id='tc5' class=x23 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'></td>
+          <td colspan=3 id='tc5' class=x23 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>{{detailData.major_platform}}</td>
         </tr>
         <tr height=19 id='r7'>
           <td height=19 class=x22 style='height:14.25pt;'>重大平台</td>
-          <td colspan=3 id='tc6' class=x23 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'></td>
+          <td colspan=3 id='tc6' class=x23 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>{{detailData.introduction}}</td>
         </tr>
         <tr height=0 style='display:none'>
           <td width=72 style='width:54pt'></td>
@@ -274,6 +276,7 @@
 </template>
 
 <script>
+import 'vue-area-linkage/dist/index.css'; // v2 or higher
 import {
   getUserDetail,
   setUserDetail
@@ -503,8 +506,9 @@ export default {
         this.loadPageList()
       }
     },
-    showDetail() {
+    showDetail(data) {
       this.dialogShowDep = true
+      this.detailData = JSON.parse(data.form.detail)
     },
     handlePrint() {
       $("#tablePrint").printArea();
@@ -690,4 +694,12 @@ export default {
 
 <style lang="scss">
 @import '../../styles/index.scss'; // 全局自定义的css样式
+.el-checkbox__input.is-indeterminate .el-checkbox__inner,
+.tableExcelText .el-checkbox__input.is-checked .el-checkbox__inner {
+    background-color: #94989c;
+    border-color: #94989c;
+}
+.tableExcelText .el-checkbox__input.is-checked+.el-checkbox__label {
+    color: #000;
+}
 </style>

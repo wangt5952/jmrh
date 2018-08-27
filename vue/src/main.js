@@ -10,8 +10,14 @@ import '@/permission' // 权限
 import validate from './utils/validate' // 验证
 import jsPlumb from 'jsplumb'
 import VueAreaLinkage from 'vue-area-linkage';
-// Vue.prototype.imgBaseUrl  = 'http://106.14.172.38:8080';
-Vue.prototype.imgBaseUrl  = 'http://localhost:8080';
+//全局变量
+Vue.prototype.imgBaseUrl  = 'http://106.14.172.38:8990';
+// Vue.prototype.imgBaseUrl  = 'http://localhost:8080';
+
+var myDate = new Date();
+Vue.prototype.lastt = myDate.getFullYear() + '年';
+Vue.prototype.beforet = parseInt(myDate.getFullYear() - 1) + '年';
+Vue.prototype.previoust = parseInt(myDate.getFullYear() - 2) + '年';
 
 Vue.prototype.urlencode = function(str) {
   str = (str + '').toString();

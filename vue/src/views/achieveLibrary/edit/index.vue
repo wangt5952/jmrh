@@ -25,7 +25,7 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload :on-success="handleAvatarSuccess" class="upload-demo" action="/xtcx/lib/upload?type=1" :file-list="achieveLibrary.cardSide" list-type="picture">
+                    <el-upload :http-request="uploadSectionFile1" class="upload-demo" :file-list="achieveLibrary.cardSide" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -62,7 +62,7 @@
               </el-form-item>
               <el-form-item label="邮箱">
                 <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入邮箱" v-model="achieveLibrary.fzphone2" style="width:80%"></el-input>
+                <el-input placeholder="请输入邮箱" v-model="achieveLibrary.fzemail2" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="所属领域">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
@@ -88,13 +88,11 @@
               <el-form-item label="合作方式">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                 <el-checkbox-group v-model="achieveLibrary.cooperation">
-                  <el-checkbox label="1">新产品开发</el-checkbox>
-                  <el-checkbox label="2">制造工艺改进</el-checkbox>
-                  <el-checkbox label="3">产品升级换代</el-checkbox>
-                  <el-checkbox label="4">制造设备改进</el-checkbox>
-                  <el-checkbox label="5">生产线技术改造</el-checkbox>
-                  <el-checkbox label="6">其他</el-checkbox>
-                  <el-input v-if="achieveLibrary.cooperation.includes('6')" placeholder="请输入其他" v-model="achieveLibrary.cooperationOther" style="width:80%"></el-input>
+                  <el-checkbox label="1">技术转让</el-checkbox>
+                  <el-checkbox label="2">技术许可</el-checkbox>
+                  <el-checkbox label="3">技术开发</el-checkbox>
+                  <el-checkbox label="4">技术服务</el-checkbox>
+                  <el-checkbox label="5">技术入股</el-checkbox>
                 </el-checkbox-group>
               </el-form-item>
             </el-col>
@@ -263,7 +261,6 @@ import {
   addpublish,
   downloadfileName,
   libupload,
-  libupload2
 } from '@/api/library'
 export default {
   data() {
@@ -323,7 +320,6 @@ export default {
     this.listLoading = false
     if (this.$route.params.objData) {
       this.achieveLibrary = JSON.parse(this.$route.params.objData)
-        debugger
       if(!this.achieveLibrary.cardSide){
         this.achieveLibrary.cardSide  =  []
       }
@@ -333,22 +329,27 @@ export default {
   },
   computed: {},
   methods: {
-    async handleAvatarSuccess(res, file) {
-      let base64 = this.img2base64(file.url)
-      let obj = {}
-      obj.img
-      let {
-        data,
-        success
-      } = await libupload2(this.urlencode(base64))
-      if (success) {
-        let arro = {}
-        arro.name = data
-        arro.url = this.imgBaseUrl+`/jmrhupload/user/` + data
-
-        this.achieveLibrary.cardSide.push(arro)
-      }
-    },
+        async uploadSectionFile1(param) {
+          this.achieveLibrary.cardSide = []
+          var fileObj = param.file;
+          // 接收上传文件的后台地址
+          // FormData 对象
+          var form = new FormData();
+          // 文件对象
+          form.append("file", fileObj);
+          // 其他参数
+          // form.append("xxx", xxx);
+          let {
+            data,
+            success
+          } = await libupload(form)
+          if (success) {
+            let arro = {}
+            arro.name = data.fileName,
+              arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+            this.achieveLibrary.cardSide.push(arro)
+          }
+        },
     async getdownloadfile() {
 
       let {

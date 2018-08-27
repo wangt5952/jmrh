@@ -150,7 +150,7 @@
 
   <el-dialog title="专家详情" :visible.sync="dialogShowDep" width="60%" top='5%'>
     <div class="textr paddinga">
-      <el-button class="filter-item" type="primary" icon="el-icon-download" @click="handlePrint">打印</el-button>
+      <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handlePrint">打印</el-button>
 
       <el-button class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">导出</el-button>
     </div>
@@ -222,10 +222,10 @@
           <td colspan=2 id='tc15'>{{detailData.zcname}}</td>
           <td>职称级别</td>
           <td colspan=3 id='tc16'>
-              <el-checkbox-group v-model="detailData.zclevel">
-                <el-checkbox label="1">正高</el-checkbox>
-                <el-checkbox label="2">副高</el-checkbox>
-              </el-checkbox-group>
+            <el-checkbox-group v-model="detailData.zclevel">
+              <el-checkbox label="1">正高</el-checkbox>
+              <el-checkbox label="2">副高</el-checkbox>
+            </el-checkbox-group>
           </td>
         </tr>
         <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r7'>
@@ -238,7 +238,9 @@
         </tr>
         <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r8'>
           <td height=19 style='height:14.25pt;'>所在地区</td>
-          <td colspan=5 id='tc20' style='border-bottom:1px solid windowtext;'>省<span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>市<span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp; </span>区（县）（下拉选择）</td>
+          <td colspan=5 id='tc20' style='border-bottom:1px solid windowtext;'>
+            <area-cascader :level="1" v-model="detailData.country" :data="pcaas"></area-cascader>
+          </td>
           <td>通讯地址</td>
           <td colspan=6 id='tc21'>{{detailData.address}}</td>
         </tr>
@@ -269,57 +271,16 @@
           <td colspan=3 id='tc31'>获奖等级</td>
           <td>获奖时间</td>
         </tr>
-        <tr>
-          <td height=19 style='height:14.25pt;'></td>
-          <td></td>
-          <td colspan=2 id='tc32'></td>
-          <td colspan=2 id='tc33'></td>
-          <td colspan=3 id='tc34'></td>
-          <td colspan=3 id='tc35'>备注：可动态添加</td>
-          <td></td>
+        <tr v-for='item in detailData.research_record'>
+          <td height=19 style='height:14.25pt;'>{{item.projectname}}</td>
+          <td>{{item.projectSrc}}</td>
+          <td colspan=2 id=''>{{item.finishcon}}</td>
+          <td colspan=2 id=''>{{item.finishtime}}</td>
+          <td colspan=3 id=''>{{item.rewname}}</td>
+          <td colspan=3 id=''>{{item.rewlevel}}</td>
+          <td colspan=3 id=''>{{item.rewtime}}</td>
         </tr>
-        <tr>
-          <td height=19 style='height:14.25pt;'></td>
-          <td></td>
-          <td colspan=2 id='tc36'></td>
-          <td colspan=2 id='tc37'></td>
-          <td colspan=3 id='tc38'></td>
-          <td colspan=3 id='tc39'></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td height=19 style='height:14.25pt;'></td>
-          <td></td>
-          <td colspan=2 id='tc40'></td>
-          <td colspan=2 id='tc41'></td>
-          <td colspan=3 id='tc42'></td>
-          <td colspan=3 id='tc43'></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td height=19 style='height:14.25pt;'></td>
-          <td></td>
-          <td colspan=2 id='tc44'></td>
-          <td colspan=2 id='tc45'></td>
-          <td colspan=3 id='tc46'></td>
-          <td colspan=3 id='tc47'></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td width=72 style='width:54pt'></td>
-          <td width=72 style='width:54pt'></td>
-          <td width=72 style='width:54pt'></td>
-          <td width=72 style='width:54pt'></td>
-          <td width=72 style='width:54pt'></td>
-          <td width=72 style='width:54pt'></td>
-          <td width=72 style='width:54pt'></td>
-          <td width=72 style='width:54pt'></td>
-          <td width=72 style='width:54pt'></td>
-          <td width=72 style='width:54pt'></td>
-          <td width=72 style='width:54pt'></td>
-          <td width=72 style='width:54pt'></td>
-          <td width=72 style='width:54pt'></td>
-        </tr>
+
       </table>
 
     </div>
@@ -400,6 +361,7 @@
 </template>
 
 <script>
+import 'vue-area-linkage/dist/index.css'; // v2 or higher
 import {
   getexpert,
   addLib,
@@ -474,7 +436,7 @@ export default {
         create: '添加'
       },
 
-      pcaa: pcaa, //最多省市区三级，结合:level='2'选择，0省、1省市、2省市区
+      pcaas: pcaa, //最多省市区三级，结合:level='2'选择，0省、1省市、2省市区
       expert: {
         cardPositive: [],
         cardSide: [],
@@ -514,12 +476,46 @@ export default {
       loading: true,
       userType: '',
       multipleSelection: [],
-      detailData: '',
+      detailData: {
+        cardPositive: [],
+        cardSide: [],
+        cardHands: [],
+        onepicture: [],
+        name: '',
+        sex: '',
+        bornDate: '',
+        code: '',
+        shcool: '',
+        edu: '',
+        academic: '',
+        research_field: '',
+        research_area: '',
+        zwname: '',
+        zcname: '',
+        zclevel: '',
+        work_unit: '',
+        mobilephone: '',
+        telphone: '',
+        fdemail: '',
+        country: '',
+        address: '',
+        success_record: '',
+        project_desc: '',
+        research_record: [{
+          projectname: '',
+          projectSrc: '',
+          finishcon: '',
+          finishtime: '',
+          rewname: '',
+          rewlevel: '',
+          rewtime: ''
+        }]
+      },
       tfcheckStatus: '',
     }
   },
   async mounted() {
-    if (typeof this.$route.query.checkStatus == 'number' ) {
+    if (typeof this.$route.query.checkStatus == 'number') {
       this.input.checkStatus = this.$route.query.checkStatus
     }
     this.listLoading = false
@@ -534,7 +530,7 @@ export default {
       let {
         data,
         success
-      } = await updateLevel(objdata,'1')
+      } = await updateLevel(objdata, '1')
       this.$message({
         message: '保存成功',
         type: 'success'
@@ -592,8 +588,8 @@ export default {
       })
     },
     showDetail(data) {
-      this.detailData = JSON.parse(data.form.detail)
       this.dialogShowDep = true
+      this.detailData = JSON.parse(data.form.detail)
     },
     handlePrint() {
       $("#tablePrint").printArea();
@@ -664,7 +660,7 @@ export default {
       let {
         data,
         success
-      } = await PLoffUserDetails(this.multipleSelection,'1')
+      } = await PLoffUserDetails(this.multipleSelection, '1')
       if (success) {
         this.$message({
           type: 'success',
@@ -783,11 +779,12 @@ export default {
     height: 30px!important;
     line-height: 30px!important;
 }
-.tableExcelText .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+.el-checkbox__input.is-indeterminate .el-checkbox__inner,
+.tableExcelText .el-checkbox__input.is-checked .el-checkbox__inner {
     background-color: #94989c;
     border-color: #94989c;
 }
-.tableExcelText  .el-checkbox__input.is-checked+.el-checkbox__label {
+.tableExcelText .el-checkbox__input.is-checked+.el-checkbox__label {
     color: #000;
 }
 </style>
