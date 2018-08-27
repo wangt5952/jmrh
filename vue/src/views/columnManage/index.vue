@@ -458,7 +458,7 @@ export default {
       } = await uploadFile(form)
       let obj = {
         name: data.fileName,
-        url: "http://106.14.172.38:8990/jmrhupload" + data.savePath
+        url: this.imgBaseUrl+"/jmrhupload" + data.savePath
       }
       this.column.icons.push(obj)
     },

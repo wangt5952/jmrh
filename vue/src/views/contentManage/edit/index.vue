@@ -190,7 +190,7 @@ export default {
           const formData = new FormData()
           formData.append('file', blobInfo.blob())
           uploadCategory(formData, '1').then(res => {
-            success("http://106.14.172.38:8990/jmrhupload" + res.data.savePath)
+            success(this.imgBaseUrl+"/jmrhupload" + res.data.savePath)
           }).catch(() => {
             failure('上传失败，请重新上传')
           })
@@ -292,19 +292,11 @@ export default {
       } = await uploadFile(form)
       let obj = {
         name: data.fileName,
-        url: "http://106.14.172.38:8990/jmrhupload" + data.savePath
+        url: this.imgBaseUrl+"/jmrhupload" + data.savePath
       }
       this.content.covers.push(obj)
     },
-    // //封面返回
-    // handleAvatarSuccess(res, file) {
-    //   let obj = file.response.data
-    //   this.content.cover = obj
-    //   this.content.covers = [{
-    //     name: 'food.jpeg',
-    //     url: "http://106.14.172.38:8990/jmrhupload" + obj.savePath
-    //   }]
-    // },
+
     back() {
       window.history.go(-1);
     },

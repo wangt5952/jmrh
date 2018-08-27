@@ -188,7 +188,7 @@
 
     <div style="padding-left: 35%;margin: 40px 0  0  0;">
       <div class="" style="color:#63a9f1;padding: 0 95px">
-            <a href="http://106.14.172.38:8080/xtcx/lib/download?fileName=3-信息报送承诺书.doc"  target="_blank" >承诺书下载</a>
+        <a :href="imgBaseUrl+'/xtcx/lib/download?fileName=3-信息报送承诺书.doc'" target="_blank">承诺书下载</a>
       </div>
       <div class="" style="padding:15px" v-if="!$route.params.objData">
         <el-radio-group v-model="checkStatus">
@@ -298,7 +298,7 @@ export default {
         if (success) {
           let arro = {}
           arro.name = data
-          arro.url = `http://106.14.172.38:8990/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl+`/jmrhupload/user/` + data
 
           this.demandLibrary.cardSide.push(arro)
         }

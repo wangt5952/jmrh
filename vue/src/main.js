@@ -10,6 +10,8 @@ import '@/permission' // 权限
 import validate from './utils/validate' // 验证
 import jsPlumb from 'jsplumb'
 import VueAreaLinkage from 'vue-area-linkage';
+// Vue.prototype.imgBaseUrl  = 'http://106.14.172.38:8080';
+Vue.prototype.imgBaseUrl  = 'http://localhost:8080';
 
 Vue.prototype.urlencode = function(str) {
   str = (str + '').toString();

@@ -446,7 +446,7 @@ export default {
         if (success) {
           let arro = {}
           arro.name = data
-          arro.url = `http://106.14.172.38:8990/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl+`/jmrhupload/user/` + data
 
           this.demandLibrary.cardSide.push(arro)
         }

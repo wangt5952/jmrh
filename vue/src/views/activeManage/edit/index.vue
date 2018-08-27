@@ -226,6 +226,7 @@ import printArea from 'printArea'
 import {
   getToken,
 } from '@/utils/auth'
+
 export default {
   components: {
     // Tinymce
@@ -234,7 +235,7 @@ export default {
   data() {
     return {
       formDatas: '',
-      uploadUrl: 'http://106.14.172.38:8080/xtcx/exchanges/upload?token=' + getToken(),
+      uploadUrl: this.imgBaseUrl+'/xtcx/exchanges/upload?token=' + getToken(),
       editorInit: {
         language: 'zh_CN',
         plugins: [
@@ -247,7 +248,7 @@ export default {
           const formData = new FormData()
           formData.append('file', blobInfo.blob())
           uploadExchanges(formData, '1').then(res => {
-            success("http://106.14.172.38:8990/jmrhupload" + res.data.savePath)
+            success(this.imgBaseUrl+"/jmrhupload" + res.data.savePath)
           }).catch(() => {
             failure('上传失败，请重新上传')
           })
@@ -334,7 +335,7 @@ export default {
   computed: {},
   methods: {
     async subDownloadExchanges(item) {
-      window.open("http://106.14.172.38:8990/jmrhupload" + item.savePath);
+      window.open(this.imgBaseUrl+"/jmrhupload" + item.savePath);
     },
     async subDelFile(item) {
       let {
@@ -434,7 +435,7 @@ export default {
       } = await uploadFile(form)
       let obj = {
         name: data.fileName,
-        url: "http://106.14.172.38:8990/jmrhupload" + data.savePath
+        url: this.imgBaseUrl+"/jmrhupload" + data.savePath
       }
       this.active.covers.push(obj)
     },
