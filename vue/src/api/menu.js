@@ -10,6 +10,13 @@ export function getUserMenus(data) {
     data
   });
 }
+export function getUserMenusone(data) {
+  return request({
+    url: '/xtcx/user/getMenus',
+    method: 'get',
+    data
+  });
+}
 
 export function addCreate(data) {
   return request({

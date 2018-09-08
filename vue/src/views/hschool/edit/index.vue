@@ -10,27 +10,36 @@
               <el-col :span="20">
 
                 <el-form-item label="名称">
-                  <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                  <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
                   <el-input placeholder="请输入名称" v-model="school.name" style="width:80%"></el-input>
                 </el-form-item>
                 <el-form-item label="统一社会信用代码">
-                  <span style='position: relative;left: -140px;color: #f60d0d;'>*</span>
+                  <span style='position: absolute;left: -140px;color: #f60d0d;'>*</span>
                   <el-input placeholder="请输入统一社会信用代码" v-model="school.code" style="width:80%"></el-input>
                 </el-form-item>
-                <el-form-item label="事业单位法人证书正本">
-                  <span style='position: absolute;left: -160px;color: #f60d0d;'>*</span>
+                <el-form-item label="营业执照">
                   <div>
                     <!--这是背面照-->
                     <div class="photo photo1">
-                      <el-upload class="upload-demo" :http-request="uploadSectionFile1" :file-list="school.zhengben" list-type="picture">
+                      <el-upload class="upload-demo" :http-request="uploadSectionFile0" :file-list="school.zhengben" list-type="picture">
                         <el-button size="small" type="primary">点击上传</el-button>
                       </el-upload>
 
                     </div>
                   </div>
                 </el-form-item>
-                <el-form-item label="事业单位法人证书副本">
-                  <span style='position: absolute;left: -160px;color: #f60d0d;'>*</span>
+                <el-form-item label="事业单位法人证书">
+                  <div>
+                    <!--这是背面照-->
+                    <div class="photo photo1">
+                      <el-upload class="upload-demo" :http-request="uploadSectionFile1" :file-list="school.zhengben1" list-type="picture">
+                        <el-button size="small" type="primary">点击上传</el-button>
+                      </el-upload>
+
+                    </div>
+                  </div>
+                </el-form-item>
+                <el-form-item label="法人身份证正面">
                   <div>
                     <!--这是背面照-->
                     <div class="photo photo1">
@@ -41,8 +50,18 @@
                     </div>
                   </div>
                 </el-form-item>
+                <el-form-item label="法人身份证反面">
+                  <div>
+                    <!--这是背面照-->
+                    <div class="photo photo1">
+                      <el-upload class="upload-demo" :http-request="uploadSectionFile22" :file-list="school.fuben2" list-type="picture">
+                        <el-button size="small" type="primary">点击上传</el-button>
+                      </el-upload>
+
+                    </div>
+                  </div>
+                </el-form-item>
                 <el-form-item label="高校logo">
-                  <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                   <div>
                     <!--这是背面照-->
                     <div class="photo photo1">
@@ -59,25 +78,24 @@
                   <!-- <area-cascader v-model="selected" :level="1" :data="pca"></area-cascader> -->
                 </el-form-item>
                 <el-form-item label="联系地址">
-                  <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                  <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                   <el-input placeholder="请输入联系地址" v-model="school.address" style="width:80%"></el-input>
                 </el-form-item>
-                <el-form-item label="邮箱">
-                  <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
-                  <el-input placeholder="请输入邮箱" v-model="school.zip_code" style="width:80%"></el-input>
+                <el-form-item label="邮编">
+                  <el-input placeholder="请输入邮编" v-model="school.zip_code" style="width:80%"></el-input>
                 </el-form-item>
 
                 <el-form-item label="单位网址">
-                  <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                  <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                   <el-input placeholder="请输入单位网址" v-model="school.unit_url" style="width:80%"></el-input>
                 </el-form-item>
 
                 <el-form-item label="单位简介">
-                  <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                  <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                   <el-input placeholder="请输入单位简介" v-model="school.major_platform" style="width:80%"></el-input>
                 </el-form-item>
                 <el-form-item label="重大平台">
-                  <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                  <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                   <el-input placeholder="请输入重大平台" v-model="school.introduction" style="width:80%"></el-input>
                 </el-form-item>
               </el-col>
@@ -157,7 +175,9 @@ export default {
       service_research_previoust: '',
       school: {
         zhengben: [],
+          zhengben1: [],
         fuben: [],
+        fuben2: [],
         logo: [],
         introduction: '',
         major_platform: '',
@@ -168,7 +188,7 @@ export default {
         code: '',
         name: '',
       },
-      checkStatus:-1
+      checkStatus:1
     }
   },
   async mounted() {
@@ -178,8 +198,7 @@ export default {
   },
   computed: {},
   methods: {
-
-    async uploadSectionFile1(param) {
+    async uploadSectionFile0(param) {
       this.school.zhengben = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
@@ -198,6 +217,27 @@ export default {
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
         this.school.zhengben.push(arro)
+      }
+    },
+    async uploadSectionFile1(param) {
+      this.school.zhengben1 = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.school.zhengben1.push(arro)
       }
     },
 
@@ -222,6 +262,27 @@ export default {
         this.school.fuben.push(arro)
       }
     },
+        async uploadSectionFile22(param) {
+          this.school.fuben2 = []
+          var fileObj = param.file;
+          // 接收上传文件的后台地址
+          // FormData 对象
+          var form = new FormData();
+          // 文件对象
+          form.append("file", fileObj);
+          // 其他参数
+          // form.append("xxx", xxx);
+          let {
+            data,
+            success
+          } = await libupload(form)
+          if (success) {
+            let arro = {}
+            arro.name = data.fileName,
+              arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+            this.school.fuben2.push(arro)
+          }
+        },
     async uploadSectionFile3(param) {
       this.school.logo = []
       var fileObj = param.file;
@@ -351,10 +412,6 @@ export default {
 </style>
 
 <style>
-.tab-container {
-  padding: 30px;
-  overflow: auto;
-}
 
 .tools {
   height: 5%

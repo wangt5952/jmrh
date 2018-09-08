@@ -9,67 +9,69 @@
           <el-row :gutter="20">
             <el-col :span="20">
               <el-form-item label="技术需求名称">
-                <span style='position: relative;left: -110px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -110px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入技术需求名称" v-model="demandLibrary.re_name" style="width:80%"></el-input>
               </el-form-item>
 
-              <el-form-item label="单位信用码">
-                <span style='position: relative;left: -90px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入单位信用码" v-model="demandLibrary.code" style="width:80%"></el-input>
-              </el-form-item>
               <el-form-item label="需求单位名称">
-                <span style='position: relative;left: -110px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -110px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入需求单位名称" v-model="demandLibrary.name" style="width:80%"></el-input>
+              </el-form-item>
+              <el-form-item label="统一社会信用代码">
+                <span style='position: absolute;left: -130px;color: #f60d0d;'>*</span>
+                <el-input placeholder="请输入统一社会信用代码" v-model="demandLibrary.code" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="承诺书上传(图片)">
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload :http-request="uploadSectionFile1" class="upload-demo"  :file-list="demandLibrary.cardSide" list-type="picture">
+                    <el-upload :http-request="uploadSectionFile1" class="upload-demo"  :file-list="demandLibrary.cardSide" list-type="picture" style="float:left">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
-
+                    <div style="color:#63a9f1;float:left;margin-left:20px">
+                       <a :href="docUrl+'/xtcx/lib/download?fileName=3-信息报送承诺书.doc'" target="_blank" >承诺书下载</a>
+                    </div>
                   </div>
                 </div>
-              </el-form-item>
-              <el-form-item label="通讯地址">
-                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入通讯地址" v-model="demandLibrary.address" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="所在地区">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                 <area-cascader :level="1" v-model="demandLibrary.country" :data="pcaa"></area-cascader>
               </el-form-item>
+              <el-form-item label="通讯地址">
+                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                <el-input placeholder="请输入通讯地址" v-model="demandLibrary.address" style="width:80%"></el-input>
+              </el-form-item>
               <el-form-item label="负责人">
-                <span style='position: relative;left: -70px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -70px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入负责人" v-model="demandLibrary.fzname" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="职务">
-                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入职务" v-model="demandLibrary.fzzw" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="电话">
-                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入电话" v-model="demandLibrary.fzphone" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="邮箱">
-                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入邮箱" v-model="demandLibrary.fzemail" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="联系人">
-                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入联系人" v-model="demandLibrary.fzname2" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="职务">
-                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入职务" v-model="demandLibrary.fzzw2" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="电话">
-                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入电话" v-model="demandLibrary.fzphone2" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="邮箱">
-                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入邮箱" v-model="demandLibrary.fzemail2" style="width:80%"></el-input>
               </el-form-item>
 
@@ -130,7 +132,7 @@
 
               <el-form-item label="希望解决的技术需求概述">
                 <span style='position: absolute;left: -180px;color: #f60d0d;'>*</span>
-                <textarea v-model="demandLibrary.reqDesc" rows="3" cols="20" style="width:60%;height: 150px;">
+                <textarea v-model="demandLibrary.reqDesc" rows="3" cols="20" style="width:60%;height: 120px;">
                 </textarea>
               </el-form-item>
 
@@ -149,7 +151,7 @@
           <el-row :gutter="24">
             <el-col :span="24">
               <el-form-item label="要求达到的技术性能、参数指标等">
-                <textarea v-model="demandLibrary.reqNew" rows="3" cols="20" style="width:60%;height: 150px;">
+                <textarea v-model="demandLibrary.reqNew" rows="3" cols="20" style="width:60%;height: 120px;">
                 </textarea>
               </el-form-item>
 
@@ -187,9 +189,7 @@
   <el-row>
 
     <div style="padding-left: 35%;margin: 40px 0  0  0;">
-      <div class="" style="color:#63a9f1;padding: 0 95px">
-        <a :href="imgBaseUrl+'/xtcx/lib/download?fileName=3-信息报送承诺书.doc'" target="_blank">承诺书下载</a>
-      </div>
+
       <div class="" style="padding:15px" v-if="!$route.params.objData">
         <el-radio-group v-model="checkStatus">
           <el-radio :label="-1">草稿</el-radio>
@@ -273,7 +273,7 @@ export default {
         reqBack: [],
         reqBackOther: '',
       },
-      checkStatus: -1
+      checkStatus: 1
     }
   },
   async mounted() {
@@ -431,7 +431,7 @@ export default {
 }
 
 .area-select .area-selected-trigger {
-  position: relative;
+  position: absolute;
   display: block;
   font-size: 14px;
   cursor: pointer;

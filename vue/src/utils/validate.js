@@ -72,12 +72,38 @@ let verify = {
   isPoneAvailable: function(str) {
     var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
     return !myreg.test(str) ? true : false;
+  },
+  isIDCard:function(str){
+    var myisIDCard = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+    return !myisIDCard.test(str) ? true : false;
   }
 
 }
-
+function validaTree(str) {
+  if (!str || verify.isNull(str.label)) {
+    Message({
+      message: '名称不能为空',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.menuUrl)) {
+    Message({
+      message: '路径不能为空',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.icon)) {
+    Message({
+      message: '图标不能为空',
+      type: 'error'
+    });
+    return false;
+  }
+  return true;
+}
 function validaManageUser(str) {
-  debugger
   if (!str || verify.isNull(str.userName)) {
 
     Message({
@@ -187,6 +213,59 @@ function validatoRegistere(str) {
   return true;
 }
 
+function validatoRegistere2(str) {
+  if (!str || verify.isNull(str.email)) {
+    Message({
+      message: '邮箱不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.checkEmail(str.email)) {
+    Message({
+      message: '请输入正确的邮箱地址！',
+      type: 'error'
+    });
+    return false;
+  }
+
+  if (!str || verify.isNull(str.password)) {
+    Message({
+      message: '密码不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.repassword)) {
+    Message({
+      message: '请再次输入密码！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.name)) {
+    Message({
+      message: '名字不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.code)) {
+    Message({
+      message: '身份证不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isIDCard(str.code)) {
+    Message({
+      message: '请输入正确的身份证格式！',
+      type: 'error'
+    });
+    return false;
+  }
+  return true;
+}
 
 function validacolumn(str) {
   if (!str || verify.isNull(str.code)) {
@@ -221,9 +300,42 @@ function validacontent(str) {
     });
     return false;
   }
-  if (!str || verify.isNull(str.publishDate)) {
+  if (str.only_url == 1) {
+    if (!str || verify.isNull(str.content_url)) {
+      Message({
+        message: '外链地址不能为空！',
+        type: 'error'
+      });
+      return false;
+    }
+
+  }
+  if (str.copied == 1) {
+    if (!str || verify.isNull(str.copyFrom)) {
+      Message({
+        message: '来源不能为空！',
+        type: 'error'
+      });
+      return false;
+    }
+    if (!str || verify.isNull(str.copyFromUrl)) {
+      Message({
+        message: '来源网址不能为空！',
+        type: 'error'
+      });
+      return false;
+    }
+  }
+  if (!str || verify.isNull(str.covers)) {
     Message({
-      message: '发布时间不能为空！',
+      message: '封面不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.description)) {
+    Message({
+      message: '描述不能为空！',
       type: 'error'
     });
     return false;
@@ -233,7 +345,21 @@ function validacontent(str) {
 }
 
 function validacontent2(str) {
-  if (!str || verify.isNull(str.cover)) {
+    if (!str || verify.isNull(str.title)) {
+      Message({
+        message: '标题不能为空！',
+        type: 'error'
+      });
+      return false;
+    }
+    if (!str || verify.isNull(str.categroyId)) {
+      Message({
+        message: '所属栏目不能为空！',
+        type: 'error'
+      });
+      return false;
+    }
+  if (!str || verify.isNull(str.covers)) {
     Message({
       message: '封面不能为空！',
       type: 'error'
@@ -251,7 +377,6 @@ function validacontent2(str) {
 }
 
 function validactive(str) {
-  debugger
   if (!str || verify.isNull(str.title)) {
     Message({
       message: '标题不能为空！',
@@ -281,6 +406,14 @@ function validactive(str) {
     });
     return false;
   }
+
+  if (!str || !(str.enrollStart <= str.enrollEnd)) {
+    Message({
+      message: '报名结束时间必须大于报名开始时间！',
+      type: 'error'
+    });
+    return false;
+  }
   if (!str || verify.isNull(str.exStart)) {
     Message({
       message: '活动开始时间不能为空！',
@@ -288,13 +421,38 @@ function validactive(str) {
     });
     return false;
   }
-  if (!str || verify.isNull(str.exEnd)) {
+
+  if (!str || !(str.enrollStart <= str.exStart)) {
     Message({
-      message: '报名结束时间不能为空！',
+      message: '活动开始时间必须大于报名开始时间！',
       type: 'error'
     });
     return false;
   }
+  if (!str || verify.isNull(str.exEnd)) {
+    Message({
+      message: '活动结束时间不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || !(str.enrollEnd <= str.exEnd)) {
+    Message({
+      message: '活动结束时间必须大于报名结束时间！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || !(str.exStart <= str.exEnd)) {
+    Message({
+      message: '活动结束时间必须大于活动开始时间！',
+      type: 'error'
+    });
+    return false;
+  }
+
+
+
   if (!str || verify.isNull(str.publishDate)) {
     Message({
       message: '发布时间不能为空！',
@@ -304,9 +462,70 @@ function validactive(str) {
   }
   return true;
 }
+
+function validresetPW(str,checkStatus,cellphone) {
+  if(checkStatus == 0){
+    if (!str || verify.isNull(str.email)) {
+      Message({
+        message: '邮箱不能为空！',
+        type: 'error'
+      });
+      return false;
+    }
+    if (!str || verify.checkEmail(str.email)) {
+      Message({
+        message: '请输入正确的邮箱地址！',
+        type: 'error'
+      });
+      return false;
+    }
+  }
+  if(checkStatus == 1){
+    if (!str || verify.isNull(cellphone)) {
+      Message({
+        message: '手机号不能为空！',
+        type: 'error'
+      });
+      return false;
+    }
+    if (!str || verify.isPoneAvailable(cellphone)) {
+      Message({
+        message: '手机号格式不正确！',
+        type: 'error'
+      });
+      return false;
+    }
+  }
+if (!str || verify.isNull(str.code)) {
+  Message({
+    message: '验证码不能为空！',
+    type: 'error'
+  });
+  return false;
+}
+if (!str || verify.isNull(str.newPassword)) {
+  Message({
+    message: '新密码不能为空！',
+    type: 'error'
+  });
+  return false;
+}
+if (!str || verify.isNull(str.rePassword)) {
+  Message({
+    message: '请重复输入新密码！',
+    type: 'error'
+  });
+  return false;
+}
+return true;
+}
+
 //success/warning/info/error
 export default {
+  validresetPW,
+  validaTree,
   validatoRegistere,
+  validatoRegistere2,
   validaManageUser,
   validacolumn,
   validacontent,

@@ -2,12 +2,12 @@
 <div class="tab-container" style="overflow-y: auto;">
 
   <table v-show="!show" cellpadding=0 cellspacing=0 border="0" style="width:100%;border: 1px solid#ccc;padding: 50px;">
-    <tr v-show="content.typeId == 1" style="border-bottom: 1px solid#ccc;">
-      <td style="width:100px;padding:10px">标题</td>
+    <tr  style="border-bottom: 1px solid#ccc;">
+      <td style="width:100px;padding:10px"><span style='color: #f60d0d;'>*</span> 标题</td>
       <td>
         <el-input v-model="content.title" placeholder="请输入标题" style="width:80%"></el-input>
       </td>
-      <td style="width:100px;padding:10px">所属栏目</td>
+      <td style="width:100px;padding:10px"><span style='color: #f60d0d;'>*</span> 所属栏目</td>
       <td>
         <el-select v-model="content.categroyId" style="height:30px;width:80%" placeholder="请选择">
 
@@ -17,13 +17,13 @@
       </td>
     </tr>
     <tr style="border-bottom: 1px solid#ccc;">
-      <td style="width:100px;padding:10px">封面</td>
+      <td style="width:100px;padding:10px"><span style='color: #f60d0d;'>*</span> 封面</td>
       <td>
-        <el-upload class="avatar-uploader" :http-request="uploadSectionFile" list-type="picture-card" :file-list="content.covers" :on-success="handleAvatarSuccess" :on-remove="handleRemove">
+        <el-upload class="avatar-uploader"  accept=".jpg,.jpeg,.png,.gif,.bmp,.pdf,.JPG,.JPEG,.PBG,.GIF,.BMP,.PDF" :http-request="uploadSectionFile" :before-upload="beforeUploadImg" list-type="picture-card" :file-list="content.covers" :on-success="handleAvatarSuccess" :on-remove="handleRemove">
           <i class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </td>
-      <td style="width:100px;padding:10px">内容类型</td>
+      <td style="width:100px;padding:10px">&nbsp;&nbsp;内容类型</td>
       <td>
         <el-select v-model="content.typeId" style="height:30px;width:80%" placeholder="请选择">
 
@@ -34,8 +34,24 @@
         </el-select>
       </td>
     </tr>
+
+    <tr>
+      <td style="width:100px;padding:10px">&nbsp;&nbsp;是否外链</td>
+      <td>
+        <el-select v-model="content.onlyUrl" style="height:30px;width:80%" placeholder="请选择">
+          <el-option label="是" :key=1 :value=1>
+          </el-option>
+          <el-option label="否" :key=0 :value=0>
+          </el-option>
+        </el-select>
+      </td>
+      <td  v-show="content.onlyUrl == 1" style="width:100px;padding:10px"><span style='color: #f60d0d;'>*</span> 外链地址</td>
+      <td  v-show="content.onlyUrl == 1">
+        <el-input v-model="content.contentUrl" placeholder="请输入外链地址" style="width:80%"></el-input>
+      </td>
+    </tr>
     <tr v-show="content.typeId == 1">
-      <td style="width:100px;padding:10px">是否转载</td>
+      <td style="width:100px;padding:10px">&nbsp;&nbsp;是否转载</td>
       <td>
         <el-select v-model="content.copied" style="height:30px;width:80%" placeholder="请选择">
 
@@ -47,37 +63,37 @@
       </td>
     </tr>
     <tr v-show="content.copied == 1 && content.typeId == 1" style="border-bottom: 1px solid#ccc;">
-      <td style="width:100px;padding:10px">来源</td>
+      <td style="width:100px;padding:10px"><span style='color: #f60d0d;'>*</span> 来源</td>
       <td>
         <el-input v-model="content.copyFrom" placeholder="请输入来源" style="width:80%"></el-input>
       </td>
-      <td style="width:100px;padding:10px">来源网址</td>
+      <td style="width:100px;padding:10px"><span style='color: #f60d0d;'>*</span> 来源网址</td>
       <td>
         <el-input v-model="content.copyFromUrl" placeholder="请输入来源网址" style="width:80%"></el-input>
       </td>
     </tr>
     <tr v-show="content.typeId == 1" style="border-bottom: 1px solid#ccc;">
-      <td style="width:100px;padding:10px">作者</td>
+      <td style="width:100px;padding:10px">&nbsp;&nbsp;作者</td>
       <td>
         <el-input v-model="content.author" placeholder="请输入作者" style="width:80%"></el-input>
       </td>
-      <td style="width:100px;padding:10px">编辑</td>
+      <td style="width:100px;padding:10px">&nbsp;&nbsp;编辑</td>
       <td>
         <el-input v-model="content.editor" placeholder="请输入编辑" style="width:80%"></el-input>
       </td>
     </tr>
     <tr style="border-bottom: 1px solid#ccc;">
-      <td v-show="content.typeId == 1" style="width:100px;padding:10px">标签</td>
+      <td v-show="content.typeId == 1" style="width:100px;padding:10px">&nbsp;&nbsp;标签</td>
       <td v-show="content.typeId == 1">
         <el-input v-model="content.tags" placeholder="请输入标签" style="width:80%"></el-input>
       </td>
-      <td style="width:100px;padding:10px">描述</td>
+      <td style="width:100px;padding:10px"><span style='color: #f60d0d;'>*</span> 描述</td>
       <td>
         <el-input v-model="content.description" placeholder="请输入描述" style="width:80%"></el-input>
       </td>
     </tr>
     <tr v-show="content.typeId == 1" style="border-bottom: 1px solid#ccc;">
-      <td style="width:100px;padding:10px">定时发布</td>
+      <td style="width:100px;padding:10px">&nbsp;&nbsp;定时发布</td>
       <td>
         <el-select v-model="content.publishNow" style="height:30px;width:80%" placeholder="请选择">
 
@@ -87,14 +103,14 @@
           </el-option>
         </el-select>
       </td>
-      <td v-show="content.publishNow == 1" style="width:100px;padding:10px">发布日期</td>
+      <td v-show="content.publishNow == 1" style="width:100px;padding:10px">&nbsp;&nbsp;发布日期</td>
       <td v-show="content.publishNow == 1">
         <el-date-picker v-model="content.publishDate" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期">
         </el-date-picker>
       </td>
     </tr>
-    <tr v-show="content.typeId == 1" style="border-bottom: 1px solid#ccc;">
-      <td style="width:100px;padding:10px">置顶</td>
+    <tr style="border-bottom: 1px solid#ccc;">
+      <td style="width:100px;padding:10px">&nbsp;&nbsp;置顶</td>
       <td>
             <el-select v-model="content.stickSort" style="height:30px;width:80%" placeholder="请选择">
               <el-option label="是" :key=0 :value=0>
@@ -103,8 +119,8 @@
               </el-option>
             </el-select>
       </td>
-      <td style="width:100px;padding:10px">推荐</td>
-      <td>
+      <td v-show="content.typeId == 1"  style="width:100px;padding:10px">&nbsp;&nbsp;推荐</td>
+      <td v-show="content.typeId == 1" >
         <el-select v-model="content.recommend" style="height:30px;width:80%" placeholder="请选择">
 
           <el-option label="是" :key=1 :value=1>
@@ -116,7 +132,7 @@
     </tr>
 
     <tr v-show="content.typeId == 1" style="border-bottom: 1px solid#ccc;">
-      <td style="width:100px;padding:10px">活动内容</td>
+      <td style="width:100px;padding:10px">&nbsp;&nbsp;活动内容</td>
       <td colspan=3>
         <!-- <tinymce :height="300" v-model="content.contentTxt"></tinymce> -->
         <editor v-model="content.contentTxt" :setting="editorSetting" :init="editorInit"></editor>
@@ -171,6 +187,8 @@ import printArea from 'printArea'
 import {
   getToken,
 } from '@/utils/auth'
+
+import idback from '@/assets/logo/idback.png'
 export default {
   components: {
     // Tinymce
@@ -242,12 +260,17 @@ export default {
         categroyId: '',
         typeId: 1,
         copied: 0,
+        onlyUrl: 0,
+        contentUrl: '',
         copyFrom: '',
         copyFromUrl: '',
         author: '',
         editor: '',
         cover: '',
-        covers: [],
+        covers: [{
+          name: '默认',
+          url: idback
+        }],
         tags: '',
         description: '',
         onlyUrl: 0,
@@ -255,7 +278,7 @@ export default {
         publishNow: 1,
         publishDate: '',
         contentTxt: '',
-        stickSort: 1,
+        stickSort: 0,
         recommend: 1,
       }
     }
@@ -276,6 +299,19 @@ export default {
   },
   computed: {},
   methods: {
+
+
+    beforeUploadImg(file) {
+      const isLt10M = file.size / 1024 / 1024 < 10;
+      if (['image/png', 'image/jpeg', ].indexOf(file.type) == -1) {
+          this.$message.error('请上传正确的图片');
+          return false;
+      }
+      if (!isLt10M) {
+        this.$message.error('上传文件大小不能超过10MB哦!');
+        return false;
+      }
+    },
     //封面上传
     async uploadSectionFile(param) { //自定义文件上传
       this.content.covers = []
@@ -330,6 +366,7 @@ export default {
       if (!this.content.publishDate && this.content.publishNow == 0) {
         this.content.publishDate = this.getformatTime()
       }
+      debugger
       if (this.content.typeId == 1) {
         if (!this.validata.validacontent(this.content)) return
       } else {

@@ -17,10 +17,14 @@
       </el-form-item>
       <el-form-item label="">
         <el-input v-model="obj.code" placeholder="请输入验证码" style="width:230px">13</el-input>
-        <el-button type="primary" @click="sendcode">获取验证码</el-button>
+        <el-button type="primary" @click="sendcode" :disabled="isDisabled">{{buttonName}}</el-button>
       </el-form-item>
       <el-form-item label="">
-        <el-input v-model="obj.newPassword" placeholder="请输入新密码" style="width:230px">13</el-input>
+        <el-input type="password" v-model="obj.newPassword" placeholder="请输入新密码" style="width:230px">13</el-input>
+      </el-form-item>
+
+      <el-form-item label="">
+        <el-input type="password" v-model="obj.rePassword" placeholder="请重复输入新密码" style="width:230px"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button @click="tolookPwd" type="primary">提交</el-button>
@@ -42,10 +46,14 @@ export default {
     return {
       labelPosition: 'top',
       login_method: 'first',
+      buttonName: "获取验证码",
+      isDisabled: false,
+      time: 60,
       obj: {
         email: '',
         code: '',
-        newPassword: ''
+        newPassword: '',
+        rePassword: '',
       },
       obj2: {
         code: '',
@@ -57,6 +65,19 @@ export default {
   },
   methods: {
     async sendcode() {
+      let me = this;
+      me.isDisabled = true;
+      let interval = window.setInterval(function() {
+        me.buttonName = '（' + me.time + '秒）后重新发送';
+        --me.time;
+        if (me.time < 0) {
+          me.buttonName = "重新发送";
+          me.time = 60;
+          me.isDisabled = false;
+          window.clearInterval(interval);
+        }
+      }, 1000);
+
       if (this.checkStatus == 0) {
         const {
           message,
@@ -96,10 +117,29 @@ export default {
 
     },
     async tolookPwd() {
+       if (!this.validata.validresetPW(this.obj,this.checkStatus,this.cellphone)) return
+
+        if(this.obj.newPassword != this.obj.rePassword){
+          this.$message({
+            message: '两次密码输入不一致！',
+            type: 'error'
+          })
+          return
+        }
+      let objA ={}
+      if (this.checkStatus == 0) {
+        objA = this.obj
+      } else if (this.checkStatus == 1) {
+          objA.code = this.obj.code
+          objA.newPassword = this.obj.newPassword
+          objA.cellphone = this.cellphone
+      }
+
       let {
         message,
-        success
-      } = await lookPwd(this.obj)
+        success,
+        data
+      } = await lookPwd(objA)
       if (success) {
         this.$message({
           message: '修改成功',
@@ -110,8 +150,8 @@ export default {
         })
       } else {
         this.$message({
-          message: '修改失败',
-          type: 'success'
+          message: data,
+          type: 'error'
         });
       }
 

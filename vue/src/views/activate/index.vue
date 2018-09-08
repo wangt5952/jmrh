@@ -83,6 +83,7 @@ export default {
           message
         } = await activate(this.$route.query.activateId)
         if (success) {
+          debugger
           this.text = message
           this.pic = '1'
           this.userType = data.userType

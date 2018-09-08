@@ -237,6 +237,7 @@ export default {
       }
       let {data} = await getAllrole(this.listQuery)
       this.list = data.list
+      this.total = data.total
       this.loading = false
     },
     async handleCreate() {

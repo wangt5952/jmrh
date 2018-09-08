@@ -123,7 +123,7 @@ import {
   isvalidUsername
 } from '@/utils/validate'
 import {
-  getUserMenus
+  getUserMenusone
 } from '@/api/menu'
 import MenuUtils from '@/views/MenuUtils'
 
@@ -157,7 +157,7 @@ export default {
         number: ''
       },
       loginForm: {
-        userName: 'gyx',
+        userName: '269274122@qq.com',
         password: '123',
         isAdmin: false,
       },
@@ -182,10 +182,10 @@ export default {
   },
 
   methods: {
-    keyupSubmit(){
-      document.onkeydown=e=>{
-        let _key=window.event.keyCode;
-        if(_key===13){
+    keyupSubmit() {
+      document.onkeydown = e => {
+        let _key = window.event.keyCode;
+        if (_key === 13) {
           this.handleLogin()
         }
       }
@@ -241,10 +241,10 @@ export default {
         this.pwdType = 'password'
       }
     },
-    // login(data) {
-    //   // MenuUtils(routers, data)
-    //
-    // },
+    login(data) {
+      window.sessionStorage.setItem('user', JSON.stringify(data))
+      MenuUtils(routers, data)
+    },
     forload(treeData) {
       for (let i = 0; i < treeData.length; i++) {
         if (treeData[i].children) {
@@ -256,11 +256,11 @@ export default {
             treeData[i].path = '/' + treeData[i].menuUrl
             treeData[i].leaf = false
             treeData[i].component = treeData[i].menuUrl
-            if (treeData[i].level == 1) { //有下级 第一个菜单
+            if (treeData[i].isMenu == 1) { //有下级 第一个菜单
               treeData[i].component = 'layout'
               treeData[i].redirect = '/' + treeData[i].menuUrl + '/' + treeData[i].children[0].menuUrl + ''
             }
-          } else if (treeData[i].children.length == 0 && treeData[i].level == 1) { //第一层菜单无下级生成一个
+          } else if (treeData[i].children.length == 0 && treeData[i].isMenu == 1) { //第一层菜单无下级生成一个
             let chil = {}
             chil.meta = {
               title: treeData[i].label,
@@ -274,7 +274,7 @@ export default {
             treeData[i].path = '/index'
             treeData[i].leaf = false
             treeData[i].component = 'layout'
-          } else if (treeData[i].children.length == 0 && treeData[i].level != 1) {
+          } else if (treeData[i].children.length == 0 && treeData[i].isMenu != 1) {
             treeData[i].meta = {
               title: treeData[i].label,
               icon: 'table'
@@ -296,6 +296,14 @@ export default {
         if (this.$store.getters.token && this.$store.getters.token != undefined && this.$store.getters.token != '') {
           this.loading = false
           window.sessionStorage.setItem('user', JSON.stringify('true'))
+
+          // let data = await getUserMenusone()
+          // debugger
+          // let treeData = data.data
+          //
+          // let bbb = this.forload(treeData)
+          // this.login(bbb)
+          // this.$router.addRoutes(routers)
           this.$router.push({
             path: '/'
           })
@@ -368,8 +376,7 @@ export default {
             z-index: 3;
 
             .box-card {
-                .clearfix {
-                    }
+                .clearfix {}
                 .item {
                     position: relative;
                     // tabs

@@ -3,24 +3,24 @@
 
   <table cellpadding=0 cellspacing=0 border="0" style="width:100%;border: 1px solid#ccc;padding: 50px;">
     <tr style="border-bottom: 1px solid#ccc;">
-      <td style="width:100px;padding:10px">标题</td>
+      <td style="width:100px;padding:10px"><span style='color: #f60d0d;'>*</span> 标题</td>
       <td>
         <el-input v-model="active.title" placeholder="请输入标题" style="width:80%"></el-input>
       </td>
-      <td style="width:100px;padding:10px">主题</td>
+      <td style="width:100px;padding:10px"><span style='color: #f60d0d;'>*</span> 主题</td>
       <td>
         <el-input v-model="active.subject" placeholder="请输入主题" style="width:80%"></el-input>
       </td>
     </tr>
     <tr style="border-bottom: 1px solid#ccc;">
-      <td style="width:100px;padding:10px">封面</td>
+      <td style="width:100px;padding:10px">&nbsp;&nbsp;封面</td>
       <td>
-        <el-upload class="avatar-uploader" :http-request="uploadSectionFile" list-type="picture-card" :file-list="active.covers" :on-success="handleAvatarSuccess" :on-remove="handleRemove">
+        <el-upload class="avatar-uploader"  accept=".jpg,.jpeg,.png,.gif,.bmp,.pdf,.JPG,.JPEG,.PBG,.GIF,.BMP,.PDF" :http-request="uploadSectionFile" :before-upload="beforeUploadImg" list-type="picture-card" :file-list="active.covers" :on-success="handleAvatarSuccess" :on-remove="handleRemove">
           <i class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
         <!-- <img v-if="active.cover!=''" width="100%" :src="cover" alt=""> -->
       </td>
-      <td style="width:100px;padding:10px">活动类型</td>
+      <td style="width:100px;padding:10px">&nbsp;&nbsp;活动类型</td>
       <td>
         <el-select v-model="active.typeId" style="height:30px;width:80%" placeholder="请选择">
 
@@ -40,65 +40,65 @@
       </td>
     </tr>
     <tr>
-      <td style="width:100px;padding:10px">活动地址</td>
+      <td style="width:100px;padding:10px">&nbsp;&nbsp;活动地址</td>
       <td colspan=3>
         <el-input v-model="active.exAddr" placeholder="请输入活动地址" style="width:90%"></el-input>
       </td>
     </tr>
     <tr style="border-bottom: 1px solid#ccc;">
-      <td style="width:100px;padding:10px">报名时间起</td>
+      <td style="width:100px;padding:10px"><span style='color: #f60d0d;'>*</span> 报名时间起</td>
       <td>
         <el-date-picker v-model="active.enrollStart" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期">
         </el-date-picker>
       </td>
-      <td style="width:100px;padding:10px">报名时间止</td>
+      <td style="width:100px;padding:10px"><span style='color: #f60d0d;'>*</span> 报名时间止</td>
       <td>
         <el-date-picker v-model="active.enrollEnd" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期">
         </el-date-picker>
       </td>
     </tr>
     <tr style="border-bottom: 1px solid#ccc;">
-      <td style="width:100px;padding:10px">活动时间起</td>
+      <td style="width:100px;padding:10px"><span style='color: #f60d0d;'>*</span> 活动时间起</td>
       <td>
         <el-date-picker v-model="active.exStart" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期">
         </el-date-picker>
       </td>
-      <td style="width:100px;padding:10px">活动时间止</td>
+      <td style="width:100px;padding:10px"><span style='color: #f60d0d;'>*</span> 活动时间止</td>
       <td>
         <el-date-picker v-model="active.exEnd" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期">
         </el-date-picker>
       </td>
     </tr>
     <tr style="border-bottom: 1px solid#ccc;">
-      <td style="width:100px;padding:10px">主办方</td>
+      <td style="width:100px;padding:10px">&nbsp;&nbsp;主办方</td>
       <td>
         <el-input v-model="active.organizerName" placeholder="请输入主办方" style="width:80%"></el-input>
       </td>
-      <td style="width:140px;padding:10px">主办方联系人</td>
+      <td style="width:150px;padding:10px">&nbsp;&nbsp;主办方联系人</td>
       <td>
         <el-input v-model="active.orgContacts" placeholder="请输入主办方联系人" style="width:80%"></el-input>
       </td>
     </tr>
     <tr style="border-bottom: 1px solid#ccc;">
-      <td style="width:140px;padding:10px">主办方联系电话</td>
+      <td style="width:150px;padding:10px">&nbsp;&nbsp;主办方联系电话</td>
       <td>
         <el-input v-model="active.orgPhone" placeholder="请输入主办方联系电话" style="width:80%"></el-input>
       </td>
-      <td style="width:140px;padding:10px">主办方联系邮件</td>
+      <td style="width:150px;padding:10px">&nbsp;&nbsp;主办方联系邮件</td>
       <td>
         <el-input v-model="active.orgEmail" placeholder="请输入主办方联系邮件" style="width:80%"></el-input>
       </td>
     </tr>
 
     <tr>
-      <td style="width:140px;padding:10px">主办方联系地址</td>
+      <td style="width:150px;padding:10px">&nbsp;&nbsp;主办方联系地址</td>
       <td colspan=3>
         <el-input v-model="active.orgAddr" placeholder="请输入主办方联系地址" style="width:90%"></el-input>
       </td>
     </tr>
 
     <tr style="border-bottom: 1px solid#ccc;">
-      <td style="width:100px;padding:10px">定时发布</td>
+      <td style="width:100px;padding:10px">&nbsp;&nbsp;定时发布</td>
       <td>
         <el-select v-model="active.publishNow" style="height:30px;width:80%" placeholder="请选择">
           <el-option label="是" :key=1 :value=1>
@@ -107,7 +107,7 @@
           </el-option>
         </el-select>
       </td>
-      <td v-show="active.publishNow == 1" style="width:100px;padding:10px">发布日期</td>
+      <td v-show="active.publishNow == 1" style="width:100px;padding:10px"><span style='color: #f60d0d;'>*</span> 发布日期</td>
       <td v-show="active.publishNow == 1">
         <el-date-picker v-model="active.publishDate" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期">
         </el-date-picker>
@@ -115,7 +115,7 @@
     </tr>
 
     <tr style="border-bottom: 1px solid#ccc;">
-      <td style="width:100px;padding:10px">置顶</td>
+      <td style="width:100px;padding:10px">&nbsp;&nbsp;置顶</td>
       <td>
           <el-select v-model="active.stickSort" style="height:30px;width:80%" placeholder="请选择">
             <el-option label="是" :key=0 :value=0>
@@ -128,7 +128,7 @@
     </tr>
 
     <tr style="border-bottom: 1px solid#ccc;">
-      <td style="width:100px;padding:10px">活动内容</td>
+      <td style="width:100px;padding:10px">&nbsp;&nbsp;活动内容</td>
       <td colspan=3>
         <div>
           <!-- <tinymce :height="300" v-model="active.exContent"></tinymce> -->
@@ -138,7 +138,7 @@
       </td>
     </tr>
     <tr style="border-bottom: 1px solid#ccc;">
-      <td style="width:100px;padding:10px">附件</td>
+      <td style="width:100px;padding:10px">&nbsp;&nbsp;附件</td>
       <td colspan=3>
         <div>
           <div class="iconfont" style="float:left;padding-right: 15px;" v-for="item in active.cmsFileList">
@@ -235,7 +235,7 @@ export default {
   data() {
     return {
       formDatas: '',
-      uploadUrl: this.imgBaseUrl+'/xtcx/exchanges/upload?token=' + getToken(),
+      uploadUrl: this.docUrl+'/xtcx/exchanges/upload?token=' + getToken(),
       editorInit: {
         language: 'zh_CN',
         plugins: [
@@ -315,7 +315,7 @@ export default {
         publishUserId: '',
         checkDate: '',
         checkUserId: '',
-        stickSort: 1,
+        stickSort: 9999,
         exContent: '',
         cmsFileList: []
       }
@@ -420,6 +420,17 @@ export default {
       }
     },
 
+    beforeUploadImg(file) {
+      const isLt10M = file.size / 1024 / 1024 < 10;
+      if (['image/png', 'image/jpeg', ].indexOf(file.type) == -1) {
+          this.$message.error('请上传正确的图片');
+          return false;
+      }
+      if (!isLt10M) {
+        this.$message.error('上传文件大小不能超过10MB哦!');
+        return false;
+      }
+    },
     //封面上传
     async uploadSectionFile(param) { //自定义文件上传
       this.active.covers = []

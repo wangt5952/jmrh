@@ -9,59 +9,61 @@
           <el-row :gutter="20">
             <el-col :span="20">
               <el-form-item label="技术成果名称">
-                <span style='position: relative;left: -110px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -110px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入技术成果名称" v-model="achieveLibrary.re_name" style="width:80%"></el-input>
               </el-form-item>
-              <el-form-item label="单位信用码">
-                <span style='position: relative;left: -90px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入单位信用码" v-model="achieveLibrary.code" style="width:80%"></el-input>
-              </el-form-item>
               <el-form-item label="企业名称">
-                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入企业名称" v-model="achieveLibrary.name" style="width:80%"></el-input>
+              </el-form-item>
+              <el-form-item label="统一社会信用代码">
+                <span style='position: absolute;left: -130px;color: #f60d0d;'>*</span>
+                <el-input placeholder="请输入统一社会信用代码" v-model="achieveLibrary.code" style="width:80%"></el-input>
               </el-form-item>
 
               <el-form-item label="承诺书上传(图片)">
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload :http-request="uploadSectionFile1" class="upload-demo" :file-list="achieveLibrary.cardSide" list-type="picture">
+                    <el-upload :http-request="uploadSectionFile1" class="upload-demo" :file-list="achieveLibrary.cardSide" list-type="picture" style="float:left">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
-
+                    <div style="color:#63a9f1;float:left;margin-left:20px">
+                      <a :href="docUrl+'/xtcx/lib/download?fileName=3-信息报送承诺书.doc'" target="_blank">承诺书下载</a>
+                    </div>
                   </div>
                 </div>
-              </el-form-item>
-              <el-form-item label="通讯地址">
-                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入通讯地址" v-model="achieveLibrary.address" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="所在地区">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                 <area-cascader :level="1" v-model="achieveLibrary.country" :data="pcaa"></area-cascader>
               </el-form-item>
+              <el-form-item label="通讯地址">
+                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                <el-input placeholder="请输入通讯地址" v-model="achieveLibrary.address" style="width:80%"></el-input>
+              </el-form-item>
               <el-form-item label="项目负责人">
-                <span style='position: relative;left: -90px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -90px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入项目负责人" v-model="achieveLibrary.fzname" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="电话">
-                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入电话" v-model="achieveLibrary.fzphone" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="邮箱">
-                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入邮箱" v-model="achieveLibrary.fzemail" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="项目联系人">
-                <span style='position: relative;left: -90px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -90px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入项目联系人" v-model="achieveLibrary.fzname2" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="电话">
-                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入电话" v-model="achieveLibrary.fzphone2" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="邮箱">
-                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入邮箱" v-model="achieveLibrary.fzemail2" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="所属领域">
@@ -116,6 +118,11 @@
                 <span style='position: absolute;left: -110px;color: #f60d0d;'>*</span>
                 <textarea v-model="achieveLibrary.resDesc" rows="3" cols="20" style="width:60%;height: 150px;">
                 </textarea>
+              </el-form-item>
+
+              <el-form-item label="可应用领域">
+                <span style='position: absolute;left: -90px;color: #f60d0d;'>*</span>
+                <el-input placeholder="请输入可应用领域" v-model="achieveLibrary.applyLY" style="width:80%"></el-input>
               </el-form-item>
 
             </el-col>
@@ -178,25 +185,25 @@
 
                 <el-table-column align="center" label="专利名称">
                   <template slot-scope="scope">
-                  <input  type="text" v-model="scope.row.projectname" style="width: 50%;">
+                  <el-input  type="text" v-model="scope.row.projectname" style="width: 50%;"></el-input>
                                   </template>
                 </el-table-column>
                 <el-table-column align="center" label="专利类型">
                   <template slot-scope="scope">
                                         <span>
-                                          <input  type="text" v-model="scope.row.projecType" style="width: 50%;">
+                                          <el-input  type="text" v-model="scope.row.projecType" style="width: 50%;"></el-input>
                                         </span>
                                     </template>
                 </el-table-column>
                 <el-table-column align="center" label="专利号">
                   <template slot-scope="scope">
-                  <input  type="text" v-model="scope.row.projectNum" style="width: 50%;">
+                  <el-input  type="text" v-model="scope.row.projectNum" style="width: 50%;"></el-input>
                                   </template>
                 </el-table-column>
                 <el-table-column align="center" label="专利权人">
                   <template slot-scope="scope">
 
-                    <input  type="text" v-model="scope.row.projectPer" style="width: 50%;">
+                    <el-input  type="text" v-model="scope.row.projectPer" style="width: 50%;"></el-input>
                                   </template>
                 </el-table-column>
 
@@ -205,6 +212,13 @@
                   <el-date-picker v-model="scope.row.projectTime" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="" style="width: 70%;">
                   </el-date-picker>
                                   </template>
+                </el-table-column>
+                <el-table-column align="center" label="" style="width: 50%;">
+                  <template slot-scope="scope">
+                    <el-button size="small" @click="delProjectcom(scope.row)" style="color:red">
+                      删除项目
+                    </el-button>
+            </template>
                 </el-table-column>
               </el-table>
             </div>
@@ -218,9 +232,6 @@
   <el-row>
 
     <div style="padding-left: 35%;margin: 40px 0  0  0;">
-      <div class="" style="color:#63a9f1;padding: 0 95px">
-        <a :href="imgBaseUrl+'/xtcx/lib/download?fileName=3-信息报送承诺书.doc'" target="_blank">承诺书下载</a>
-      </div>
       <div class="" style="padding:15px" v-if="!$route.params.objData">
         <el-radio-group v-model="checkStatus">
           <el-radio :label="-1">草稿</el-radio>
@@ -295,6 +306,7 @@ export default {
         address: '',
         country: '',
         resDesc: '',
+        applyLY: '',
         newIdea: '',
         sqPatent: '',
         havePatent: '',
@@ -313,15 +325,15 @@ export default {
         }]
 
       },
-      checkStatus: -1
+      checkStatus: 1
     }
   },
   async mounted() {
     this.listLoading = false
     if (this.$route.params.objData) {
       this.achieveLibrary = JSON.parse(this.$route.params.objData)
-      if(!this.achieveLibrary.cardSide){
-        this.achieveLibrary.cardSide  =  []
+      if (!this.achieveLibrary.cardSide) {
+        this.achieveLibrary.cardSide = []
       }
 
     }
@@ -329,27 +341,27 @@ export default {
   },
   computed: {},
   methods: {
-        async uploadSectionFile1(param) {
-          this.achieveLibrary.cardSide = []
-          var fileObj = param.file;
-          // 接收上传文件的后台地址
-          // FormData 对象
-          var form = new FormData();
-          // 文件对象
-          form.append("file", fileObj);
-          // 其他参数
-          // form.append("xxx", xxx);
-          let {
-            data,
-            success
-          } = await libupload(form)
-          if (success) {
-            let arro = {}
-            arro.name = data.fileName,
-              arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-            this.achieveLibrary.cardSide.push(arro)
-          }
-        },
+    async uploadSectionFile1(param) {
+      this.achieveLibrary.cardSide = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.achieveLibrary.cardSide.push(arro)
+      }
+    },
     async getdownloadfile() {
 
       let {
@@ -428,6 +440,14 @@ export default {
         projectTime: '',
       })
     },
+
+    delProjectcom(item) {
+      this.achieveLibrary.patents.splice(this.achieveLibrary.patents.indexOf(item), 1)
+      this.$message({
+        type: 'info',
+        message: '删除成功'
+      });
+    },
     addProjectcom() {
       this.com.comPorcolumnDefinitions.push({
         name: '',
@@ -470,7 +490,7 @@ export default {
 }
 
 .area-select .area-selected-trigger {
-  position: relative;
+  position: absolute;
   display: block;
   font-size: 14px;
   cursor: pointer;

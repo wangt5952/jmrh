@@ -35,9 +35,7 @@ textarea {
   overflow: visible;
   border: 1px solid #d0cece;
 }
-.tab-container{
-  color:#616265
-}
+
 .iconfont i {
   font-size: 36px;
   color: #6b6666;
@@ -72,7 +70,9 @@ a:hover {
 .showDetailTable td {
   width: 25%;
 }
-
+.showDetailTable tr{
+  height: 50px;
+}
 .showDetailTable input {
   border: none;
   color: #48576a;
@@ -103,8 +103,9 @@ a:hover {
 //main-container全局样式
 
 table tr {
-  height: 55px;
+  height: 30px;
 }
+
 //  table td {
 //   width: 25%;
 // }
@@ -213,9 +214,7 @@ table tr {
   }
 }
 
-.el-table td {
-  height: 50px!important;
-}
+
 
 .demo {
   /* for IE10+ touch devices */

@@ -6,48 +6,12 @@
 import echarts from 'echarts'
 require('echarts/theme/macarons') // echarts 主题
 
-let option = {
-    angleAxis: {
-    },
-    radiusAxis: {
-        type: 'category',
-        data: ['周一', '周二', '周三', '周四'],
-        z: 10
-    },
-    polar: {
-    },
-    series: [{
-        type: 'bar',
-        data: [1, 2, 3, 4],
-        coordinateSystem: 'polar',
-        name: 'A',
-        stack: 'a'
-    }, {
-        type: 'bar',
-        data: [2, 4, 6, 8],
-        coordinateSystem: 'polar',
-        name: 'B',
-        stack: 'a'
-    }, {
-        type: 'bar',
-        data: [1, 2, 3, 4],
-        coordinateSystem: 'polar',
-        name: 'C',
-        stack: 'a'
-    }],
-    legend: {
-        show: false,
-        data: ['A']
-    }
-};
-
 import {
   debounce
 } from '@/utils'
-// import moment from 'moment'
-// import {
-//   saleDaytime
-// } from '@/api/sale';
+import {
+  gettjlib,
+} from '@/api/statistics'
 export default {
   props: {
     className: {
@@ -63,14 +27,11 @@ export default {
     },
     width: {
       type: String,
-      default: '396px'
+      default: '784px'
     },
     height: {
       type: String,
-      default: '200px'
-    },
-    infoObj: {
-      type: String
+      default: '300px'
     },
   },
   data() {
@@ -116,18 +77,51 @@ export default {
   //   }
   // },
   methods: {
-    async initChart(depRange) {
-      // let saleTime = {
-      //   timeType: '3',
-      //   depType: 'reg',
-      //   time: moment().format('YYYY-MM-DD'),
-      //   sortType: 'signature_today_amount',
-      //   depRange: depRange
-      // }
-      // let data = await saleDaytime(saleTime);
+    async initChart() {
+      let arr
+      let {
+        data,
+        success
+      } = await gettjlib()
+      if (success) {
+        arr = data.month
+      } else {
+        arr = []
+      }
+      let arrdate = []
+      let arrValue = []
+      arr.forEach((v, i) => {
+        Object.keys(v).forEach(v => {
+          let obj = {}
+          // obj.date = v
+          // obj.value= arr[i][v]
+          arrdate.push(v)
+          arrValue.push(arr[i][v])
+        })
+      })
+
       // data = data.data.data
       this.chart = echarts.init(this.$el, 'macarons')
-      this.chart.setOption(option)
+      this.chart.setOption({
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: { // 坐标轴指示器，坐标轴触发有效
+            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+          }
+        },
+        xAxis: {
+          type: 'category',
+          data: arrdate
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [{
+          name: '直接访问',
+          type: 'bar',
+          data: arrValue
+        }, ]
+      })
     }
   },
   watch: {

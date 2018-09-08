@@ -1,25 +1,24 @@
 <template>
   <el-table :data="formatData" :row-style="showRow" v-bind="$attrs">
-    <el-table-column v-if="columns.length===0" width="50" >
+    <el-table-column v-if="columns.length===0" width="80" >
       <template slot-scope="scope" >
         <!-- <span v-for="space in scope.row._level" class="ms-tree-space" :key="space"></span> -->
         <span class="tree-ctrl" v-if="iconShow(0,scope.row)" @click="toggleExpanded(scope.$index)">
-          <div class=""  style="text-align: center;">
-
-          <i  v-if="!scope.row._expanded" class="iconfont icon-shuangjiantouyou" slot="right"></i>
+          <div class=""  style="text-align: left;">
+          <i  v-if="!scope.row._expanded" class="iconfont icon-shuangjiantouyou" slot="right" :style="{'margin-left':scope.row.level * 20 + 'px'}"></i>
           <!-- <i v-else class="el-icon-minus"></i> -->
-          <i v-else class="iconfont icon-zhankaixiangqing" slot="right"></i>
+          <i v-else class="iconfont icon-zhankaixiangqing" slot="right" :style="{'margin-left':scope.row.level * 20 + 'px'}"></i>
           </div>
         </span>
 
         <!-- {{scope.$index}} -->
       </template>
     </el-table-column>
-    <el-table-column v-else v-for="(column, index) in columns" :key="column.value" :label="column.text" :width="column.width">
+    <el-table-column v-else v-for="(column, index) in columns" :key="column.value" :label="column.text" :width="column.width" >
       <template slot-scope="scope">
         <!-- <span v-if="index === 0" v-for="space in scope.row._level" class="ms-tree-space" :key="space"></span> -->
-        <span class="tree-ctrl" v-if="iconShow(index,scope.row)" @click="toggleExpanded(scope.$index)">
-          <div class=""  style="text-align: center;">
+        <span class="tree-ctrl" v-if="iconShow(index,scope.row)" @click="toggleExpanded(scope.$index)" style="padding-left:20px;">
+          <div class=""  style="text-align: left;">
           <i v-if="!scope.row._expanded" class="el-icon-plus"></i>
           <i v-else class="el-icon-minus"></i>
         </div>

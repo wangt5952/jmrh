@@ -1,418 +1,836 @@
 <template>
 <div class="tab-container" style="background: none;">
 
-  <!-- <el-tabs v-model="activeName" @tab-click="handleClick">
-    <el-tab-pane label="我的代办" name="1"> -->
+  <el-tabs v-model="activeName" @tab-click="handleClick" style=" overflow-y: auto;">
+    <div label="我的代办（管理员代办）" v-if="userType =='0'" name="1">
 
-  <el-row :gutter="24" style="font-size: 15px;">
-    <el-col :span="5" style="display:flex;background: #fff;height: 100px; display: flex;justify-content:center; align-items:Center;text-align:center;margin-right: 20px;cursor: pointer;">
-      <div @click="Toexpert2('activeManage')" style="flex:1;font-size: 30px;color: #409EFF;">{{activeNums || 0}}</div>
-      <div style="flex:1;text-align:left;color: #97a8be;">待审活动申请</div>
-    </el-col>
-    <el-col :span="5" style="display:flex;background: #fff;height: 100px; display: flex;justify-content:center; align-items:Center;text-align:center;margin-right: 20px;cursor: pointer;">
-      <div @click="Toexpert2('contentManage')" style="flex:1;font-size: 30px;color: #409EFF;">{{contentNums || 0}}</div>
-      <div style="flex:1;text-align:left;color: #97a8be;">待审内容申请</div>
-    </el-col>
-    <el-col :span="5" style="display:flex;background: #fff;height: 100px; display: flex;justify-content:center; align-items:Center;text-align:center;margin-right: 20px;    cursor: pointer;">
-      <div @click="Toexpert('expert')" style="flex:1;font-size: 30px;color: #409EFF;">{{expertNums || 0}}</div>
-      <div style="flex:1;text-align:left;color: #97a8be;">待审专家申请</div>
-    </el-col>
-
-    <el-col :span="5" style="display:flex;background: #fff;height: 100px; display: flex;justify-content:center; align-items:Center;text-align:center;margin-right: 20px;cursor: pointer;">
-      <div @click="Toexpert('enterprise')" style="flex:1;font-size: 30px;color: #409EFF;">{{enterpriseNums|| 0}}</div>
-      <div style="flex:1;text-align:left;color: #97a8be;">待审企业申请</div>
-    </el-col>
-
-  </el-row>
-  <el-row :gutter="25" style="margin-top:20px;">
-    <el-col :span="3" style="display:flex;background: #fff;height: 100px; display: flex;justify-content:center; align-items:Center;text-align:center;">
-      <div style="flex:1;font-size: 30px;color: #409EFF;margin：0 auto">
-
-        <div style="width: 40px;height: 40px;border-radius: 5px;display: flex;justify-content: center;align-items: center;font-weight: bold;border:2px solid #409eff;margin: 0 auto;">
-          <i class="iconfont icon-naoling" slot="right"></i>
-        </div>
-      </div>
-
-      <div style="flex:1;text-align:left;color: #363535;font-size: 18px;">更多代办</div>
-    </el-col>
-    <el-col :span="4" style="background: #fff;height: 100px;text-align: center;width:20%;cursor: pointer;">
-      <div style="color: #97a8be;margin-top: 30px;">待审高校院所申请</div>
-      <div @click="Toexpert('hschool')" style="font-size: 20px;color: #409EFF;margin-top: 10px;color:#f737bf">{{hschoolNums|| 0}}</div>
-    </el-col>
-
-    <el-col style="width:1px;background:#fff;height:100px">
-      <div style="background: #ccc;margin-top: 35px;width:2px;height:30px">
-      </div>
-    </el-col>
-
-    <el-col :span="4" style="background: #fff;height: 100px;text-align: center;cursor: pointer;">
-      <div style="color: #97a8be;margin-top: 30px;">待审服务机构申请</div>
-      <div @click="Toexpert('mechanism')" style="font-size: 20px;color: #409EFF;margin-top: 10px;color:#ffd85a">{{mechanismNums|| 0}}</div>
-    </el-col>
-
-
-    <el-col style="width:1px;background:#fff;height:100px">
-      <div style="background: #ccc;margin-top: 35px;width:1px;height:30px">
-      </div>
-    </el-col>
-    <el-col :span="4" style="background: #fff;height: 100px;text-align: center;cursor: pointer;">
-      <div style="color: #97a8be;margin-top: 30px;">待审需求申请</div>
-      <div @click="Toexpert('demandLibrary')" style="font-size: 20px;color: #409EFF;margin-top: 10px;color:#98eca5">{{demandLibraryNums|| 0}}</div>
-    </el-col>
-
-
-    <el-col style="width:1px;background:#fff;height:100px">
-      <div style="background: #ccc;margin-top: 35px;width:2px;height:30px">
-      </div>
-    </el-col>
-    <el-col :span="4" style="background: #fff;height: 100px;text-align: center;cursor: pointer;">
-      <div style="color: #97a8be;margin-top: 30px;">待审成果申请</div>
-      <div @click="Toexpert('achieveLibrary')" style="font-size: 20px;color: #409EFF;margin-top: 10px;color:#7e95de">{{achieveLibraryNums|| 0}}</div>
-    </el-col>
-  </el-row>
-
-  <!-- </el-tab-pane>
-    <el-tab-pane label="发起的活动申请" name="2">
-      <el-row :gutter="24" style="font-size: 15px;">
-
-        <el-col :span="6" style="padding-left:0px">
-          <el-col :span="24" style="padding:0px">
-            <div class=" bg">
-              <line-chart1></line-chart1>
-            </div>
-          </el-col>
+      <el-row :gutter="24" style="font-size: 12px;">
+        <el-col :span="5" style="display:flex;background: #fff;height: 100px; display: flex;justify-content:center; align-items:Center;text-align:center;margin-right: 20px;">
+          <div @click="Toexpert2('contentManage')" style="flex:1;font-size: 20px;color: #409EFF;cursor: pointer;">{{contentNums || 0}}</div>
+          <div style="flex:1;text-align:left;color: #97a8be;cursor: pointer;">待审内容申请</div>
         </el-col>
-        <el-col :span="12" style="padding-left:0px">
-          <el-col :span="24" style="padding:0px">
-            <div class=" bg">
-              <line-chart2></line-chart2>
-            </div>
-          </el-col>
+        <el-col :span="5" style="display:flex;background: #fff;height: 100px; display: flex;justify-content:center; align-items:Center;text-align:center;margin-right: 20px;">
+          <div @click="Toexpert2('activeManage')" style="flex:1;font-size: 20px;color: #409EFF;cursor: pointer;">{{activeNums || 0}}</div>
+          <div style="flex:1;text-align:left;color: #97a8be;cursor: pointer;">待审活动申请</div>
+        </el-col>
+        <el-col :span="5" style="display:flex;background: #fff;height: 100px; display: flex;justify-content:center; align-items:Center;text-align:center;margin-right: 20px;">
+          <div @click="Toexpert('expert')" style="flex:1;font-size: 20px;color: #409EFF;cursor: pointer;">{{expertNums || 0}}</div>
+          <div style="flex:1;text-align:left;color: #97a8be;cursor: pointer;">待审专家申请</div>
+        </el-col>
+
+        <el-col :span="5" style="display:flex;background: #fff;height: 100px; display: flex;justify-content:center; align-items:Center;text-align:center;margin-right: 20px;">
+          <div @click="Toexpert('enterprise')" style="flex:1;font-size: 20px;color: #409EFF;cursor: pointer;">{{enterpriseNums|| 0}}</div>
+          <div style="flex:1;text-align:left;color: #97a8be;cursor: pointer;">待审企业申请</div>
+        </el-col>
+
+      </el-row>
+      <el-row :gutter="25" style="margin-top:20px;font-size: 12px;">
+
+        <el-col :span="5" style="background: #fff;height: 100px;text-align: center;width:20%;">
+          <div style="color: #97a8be;margin-top: 30px;cursor: pointer;">待审高校院所申请</div>
+          <div @click="Toexpert('hschool')" style="font-size: 20px;color: #409EFF;margin-top: 10px;color:#f737bf;cursor: pointer;">{{hschoolNums|| 0}}</div>
+        </el-col>
+
+        <el-col style="width:1px;background:#fff;height:100px">
+          <div style="background: #ccc;margin-top: 35px;width:2px;height:30px">
+          </div>
+        </el-col>
+
+        <el-col :span="5" style="background: #fff;height: 100px;text-align: center;">
+          <div style="color: #97a8be;margin-top: 30px;cursor: pointer;">待审服务机构申请</div>
+          <div @click="Toexpert('mechanism')" style="font-size: 20px;color: #409EFF;margin-top: 10px;color:#ffd85a;cursor: pointer;">{{mechanismNums|| 0}}</div>
+        </el-col>
+
+
+        <el-col style="width:1px;background:#fff;height:100px">
+          <div style="background: #ccc;margin-top: 35px;width:1px;height:30px">
+          </div>
+        </el-col>
+        <el-col :span="5" style="background: #fff;height: 100px;text-align: center;">
+          <div style="color: #97a8be;margin-top: 30px;cursor: pointer;">待审需求申请</div>
+          <div @click="Toexpert('demandLibrary')" style="font-size: 20px;color: #409EFF;margin-top: 10px;color:#98eca5;cursor: pointer;">{{demandLibraryNums|| 0}}</div>
+        </el-col>
+
+
+        <el-col style="width:1px;background:#fff;height:100px">
+          <div style="background: #ccc;margin-top: 35px;width:2px;height:30px">
+          </div>
+        </el-col>
+        <el-col :span="5" style="background: #fff;height: 100px;text-align: center;">
+          <div style="color: #97a8be;margin-top: 30px;cursor: pointer;">待审成果申请</div>
+          <div @click="Toexpert('achieveLibrary')" style="font-size: 20px;color: #409EFF;margin-top: 10px;color:#7e95de;cursor: pointer;">{{achieveLibraryNums|| 0}}</div>
         </el-col>
       </el-row>
 
+    </div>
+    <!-- <div label="地方管理员代办" name="2">
 
-    </el-tab-pane>
-    <el-tab-pane label="发起的专家申请" name="3">
-      <el-row :gutter="24" style="">
-
-        <el-col :span="6" style="">
-          <el-col :span="24" style="padding:0px">
-            <div class=" bg" style="height: 415px;">
-              <h3 style="font-size: 16px;margin: 0;padding: 15px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
-                我发起的专家申请</h3>
-
-              <line-chart3></line-chart3>
-            </div>
-          </el-col>
+      <el-row :gutter="24" style="font-size: 12px;">
+        <el-col :span="5" style="display:flex;background: #fff;height: 100px; display: flex;justify-content:center; align-items:Center;text-align:center;margin-right: 20px;">
+          <div @click="Toexpert2('activeManage')" style="flex:1;font-size: 20px;color: #409EFF;">{{activeNums || 0}}</div>
+          <div style="flex:1;text-align:left;color: #97a8be;">我的活动申请</div>
+        </el-col>
+        <el-col :span="5" style="display:flex;background: #fff;height: 100px; display: flex;justify-content:center; align-items:Center;text-align:center;margin-right: 20px;">
+          <div @click="Toexpert2('contentManage')" style="flex:1;font-size: 20px;color: #409EFF;">{{contentNums || 0}}</div>
+          <div style="flex:1;text-align:left;color: #97a8be;">我的内容申请</div>
         </el-col>
 
-
-        <el-col :span="7" style="padding-left:0px;font-size: 14px;">
-          <div class=" bg" style="height: 200px;width:100%">
-            <h3 style="font-size: 16px;margin: 0;padding: 15px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
-              我发起的专家对接申请</h3>
-
-            <div class="" style="display:flex;justify-content:center; align-items:Center;">
-              <div class="" style="flex:4;padding: 10px;">
-                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 10
-              </div>
-              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary" >查看</el-button>
-              </div>
-            </div>
-            <div class="" style="display:flex;justify-content:center; align-items:Center;">
-              <div class="" style="flex:4;padding: 10px;">
-                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 10
-              </div>
-              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary" >查看</el-button>
-              </div>
-            </div>
-            <div class="" style="display:flex;justify-content:center; align-items:Center;">
-              <div class="" style="flex:4;padding: 10px;">
-                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 10
-              </div>
-              <div class="" style="flex:1;text-align: right;padding: 10px;">
-              </div>
-            </div>
-          </div>
-          <div class=" bg" style="height: 200px;width:100%;margin-top:15px">
-            <h3 style="font-size: 16px;margin: 0;padding: 15px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
-              我发起的成果对接申请</h3>
-
-            <div class="" style="display:flex;justify-content:center; align-items:Center;">
-              <div class="" style="flex:4;padding: 10px;">
-                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 10
-              </div>
-              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary" >查看</el-button>
-              </div>
-            </div>
-            <div class="" style="display:flex;justify-content:center; align-items:Center;">
-              <div class="" style="flex:4;padding: 10px;">
-                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 10
-              </div>
-              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary" >查看</el-button>
-              </div>
-            </div>
-            <div class="" style="display:flex;justify-content:center; align-items:Center;">
-              <div class="" style="flex:4;padding: 10px;">
-                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 10
-              </div>
-              <div class="" style="flex:1;text-align: right;padding: 10px;">
-              </div>
-            </div>
-          </div>
-        </el-col>
-
-        <el-col :span="7" style="padding-left:0px;font-size: 14px;">
-          <div class=" bg" style="height: 200px;width:100%">
-            <h3 style="font-size: 16px;margin: 0;padding: 15px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
-              我发起的需求对接申请</h3>
-
-            <div class="" style="display:flex;justify-content:center; align-items:Center;">
-              <div class="" style="flex:4;padding: 10px;">
-                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 10
-              </div>
-              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary" >查看</el-button>
-              </div>
-            </div>
-            <div class="" style="display:flex;justify-content:center; align-items:Center;">
-              <div class="" style="flex:4;padding: 10px;">
-                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 10
-              </div>
-              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary" >查看</el-button>
-              </div>
-            </div>
-            <div class="" style="display:flex;justify-content:center; align-items:Center;">
-              <div class="" style="flex:4;padding: 10px;">
-                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 10
-              </div>
-              <div class="" style="flex:1;text-align: right;padding: 10px;">
-              </div>
-            </div>
-          </div>
-          <div class=" bg" style="height: 200px;width:100%;margin-top:15px">
-            <h3 style="font-size: 16px;margin: 0;padding: 15px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
-              向我发起的专家对接申请</h3>
-
-            <div class="" style="display:flex;justify-content:center; align-items:Center;">
-              <div class="" style="flex:4;padding: 10px;">
-                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 10
-              </div>
-              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary" >查看</el-button>
-              </div>
-            </div>
-            <div class="" style="display:flex;justify-content:center; align-items:Center;">
-              <div class="" style="flex:4;padding: 10px;">
-                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 10
-              </div>
-              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary" >查看</el-button>
-              </div>
-            </div>
-            <div class="" style="display:flex;justify-content:center; align-items:Center;">
-              <div class="" style="flex:4;padding: 10px;">
-                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 10
-              </div>
-              <div class="" style="flex:1;text-align: right;padding: 10px;">
-              </div>
-            </div>
-          </div>
-        </el-col>
       </el-row>
 
-    </el-tab-pane>
-    <el-tab-pane label="发起的企业申请" name="4">
+    </div> -->
+    <div label="发起的专家申请" v-if="userType =='1'" name="5">
 
       <el-row :gutter="24" style="font-size: 14px;">
 
-        <el-col :span="6" style="">
+        <el-col :span="5" style="">
           <el-col :span="24" style="padding:0px">
-            <div class=" bg" style="height: 315px;">
-              <h3 style="font-size: 16px;margin: 0;padding: 15px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
-                我发起的企业申请</h3>
-                <div class="" style="display:flex;justify-content:center; align-items:Center;">
-                  <div class="" style="flex:4;padding: 10px;">
-                    申请状态  <span style="color:#3a9fff">驳回</span>
-                  </div>
-                  <div class="" style="flex:1;text-align: right;padding-right:20px;">
-                    <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary" >查看</el-button>
-                  </div>
+            <div class=" bg" style="height: 150px;">
+              <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
+              加入平台</h3>
+              <div class="" style="display:flex;justify-content:center; align-items:Center;height:104px">
+              <div class="" style="flex:4;">
+                <div class="" style="flex:4;padding: 10px;">
+                    申请状态 <span style="color:#3a9fff" v-show="comLibrarycheckStatus == 2">驳回</span>
+                    <span style="color:#3a9fff" v-show="comLibrarycheckStatus == 0">待审核</span>
+                    <span style="color:#3a9fff" v-show="comLibrarycheckStatus == 1">审核通过</span>
                 </div>
-                <div class="" style="display:flex;justify-content:center; align-items:Center;">
-                  <div class="" style="flex:4;padding: 10px;">
-                    驳回原因  <span style="color:#ccc">原因。。。。。</span>
-                  </div>
+                <div  v-show="comLibrarycheckStatus == 2" class="" style="flex:4;padding: 10px;">
+                  驳回原因 <span style="color:#ccc">{{comLibraryinfo}}</span>
+                </div>
 
-                </div>
+              </div>
+              <div class="" style="flex:1;text-align: right;padding-right:20px;">
+                <el-button style=" padding: 5px;font-size: 12px;" @click="TouserDetail" type="primary">查看/编辑</el-button>
+              </div>
+
+              </div>
             </div>
-            <div class=" bg" style="height: 200px;width:100%;margin-top:15px">
-              <h3 style="font-size: 16px;margin: 0;padding: 15px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
-                我发起的需求对接申请</h3>
-
+            <div class=" bg" style="height: 150px;width:100%;margin-top:15px">
+              <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
+                    专家对接</h3>
               <div class="" style="display:flex;justify-content:center; align-items:Center;">
                 <div class="" style="flex:4;padding: 10px;">
+                  <div class="" style="cursor: pointer;">
                     <i class="iconfont icon-naoling" slot="right"></i> 已通过 10
-                </div>
-                <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                  <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary" >查看</el-button>
-                </div>
-              </div>
-              <div class="" style="display:flex;justify-content:center; align-items:Center;">
-                <div class="" style="flex:4;padding: 10px;">
+                  </div>
+                  <div class="" style="cursor: pointer;margin-top:15px">
                     <i class="iconfont icon-naoling" slot="right"></i> 被驳回 10
-                </div>
-                <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                  <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary" >查看</el-button>
-                </div>
-              </div>
-              <div class="" style="display:flex;justify-content:center; align-items:Center;">
-                <div class="" style="flex:4;padding: 10px;">
+                  </div>
+                  <div class="" style="cursor: pointer;margin-top:15px">
                     <i class="iconfont icon-naoling" slot="right"></i> 待审核 10
+                  </div>
                 </div>
-                <div class="" style="flex:1;text-align: right;padding: 10px;">
+
+                <div class="" style="flex:1;text-align: right;padding-right: 10px;">
+                  <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
                 </div>
+
               </div>
             </div>
           </el-col>
         </el-col>
 
 
-        <el-col :span="7" style="padding-left:0px;font-size: 14px;">
-          <div class=" bg" style="width:100%;background: #fff;height: 100px; display: flex;justify-content:center; align-items:Center;text-align:center;margin-right: 20px;">
-            <div style="flex:1;font-size: 30px;color: #409EFF;">68</div>
-            <div style="flex:1;text-align:left;color: #97a8be;">向我发起的需求对接申请</div>
+        <el-col :span="5" style="padding-left:0px;font-size: 14px;">
+
+
+          <div style="height: 150px;width:100%;">
+
           </div>
-
-          <div class=" bg" style="height: 200px;width:100%;margin-top:15px">
-            <h3 style="font-size: 16px;margin: 0;padding: 15px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
-              我发起的成果申请</h3>
-
+          <div class=" bg" style="height: 150px;width:100%;margin-top:15px">
+            <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
+                  需求对接</h3>
             <div class="" style="display:flex;justify-content:center; align-items:Center;">
               <div class="" style="flex:4;padding: 10px;">
+                <div class="" style="cursor: pointer;">
                   <i class="iconfont icon-naoling" slot="right"></i> 已通过 10
-              </div>
-              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary" >查看</el-button>
-              </div>
-            </div>
-            <div class="" style="display:flex;justify-content:center; align-items:Center;">
-              <div class="" style="flex:4;padding: 10px;">
+                </div>
+                <div class="" style="cursor: pointer;margin-top:15px">
                   <i class="iconfont icon-naoling" slot="right"></i> 被驳回 10
-              </div>
-              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary" >查看</el-button>
-              </div>
-            </div>
-            <div class="" style="display:flex;justify-content:center; align-items:Center;">
-              <div class="" style="flex:4;padding: 10px;">
+                </div>
+                <div class="" style="cursor: pointer;margin-top:15px">
                   <i class="iconfont icon-naoling" slot="right"></i> 待审核 10
+                </div>
               </div>
-              <div class="" style="flex:1;text-align: right;padding: 10px;">
-              </div>
-            </div>
-          </div>
-          <div class=" bg" style="height: 200px;width:100%;margin-top:15px">
-            <h3 style="font-size: 16px;margin: 0;padding: 15px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
-              我发起的成果对接申请</h3>
 
-            <div class="" style="display:flex;justify-content:center; align-items:Center;">
-              <div class="" style="flex:4;padding: 10px;">
-                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 10
-              </div>
               <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary" >查看</el-button>
+                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
               </div>
-            </div>
-            <div class="" style="display:flex;justify-content:center; align-items:Center;">
-              <div class="" style="flex:4;padding: 10px;">
-                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 10
-              </div>
-              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary" >查看</el-button>
-              </div>
-            </div>
-            <div class="" style="display:flex;justify-content:center; align-items:Center;">
-              <div class="" style="flex:4;padding: 10px;">
-                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 10
-              </div>
-              <div class="" style="flex:1;text-align: right;padding: 10px;">
-              </div>
+
             </div>
           </div>
         </el-col>
 
-        <el-col :span="7" style="padding-left:0px;font-size: 14px;">
-          <div class=" bg" style="width:100%;background: #fff;height: 100px; display: flex;justify-content:center; align-items:Center;text-align:center;margin-right: 20px;">
-            <div style="flex:1;font-size: 30px;color: #409EFF;">68</div>
-            <div style="flex:1;text-align:left;color: #97a8be;">向我发起的成果对接申请</div>
-          </div>
-          <div class=" bg" style="height: 200px;width:100%;margin-top:15px">
-            <h3 style="font-size: 16px;margin: 0;padding: 15px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
-              我发起的专家对接申请</h3>
+        <el-col :span="5" style="padding-left:0px;font-size: 14px;">
 
-            <div class="" style="display:flex;justify-content:center; align-items:Center;">
-              <div class="" style="flex:4;padding: 10px;">
-                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 10
-              </div>
-              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary" >查看</el-button>
-              </div>
-            </div>
-            <div class="" style="display:flex;justify-content:center; align-items:Center;">
-              <div class="" style="flex:4;padding: 10px;">
-                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 10
-              </div>
-              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary" >查看</el-button>
-              </div>
-            </div>
-            <div class="" style="display:flex;justify-content:center; align-items:Center;">
-              <div class="" style="flex:4;padding: 10px;">
-                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 10
-              </div>
-              <div class="" style="flex:1;text-align: right;padding: 10px;">
-              </div>
-            </div>
+          <div style="height: 150px;width:100%;">
           </div>
-          <div class=" bg" style="height: 200px;width:100%;margin-top:15px">
-            <h3 style="font-size: 16px;margin: 0;padding: 15px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
-              向我发起的专家对接申请</h3>
-
+          <div class=" bg" style="height: 150px;width:100%;margin-top:15px">
+            <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
+                  成果对接</h3>
             <div class="" style="display:flex;justify-content:center; align-items:Center;">
-              <div class="" style="flex:4;padding: 10px;">
+              <div class="" style="cursor: pointer;flex:4;padding: 10px;">
+                <div class="">
                   <i class="iconfont icon-naoling" slot="right"></i> 已通过 10
-              </div>
-              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary" >查看</el-button>
-              </div>
-            </div>
-            <div class="" style="display:flex;justify-content:center; align-items:Center;">
-              <div class="" style="flex:4;padding: 10px;">
+                </div>
+                <div class="" style="cursor: pointer;margin-top:15px">
                   <i class="iconfont icon-naoling" slot="right"></i> 被驳回 10
-              </div>
-              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary" >查看</el-button>
-              </div>
-            </div>
-            <div class="" style="display:flex;justify-content:center; align-items:Center;">
-              <div class="" style="flex:4;padding: 10px;">
+                </div>
+                <div class="" style="cursor: pointer;margin-top:15px">
                   <i class="iconfont icon-naoling" slot="right"></i> 待审核 10
+                </div>
               </div>
-              <div class="" style="flex:1;text-align: right;padding: 10px;">
+
+              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
+                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
               </div>
+
             </div>
           </div>
         </el-col>
-      </el-row> -->
+        <el-col :span="5" style="padding-left:0px;font-size: 14px;">
 
-  </el-tab-pane>
+          <div class=" " style="height: 150px;width:100%;">
+
+          </div>
+          <div class=" bg" style="height: 150px;width:100%;margin-top:15px">
+            <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
+                          服务对接</h3>
+
+            <div class="" style="display:flex;justify-content:center; align-items:Center;">
+              <div class="" style="flex:4;padding: 10px;">
+                <div class="" style="cursor: pointer;">
+                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 10
+                </div>
+                <div class="" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 10
+                </div>
+                <div class="" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 10
+                </div>
+              </div>
+
+              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
+                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
+              </div>
+
+            </div>
+
+          </div>
+        </el-col>
+      </el-row>
+      <el-row :gutter="24" style="font-size: 12px;margin-top:15px">
+
+        <el-col :span="5" style="display:flex;">
+          <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;">
+            <div @click="Toexpert('expert')" style="flex:1;font-size: 20px;color: #409EFF;">{{expertNums || 0}}</div>
+            <div style="flex:1;text-align:left;color: #97a8be;">待处理的专家对接</div>
+          </div>
+        </el-col>
+
+      </el-row>
+    </div>
+    <div label="发起的企业申请" v-if="userType =='2'" name="3">
+
+      <el-row :gutter="24" style="font-size: 14px;">
+
+        <el-col :span="5" style="">
+          <el-col :span="24" style="padding:0px">
+            <div class=" bg" style="height: 150px;">
+              <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
+              加入平台</h3>
+              <div class="" style="display:flex;justify-content:center; align-items:Center;height:104px">
+              <div class="" style="flex:4;">
+                <div class="" style="flex:4;padding: 10px;">
+                    申请状态 <span style="color:#3a9fff" v-show="comLibrarycheckStatus == 2">驳回</span>
+                    <span style="color:#3a9fff" v-show="comLibrarycheckStatus == 0">待审核</span>
+                    <span style="color:#3a9fff" v-show="comLibrarycheckStatus == 1">审核通过</span>
+                </div>
+                <div  v-show="comLibrarycheckStatus == 2" class="" style="flex:4;padding: 10px;">
+                  驳回原因 <span style="color:#ccc">{{comLibraryinfo}}</span>
+                </div>
+
+              </div>
+              <div class="" style="flex:1;text-align: right;padding-right:20px;">
+                <el-button style=" padding: 5px;font-size: 12px;" @click="TouserDetail" type="primary">查看/编辑</el-button>
+              </div>
+
+              </div>
+            </div>
+            <div class=" bg" style="height: 150px;width:100%;margin-top:15px">
+              <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
+                专家对接</h3>
+              <div class="" style="display:flex;justify-content:center; align-items:Center;">
+                <div class="" style="flex:4;padding: 10px;">
+                  <div class="" style="cursor: pointer;">
+                    <i class="iconfont icon-naoling" slot="right"></i> 已通过 10
+                  </div>
+                  <div class="" style="cursor: pointer;margin-top:15px">
+                    <i class="iconfont icon-naoling" slot="right"></i> 被驳回 10
+                  </div>
+                  <div class="" style="cursor: pointer;margin-top:15px">
+                    <i class="iconfont icon-naoling" slot="right"></i> 待审核 10
+                  </div>
+                </div>
+
+                <div class="" style="flex:1;text-align: right;padding-right: 10px;">
+                  <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
+                </div>
+
+              </div>
+            </div>
+          </el-col>
+        </el-col>
+
+
+        <el-col :span="5" style="padding-left:0px;font-size: 14px;">
+
+          <div class=" bg" style="height: 150px;width:100%;">
+            <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
+              发布需求</h3>
+
+            <div class="" style="display:flex;justify-content:center; align-items:Center;">
+              <div class="" style="flex:4;padding: 10px;">
+                <div class="" @click="Todemand('demandLibrary','1')" style="cursor: pointer;">
+                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 {{demandpassNums|| 0}}
+                </div>
+                <div class="" @click="Todemand('demandLibrary','2')" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 {{demandbhNums|| 0}}
+                </div>
+                <div class="" @click="Todemand('demandLibrary','0')" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 {{demandshNums|| 0}}
+                </div>
+              </div>
+
+              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
+                <el-button style=" padding: 5px;font-size: 12px;" @click="Todemand('demandLibraryEdit','2')" type="primary">发布新需求</el-button>
+              </div>
+
+            </div>
+          </div>
+          <div class=" bg" style="height: 150px;width:100%;margin-top:15px">
+            <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
+              需求对接</h3>
+            <div class="" style="display:flex;justify-content:center; align-items:Center;">
+              <div class="" style="flex:4;padding: 10px;">
+                <div class="" style="cursor: pointer;">
+                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 {{achievepassNums}}
+                </div>
+                <div class="" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 {{achievebhNums}}
+                </div>
+                <div class="" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 {{achieveshNums}}
+                </div>
+              </div>
+
+              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
+                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
+              </div>
+
+            </div>
+          </div>
+        </el-col>
+
+        <el-col :span="5" style="padding-left:0px;font-size: 14px;">
+
+          <div class=" bg" style="height: 150px;width:100%;">
+            <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
+              发布成果</h3>
+            <div class="" style="display:flex;justify-content:center; align-items:Center;">
+              <div class="" style="flex:4;padding: 10px;">
+                <div @click="Todemand('achieveLibrary','1')" class="" style="cursor: pointer;">
+                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 {{achievepassNums|| 0}}
+                </div>
+                <div @click="Todemand('achieveLibrary','2')" class="" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 {{achievebhNums|| 0}}
+                </div>
+                <div @click="Todemand('achieveLibrary','0')" class="" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 {{achieveshNums|| 0}}
+                </div>
+              </div>
+
+              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
+                <el-button style=" padding: 5px;font-size: 12px;" @click="Todemand('achieveLibraryEdit','0')" type="primary">发布新成果</el-button>
+              </div>
+
+            </div>
+          </div>
+          <div class=" bg" style="height: 150px;width:100%;margin-top:15px">
+            <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
+              成果对接</h3>
+            <div class="" style="display:flex;justify-content:center; align-items:Center;">
+              <div class="" style="flex:4;padding: 10px;">
+                <div class="" style="cursor: pointer;">
+                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 10
+                </div>
+                <div class="" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 10
+                </div>
+                <div class="" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 10
+                </div>
+              </div>
+
+              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
+                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
+              </div>
+
+            </div>
+          </div>
+        </el-col>
+        <el-col :span="5" style="padding-left:0px;font-size: 14px;">
+
+          <div class=" " style="height: 150px;width:100%;">
+
+          </div>
+          <div class=" bg" style="height: 150px;width:100%;margin-top:15px">
+            <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
+                      服务对接</h3>
+            <div class="" style="display:flex;justify-content:center; align-items:Center;">
+              <div class="" style="flex:4;padding: 10px;">
+                <div class="" style="cursor: pointer;">
+                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 10
+                </div>
+                <div class="" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 10
+                </div>
+                <div class="" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 10
+                </div>
+              </div>
+
+              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
+                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
+              </div>
+
+            </div>
+
+          </div>
+        </el-col>
+      </el-row>
+      <el-row :gutter="24" style="font-size: 12px;margin-top:15px">
+        <el-col :span="5" style="display:flex;">
+          <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;text-align:center;cursor: pointer;">
+            <div @click="Toexpert2('activeManage')" style="flex:1;font-size: 20px;color: #409EFF;">{{activeNums || 0}}</div>
+            <div style="flex:2;text-align:left;color: #97a8be;">待处理的需求对接</div>
+          </div>
+        </el-col>
+        <el-col :span="5" style="display:flex;">
+          <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;cursor: pointer;">
+            <div @click="Toexpert2('contentManage')" style="flex:1;font-size: 20px;color: #409EFF;">{{contentNums || 0}}</div>
+            <div style="flex:2;text-align:left;color: #97a8be;">待处理的成果对接</div>
+          </div>
+        </el-col>
+
+      </el-row>
+    </div>
+    <div label="发起的服务机构申请" v-if="userType =='3'" name="4">
+
+      <el-row :gutter="24" style="font-size: 14px;">
+
+        <el-col :span="5" style="">
+          <el-col :span="24" style="padding:0px">
+            <div class=" bg" style="height: 150px;">
+              <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
+              加入平台</h3>
+              <div class="" style="display:flex;justify-content:center; align-items:Center;height:104px">
+              <div class="" style="flex:4;">
+                <div class="" style="flex:4;padding: 10px;">
+                    申请状态 <span style="color:#3a9fff" v-show="comLibrarycheckStatus == 2">驳回</span>
+                    <span style="color:#3a9fff" v-show="comLibrarycheckStatus == 0">待审核</span>
+                    <span style="color:#3a9fff" v-show="comLibrarycheckStatus == 1">审核通过</span>
+                </div>
+                <div  v-show="comLibrarycheckStatus == 2" class="" style="flex:4;padding: 10px;">
+                  驳回原因 <span style="color:#ccc">{{comLibraryinfo}}</span>
+                </div>
+
+              </div>
+              <div class="" style="flex:1;text-align: right;padding-right:20px;">
+                <el-button style=" padding: 5px;font-size: 12px;" @click="TouserDetail" type="primary">查看/编辑</el-button>
+              </div>
+
+              </div>
+            </div>
+            <div class=" bg" style="height: 150px;width:100%;margin-top:15px">
+              <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
+                  专家对接</h3>
+              <div class="" style="display:flex;justify-content:center; align-items:Center;">
+                <div class="" style="flex:4;padding: 10px;">
+                  <div class="" style="cursor: pointer;">
+                    <i class="iconfont icon-naoling" slot="right"></i> 已通过 10
+                  </div>
+                  <div class="" style="cursor: pointer;margin-top:15px">
+                    <i class="iconfont icon-naoling" slot="right"></i> 被驳回 10
+                  </div>
+                  <div class="" style="cursor: pointer;margin-top:15px">
+                    <i class="iconfont icon-naoling" slot="right"></i> 待审核 10
+                  </div>
+                </div>
+
+                <div class="" style="flex:1;text-align: right;padding-right: 10px;">
+                  <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
+                </div>
+
+              </div>
+            </div>
+          </el-col>
+        </el-col>
+
+
+        <el-col :span="5" style="padding-left:0px;font-size: 14px;">
+
+
+          <div class=" bg" style="height: 150px;width:100%;">
+            <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
+              发布需求</h3>
+
+            <div class="" style="display:flex;justify-content:center; align-items:Center;">
+              <div class="" style="flex:4;padding: 10px;">
+                <div class="" @click="Todemand('demandLibrary','1')" style="cursor: pointer;">
+                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 {{demandpassNums|| 0}}
+                </div>
+                <div class="" @click="Todemand('demandLibrary','2')" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 {{demandbhNums|| 0}}
+                </div>
+                <div class="" @click="Todemand('demandLibrary','0')" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 {{demandshNums|| 0}}
+                </div>
+              </div>
+
+              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
+                <el-button style=" padding: 5px;font-size: 12px;" @click="Todemand('demandLibraryEdit','2')" type="primary">发布新需求</el-button>
+              </div>
+
+            </div>
+          </div>
+          <div class=" bg" style="height: 150px;width:100%;margin-top:15px">
+            <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
+                需求对接</h3>
+            <div class="" style="display:flex;justify-content:center; align-items:Center;">
+              <div class="" style="flex:4;padding: 10px;">
+                <div class="" style="cursor: pointer;">
+                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 10
+                </div>
+                <div class="" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 10
+                </div>
+                <div class="" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 10
+                </div>
+              </div>
+
+              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
+                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
+              </div>
+
+            </div>
+          </div>
+        </el-col>
+
+        <el-col :span="5" style="padding-left:0px;font-size: 14px;">
+
+          <div class=" bg" style="height: 150px;width:100%;">
+            <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
+              发布成果</h3>
+            <div class="" style="display:flex;justify-content:center; align-items:Center;">
+              <div class="" style="flex:4;padding: 10px;">
+                <div @click="Todemand('achieveLibrary','1')" class="" style="cursor: pointer;">
+                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 {{achievepassNums|| 0}}
+                </div>
+                <div @click="Todemand('achieveLibrary','2')" class="" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 {{achievebhNums|| 0}}
+                </div>
+                <div @click="Todemand('achieveLibrary','0')" class="" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 {{achieveshNums|| 0}}
+                </div>
+              </div>
+
+              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
+                <el-button style=" padding: 5px;font-size: 12px;" @click="Todemand('achieveLibraryEdit','0')" type="primary">发布新成果</el-button>
+              </div>
+
+            </div>
+          </div>
+          <div class=" bg" style="height: 150px;width:100%;margin-top:15px">
+            <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
+                成果对接</h3>
+            <div class="" style="display:flex;justify-content:center; align-items:Center;">
+              <div class="" style="flex:4;padding: 10px;">
+                <div class="" style="cursor: pointer;">
+                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 10
+                </div>
+                <div class="" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 10
+                </div>
+                <div class="" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 10
+                </div>
+              </div>
+
+              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
+                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
+              </div>
+
+            </div>
+          </div>
+        </el-col>
+        <el-col :span="5" style="padding-left:0px;font-size: 14px;">
+
+          <div class=" " style="height: 150px;width:100%;">
+
+          </div>
+          <div class=" bg" style="height: 150px;width:100%;margin-top:15px">
+            <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
+                        服务对接</h3>
+
+            <div class="" style="display:flex;justify-content:center; align-items:Center;">
+              <div class="" style="flex:4;padding: 10px;">
+                <div class="" style="cursor: pointer;">
+                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 10
+                </div>
+                <div class="" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 10
+                </div>
+                <div class="" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 10
+                </div>
+              </div>
+
+              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
+                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
+              </div>
+
+            </div>
+
+          </div>
+        </el-col>
+      </el-row>
+      <el-row :gutter="24" style="font-size: 12px;margin-top:15px">
+        <el-col :span="5" style="display:flex;">
+          <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;text-align:center;cursor: pointer;">
+            <div @click="Toexpert2('activeManage')" style="flex:1;font-size: 20px;color: #409EFF;">{{activeNums || 0}}</div>
+            <div style="flex:2;text-align:left;color: #97a8be;">待处理的需求对接</div>
+          </div>
+        </el-col>
+        <el-col :span="5" style="display:flex;">
+          <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;cursor: pointer;">
+            <div @click="Toexpert2('contentManage')" style="flex:1;font-size: 20px;color: #409EFF;">{{contentNums || 0}}</div>
+            <div style="flex:2;text-align:left;color: #97a8be;">待处理的成果对接</div>
+          </div>
+        </el-col>
+
+
+        <el-col :span="5" style="display:flex;">
+          <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;cursor: pointer;">
+            <div @click="Toexpert('enterprise')" style="flex:1;font-size: 20px;color: #409EFF;">{{enterpriseNums|| 0}}</div>
+            <div style="flex:1;text-align:left;color: #97a8be;">待处理的服务对接</div>
+          </div>
+        </el-col>
+
+      </el-row>
+    </div>
+
+
+    <div label="发起的高校申请11" v-if="userType =='4'" name="6">
+
+      <el-row :gutter="24" style="font-size: 14px;">
+
+        <el-col :span="5" style="">
+          <el-col :span="24" style="padding:0px">
+            <div class=" bg" style="height: 150px;">
+              <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
+              加入平台</h3>
+              <div class="" style="display:flex;justify-content:center; align-items:Center;height:104px">
+              <div class="" style="flex:4;">
+                <div class="" style="flex:4;padding: 10px;">
+                    申请状态 <span style="color:#3a9fff" v-show="comLibrarycheckStatus == 2">驳回</span>
+                    <span style="color:#3a9fff" v-show="comLibrarycheckStatus == 0">待审核</span>
+                    <span style="color:#3a9fff" v-show="comLibrarycheckStatus == 1">审核通过</span>
+                </div>
+                <div  v-show="comLibrarycheckStatus == 2" class="" style="flex:4;padding: 10px;">
+                  驳回原因 <span style="color:#ccc">{{comLibraryinfo}}</span>
+                </div>
+
+              </div>
+              <div class="" style="flex:1;text-align: right;padding-right:20px;">
+                <el-button style=" padding: 5px;font-size: 12px;" @click="TouserDetail" type="primary">查看/编辑</el-button>
+              </div>
+
+              </div>
+            </div>
+            <div class=" bg" style="height: 150px;width:100%;margin-top:15px">
+              <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
+              专家对接</h3>
+              <div class="" style="display:flex;justify-content:center; align-items:Center;">
+                <div class="" style="flex:4;padding: 10px;">
+                  <div class="" style="cursor: pointer;">
+                    <i class="iconfont icon-naoling" slot="right"></i> 已通过 10
+                  </div>
+                  <div class="" style="cursor: pointer;margin-top:15px">
+                    <i class="iconfont icon-naoling" slot="right"></i> 被驳回 10
+                  </div>
+                  <div class="" style="cursor: pointer;margin-top:15px">
+                    <i class="iconfont icon-naoling" slot="right"></i> 待审核 10
+                  </div>
+                </div>
+
+                <div class="" style="flex:1;text-align: right;padding-right: 10px;">
+                  <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
+                </div>
+
+              </div>
+            </div>
+          </el-col>
+        </el-col>
+
+
+        <el-col :span="5" style="padding-left:0px;font-size: 14px;">
+
+
+          <div class=" bg" style="height: 150px;width:100%;">
+            <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
+              发布需求</h3>
+
+            <div class="" style="display:flex;justify-content:center; align-items:Center;">
+              <div class="" style="flex:4;padding: 10px;">
+                <div class="" @click="Todemand('demandLibrary','1')" style="cursor: pointer;">
+                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 {{demandpassNums|| 0}}
+                </div>
+                <div class="" @click="Todemand('demandLibrary','2')" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 {{demandbhNums|| 0}}
+                </div>
+                <div class="" @click="Todemand('demandLibrary','0')" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 {{demandshNums|| 0}}
+                </div>
+              </div>
+
+              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
+                <el-button style=" padding: 5px;font-size: 12px;" @click="Todemand('demandLibraryEdit','2')" type="primary">发布新需求</el-button>
+              </div>
+
+            </div>
+          </div>
+          <div class=" bg" style="height: 150px;width:100%;margin-top:15px">
+            <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
+            需求对接</h3>
+            <div class="" style="display:flex;justify-content:center; align-items:Center;">
+              <div class="" style="flex:4;padding: 10px;">
+                <div class="" style="cursor: pointer;">
+                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 10
+                </div>
+                <div class="" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 10
+                </div>
+                <div class="" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 10
+                </div>
+              </div>
+
+              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
+                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
+              </div>
+
+            </div>
+          </div>
+        </el-col>
+
+        <el-col :span="5" style="padding-left:0px;font-size: 14px;">
+
+          <div class=" bg" style="height: 150px;width:100%;">
+            <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
+              发布成果</h3>
+            <div class="" style="display:flex;justify-content:center; align-items:Center;">
+              <div class="" style="flex:4;padding: 10px;">
+                <div @click="Todemand('achieveLibrary','1')" class="" style="cursor: pointer;">
+                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 {{achievepassNums|| 0}}
+                </div>
+                <div @click="Todemand('achieveLibrary','2')" class="" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 {{achievebhNums || 0}}
+                </div>
+                <div @click="Todemand('achieveLibrary','0')" class="" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 {{achieveshNums|| 0}}
+                </div>
+              </div>
+
+              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
+                <el-button style=" padding: 5px;font-size: 12px;" @click="Todemand('achieveLibraryEdit','0')" type="primary">发布新成果</el-button>
+              </div>
+
+            </div>
+          </div>
+          <div class=" bg" style="height: 150px;width:100%;margin-top:15px">
+            <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
+            成果对接</h3>
+            <div class="" style="display:flex;justify-content:center; align-items:Center;">
+              <div class="" style="flex:4;padding: 10px;">
+                <div class="" style="cursor: pointer;">
+                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 10
+                </div>
+                <div class="" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 10
+                </div>
+                <div class="" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 10
+                </div>
+              </div>
+
+              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
+                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
+              </div>
+
+            </div>
+          </div>
+        </el-col>
+        <el-col :span="5" style="padding-left:0px;font-size: 14px;">
+
+          <div class=" " style="height: 150px;width:100%;">
+
+          </div>
+          <div class=" bg" style="height: 150px;width:100%;margin-top:15px">
+            <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
+                    服务对接</h3>
+
+            <div class="" style="display:flex;justify-content:center; align-items:Center;">
+              <div class="" style="flex:4;padding: 10px;">
+                <div class="" style="cursor: pointer;">
+                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 10
+                </div>
+                <div class="" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 10
+                </div>
+                <div class="" style="cursor: pointer;margin-top:15px">
+                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 10
+                </div>
+              </div>
+
+              <div class="" style="flex:1;text-align: right;padding-right: 10px;">
+                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
+              </div>
+
+            </div>
+
+          </div>
+        </el-col>
+      </el-row>
+      <el-row :gutter="24" style="font-size: 12px;margin-top:15px">
+        <el-col :span="5" style="display:flex;">
+          <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;text-align:center;cursor: pointer;">
+            <div @click="Toexpert2('activeManage')" style="flex:1;font-size: 20px;color: #409EFF;">{{activeNums || 0}}</div>
+            <div style="flex:2;text-align:left;color: #97a8be;">待处理的需求对接</div>
+          </div>
+        </el-col>
+        <el-col :span="5" style="display:flex;">
+          <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;cursor: pointer;">
+            <div @click="Toexpert2('contentManage')" style="flex:1;font-size: 20px;color: #409EFF;">{{contentNums || 0}}</div>
+            <div style="flex:2;text-align:left;color: #97a8be;">待处理的成果对接</div>
+          </div>
+        </el-col>
+
+
+      </el-row>
+    </div>
+
   </el-tabs>
 
 </div>
@@ -425,6 +843,7 @@ import LineChart2 from './components/LineChart2'
 import LineChart3 from './components/LineChart3'
 import {
   getSubmitLibSum,
+  getSubmitLib
 } from '@/api/dashboard'
 export default {
   components: {
@@ -435,7 +854,7 @@ export default {
   data() {
     return {
       chart: null,
-      activeName: '1',
+      activeName: '4',
       expertNums: '',
       enterpriseNums: '',
       mechanismNums: '',
@@ -444,10 +863,23 @@ export default {
       demandLibraryNums: '',
       activeNums: '',
       contentNums: '',
+      userType: '',
+
+      comLibraryNums: '',
+      comLibrarycheckStatus: '',
+      comLibraryinfo: '',
+      demandshNums: '',
+      demandpassNums: '',
+      demandbhNums: '',
+      achieveshNums: '',
+      achievepassNums: '',
+      achievebhNums: '',
     }
   },
   mounted() {
-    this.loadPageList()
+    // this.loadPageList()
+    this.loadSubmitLib()
+    this.userType = window.sessionStorage.getItem('userType')
   },
   methods: {
     async loadPageList() {
@@ -494,6 +926,71 @@ export default {
         this.activeNums = 0
         this.contentNums = 0
       }
+    },
+    async loadSubmitLib() {
+      let {
+        data,
+        success
+      } = await getSubmitLib()
+      if (data.length > 0) {
+
+        for (var i in data) {
+          if (data[i].formType == 2) {
+            this.comLibraryNums = data[i].count
+            this.comLibrarycheckStatus = data[i].checkStatus
+            if (data[i].checkStatus == 2) {
+              this.comLibraryinfo = data[i].info
+            }
+          }
+          if (data[i].formType == 6 && data[i].checkStatus == 0) {
+            this.demandshNums = data[i].count
+          }
+          if (data[i].formType == 6 && data[i].checkStatus == 1) {
+            this.demandpassNums = data[i].count
+          }
+          if (data[i].formType == 6 && data[i].checkStatus == 2) {
+            this.demandbhNums = data[i].count
+          }
+          if (data[i].formType == 7 && data[i].checkStatus == 0) {
+            this.achieveshNums = data[i].count
+          }
+          if (data[i].formType == 7 && data[i].checkStatus == 1) {
+            this.achievepassNums = data[i].count
+          }
+          if (data[i].formType == 7 && data[i].checkStatus == 2) {
+            this.achievebhNums = data[i].count
+          }
+
+
+
+        }
+
+      } else {
+        this.expertNums = 0
+        this.enterpriseNums = 0
+        this.mechanismNums = 0
+        this.hschoolNums = 0
+        this.achieveLibraryNums = 0
+        this.demandLibraryNums = 0
+        this.activeNums = 0
+        this.contentNums = 0
+      }
+
+
+    },
+    TouserDetail(path, num) {
+      this.$router.push({
+        path: '/index/userDetail'
+      })
+    },
+    Todemand(path, num) {
+      this.$router.push({
+        path: '/manage3/' + path,
+        query: {
+          checkStatus: num,
+        }
+
+      })
     },
     Toexpert(path) {
       this.$router.push({

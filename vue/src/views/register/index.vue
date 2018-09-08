@@ -27,12 +27,12 @@
               </el-input>
             </el-form-item>
             <el-form-item label="">
-              <el-input type="text" v-model="registerForm.password" placeholder="请输入密码">
+              <el-input type="password" v-model="registerForm.password" placeholder="请输入密码">
                 <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
               </el-input>
             </el-form-item>
             <el-form-item label="">
-              <el-input type="text" v-model="registerForm.repassword" placeholder="请再次输入密码">
+              <el-input type="password" v-model="registerForm.repassword" placeholder="请再次输入密码">
                 <i slot="prefix" class="el-input__icon el-icon-date"></i></el-input>
               </el-input>
             </el-form-item>
@@ -53,7 +53,7 @@
 
             <el-form-item>
               <el-button :disabled = !registerForm.agreement v-if="!restEmail" @click="toRegisterDetail" type="primary">提交</el-button>
-              <el-button v-if="restEmail" @click="tosendEmailActivate" type="primary">重新发送</el-button>
+              <el-button v-if="restEmail" @click="tosendEmailActivate" :disabled="isDisabled" type="primary">{{buttonName}}</el-button>
               <span @click="toLogin" class="toLogin">已有账号，返回登录</span>
             </el-form-item>
           </el-form>
@@ -178,6 +178,9 @@ export default {
       labelPosition: 'top',
       userType: '1',
       restEmail: false,
+      buttonName: "重新发送",
+      isDisabled: false,
+      time: 60,
       registerForm: { // 普通登录
         email: '',
         password: '',
@@ -218,6 +221,18 @@ export default {
           message: message,
           type: 'success'
         });
+          let me = this;
+          me.isDisabled = true;
+        let interval = window.setInterval(function() {
+          me.buttonName = '(' + me.time + '秒)';
+          --me.time;
+          if (me.time < 0) {
+            me.buttonName = "重新发送";
+            me.time = 60;
+            me.isDisabled = false;
+            window.clearInterval(interval);
+          }
+        }, 1000);
       } else {
         this.$message({
           message: message,
@@ -226,7 +241,11 @@ export default {
       }
     },
     async toRegisterDetail() {
-      if (!this.validata.validatoRegistere(this.registerForm)) return
+      if(this.userType != 1){
+        if (!this.validata.validatoRegistere(this.registerForm)) return
+      }else{
+        if (!this.validata.validatoRegistere2(this.registerForm)) return
+      }
       this.registerForm.userType = this.userType
       if (this.registerForm.agreement == true) {
         this.registerForm.agreement = 1
@@ -247,13 +266,15 @@ export default {
           }, '激活帐户邮件已发送到你的邮箱中' + data.email + '，点击里面的激活链接')
         });
         this.restEmail = true
+        this.$router.push({
+          path: '/login'
+        })
       } else {
         this.$message({
           message: message,
           type: 'success'
         });
-        if (message != '邮箱地址不能为空' && message != "邮箱已经被注册")
-          this.restEmail = true
+
       }
     }
 
@@ -288,14 +309,14 @@ export default {
         this.idNumberName = '请输入名字'
         this.idNumberCode = '请输入身份证号'
       } else if (this.userType == '2') {
-        this.idNumberName = '请输入企业名称'
-        this.idNumberCode = '请输入营业执照'
+        this.idNumberName = '请输入单位名称'
+        this.idNumberCode = '请输入统一社会信用代码'
       } else if (this.userType == '3') {
-        this.idNumberName = '请输入机构名称'
-        this.idNumberCode = '请输入机构代码'
+        this.idNumberName = '请输入单位名称'
+        this.idNumberCode = '请输入统一社会信用代码'
       } else if (this.userType == '4') {
-        this.idNumberName = '请输入高校名称'
-        this.idNumberCode = '请输入高校代码'
+        this.idNumberName = '请输入单位名称'
+        this.idNumberCode = '请输入统一社会信用代码'
       }
     }
   }

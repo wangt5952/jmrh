@@ -11,8 +11,10 @@ import validate from './utils/validate' // 验证
 import jsPlumb from 'jsplumb'
 import VueAreaLinkage from 'vue-area-linkage';
 //全局变量
-Vue.prototype.imgBaseUrl  = 'http://106.14.172.38:8990';
+Vue.prototype.imgBaseUrl = 'http://106.14.172.38:8990';
 // Vue.prototype.imgBaseUrl  = 'http://localhost:8080';
+
+Vue.prototype.docUrl = 'http://106.14.172.38:8080';
 
 var myDate = new Date();
 Vue.prototype.lastt = myDate.getFullYear() + '年';
@@ -50,6 +52,28 @@ Vue.filter('formatTime', value => {
   }
   return year + '-' + month + '-' + date
 })
+Vue.filter('replaceKG', value => {
+  value = value.replace(/<\/?.+?>/g, "");
+  value = value.replace(/[\r\n]/g, "");
+  value = value.replace(/\s+/g, "");
+  return value;
+})
+// Vue.filter('formatDomain', value => {
+//   var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]")
+//   var rs = "";
+//   for (var i = 0; i < value.length; i++) {
+//     rs = rs + value.substr(i, 1).replace(pattern, '');
+//   }
+//   let arrV = []
+//   var arr = Array.from(rs);
+//   for(var j in arr){
+//     if(parseInt(arr[j])>= 0){
+//       arrV.push(arr[j])
+//     }
+//   }
+//   debugger
+//   return arrV;
+// })
 Vue.prototype.$jsPlumb = jsPlumb.jsPlumb
 Vue.prototype.validata = validate
 import img2base64 from './img2base64'; //引入转图片为base64

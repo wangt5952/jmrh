@@ -54,6 +54,13 @@ export function getExchanges(data) {
     data
   });
 }
+export function getEnrolls(data) {
+  return request({
+    url: '/xtcx/exchanges/enrolls/page?pageNum='+data.page+'&pageSize='+data.limit,
+    method: 'post',
+    data
+  });
+}
 export function getExchangesC(id) {
   return request({
     url: '/xtcx/exchanges?id='+id,
@@ -109,6 +116,13 @@ export function onExchanges(data) {
 export function offExchanges(data) {
   return request({
     url: '/xtcx/exchanges/off',
+    method: 'put',
+    data
+  });
+}
+export function plonExchanges(data) {
+  return request({
+    url: '/xtcx/exchanges/on',
     method: 'put',
     data
   });
@@ -181,6 +195,13 @@ export function onCategory(data) {
 export function offCategory(data) {
   return request({
     url: '/xtcx/category/content/off',
+    method: 'put',
+    data
+  });
+}
+export function plonCategory(data) {
+  return request({
+    url: '/xtcx/category/content/on',
     method: 'put',
     data
   });

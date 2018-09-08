@@ -10,11 +10,11 @@
             <el-col :span="20">
 
               <el-form-item label="姓名">
-                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入姓名" v-model="expert.name" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="性别">
-                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
                 <el-select v-model="expert.sex" style="width:100px" placeholder="请选择">
                   <el-option label="男" key="1" value='1'>
                   </el-option>
@@ -24,13 +24,13 @@
               </el-form-item>
 
               <el-form-item label="出生日期">
-                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                 <el-date-picker v-model="expert.bornDate" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期">
                 </el-date-picker>
               </el-form-item>
 
               <el-form-item label="身份证号">
-                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入身份证号" v-model="expert.code" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="上传身份证正面">
@@ -80,7 +80,7 @@
                 </div>
               </el-form-item>
               <el-form-item label="毕业院校">
-                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入毕业院校" v-model="expert.shcool" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="学历">
@@ -102,7 +102,7 @@
                   </el-option>
                   <el-option label="博士" key="7" value="7">
                   </el-option>
-                  <el-option label="其他" key="8" value="8">
+                  <el-option label="其他" key="99" value="99">
                   </el-option>
                 </el-select>
               </el-form-item>
@@ -117,7 +117,7 @@
                   </el-option>
                   <el-option label="博士" key="3" value="3">
                   </el-option>
-                  <el-option label="其他" key="4" value="4">
+                  <el-option label="其他" key="99" value="99">
                   </el-option>
                 </el-select>
               </el-form-item>
@@ -132,13 +132,13 @@
                   <el-checkbox label="5">生物技术与新医药</el-checkbox>
                   <el-checkbox label="6">能源与环保</el-checkbox>
                   <el-checkbox label="7">管理</el-checkbox>
-                  <el-checkbox label="8">其他</el-checkbox>
-                  <!-- <el-input v-if="expert.research_field.includes('8')" placeholder="请输入其他" v-model="expert.research_fieldOther" style="width:80%"></el-input> -->
+                  <el-checkbox label="99">其他</el-checkbox>
+                  <el-input v-if="expert.research_field.includes('99')" placeholder="请输入其他" v-model="expert.researchFieldOther" style="width:80%"></el-input>
                 </el-checkbox-group>
               </el-form-item>
 
               <el-form-item label="研究方向">
-                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入研究方向" v-model="expert.research_area" style="width:80%"></el-input>
               </el-form-item>
 
@@ -158,12 +158,20 @@
           <el-row :gutter="20">
             <el-col :span="20">
 
+              <el-form-item label="工作单位">
+                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                <el-input placeholder="请输入工作单位" v-model="expert.work_unit" style="width:80%"></el-input>
+              </el-form-item>
+              <el-form-item label="工作部门">
+                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                <el-input placeholder="请输入工作部门" v-model="expert.work_bumen" style="width:80%"></el-input>
+              </el-form-item>
               <el-form-item label="现任职务">
-                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入现任职务" v-model="expert.zwname" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="职称">
-                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入职称" v-model="expert.zcname" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="职称级别">
@@ -173,24 +181,16 @@
                   <el-checkbox label="2">副高</el-checkbox>
                 </el-checkbox-group>
               </el-form-item>
-              <el-form-item label="工作单位">
-                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入工作单位" v-model="expert.work_unit" style="width:80%"></el-input>
-              </el-form-item>
-              <el-form-item label="工作部门">
-                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入工作部门" v-model="expert.work_BM" style="width:80%"></el-input>
-              </el-form-item>
               <el-form-item label="手机号">
-                <span style='position: relative;left: -60px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -60px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入手机号" v-model="expert.mobilephone" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="办公电话">
-                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入办公电话" v-model="expert.telphone" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="邮箱">
-                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入邮箱" v-model="expert.fdemail" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="所在地区">
@@ -198,7 +198,7 @@
                 <area-cascader :level="1" v-model="expert.country" :data="pcaa"></area-cascader>
               </el-form-item>
               <el-form-item label="通讯地址">
-                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入通讯地址" v-model="expert.address" style="width:80%"></el-input>
               </el-form-item>
             </el-col>
@@ -220,7 +220,7 @@
 
               <el-form-item label="主要学术成就/研究成果/管理成就">
                 <span style='position: absolute;left: -230px;color: #f60d0d;'>*</span>
-                <textarea v-model="expert.success_record" rows="3" cols="20" style="width:60%;height: 150px;">
+                <textarea v-model="expert.success_record" rows="3" cols="20" style="width:60%;height: 120px;">
                 </textarea>
               </el-form-item>
 
@@ -239,7 +239,7 @@
           <el-row :gutter="24">
             <el-col :span="24">
               <el-form-item label="主要产学研合作项目情况（国防军工类项目）">
-                <textarea v-model="expert.project_desc" rows="3" cols="20" style="width:60%;height: 150px;">
+                <textarea v-model="expert.project_desc" rows="3" cols="20" style="width:60%;height: 120px;">
                 </textarea>
               </el-form-item>
 
@@ -263,48 +263,58 @@
               <el-button size="small" @click="addProjectexpert()">
                 添加课题
               </el-button>
-              <el-table class="tableH" :data="expert.research_record" border style="margin-top:20px;width:100%;font-size:14px;overflow-y:auto">
 
-                <el-table-column align="center" label="项目或课题名称">
-                  <template slot-scope="scope">
-                  <input  type="text" v-model="scope.row.projectname" style="width: 50%;">
-                                  </template>
-                </el-table-column>
-                <el-table-column align="center" label="项目或课题来源">
-                  <template slot-scope="scope">
-                                        <span>
-                                          <input  type="text" v-model="scope.row.projectSrc" style="width: 50%;">
-                                        </span>
-                                    </template>
-                </el-table-column>
-                <el-table-column align="center" label="完成情况">
-                  <template slot-scope="scope">
-                  <input  type="text" v-model="scope.row.finishcon" style="width: 50%;">
-                                  </template>
-                </el-table-column>
-                <el-table-column align="center" label="完成时间">
-                  <template slot-scope="scope">
-                  <el-date-picker v-model="scope.row.finishtime" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="" style="width: 70%;">
-                  </el-date-picker>
-                                  </template>
-                </el-table-column>
-                <el-table-column align="center" label="奖项名称">
-                  <template slot-scope="scope">
-                  <input  type="text" v-model="scope.row.rewname" style="width: 50%;">
-                                  </template>
-                </el-table-column>
-                <el-table-column align="center" label="获奖等级">
-                  <template slot-scope="scope">
-                  <input  type="text" v-model="scope.row.rewlevel" style="width: 50%;">
-                                  </template>
-                </el-table-column>
-                <el-table-column align="center" label="获奖时间" style="width: 50%;">
-                  <template slot-scope="scope">
-                  <el-date-picker v-model="scope.row.rewtime" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="" style="width: 70%;">
-                  </el-date-picker>
-                                  </template>
-                </el-table-column>
-              </el-table>
+
+              <el-form v-for="item in expert.research_record" class="" label-width="40%" style="text-align:left;border: 1px solid#ccc;border-radius: 4px;margin: 15px 0;padding: 15px;">
+                <el-row :gutter="24">
+                  <el-col :span="12">
+
+
+                    <el-form-item label="项目或课题名称">
+                        <el-input   type="text" v-model="item.projectname" style="width: 50%;"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="项目或课题来源">
+
+                        <el-input   type="text" v-model="item.projectSrc" style="width: 50%;"></el-input>
+                    </el-form-item>
+
+
+                    <el-form-item label="完成情况">
+                    <el-input   type="text" v-model="item.finishcon" style="width: 50%;"></el-input>
+                    </el-form-item>
+
+                        <el-form-item label="完成时间">
+                        <el-date-picker v-model="item.finishtime" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="" style="width: 50%;">
+                        </el-date-picker>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="12">
+                    <el-form-item label="奖项名称">
+                        <el-input   type="text" v-model="item.rewname" style="width: 50%;"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="获奖等级">
+
+                        <el-input   type="text" v-model="item.rewlevel" style="width: 50%;"></el-input>
+                    </el-form-item>
+
+
+                    <el-form-item label="获奖时间">
+                      <el-date-picker v-model="item.rewtime" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="" style="width: 50%;">
+                      </el-date-picker>
+                    </el-form-item>
+
+                  </el-col>
+
+                </el-row>
+                <div style="text-align: right;">
+                  <el-button size="small" @click="delProjectexpert(item)" style="color:red">
+                    删除项目
+                  </el-button>
+                </div>
+              </el-form>
+
             </div>
             <!-- </el-form-item> -->
 
@@ -387,13 +397,13 @@ export default {
         edu: '',
         academic: '',
         research_field: [],
-        research_fieldOther: '',
+        researchFieldOther: '',
         research_area: '',
         zwname: '',
         zcname: '',
         zclevel: [],
         work_unit: '',
-        work_BM: '',
+        work_bumen: '',
         mobilephone: '',
         telphone: '',
         fdemail: '',
@@ -411,7 +421,7 @@ export default {
           rewtime: ''
         }]
       },
-      checkStatus: -1
+      checkStatus: 1
     }
   },
   async mounted() {
@@ -528,6 +538,7 @@ export default {
       arr.formType = '1'
       arr.checkStatus = checkStatus
       arr.id = this.$route.params.objId
+      debugger
       arr.detail = JSON.stringify(this.expert)
       let {
         data,
@@ -589,6 +600,14 @@ export default {
         rewtime: ''
       })
     },
+
+  delProjectexpert(item) {
+      this.expert.research_record.splice(this.expert.research_record.indexOf(item), 1)
+      this.$message({
+        type: 'info',
+        message: '删除成功'
+      });
+    },
     addProjectcom() {
       this.com.comPorcolumnDefinitions.push({
         name: '',
@@ -627,7 +646,7 @@ export default {
 
 <style>
 .area-select .area-selected-trigger {
-  position: relative;
+  position: absolute;
   display: block;
   font-size: 14px;
   cursor: pointer;

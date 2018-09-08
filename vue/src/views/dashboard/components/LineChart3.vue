@@ -72,11 +72,11 @@ export default {
     },
     width: {
       type: String,
-      default: '100%'
+      default: '384px'
     },
     height: {
       type: String,
-      default: '160px'
+      default: '415px'
     },
     infoObj: {
       type: String

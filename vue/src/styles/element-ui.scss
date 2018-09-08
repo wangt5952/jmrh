@@ -1,4 +1,5 @@
- //覆盖一些element-ui样式 覆盖css样式可在这里添加
+//覆盖一些element-ui样式 覆盖css样式可在这里添加
+
 .el-upload {
   input[type="file"] {
     display: none !important;
@@ -8,38 +9,47 @@
 .el-upload__input {
   display: none;
 }
-.el-table td, .el-table th.is-leaf {
-    text-align: center;
+
+.el-table td,
+.el-table th.is-leaf {
+  text-align: center;
 }
 //暂时性解决diolag 问题 https://github.com/ElemeFE/element/issues/2461
+
 .el-dialog {
   transform: none;
   left: 0;
   position: relative;
   margin: 0 auto;
 }
+
 .el-button {
   height: 30px!important;
   line-height: 30px!important;
-  padding: 0 20px!important;
+  padding: 0 5px!important;
 }
 //element ui upload
+
 .upload-container {
   .el-upload {
     width: 100%;
+
     .el-upload-dragger {
       width: 100%;
       height: 200px;
     }
   }
 }
+
 .el-upload--picture-card i {
   font-size: 16px;
   color: #8c939d;
 }
-.editor-content img{
+
+.editor-content img {
   width: 120px;
 }
+
 .el-upload--picture-card {
   background-color: #fbfdff;
   border: 1px dashed #c0ccda;
@@ -50,7 +60,12 @@
   line-height: 50px;
   vertical-align: top;
 }
-
+.treeData .el-dialog__body {
+  padding: 0px!important;
+}
+.treeData .el-dialog__header {
+  padding: 0px!important;
+}
 .el-upload-list--picture-card .el-upload-list__item {
   overflow: hidden;
   background-color: #fff;
@@ -63,6 +78,41 @@
   margin: 0 8px 8px 0;
   display: inline-block;
 }
-.el-table .cell, .el-table th div, .el-table--border td:first-child .cell, .el-table--border th:first-child .cell {
-    padding-left: 0px;
+
+.el-table .cell,
+.el-table th div,
+.el-table--border td:first-child .cell,
+.el-table--border th:first-child .cell {
+  padding-left: 0;
+}
+
+.app-breadcrumb.el-breadcrumb {
+  line-height: 35px!important;
+}
+
+.el-table td,
+.el-table th {
+  padding: 0;
+}
+
+.el-table td {
+  height: 30px!important;
+}
+
+.el-pagination .el-select .el-input .el-input__inner {
+  width: 120px;
+}
+.el-form .el-checkbox+.el-checkbox{
+  margin-right: 30px;
+    margin-left: 0;
+}
+.el-form  .el-checkbox{
+  margin-right: 30px;
+    margin-left: 0;
+}
+.el-table-column--selection .cell{
+  padding:0px;
+}
+.el-breadcrumb__separator {
+    display: none!important;
 }

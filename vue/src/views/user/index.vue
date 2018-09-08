@@ -30,7 +30,7 @@
     </el-table-column>
     <el-table-column align="center" label="名称(单位)">
       <template slot-scope="scope">
-                    <span>{{ scope.row.name }}</span>
+                    <span  @click="handleShow(scope.row,'show')" class="clickText">{{ scope.row.name }}</span>
                 </template>
     </el-table-column>
     <el-table-column align="center" label="昵称">
@@ -66,7 +66,7 @@
                         {{ scope.row.email}}</span>
                 </template>
     </el-table-column>
-    <el-table-column align="center" label="身份证号">
+    <el-table-column align="center" label="身份证号/社会统一信用代码">
       <template slot-scope="scope">
                     <span>
                         {{ scope.row.code}}</span>
@@ -98,36 +98,110 @@
 
 
 
-  <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="30%" top='5%'>
+  <el-dialog title="注册用户详情" :visible.sync="dialogFormVisible" width="30%" top='5%'>
 
     <el-form class="" label-width="30%" style="text-align:left">
-
       <el-row :gutter="24">
+        <el-col :span="24">
 
-        <el-form-item label="名称(单位)">
-          <el-input v-model="obj.name" placeholder="请输入内容" style="width:80%"></el-input>
-        </el-form-item>
-        <el-form-item label="昵称">
-          <el-input v-model="obj.userName" placeholder="请输入内容" style="width:80%"></el-input>
-        </el-form-item>
-        <el-form-item label="全名">
-          <el-input v-model="obj.fullName" placeholder="请输入内容" style="width:80%"></el-input>
-        </el-form-item>
-        <el-form-item label="手机号">
-          <el-input v-model="obj.cellphone" placeholder="请输入内容" style="width:80%"></el-input>
-        </el-form-item>
-        <el-form-item label="用户类别">
-          <el-input v-model="obj.userType" placeholder="请输入内容" style="width:80%"></el-input>
-        </el-form-item>
-        <el-form-item label="邮箱">
-          <el-input v-model="obj.email" placeholder="请输入内容" style="width:80%"></el-input>
-        </el-form-item>
-        <el-form-item label="身份证号">
-          <el-input v-model="obj.idNumber" placeholder="请输入内容" style="width:80%"></el-input>
-        </el-form-item>
+          <!-- <table class="showDetailTable" v-show="show" cellpadding=0 cellspacing=0 border="0" style="width:100%;border: 1px solid#ccc;">
+            <tr v-show="content.typeId == 1" style="border-bottom: 1px solid#ccc;">
+              <td style="width:100px;padding:10px">name</td>
+              <td>
+                {{content.title}}
+              </td>
+              <td style="width:100px;padding:10px">用户类别</td>
+              <td>
+              <span v-if="scope.row.userType =='1'">
+                  个人/专家</span>
+            <span v-if="scope.row.userType =='2'">
+                    企业</span>
+              <span v-if="scope.row.userType =='3'">
+                服务机构  </span>
+                <span v-if="scope.row.userType =='4'">
+              高校院校</span>
+              <span v-if="scope.row.userType =='5'">
+              军方</span>
+              </td>
+            </tr>
+            <tr style="border-bottom: 1px solid#ccc;">
+              <td style="width:100px;padding:10px">封面</td>
+              <td>
+                <img :src="content.cover" alt="" style="width:100px">
+              </td>
+              <td style="width:100px;padding:10px">内容类型</td>
+              <td>
+
+                <span v-show="content.typeId == 1" style="">文章</span>
+                <span v-show="content.typeId == 2" style="">轮播</span>
+              </td>
+            </tr>
+            <tr v-show="content.typeId == 1">
+              <td style="width:100px;padding:10px">是否转载</td>
+              <td>
+                <span v-show="content.copied == 1">转载</span>
+                <span v-show="content.copied == 0">非转载</span>
+              </td>
+            </tr>
+            <tr v-show="content.copied == 1 && content.typeId == 1" style="border-bottom: 1px solid#ccc;">
+              <td style="width:100px;padding:10px">来源</td>
+              <td>
+                {{content.copyFrom}}
+              </td>
+              <td style="width:100px;padding:10px">来源网址</td>
+              <td>
+                {{content.copyFromUrl}}
+              </td>
+            </tr>
+            <tr v-show="content.typeId == 1" style="border-bottom: 1px solid#ccc;">
+              <td style="width:100px;padding:10px">作者</td>
+              <td>
+                {{content.author}}
+              </td>
+              <td style="width:100px;padding:10px">编辑</td>
+              <td>
+                {{content.editor}}
+              </td>
+            </tr>
+            <tr style="border-bottom: 1px solid#ccc;">
+              <td v-show="content.typeId == 1" style="width:100px;padding:10px">标签</td>
+              <td v-show="content.typeId == 1">
+                {{content.tags}}
+              </td>
+              <td style="width:100px;padding:10px">描述</td>
+              <td>
+                {{content.description}}
+              </td>
+            </tr>
+            <tr v-show="content.typeId == 1" style="border-bottom: 1px solid#ccc;">
+              <td style="width:100px;padding:10px">定时发布</td>
+              <td>
+                <span v-show="content.publishNow == 1">是</span>
+                <span v-show="content.publishNow == 0">否</span>
+              </td>
+              <td v-show="content.publishNow == 1" style="width:100px;padding:10px">发布日期</td>
+              <td v-show="content.publishNow == 1">
+                {{content.publishDate | formatTime}}
+              </td>
+            </tr>
+            <tr v-show="content.typeId == 1" style="border-bottom: 1px solid#ccc;">
+              <td style="width:100px;padding:10px">置顶</td>
+              <td>
+                <span v-show="content.stickSort == 0">是</span>
+                <span v-show="content.stickSort == 9999">否</span>
+              </td>
+              <td style="width:100px;padding:10px">推荐</td>
+              <td>
+                <span v-show="content.recommend == 1">是</span>
+                <span v-show="content.recommend == 0">否</span>
+              </td>
+            </tr>
+          </table> -->
+
+        </el-col>
+
       </el-row>
     </el-form>
-
     <span slot="footer" class="dialog-footer">
       <el-button type="primary" v-if="dialogadd == true" @click="addCreate(obj)">添加</el-button>
       <el-button type="primary" v-if="dialogsave == true"  @click="saveCreate(obj)">修改</el-button>
@@ -142,7 +216,8 @@
 <script>
 import {
   getUser,
-  setStatus
+  setStatus,
+  getUserDetailByUserId,
 } from '@/api/user'
 
 import {
@@ -228,6 +303,7 @@ export default {
       } = await getUser(this.listQuery)
       if (success) {
         this.list = data.list
+        this.total = data.total
         this.loading = false
       }
     },
@@ -378,6 +454,17 @@ export default {
           type: 'success'
         });
       }
+    },
+
+    async handleShow(item, type) {
+        let {
+          data,
+          success
+        } = await getUserDetailByUserId(item.id)
+        this.content = data
+        this.dialogFormVisible = true
+        this.show = true
+        this.title = '查看内容详情'
     },
     onDate1Change(val) {
       this.obj.loanDate = val

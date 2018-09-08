@@ -3,7 +3,7 @@
   <div class="">
     <div class="paddingb textl paddingr" style="font-size:14px">
       <span>关键字</span>
-      <el-input v-model="input.objName" placeholder="" style="width:100px;"></el-input>
+      <el-input v-model="input.objName" placeholder="" style="width:200px;"></el-input>
       <span style="margin-left: 15px;">是否可见</span>
       <el-select v-model="input.status" style="width:100px;height:30px" placeholder="请选择">
         <el-option label="请选择" key="" value="">
@@ -41,10 +41,11 @@
       </el-select>
       <el-button style="margin-left:20px" @click="loadPageList" type="primary">查询</el-button>
       <div class="" style="padding:10px 0px;">
-        <el-button v-if="userType =='0' " style="" @click="handleEdit" type="primary">添加企业</el-button>
-        <el-button v-if="userType =='0' && tfcheckStatus == 0" style="" @click="plsh" type="primary">批量审核</el-button>
-        <el-button v-if="userType =='0' && tfcheckStatus == 1" style="" @click="plxj" type="primary">批量下架</el-button>
-        <el-button v-if="userType =='0' && tfcheckStatus == 1" style="" @click="pldc" type="primary">批量导出</el-button>
+        <el-button style="" @click="handleEdit" type="primary">添加企业</el-button>
+        <el-button v-show="userType =='0' && tfcheckStatus == 0" style="" @click="plsh" type="primary">批量审核</el-button>
+        <el-button v-show="userType =='0' && tfcheckStatus == 1" style="" @click="plxj" type="primary">批量下架</el-button>
+        <el-button v-show="userType =='0' && tfcheckStatus == 1" style="" @click="plsj" type="primary">批量上架</el-button>
+        <el-button v-show="userType =='0' && tfcheckStatus == 1" style="" @click="pldc" type="primary">批量导出</el-button>
       </div>
 
     </div>
@@ -52,12 +53,12 @@
 
 
 
-  <el-table v-loading="loading" ref="multipleTable" @selection-change="handleSelectionChange" class="tableH" :data="list" border style="margin-top:20px;width:100%;font-size:12px;">
-    <el-table-column type="selection" width="55">
+  <el-table v-loading="loading" ref="multipleTable" @selection-change="handleSelectionChange" class="tableH" :data="list" border style="margin-top:5px;width:100%;font-size:12px;">
+    <el-table-column type="selection" width="30">
     </el-table-column>
-    <el-table-column align="center" label="编号">
+    <el-table-column align="center" label="编号" width="120">
       <template slot-scope="scope">
-                    <!-- <span>{{ scope.row.id }}</span> -->
+                    <span>{{ scope.row.number }}</span>
                 </template>
     </el-table-column>
     <el-table-column align="center" label="企业名">
@@ -74,13 +75,13 @@
     <el-table-column v-if="tfcheckStatus == 0" align="center" label="创建时间">
       <template slot-scope="scope">
                     <span>
-                        {{ scope.row.createTime}}</span>
+                        {{ scope.row.createTime | formatTime}}</span>
                 </template>
     </el-table-column>
     <el-table-column v-if="tfcheckStatus == 0" align="center" label="修改时间 ">
       <template slot-scope="scope">
                     <span>
-                        {{ scope.row.updateTime}}</span>
+                        {{ scope.row.updateTime | formatTime}}</span>
                 </template>
     </el-table-column>
 
@@ -88,28 +89,34 @@
 
     <el-table-column v-if="tfcheckStatus == 1" align="center" label="所属领域">
       <template slot-scope="scope">
-                    <span>
-                        {{ scope.row.research_area}}</span>
+                                      <span v-if='scope.row.domain.includes(1)'>智能装备</span>
+                                      <span v-if='scope.row.domain.includes(2)'>电子信息</span>
+                                      <span v-if='scope.row.domain.includes(3)'>新材料</span>
+                                      <span v-if='scope.row.domain.includes(4)'>航空航天</span>
+                                      <span v-if='scope.row.domain.includes(5)'>生物技术与新医药</span>
+                                      <span v-if='scope.row.domain.includes(6)'>能源与环保</span>
+                                      <span v-if='scope.row.domain.includes(99)'>{{scope.row.domainOther}}</span>
                 </template>
     </el-table-column>
-    <el-table-column v-if="tfcheckStatus == 1" align="center" label="信用级别">
+    <el-table-column v-if="tfcheckStatus == 1" align="center" label="信用级别"  width="70">
       <template slot-scope="scope">
                         <span>
                             {{ scope.row.creditLevel}}</span>
                     </template>
     </el-table-column>
-    <el-table-column v-if="tfcheckStatus == 1" align="center" label="是否可见">
+    <el-table-column v-if="tfcheckStatus == 1" align="center" label="是否可见"  width="70">
       <template slot-scope="scope">
                         <span v-if="scope.row.status == 1">可见</span>
                         <span v-if="scope.row.status == 0">不可见</span>
                     </template>
     </el-table-column>
-    <el-table-column v-if="tfcheckStatus == 1" align="center" label="发布人">
+    <el-table-column v-if="tfcheckStatus == 1" align="center" label="发布人"  width="80">
       <template slot-scope="scope">
                         <span>
                             {{ scope.row.creater}}</span>
                     </template>
     </el-table-column>
+
 
     <el-table-column v-if="tfcheckStatus == 1" align="center" label="审核用户">
       <template slot-scope="scope">
@@ -117,25 +124,33 @@
                             {{ scope.row.creater}}</span>
                     </template>
     </el-table-column>
-
-    <el-table-column v-if="userType =='0'" align="center" label="操作">
+    <el-table-column  align="center" label="状态" width="70px;">
       <template slot-scope="scope">
-                    <div style="">
-                      <div v-if="tfcheckStatus == 1" @click="handlexy(scope.row)" class="clickText" style="float:left">
+                            <span v-show="tfcheckStatus == -1">草稿</span>
+                            <span v-show="tfcheckStatus == 0">审核</span>
+                            <span v-show="tfcheckStatus == 1">已发布</span>
+                            <span v-show="tfcheckStatus == 2">驳回</span>
+                        </template>
+    </el-table-column>
+
+    <el-table-column v-show="userType =='0'" align="center" label="操作"  width="120">
+      <template slot-scope="scope">
+                                <div style="text-align:center" >
+                      <span v-if="tfcheckStatus == 1" @click="handlexy(scope.row)" class="clickText">
                         信用
-                      </div>
-                        <div v-if="tfcheckStatus == 0" @click="handlesh(scope.row)" class="clickText" style="float:left">
+                      </span>
+                        <span v-if="tfcheckStatus == 0" @click="handlesh(scope.row)" class="clickText">
                           审核
-                        </div>
-                      <div @click="handleEdit(scope.row,'edit')" class="clickText" style="float:left">
+                        </span>
+                      <span @click="handleEdit(scope.row,'edit')" class="clickText">
                         编辑
-                      </div>
-                  <span v-if="scope.row.status == 1 && tfcheckStatus == 1">  <div @click="handlexj(scope.row)" class="clickText" style="float:left">
+                      </span>
+                  <span v-if="scope.row.status == 1 && tfcheckStatus == 1">  <span @click="handlexj(scope.row)" class="clickText">
                                             下架
-                            </div></span>
-                  <span v-if="scope.row.status == 0 && tfcheckStatus == 1">  <div @click="handlesj(scope.row)" class="clickText" style="float:left">
+                            </span></span>
+                  <span v-if="scope.row.status == 0 && tfcheckStatus == 1">  <span @click="handlesj(scope.row)" class="clickText">
                                             上架
-                  </div></span>
+                  </span></span>
 
                     </div>
                 </template>
@@ -162,7 +177,7 @@
           <td height=32 class=x22 style='height:24pt;'>企业名称</td>
           <td class=x23>{{detailData.name}}</td>
           <td class=x22 style='overflow:hidden;'>统一社会信用代码</td>
-          <td  colspan=3 class=x24>{{detailData.name}}</td>
+          <td colspan=3 class=x24>{{detailData.name}}</td>
         </tr>
         <tr height=192 style='mso-height-source:userset;height:144pt' id='r2'>
           <td height=192 class=x22 style='height:144pt;overflow:hidden;'>企业规模（注册资金）</td>
@@ -178,8 +193,8 @@
           </td>
           <td class=x22 style='overflow:hidden;'>注册时间</td>
           <td class=x27 style='overflow:hidden;'>
-          {{detailData.registerDate}}
-           </td>
+            {{detailData.registerDate}}
+          </td>
           <td class=x22>注册类型</td>
           <td class=x27 style='overflow:hidden;'>
             <el-checkbox-group v-model="detailData.registered_type">
@@ -191,7 +206,9 @@
         </tr>
         <tr height=19 id='r3'>
           <td height=19 class=x22 style='height:14.25pt;'>所在地区</td>
-          <td  colspan=5><area-cascader :level="1" v-model="detailData.country" :data="pcaa"></area-cascader></td>
+          <td colspan=5>
+            <area-cascader :level="1" v-model="detailData.country" :data="pcaa"></area-cascader>
+          </td>
         </tr>
         <tr height=19 id='r4'>
           <td height=19 class=x22 style='height:14.25pt;'>通讯地址</td>
@@ -215,7 +232,7 @@
               <el-checkbox label="3">国家级经开区 </el-checkbox>
               <el-checkbox label="4">省级经开区</el-checkbox>
               <el-checkbox label="5">其他</el-checkbox>
-              <!-- <el-input v-if="detailData.registerSite.includes('5')" placeholder="请输入其他" v-model="detailData.registerSiteOther" style="width:80%"></el-input> -->
+              <!-- <el-input v-show="detailData.registerSite.includes('5')" placeholder="请输入其他" v-model="detailData.registerSiteOther" style="width:80%"></el-input> -->
             </el-checkbox-group>
           </td>
           <td class=x33 style='overflow:hidden;'>所在国家高新区</td>
@@ -226,7 +243,7 @@
               <el-checkbox label="3">昆山高新区 </el-checkbox>
               <el-checkbox label="4">徐州高新区</el-checkbox>
               <el-checkbox label="9999">其他</el-checkbox>
-              <!-- <span v-if="detailData.registerHSite.includes('9999')"  style="width:80%">{{detailData.registerHSite}}</span> -->
+              <!-- <span v-show="detailData.registerHSite.includes('9999')"  style="width:80%">{{detailData.registerHSite}}</span> -->
             </el-checkbox-group>
           </td>
         </tr>
@@ -281,7 +298,7 @@
               <el-checkbox label="5">生物技术与新医药</el-checkbox>
               <el-checkbox label="6">能源与环保</el-checkbox>
               <el-checkbox label="999">其他</el-checkbox>
-              <!-- <el-input v-if="detailData.domain.includes('999')" placeholder="请输入其他" v-model="detailData.comdomainOther" style="width:80%"></el-input> -->
+              <!-- <el-input v-show="detailData.domain.includes('999')" placeholder="请输入其他" v-model="detailData.comdomainOther" style="width:80%"></el-input> -->
             </el-checkbox-group>
           </td>
         </tr>
@@ -343,7 +360,7 @@
               <el-checkbox label="5">长江学者</el-checkbox>
               <el-checkbox label="6">国家杰青</el-checkbox>
               <el-checkbox label="7">其他</el-checkbox>
-              <!-- <el-input v-if="detailData.highleveltalentType.includes('7')" placeholder="请输入其他" v-model="detailData.comhighleveltalentTypeOther" style="width:80%"></el-input> -->
+              <!-- <el-input v-show="detailData.highleveltalentType.includes('7')" placeholder="请输入其他" v-model="detailData.comhighleveltalentTypeOther" style="width:80%"></el-input> -->
             </el-checkbox-group>
           </td>
         </tr>
@@ -356,8 +373,8 @@
         <tr height=19 id='r22'>
           <td></td>
           <td class=x79>{{detailData.service_research_last}}</td>
-          <td  colspan=2 class=x74>{{detailData.service_research_before}}</td>
-          <td   colspan=3 class=x27>{{detailData.service_research_previous}}</td>
+          <td colspan=2 class=x74>{{detailData.service_research_before}}</td>
+          <td colspan=3 class=x27>{{detailData.service_research_previous}}</td>
         </tr>
         <tr height=30 style='mso-height-source:userset;height:22.5pt' id='r23'>
           <td height=30 class=x81 style='height:22.5pt;'>平台建设情况</td>
@@ -376,15 +393,15 @@
           <td class=x85 style='overflow:hidden;'>是否承担过武器装备科研生产任务</td>
           <td colspan=4 id='tc19' class=x120 style='border-right:1px solid windowtext;'>
             <el-checkbox-group v-model="detailData.sfkyrw">
-              <el-checkbox  label="1">是</el-checkbox>
-              <el-checkbox  label="2">否</el-checkbox>
+              <el-checkbox label="1">是</el-checkbox>
+              <el-checkbox label="2">否</el-checkbox>
             </el-checkbox-group>
           </td>
         </tr>
         <tr height=19 id='r25'>
           <td rowspan=5 height=95 class=x103 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;height:71.25pt;overflow:hidden;'>“三证”拥有情况</td>
           <td rowspan=3 height=57 class=x104 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;height:42.75pt;'>已获得</td>
-          <td  colspan=3 id='tc20' class=x111 style='border-right:1px solid windowtext;overflow:hidden;'>
+          <td colspan=3 id='tc20' class=x111 style='border-right:1px solid windowtext;overflow:hidden;'>
             <font class="font7">武器装备科研生产单位保密资格认证（一级、二级、三级）</font>
             <font class="font11">{{detailData.qdtime}}年</font>
             <font class="font7">取得</font>
@@ -392,7 +409,7 @@
         </tr>
         <tr height=19 id='r26'>
           <td height=19 class=x75 style='height:14.25pt;'></td>
-          <td  colspan=3 id='tc21' class=x115 style='border-right:1px solid windowtext;overflow:hidden;'>
+          <td colspan=3 id='tc21' class=x115 style='border-right:1px solid windowtext;overflow:hidden;'>
             <font class="font7">武器装备科研生产许可证<span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp; </span></font>
             <font class="font11">{{detailData.qdtime2}}年</font>
             <font class="font7">取得</font>
@@ -400,7 +417,7 @@
         </tr>
         <tr height=19 id='r27'>
           <td height=19 class=x75 style='height:14.25pt;'></td>
-          <td  colspan=3 id='tc22' class=x116>
+          <td colspan=3 id='tc22' class=x116>
             <font class="font7">装备承制单位资格认证<span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></font>
             <font class="font11">{{detailData.qdtime3}}年</font>
             <font class="font7">取得</font>
@@ -411,8 +428,8 @@
           <td rowspan=2 height=38 class=x122 style='border-bottom:1px solid windowtext;height:28.5pt;'>是否计划申请</td>
           <td colspan=2 rowspan=2 id='tc23' class=x88 style='border-right:1px solid windowtext;'>
             <el-checkbox-group v-model="detailData.sfkyrw">
-              <el-checkbox  label="1">是</el-checkbox>
-              <el-checkbox  label="2">否</el-checkbox>
+              <el-checkbox label="1">是</el-checkbox>
+              <el-checkbox label="2">否</el-checkbox>
             </el-checkbox-group>
           </td>
         </tr>
@@ -423,10 +440,10 @@
           <td class=x103 style='overflow:hidden;'>军民融合建设管理情况</td>
           <td colspan=4 id='tc25' class=x120>
             <el-checkbox-group v-model="detailData.jmrhgn">
-            <el-checkbox  label="1">内设专门机构</el-checkbox>
-            <el-checkbox  label="2">设有专项经费</el-checkbox>
-            <el-checkbox  label="3">有专人负责 </el-checkbox>
-          </el-checkbox-group>
+              <el-checkbox label="1">内设专门机构</el-checkbox>
+              <el-checkbox label="2">设有专项经费</el-checkbox>
+              <el-checkbox label="3">有专人负责 </el-checkbox>
+            </el-checkbox-group>
           </td>
         </tr>
         <tr height=120 style='mso-height-source:userset;height:90pt' id='r31'>
@@ -446,12 +463,12 @@
           <td colspan=2 id='tc27' height=19 class=x71 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;height:14.25pt;overflow:hidden;'>服务部门</td>
           <td colspan=4 id='tc28' class=x120>
             <el-checkbox-group v-model="detailData.fwbm">
-              <el-checkbox  label="1">海军</el-checkbox>
-              <el-checkbox  label="2">陆军</el-checkbox>
-              <el-checkbox  label="3">空军</el-checkbox>
-              <el-checkbox  label="4">火箭军</el-checkbox>
-              <el-checkbox  label="5">战略支援部队</el-checkbox>
-              <el-checkbox  label="6">军工企业</el-checkbox>
+              <el-checkbox label="1">海军</el-checkbox>
+              <el-checkbox label="2">陆军</el-checkbox>
+              <el-checkbox label="3">空军</el-checkbox>
+              <el-checkbox label="4">火箭军</el-checkbox>
+              <el-checkbox label="5">战略支援部队</el-checkbox>
+              <el-checkbox label="6">军工企业</el-checkbox>
             </el-checkbox-group>
           </td>
         </tr>
@@ -460,37 +477,37 @@
           <td colspan=2 id='tc27' height=19 class=x71 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;height:14.25pt;overflow:hidden;'>执行情况</td>
           <td colspan=4 id='tc28' class=x120>
             <el-checkbox-group v-model="detailData.zxqk">
-              <el-checkbox  label="1">申请</el-checkbox>
-              <el-checkbox  label="2">在研</el-checkbox>
-              <el-checkbox  label="3">验收/结题 </el-checkbox>
+              <el-checkbox label="1">申请</el-checkbox>
+              <el-checkbox label="2">在研</el-checkbox>
+              <el-checkbox label="3">验收/结题 </el-checkbox>
             </el-checkbox-group>
-          </el-checkbox-group>
+            </el-checkbox-group>
           </td>
         </tr>
         <tr height=19 id='r40'>
           <td colspan=2 id='tc27' height=19 class=x71 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;height:14.25pt;overflow:hidden;'>“民参军”过程中，遇到的障碍及困难</td>
           <td colspan=4 id='tc28' class=x120>
             <el-checkbox-group v-model="detailData.ydkn">
-            <el-checkbox  label="1">需求信息</el-checkbox>
-            <el-checkbox  label="2">产品准入</el-checkbox>
-            <el-checkbox  label="3">人才保障 </el-checkbox>
-            <el-checkbox  label="4">审批程序 </el-checkbox>
-            <el-checkbox  label="5">资质认证 </el-checkbox>
-            <el-checkbox  label="6">无人管理 </el-checkbox>
-            <el-checkbox  label="7">其他 </el-checkbox>
-            <!-- <el-input v-if="detailData.ydkn.includes('7')" placeholder="请输入其他" v-model="detailData.comydknOther" style="width:80%"></el-input> -->
-          </el-checkbox-group>
+              <el-checkbox label="1">需求信息</el-checkbox>
+              <el-checkbox label="2">产品准入</el-checkbox>
+              <el-checkbox label="3">人才保障 </el-checkbox>
+              <el-checkbox label="4">审批程序 </el-checkbox>
+              <el-checkbox label="5">资质认证 </el-checkbox>
+              <el-checkbox label="6">无人管理 </el-checkbox>
+              <el-checkbox label="7">其他 </el-checkbox>
+              <!-- <el-input v-show="detailData.ydkn.includes('7')" placeholder="请输入其他" v-model="detailData.comydknOther" style="width:80%"></el-input> -->
+            </el-checkbox-group>
           </td>
         </tr>
         <tr height=19 id='r41'>
           <td colspan=2 id='tc29' height=19 class=x71 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;height:14.25pt;overflow:hidden;'>“民参军”过程中企业自身存在的问题</td>
           <td colspan=4 id='tc30' class=x120>
             <el-checkbox-group v-model="detailData.problem">
-            <el-checkbox  label="1">技术人才不足</el-checkbox>
-            <el-checkbox  label="2">资金保障困难</el-checkbox>
-            <el-checkbox  label="3">保密设施设备不足 </el-checkbox>
-            <el-checkbox  label="4">需求信息不了解 </el-checkbox>
-          </el-checkbox-group>
+              <el-checkbox label="1">技术人才不足</el-checkbox>
+              <el-checkbox label="2">资金保障困难</el-checkbox>
+              <el-checkbox label="3">保密设施设备不足 </el-checkbox>
+              <el-checkbox label="4">需求信息不了解 </el-checkbox>
+            </el-checkbox-group>
           </td>
         </tr>
         <tr height=19 id='r42'>
@@ -512,71 +529,71 @@
   </el-dialog>
 
 
-    <el-dialog title="信用等级" :visible.sync="dialogShowLevel" width="30%" top='5%'>
+  <el-dialog title="信用等级" :visible.sync="dialogShowLevel" width="30%" top='5%'>
 
-      <el-form class="" label-width="30%" style="text-align:left">
-        <el-row :gutter="24">
-          <el-col :span="24">
+    <el-form class="" label-width="30%" style="text-align:left">
+      <el-row :gutter="24">
+        <el-col :span="24">
 
-            <el-form-item label="信用等级">
-              <el-select v-model="xyset.creditLevel" style="height:30px" placeholder="请选择">
-                <el-option label="请选择" key="" value="">
-                </el-option>
-                <el-option label="1" key="1" value="1">
-                </el-option>
-                <el-option label="2" key="2" value="2">
-                </el-option>
-                <el-option label="3" key="3" value="3">
-                </el-option>
-                <el-option label="4" key="4" value="4">
-                </el-option>
-                <el-option label="5" key="5" value="4">
-                </el-option>
-              </el-select>
-            </el-form-item>
+          <el-form-item label="信用等级">
+            <el-select v-model="xyset.creditLevel" style="height:30px" placeholder="请选择">
+              <el-option label="请选择" key="" value="">
+              </el-option>
+              <el-option label="1" key="1" value="1">
+              </el-option>
+              <el-option label="2" key="2" value="2">
+              </el-option>
+              <el-option label="3" key="3" value="3">
+              </el-option>
+              <el-option label="4" key="4" value="4">
+              </el-option>
+              <el-option label="5" key="5" value="4">
+              </el-option>
+            </el-select>
+          </el-form-item>
 
-          </el-col>
+        </el-col>
 
-        </el-row>
-      </el-form>
+      </el-row>
+    </el-form>
 
-      <span slot="footer" class="dialog-footer">
+    <span slot="footer" class="dialog-footer">
         <el-button type="primary" style="" @click="saveFile(xyset)">保存</el-button>
         <el-button type="primary" @click="dialogShowLevel = false">关闭</el-button>
       </span>
-    </el-dialog>
+  </el-dialog>
 
 
-    <el-dialog title="审核" :visible.sync="dialogShowSH" width="30%" top='5%'>
+  <el-dialog title="审核" :visible.sync="dialogShowSH" width="30%" top='5%'>
 
-      <el-form class="" label-width="30%" style="text-align:left">
-        <el-row :gutter="24">
-          <el-col :span="24">
+    <el-form class="" label-width="30%" style="text-align:left">
+      <el-row :gutter="24">
+        <el-col :span="24">
 
-            <el-form-item label="审核">
-              <el-select v-model="rej.way" style="height:30px" placeholder="请选择">
+          <el-form-item label="审核">
+            <el-select v-model="rej.way" style="height:30px" placeholder="请选择">
 
-                <el-option label="通过" key="1" value="1">
-                </el-option>
-                <el-option label="驳回" key="2" value="2">
-                </el-option>
-              </el-select>
-            </el-form-item>
+              <el-option label="通过" key="1" value="1">
+              </el-option>
+              <el-option label="驳回" key="2" value="2">
+              </el-option>
+            </el-select>
+          </el-form-item>
 
 
-            <el-form-item v-if="rej.way == '2'" label="驳回原因">
-              <el-input v-model="rej.info" placeholder=""></el-input>
-            </el-form-item>
-          </el-col>
+          <el-form-item v-show="rej.way == '2'" label="驳回原因">
+            <el-input v-model="rej.info" placeholder=""></el-input>
+          </el-form-item>
+        </el-col>
 
-        </el-row>
-      </el-form>
+      </el-row>
+    </el-form>
 
-      <span slot="footer" class="dialog-footer">
+    <span slot="footer" class="dialog-footer">
         <el-button type="primary" style="" @click="saveReject(rej)">保存</el-button>
         <el-button type="primary" @click="dialogShowSH = false">关闭</el-button>
       </span>
-    </el-dialog>
+  </el-dialog>
 
 
 </div>
@@ -609,6 +626,7 @@ import {
   onUserDetail,
   PLrejectUserDetail,
   PLoffUserDetails,
+  PLonUserDetails,
   updateLevel
 } from '@/api/library'
 import table2excel from 'table2excel'
@@ -626,12 +644,12 @@ export default {
         creditLevel: '',
         id: ''
       },
-    input: {
-      objName: '',
-      status: '',
-      checkStatus: 1,
-      creditLevel: '',
-    },
+      input: {
+        objName: '',
+        status: '',
+        checkStatus: 1,
+        creditLevel: '',
+      },
       bank: '1',
       list: [],
       timeType: '1',
@@ -727,7 +745,7 @@ export default {
     }
   },
   async mounted() {
-    if (typeof this.$route.query.checkStatus == 'number' ) {
+    if (typeof this.$route.query.checkStatus == 'number') {
       this.input.checkStatus = this.$route.query.checkStatus
     }
     this.listLoading = false
@@ -742,7 +760,7 @@ export default {
       let {
         data,
         success
-      } = await updateLevel(objdata,'2')
+      } = await updateLevel(objdata, '2')
       this.$message({
         message: '保存成功',
         type: 'success'
@@ -770,6 +788,13 @@ export default {
           this.loadPageList()
         }
       } else {
+        if(rej.info==""){
+          this.$message({
+            message: '请输入驳回原因！',
+            type: 'success'
+          });
+          return
+        }
         let {
           data,
           success
@@ -792,77 +817,103 @@ export default {
       }
       this.multipleSelection = arr;
     },
-        async plsh() {
-          let {
-            data,
-            success
-          } = await PLrejectUserDetail(this.multipleSelection)
-          if (success) {
-            this.$message({
-              type: 'success',
-              message: '审核成功!'
-            });
-            this.loadPageList()
-          }
+    async plsh() {
+      let {
+        data,
+        success
+      } = await PLrejectUserDetail(this.multipleSelection)
+      if (success) {
+        this.$message({
+          type: 'success',
+          message: '审核成功!'
+        });
+        this.loadPageList()
+      }
 
 
-        },
-        async plxj() {
-          let {
-            data,
-            success
-          } = await PLoffUserDetails(this.multipleSelection,'2')
-          if (success) {
-            this.$message({
-              type: 'success',
-              message: '下架成功!'
-            });
-            this.loadPageList()
-          }
-        },
-        pldc() {
-          this.$message({
-            type: 'success',
-            message: '导出成功!'
-          });
-        },
-      handlesh(data) {
-        this.dialogShowSH = true
-        this.rej.formId = data.id
-      },
-      async handlexj(params) {
+    },
 
-        let obj = {}
-        obj.id = params.id
-        obj.type = '2'
-        let {
-          data,
-          success
-        } = await offUserDetail(obj)
-        if (success) {
-          this.$message({
-            message: '下架成功',
-            type: 'success'
-          });
-          this.loadPageList()
-        }
-      },
-      async handlesj(params) {
-        let obj = {}
-        obj.id = params.id
-        obj.type = '2'
-        let {
-          data,
-          success
-        } = await onUserDetail(obj)
-        if (success) {
-          this.$message({
-            message: '上架成功',
-            type: 'success'
-          });
-          this.loadPageList()
-        }
-      },
+    async plsj() {
+      if (this.multipleSelection.length == 0) {
+        this.$message({
+          type: 'success',
+          message: '请勾选上架内容!'
+        });
+      }
+      let {
+        data,
+        success
+      } = await PLonUserDetails(this.multipleSelection, '2')
+      if (success) {
+        this.$message({
+          type: 'success',
+          message: '上架成功!'
+        });
+        this.loadPageList()
+      }
+    },
+    async plxj() {
+    if(this.multipleSelection.length == 0){
+      this.$message({
+        type: 'success',
+        message: '请勾选下架内容!'
+      });
+    }
+      let {
+        data,
+        success
+      } = await PLoffUserDetails(this.multipleSelection, '2')
+      if (success) {
+        this.$message({
+          type: 'success',
+          message: '下架成功!'
+        });
+        this.loadPageList()
+      }
+    },
+    pldc() {
+      this.$message({
+        type: 'success',
+        message: '导出成功!'
+      });
+    },
+    handlesh(data) {
+      this.dialogShowSH = true
+      this.rej.formId = data.id
+    },
+    async handlexj(params) {
+
+      let obj = {}
+      obj.id = params.id
+      obj.type = '2'
+      let {
+        data,
+        success
+      } = await offUserDetail(obj)
+      if (success) {
+        this.$message({
+          message: '下架成功',
+          type: 'success'
+        });
+        this.loadPageList()
+      }
+    },
+    async handlesj(params) {
+      let obj = {}
+      obj.id = params.id
+      obj.type = '2'
+      let {
+        data,
+        success
+      } = await onUserDetail(obj)
+      if (success) {
+        this.$message({
+          message: '上架成功',
+          type: 'success'
+        });
+        this.loadPageList()
+      }
+    },
     handlePrint() {
       $("#tablePrint").printArea();
     },
@@ -878,28 +929,34 @@ export default {
     },
     showDetail(data) {
       this.dialogShowDep = true
-      this.detailData = JSON.parse(data.form.detail)
+      let objData
+      if (this.input.checkStatus == 1) {
+        objData = data.form.detail
+      } else if (this.input.checkStatus == 0 || this.input.checkStatus == -1) {
+        objData = data.detail
+      }
+      this.detailData = JSON.parse(objData)
     },
     async loadPageList() {
 
-        if (this.input) {
-          this.listQuery.objName = this.input.objName
-          this.listQuery.status = this.input.status
-          this.listQuery.checkStatus = this.input.checkStatus
+      if (this.input) {
+        this.listQuery.objName = this.input.objName
+        this.listQuery.status = this.input.status
+        this.listQuery.checkStatus = this.input.checkStatus
 
-          this.tfcheckStatus = this.input.checkStatus
+        this.tfcheckStatus = this.input.checkStatus
 
-          this.listQuery.creditLevel = this.input.creditLevel
-        } else {
-          this.listQuery.objName = ''
-        }
+        this.listQuery.creditLevel = this.input.creditLevel
+      } else {
+        this.listQuery.objName = ''
+      }
       let {
         data,
         success
       } = await getenterprise(this.listQuery)
       if (success) {
         this.list = data.list
-
+        this.total = data.total
         this.loading = false
       }
     },
@@ -1023,11 +1080,10 @@ export default {
         });
       } else if (type === 'edit') {
         let objId, objData
-        debugger
         if (this.input.checkStatus == 1) {
           objId = data.form.id
           objData = data.form.detail
-        } else if (this.input.checkStatus == 0) {
+        } else if (this.input.checkStatus == 0 || this.input.checkStatus == -1) {
           objId = data.id
           objData = data.detail
         }

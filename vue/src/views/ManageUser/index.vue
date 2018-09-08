@@ -27,9 +27,9 @@
 
 
   <el-table v-loading="loading" class="tableH" :data="list" border style="margin-top:20px;width:100%;font-size:12px;">
-    <el-table-column type="index" align="center" label="ID">
+    <!-- <el-table-column type="index" align="center" label="ID">
 
-    </el-table-column>
+    </el-table-column> -->
     <el-table-column align="center" label="管理员名称">
       <template slot-scope="scope">
                     <span>{{ scope.row.userName }}</span>
@@ -149,13 +149,16 @@
           <v-select multiple v-model="selected" :options="options" style="width:80%"></v-select>
         </el-form-item>
         <el-form-item label="组织架构">
-          <el-select v-model="obj.orgId" placeholder="请选择" style="width:80%">
+          <el-select v-model="orgId" placeholder="请选择" style="width:80%">
+
             <el-option-group v-for="group in treeData" :key="group.label" :label="group.label">
               <el-option v-for="item in group.children" :key="item.id" :label="item.label" :value="item.id">
               </el-option>
             </el-option-group>
+
           </el-select>
         </el-form-item>
+
       </el-row>
     </el-form>
 
@@ -222,10 +225,11 @@ export default {
       },
       obj: {
         userName: '',
-        userPassword: '',
-        fullName: '',
-        department: '',
+        password: '',
+        email: '',
+        cellphone: '',
       },
+      orgId: '',
       selected: [],
       options: [{
         label: 'foo',
@@ -244,7 +248,7 @@ export default {
   async mounted() {
     this.listLoading = false
     this.loadPageList()
-    this.userType = window.sessionStorage.getItem('userType')//权限控制
+    this.userType = window.sessionStorage.getItem('userType') //权限控制
   },
   computed: {},
   methods: {
@@ -262,6 +266,7 @@ export default {
       } = await getUser(this.listQuery)
       if (success) {
         this.list = data.list
+        this.total = data.total
         this.loading = false
       }
     },
@@ -284,11 +289,12 @@ export default {
       this.dialogsave = false
       this.obj = {
         userName: '',
-        userPassword: '',
-        fullName: '',
-        department: '',
+        password: '',
+        email: '',
+        cellphone: '',
       }
       this.selected = []
+      this.orgId = ''
       this.loadoptions()
     },
     async loadoptions() {
@@ -309,7 +315,6 @@ export default {
       }
       this.options = arr
       // this.loadgetUserId()
-      this.loadgetdep()
     },
     // async loadgetUserId() {
     //   let aa = this.obj
@@ -339,6 +344,7 @@ export default {
     },
     async addCreate(obj) {
       obj.selected = this.selected
+      obj.orgId = this.orgId
       if (!this.validata.validaManageUser(obj)) return
       obj.method = 'post'
       let arr = []
@@ -366,6 +372,7 @@ export default {
     },
     async saveCreate(obj) {
       obj.selected = this.selected
+      obj.orgId = this.orgId
       if (!this.validata.validaManageUser(obj)) return
       obj.method = 'put'
       let arr = []
@@ -449,12 +456,15 @@ export default {
           arr.push(obja)
         }
         this.selected = arr
-        this.obj.orgId = data.org
+        if (data.org && data.org.id) {
+          this.orgId = data.org.id
+        }
         this.dialogStatus = 'update'
         this.dialogsave = true
         this.dialogadd = false
         this.dialogFormVisible = true
         this.loadoptions()
+        this.loadgetdep()
       } else if (type === 'del') {
         this.$confirm('此操作将删除该记录, 是否继续?', '提示', {
           confirmButtonText: '确定',

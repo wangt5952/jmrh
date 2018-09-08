@@ -3,7 +3,7 @@
   <div class="">
     <div class="paddingb textl paddingr" style="font-size:14px">
       <span>关键字</span>
-      <el-input v-model="input.objName" placeholder="" style="width:100px;"></el-input>
+      <el-input v-model="input.objName" placeholder="" style="width:200px;"></el-input>
       <span style="margin-left: 15px;">是否可见</span>
       <el-select v-model="input.status" style="width:100px;height:30px" placeholder="请选择">
         <el-option label="请选择" key="" value="">
@@ -41,25 +41,26 @@
       </el-select>
       <el-button style="margin-left:20px" @click="loadPageList" type="primary">查询</el-button>
       <div class="" style="padding:10px 0px;">
-        <el-button v-if="userType =='0' " style="" @click="handleEdit" type="primary">添加专家</el-button>
-        <el-button v-if="userType =='0' && tfcheckStatus == 0" style="" @click="plsh" type="primary">批量审核</el-button>
-        <el-button v-if="userType =='0' && tfcheckStatus == 1" style="" @click="plxj" type="primary">批量下架</el-button>
-        <el-button v-if="userType =='0' && tfcheckStatus == 1" style="" @click="pldc" type="primary">批量导出</el-button>
+        <el-button style="" @click="handleEdit" type="primary">添加专家</el-button>
+        <el-button v-show="userType =='0' && tfcheckStatus == 0" style="" @click="plsh" type="primary">批量审核</el-button>
+        <el-button v-show="userType =='0' && tfcheckStatus == 1" style="" @click="plxj" type="primary">批量下架</el-button>
+        <el-button v-show="userType =='0' && tfcheckStatus == 1" style="" @click="plsj" type="primary">批量上架</el-button>
+        <el-button v-show="userType =='0' && tfcheckStatus == 1" style="" @click="pldc" type="primary">批量导出</el-button>
       </div>
 
     </div>
   </div>
 
 
-  <el-table v-loading="loading" ref="multipleTable" @selection-change="handleSelectionChange" class="tableH" :data="list" border style="margin-top:20px;width:100%;font-size:12px;">
-    <el-table-column type="selection" width="55">
+  <el-table v-loading="loading" ref="multipleTable" @selection-change="handleSelectionChange" class="tableH" :data="list" border style="margin-top:5px;width:100%;font-size:12px;">
+    <el-table-column type="selection" width="30">
     </el-table-column>
-    <el-table-column align="center" label="编号">
+    <el-table-column align="center" label="编号" width="120">
       <template slot-scope="scope">
-                    <!-- <span>{{ scope.row.id }}</span> -->
+                    <span>{{ scope.row.number }}</span>
                 </template>
     </el-table-column>
-    <el-table-column align="center" label="名称">
+    <el-table-column align="center" label="名称" width="80">
       <template slot-scope="scope">
                     <div @click="showDetail(scope.row,'edit')" class="clickText" >{{ scope.row.name }}</div>
                 </template>
@@ -73,73 +74,86 @@
     <el-table-column v-if="tfcheckStatus == 0" align="center" label="创建时间">
       <template slot-scope="scope">
                     <span>
-                        {{ scope.row.createTime}}</span>
+                        {{ scope.row.createTime | formatTime}}</span>
                 </template>
     </el-table-column>
     <el-table-column v-if="tfcheckStatus == 0" align="center" label="修改时间 ">
       <template slot-scope="scope">
                     <span>
-                        {{ scope.row.updateTime}}</span>
+                        {{ scope.row.updateTime | formatTime}}</span>
                 </template>
     </el-table-column>
-
 
 
     <el-table-column v-if="tfcheckStatus == 1" align="center" label="所属领域">
       <template slot-scope="scope">
-                    <span>
-                        {{ scope.row.research_area}}</span>
-                </template>
+                        <span v-if='scope.row.researchField.includes(1)'>智能装备</span>
+                        <span v-if='scope.row.researchField.includes(2)'>电子信息</span>
+                        <span v-if='scope.row.researchField.includes(3)'>新材料</span>
+                        <span v-if='scope.row.researchField.includes(4)'>航空航天</span>
+                        <span v-if='scope.row.researchField.includes(5)'>生物技术与新医药</span>
+                        <span v-if='scope.row.researchField.includes(6)'>能源与环保</span>
+                        <span v-if='scope.row.researchField.includes(7)'>管理</span>
+                        <span v-if='scope.row.researchField.includes(99)'>{{scope.row.researchFieldOther}}</span>
+                    </template>
     </el-table-column>
-    <el-table-column v-if="tfcheckStatus == 1" align="center" label="信用级别">
+    <el-table-column v-if="tfcheckStatus == 1" align="center" label="信用级别" width="70">
       <template slot-scope="scope">
                         <span>
                             {{ scope.row.creditLevel}}</span>
                     </template>
     </el-table-column>
-    <el-table-column v-if="tfcheckStatus == 1" align="center" label="是否可见">
+    <el-table-column v-if="tfcheckStatus == 1" align="center" label="是否可见" width="70">
       <template slot-scope="scope">
                         <span v-if="scope.row.status == 1">可见</span>
                         <span v-if="scope.row.status == 0">不可见</span>
                     </template>
     </el-table-column>
-    <el-table-column v-if="tfcheckStatus == 1" align="center" label="发布人">
+    <el-table-column v-if="tfcheckStatus == 1" align="center" label="发布人" width="80">
       <template slot-scope="scope">
                         <span>
-                            {{ scope.row.creater}}</span>
+                            {{ scope.row.form.creater}}</span>
                     </template>
     </el-table-column>
 
     <el-table-column v-if="tfcheckStatus == 1" align="center" label="审核用户">
       <template slot-scope="scope">
-                        <span>
-                            {{ scope.row.creater}}</span>
-                    </template>
+                            <span>
+                                {{ scope.row.creater}}</span>
+                        </template>
     </el-table-column>
-
-    <el-table-column v-if="userType =='0'" align="center" label="操作">
+    <el-table-column  align="center" label="状态" width="70px;">
       <template slot-scope="scope">
-                    <div style="">
-                      <div v-if="tfcheckStatus == 1" @click="handlexy(scope.row)" class="clickText" style="float:left">
-                        信用
-                      </div>
-                        <div v-if="tfcheckStatus == 0" @click="handlesh(scope.row)" class="clickText" style="float:left">
-                          审核
-                        </div>
-                      <div @click="handleEdit(scope.row,'edit')" class="clickText" style="float:left">
-                        编辑
-                      </div>
-                  <span v-if="scope.row.status == 1 && tfcheckStatus == 1">  <div @click="handlexj(scope.row)" class="clickText" style="float:left">
-                                            下架
-                            </div></span>
-                  <span v-if="scope.row.status == 0 && tfcheckStatus == 1">  <div @click="handlesj(scope.row)" class="clickText" style="float:left">
-                                            上架
-                  </div></span>
-
-                    </div>
-                </template>
+                            <span v-show="tfcheckStatus == -1">草稿</span>
+                            <span v-show="tfcheckStatus == 0">审核</span>
+                            <span v-show="tfcheckStatus == 1">已发布</span>
+                            <span v-show="tfcheckStatus == 2">驳回</span>
+                        </template>
     </el-table-column>
 
+
+    <el-table-column v-show="userType =='0'" align="center" label="操作" width="120">
+      <template slot-scope="scope">
+                                <div style="text-align:center" >
+                                  <span v-show="tfcheckStatus == 1" @click="handlexy(scope.row)" class="clickText" >
+                                    信用
+                                  </span>
+                                    <span v-show="tfcheckStatus == 0" @click="handlesh(scope.row)" class="clickText" >
+                                      审核
+                                    </span>
+                                  <span @click="handleEdit(scope.row,'edit')" class="clickText" >
+                                    编辑
+                                  </span>
+                              <span v-show="scope.row.status == 1 && tfcheckStatus == 1">  <span @click="handlexj(scope.row)" class="clickText" >
+                                                        下架
+                                        </span></span>
+                              <span v-show="scope.row.status == 0 && tfcheckStatus == 1">  <span @click="handlesj(scope.row)" class="clickText" >
+                                                        上架
+                              </span></span>
+
+                                </div>
+                            </template>
+    </el-table-column>
   </el-table>
 
   <div class="pagination-container pageH" style="padding-top:20px">
@@ -165,8 +179,8 @@
           <td height=19 style='height:14.25pt;'>姓名</td>
           <td colspan=2 id='tc1'>{{detailData.name}}</td>
           <td colspan=2 id='tc2'>性别</td>
-          <td v-if="detailData.sex == '1'">男</td>
-          <td v-if="detailData.sex == '0'">女</td>
+          <td v-show="detailData.sex == '1'">男</td>
+          <td v-show="detailData.sex == '0'">女</td>
           <td>出生年月</td>
           <td>{{detailData.bornDate}}</td>
           <td colspan=2 id='tc3'>身份证号</td>
@@ -176,19 +190,19 @@
           <td height=19 style='height:14.25pt;'>毕业院校</td>
           <td colspan=2 id='tc5'>{{detailData.shcool}}</td>
           <td colspan=2 id='tc6'>学历</td>
-          <td colspan=3 v-if="detailData.edu == '1'">小学</td>
-          <td colspan=3 v-if="detailData.edu == '2'">初中</td>
-          <td colspan=3 v-if="detailData.edu == '3'">高中</td>
-          <td colspan=3 v-if="detailData.edu == '4'">大专</td>
-          <td colspan=3 v-if="detailData.edu == '5'">本科</td>
-          <td colspan=3 v-if="detailData.edu == '6'">研究生</td>
-          <td colspan=3 v-if="detailData.edu == '7'">博士</td>
-          <td colspan=3 v-if="detailData.edu == '8'">其他</td>
+          <td colspan=3 v-show="detailData.edu == '1'">小学</td>
+          <td colspan=3 v-show="detailData.edu == '2'">初中</td>
+          <td colspan=3 v-show="detailData.edu == '3'">高中</td>
+          <td colspan=3 v-show="detailData.edu == '4'">大专</td>
+          <td colspan=3 v-show="detailData.edu == '5'">本科</td>
+          <td colspan=3 v-show="detailData.edu == '6'">研究生</td>
+          <td colspan=3 v-show="detailData.edu == '7'">博士</td>
+          <td colspan=3 v-show="detailData.edu == '8'">其他</td>
           <td colspan=2 id='tc8'>学位</td>
-          <td colspan=3 v-if="detailData.academic == '1'">学士</td>
-          <td colspan=3 v-if="detailData.academic == '2'">硕士</td>
-          <td colspan=3 v-if="detailData.academic == '3'">博士</td>
-          <td colspan=3 v-if="detailData.academic == '4'">其他</td>
+          <td colspan=3 v-show="detailData.academic == '1'">学士</td>
+          <td colspan=3 v-show="detailData.academic == '2'">硕士</td>
+          <td colspan=3 v-show="detailData.academic == '3'">博士</td>
+          <td colspan=3 v-show="detailData.academic == '4'">其他</td>
         </tr>
         <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r3'>
           <td height=19 style='height:14.25pt;'>研究领域</td>
@@ -343,7 +357,7 @@
           </el-form-item>
 
 
-          <el-form-item v-if="rej.way == '2'" label="驳回原因">
+          <el-form-item v-show="rej.way == '2'" label="驳回原因">
             <el-input v-model="rej.info" placeholder=""></el-input>
           </el-form-item>
         </el-col>
@@ -364,6 +378,7 @@
 import 'vue-area-linkage/dist/index.css'; // v2 or higher
 import {
   getexpert,
+  exportLib,
   addLib,
   delLib,
   rejectUserDetail,
@@ -371,6 +386,7 @@ import {
   onUserDetail,
   PLrejectUserDetail,
   PLoffUserDetails,
+  PLonUserDetails,
   updateLevel
 } from '@/api/library'
 
@@ -553,6 +569,13 @@ export default {
           this.loadPageList()
         }
       } else {
+        if (rej.info == "") {
+          this.$message({
+            message: '请输入驳回原因！',
+            type: 'success'
+          });
+          return
+        }
         let {
           data,
           success
@@ -589,7 +612,13 @@ export default {
     },
     showDetail(data) {
       this.dialogShowDep = true
-      this.detailData = JSON.parse(data.form.detail)
+      let objData
+      if (this.input.checkStatus == 1) {
+        objData = data.form.detail
+      } else if (this.input.checkStatus == 0 || this.input.checkStatus == -1) {
+        objData = data.detail
+      }
+      this.detailData = JSON.parse(objData)
     },
     handlePrint() {
       $("#tablePrint").printArea();
@@ -624,6 +653,7 @@ export default {
       } = await getexpert(this.listQuery)
       if (success) {
         this.list = data.list
+        this.total = data.total
         this.loading = false
       }
     },
@@ -657,6 +687,12 @@ export default {
 
     },
     async plxj() {
+      if (this.multipleSelection.length == 0) {
+        this.$message({
+          type: 'success',
+          message: '请勾选下架内容!'
+        });
+      }
       let {
         data,
         success
@@ -669,11 +705,42 @@ export default {
         this.loadPageList()
       }
     },
-    pldc() {
-      this.$message({
-        type: 'success',
-        message: '导出成功!'
-      });
+    async plsj() {
+      if (this.multipleSelection.length == 0) {
+        this.$message({
+          type: 'success',
+          message: '请勾选上架内容!'
+        });
+      }
+      let {
+        data,
+        success
+      } = await PLonUserDetails(this.multipleSelection, '1')
+      if (success) {
+        this.$message({
+          type: 'success',
+          message: '上架成功!'
+        });
+        this.loadPageList()
+      }
+    },
+    async pldc() {
+      let obj = {}
+      obj.objName = this.input.objName
+      obj.userType = window.sessionStorage.getItem('userType')
+      obj.creditLevel = this.input.creditLevel
+      obj.status = this.input.status
+      obj.token = window.sessionStorage.getItem('token')
+      let {
+        data,
+        success
+      } = await exportLib(obj)
+      if (success) {
+        this.$message({
+          type: 'success',
+          message: '导出成功!'
+        });
+      }
     },
     handlexy(data) {
       this.dialogShowLevel = true
@@ -742,7 +809,7 @@ export default {
         if (this.input.checkStatus == 1) {
           objId = data.form.id
           objData = data.form.detail
-        } else if (this.input.checkStatus == 0) {
+        } else if (this.input.checkStatus == 0 || this.input.checkStatus == -1) {
           objId = data.id
           objData = data.detail
         }

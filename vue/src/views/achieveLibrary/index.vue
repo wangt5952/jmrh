@@ -4,7 +4,7 @@
   <div class="">
     <div class="paddingb textl paddingr" style="font-size:14px">
       <span>关键字</span>
-      <el-input v-model="input.objName" placeholder="" style="width:100px;"></el-input>
+      <el-input v-model="input.objName" placeholder="" style="width:200px;"></el-input>
       <span style="margin-left: 15px;">是否可见</span>
       <el-select v-model="input.status" style="width:100px;height:30px" placeholder="请选择">
         <el-option label="请选择" key="" value="">
@@ -28,21 +28,22 @@
 
       <el-button style="margin-left:20px" @click="loadPageList" type="primary">查询</el-button>
       <div class="" style="padding:10px 0px;">
-        <el-button v-if="userType =='0' " style="" @click="handleEdit" type="primary">发布成果</el-button>
-        <el-button v-if="userType =='0' && tfcheckStatus == 0" style="" @click="plsh" type="primary">批量审核</el-button>
-        <el-button v-if="userType =='0' && tfcheckStatus == 1" style="" @click="plxj" type="primary">批量下架</el-button>
-        <el-button v-if="userType =='0' && tfcheckStatus == 1" style="" @click="pldc" type="primary">批量导出</el-button>
+        <el-button style="" @click="handleEdit" type="primary">发布成果</el-button>
+        <el-button v-show="userType =='0' && tfcheckStatus == 0" style="" @click="plsh" type="primary">批量审核</el-button>
+        <el-button v-show="userType =='0' && tfcheckStatus == 1" style="" @click="plxj" type="primary">批量下架</el-button>
+        <el-button v-show="userType =='0' && tfcheckStatus == 1" style="" @click="plsj" type="primary">批量上架</el-button>
+        <el-button v-show="userType =='0' && tfcheckStatus == 1" style="" @click="pldc" type="primary">批量导出</el-button>
       </div>
 
     </div>
   </div>
 
-  <el-table v-loading="loading" ref="multipleTable" @selection-change="handleSelectionChange" class="tableH" :data="list" border style="margin-top:20px;width:100%;font-size:12px;">
-    <el-table-column type="selection" width="55">
+  <el-table v-loading="loading" ref="multipleTable" @selection-change="handleSelectionChange" class="tableH" :data="list" border style="margin-top:5px;width:100%;font-size:12px;">
+    <el-table-column type="selection" width="30">
     </el-table-column>
-    <el-table-column align="center" label="编号">
+    <el-table-column align="center" label="编号"  width="120">
       <template slot-scope="scope">
-                    <!-- <span>{{ scope.row.id }}</span> -->
+                    <span>{{ scope.row.number }}</span>
                 </template>
     </el-table-column>
     <el-table-column align="center" label="名称">
@@ -50,22 +51,22 @@
                     <div @click="showDetail(scope.row,'edit')" class="clickText" >{{ scope.row.name }}</div>
                 </template>
     </el-table-column>
-    <el-table-column align="center" label="需求概述">
+    <el-table-column align="center" label="技术成果概述">
       <template slot-scope="scope">
-                    <span>
-                        {{ scope.row.reqDesc}}</span>
+                    <span style="width:200px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;">
+                        {{ scope.row.resDesc}}</span>
                 </template>
     </el-table-column>
     <el-table-column v-if="tfcheckStatus == 0" align="center" label="创建时间">
       <template slot-scope="scope">
                     <span>
-                        {{ scope.row.createTime}}</span>
+                        {{ scope.row.createTime | formatTime}}</span>
                 </template>
     </el-table-column>
     <el-table-column v-if="tfcheckStatus == 0" align="center" label="修改时间 ">
       <template slot-scope="scope">
                     <span>
-                        {{ scope.row.updateTime}}</span>
+                        {{ scope.row.updateTime | formatTime}}</span>
                 </template>
     </el-table-column>
 
@@ -73,17 +74,23 @@
 
     <el-table-column v-if="tfcheckStatus == 1" align="center" label="所属领域">
       <template slot-scope="scope">
-                    <span>
-                        {{ scope.row.domain}}</span>
+
+                                      <span v-if='scope.row.domain.includes(1)'>智能装备</span>
+                                      <span v-if='scope.row.domain.includes(2)'>电子信息</span>
+                                      <span v-if='scope.row.domain.includes(3)'>新材料</span>
+                                      <span v-if='scope.row.domain.includes(4)'>航空航天</span>
+                                      <span v-if='scope.row.domain.includes(5)'>生物技术与新医药</span>
+                                      <span v-if='scope.row.domain.includes(6)'>能源与环保</span>
+                                      <span v-if='scope.row.domain.includes(99)'>{{scope.row.domainOther}}</span>
                 </template>
     </el-table-column>
-    <el-table-column v-if="tfcheckStatus == 1" align="center" label="是否可见">
+    <el-table-column v-if="tfcheckStatus == 1" align="center" label="是否可见" width="70">
       <template slot-scope="scope">
                         <span v-if="scope.row.status == 1">可见</span>
                         <span v-if="scope.row.status == 0">不可见</span>
                     </template>
     </el-table-column>
-    <el-table-column v-if="tfcheckStatus == 1" align="center" label="发布人">
+    <el-table-column v-if="tfcheckStatus == 1" align="center" label="发布人" width="80">
       <template slot-scope="scope">
                         <span>
                             {{ scope.row.creater}}</span>
@@ -97,22 +104,29 @@
                     </template>
     </el-table-column>
 
-    <el-table-column v-if="userType =='0'" align="center" label="操作">
+    <el-table-column  align="center" label="状态" width="70px;">
       <template slot-scope="scope">
-                    <div style="">
-
-                        <div v-if="tfcheckStatus == 0" @click="handlesh(scope.row)" class="clickText" style="float:left">
+                            <span v-show="tfcheckStatus == -1">草稿</span>
+                            <span v-show="tfcheckStatus == 0">审核</span>
+                            <span v-show="tfcheckStatus == 1">已发布</span>
+                            <span v-show="tfcheckStatus == 2">驳回</span>
+                        </template>
+    </el-table-column>
+    <el-table-column v-show="userType =='0'" align="center" label="操作" width="120">
+      <template slot-scope="scope">
+                                <div style="text-align:center" >
+                        <span v-if="tfcheckStatus == 0" @click="handlesh(scope.row)" class="clickText" >
                           审核
-                        </div>
-                      <div @click="handleEdit(scope.row,'edit')" class="clickText" style="float:left">
+                        </span>
+                      <span @click="handleEdit(scope.row,'edit')" class="clickText" >
                         编辑
-                      </div>
-                  <span v-if="scope.row.status == 1 && tfcheckStatus == 1">  <div @click="handlexj(scope.row)" class="clickText" style="float:left">
+                      </span>
+                  <span v-if="scope.row.status == 1 && tfcheckStatus == 1">  <span @click="handlexj(scope.row)" class="clickText" >
                                             下架
-                            </div></span>
-                  <span v-if="scope.row.status == 0 && tfcheckStatus == 1">  <div @click="handlesj(scope.row)" class="clickText" style="float:left">
+                            </span></span>
+                  <span v-if="scope.row.status == 0 && tfcheckStatus == 1">  <span @click="handlesj(scope.row)" class="clickText" >
                                             上架
-                  </div></span>
+                  </span></span>
 
                     </div>
                 </template>
@@ -221,7 +235,7 @@
               <el-checkbox label="5">生物技术与新医药</el-checkbox>
               <el-checkbox label="6">能源与环保</el-checkbox>
               <el-checkbox label="7">其他</el-checkbox>
-              <!-- <el-input v-if="achieveLibrary.domain.includes('7')" placeholder="请输入其他" v-model="achieveLibrary.domainOther" style="width:80%"></el-input> -->
+              <!-- <el-input v-show="achieveLibrary.domain.includes('7')" placeholder="请输入其他" v-model="achieveLibrary.domainOther" style="width:80%"></el-input> -->
             </el-checkbox-group>
           </td>
         </tr>
@@ -319,6 +333,7 @@ import {
   onUserDetail,
   PLrejectUserDetail,
   PLoffUserDetails,
+  PLonUserDetails,
   updateLevel
 } from '@/api/library'
 export default {
@@ -426,6 +441,13 @@ export default {
           this.loadPageList()
         }
       } else {
+        if(rej.info==""){
+          this.$message({
+            message: '请输入驳回原因！',
+            type: 'success'
+          });
+          return
+        }
         let {
           data,
           success
@@ -461,7 +483,32 @@ export default {
 
 
     },
+    async plsj() {
+      if (this.multipleSelection.length == 0) {
+        this.$message({
+          type: 'success',
+          message: '请勾选上架内容!'
+        });
+      }
+      let {
+        data,
+        success
+      } = await PLonUserDetails(this.multipleSelection, '6')
+      if (success) {
+        this.$message({
+          type: 'success',
+          message: '上架成功!'
+        });
+        this.loadPageList()
+      }
+    },
     async plxj() {
+    if(this.multipleSelection.length == 0){
+      this.$message({
+        type: 'success',
+        message: '请勾选下架内容!'
+      });
+    }
       let {
         data,
         success
@@ -523,7 +570,13 @@ export default {
       }
     },
     showDetail(data) {
-      this.detailData = JSON.parse(data.form.detail)
+    let objData
+    if (this.input.checkStatus == 1) {
+      objData = data.form.detail
+    } else if (this.input.checkStatus == 0 || this.input.checkStatus == -1) {
+      objData = data.detail
+    }
+      this.detailData = JSON.parse(objData)
       this.dialogShowDep = true
     },
     async loadPageList() {
@@ -544,6 +597,7 @@ export default {
       } = await getresults(this.listQuery)
       if (success) {
         this.list = data.list
+        this.total = data.total
         this.loading = false
       }
     },
@@ -704,11 +758,19 @@ export default {
           });
         });
       } else if (type === 'edit') {
+        let objId, objData
+        if (this.input.checkStatus == 1) {
+          objId = data.form.id
+          objData = data.form.detail
+        } else if (this.input.checkStatus == 0 || this.input.checkStatus == -1) {
+          objId = data.id
+          objData = data.detail
+        }
         this.$router.push({
           name: 'achieveLibraryEdit',
           params: {
-            objId: data.form.id,
-            objData: data.form.detail
+            objId:objId,
+            objData: objData
           }
         })
       }else {

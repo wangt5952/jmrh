@@ -484,26 +484,27 @@ export const constantRouterMap = [{
           icon: 'table'
         }
       }]
-    },{
-      path: '/robot',
-      component: Layout,
-      name: '机器人',
-      meta: {
-        title: '机器人',
-        icon: 'tree'
-      },
-      leaf: false,
-      children: [{
-        path: 'robotResponse',
-        name: '应答设置',
-        component: robotResponse,
-        leaf: true,
-        meta: {
-          title: '应答设置',
-          icon: 'table'
-        }
-      }]
     },
+    // {
+    //   path: '/robot',
+    //   component: Layout,
+    //   name: '机器人',
+    //   meta: {
+    //     title: '机器人',
+    //     icon: 'tree'
+    //   },
+    //   leaf: false,
+    //   children: [{
+    //     path: 'robotResponse',
+    //     name: '应答设置',
+    //     component: robotResponse,
+    //     leaf: true,
+    //     meta: {
+    //       title: '应答设置',
+    //       icon: 'table'
+    //     }
+    //   }]
+    // },
 ]
 // { path: '/login', component: _import('login/index'), hidden: true },
 // { path: '/404', component: _import('404'), hidden: true },

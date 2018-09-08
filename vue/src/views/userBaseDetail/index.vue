@@ -24,8 +24,17 @@
         <el-form-item label="邮箱">
           <el-input placeholder="请输入邮箱" v-model="per.email" style="width:80%"></el-input>
         </el-form-item>
+
+        <el-form-item label="">
+          <el-input v-model="per.code1" placeholder="请输入邮箱验证码" style="width:230px">13</el-input>
+          <el-button type="primary" @click="sendcode(0)" :disabled="isDisabled1">{{buttonName1}}</el-button>
+        </el-form-item>
         <el-form-item label="手机号">
           <el-input placeholder="请输入手机号" v-model="per.cellphone" style="width:80%"></el-input>
+        </el-form-item>
+        <el-form-item label="">
+          <el-input v-model="per.code2" placeholder="请输入邮箱验证码" style="width:230px">13</el-input>
+          <el-button type="primary" @click="sendcode(1)" :disabled="isDisabled2">{{buttonName2}}</el-button>
         </el-form-item>
       </el-col>
 
@@ -52,18 +61,30 @@ import {
   getBaseUserDetail,
   setBaseUserDetail
 } from '@/api/login'
+import {
+  sendEmailCode,
+  sendCellphoneCode
+} from '@/api/user'
 
 export default {
   data() {
     return {
       listLoading: true,
       titleName: '',
+      buttonName1: "获取邮箱验证码",
+      buttonName2: "获取手机验证码",
+      isDisabled1: false,
+      isDisabled2: false,
+      time1: 10,
+      time2: 10,
       per: {
         name: '',
         userName: '',
         email: '',
         idNumber: '',
         cellphone: '',
+        code1: '',
+        code2: '',
       },
     }
   },
@@ -74,6 +95,7 @@ export default {
   },
   computed: {},
   methods: {
+
     async loadPageList() {
       let {
         data,
@@ -84,7 +106,76 @@ export default {
         this.loading = false
       }
     },
+    async sendcode(checkStatus) {
 
+
+      if (checkStatus == 0) {
+        let me = this;
+        me.isDisabled1 = true;
+        let interval = window.setInterval(function() {
+          me.buttonName1 = '（' + me.time1 + '秒）后重新发送';
+          --me.time1;
+          if (me.time1 < 0) {
+            me.buttonName1 = "重新发送";
+            me.time1 = 10;
+            me.isDisabled1 = false;
+            window.clearInterval(interval);
+          }
+        }, 1000);
+
+        let obj = {}
+        obj.email = this.per.email
+        debugger
+        const {
+          message,
+          success
+        } = await sendEmailCode(obj)
+        if (success) {
+          this.$message({
+            message: '发送成功',
+            type: 'success'
+          });
+        } else {
+          this.$message({
+            message: '发送失败',
+            type: 'success'
+          });
+        }
+      } else if (checkStatus == 1) {
+        let me = this;
+        me.isDisabled2 = true;
+        let interval = window.setInterval(function() {
+          me.buttonName2 = '（' + me.time2 + '秒）后重新发送';
+          --me.time2;
+          if (me.time2 < 0) {
+            me.buttonName2 = "重新发送";
+            me.time2 = 10;
+            me.isDisabled2 = false;
+            window.clearInterval(interval);
+          }
+        }, 1000);
+
+        let obj = {}
+        obj.cellphone = this.per.cellphone
+        const {
+          message,
+          success
+        } = await sendCellphoneCode(obj)
+        if (success) {
+          this.$message({
+            message: '发送成功',
+            type: 'success'
+          });
+        } else {
+          this.$message({
+            message: '发送失败',
+            type: 'success'
+          });
+        }
+      }
+
+
+    },
     async saveCreate(obj) {
       let aobj = {}
       aobj.id = obj.id
@@ -151,9 +242,6 @@ export default {
 </style>
 
 <style>
-.tab-container {
-  padding: 30px;
-}
 
 .tools {
   height: 5%

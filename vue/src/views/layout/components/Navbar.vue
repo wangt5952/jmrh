@@ -8,7 +8,7 @@
     <el-dropdown-menu class="user-dropdown" slot="dropdown">
       <router-link class="inlineBlock" to="/">
         <el-dropdown-item>
-          首页
+        <span>首页</span>
         </el-dropdown-item>
       </router-link>
       <router-link class="inlineBlock" to="">
@@ -18,12 +18,12 @@
       </router-link>
       <router-link class="inlineBlock" to="/index/userBaseDetail">
         <el-dropdown-item>
-          修改用户信息
+          <span>修改用户信息</span>
         </el-dropdown-item>
       </router-link>
       <router-link  v-if="userType !='0'" class="inlineBlock" to="/index/userDetail">
         <el-dropdown-item>
-          加入社区
+          <span>加入社区</span>
         </el-dropdown-item>
       </router-link>
       <el-dropdown-item divided>
@@ -43,13 +43,13 @@
       <el-row :gutter="24">
 
         <el-form-item label="旧密码">
-          <el-input v-model="obj.password" placeholder="请输入旧密码" style="width:80%"></el-input>
+          <el-input type="password" v-model="obj.password" placeholder="请输入旧密码" style="width:80%"></el-input>
         </el-form-item>
         <el-form-item label="新密码">
-          <el-input v-model="obj.newPassword" placeholder="请输入新密码" style="width:80%"></el-input>
+          <el-input type="password" v-model="obj.newPassword" placeholder="请输入新密码" style="width:80%"></el-input>
         </el-form-item>
         <el-form-item label="重复输入新密码">
-          <el-input v-model="obj.rePassword" placeholder="请输入新密码" style="width:80%"></el-input>
+          <el-input type="password" v-model="obj.rePassword" placeholder="请重复输入新密码" style="width:80%"></el-input>
         </el-form-item>
       </el-row>
     </el-form>
@@ -106,6 +106,13 @@ export default {
   },
   methods: {
     async savePaw(obj) {
+      if(obj.newPassword != obj.rePassword){
+        Message({
+          message: '两次密码输入不一致！',
+          type: 'error'
+        })
+        return
+      }
       let {
         message,
         success
@@ -116,6 +123,13 @@ export default {
           type: 'success',
           duration: 5 * 1000
         })
+        this.dialogFormVisible = false
+
+        this.obj = {
+          password: '',
+          newPassword: '',
+          rePassword: '',
+        }
       } else {
         Message({
           message: message,

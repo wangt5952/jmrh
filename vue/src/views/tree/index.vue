@@ -6,7 +6,8 @@
   <el-tree v-loading="loading" style=" padding: 50px;" class="filter-tree" :data="treeData" :props="defaultProps" @node-click="handleNodeClick" :expand-on-click-node="false" default-expand-all ref="tree2"></el-tree>
 
 
-  <el-dialog title="添加" :visible.sync="dialogEditVisibleF" width="30%" top='5%'>
+
+  <el-dialog  title="添加" :visible.sync="dialogEditVisibleF" width="30%" top='5%'>
 
     <el-form class="" label-width="30%" style="text-align:left">
 
@@ -19,7 +20,14 @@
         <el-form-item label="路径">
           <el-input v-model="obj.menuUrl" placeholder="请输入内容" style="width:80%"></el-input>
         </el-form-item>
-
+        <el-form-item label="菜单">
+          <el-select style="width:120px" v-model="obj.isMenu" placeholder="请选择">
+            <el-option label="是" key="1" value='1'>
+            </el-option>
+            <el-option label="否" key="0" value='0'>
+            </el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item label="图标">
           <el-input v-model="obj.icon" placeholder="请输入内容" style="width:80%"></el-input>
         </el-form-item>
@@ -34,14 +42,14 @@
     </el-form>
 
     <span slot="footer" class="dialog-footer">
-      <el-button type="primary"  @click="subAddCreate(obj)">添加</el-button>
+      <el-button type="primary"  @click="subAddCreateOne(obj)">添加</el-button>
       <el-button type="primary" @click="dialogEditVisibleF = false">关闭</el-button>
     </span>
   </el-dialog>
 
 
-  <el-dialog :visible.sync="dialogFormVisible" width="30%" top='15%' :show-close="false" style="border-bottom: 0px">
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogEditVisible" append-to-body width="30%" top='5%'>
+  <el-dialog class="treeData"  :visible.sync="dialogFormVisible" width="30%" top='15%' :show-close="false" style="border-bottom: 0px">
+    <el-dialog  :title="textMap[dialogStatus]" :visible.sync="dialogEditVisible" append-to-body width="30%" top='5%'>
 
       <el-form class="" label-width="30%" style="text-align:left">
 
@@ -57,9 +65,9 @@
           </el-form-item>
 
 
-          <el-form-item label="按钮">
-            <el-select style="width:120px" v-model="obj.level" placeholder="请选择">
-              <el-option label="是" key="1000" value='1000'>
+          <el-form-item label="菜单">
+            <el-select style="width:120px" v-model="obj.isMenu" placeholder="请选择">
+              <el-option label="是" key="1" value='1'>
               </el-option>
               <el-option label="否" key="0" value='0'>
               </el-option>
@@ -211,8 +219,28 @@ export default {
       });
 
     },
+
+    async subAddCreateOne() {
+      if (!this.validata.validaTree(this.obj)) return
+      let obj = this.obj
+      obj.method = 'post'
+      let data = await addCreate(obj)
+      if (this.treeTemp.id) {
+        this.treeTemp.children.push(this.obj)
+        this.dialogEditVisible = false
+      } else {
+        this.treeData.push(this.obj)
+        this.dialogEditVisibleF = false
+      }
+      this.loadTree()
+      this.$message({
+        type: 'success',
+        message: '添加成功!'
+      });
+
+    },
     async subAddCreate() {
-      // if (!this.validata.validaTree(this.obj)) return
+      if (!this.validata.validaTree(this.obj)) return
       let obj = this.obj
       if (this.treeTemp.id) {
         obj.parentId = this.treeTemp.id

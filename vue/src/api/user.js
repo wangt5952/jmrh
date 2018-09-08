@@ -15,7 +15,12 @@ export function setStatus(data) {
     data
   });
 }
-
+export function getUserDetailByUserId(id) {//用户详情
+  return request({
+    url: '/xtcx/lib/getUserDetailByUserId?userId='+id,
+    method: 'get',
+  });
+}
 
 // export function addUser(data) {
 //   return request({

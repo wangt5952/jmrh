@@ -1,9 +1,18 @@
 .tab-container {
-  margin: 20px;
+  margin: 10px;
   background: #fff;
   height: 90%;
+  padding: 10px;
+  color: #616265;
 }
-
+.tab-container2 {
+  margin: 10px;
+  background: #fff;
+  height: 90%;
+  padding: 10px;
+  color: #616265;
+  overflow-y: auto;
+}
 .h100 {
   height: 100%;
 }
@@ -231,7 +240,7 @@
 }
 
 .tableH {
-  height: 80%;
+  height: 70%;
 }
 
 .pageH {
