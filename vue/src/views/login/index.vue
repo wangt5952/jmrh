@@ -249,6 +249,7 @@ export default {
       for (let i = 0; i < treeData.length; i++) {
         if (treeData[i].children) {
           if (treeData[i].children.length > 0) { //有下级
+            debugger
             treeData[i].meta = {
               title: treeData[i].label,
               icon: 'tree'
@@ -256,11 +257,11 @@ export default {
             treeData[i].path = '/' + treeData[i].menuUrl
             treeData[i].leaf = false
             treeData[i].component = treeData[i].menuUrl
-            if (treeData[i].isMenu == 1) { //有下级 第一个菜单
+            if (treeData[i].isMenu == "1") { //有下级 第一个菜单
               treeData[i].component = 'layout'
               treeData[i].redirect = '/' + treeData[i].menuUrl + '/' + treeData[i].children[0].menuUrl + ''
             }
-          } else if (treeData[i].children.length == 0 && treeData[i].isMenu == 1) { //第一层菜单无下级生成一个
+          } else if (treeData[i].children.length == 0 && treeData[i].isMenu == "1") { //第一层菜单无下级生成一个
             let chil = {}
             chil.meta = {
               title: treeData[i].label,
@@ -274,7 +275,7 @@ export default {
             treeData[i].path = '/index'
             treeData[i].leaf = false
             treeData[i].component = 'layout'
-          } else if (treeData[i].children.length == 0 && treeData[i].isMenu != 1) {
+          } else if (treeData[i].children.length == 0 && treeData[i].isMenu != "1") {
             treeData[i].meta = {
               title: treeData[i].label,
               icon: 'table'
@@ -292,18 +293,16 @@ export default {
     handleLogin() {
       this.loading = true
       this.$store.dispatch('Login', this.loginForm).then(async () => {
-
         if (this.$store.getters.token && this.$store.getters.token != undefined && this.$store.getters.token != '') {
           this.loading = false
           window.sessionStorage.setItem('user', JSON.stringify('true'))
 
-          // let data = await getUserMenusone()
-          // debugger
-          // let treeData = data.data
-          //
-          // let bbb = this.forload(treeData)
-          // this.login(bbb)
-          // this.$router.addRoutes(routers)
+          let data = await getUserMenusone()
+          let treeData = data.data
+
+          let bbb = this.forload(treeData)
+          this.login(bbb)
+          this.$router.addRoutes(routers)
           this.$router.push({
             path: '/'
           })

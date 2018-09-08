@@ -403,29 +403,11 @@ export const constantRouterMap = [{
     leaf: false,
     children: [{
       path: 'buttExpert',
-      name: '专家对接',
+      name: '对接管理',
       component: buttExpert,
       leaf: true,
       meta: {
         title: '专家对接',
-        icon: 'table'
-      }
-    },{
-      path: 'buttDemand',
-      name: '需求对接',
-      component: buttDemand,
-      leaf: true,
-      meta: {
-        title: '需求对接',
-        icon: 'table'
-      }
-    },{
-      path: 'buttAchiev',
-      name: '成果对接',
-      component: buttAchiev,
-      leaf: true,
-      meta: {
-        title: '成果对接',
         icon: 'table'
       }
     }]

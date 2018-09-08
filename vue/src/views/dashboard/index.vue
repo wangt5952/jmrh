@@ -88,20 +88,20 @@
               <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
               加入平台</h3>
               <div class="" style="display:flex;justify-content:center; align-items:Center;height:104px">
-              <div class="" style="flex:4;">
-                <div class="" style="flex:4;padding: 10px;">
+                <div class="" style="flex:4;">
+                  <div class="" style="flex:4;padding: 10px;">
                     申请状态 <span style="color:#3a9fff" v-show="comLibrarycheckStatus == 2">驳回</span>
                     <span style="color:#3a9fff" v-show="comLibrarycheckStatus == 0">待审核</span>
                     <span style="color:#3a9fff" v-show="comLibrarycheckStatus == 1">审核通过</span>
-                </div>
-                <div  v-show="comLibrarycheckStatus == 2" class="" style="flex:4;padding: 10px;">
-                  驳回原因 <span style="color:#ccc">{{comLibraryinfo}}</span>
-                </div>
+                  </div>
+                  <div v-show="comLibrarycheckStatus == 2" class="" style="flex:4;padding: 10px;">
+                    驳回原因 <span style="color:#ccc">{{comLibraryinfo}}</span>
+                  </div>
 
-              </div>
-              <div class="" style="flex:1;text-align: right;padding-right:20px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="TouserDetail" type="primary">查看/编辑</el-button>
-              </div>
+                </div>
+                <div class="" style="flex:1;text-align: right;padding-right:20px;">
+                  <el-button style=" padding: 5px;font-size: 12px;" @click="TouserDetail" type="primary">查看/编辑</el-button>
+                </div>
 
               </div>
             </div>
@@ -122,7 +122,7 @@
                 </div>
 
                 <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                  <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
+                  <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
                 </div>
 
               </div>
@@ -154,7 +154,7 @@
               </div>
 
               <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
+                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
               </div>
 
             </div>
@@ -182,7 +182,7 @@
               </div>
 
               <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
+                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
               </div>
 
             </div>
@@ -211,7 +211,7 @@
               </div>
 
               <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
+                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
               </div>
 
             </div>
@@ -222,7 +222,7 @@
       <el-row :gutter="24" style="font-size: 12px;margin-top:15px">
 
         <el-col :span="5" style="display:flex;">
-          <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;">
+          <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;cursor: pointer;">
             <div @click="Toexpert('expert')" style="flex:1;font-size: 20px;color: #409EFF;">{{expertNums || 0}}</div>
             <div style="flex:1;text-align:left;color: #97a8be;">待处理的专家对接</div>
           </div>
@@ -240,20 +240,20 @@
               <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
               加入平台</h3>
               <div class="" style="display:flex;justify-content:center; align-items:Center;height:104px">
-              <div class="" style="flex:4;">
-                <div class="" style="flex:4;padding: 10px;">
+                <div class="" style="flex:4;">
+                  <div class="" style="flex:4;padding: 10px;">
                     申请状态 <span style="color:#3a9fff" v-show="comLibrarycheckStatus == 2">驳回</span>
                     <span style="color:#3a9fff" v-show="comLibrarycheckStatus == 0">待审核</span>
                     <span style="color:#3a9fff" v-show="comLibrarycheckStatus == 1">审核通过</span>
-                </div>
-                <div  v-show="comLibrarycheckStatus == 2" class="" style="flex:4;padding: 10px;">
-                  驳回原因 <span style="color:#ccc">{{comLibraryinfo}}</span>
-                </div>
+                  </div>
+                  <div v-show="comLibrarycheckStatus == 2" class="" style="flex:4;padding: 10px;">
+                    驳回原因 <span style="color:#ccc">{{comLibraryinfo}}</span>
+                  </div>
 
-              </div>
-              <div class="" style="flex:1;text-align: right;padding-right:20px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="TouserDetail" type="primary">查看/编辑</el-button>
-              </div>
+                </div>
+                <div class="" style="flex:1;text-align: right;padding-right:20px;">
+                  <el-button style=" padding: 5px;font-size: 12px;" @click="TouserDetail" type="primary">查看/编辑</el-button>
+                </div>
 
               </div>
             </div>
@@ -274,7 +274,7 @@
                 </div>
 
                 <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                  <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
+                  <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
                 </div>
 
               </div>
@@ -325,7 +325,7 @@
               </div>
 
               <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
+                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
               </div>
 
             </div>
@@ -373,7 +373,7 @@
               </div>
 
               <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
+                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
               </div>
 
             </div>
@@ -401,7 +401,7 @@
               </div>
 
               <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
+                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
               </div>
 
             </div>
@@ -435,20 +435,20 @@
               <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
               加入平台</h3>
               <div class="" style="display:flex;justify-content:center; align-items:Center;height:104px">
-              <div class="" style="flex:4;">
-                <div class="" style="flex:4;padding: 10px;">
+                <div class="" style="flex:4;">
+                  <div class="" style="flex:4;padding: 10px;">
                     申请状态 <span style="color:#3a9fff" v-show="comLibrarycheckStatus == 2">驳回</span>
                     <span style="color:#3a9fff" v-show="comLibrarycheckStatus == 0">待审核</span>
                     <span style="color:#3a9fff" v-show="comLibrarycheckStatus == 1">审核通过</span>
-                </div>
-                <div  v-show="comLibrarycheckStatus == 2" class="" style="flex:4;padding: 10px;">
-                  驳回原因 <span style="color:#ccc">{{comLibraryinfo}}</span>
-                </div>
+                  </div>
+                  <div v-show="comLibrarycheckStatus == 2" class="" style="flex:4;padding: 10px;">
+                    驳回原因 <span style="color:#ccc">{{comLibraryinfo}}</span>
+                  </div>
 
-              </div>
-              <div class="" style="flex:1;text-align: right;padding-right:20px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="TouserDetail" type="primary">查看/编辑</el-button>
-              </div>
+                </div>
+                <div class="" style="flex:1;text-align: right;padding-right:20px;">
+                  <el-button style=" padding: 5px;font-size: 12px;" @click="TouserDetail" type="primary">查看/编辑</el-button>
+                </div>
 
               </div>
             </div>
@@ -469,7 +469,7 @@
                 </div>
 
                 <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                  <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
+                  <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
                 </div>
 
               </div>
@@ -521,7 +521,7 @@
               </div>
 
               <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
+                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
               </div>
 
             </div>
@@ -569,7 +569,7 @@
               </div>
 
               <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
+                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
               </div>
 
             </div>
@@ -598,7 +598,7 @@
               </div>
 
               <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
+                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
               </div>
 
             </div>
@@ -642,20 +642,20 @@
               <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
               加入平台</h3>
               <div class="" style="display:flex;justify-content:center; align-items:Center;height:104px">
-              <div class="" style="flex:4;">
-                <div class="" style="flex:4;padding: 10px;">
+                <div class="" style="flex:4;">
+                  <div class="" style="flex:4;padding: 10px;">
                     申请状态 <span style="color:#3a9fff" v-show="comLibrarycheckStatus == 2">驳回</span>
                     <span style="color:#3a9fff" v-show="comLibrarycheckStatus == 0">待审核</span>
                     <span style="color:#3a9fff" v-show="comLibrarycheckStatus == 1">审核通过</span>
-                </div>
-                <div  v-show="comLibrarycheckStatus == 2" class="" style="flex:4;padding: 10px;">
-                  驳回原因 <span style="color:#ccc">{{comLibraryinfo}}</span>
-                </div>
+                  </div>
+                  <div v-show="comLibrarycheckStatus == 2" class="" style="flex:4;padding: 10px;">
+                    驳回原因 <span style="color:#ccc">{{comLibraryinfo}}</span>
+                  </div>
 
-              </div>
-              <div class="" style="flex:1;text-align: right;padding-right:20px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="TouserDetail" type="primary">查看/编辑</el-button>
-              </div>
+                </div>
+                <div class="" style="flex:1;text-align: right;padding-right:20px;">
+                  <el-button style=" padding: 5px;font-size: 12px;" @click="TouserDetail" type="primary">查看/编辑</el-button>
+                </div>
 
               </div>
             </div>
@@ -676,7 +676,7 @@
                 </div>
 
                 <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                  <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
+                  <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
                 </div>
 
               </div>
@@ -728,7 +728,7 @@
               </div>
 
               <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
+                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
               </div>
 
             </div>
@@ -776,7 +776,7 @@
               </div>
 
               <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
+                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
               </div>
 
             </div>
@@ -805,7 +805,7 @@
               </div>
 
               <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="" type="primary">发起对接</el-button>
+                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
               </div>
 
             </div>
@@ -831,6 +831,75 @@
       </el-row>
     </div>
 
+
+    <el-dialog title="发起对接" :visible.sync="dialogFormVisible" width="50%" top='9%'>
+
+      <el-form class="" label-width="30%" style="text-align:left">
+
+
+        <el-row :gutter="24">
+          <el-col :span="24">
+            <table v-show="!show" cellpadding=0 cellspacing=0 border="0" style="width:100%;border: 1px solid#ccc;height: 350px;">
+
+              <tr style="border-bottom: 1px solid#ccc;">
+                <td style="width:150px;padding:20px">&nbsp;&nbsp;分类类型</td>
+                <td>
+                  <el-select v-model="meeting.typeId" style="height:30px;width:80%" placeholder="请选择">
+                    <el-option label="专家对接" :key=0 :value=0>
+                    </el-option>
+                    <el-option label="需求对接" :key=1 :value=1>
+                    </el-option>
+                    <el-option label="成果对接" :key=2 :value=2>
+                    </el-option>
+                    <el-option label="服务对接" :key=3 :value=3>
+                    </el-option>
+                  </el-select>
+                </td>
+              </tr>
+              <tr style="border-bottom: 1px solid#ccc;">
+                <td style="width:150px;padding:20px;">&nbsp;&nbsp;发起联系人姓名</td>
+                <td>
+                  <el-input v-model="meeting.fcn" placeholder="请输入发起联系人姓名" style="width:80%"></el-input>
+                </td>
+                <td style="width:150px;padding:20px;">&nbsp;&nbsp;发起联系人电话</td>
+                <td>
+                  <el-input v-model="meeting.fcp" placeholder="请输入发起联系人电话" style="width:80%"></el-input>
+                </td>
+              </tr>
+
+              <tr style="border-bottom: 1px solid#ccc;">
+                <td style="width:150px;padding:20px;">&nbsp;&nbsp;发起联系人邮箱</td>
+                <td>
+                  <el-input v-model="meeting.fcm" placeholder="请输入发起联系人邮箱" style="width:80%"></el-input>
+                </td>
+                <td style="width:150px;padding:20px;">&nbsp;&nbsp;发起联系人地址</td>
+                <td>
+                  <el-input v-model="meeting.fca" placeholder="请输入发起联系人地址" style="width:80%"></el-input>
+                </td>
+              </tr>
+
+              <tr style="border-bottom: 1px solid#ccc;">
+                <td style="width:150px;padding:20px;">&nbsp;&nbsp;内容ID</td>
+                <td>
+                  <el-input v-model="meeting.appId" placeholder="请输入内容ID" style="width:80%"></el-input>
+                </td>
+                <td style="width:150px;padding:20px;">&nbsp;&nbsp;申请说明</td>
+                <td>
+                  <el-input v-model="meeting.appNote" placeholder="请输入申请说明" style="width:80%"></el-input>
+                </td>
+              </tr>
+            </table>
+
+          </el-col>
+
+        </el-row>
+      </el-form>
+
+      <span v-show="!show" slot="footer" class="dialog-footer">
+          <el-button type="primary" style="" @click="saveObj">保存</el-button>
+          <el-button type="primary" @click="dialogFormVisible = false">关闭</el-button>
+        </span>
+    </el-dialog>
   </el-tabs>
 
 </div>
@@ -845,6 +914,11 @@ import {
   getSubmitLibSum,
   getSubmitLib
 } from '@/api/dashboard'
+
+import {
+  saveMeeting
+} from '@/api/buttManage'
+
 export default {
   components: {
     LineChart1,
@@ -874,12 +948,24 @@ export default {
       achieveshNums: '',
       achievepassNums: '',
       achievebhNums: '',
+      meeting: {
+        typeId: '',
+        fcn: '',
+        fcp: '',
+        fcm: '',
+        fca: '',
+        appId: '',
+      },
+      dialogFormVisible :false
     }
   },
   mounted() {
-    // this.loadPageList()
-    this.loadSubmitLib()
     this.userType = window.sessionStorage.getItem('userType')
+    if (this.userType == 0) {
+      this.loadPageList()
+    } else {
+      this.loadSubmitLib()
+    }
   },
   methods: {
     async loadPageList() {
@@ -901,10 +987,10 @@ export default {
           if (data[i].formType == 4) {
             this.hschoolNums = data[i].count
           }
-          if (data[i].formType == 5) {
+          if (data[i].formType == 6) {
             this.achieveLibraryNums = data[i].count
           }
-          if (data[i].formType == 6) {
+          if (data[i].formType == 7) {
             this.demandLibraryNums = data[i].count
           }
           if (data[i].formType == 8) {
@@ -978,6 +1064,38 @@ export default {
 
 
     },
+
+    async handleCreate() {
+      this.dialogFormVisible = true
+      this.meeting = {
+        typeId: '',
+        fcn: '',
+        fcp: '',
+        fcm: '',
+        fca: '',
+        appId: '',
+      }
+    },
+    async saveObj() {
+      // if (!this.validata.validameeting(this.meeting)) return
+        var {
+          data,
+          success
+        } = await saveMeeting(this.meeting)
+      if (success) {
+        this.$message({
+          message: message,
+          type: 'success'
+        });
+        this.dialogFormVisible = false
+      } else {
+        this.$message({
+          message: data.message,
+          type: 'success'
+        });
+      }
+    },
+
     TouserDetail(path, num) {
       this.$router.push({
         path: '/index/userDetail'
