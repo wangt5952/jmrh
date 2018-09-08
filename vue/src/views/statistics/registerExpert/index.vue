@@ -16,7 +16,7 @@
       <el-col :span="11" style="background: #fff; margin-right: 20px;cursor: pointer;height:100%">
         <div class="txselect" style="height:100px;display:flex">
           <div class="" style="flex:10">
-            <el-select v-model="input.site1"  @change="loadtwoTree(input.site1)" style="width:85px;height:30px" placeholder="省">
+            <el-select v-model="input.site1" @change="loadtwoTree(input.site1)" style="width:85px;height:30px" placeholder="省">
               <el-option v-for="item in arrValue1" :label=item.value :key=item.value :value=item.name>
               </el-option>
             </el-select>
@@ -24,24 +24,8 @@
               <el-option v-for="item in arrValue2" :label=item.value :key=item.value :value=item.name>
               </el-option>
             </el-select>
-            <el-select v-model="input.site3"  style="width:85px;height:30px" placeholder="区">
+            <el-select v-model="input.site3" style="width:85px;height:30px" placeholder="区">
               <el-option v-for="item in arrValue3" :label=item.value :key=item.value :value=item.name>
-              </el-option>
-            </el-select>
-            <el-select v-model="input.domain" style="width:80px;height:30px" placeholder="类别">
-              <el-option label="草稿" :key=-1 :value=-1>
-              </el-option>
-              <el-option label="待审核" :key=0 :value=0>
-              </el-option>
-              <el-option label="已发布" :key=1 :value=1>
-              </el-option>
-              <el-option label="驳回" :key=2 :value=2>
-              </el-option>
-            </el-select>
-            <el-select v-model="input.sex" style="width:80px;height:30px" placeholder="性别">
-              <el-option label="男" :key=-1 :value=-1>
-              </el-option>
-              <el-option label="女" :key=0 :value=0>
               </el-option>
             </el-select>
             <el-select v-model="input.nature" style="width:80px;height:30px" placeholder="领域">
@@ -62,13 +46,64 @@
               <el-option label="其他" :key=99 :value=99>
               </el-option>
             </el-select>
-            <el-checkbox-group v-model="input.choose" style="margin:10px 5px;">
+            <el-select v-model="input.sex" style="width:80px;height:30px" placeholder="性别">
+              <el-option label="男" :key=-1 :value=-1>
+              </el-option>
+              <el-option label="女" :key=0 :value=0>
+              </el-option>
+            </el-select>
+
+            <el-select v-model="input.education" style="width:100px;height:30px" placeholder="请选择学历">
+              <el-option label="请选择" key="" value="">
+              </el-option>
+              <el-option label="小学" key="1" value="1">
+              </el-option>
+              <el-option label="初中" key="2" value="2">
+              </el-option>
+              <el-option label="高中" key="3" value="3">
+              </el-option>
+              <el-option label="大专" key="4" value="4">
+              </el-option>
+              <el-option label="本科" key="5" value="5">
+              </el-option>
+              <el-option label="研究生" key="6" value="6">
+              </el-option>
+              <el-option label="博士" key="7" value="7">
+              </el-option>
+              <el-option label="其他" key="99" value="99">
+              </el-option>
+            </el-select>
+
+            <el-select v-model="input.degree" style="width:100px;height:30px" placeholder="请选择学位">
+              <el-option label="请选择" key="" value="">
+              </el-option>
+              <el-option label="学士" key="1" value="1">
+              </el-option>
+              <el-option label="硕士" key="2" value="2">
+              </el-option>
+              <el-option label="博士" key="3" value="3">
+              </el-option>
+              <el-option label="其他" key="99" value="99">
+              </el-option>
+            </el-select>
+
+            <el-checkbox-group v-model="input.sites1" style="margin:10px 5px;">
               <el-checkbox label="1">省</el-checkbox>
+            </el-checkbox-group>
+            <el-checkbox-group v-model="input.site2s" style="margin:10px 5px;">
               <el-checkbox label="2">市</el-checkbox>
+            </el-checkbox-group>
+            <el-checkbox-group v-model="input.site3s" style="margin:10px 5px;">
               <el-checkbox label="3">区 </el-checkbox>
-              <el-checkbox label="4">类别</el-checkbox>
+            </el-checkbox-group>
+            <el-checkbox-group v-model="input.sexs" style="margin:10px 5px;">
               <el-checkbox label="5">性别</el-checkbox>
-              <el-checkbox label="6">领域</el-checkbox>
+            </el-checkbox-group>
+            <el-checkbox-group v-model="input.education" style="margin:10px 5px;">
+              <el-checkbox label="6">学历</el-checkbox>
+            </el-checkbox-group>
+            <el-checkbox-group v-model="input.degrees" style="margin:10px 5px;">
+              <el-checkbox label="6">学位</el-checkbox>
             </el-checkbox-group>
           </div>
           <div class="" style="flex:1;margin:5px;">
@@ -112,10 +147,17 @@ export default {
         site1: [],
         site2: [],
         site3: [],
-        sex: '',
         domain: '',
-        nature: '',
-        choose: [],
+        sex: '',
+        education: '',
+        degree: '',
+        site1s: [],
+        site2s: [],
+        site3s: [],
+        domains: '',
+        sexs: '',
+        educations: '',
+        degrees: '',
       },
       pca: pcaa, //最多省市区三级，结合:level='2'选择，0省、1省市、2省市区
       arrValue1: [],
@@ -183,7 +225,7 @@ export default {
         }
       }
       debugger
-      if(arr.length > 0){
+      if (arr.length > 0) {
         arr = arr[0].value
         for (var j in arr) {
           let obj = {}

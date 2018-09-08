@@ -79,20 +79,27 @@ export default {
   // },
   methods: {
     async initChart(objdata) {
-      // debugger
+     debugger
       let obj ={}
       let arrobjdata = []
+      let arrobjdatas = []
       if(objdata.site1 != "") arrobjdata.push(objdata.site1)
       if(objdata.site2 != "") arrobjdata.push(objdata.site2)
       if(objdata.site3 != "") arrobjdata.push(objdata.site3)
       obj.site = arrobjdata
       obj.sex = objdata.sex
       obj.domain =objdata.domain
-      obj.nature = objdata.nature
-      obj.sites = ''
-      obj.sexs = ''
-      obj.domains =''
-      obj.natures = ''
+      obj.education = objdata.education
+      obj.degree = objdata.degree
+
+      if(objdata.sites1 != "") arrobjdatas.push(objdata.sites1)
+      if(objdata.sites2 != "") arrobjdatas.push(objdata.sites2)
+      if(objdata.sites3 != "") arrobjdatas.push(objdata.sites3)
+      obj.sites = arrobjdata
+      obj.sexs = objdata.sexs
+      obj.domains =objdata.domains
+      obj.educations = objdata.educations
+      obj.degrees = objdata.degrees
       debugger
       let arr
       let {
