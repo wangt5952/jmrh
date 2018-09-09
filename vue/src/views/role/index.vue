@@ -32,7 +32,7 @@
     </el-table-column>
     <el-table-column align="center" label="名称">
       <template slot-scope="scope">
-                    <span>{{ scope.row.roleName }}</span>
+                    <span @click="handleShow(scope.row,'menu')">{{ scope.row.roleName }}</span>
                 </template>
     </el-table-column>
     <!-- <el-table-column align="center" label="类型">
@@ -42,7 +42,7 @@
     </el-table-column> -->
     <el-table-column align="center" label="描述">
       <template slot-scope="scope">
-                    <span>{{ scope.row.roleDesc }}</span>
+                    <span @click="handleShow(scope.row,'menu')">{{ scope.row.roleDesc }}</span>
                 </template>
     </el-table-column>
 

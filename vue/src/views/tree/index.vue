@@ -228,6 +228,8 @@ export default {
       if (this.treeTemp.id) {
         this.treeTemp.children.push(this.obj)
         this.dialogEditVisible = false
+        this.dialogFormVisible = false
+
       } else {
         this.treeData.push(this.obj)
         this.dialogEditVisibleF = false
@@ -247,13 +249,14 @@ export default {
       }
       obj.method = 'post'
       let data = await addCreate(obj)
-      debugger
       if (this.treeTemp.id) {
         this.treeTemp.children.push(this.obj)
         this.dialogEditVisible = false
+        this.dialogFormVisible = false
       } else {
         this.treeData.push(this.obj)
         this.dialogEditVisibleF = false
+        this.dialogFormVisible = false
       }
       this.loadTree()
       this.$message({
@@ -264,11 +267,11 @@ export default {
     },
     async subSaveCreate() {
       // if (!this.validata.validaTree(this.obj)) return
-      debugger
       let obj = this.obj
       obj.method = 'put'
       let data = await saveEdit(obj)
       this.dialogEditVisible = false
+      this.dialogFormVisible = false
       this.$message({
         type: 'success',
         message: '修改成功!'
