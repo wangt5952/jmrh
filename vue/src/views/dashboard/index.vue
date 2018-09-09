@@ -845,7 +845,7 @@
                 <td style="width:150px;padding:20px">&nbsp;&nbsp;分类类型</td>
                 <td>
                   <el-select v-model="meeting.typeId" style="height:30px;width:80%" placeholder="请选择">
-                    <el-option label="专家对接" :key=0 :value=0>
+                    <el-option label="专家对接" :key='0' :value=0>
                     </el-option>
                     <el-option label="需求对接" :key=1 :value=1>
                     </el-option>

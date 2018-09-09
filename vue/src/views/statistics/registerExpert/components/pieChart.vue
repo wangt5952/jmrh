@@ -82,24 +82,29 @@ export default {
       let obj ={}
       let arrobjdata = []
       let arrobjdatas = []
-      if(objdata.site1 != "") arrobjdata.push(objdata.site1)
-      if(objdata.site2 != "") arrobjdata.push(objdata.site2)
-      if(objdata.site3 != "") arrobjdata.push(objdata.site3)
-      arrobjdata.length == 0 ? obj.site = null : obj.site = arrobjdata
+      if(objdata.site1 != '') arrobjdata.push(objdata.site1)
+      if(objdata.site2 != '') arrobjdata.push(objdata.site2)
+      if(objdata.site3 != '') arrobjdata.push(objdata.site3)
+      arrobjdata.length == 0 ? obj.site = '1' : obj.site = arrobjdata
       obj.sex = objdata.sex
       obj.domain =objdata.domain
       obj.education = objdata.education
       obj.degree = objdata.degree
 
-      if(objdata.sites1 != null) arrobjdatas.push(objdata.sites1)
-      if(objdata.sites2 != null) arrobjdatas.push(objdata.sites2)
-      if(objdata.sites3 != null) arrobjdatas.push(objdata.sites3)
+      if(objdata.sites1 != '') arrobjdatas.push(objdata.sites1)
+      if(objdata.sites2 != '') arrobjdatas.push(objdata.sites2)
+      if(objdata.sites3 != '') arrobjdatas.push(objdata.sites3)
       arrobjdatas.length == 0 ? obj.sites = null : obj.sites = arrobjdatas
+debugger
+      // obj.sexs = objdata.sexs
+      // obj.domains =objdata.domains
+      // obj.educations = objdata.educations
+      // obj.degrees = objdata.degrees
 
-      obj.sexs = objdata.sexs
-      obj.domains =objdata.domains
-      obj.educations = objdata.educations
-      obj.degrees = objdata.degrees
+      obj.sexs = null
+      obj.domains =null
+      obj.educations = null
+      obj.degrees = null
       debugger
       let arr
       let {
@@ -107,7 +112,7 @@ export default {
         success
       } = await gettjlibqy(obj)
       if (success) {
-        arr = data.user
+        arr = data.lib
       } else {
         arr = []
       }

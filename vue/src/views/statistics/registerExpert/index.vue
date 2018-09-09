@@ -17,19 +17,19 @@
         <div class="txselect" style="height:100px;display:flex">
           <div class="" style="flex:10">
             <div class="">
-              <el-select v-model="input.site1" @change="loadtwoTree(input.site1)" style="width:85px;height:30px" placeholder="省">
+              <el-select v-model="input.sites1" @change="loadtwoTree(input.site1)" style="width:85px;height:30px" placeholder="省">
                 <el-option v-for="item in arrValue1" :label=item.value :key=item.value :value=item.name>
                 </el-option>
               </el-select>
-              <el-select v-model="input.site2" @change="loadThreeTree(input.site2)" style="width:85px;height:30px" placeholder="市">
+              <el-select v-model="input.sites2" @change="loadThreeTree(input.site2)" style="width:85px;height:30px" placeholder="市">
                 <el-option v-for="item in arrValue2" :label=item.value :key=item.value :value=item.name>
                 </el-option>
               </el-select>
-              <el-select v-model="input.site3" style="width:85px;height:30px" placeholder="区">
+              <el-select v-model="input.sites3" style="width:85px;height:30px" placeholder="区">
                 <el-option v-for="item in arrValue3" :label=item.value :key=item.value :value=item.name>
                 </el-option>
               </el-select>
-              <el-select v-model="input.nature" style="width:80px;height:30px" placeholder="领域">
+              <el-select v-model="input.domains" style="width:80px;height:30px" placeholder="领域">
                 <el-option label="智能装备" :key=1 :value=1>
                 </el-option>
                 <el-option label="电子信息" :key=2 :value=2>
@@ -47,14 +47,14 @@
                 <el-option label="其他" :key=99 :value=99>
                 </el-option>
               </el-select>
-              <el-select v-model="input.sex" style="width:80px;height:30px" placeholder="性别">
+              <el-select v-model="input.sexs" style="width:80px;height:30px" placeholder="性别">
                 <el-option label="男" :key=-1 :value=-1>
                 </el-option>
                 <el-option label="女" :key=0 :value=0>
                 </el-option>
               </el-select>
 
-              <el-select v-model="input.education" style="width:110px;height:30px" placeholder="请选择学历">
+              <el-select v-model="input.educations" style="width:110px;height:30px" placeholder="请选择学历">
                 <el-option label="小学" key="1" value="1">
                 </el-option>
                 <el-option label="初中" key="2" value="2">
@@ -73,7 +73,7 @@
                 </el-option>
               </el-select>
 
-              <el-select v-model="input.degree" style="width:110px;height:30px" placeholder="请选择学位">
+              <el-select v-model="input.degrees" style="width:110px;height:30px" placeholder="请选择学位">
                 <el-option label="学士" key="1" value="1">
                 </el-option>
                 <el-option label="硕士" key="2" value="2">
@@ -85,22 +85,22 @@
               </el-select>
             </div>
               <div class="" style="display: flex;">
-              <el-checkbox-group v-model="input.sites1" style="margin:10px 5px;float:right">
+              <el-checkbox-group v-model="input.site1" style="margin:10px 5px;float:right">
                 <el-checkbox label="1">省</el-checkbox>
               </el-checkbox-group>
-              <el-checkbox-group v-model="input.site2s" style="margin:10px 5px;float:right">
+              <el-checkbox-group v-model="input.site2" style="margin:10px 5px;float:right">
                 <el-checkbox label="2">市</el-checkbox>
               </el-checkbox-group>
-              <el-checkbox-group v-model="input.site3s" style="margin:10px 5px;float:right">
+              <el-checkbox-group v-model="input.site3" style="margin:10px 5px;float:right">
                 <el-checkbox label="3">区 </el-checkbox>
               </el-checkbox-group>
-              <el-checkbox-group v-model="input.sexs" style="margin:10px 5px;float:right">
+              <el-checkbox-group v-model="input.sex" style="margin:10px 5px;float:right">
                 <el-checkbox label="5">性别</el-checkbox>
               </el-checkbox-group>
-              <el-checkbox-group v-model="input.educations" style="margin:10px 5px;float:right">
+              <el-checkbox-group v-model="input.education" style="margin:10px 5px;float:right">
                 <el-checkbox label="6">学历</el-checkbox>
               </el-checkbox-group>
-              <el-checkbox-group v-model="input.degrees" style="margin:10px 5px;float:right">
+              <el-checkbox-group v-model="input.degree" style="margin:10px 5px;float:right">
                 <el-checkbox label="6">学位</el-checkbox>
               </el-checkbox-group>
             </div>
@@ -143,20 +143,20 @@ export default {
   data() {
     return {
       input: {
-        site1: [],
-        site2: [],
-        site3: [],
-        domain: null,
-        sex: '',
-        education: '',
-        degree: '',
-        site1s: null,
-        site2s: null,
-        site3s: null,
-        domains: null,
-        sexs: null,
-        educations: null,
-        degrees: null,
+        site1: '',
+        site2: '',
+        site3: '',
+        domain: '1',
+        sex: '1',
+        education: '1',
+        degree: '1',
+        sites1: '',
+        sites2: '',
+        sites3: '',
+        domains: '',
+        sexs: '',
+        educations: '',
+        degrees: '',
       },
       pca: pcaa, //最多省市区三级，结合:level='2'选择，0省、1省市、2省市区
       arrValue1: [],

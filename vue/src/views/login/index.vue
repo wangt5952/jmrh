@@ -249,7 +249,6 @@ export default {
       for (let i = 0; i < treeData.length; i++) {
         if (treeData[i].children) {
           if (treeData[i].children.length > 0) { //有下级
-            debugger
             treeData[i].meta = {
               title: treeData[i].label,
               icon: 'tree'
@@ -299,10 +298,10 @@ export default {
 
           let data = await getUserMenusone()
           let treeData = data.data
-
-          let bbb = this.forload(treeData)
-          this.login(bbb)
-          this.$router.addRoutes(routers)
+          // let bbb = this.forload(treeData)
+          // this.login(bbb)
+          // debugger
+          // this.$router.addRoutes(routers)
           this.$router.push({
             path: '/'
           })

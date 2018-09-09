@@ -13,7 +13,7 @@ export function getMeeting(data) {
 export function saveMeeting(data) {
   return request({
     url: '/xtcx/meeting/reapply',
-    method: 'post',
+    method: 'put',
     data
   });
 }

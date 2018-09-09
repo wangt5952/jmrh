@@ -17,6 +17,13 @@ export function getUserMenusone(data) {
     data
   });
 }
+export function getRoleData(id) {
+  return request({
+    url: '/xtcx/sysManager/role?id='+id,
+    method: 'get'
+  });
+}
+
 
 export function addCreate(data) {
   return request({

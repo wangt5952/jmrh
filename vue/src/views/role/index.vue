@@ -157,6 +157,7 @@ import {
 import {
   getUserMenus,
   saveEdit,
+  getRoleData
 } from '@/api/menu'
 
 export default {
@@ -251,8 +252,9 @@ export default {
       }
 
     },
-    async loadgetRoleId(data) {
-      let getRoleIddata = data
+    async loadgetRoleId(id) {
+      let {data} = await getRoleData(id)
+      let getRoleIddata = data.menus
       let arr = [];
       for (let i = 0; i < getRoleIddata.length; i++) {
         arr.push(getRoleIddata[i].id)
@@ -327,7 +329,7 @@ export default {
         this.dialogStatus = 'menu'
         this.dialogShowMenu = true
         this.loadTree()
-        this.loadgetRoleId(data.menus)
+        this.loadgetRoleId(data.id)
 
       } else if (type === 'data') {
         this.obj = data

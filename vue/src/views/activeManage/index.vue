@@ -718,12 +718,12 @@ export default {
       }
     },
     async handlesj(params) {
-      let obj = {}
-      obj.id = params.id
+      let arr = []
+      arr.push(params.id)
       let {
         data,
         success
-      } = await onExchanges(obj)
+      } = await plonExchanges(arr)
       if (success) {
         this.$message({
           message: '上架成功',
