@@ -93,7 +93,7 @@
         <el-button type="primary" @click="dialogEditVisible = false">关闭</el-button>
       </span>
     </el-dialog>
-    <span slot="footer" class="dialog-footer">
+    <span slot="footer" class="dialog-footer" style="text-align: center;">
       <el-button type="primary" @click="addCreatesub()">添加</el-button>
       <el-button type="primary"   @click="saveCreatesub()">编辑</el-button>
       <el-button type="danger" @click="delCreat(obj)">删除</el-button>
