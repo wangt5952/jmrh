@@ -73,12 +73,13 @@ let verify = {
     var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
     return !myreg.test(str) ? true : false;
   },
-  isIDCard:function(str){
+  isIDCard: function(str) {
     var myisIDCard = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
     return !myisIDCard.test(str) ? true : false;
-  }
+  } //身份证
 
 }
+
 function validaTree(str) {
   if (!str || verify.isNull(str.label)) {
     Message({
@@ -103,6 +104,7 @@ function validaTree(str) {
   }
   return true;
 }
+
 function validaManageUser(str) {
   if (!str || verify.isNull(str.userName)) {
 
@@ -345,20 +347,20 @@ function validacontent(str) {
 }
 
 function validacontent2(str) {
-    if (!str || verify.isNull(str.title)) {
-      Message({
-        message: '标题不能为空！',
-        type: 'error'
-      });
-      return false;
-    }
-    if (!str || verify.isNull(str.categroyId)) {
-      Message({
-        message: '所属栏目不能为空！',
-        type: 'error'
-      });
-      return false;
-    }
+  if (!str || verify.isNull(str.title)) {
+    Message({
+      message: '标题不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.categroyId)) {
+    Message({
+      message: '所属栏目不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
   if (!str || verify.isNull(str.covers)) {
     Message({
       message: '封面不能为空！',
@@ -463,8 +465,8 @@ function validactive(str) {
   return true;
 }
 
-function validresetPW(str,checkStatus,cellphone) {
-  if(checkStatus == 0){
+function validresetPW(str, checkStatus, cellphone) {
+  if (checkStatus == 0) {
     if (!str || verify.isNull(str.email)) {
       Message({
         message: '邮箱不能为空！',
@@ -480,7 +482,7 @@ function validresetPW(str,checkStatus,cellphone) {
       return false;
     }
   }
-  if(checkStatus == 1){
+  if (checkStatus == 1) {
     if (!str || verify.isNull(cellphone)) {
       Message({
         message: '手机号不能为空！',
@@ -496,32 +498,364 @@ function validresetPW(str,checkStatus,cellphone) {
       return false;
     }
   }
-if (!str || verify.isNull(str.code)) {
-  Message({
-    message: '验证码不能为空！',
-    type: 'error'
-  });
-  return false;
+  if (!str || verify.isNull(str.code)) {
+    Message({
+      message: '验证码不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.newPassword)) {
+    Message({
+      message: '新密码不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.rePassword)) {
+    Message({
+      message: '请重复输入新密码！',
+      type: 'error'
+    });
+    return false;
+  }
+  return true;
 }
-if (!str || verify.isNull(str.newPassword)) {
-  Message({
-    message: '新密码不能为空！',
-    type: 'error'
-  });
-  return false;
+
+
+function validaExpert(str) {
+  if (!str || verify.isNull(str.email)) {
+    Message({
+      message: '邮箱不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.checkEmail(str.email)) {
+    Message({
+      message: '请输入正确的邮箱地址！',
+      type: 'error'
+    });
+    return false;
+  }
+
+  if (!str || verify.isNull(str.password)) {
+    Message({
+      message: '密码不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.repassword)) {
+    Message({
+      message: '请再次输入密码！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.name)) {
+    Message({
+      message: '名字不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.code)) {
+    Message({
+      message: '身份证不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isIDCard(str.code)) {
+    Message({
+      message: '请输入正确的身份证格式！',
+      type: 'error'
+    });
+    return false;
+  }
+  return true;
 }
-if (!str || verify.isNull(str.rePassword)) {
-  Message({
-    message: '请重复输入新密码！',
-    type: 'error'
-  });
-  return false;
+
+function validaEnterprise(str) {
+  if (!str || verify.isNull(str.email)) {
+    Message({
+      message: '邮箱不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.checkEmail(str.email)) {
+    Message({
+      message: '请输入正确的邮箱地址！',
+      type: 'error'
+    });
+    return false;
+  }
+
+  if (!str || verify.isNull(str.password)) {
+    Message({
+      message: '密码不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.repassword)) {
+    Message({
+      message: '请再次输入密码！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.name)) {
+    Message({
+      message: '名字不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.code)) {
+    Message({
+      message: '身份证不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isIDCard(str.code)) {
+    Message({
+      message: '请输入正确的身份证格式！',
+      type: 'error'
+    });
+    return false;
+  }
+  return true;
 }
-return true;
+
+function validaHschool(str) {
+  if (!str || verify.isNull(str.email)) {
+    Message({
+      message: '邮箱不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.checkEmail(str.email)) {
+    Message({
+      message: '请输入正确的邮箱地址！',
+      type: 'error'
+    });
+    return false;
+  }
+
+  if (!str || verify.isNull(str.password)) {
+    Message({
+      message: '密码不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.repassword)) {
+    Message({
+      message: '请再次输入密码！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.name)) {
+    Message({
+      message: '名字不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.code)) {
+    Message({
+      message: '身份证不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isIDCard(str.code)) {
+    Message({
+      message: '请输入正确的身份证格式！',
+      type: 'error'
+    });
+    return false;
+  }
+  return true;
 }
+
+function validaMechanism(str) {
+  if (!str || verify.isNull(str.email)) {
+    Message({
+      message: '邮箱不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.checkEmail(str.email)) {
+    Message({
+      message: '请输入正确的邮箱地址！',
+      type: 'error'
+    });
+    return false;
+  }
+
+  if (!str || verify.isNull(str.password)) {
+    Message({
+      message: '密码不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.repassword)) {
+    Message({
+      message: '请再次输入密码！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.name)) {
+    Message({
+      message: '名字不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.code)) {
+    Message({
+      message: '身份证不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isIDCard(str.code)) {
+    Message({
+      message: '请输入正确的身份证格式！',
+      type: 'error'
+    });
+    return false;
+  }
+  return true;
+}
+
+function validaDemandLibrary(str) {
+  if (!str || verify.isNull(str.email)) {
+    Message({
+      message: '邮箱不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.checkEmail(str.email)) {
+    Message({
+      message: '请输入正确的邮箱地址！',
+      type: 'error'
+    });
+    return false;
+  }
+
+  if (!str || verify.isNull(str.password)) {
+    Message({
+      message: '密码不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.repassword)) {
+    Message({
+      message: '请再次输入密码！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.name)) {
+    Message({
+      message: '名字不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.code)) {
+    Message({
+      message: '身份证不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isIDCard(str.code)) {
+    Message({
+      message: '请输入正确的身份证格式！',
+      type: 'error'
+    });
+    return false;
+  }
+  return true;
+}
+
+function validaAchieveLibrary(str) {
+  if (!str || verify.isNull(str.email)) {
+    Message({
+      message: '邮箱不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.checkEmail(str.email)) {
+    Message({
+      message: '请输入正确的邮箱地址！',
+      type: 'error'
+    });
+    return false;
+  }
+
+  if (!str || verify.isNull(str.password)) {
+    Message({
+      message: '密码不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.repassword)) {
+    Message({
+      message: '请再次输入密码！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.name)) {
+    Message({
+      message: '名字不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.code)) {
+    Message({
+      message: '身份证不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isIDCard(str.code)) {
+    Message({
+      message: '请输入正确的身份证格式！',
+      type: 'error'
+    });
+    return false;
+  }
+  return true;
+}
+
 
 //success/warning/info/error
 export default {
+  validaExpert,
+  validaEnterprise,
+  validaHschool,
+  validaMechanism,
+  validaDemandLibrary,
+  validaAchieveLibrary,
   validresetPW,
   validaTree,
   validatoRegistere,

@@ -311,6 +311,7 @@ export default {
 
     async subSaveCreate() {//菜单保存
       let obj = this.obj
+      debugger
       obj.method = 'put'
       obj.menus = this.$refs.tree.getCheckedNodes()
 

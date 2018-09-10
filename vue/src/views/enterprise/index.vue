@@ -36,7 +36,7 @@
         </el-option>
         <el-option label="4" key="4" value="4">
         </el-option>
-        <el-option label="5" key="5" value="4">
+        <el-option label="5" key="5" value="5">
         </el-option>
       </el-select>
       <el-button style="margin-left:20px" @click="loadPageList" type="primary">查询</el-button>

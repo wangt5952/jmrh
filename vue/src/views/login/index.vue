@@ -248,7 +248,7 @@ export default {
     forload(treeData) {
       for (let i = 0; i < treeData.length; i++) {
         if (treeData[i].children) {
-          if (treeData[i].children.length > 0) { //有下级
+          if (treeData[i].children.length > 0 && treeData[i].leaf == false) { //有下级
             treeData[i].meta = {
               title: treeData[i].label,
               icon: 'tree'
@@ -257,10 +257,19 @@ export default {
             treeData[i].leaf = false
             treeData[i].component = treeData[i].menuUrl
             if (treeData[i].isMenu == "1") { //有下级 第一个菜单
-              treeData[i].component = 'layout'
+              treeData[i].component = 'Layout'
               treeData[i].redirect = '/' + treeData[i].menuUrl + '/' + treeData[i].children[0].menuUrl + ''
             }
-          } else if (treeData[i].children.length == 0 && treeData[i].isMenu == "1") { //第一层菜单无下级生成一个
+          } else if (treeData[i].leaf == true && treeData[i].isMenu == "1" && treeData[i].menuLevel != 1) {
+            treeData[i].meta = {
+              title: treeData[i].label,
+              icon: 'table'
+            }
+            treeData[i].path = treeData[i].menuUrl
+            treeData[i].leaf = true
+            treeData[i].component = treeData[i].menuUrl
+            treeData[i].children = []
+          } else if (treeData[i].menuLevel == 1 && treeData[i].isMenu == "1" && treeData[i].leaf == true) { //第一层菜单无下级生成一个
             let chil = {}
             chil.meta = {
               title: treeData[i].label,
@@ -269,20 +278,12 @@ export default {
             chil.path = treeData[i].menuUrl
             chil.leaf = true
             chil.component = treeData[i].menuUrl
+            treeData[i].children = []
             treeData[i].children.push(chil)
 
             treeData[i].path = '/index'
             treeData[i].leaf = false
-            treeData[i].component = 'layout'
-          } else if (treeData[i].children.length == 0 && treeData[i].isMenu != "1") {
-            treeData[i].meta = {
-              title: treeData[i].label,
-              icon: 'table'
-            }
-            treeData[i].path = treeData[i].menuUrl
-            treeData[i].leaf = true
-            treeData[i].component = treeData[i].menuUrl
-
+            treeData[i].component = 'Layout'
           }
           treeData[i].children = this.forload(treeData[i].children)
         }
@@ -298,10 +299,10 @@ export default {
 
           let data = await getUserMenusone()
           let treeData = data.data
-          // let bbb = this.forload(treeData)
-          // this.login(bbb)
-          // debugger
-          // this.$router.addRoutes(routers)
+          let bbb = this.forload(treeData)
+          this.login(bbb)
+          debugger
+          this.$router.addRoutes(routers)
           this.$router.push({
             path: '/'
           })

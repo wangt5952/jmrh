@@ -9,12 +9,10 @@ function generaMenu(routers,data){
   data.forEach((item)=>{
     let menu = Object.assign({},item)
     menu.component = lazyLoading(menu.component)
-    debugger
     if(!item.leaf){
       menu.children = []
       generaMenu(menu.children,item.children)
     }
-    debugger
     routers.push(menu)
   })
 }
