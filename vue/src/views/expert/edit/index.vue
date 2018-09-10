@@ -385,10 +385,22 @@ export default {
       service_research_beforet: '',
       service_research_previoust: '',
       expert: {
-        cardPositive: [],
-        cardSide: [],
-        cardHands: [],
-        onepicture: [],
+        cardPositive: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+        }],
+        cardSide: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/idback.png`
+        }],
+        cardHands: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/handPhoto.jpg`
+        }],
+        onepicture: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/livePhoto.jpg`
+        }],
         name: '',
         sex: '',
         bornDate: '',

@@ -295,7 +295,10 @@ export default {
       achieveLibrary: {
         fzname: '',
         fzphone: '',
-        cardSide: [],
+        cardSide: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
+        }],
         fzemail: '',
         fzname2: '',
         fzphone2: '',

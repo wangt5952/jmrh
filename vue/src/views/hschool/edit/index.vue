@@ -174,11 +174,26 @@ export default {
       service_research_beforet: '',
       service_research_previoust: '',
       school: {
-        zhengben: [],
-          zhengben1: [],
-        fuben: [],
-        fuben2: [],
-        logo: [],
+        zhengben: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
+        }],
+          zhengben1: [{
+            name: '默认',
+            url:  this.imgBaseUrl + `/jmrhupload/def/companyZS.png`
+          }],
+        fuben: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+        }],
+        fuben2: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/idback.png`
+        }],
+        logo: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
+        }],
         introduction: '',
         major_platform: '',
         unit_url: '',

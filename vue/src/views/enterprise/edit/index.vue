@@ -646,10 +646,22 @@ export default {
       service_research_beforet: '',
       service_research_previoust: '',
       com: {
-        zhengben: [],
-        fuben: [],
-        fuben2: [],
-        logo: [],
+        zhengben: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
+        }],
+        fuben: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+        }],
+        fuben2: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/idback.png`
+        }],
+        logo: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
+        }],
         lxname: '',
         lxzw: '',
         lxphone: '',

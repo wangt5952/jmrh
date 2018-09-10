@@ -20,7 +20,7 @@
         </el-upload>
         <!-- <img v-if="active.cover!=''" width="100%" :src="cover" alt=""> -->
       </td>
-      <td style="width:100px;padding:10px">&nbsp;&nbsp;活动类型</td>
+      <td style="width:100px;padding:10px"><span style='color: #f60d0d;'>*</span>&nbsp;活动类型</td>
       <td>
         <el-select v-model="active.typeId" style="height:30px;width:80%" placeholder="请选择">
 
@@ -40,7 +40,7 @@
       </td>
     </tr>
     <tr>
-      <td style="width:100px;padding:10px">&nbsp;&nbsp;活动地址</td>
+      <td style="width:100px;padding:10px"><span style='color: #f60d0d;'>*</span>&nbsp;活动地址</td>
       <td colspan=3>
         <el-input v-model="active.exAddr" placeholder="请输入活动地址" style="width:90%"></el-input>
       </td>
@@ -74,13 +74,13 @@
       <td>
         <el-input v-model="active.organizerName" placeholder="请输入主办方" style="width:80%"></el-input>
       </td>
-      <td style="width:150px;padding:10px">&nbsp;&nbsp;主办方联系人</td>
+      <td style="width:150px;padding:10px"><span style='color: #f60d0d;'>*</span>&nbsp;主办方联系人</td>
       <td>
         <el-input v-model="active.orgContacts" placeholder="请输入主办方联系人" style="width:80%"></el-input>
       </td>
     </tr>
     <tr style="border-bottom: 1px solid#ccc;">
-      <td style="width:150px;padding:10px">&nbsp;&nbsp;主办方联系电话</td>
+      <td style="width:150px;padding:10px"><span style='color: #f60d0d;'>*</span>&nbsp;主办方联系电话</td>
       <td>
         <el-input v-model="active.orgPhone" placeholder="请输入主办方联系电话" style="width:80%"></el-input>
       </td>
@@ -223,6 +223,8 @@ import {
 } from '@/api/library'
 import table2excel from 'table2excel'
 import printArea from 'printArea'
+
+import idback from '@/assets/logo/idback.png'
 import {
   getToken,
 } from '@/utils/auth'
@@ -299,7 +301,10 @@ export default {
         subject: '',
         typeId: 1,
         cover: '',
-        covers: [],
+        covers: [{
+          name: '默认',
+          url: idback
+        }],
         exAddr: '',
         enrollStart: '',
         enrollEnd: '',

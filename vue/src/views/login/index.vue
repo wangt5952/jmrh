@@ -257,7 +257,7 @@ export default {
             treeData[i].leaf = false
             treeData[i].component = treeData[i].menuUrl
             if (treeData[i].isMenu == "1") { //有下级 第一个菜单
-              treeData[i].component = 'Layout'
+              treeData[i].component = 'layout'
               treeData[i].redirect = '/' + treeData[i].menuUrl + '/' + treeData[i].children[0].menuUrl + ''
             }
           } else if (treeData[i].leaf == true && treeData[i].isMenu == "1" && treeData[i].menuLevel != 1) {
@@ -283,7 +283,7 @@ export default {
 
             treeData[i].path = '/index'
             treeData[i].leaf = false
-            treeData[i].component = 'Layout'
+            treeData[i].component = 'layout'
           }
           treeData[i].children = this.forload(treeData[i].children)
         }
@@ -300,9 +300,9 @@ export default {
           let data = await getUserMenusone()
           let treeData = data.data
           let bbb = this.forload(treeData)
-          this.login(bbb)
-          debugger
-          this.$router.addRoutes(routers)
+          // debugger
+          // this.login(bbb)
+          // this.$router.addRoutes(routers)
           this.$router.push({
             path: '/'
           })

@@ -10,33 +10,33 @@
   </div>
 
 
-<div class=" " style="overflow-y: auto;height: 450px;">
-  <tree-table :data="list" :evalFunc="func" :expandAll="expandAll" border style="text-align: center;">
-  <el-table-column label="等级" width="70px">
-    <template slot-scope="scope">
+  <div class=" " style="overflow-y: auto;height: 450px;">
+    <tree-table :data="list" :evalFunc="func" :expandAll="expandAll" border style="text-align: center;">
+      <el-table-column label="等级" width="70px">
+        <template slot-scope="scope">
       <span style="">{{scope.row.level}}</span>
     </template>
-  </el-table-column>
-    <!-- <el-table-column type="index" align="center" label="ID"> -->
+      </el-table-column>
+      <!-- <el-table-column type="index" align="center" label="ID"> -->
 
-    </el-table-column>
-    <el-table-column label="编码"  width="100px;">
-      <template slot-scope="scope">
+      </el-table-column>
+      <el-table-column label="编码" width="100px;">
+        <template slot-scope="scope">
         <span style="">{{scope.row.code}}</span>
       </template>
-    </el-table-column>
-    <el-table-column label="分类">
-      <template slot-scope="scope">
+      </el-table-column>
+      <el-table-column label="分类">
+        <template slot-scope="scope">
         <span style="">{{scope.row.name}}</span>
       </template>
-    </el-table-column>
-    <el-table-column label="分类类型" >
-      <template slot-scope="scope">
+      </el-table-column>
+      <el-table-column label="分类类型">
+        <template slot-scope="scope">
         <span v-show="scope.row.typeId == 1" style="">栏目</span>
       </template>
-    </el-table-column>
-    <el-table-column label="操作">
-      <template slot-scope="scope">
+      </el-table-column>
+      <el-table-column label="操作">
+        <template slot-scope="scope">
         <div class="" style="position: relative;left: 10%;">
       <span> <div class="clickText" type="text" @click="handleCreate(scope.row,'show')" style="float:left;padding-left:5px">详情</div></span>
           <span>  <div class="clickText" type="text" @click="handleCreate(scope.row,scope.row.id)"  style="float:left;padding-left:5px">添加子分类</div></span>
@@ -45,9 +45,9 @@
                 <span>  <div class="clickText" type="text" @click="delObj(scope.row)"  style="float:left;padding-left:5px;color:red">删除</div></span>
                 </div>
       </template>
-    </el-table-column>
-  </tree-table>
-</div>
+      </el-table-column>
+    </tree-table>
+  </div>
 
 
 
@@ -61,7 +61,7 @@
 
       <el-row :gutter="24">
         <el-col :span="24">
-          <table v-show="!show"  cellpadding=0 cellspacing=0 border="0" style="width:100%;border: 1px solid#ccc;">
+          <table v-show="!show" cellpadding=0 cellspacing=0 border="0" style="width:100%;border: 1px solid#ccc;">
             <tr style="border-bottom: 1px solid#ccc;">
               <td style="width:100px;padding:10px"><span style='color: #f60d0d;'>*</span> 分类编码</td>
               <td>
@@ -75,12 +75,13 @@
             <tr style="border-bottom: 1px solid#ccc;">
               <td style="width:100px;padding:10px">&nbsp;&nbsp;分类Icon</td>
               <td>
-                <el-upload class="avatar-uploader"  accept=".jpg,.jpeg,.png,.gif,.bmp,.pdf,.JPG,.JPEG,.PBG,.GIF,.BMP,.PDF" ref="my-upload" :before-upload="beforeUploadImg" :http-request="uploadSectionFile" list-type="picture-card" :file-list="column.icons" :on-success="handleAvatarSuccess" :on-remove="handleRemove">
+                <el-upload class="avatar-uploader" accept=".jpg,.jpeg,.png,.gif,.bmp,.pdf,.JPG,.JPEG,.PBG,.GIF,.BMP,.PDF" ref="my-upload" :before-upload="beforeUploadImg" :http-request="uploadSectionFile" list-type="picture-card" :file-list="column.icons" :on-success="handleAvatarSuccess"
+                  :on-remove="handleRemove">
                   <i class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
                 <!-- <img v-if="dialogImageUrl!=''" width="100%" :src="dialogImageUrl" alt="">v-show="column.typeId == 1 || showColumn" -->
               </td>
-              <td  style="width:100px;padding:10px">&nbsp;&nbsp;分类类型</td>
+              <td style="width:100px;padding:10px"><span style='color: #f60d0d;'>*</span>&nbsp;分类类型</td>
               <td>
                 <el-select v-model="column.typeId" style="height:30px;width:80%" placeholder="请选择">
 
@@ -102,7 +103,7 @@
                   </el-option>
                 </el-select>
               </td>
-              <td v-show="column.onlyUrl == 1" style="width:100px;padding:10px">&nbsp;&nbsp;外链地址</td>
+              <td v-show="column.onlyUrl == 1" style="width:100px;padding:10px"><span style='color: #f60d0d;'>*</span>&nbsp;外链地址</td>
               <td v-show="column.onlyUrl == 1">
                 <el-input v-model="column.contentUrl" placeholder="请输入外链地址" style="width:80%"></el-input>
               </td>
@@ -164,8 +165,8 @@
               <td>{{column.tags | replaceKG}}</td>
               <td style="width:100px;padding:10px">分类状态</td>
               <td>
-                  <span v-show="column.readable == 0" style="">不可见</span>
-                  <span v-show="column.readable == 1" style="">可见</span>
+                <span v-show="column.readable == 0" style="">不可见</span>
+                <span v-show="column.readable == 1" style="">可见</span>
               </td>
             </tr>
 
@@ -209,6 +210,8 @@ import {
 import {
   getToken,
 } from '@/utils/auth'
+
+import idback from '@/assets/logo/idback.png'
 export default {
   components: {
     treeTable
@@ -236,7 +239,10 @@ export default {
         readable: 1,
         typeId: 0,
         icon: '',
-        icons: [],
+        icons: [{
+          name: '默认',
+          url: idback
+        }],
         onlyUrl: 0,
         contentUrl: '',
         tags: '',
@@ -305,7 +311,7 @@ export default {
       this.column.icons = [{
         name: 'name.jpg',
         url: obj.icon
-      }]//封面赋值显示仅仅
+      }] //封面赋值显示仅仅
 
       this.dialogsave = true
     },
@@ -318,7 +324,7 @@ export default {
           this.column.icons = [{
             name: 'name.jpg',
             url: item.icon
-          }]//封面赋值显示仅仅
+          }] //封面赋值显示仅仅
 
           this.show = true
           this.title = '查看分类详情'
@@ -331,6 +337,10 @@ export default {
             readable: 1,
             typeId: 0,
             icon: '',
+            icons: [{
+              name: '默认',
+              url: idback
+            }],
             onlyUrl: 0,
             contentUrl: '',
             tags: '',
@@ -362,7 +372,10 @@ export default {
           readable: 1,
           typeId: 0,
           icon: '',
-          icons: [],
+          icons: [{
+            name: '默认',
+            url: idback
+          }],
           onlyUrl: 0,
           contentUrl: '',
           tags: '',
@@ -414,7 +427,7 @@ export default {
       this.loadPageList()
     },
     delObj(item) {
-      if(item.children && item.children.length >0){
+      if (item.children && item.children.length > 0) {
         this.$message({
           type: 'success',
           message: '请先删除子分类后再删除该分类!'
@@ -446,8 +459,8 @@ export default {
     beforeUploadImg(file) {
       const isLt10M = file.size / 1024 / 1024 < 10;
       if (['image/png', 'image/jpeg', ].indexOf(file.type) == -1) {
-          this.$message.error('请上传正确的图片');
-          return false;
+        this.$message.error('请上传正确的图片');
+        return false;
       }
       if (!isLt10M) {
         this.$message.error('上传文件大小不能超过10MB哦!');
@@ -471,7 +484,7 @@ export default {
       } = await uploadFile(form)
       let obj = {
         name: data.fileName,
-        url: this.imgBaseUrl+"/jmrhupload" + data.savePath
+        url: this.imgBaseUrl + "/jmrhupload" + data.savePath
       }
       this.column.icons.push(obj)
     },

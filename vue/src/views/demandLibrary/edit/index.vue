@@ -253,7 +253,10 @@ export default {
         re_name:'',
         code:'',
         name: '',
-        cardSide:[],
+        cardSide:[{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
+        }],
         fzname: '',
         fzzw: '',
         fzphone: '',

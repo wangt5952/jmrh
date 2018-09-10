@@ -76,7 +76,21 @@ let verify = {
   isIDCard: function(str) {
     var myisIDCard = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
     return !myisIDCard.test(str) ? true : false;
-  } //身份证
+  }, //身份证
+
+  isBianMa: function(str) {
+    var re = /^[a-zA-Z][0-9]\w*$/g;
+    return !re.test(str) ? true : false;
+  },
+  isChinese: function(str) {　
+    var re = new RegExp("[\\u4E00-\\u9FFF]+", "g");
+    return !re.test(str) ? false : true;
+  },
+  isWeUrl: function(str) {　
+    var re = /^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/;
+    return !re.test(str) ? true : false;
+  },
+
 
 }
 
@@ -272,17 +286,48 @@ function validatoRegistere2(str) {
 function validacolumn(str) {
   if (!str || verify.isNull(str.code)) {
     Message({
-      message: '栏目编码不能为空！',
+      message: '分类编码不能为空！',
       type: 'error'
     });
     return false;
   }
-  if (!str || verify.isNull(str.name)) {
+  if (!str || verify.isBianMa(str.code)) {
     Message({
-      message: '栏目名不能为空！',
+      message: '分类编码必须英文字母+数字的组合！',
       type: 'error'
     });
     return false;
+  }
+  if (!str || verify.isChinese(str.code)) {
+    Message({
+      message: '分类编码不能含有中文！',
+      type: 'error'
+    });
+    return false;
+  }
+
+  if (!str || verify.isNull(str.name)) {
+    Message({
+      message: '分类名不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (str.onlyUrl == 1) {
+    if (!str || verify.isNull(str.contentUrl)) {
+      Message({
+        message: '外链地址不能为空！',
+        type: 'error'
+      });
+      return false;
+    }
+    if (!str || verify.isWeUrl(str.contentUrl)) {
+      Message({
+        message: '外链地址格式不正确！',
+        type: 'error'
+      });
+      return false;
+    }
   }
   return true;
 }
@@ -297,15 +342,22 @@ function validacontent(str) {
   }
   if (!str || verify.isNull(str.categroyId)) {
     Message({
-      message: '所属栏目不能为空！',
+      message: '所属分类不能为空！',
       type: 'error'
     });
     return false;
   }
-  if (str.only_url == 1) {
-    if (!str || verify.isNull(str.content_url)) {
+  if (str.onlyUrl == 1) {
+    if (!str || verify.isNull(str.contentUrl)) {
       Message({
         message: '外链地址不能为空！',
+        type: 'error'
+      });
+      return false;
+    }
+    if (!str || verify.isWeUrl(str.contentUrl)) {
+      Message({
+        message: '外链地址格式不正确！',
         type: 'error'
       });
       return false;
@@ -327,6 +379,14 @@ function validacontent(str) {
       });
       return false;
     }
+
+    if (!str || verify.isWeUrl(str.copyFromUrl)) {
+      Message({
+        message: '来源网址格式不正确！',
+        type: 'error'
+      });
+      return false;
+    }
   }
   if (!str || verify.isNull(str.covers)) {
     Message({
@@ -343,6 +403,16 @@ function validacontent(str) {
     return false;
   }
 
+  if (str.publishNow == 1) {
+    if (!str || verify.isNull(str.publishDate)) {
+      Message({
+        message: '发布日期不能为空！',
+        type: 'error'
+      });
+      return false;
+    }
+
+  }
   return true;
 }
 
@@ -356,7 +426,7 @@ function validacontent2(str) {
   }
   if (!str || verify.isNull(str.categroyId)) {
     Message({
-      message: '所属栏目不能为空！',
+      message: '所属分类不能为空！',
       type: 'error'
     });
     return false;
@@ -390,6 +460,13 @@ function validactive(str) {
   if (!str || verify.isNull(str.subject)) {
     Message({
       message: '主题不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.exAddr)) {
+    Message({
+      message: '活动地址不能为空！',
       type: 'error'
     });
     return false;
@@ -453,14 +530,35 @@ function validactive(str) {
     return false;
   }
 
-
-
-  if (!str || verify.isNull(str.publishDate)) {
+  if (!str || verify.isNull(str.orgContacts)) {
     Message({
-      message: '发布时间不能为空！',
+      message: '主办方联系人不能为空！',
       type: 'error'
     });
     return false;
+  }
+  if (!str || verify.isNull(str.orgPhone)) {
+    Message({
+      message: '主办方联系电话不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isPoneAvailable(str.orgPhone)) {
+    Message({
+      message: '主办方联系电话格式不正确！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (str.publishNow == 1) {
+    if (!str || verify.isNull(str.publishDate)) {
+      Message({
+        message: '发布时间不能为空！',
+        type: 'error'
+      });
+      return false;
+    }
   }
   return true;
 }

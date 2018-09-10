@@ -23,7 +23,7 @@
           <i class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </td>
-      <td style="width:100px;padding:10px">&nbsp;&nbsp;内容类型</td>
+      <td style="width:100px;padding:10px"><span style='color: #f60d0d;'>*</span>&nbsp;内容类型</td>
       <td>
         <el-select v-model="content.typeId" style="height:30px;width:80%" placeholder="请选择">
 
@@ -279,7 +279,7 @@ export default {
         publishDate: '',
         contentTxt: '',
         stickSort: 0,
-        recommend: 1,
+        recommend: 0,
       }
     }
   },
@@ -366,7 +366,6 @@ export default {
       if (!this.content.publishDate && this.content.publishNow == 0) {
         this.content.publishDate = this.getformatTime()
       }
-      debugger
       if (this.content.typeId == 1) {
         if (!this.validata.validacontent(this.content)) return
       } else {

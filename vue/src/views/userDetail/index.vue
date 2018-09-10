@@ -1513,10 +1513,22 @@ export default {
       service_research_previoust: '',
 
       expert: {
-        cardPositive: [],
-        cardSide: [],
-        cardHands: [],
-        onepicture: [],
+        cardPositive: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+        }],
+        cardSide: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/idback.png`
+        }],
+        cardHands: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/handPhoto.jpg`
+        }],
+        onepicture: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/livePhoto.jpg`
+        }],
         name: '',
         sex: '',
         bornDate: '',
@@ -1550,11 +1562,26 @@ export default {
         }]
       },
       school: {
-        zhengben: [],
-        zhengben1: [],
-        fuben: [],
-        fuben2: [],
-        logo: [],
+        zhengben: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
+        }],
+          zhengben1: [{
+            name: '默认',
+            url:  this.imgBaseUrl + `/jmrhupload/def/companyZS.png`
+          }],
+        fuben: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+        }],
+        fuben2: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/idback.png`
+        }],
+        logo: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
+        }],
         introduction: '',
         major_platform: '',
         unit_url: '',
@@ -1566,13 +1593,34 @@ export default {
       },
 
       mech: {
-        zhengben: [],
-        zhengben1: [],
-        fuben: [],
-        fuben2: [],
-        lxridz: [],
-        lxridf: [],
-        logo: [],
+        zhengben: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
+        }],
+        zhengben1: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/companyZS.png`
+        }],
+        fuben: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+        }],
+        fuben2: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/idback.png`
+        }],
+        lxridz: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+        }],
+        lxridf: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/idback.png`
+        }],
+        logo: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
+        }],
         code: '',
         registerNature: [],
         mechregisterNatureOther: '',
@@ -1621,10 +1669,22 @@ export default {
         linkman: ''
       },
       com: {
-        zhengben: [],
-        fuben: [],
-        fuben2: [],
-        logo: [],
+        zhengben: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
+        }],
+        fuben: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+        }],
+        fuben2: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/idback.png`
+        }],
+        logo: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
+        }],
         lxname: '',
         lxzw: '',
         lxphone: '',

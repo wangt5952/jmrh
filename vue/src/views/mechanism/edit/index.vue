@@ -489,13 +489,34 @@ export default {
       service_research_beforet: '',
       service_research_previoust: '',
       mech: {
-        zhengben: [],
-        zhengben1: [],
-        fuben: [],
-        fuben2: [],
-        lxridz: [],
-        lxridf: [],
-        logo: [],
+        zhengben: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
+        }],
+        zhengben1: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/companyZS.png`
+        }],
+        fuben: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+        }],
+        fuben2: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/idback.png`
+        }],
+        lxridz: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+        }],
+        lxridf: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/idback.png`
+        }],
+        logo: [{
+          name: '默认',
+          url:  this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
+        }],
         code: '',
         registerNature: [],
         mechregisterNatureOther: '',
