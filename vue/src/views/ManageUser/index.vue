@@ -150,12 +150,8 @@
         </el-form-item>
         <el-form-item label="组织架构">
           <el-select v-model="orgId" placeholder="请选择" style="width:80%">
-
-            <el-option-group v-for="group in treeData" :key="group.label" :label="group.label">
-              <el-option v-for="item in group.children" :key="item.id" :label="item.label" :value="item.id">
-              </el-option>
-            </el-option-group>
-
+            <el-option v-for="item in treeData" :key="item.id" :label="item.label" :value="item.id">
+            </el-option>
           </el-select>
         </el-form-item>
 
@@ -296,6 +292,7 @@ export default {
       this.selected = []
       this.orgId = ''
       this.loadoptions()
+      this.loadgetdep()
     },
     async loadoptions() {
       let obj = {}
@@ -309,9 +306,11 @@ export default {
 
       for (let i = 0; i < getAlldata.length; i++) {
         let obja = {}
-        obja.label = getAlldata[i].roleName
-        obja.value = getAlldata[i].id
-        arr.push(obja)
+        if (getAlldata[i].roleType != 2) {
+          obja.label = getAlldata[i].roleDesc
+          obja.value = getAlldata[i].id
+          arr.push(obja)
+        }
       }
       this.options = arr
       // this.loadgetUserId()
@@ -334,7 +333,29 @@ export default {
         success
       } = await getOrgMenus()
       if (success) {
-        this.treeData = data
+        let objD = data
+        var arr = []
+        let obj = {}
+        for (var i in objD) {
+          obj.id = objD[i].id
+          obj.label = '省级-' + objD[i].label
+          let onechild = objD[i].children
+          for (var j in onechild) {
+            let obj2 = {}
+            obj2.id = onechild[j].id
+            obj2.label = '市级--' + onechild[j].label
+            arr.push(obj2)
+            let twochild = onechild[j].children
+            for (var w in twochild) {
+              let obj3 = {}
+              obj3.id = twochild[w].id
+              obj3.label = '区级---' + twochild[w].label
+              arr.push(obj3)
+            }
+          }
+          arr.push(obj)
+        }
+        this.treeData = arr
       }
     },
     async ondep1Change(val) {
@@ -451,7 +472,7 @@ export default {
 
         for (let i = 0; i < getAlldata.length; i++) {
           let obja = {}
-          obja.label = getAlldata[i].roleName
+          obja.label = getAlldata[i].roleDesc
           obja.value = getAlldata[i].id
           arr.push(obja)
         }

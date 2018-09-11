@@ -63,21 +63,21 @@
       </el-row>
 
     </div>
-    <!-- <div label="地方管理员代办" name="2">
+     <div label="地方管理员代办"  v-if="userType =='101' || userType =='102' || userType =='103'" name="2">
 
       <el-row :gutter="24" style="font-size: 12px;">
         <el-col :span="5" style="display:flex;background: #fff;height: 100px; display: flex;justify-content:center; align-items:Center;text-align:center;margin-right: 20px;">
-          <div @click="Toexpert2('activeManage')" style="flex:1;font-size: 20px;color: #409EFF;">{{activeNums || 0}}</div>
+          <div @click="Toexpert2('activeManage')" style="flex:1;font-size: 20px;color: #409EFF;cursor: pointer;">{{activeNums || 0}}</div>
           <div style="flex:1;text-align:left;color: #97a8be;">我的活动申请</div>
         </el-col>
         <el-col :span="5" style="display:flex;background: #fff;height: 100px; display: flex;justify-content:center; align-items:Center;text-align:center;margin-right: 20px;">
-          <div @click="Toexpert2('contentManage')" style="flex:1;font-size: 20px;color: #409EFF;">{{contentNums || 0}}</div>
+          <div @click="Toexpert2('contentManage')" style="flex:1;font-size: 20px;color: #409EFF;cursor: pointer;">{{contentNums || 0}}</div>
           <div style="flex:1;text-align:left;color: #97a8be;">我的内容申请</div>
         </el-col>
 
       </el-row>
 
-    </div> -->
+    </div>
     <div label="发起的专家申请" v-if="userType =='1'" name="5">
 
       <el-row :gutter="24" style="font-size: 14px;">
@@ -961,7 +961,7 @@ export default {
   },
   mounted() {
     this.userType = window.sessionStorage.getItem('userType')
-    if (this.userType == 0) {
+    if (this.userType == 0 || this.userType == 101 || this.userType == 102 || this.userType == 103) {
       this.loadPageList()
     } else {
       this.loadSubmitLib()

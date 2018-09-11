@@ -20,7 +20,6 @@ var myDate = new Date();
 Vue.prototype.lastt = myDate.getFullYear() + '年';
 Vue.prototype.beforet = parseInt(myDate.getFullYear() - 1) + '年';
 Vue.prototype.previoust = parseInt(myDate.getFullYear() - 2) + '年';
-
 Vue.prototype.urlencode = function(str) {
   str = (str + '').toString();
   return encodeURIComponent(str).replace(/!/g, '%21').replace(/'/g, '%27').replace(/\(/g, '%28').

@@ -17,11 +17,11 @@
         <div class="txselect" style="height:100px;display:flex">
           <div class="" style="flex:10">
             <div class="">
-              <el-select v-model="input.sites1" @change="loadtwoTree(input.site1)" style="width:85px;height:30px" placeholder="省">
+              <el-select v-model="input.sites1" @change="loadtwoTree(input.sites1)" style="width:85px;height:30px" placeholder="省">
                 <el-option v-for="item in arrValue1" :label=item.value :key=item.value :value=item.name>
                 </el-option>
               </el-select>
-              <el-select v-model="input.sites2" @change="loadThreeTree(input.site2)" style="width:85px;height:30px" placeholder="市">
+              <el-select v-model="input.sites2" @change="loadThreeTree(input.sites2)" style="width:85px;height:30px" placeholder="市">
                 <el-option v-for="item in arrValue2" :label=item.value :key=item.value :value=item.name>
                 </el-option>
               </el-select>
@@ -94,6 +94,9 @@
               <el-checkbox-group v-model="input.site3" style="margin:10px 5px;float:right">
                 <el-checkbox label="3">区 </el-checkbox>
               </el-checkbox-group>
+              <el-checkbox-group v-model="input.domain" style="margin:10px 5px;float:right">
+                <el-checkbox label="5">领域</el-checkbox>
+              </el-checkbox-group>
               <el-checkbox-group v-model="input.sex" style="margin:10px 5px;float:right">
                 <el-checkbox label="5">性别</el-checkbox>
               </el-checkbox-group>
@@ -109,7 +112,7 @@
             <el-button style="" @click="loadPageList" type="primary">统计</el-button>
           </div>
         </div>
-        <div class="" style="height:80%">
+        <div class="" style="height:80%;padding-top: 8%;">
           <pie-chart :chartData="input"></pie-chart>
         </div>
       </el-col>
@@ -222,7 +225,6 @@ export default {
           arr.push(obj)
         }
       }
-      debugger
       if (arr.length > 0) {
         arr = arr[0].value
         for (var j in arr) {

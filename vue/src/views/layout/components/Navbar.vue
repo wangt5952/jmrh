@@ -90,6 +90,7 @@ export default {
         rePassword: '',
       },
       userType: '',
+      checkStatus: '',
     };
   },
   components: {
@@ -103,6 +104,14 @@ export default {
   mounted() {
     this.name = window.sessionStorage.getItem('userName')
     this.userType =  window.sessionStorage.getItem('userType')
+    this.checkStatus =  window.sessionStorage.getItem('checkStatus')
+    if (this.checkStatus == -1) {
+      this.$message({
+        message: '请修改默认密码！',
+        type: 'success'
+      });
+    }
+
   },
   methods: {
     async savePaw(obj) {

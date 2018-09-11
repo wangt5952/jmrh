@@ -43,14 +43,12 @@ const achieveLibraryEdit = r => require.ensure([], () => r(require("@/views/achi
 const achieveLibrary = r => require.ensure([], () => r(require("@/views/achieveLibrary/index")), 'achieveLibrary');
 const demandLibraryEdit = r => require.ensure([], () => r(require("@/views/demandLibrary/edit/index")), 'demandLibrary');
 
-const buttExpert = r => require.ensure([], () => r(require("@/views/butt/buttExpert/index")), 'buttExpert');
-const buttDemand = r => require.ensure([], () => r(require("@/views/butt/buttDemand/index")), 'buttDemand');
-const buttAchiev = r => require.ensure([], () => r(require("@/views/butt/buttAchiev/index")), 'buttAchiev');
-const registerSee = r => require.ensure([], () => r(require("@/views/statistics/registerSee/index")), 'registerSee');
-const registerUser = r => require.ensure([], () => r(require("@/views/statistics/registerUser/index")), 'registerUser');
-const registerExpert = r => require.ensure([], () => r(require("@/views/statistics/registerExpert/index")), 'registerExpert');
-const registerxqcg = r => require.ensure([], () => r(require("@/views/statistics/registerxqcg/index")), 'registerxqcg');
-const registerDj = r => require.ensure([], () => r(require("@/views/statistics/registerDj/index")), 'registerDj');
+const buttExpert = r => require.ensure([], () => r(require("@/views/buttExpert/index")), 'buttExpert');
+const registerSee = r => require.ensure([], () => r(require("@/views/registerSee/index")), 'registerSee');
+const registerUser = r => require.ensure([], () => r(require("@/views/registerUser/index")), 'registerUser');
+const registerExpert = r => require.ensure([], () => r(require("@/views/registerExpert/index")), 'registerExpert');
+const registerxqcg = r => require.ensure([], () => r(require("@/views/registerxqcg/index")), 'registerxqcg');
+const registerDj = r => require.ensure([], () => r(require("@/views/registerDj/index")), 'registerDj');
 const robotResponse = r => require.ensure([], () => r(require("@/views/robot/robotResponse/index")), 'robotResponse');
 
 
@@ -468,6 +466,11 @@ export const constantRouterMap = [{
         }
       }]
     },
+
+
+
+
+
     // {
     //   path: '/robot',
     //   component: Layout,

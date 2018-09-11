@@ -247,8 +247,7 @@ export default {
     },
     forload(treeData) {
       for (let i = 0; i < treeData.length; i++) {
-        if (treeData[i].children) {
-          if (treeData[i].children.length > 0 && treeData[i].leaf == false) { //有下级
+          if (treeData[i].children && treeData[i].children.length > 0 && treeData[i].leaf == false) { //有下级
             treeData[i].meta = {
               title: treeData[i].label,
               icon: 'tree'
@@ -285,8 +284,11 @@ export default {
             treeData[i].leaf = false
             treeData[i].component = 'layout'
           }
-          treeData[i].children = this.forload(treeData[i].children)
-        }
+          if(treeData[i].children){
+            treeData[i].children = this.forload(treeData[i].children)
+          }else{
+            continue
+          }
       }
       return treeData
     },
@@ -300,8 +302,8 @@ export default {
           let data = await getUserMenusone()
           let treeData = data.data
           let bbb = this.forload(treeData)
-          // debugger
           // this.login(bbb)
+          // debugger
           // this.$router.addRoutes(routers)
           this.$router.push({
             path: '/'
