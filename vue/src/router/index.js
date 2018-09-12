@@ -26,26 +26,26 @@ const role = r => require.ensure([], () => r(require("@/views/role/index")), 'ro
 const tree = r => require.ensure([], () => r(require("@/views/tree/index")), 'tree');
 const columnManage = r => require.ensure([], () => r(require("@/views/columnManage/index")), 'columnManage');
 const contentManage = r => require.ensure([], () => r(require("@/views/contentManage/index")), 'contentManage');
-const contentEdit = r => require.ensure([], () => r(require("@/views/contentManage/edit/index")), 'contentEdit');
+const contentEdit = r => require.ensure([], () => r(require("@/views/contentEdit/index")), 'contentEdit');
 const activeManage = r => require.ensure([], () => r(require("@/views/activeManage/index")), 'activeManage');
-const activeEdit = r => require.ensure([], () => r(require("@/views/activeManage/edit/index")), 'activeEdit');
+const activeEdit = r => require.ensure([], () => r(require("@/views/activeEdit/index")), 'activeEdit');
 const majorPlatform = r => require.ensure([], () => r(require("@/views/majorPlatform/index")), 'majorPlatform');
-const majorPlatformEdit = r => require.ensure([], () => r(require("@/views/majorPlatform/edit/index")), 'majorPlatformEdit');
+const majorPlatformEdit = r => require.ensure([], () => r(require("@/views/majorPlatformEdit/index")), 'majorPlatformEdit');
 
 
 const expert = r => require.ensure([], () => r(require("@/views/expert/index")), 'expert');
-const expertEdit = r => require.ensure([], () => r(require("@/views/expert/edit/index")), 'expert');
+const expertEdit = r => require.ensure([], () => r(require("@/views/expertEdit/index")), 'expert');
 const enterprise = r => require.ensure([], () => r(require("@/views/enterprise/index")), 'enterprise');
-const enterpriseEdit = r => require.ensure([], () => r(require("@/views/enterprise/edit/index")), 'enterprise');
+const enterpriseEdit = r => require.ensure([], () => r(require("@/views/enterpriseEdit/index")), 'enterprise');
 const hschool = r => require.ensure([], () => r(require("@/views/hschool/index")), 'hschool');
-const hschoolEdit = r => require.ensure([], () => r(require("@/views/hschool/edit/index")), 'hschool');
+const hschoolEdit = r => require.ensure([], () => r(require("@/views/hschoolEdit/index")), 'hschool');
 const mechanism = r => require.ensure([], () => r(require("@/views/mechanism/index")), 'mechanism');
-const mechanismEdit = r => require.ensure([], () => r(require("@/views/mechanism/edit/index")), 'mechanism');
+const mechanismEdit = r => require.ensure([], () => r(require("@/views/mechanismEdit/index")), 'mechanism');
 
 const demandLibrary = r => require.ensure([], () => r(require("@/views/demandLibrary/index")), 'demandLibrary');
-const achieveLibraryEdit = r => require.ensure([], () => r(require("@/views/achieveLibrary/edit/index")), 'achieveLibrary');
+const achieveLibraryEdit = r => require.ensure([], () => r(require("@/views/achieveLibraryEdit/index")), 'achieveLibrary');
 const achieveLibrary = r => require.ensure([], () => r(require("@/views/achieveLibrary/index")), 'achieveLibrary');
-const demandLibraryEdit = r => require.ensure([], () => r(require("@/views/demandLibrary/edit/index")), 'demandLibrary');
+const demandLibraryEdit = r => require.ensure([], () => r(require("@/views/demandLibraryEdit/index")), 'demandLibrary');
 
 const buttExpert = r => require.ensure([], () => r(require("@/views/buttExpert/index")), 'buttExpert');
 const registerSee = r => require.ensure([], () => r(require("@/views/registerSee/index")), 'registerSee');
@@ -70,8 +70,7 @@ const robotResponse = r => require.ensure([], () => r(require("@/views/robot/rob
     icon: 'svg-name'             the icon show in the sidebar,
   }
 **/
-export const constantRouterMap = [
-  {
+export const constantRouterMap = [{
     path: '/login',
     component: login,
     name: 'login',

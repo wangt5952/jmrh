@@ -157,9 +157,9 @@ export default {
         number: ''
       },
       loginForm: {
-        userName: '269274122@qq.com',
+        userName: 'gyx',
         password: '123',
-        isAdmin: false,
+        isAdmin: true,
       },
       loginRules: {
         username: [{
@@ -259,13 +259,24 @@ export default {
               treeData[i].component = 'layout'
               treeData[i].redirect = '/' + treeData[i].menuUrl + '/' + treeData[i].children[0].menuUrl + ''
             }
-          } else if (treeData[i].leaf == true && treeData[i].isMenu == "1" && treeData[i].menuLevel != 1) {
+          } else if (treeData[i].leaf == true && treeData[i].isMenu == "1"&& treeData[i].sortOrder != 9999 && treeData[i].menuLevel != 1) {
             treeData[i].meta = {
               title: treeData[i].label,
               icon: 'table'
             }
             treeData[i].path = treeData[i].menuUrl
             treeData[i].leaf = true
+            treeData[i].component = treeData[i].menuUrl
+            treeData[i].children = []
+          }  else if (treeData[i].leaf == true && treeData[i].isMenu == "1"&& treeData[i].sortOrder == 9999 && treeData[i].menuLevel != 1) {
+            treeData[i].meta = {
+              title: treeData[i].label,
+              icon: 'table'
+            }
+            treeData[i].path = treeData[i].menuUrl
+            treeData[i].name = treeData[i].menuUrl
+            treeData[i].leaf = true
+            treeData[i].hidden = true
             treeData[i].component = treeData[i].menuUrl
             treeData[i].children = []
           } else if (treeData[i].menuLevel == 1 && treeData[i].isMenu == "1" && treeData[i].leaf == true) { //第一层菜单无下级生成一个
@@ -303,6 +314,7 @@ export default {
           let treeData = data.data
           let bbb = this.forload(treeData)
           this.login(bbb)
+          debugger
           this.$router.addRoutes(routers)
           this.$router.push({
             path: '/'
