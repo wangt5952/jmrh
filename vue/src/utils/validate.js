@@ -946,8 +946,48 @@ function validaAchieveLibrary(str) {
 }
 
 
+function validmajorPlatform(str) {
+  if (!str || verify.isNull(str.spName)) {
+    Message({
+      message: '名称不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.spCompany)) {
+    Message({
+      message: '承担单位不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.spDomain)) {
+    Message({
+      message: '领域不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.spLevel)) {
+    Message({
+      message: '级别不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.spLink)) {
+    Message({
+      message: '链接不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  return true;
+}
+
 //success/warning/info/error
 export default {
+  validmajorPlatform,
   validaExpert,
   validaEnterprise,
   validaHschool,

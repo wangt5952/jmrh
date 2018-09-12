@@ -72,28 +72,35 @@ export default {
 
   methods: {
     async initChart() {
-      let arr
+      let arr,arr2
       let {
         data,
         success
-      } = await gettjlib()
+      } = await gettjlib('2')
       if (success) {
         arr = data.month
+        arr2 = data.monthLJ
          this.$emit('childByValue', data.total)
-      } else {
-        arr = []
-      }
-      let arrdate = []
-      let arrValue = []
-      arr.forEach((v, i) => {
-        Object.keys(v).forEach(v => {
-          let obj = {}
-          // obj.date = v
-          // obj.value= arr[i][v]
-          arrdate.push(v)
-          arrValue.push(arr[i][v])
-        })
-      })
+       } else {
+         arr = []
+           arr2 = []
+       }
+       let arrdate = []
+       let arrValue = []
+       let arrValue2 = []
+       arr.forEach((v, i) => {
+         Object.keys(v).forEach(v => {
+           // obj.date = v
+           // obj.value= arr[i][v]
+           arrdate.push(v)
+           arrValue.push(arr[i][v])
+         })
+       })
+       arr2.forEach((v, i) => {
+         Object.keys(v).forEach(v => {
+           arrValue2.push(arr2[i][v])
+         })
+       })
 
       // data = data.data.data
       this.chart = echarts.init(this.$el, 'macarons')
@@ -104,6 +111,11 @@ export default {
             type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
           }
         },
+        legend: {
+            data: ['新增','累计'],
+            align: 'left',
+            left: 10
+        },
         xAxis: {
           type: 'category',
           data: arrdate
@@ -112,9 +124,13 @@ export default {
           type: 'value'
         },
         series: [{
-          name: '直接访问',
+          name: '新增',
           type: 'bar',
           data: arrValue
+        },{
+          name: '累计',
+          type: 'bar',
+          data: arrValue2
         }, ]
       })
     }

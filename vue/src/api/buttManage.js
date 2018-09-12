@@ -3,7 +3,7 @@ import request from '@/utils/request'
 
 export function getMeeting(data) {
   return request({
-    url: '/xtcx/meeting/page?pageNum='+data.page+'&pageSize='+data.limit,
+    url: '/xtcx/meeting/userpage',
     method: 'post',
     data
   });

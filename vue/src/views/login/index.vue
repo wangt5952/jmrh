@@ -302,9 +302,8 @@ export default {
           let data = await getUserMenusone()
           let treeData = data.data
           let bbb = this.forload(treeData)
-          // this.login(bbb)
-          // debugger
-          // this.$router.addRoutes(routers)
+          this.login(bbb)
+          this.$router.addRoutes(routers)
           this.$router.push({
             path: '/'
           })

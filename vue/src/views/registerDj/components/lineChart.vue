@@ -11,7 +11,7 @@ import {
 } from '@/utils'
 
 import {
-  gettjlibqy,
+  gettjmeeting,
 } from '@/api/statistics'
 
 import {
@@ -118,21 +118,18 @@ export default {
       let {
         data,
         success
-      } = await gettjlibqy(obj)
+      } = await gettjmeeting()
       if (success) {
-        arr = data.lib
+        arr = data.allMeetingByType
+        this.$emit('childByValue', data.allMeeting)
       }
 
       let arrcount = []
       for (var i in arr) {
         let objArr = {}
-        let country, education, sex, degree, count, researchField
-        arr[i].country ? country = '区域：' +  this.fliterCountry(arr[i].country)+" " : country = ''
-        arr[i].education ? education = '学历：' +  this.fliterEducation(arr[i].education)+" " : education = ''
-        arr[i].degree ? degree = '学位：' +  this.fliterDegree(arr[i].degree)+" " : degree = ''
-        arr[i].sex ? sex = '性别：' +  this.fliterSex(arr[i].sex)+" " : sex = ''
-        arr[i].researchField ? researchField = '领域：' + this.fliterResearchField(arr[i].researchField) : researchField = ''
-        objArr.name = country + education + degree+ sex + researchField
+        let formTypeStr, count
+        arr[i].formTypeStr ? formTypeStr = arr[i].formTypeStr+" " : formTypeStr = ''
+        objArr.name = formTypeStr
         objArr.value = arr[i].count
         arrcount.push(objArr)
       }
@@ -154,7 +151,7 @@ export default {
           data: arrdate
         },
         series: [{
-          name: '访问来源',
+          name: '对接统计',
           type: 'pie',
           radius: '55%',
           center: ['40%', '50%'],//不镂空

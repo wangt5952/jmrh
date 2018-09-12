@@ -75,8 +75,7 @@ Vue.filter('replaceKG', value => {
 // })
 Vue.prototype.$jsPlumb = jsPlumb.jsPlumb
 Vue.prototype.validata = validate
-import img2base64 from './img2base64'; //引入转图片为base64
-Vue.prototype.img2base64 = img2base64
+
 
 import vSelect from 'vue-select'
 Vue.component('v-select', vSelect)

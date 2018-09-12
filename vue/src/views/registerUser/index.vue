@@ -18,39 +18,31 @@
           <div class="" style="flex:10">
             <div class="">
 
-              <el-select v-model="input.domains" style="width:80px;height:30px" placeholder="类别">
-                <el-option label="智能装备" :key=1 :value=1>
+              <el-select v-model="input.types" style="width:80px;height:30px" placeholder="类别">
+                <el-option label="专家" :key=1 :value=1>
                 </el-option>
-                <el-option label="电子信息" :key=2 :value=2>
+                <el-option label="企业" :key=2 :value=2>
                 </el-option>
-                <el-option label="新材料" :key=3 :value=3>
+                <el-option label="服务机构" :key=3 :value=3>
                 </el-option>
-                <el-option label="航空航天" :key=4 :value=4>
-                </el-option>
-                <el-option label="生物技术与新医药" :key=5 :value=5>
-                </el-option>
-                <el-option label="能源与环保" :key=6 :value=6>
-                </el-option>
-                <el-option label="管理" :key=7 :value=7>
-                </el-option>
-                <el-option label="其他" :key=99 :value=99>
+                <el-option label="高校院所" :key=4 :value=4>
                 </el-option>
               </el-select>
 
             </div>
               <div class="" style="display: flex;">
-              <el-checkbox-group v-model="input.site1" style="margin:10px 5px;float:right">
+              <el-checkbox-group v-model="input.type" style="margin:10px 5px;float:right">
                 <el-checkbox label="1">类别</el-checkbox>
               </el-checkbox-group>
-          
+
             </div>
           </div>
           <div class="" style="flex:1;margin:5px;">
-            <el-button style="" @click="loadPageList" type="primary">统计</el-button>
+            <el-button style="" @click="loadData" type="primary">统计</el-button>
           </div>
         </div>
         <div class="" style="height:80%;padding-top: 8%;">
-          <pie-chart :chartData="input"></pie-chart>
+          <pie-chart :chartData="input"  ref='piec'></pie-chart>
         </div>
       </el-col>
 
@@ -83,20 +75,8 @@ export default {
   data() {
     return {
       input: {
-        site1: true,
-        site2: '',
-        site3: '',
-        domain: '1',
-        sex: '1',
-        education: '1',
-        degree: '1',
-        sites1: '',
-        sites2: '',
-        sites3: '',
-        domains: '',
-        sexs: '',
-        educations: '',
-        degrees: '',
+        type: true,
+        types: '',
       },
       pca: pcaa, //最多省市区三级，结合:level='2'选择，0省、1省市、2省市区
       arrValue1: [],
@@ -105,13 +85,21 @@ export default {
       total: '',
     }
   },
-  create() {
-   this.loadPageList()
-  },
+
   mounted() {
     this.loadOneTree()
   },
   methods: {
+    loadData(){
+      if(!this.input.type){
+        this.$message({
+          message: '统计项（复选框）必选一个！',
+          type: 'warning'
+        });
+        return
+      }
+       this.$refs.piec.initChart(this.input);
+    },
     loadOneTree() {
       let pcadata = this.pca
       let arr = []

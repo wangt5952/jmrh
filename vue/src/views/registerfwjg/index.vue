@@ -29,28 +29,35 @@
                 <el-option v-for="item in arrValue3" :label=item.value :key=item.value :value=item.name>
                 </el-option>
               </el-select>
-              <el-select v-model="input.domains" style="width:110px;height:30px" placeholder="机构类别">
-                <el-option label="智能装备" :key=1 :value=1>
+              <el-select v-model="input.categorys" style="width:110px;height:30px" placeholder="机构类别">
+                <el-option label="研究开发" :key=1 :value=1>
                 </el-option>
-                <el-option label="电子信息" :key=2 :value=2>
+                <el-option label="科技投融资" :key=2 :value=2>
                 </el-option>
-                <el-option label="新材料" :key=3 :value=3>
+                <el-option label="技术转移" :key=3 :value=3>
                 </el-option>
-                <el-option label="航空航天" :key=4 :value=4>
+                <el-option label="检验检测" :key=4 :value=4>
                 </el-option>
-                <el-option label="生物技术与新医药" :key=5 :value=5>
+                <el-option label="创业孵化" :key=5 :value=5>
                 </el-option>
-                <el-option label="能源与环保" :key=6 :value=6>
+                <el-option label="知识产权" :key=6 :value=6>
                 </el-option>
-                <el-option label="管理" :key=7 :value=7>
+                <el-option label="科技评估" :key=7 :value=7>
                 </el-option>
-                <el-option label="其他" :key=99 :value=99>
+                <el-option label="标准认证" :key=8 :value=8>
+                </el-option>
+                <el-option label="管理咨询" :key=9 :value=9>
+                </el-option>
+                <el-option label="综合科技服务" :key=10 :value=10>
                 </el-option>
               </el-select>
-              <el-select v-model="input.sexs" style="width:110px;height:30px" placeholder="机构性质">
-                <el-option label="男" :key=-1 :value=-1>
+
+              <el-select v-model="input.natures" style="width:110px;height:30px" placeholder="机构性质">
+                <el-option label="企业" :key=1 :value=1>
                 </el-option>
-                <el-option label="女" :key=0 :value=0>
+                <el-option label="科研院所" :key=2 :value=2>
+                </el-option>
+                <el-option label="高等院校" :key=3 :value=3>
                 </el-option>
               </el-select>
 
@@ -67,20 +74,20 @@
               <el-checkbox-group v-model="input.site3" style="margin:10px 5px;float:right">
                 <el-checkbox label="3">区 </el-checkbox>
               </el-checkbox-group>
-              <el-checkbox-group v-model="input.domain" style="margin:10px 5px;float:right">
+              <el-checkbox-group v-model="input.category" style="margin:10px 5px;float:right">
                 <el-checkbox label="5">机构类别</el-checkbox>
               </el-checkbox-group>
-              <el-checkbox-group v-model="input.sex" style="margin:10px 5px;float:right">
+              <el-checkbox-group v-model="input.nature" style="margin:10px 5px;float:right">
                 <el-checkbox label="5">机构性质</el-checkbox>
               </el-checkbox-group>
             </div>
           </div>
           <div class="" style="flex:1;margin:5px;">
-            <el-button style="" @click="loadPageList" type="primary">统计</el-button>
+            <el-button style="" @click="loadData" type="primary">统计</el-button>
           </div>
         </div>
         <div class="" style="height:80%;padding-top: 8%;">
-          <pie-chart :chartData="input"></pie-chart>
+          <pie-chart :chartData="input"  ref='piec'></pie-chart>
         </div>
       </el-col>
 
@@ -114,19 +121,15 @@ export default {
     return {
       input: {
         site1: true,
-        site2: '',
-        site3: '',
-        domain: '1',
-        sex: '1',
-        education: '1',
-        degree: '1',
+        site2: false,
+        site3: false,
+        categorys: false,
+        natures: false,
         sites1: '',
         sites2: '',
         sites3: '',
-        domains: '',
-        sexs: '',
-        educations: '',
-        degrees: '',
+        categorys: '',
+        natures: '',
       },
       pca: pcaa, //最多省市区三级，结合:level='2'选择，0省、1省市、2省市区
       arrValue1: [],
@@ -135,13 +138,21 @@ export default {
       total: '',
     }
   },
-  create() {
-   this.loadPageList()
-  },
+
   mounted() {
     this.loadOneTree()
   },
   methods: {
+    loadData(){
+      if(!this.input.site1  && !this.input.site2  && !this.input.site3 && !this.input.categorys && !this.input.natures){
+        this.$message({
+          message: '统计项（复选框）必选一个！',
+          type: 'warning'
+        });
+        return
+      }
+       this.$refs.piec.initChart(this.input);
+    },
     loadOneTree() {
       let pcadata = this.pca
       let arr = []

@@ -85,58 +85,28 @@ export default {
   methods: {
     async initChart(objdata) {
       let obj = {}
-      let arrobjdata = []
-      let arrobjdatas = []
-      objdata.site1 != '' ?  obj.site = '1' : obj.site = '1'
-      objdata.site2 != '' ?  obj.site = '2': obj.site = '1'
-      objdata.site3 != '' ?  obj.site = '3': obj.site = '2'
-      if(objdata.sex){
+      objdata.type ? obj.type = '1' : obj.type = '0'
 
-      }
-      objdata.sex ? obj.sex = objdata.sex : obj.sex = objdata.sex
-      objdata.domain ? obj.domain = objdata.domain : obj.domain = objdata.domain
-      objdata.education ? obj.education = objdata.education : obj.education = objdata.education
-      objdata.degree ? obj.degree = objdata.degree : obj.degree = objdata.degree
+      let types = []
+      types.push(objdata.types)
+      objdata.types != '' ?  obj.types  = types : obj.types = null
 
-      if (objdata.sites1 != '') arrobjdatas.push(objdata.sites1)
-      if (objdata.sites2 != '') arrobjdatas.push(objdata.sites2)
-      if (objdata.sites3 != '') arrobjdatas.push(objdata.sites3)
-
-      arrobjdatas.length == 0 ? obj.sites = null : obj.sites = arrobjdatas
-
-
-      // obj.sexs = objdata.sexs
-      // obj.domains =objdata.domains
-      // obj.educations = objdata.educations
-      // obj.degrees = objdata.degrees
-
-      obj.sexs = null
-      obj.domains = null
-      obj.educations = null
-      obj.degrees = null
       let arr = []
       let {
         data,
         success
       } = await gettjUserqy(obj)
       if (success) {
-        arr = data.lib
+        arr = data.user
       }
 
       let arrcount = []
       for (var i in arr) {
         let objArr = {}
-        let country, education, sex, degree, count, researchField
-        arr[i].country ? country = '区域：' +  this.fliterCountry(arr[i].country)+" " : country = ''
-        arr[i].education ? education = '学历：' +  this.fliterEducation(arr[i].education)+" " : education = ''
-        arr[i].degree ? degree = '学位：' +  this.fliterDegree(arr[i].degree)+" " : degree = ''
-        arr[i].sex ? sex = '性别：' +  this.fliterSex(arr[i].sex)+" " : sex = ''
-        arr[i].researchField ? researchField = '领域：' + this.fliterResearchField(arr[i].researchField) : researchField = ''
-        objArr.name = country + education + degree+ sex + researchField
+        objArr.name = arr[i].userType
         objArr.value = arr[i].count
         arrcount.push(objArr)
       }
-
 
       let arrdate = []
       for (var v in arrcount) {
@@ -154,7 +124,7 @@ export default {
           data: arrdate
         },
         series: [{
-          name: '访问来源',
+          name: '注册用户统计',
           type: 'pie',
           radius: '55%',
           center: ['40%', '50%'],//不镂空

@@ -74,29 +74,31 @@ export default {
     this.chart.dispose()
     this.chart = null
   },
-  // watch: {
-  //   chartData: {
-  //     deep: true,
-  //     handler(val) {
-  //       this.setOptions(val)
-  //     }
-  //   }
-  // },
   methods: {
     async initChart(objdata) {
-      let obj = {}
-      let arrobjdata = []
-      let arrobjdatas = []
-      objdata.site1 != '' ?  obj.site = '1' : obj.site = '1'
-      objdata.site2 != '' ?  obj.site = '2': obj.site = '1'
-      objdata.site3 != '' ?  obj.site = '3': obj.site = '2'
-      if(objdata.sex){
+        let obj = {
+          site: '0'
+        }
+        let arrobjdata = []
+        let arrobjdatas = []
+        if (objdata.site1) arrobjdata.push('1')
+        if (objdata.site2) arrobjdata.push('2')
+        if (objdata.site3) arrobjdata.push('3')
+        if (arrobjdata.includes('1')) {
+          obj.site = '1'
+        }
+        if (arrobjdata.includes('2')) {
+          obj.site = '2'
+        }
+        if (arrobjdata.includes('3')) {
+          obj.site = '3'
+        }
 
-      }
-      objdata.sex ? obj.sex = objdata.sex : obj.sex = objdata.sex
-      objdata.domain ? obj.domain = objdata.domain : obj.domain = objdata.domain
-      objdata.education ? obj.education = objdata.education : obj.education = objdata.education
-      objdata.degree ? obj.degree = objdata.degree : obj.degree = objdata.degree
+      objdata.sex ? obj.sex = '1' : obj.sex = '0'
+      objdata.domain ? obj.domain = '1' : obj.domain = '0'
+      objdata.education ? obj.education = '1' : obj.education = '0'
+      objdata.degree ? obj.degree = '1' : obj.degree = '0'
+
 
       if (objdata.sites1 != '') arrobjdatas.push(objdata.sites1)
       if (objdata.sites2 != '') arrobjdatas.push(objdata.sites2)
@@ -105,21 +107,31 @@ export default {
       arrobjdatas.length == 0 ? obj.sites = null : obj.sites = arrobjdatas
 
 
-      // obj.sexs = objdata.sexs
-      // obj.domains =objdata.domains
-      // obj.educations = objdata.educations
-      // obj.degrees = objdata.degrees
-
-      obj.sexs = null
-      obj.domains = null
-      obj.educations = null
-      obj.degrees = null
+      let arrsexs = []
+      let domains = []
+      let educations = []
+      let degrees = []
+      arrsexs.push(objdata.sexs)
+      domains.push(objdata.domains)
+      educations.push(objdata.educations)
+      degrees.push(objdata.degrees)
+      objdata.sexs != '' ?  obj.sexs = arrsexs : obj.sexs = null
+      objdata.domains != '' ? obj.domains  = domains : obj.domains = null
+      objdata.educations != '' ?  obj.educations  = educations : obj.educations = null
+      objdata.degrees != '' ?  obj.degrees  = degrees : obj.degrees = null
       let arr = []
       let {
         data,
         success
-      } = await gettjlibqy(obj)
+      } = await gettjlibqy(obj,'1')
       if (success) {
+        if(data.lib.length == 0){
+          this.$message({
+            message: '没有获取到数据！',
+            type: 'warning'
+          });
+          return
+        }
         arr = data.lib
       }
 
@@ -127,11 +139,11 @@ export default {
       for (var i in arr) {
         let objArr = {}
         let country, education, sex, degree, count, researchField
-        arr[i].country ? country = '区域：' +  this.fliterCountry(arr[i].country)+" " : country = ''
-        arr[i].education ? education = '学历：' +  this.fliterEducation(arr[i].education)+" " : education = ''
-        arr[i].degree ? degree = '学位：' +  this.fliterDegree(arr[i].degree)+" " : degree = ''
-        arr[i].sex ? sex = '性别：' +  this.fliterSex(arr[i].sex)+" " : sex = ''
-        arr[i].researchField ? researchField = '领域：' + this.fliterResearchField(arr[i].researchField) : researchField = ''
+        arr[i].country ? country =  arr[i].country+" " : country = ''
+        arr[i].education ? education =  arr[i].education+" " : education = ''
+        arr[i].degree ? degree =  arr[i].degree+" " : degree = ''
+        arr[i].sex ? sex =   arr[i].sex+" " : sex = ''
+        arr[i].researchField ? researchField =  arr[i].researchField : researchField = ''
         objArr.name = country + education + degree+ sex + researchField
         objArr.value = arr[i].count
         arrcount.push(objArr)
@@ -154,7 +166,7 @@ export default {
           data: arrdate
         },
         series: [{
-          name: '访问来源',
+          name: '专家统计',
           type: 'pie',
           radius: '55%',
           center: ['40%', '50%'],//不镂空
@@ -263,11 +275,6 @@ export default {
         }
         return data
     },
-  },
-  watch: {
-    // infoObj: function() {
-    //   this.initChart(this.infoObj)
-    // }
   }
 }
 </script>

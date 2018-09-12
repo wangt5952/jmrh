@@ -1,17 +1,17 @@
 import request from '@/utils/request'
 
 
-export function gettjlib(data) {
+export function gettjlib(num) {
   return request({
-    url: '/xtcx/data/lib?formType=1',
+    url: '/xtcx/data/lib?formType='+num,
     method: 'get',
   });
 }
 
 
-export function gettjlibqy(data) {
+export function gettjlibqy(data,num) {
   return request({
-    url: '/xtcx/data/lib?formType=1',
+    url: '/xtcx/data/lib?formType='+num,
     method: 'post',
     data
   });

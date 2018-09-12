@@ -98,7 +98,7 @@
     <el-table-column v-show="tfcheckStatus == 1|| tfcheckStatus == ''" align="center" label="状态"  width="70px;">
       <template slot-scope="scope">
                         <span v-show="scope.row.checkStatus == -1">草稿</span>
-                        <span v-show="scope.row.checkStatus == 0">审核</span>
+                        <span v-show="scope.row.checkStatus == 0">待审核</span>
                         <span v-show="scope.row.checkStatus == 1">已发布</span>
                         <span v-show="scope.row.checkStatus == 2">驳回</span>
                     </template>

@@ -84,19 +84,28 @@ export default {
   // },
   methods: {
     async initChart(objdata) {
-      let obj = {}
+      let obj = {
+        site: '0'
+      }
       let arrobjdata = []
       let arrobjdatas = []
-      objdata.site1 != '' ?  obj.site = '1' : obj.site = '1'
-      objdata.site2 != '' ?  obj.site = '2': obj.site = '1'
-      objdata.site3 != '' ?  obj.site = '3': obj.site = '2'
-      if(objdata.sex){
-
+      if (objdata.site1) arrobjdata.push('1')
+      if (objdata.site2) arrobjdata.push('2')
+      if (objdata.site3) arrobjdata.push('3')
+      if (arrobjdata.includes('1')) {
+        obj.site = '1'
       }
-      objdata.sex ? obj.sex = objdata.sex : obj.sex = objdata.sex
-      objdata.domain ? obj.domain = objdata.domain : obj.domain = objdata.domain
-      objdata.education ? obj.education = objdata.education : obj.education = objdata.education
-      objdata.degree ? obj.degree = objdata.degree : obj.degree = objdata.degree
+      if (arrobjdata.includes('2')) {
+        obj.site = '2'
+      }
+      if (arrobjdata.includes('3')) {
+        obj.site = '3'
+      }
+
+      objdata.isListed ? obj.isListed = '1' : obj.isListed = '0'
+      objdata.domain ? obj.domain = '1' : obj.domain = '0'
+      objdata.regType ? obj.regType = '1' : obj.regType = '0'
+      objdata.scale ? obj.scale = '1' : obj.scale = '0'
 
       if (objdata.sites1 != '') arrobjdatas.push(objdata.sites1)
       if (objdata.sites2 != '') arrobjdatas.push(objdata.sites2)
@@ -110,15 +119,24 @@ export default {
       // obj.educations = objdata.educations
       // obj.degrees = objdata.degrees
 
-      obj.sexs = null
-      obj.domains = null
-      obj.educations = null
-      obj.degrees = null
+      let isListeds = []
+      let domains = []
+      let regTypes = []
+      let scales = []
+      isListeds.push(objdata.isListeds)
+      domains.push(objdata.domains)
+      regTypes.push(objdata.regTypes)
+      scales.push(objdata.scales)
+      objdata.isListeds != '' ? obj.isListeds = isListeds : obj.isListeds = null
+      objdata.domains != '' ? obj.domains = domains : obj.domains = null
+      objdata.regTypes != '' ? obj.regTypes = regTypes : obj.regTypes = null
+      objdata.scales != '' ? obj.scales = scales : obj.scales = null
+
       let arr = []
       let {
         data,
         success
-      } = await gettjlibqy(obj)
+      } = await gettjlibqy(obj, '2')
       if (success) {
         arr = data.lib
       }
@@ -126,13 +144,20 @@ export default {
       let arrcount = []
       for (var i in arr) {
         let objArr = {}
-        let country, education, sex, degree, count, researchField
-        arr[i].country ? country = '区域：' +  this.fliterCountry(arr[i].country)+" " : country = ''
-        arr[i].education ? education = '学历：' +  this.fliterEducation(arr[i].education)+" " : education = ''
-        arr[i].degree ? degree = '学位：' +  this.fliterDegree(arr[i].degree)+" " : degree = ''
-        arr[i].sex ? sex = '性别：' +  this.fliterSex(arr[i].sex)+" " : sex = ''
-        arr[i].researchField ? researchField = '领域：' + this.fliterResearchField(arr[i].researchField) : researchField = ''
-        objArr.name = country + education + degree+ sex + researchField
+        let country, isListed, domain, scale, count, regType
+        arr[i].country ? country = arr[i].country + " " : country = ''
+        arr[i].isListed ? isListed = arr[i].isListed + " " : isListed = ''
+        // if (arr[i].isListed && arr[i].isListed == '是') {
+        //   isListed = '已上市 '
+        // } else if (arr[i].isListed && arr[i].isListed == '否') {
+        //   isListed = '未上市 '
+        // }
+        arr[i].domain ? domain = arr[i].domain + " " : domain = ''
+        arr[i].scale ? scale = arr[i].scale + " " : scale = ''
+        arr[i].regType ? regType = arr[i].regType : regType = ''
+
+        debugger
+        objArr.name = country + isListed + domain + scale + regType
         objArr.value = arr[i].count
         arrcount.push(objArr)
       }
@@ -154,10 +179,10 @@ export default {
           data: arrdate
         },
         series: [{
-          name: '访问来源',
+          name: '企业统计',
           type: 'pie',
           radius: '55%',
-          center: ['40%', '50%'],//不镂空
+          center: ['40%', '50%'], //不镂空
           avoidLabelOverlap: false,
           label: {
             normal: {
@@ -236,32 +261,32 @@ export default {
       return data
     },
     fliterSex(data) {
-        if (data == '1') {
-          data = '男'
-        } else if (data == '0') {
-          data = '女'
-        }
-        return data
+      if (data == '1') {
+        data = '男'
+      } else if (data == '0') {
+        data = '女'
+      }
+      return data
     },
     fliterResearchField(data) {
-        if (data == '1') {
-          data = '智能装备'
-        } else if (data == '2') {
-          data = '电子信息'
-        } else if (data == '3') {
-          data = '新材料'
-        } else if (data == '4') {
-          data = '航空航天'
-        } else if (data == '5') {
-          data = '生物技术与新医药'
-        } else if (data == '6') {
-          data = '能源与环保'
-        } else if (data == '7') {
-          data = '管理'
-        } else if (data == '99') {
-          data = '其他'
-        }
-        return data
+      if (data == '1') {
+        data = '智能装备'
+      } else if (data == '2') {
+        data = '电子信息'
+      } else if (data == '3') {
+        data = '新材料'
+      } else if (data == '4') {
+        data = '航空航天'
+      } else if (data == '5') {
+        data = '生物技术与新医药'
+      } else if (data == '6') {
+        data = '能源与环保'
+      } else if (data == '7') {
+        data = '管理'
+      } else if (data == '99') {
+        data = '其他'
+      }
+      return data
     },
   },
   watch: {

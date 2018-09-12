@@ -84,19 +84,25 @@ export default {
   // },
   methods: {
     async initChart(objdata) {
-      let obj = {}
+      let obj = {
+        site: '0'
+      }
       let arrobjdata = []
       let arrobjdatas = []
-      objdata.site1 != '' ?  obj.site = '1' : obj.site = '1'
-      objdata.site2 != '' ?  obj.site = '2': obj.site = '1'
-      objdata.site3 != '' ?  obj.site = '3': obj.site = '2'
-      if(objdata.sex){
-
+      if (objdata.site1) arrobjdata.push('1')
+      if (objdata.site2) arrobjdata.push('2')
+      if (objdata.site3) arrobjdata.push('3')
+      if (arrobjdata.includes('1')) {
+        obj.site = '1'
       }
-      objdata.sex ? obj.sex = objdata.sex : obj.sex = objdata.sex
-      objdata.domain ? obj.domain = objdata.domain : obj.domain = objdata.domain
-      objdata.education ? obj.education = objdata.education : obj.education = objdata.education
-      objdata.degree ? obj.degree = objdata.degree : obj.degree = objdata.degree
+      if (arrobjdata.includes('2')) {
+        obj.site = '2'
+      }
+      if (arrobjdata.includes('3')) {
+        obj.site = '3'
+      }
+      objdata.domain ? obj.domain = '1' : obj.domain = '0'
+      objdata.stage ? obj.stage = '1' : obj.stage = '0'
 
       if (objdata.sites1 != '') arrobjdatas.push(objdata.sites1)
       if (objdata.sites2 != '') arrobjdatas.push(objdata.sites2)
@@ -105,20 +111,16 @@ export default {
       arrobjdatas.length == 0 ? obj.sites = null : obj.sites = arrobjdatas
 
 
-      // obj.sexs = objdata.sexs
-      // obj.domains =objdata.domains
-      // obj.educations = objdata.educations
-      // obj.degrees = objdata.degrees
+      let domains = []
+      let stages = []
+      domains.push(objdata.domains)
+      stages.push(objdata.stages)
 
-      obj.sexs = null
-      obj.domains = null
-      obj.educations = null
-      obj.degrees = null
       let arr = []
       let {
         data,
         success
-      } = await gettjlibqy(obj)
+      } = await gettjlibqy(obj,'6')
       if (success) {
         arr = data.lib
       }
@@ -126,13 +128,11 @@ export default {
       let arrcount = []
       for (var i in arr) {
         let objArr = {}
-        let country, education, sex, degree, count, researchField
-        arr[i].country ? country = '区域：' +  this.fliterCountry(arr[i].country)+" " : country = ''
-        arr[i].education ? education = '学历：' +  this.fliterEducation(arr[i].education)+" " : education = ''
-        arr[i].degree ? degree = '学位：' +  this.fliterDegree(arr[i].degree)+" " : degree = ''
-        arr[i].sex ? sex = '性别：' +  this.fliterSex(arr[i].sex)+" " : sex = ''
-        arr[i].researchField ? researchField = '领域：' + this.fliterResearchField(arr[i].researchField) : researchField = ''
-        objArr.name = country + education + degree+ sex + researchField
+        let country, stage, domain
+        arr[i].country ? country =  arr[i].country+" " : country = ''
+        arr[i].stage ? stage =   arr[i].stage+" " : stage = ''
+        arr[i].domain ? domain =  arr[i].domain+" " : domain = ''
+        objArr.name = country + stage + domain
         objArr.value = arr[i].count
         arrcount.push(objArr)
       }
@@ -154,7 +154,7 @@ export default {
           data: arrdate
         },
         series: [{
-          name: '访问来源',
+          name: '成果统计',
           type: 'pie',
           radius: '55%',
           center: ['40%', '50%'],//不镂空

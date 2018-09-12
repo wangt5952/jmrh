@@ -65,11 +65,11 @@
             </div>
           </div>
           <div class="" style="flex:1;margin:5px;">
-            <el-button style="" @click="loadPageList" type="primary">统计</el-button>
+            <el-button style="" @click="loadData" type="primary">统计</el-button>
           </div>
         </div>
         <div class="" style="height:80%;padding-top: 8%;">
-          <pie-chart :chartData="input"></pie-chart>
+          <pie-chart :chartData="input"  ref='piec'></pie-chart>
         </div>
       </el-col>
 
@@ -103,19 +103,13 @@ export default {
     return {
       input: {
         site1: true,
-        site2: '',
-        site3: '',
-        domain: '1',
-        sex: '1',
-        education: '1',
-        degree: '1',
+        site2: false,
+        site3: false,
+        domain: false,
         sites1: '',
         sites2: '',
         sites3: '',
         domains: '',
-        sexs: '',
-        educations: '',
-        degrees: '',
       },
       pca: pcaa, //最多省市区三级，结合:level='2'选择，0省、1省市、2省市区
       arrValue1: [],
@@ -124,13 +118,21 @@ export default {
       total: '',
     }
   },
-  create() {
-   this.loadPageList()
-  },
+
   mounted() {
     this.loadOneTree()
   },
   methods: {
+    loadData(){
+      if(!this.input.site1  && !this.input.site2  && !this.input.site3 && !this.input.domain){
+        this.$message({
+          message: '统计项（复选框）必选一个！',
+          type: 'warning'
+        });
+        return
+      }
+       this.$refs.piec.initChart(this.input);
+    },
     loadOneTree() {
       let pcadata = this.pca
       let arr = []

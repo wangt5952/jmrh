@@ -29,7 +29,38 @@
                 <el-option v-for="item in arrValue3" :label=item.value :key=item.value :value=item.name>
                 </el-option>
               </el-select>
-              <el-select v-model="input.domains" style="width:110px;height:30px" placeholder="企业规模">
+              <el-select v-model="input.scales" style="width:110px;height:30px" placeholder="企业规模">
+                <el-option label="小于2000万（含）" :key=1 :value=1>
+                </el-option>
+                <el-option label="2000-5000万" :key=2 :value=2>
+                </el-option>
+                <el-option label="5000-1亿（含）" :key=3 :value=3>
+                </el-option>
+                <el-option label="1亿-2亿（含）" :key=4 :value=4>
+                </el-option>
+                <el-option label="2亿-4亿（含）" :key=5 :value=5>
+                </el-option>
+                <el-option label="4亿及以上（含）" :key=6 :value=6>
+                </el-option>
+              </el-select>
+              <el-select v-model="input.regTypes" style="width:110px;height:30px" placeholder="注册类型">
+                <el-option label="内资企业" :key=1 :value=1>
+                </el-option>
+                <el-option label="合资企业" :key=2 :value=2>
+                </el-option>
+                <el-option label="外资企业" :key=3 :value=3>
+                </el-option>
+              </el-select>
+
+              <el-select v-model="input.isListeds" style="width:110px;height:30px" placeholder="是否上市">
+                <el-option label="是" :key=1 :value=1>
+                </el-option>
+                <el-option label="否" :key=0 :value=0>
+                </el-option>
+              </el-select>
+
+
+              <el-select v-model="input.domains" style="width:80px;height:30px" placeholder="领域统计">
                 <el-option label="智能装备" :key=1 :value=1>
                 </el-option>
                 <el-option label="电子信息" :key=2 :value=2>
@@ -47,42 +78,6 @@
                 <el-option label="其他" :key=99 :value=99>
                 </el-option>
               </el-select>
-              <el-select v-model="input.sexs" style="width:110px;height:30px" placeholder="注册类型">
-                <el-option label="男" :key=-1 :value=-1>
-                </el-option>
-                <el-option label="女" :key=0 :value=0>
-                </el-option>
-              </el-select>
-
-              <el-select v-model="input.educations" style="width:110px;height:30px" placeholder="是否上市">
-                <el-option label="小学" key="1" value="1">
-                </el-option>
-                <el-option label="初中" key="2" value="2">
-                </el-option>
-                <el-option label="高中" key="3" value="3">
-                </el-option>
-                <el-option label="大专" key="4" value="4">
-                </el-option>
-                <el-option label="本科" key="5" value="5">
-                </el-option>
-                <el-option label="研究生" key="6" value="6">
-                </el-option>
-                <el-option label="博士" key="7" value="7">
-                </el-option>
-                <el-option label="其他" key="99" value="99">
-                </el-option>
-              </el-select>
-
-              <el-select v-model="input.degrees" style="width:110px;height:30px" placeholder="领域统计">
-                <el-option label="学士" key="1" value="1">
-                </el-option>
-                <el-option label="硕士" key="2" value="2">
-                </el-option>
-                <el-option label="博士" key="3" value="3">
-                </el-option>
-                <el-option label="其他" key="99" value="99">
-                </el-option>
-              </el-select>
             </div>
               <div class="" style="display: flex;">
               <el-checkbox-group v-model="input.site1" style="margin:10px 5px;float:right">
@@ -94,26 +89,26 @@
               <el-checkbox-group v-model="input.site3" style="margin:10px 5px;float:right">
                 <el-checkbox label="3">区 </el-checkbox>
               </el-checkbox-group>
-              <el-checkbox-group v-model="input.domain" style="margin:10px 5px;float:right">
+              <el-checkbox-group v-model="input.scale" style="margin:10px 5px;float:right">
                 <el-checkbox label="5">企业规模</el-checkbox>
               </el-checkbox-group>
-              <el-checkbox-group v-model="input.sex" style="margin:10px 5px;float:right">
+              <el-checkbox-group v-model="input.regType" style="margin:10px 5px;float:right">
                 <el-checkbox label="5">注册类型</el-checkbox>
               </el-checkbox-group>
-              <el-checkbox-group v-model="input.education" style="margin:10px 5px;float:right">
+              <el-checkbox-group v-model="input.isListed" style="margin:10px 5px;float:right">
                 <el-checkbox label="6">是否上市</el-checkbox>
               </el-checkbox-group>
-              <el-checkbox-group v-model="input.degree" style="margin:10px 5px;float:right">
+              <el-checkbox-group v-model="input.domain" style="margin:10px 5px;float:right">
                 <el-checkbox label="6">领域统计</el-checkbox>
               </el-checkbox-group>
             </div>
           </div>
           <div class="" style="flex:1;margin:5px;">
-            <el-button style="" @click="loadPageList" type="primary">统计</el-button>
+            <el-button style="" @click="loadData" type="primary">统计</el-button>
           </div>
         </div>
         <div class="" style="height:80%;padding-top: 8%;">
-          <pie-chart :chartData="input"></pie-chart>
+          <pie-chart :chartData="input"  ref='piec'></pie-chart>
         </div>
       </el-col>
 
@@ -147,19 +142,20 @@ export default {
     return {
       input: {
         site1: true,
-        site2: '',
-        site3: '',
-        domain: '1',
-        sex: '1',
-        education: '1',
-        degree: '1',
+        site2: false,
+        site3: false,
+        domain: false,
+        isListed: false,
+        regType: false,
+        scale: false,
+
         sites1: '',
         sites2: '',
         sites3: '',
         domains: '',
-        sexs: '',
-        educations: '',
-        degrees: '',
+        isListeds: '',
+        regTypes: '',
+        scales: '',
       },
       pca: pcaa, //最多省市区三级，结合:level='2'选择，0省、1省市、2省市区
       arrValue1: [],
@@ -168,13 +164,21 @@ export default {
       total: '',
     }
   },
-  create() {
-   this.loadPageList()
-  },
+
   mounted() {
     this.loadOneTree()
   },
   methods: {
+    loadData(){
+      if(!this.input.site1  && !this.input.site2  && !this.input.site3 && !this.input.domain && !this.input.isListed&& !this.input.regType&& !this.input.scale){
+        this.$message({
+          message: '统计项（复选框）必选一个！',
+          type: 'warning'
+        });
+        return
+      }
+       this.$refs.piec.initChart(this.input);
+    },
     loadOneTree() {
       let pcadata = this.pca
       let arr = []

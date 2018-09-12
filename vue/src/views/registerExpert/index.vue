@@ -48,9 +48,9 @@
                 </el-option>
               </el-select>
               <el-select v-model="input.sexs" style="width:80px;height:30px" placeholder="性别">
-                <el-option label="男" :key=-1 :value=-1>
+                <el-option label="男" key='1' value='1'>
                 </el-option>
-                <el-option label="女" :key=0 :value=0>
+                <el-option label="女" key='0' value='0'>
                 </el-option>
               </el-select>
 
@@ -85,7 +85,7 @@
               </el-select>
             </div>
               <div class="" style="display: flex;">
-              <el-checkbox-group v-model="input.site1" style="margin:10px 5px;float:right">
+              <el-checkbox-group v-model="input.site1"  style="margin:10px 5px;float:right">
                 <el-checkbox label="1">省</el-checkbox>
               </el-checkbox-group>
               <el-checkbox-group v-model="input.site2" style="margin:10px 5px;float:right">
@@ -109,11 +109,11 @@
             </div>
           </div>
           <div class="" style="flex:1;margin:5px;">
-            <el-button style="" @click="loadPageList" type="primary">统计</el-button>
+            <el-button style="" @click="loadData" type="primary">统计</el-button>
           </div>
         </div>
         <div class="" style="height:80%;padding-top: 8%;">
-          <pie-chart :chartData="input"></pie-chart>
+          <pie-chart :chartData="input" ref='piec'></pie-chart>
         </div>
       </el-col>
 
@@ -147,12 +147,12 @@ export default {
     return {
       input: {
         site1: true,
-        site2: '',
-        site3: '',
-        domain: '1',
-        sex: '1',
-        education: '1',
-        degree: '1',
+        site2: false,
+        site3: false,
+        domain: false,
+        sex: false,
+        education: false,
+        degree: false,
         sites1: '',
         sites2: '',
         sites3: '',
@@ -168,13 +168,20 @@ export default {
       total: '',
     }
   },
-  create() {
-   this.loadPageList()
-  },
   mounted() {
     this.loadOneTree()
   },
   methods: {
+    loadData(){
+      if(!this.input.site1  && !this.input.site2  && !this.input.site3 && !this.input.domain && !this.input.sex&& !this.input.education&& !this.input.degree){
+        this.$message({
+          message: '统计项（复选框）必选一个！',
+          type: 'warning'
+        });
+        return
+      }
+       this.$refs.piec.initChart(this.input);
+    },
     loadOneTree() {
       let pcadata = this.pca
       let arr = []

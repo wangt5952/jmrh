@@ -2,31 +2,6 @@
  * Created by gyx on 18/03/16.
  */
 
- // function to encode file data to base64 encoded string
- export function base64_encode(file) {
-     // read binary data
-     return new Buffer(file).toString('base64');
- }
-
- // function to create file from base64 encoded string
-// export function base64_decode(base64str, file) {
-//      // create buffer object from base64 encoded string, it is important to tell the constructor that the string is base64 encoded
-//      var bitmap = new Buffer(base64str, 'base64');
-//      // write buffer to file
-//      fs.writeFileSync(file, bitmap);
-//      console.log('******** File created from base64 encoded string ********');
-//  }
-//  export function base64_file(base64str,file){
-//  	var bitmap = new Buffer(base64str);
-//  	fs.writeFileSync(file, bitmap);
-//  	console.log('******** base64 encoded string ********');
-//  }
- // input
- // var base64str = base64_encode('1.png');
- // // output
- // base64_file(base64str,'1.png.base64.txt')
- // base64_decode(base64str,'2.png');
-
 export function formatTime(time, option) {
   time = +time * 1000
   const d = new Date(time)

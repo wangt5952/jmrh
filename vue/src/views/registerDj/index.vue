@@ -7,7 +7,7 @@
       <el-col :span="10" style="background: #fff; cursor: pointer;height:100%">
         <div class="" style="width: 300px;height: 100px;margin: 0 auto;background: #ccc;display:flex;justify-content:center; align-items:Center;text-align:center;">
           <span style="flex:2;text-align:right;color: #fff;font-size: 20px;">实时发起数统计</span>
-          <span @click="Toexpert2('activeManage')" style="flex:1;font-size: 24px;color: #409EFF;text-align:center;">{{total || 0}}</span>
+          <span @click="Toexpert2('activeManage')" style="flex:1;font-size: 24px;color: #409EFF;text-align:center;">{{allMeeting || 0}}</span>
         </div>
         <div class="" style="width: 450px;height:70%;margin: 0 auto;display:flex;justify-content:center; align-items:Center;text-align:center;padding-top:2%">
           <line-chart :chartData="input" v-on:childByValue="childByValue"></line-chart>
@@ -16,10 +16,10 @@
       <el-col :span="10" style="background: #fff; margin-right: 20px;cursor: pointer;height:100%">
         <div class="" style="width: 300px;height: 100px;margin: 0 auto;background: #ccc;display:flex;justify-content:center; align-items:Center;text-align:center;">
           <span style="flex:2;text-align:right;color: #fff;font-size: 20px;">实时成功数统计</span>
-          <span @click="Toexpert2('activeManage')" style="flex:1;font-size: 24px;color: #409EFF;text-align:center;">{{total || 0}}</span>
+          <span @click="Toexpert2('activeManage')" style="flex:1;font-size: 24px;color: #409EFF;text-align:center;">{{allSuccessMeeting || 0}}</span>
         </div>
         <div class="" style="height:80%;padding-top: 8%;">
-          <pie-chart :chartData="input"></pie-chart>
+          <pie-chart :chartData="input" ref='piec' v-on:childByValue2="childByValue2"></pie-chart>
         </div>
       </el-col>
 
@@ -71,12 +71,11 @@ export default {
       arrValue1: [],
       arrValue2: [],
       arrValue3: [],
-      total: '',
+      allMeeting: '',
+      allSuccessMeeting: '',
     }
   },
-  create() {
-   this.loadPageList()
-  },
+
   mounted() {
     this.loadOneTree()
   },
@@ -143,10 +142,14 @@ export default {
       }
 
     },
-    childByValue: function (childValue) {
-         // childValue就是子组件传过来的值
-         this.total = childValue
-       }
+    childByValue: function(childValue) {
+      // childValue就是子组件传过来的值
+      this.allMeeting = childValue
+    },
+    childByValue2: function(childValue) {
+      // childValue就是子组件传过来的值
+      this.allSuccessMeeting = childValue
+    }
   }
 }
 </script>

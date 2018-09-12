@@ -191,11 +191,8 @@
 
 <script>
 // import Tinymce from '@/components/Tinymce'
-import Editor from '@tinymce/tinymce-vue';
-let Base64 = require('js-base64').Base64;
-import {
-  base64_encode
-} from '@/utils'
+// import Editor from '@tinymce/tinymce-vue';
+
 import {
   getExchanges,
   postExchanges,
@@ -232,7 +229,7 @@ import {
 export default {
   components: {
     // Tinymce
-    'editor': Editor
+    // 'editor': Editor
   },
   data() {
     return {

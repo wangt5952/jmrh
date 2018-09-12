@@ -29,6 +29,10 @@ const contentManage = r => require.ensure([], () => r(require("@/views/contentMa
 const contentEdit = r => require.ensure([], () => r(require("@/views/contentManage/edit/index")), 'contentEdit');
 const activeManage = r => require.ensure([], () => r(require("@/views/activeManage/index")), 'activeManage');
 const activeEdit = r => require.ensure([], () => r(require("@/views/activeManage/edit/index")), 'activeEdit');
+const majorPlatform = r => require.ensure([], () => r(require("@/views/majorPlatform/index")), 'majorPlatform');
+const majorPlatformEdit = r => require.ensure([], () => r(require("@/views/majorPlatform/edit/index")), 'majorPlatformEdit');
+
+
 const expert = r => require.ensure([], () => r(require("@/views/expert/index")), 'expert');
 const expertEdit = r => require.ensure([], () => r(require("@/views/expert/edit/index")), 'expert');
 const enterprise = r => require.ensure([], () => r(require("@/views/enterprise/index")), 'enterprise');
@@ -66,7 +70,8 @@ const robotResponse = r => require.ensure([], () => r(require("@/views/robot/rob
     icon: 'svg-name'             the icon show in the sidebar,
   }
 **/
-export const constantRouterMap = [{
+export const constantRouterMap = [
+  {
     path: '/login',
     component: login,
     name: 'login',
@@ -155,357 +160,376 @@ export const constantRouterMap = [{
       },
     }]
   },
-  {
-    path: '/manage',
-    component: Layout,
-    redirect: '/manage/user',
-    name: '系统管理',
-    meta: {
-      title: '系统管理',
-      icon: 'tree'
-    },
-    leaf: false,
-    children: [{
-      path: 'user',
-      name: '注册用户列表',
-      component: user,
-      leaf: true,
-      meta: {
-        title: '注册用户列表',
-        icon: 'table'
-      }
-    }, {
-      path: 'ManageUser',
-      name: '管理用户列表',
-      component: ManageUser,
-      leaf: true,
-      meta: {
-        title: '管理用户列表',
-        icon: 'table'
-      }
-    }, {
-      path: 'org',
-      name: '组织架构列表',
-      component: org,
-      leaf: true,
-      meta: {
-        title: '组织架构列表',
-        icon: 'table'
-      }
-    },{
-      path: 'role',
-      name: '角色列表',
-      component: role,
-      leaf: true,
-      meta: {
-        title: '角色列表',
-        icon: 'table'
-      }
-    }, {
-      path: 'tree',
-      name: '功能列表',
-      component:tree,
-      leaf: true,
-      meta: {
-        title: '功能列表',
-        icon: 'table'
-      }
-    }]
-  },{
-    path: '/manage2',
-    component: Layout,
-    name: '门户管理',
-    meta: {
-      title: '门户管理',
-      icon: 'tree'
-    },
-    leaf: false,
-    children: [{
-      path: 'columnManage',
-      name: '栏目管理',
-      component: columnManage,
-      leaf: true,
-      meta: {
-        title: '栏目管理',
-        icon: 'table'
-      }
-    },{
-      path: 'contentManage',
-      name: '内容管理',
-      component: contentManage,
-      leaf: true,
-      meta: {
-        title: '内容管理',
-        icon: 'table'
-      }
-    },{
-      path: 'contentEdit',
-      name: 'contentEdit',
-      component: contentEdit,
-      hidden: true,
-      leaf: true,
-      meta: {
-        title: '内容编辑',
-        icon: 'table'
-      }
-    },{
-      path: 'activeManage',
-      name: '活动管理',
-      component: activeManage,
-      leaf: true,
-      meta: {
-        title: '活动管理',
-        icon: 'table'
-      }
-    },{
-      path: 'activeEdit',
-      name: 'activeEdit',
-      component: activeEdit,
-      leaf: true,
-      hidden: true,
-      meta: {
-        title: '活动编辑',
-        icon: 'table'
-      }
-    }]
-  },{
-    path: '/manage3',
-    component: Layout,
-    redirect: '/manage3/expert',
-    name: '资源库管理',
-    meta: {
-      title: '资源库管理',
-      icon: 'tree'
-    },
-    leaf: false,
-    children: [{
-      path: 'expert',
-      name: '专家库管理',
-      component: expert,
-      leaf: true,
-      meta: {
-        title: '专家库管理',
-        icon: 'table'
-      }
-    },{
-      path: 'enterprise',
-      name: '企业库管理',
-      component: enterprise,
-      leaf: true,
-      meta: {
-        title: '企业库管理',
-        icon: 'table'
-      }
-    },{
-      path: 'hschool',
-      name: '高校院所库管理',
-      component: hschool,
-      leaf: true,
-      meta: {
-        title: '高校院所库管理',
-        icon: 'table'
-      }
-    },{
-      path: 'mechanism',
-      name: 'mechanism',
-      component: mechanism,
-      leaf: true,
-      meta: {
-        title: '服务机构库管理',
-        icon: 'table'
-      }
-    },{
-      path: 'expertEdit',
-      name: 'expertEdit',
-      component: expertEdit,
-      leaf: true,
-      hidden: true,
-      meta: {
-        title: '专家库资料填写',
-        icon: 'table'
-      }
-    },{
-      path: 'enterpriseEdit',
-      name: 'enterpriseEdit',
-      component: enterpriseEdit,
-      leaf: true,
-      hidden: true,
-      meta: {
-        title: '企业库资料填写',
-        icon: 'table'
-      }
-    },{
-      path: 'hschoolEdit',
-      name: 'hschoolEdit',
-      component: hschoolEdit,
-      leaf: true,
-      hidden: true,
-      meta: {
-        title: '高校院所库资料填写',
-        icon: 'table'
-      }
-    },{
-      path: 'mechanismEdit',
-      name: 'mechanismEdit',
-      component: mechanismEdit,
-      leaf: true,
-      hidden: true,
-      meta: {
-        title: '服务机构库资料填写',
-        icon: 'table'
-      }
-    },{
-      path: 'demandLibrary',
-      name: '需求库管理',
-      component: demandLibrary,
-      leaf: true,
-      meta: {
-        title: '需求库管理',
-        icon: 'table'
-      }
-    },{
-      path: 'demandLibraryEdit',
-      name: 'demandLibraryEdit',
-      component: demandLibraryEdit,
-      leaf: true,
-      hidden: true,
-      meta: {
-        title: '需求库资料填写',
-        icon: 'table'
-      }
-    },
-    {
-      path: 'achieveLibrary',
-      name: '成果库管理',
-      component: achieveLibrary,
-      leaf: true,
-      meta: {
-        title: '成果库管理',
-        icon: 'table'
-      }
-    },{
-      path: 'achieveLibraryEdit',
-      name: 'achieveLibraryEdit',
-      component: achieveLibraryEdit,
-      leaf: true,
-      hidden: true,
-      meta: {
-        title: '成果库资料填写',
-        icon: 'table'
-      }
-    }]
-  },
-  {
-    path: '/buttManage',
-    component: Layout,
-    name: '对接管理',
-    meta: {
-      title: '对接管理',
-      icon: 'tree'
-    },
-    leaf: false,
-    children: [{
-      path: 'buttExpert',
-      name: '对接管理',
-      component: buttExpert,
-      leaf: true,
-      meta: {
-        title: '专家对接',
-        icon: 'table'
-      }
-    }]
-  },  {
-      path: '/register',
-      component: Layout,
-      name: '统计',
-      meta: {
-        title: '统计',
-        icon: 'tree'
-      },
-      leaf: false,
-      children: [{
-        path: 'registerSee',
-        name: '访问统计',
-        component: registerSee,
-        leaf: true,
-        meta: {
-          title: '访问统计',
-          icon: 'table'
-        }
-      },{
-        path: 'registerUser',
-        name: '注册用户统计',
-        component: registerUser,
-        leaf: true,
-        meta: {
-          title: '注册用户统计',
-          icon: 'table'
-        }
-      },{
-        path: 'registerExpert',
-        name: '专家统计',
-        component: registerExpert,
-        leaf: true,
-        meta: {
-          title: '专家统计',
-          icon: 'table'
-        }
-      },{
-        path: 'registerQy',
-        name: '企业统计',
-        component: registerQy,
-        leaf: true,
-        meta: {
-          title: '企业统计',
-          icon: 'table'
-        }
-      },{
-        path: 'registerHshcool',
-        name: '高校统计',
-        component: registerHshcool,
-        leaf: true,
-        meta: {
-          title: '高校统计',
-          icon: 'table'
-        }
-      },{
-        path: 'registerfwjg',
-        name: '服务机构统计',
-        component: registerfwjg,
-        leaf: true,
-        meta: {
-          title: '服务机构统计',
-          icon: 'table'
-        }
-      },{
-        path: 'registerXq',
-        name: '需求统计',
-        component: registerXq,
-        leaf: true,
-        meta: {
-          title: '需求统计',
-          icon: 'table'
-        }
-      },{
-        path: 'registerCg',
-        name: '成果统计',
-        component: registerCg,
-        leaf: true,
-        meta: {
-          title: '成果统计',
-          icon: 'table'
-        }
-      },{
-        path: 'registerDj',
-        name: '对接统计',
-        component: registerDj,
-        leaf: true,
-        meta: {
-          title: '对接统计',
-          icon: 'table'
-        }
-      }]
-    },
+  // {
+  //   path: '/manage',
+  //   component: Layout,
+  //   redirect: '/manage/user',
+  //   name: '系统管理',
+  //   meta: {
+  //     title: '系统管理',
+  //     icon: 'tree'
+  //   },
+  //   leaf: false,
+  //   children: [{
+  //     path: 'user',
+  //     name: '注册用户列表',
+  //     component: user,
+  //     leaf: true,
+  //     meta: {
+  //       title: '注册用户列表',
+  //       icon: 'table'
+  //     }
+  //   }, {
+  //     path: 'ManageUser',
+  //     name: '管理用户列表',
+  //     component: ManageUser,
+  //     leaf: true,
+  //     meta: {
+  //       title: '管理用户列表',
+  //       icon: 'table'
+  //     }
+  //   }, {
+  //     path: 'org',
+  //     name: '组织架构列表',
+  //     component: org,
+  //     leaf: true,
+  //     meta: {
+  //       title: '组织架构列表',
+  //       icon: 'table'
+  //     }
+  //   },{
+  //     path: 'role',
+  //     name: '角色列表',
+  //     component: role,
+  //     leaf: true,
+  //     meta: {
+  //       title: '角色列表',
+  //       icon: 'table'
+  //     }
+  //   }, {
+  //     path: 'tree',
+  //     name: '功能列表',
+  //     component:tree,
+  //     leaf: true,
+  //     meta: {
+  //       title: '功能列表',
+  //       icon: 'table'
+  //     }
+  //   }]
+  // },{
+  //   path: '/manage2',
+  //   component: Layout,
+  //   name: '门户管理',
+  //   meta: {
+  //     title: '门户管理',
+  //     icon: 'tree'
+  //   },
+  //   leaf: false,
+  //   children: [{
+  //     path: 'columnManage',
+  //     name: '栏目管理',
+  //     component: columnManage,
+  //     leaf: true,
+  //     meta: {
+  //       title: '栏目管理',
+  //       icon: 'table'
+  //     }
+  //   },{
+  //     path: 'contentManage',
+  //     name: '内容管理',
+  //     component: contentManage,
+  //     leaf: true,
+  //     meta: {
+  //       title: '内容管理',
+  //       icon: 'table'
+  //     }
+  //   },{
+  //     path: 'contentEdit',
+  //     name: 'contentEdit',
+  //     component: contentEdit,
+  //     hidden: true,
+  //     leaf: true,
+  //     meta: {
+  //       title: '内容编辑',
+  //       icon: 'table'
+  //     }
+  //   },{
+  //     path: 'activeManage',
+  //     name: '活动管理',
+  //     component: activeManage,
+  //     leaf: true,
+  //     meta: {
+  //       title: '活动管理',
+  //       icon: 'table'
+  //     }
+  //   },{
+  //     path: 'activeEdit',
+  //     name: 'activeEdit',
+  //     component: activeEdit,
+  //     leaf: true,
+  //     hidden: true,
+  //     meta: {
+  //       title: '活动编辑',
+  //       icon: 'table'
+  //     }
+  //   },{
+  //     path: 'majorPlatform',
+  //     name: 'majorPlatform',
+  //     component: majorPlatform,
+  //     leaf: true,
+  //     meta: {
+  //       title: '重大平台',
+  //       icon: 'table'
+  //     }
+  //   },{
+  //     path: 'majorPlatformEdit',
+  //     name: 'majorPlatformEdit',
+  //     component: majorPlatformEdit,
+  //     leaf: true,
+  //     hidden: true,
+  //     meta: {
+  //       title: '重大平台编辑',
+  //       icon: 'table'
+  //     }
+  //   }]
+  // },{
+  //   path: '/manage3',
+  //   component: Layout,
+  //   redirect: '/manage3/expert',
+  //   name: '资源库管理',
+  //   meta: {
+  //     title: '资源库管理',
+  //     icon: 'tree'
+  //   },
+  //   leaf: false,
+  //   children: [{
+  //     path: 'expert',
+  //     name: '专家库管理',
+  //     component: expert,
+  //     leaf: true,
+  //     meta: {
+  //       title: '专家库管理',
+  //       icon: 'table'
+  //     }
+  //   },{
+  //     path: 'enterprise',
+  //     name: '企业库管理',
+  //     component: enterprise,
+  //     leaf: true,
+  //     meta: {
+  //       title: '企业库管理',
+  //       icon: 'table'
+  //     }
+  //   },{
+  //     path: 'hschool',
+  //     name: '高校院所库管理',
+  //     component: hschool,
+  //     leaf: true,
+  //     meta: {
+  //       title: '高校院所库管理',
+  //       icon: 'table'
+  //     }
+  //   },{
+  //     path: 'mechanism',
+  //     name: 'mechanism',
+  //     component: mechanism,
+  //     leaf: true,
+  //     meta: {
+  //       title: '服务机构库管理',
+  //       icon: 'table'
+  //     }
+  //   },{
+  //     path: 'expertEdit',
+  //     name: 'expertEdit',
+  //     component: expertEdit,
+  //     leaf: true,
+  //     hidden: true,
+  //     meta: {
+  //       title: '专家库资料填写',
+  //       icon: 'table'
+  //     }
+  //   },{
+  //     path: 'enterpriseEdit',
+  //     name: 'enterpriseEdit',
+  //     component: enterpriseEdit,
+  //     leaf: true,
+  //     hidden: true,
+  //     meta: {
+  //       title: '企业库资料填写',
+  //       icon: 'table'
+  //     }
+  //   },{
+  //     path: 'hschoolEdit',
+  //     name: 'hschoolEdit',
+  //     component: hschoolEdit,
+  //     leaf: true,
+  //     hidden: true,
+  //     meta: {
+  //       title: '高校院所库资料填写',
+  //       icon: 'table'
+  //     }
+  //   },{
+  //     path: 'mechanismEdit',
+  //     name: 'mechanismEdit',
+  //     component: mechanismEdit,
+  //     leaf: true,
+  //     hidden: true,
+  //     meta: {
+  //       title: '服务机构库资料填写',
+  //       icon: 'table'
+  //     }
+  //   },{
+  //     path: 'demandLibrary',
+  //     name: '需求库管理',
+  //     component: demandLibrary,
+  //     leaf: true,
+  //     meta: {
+  //       title: '需求库管理',
+  //       icon: 'table'
+  //     }
+  //   },{
+  //     path: 'demandLibraryEdit',
+  //     name: 'demandLibraryEdit',
+  //     component: demandLibraryEdit,
+  //     leaf: true,
+  //     hidden: true,
+  //     meta: {
+  //       title: '需求库资料填写',
+  //       icon: 'table'
+  //     }
+  //   },
+  //   {
+  //     path: 'achieveLibrary',
+  //     name: '成果库管理',
+  //     component: achieveLibrary,
+  //     leaf: true,
+  //     meta: {
+  //       title: '成果库管理',
+  //       icon: 'table'
+  //     }
+  //   },{
+  //     path: 'achieveLibraryEdit',
+  //     name: 'achieveLibraryEdit',
+  //     component: achieveLibraryEdit,
+  //     leaf: true,
+  //     hidden: true,
+  //     meta: {
+  //       title: '成果库资料填写',
+  //       icon: 'table'
+  //     }
+  //   }]
+  // },
+  // {
+  //   path: '/buttManage',
+  //   component: Layout,
+  //   name: '对接管理',
+  //   meta: {
+  //     title: '对接管理',
+  //     icon: 'tree'
+  //   },
+  //   leaf: false,
+  //   children: [{
+  //     path: 'buttExpert',
+  //     name: '对接维护',
+  //     component: buttExpert,
+  //     leaf: true,
+  //     meta: {
+  //       title: '对接维护',
+  //       icon: 'table'
+  //     }
+  //   }]
+  // },  {
+  //     path: '/register',
+  //     component: Layout,
+  //     name: '统计',
+  //     meta: {
+  //       title: '统计',
+  //       icon: 'tree'
+  //     },
+  //     leaf: false,
+  //     children: [{
+  //       path: 'registerSee',
+  //       name: '访问统计',
+  //       component: registerSee,
+  //       leaf: true,
+  //       meta: {
+  //         title: '访问统计',
+  //         icon: 'table'
+  //       }
+  //     },{
+  //       path: 'registerUser',
+  //       name: '注册用户统计',
+  //       component: registerUser,
+  //       leaf: true,
+  //       meta: {
+  //         title: '注册用户统计',
+  //         icon: 'table'
+  //       }
+  //     },{
+  //       path: 'registerExpert',
+  //       name: '专家统计',
+  //       component: registerExpert,
+  //       leaf: true,
+  //       meta: {
+  //         title: '专家统计',
+  //         icon: 'table'
+  //       }
+  //     },{
+  //       path: 'registerQy',
+  //       name: '企业统计',
+  //       component: registerQy,
+  //       leaf: true,
+  //       meta: {
+  //         title: '企业统计',
+  //         icon: 'table'
+  //       }
+  //     },{
+  //       path: 'registerHshcool',
+  //       name: '高校统计',
+  //       component: registerHshcool,
+  //       leaf: true,
+  //       meta: {
+  //         title: '高校统计',
+  //         icon: 'table'
+  //       }
+  //     },{
+  //       path: 'registerfwjg',
+  //       name: '服务机构统计',
+  //       component: registerfwjg,
+  //       leaf: true,
+  //       meta: {
+  //         title: '服务机构统计',
+  //         icon: 'table'
+  //       }
+  //     },{
+  //       path: 'registerXq',
+  //       name: '需求统计',
+  //       component: registerXq,
+  //       leaf: true,
+  //       meta: {
+  //         title: '需求统计',
+  //         icon: 'table'
+  //       }
+  //     },{
+  //       path: 'registerCg',
+  //       name: '成果统计',
+  //       component: registerCg,
+  //       leaf: true,
+  //       meta: {
+  //         title: '成果统计',
+  //         icon: 'table'
+  //       }
+  //     },{
+  //       path: 'registerDj',
+  //       name: '对接统计',
+  //       component: registerDj,
+  //       leaf: true,
+  //       meta: {
+  //         title: '对接统计',
+  //         icon: 'table'
+  //       }
+  //     }]
+  //   },
 
 
 
