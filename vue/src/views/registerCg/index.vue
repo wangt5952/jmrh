@@ -47,14 +47,8 @@
                 <el-option label="其他" :key=99 :value=99>
                 </el-option>
               </el-select>
-              <el-select v-model="input.sexs" style="width:80px;height:30px" placeholder="性别">
-                <el-option label="男" :key=-1 :value=-1>
-                </el-option>
-                <el-option label="女" :key=0 :value=0>
-                </el-option>
-              </el-select>
 
-              <el-select v-model="input.educations" style="width:110px;height:30px" placeholder="请选择学历">
+              <el-select v-model="input.educations" style="width:110px;height:30px" placeholder="所处阶段">
                 <el-option label="小学" key="1" value="1">
                 </el-option>
                 <el-option label="初中" key="2" value="2">
@@ -68,17 +62,6 @@
                 <el-option label="研究生" key="6" value="6">
                 </el-option>
                 <el-option label="博士" key="7" value="7">
-                </el-option>
-                <el-option label="其他" key="99" value="99">
-                </el-option>
-              </el-select>
-
-              <el-select v-model="input.degrees" style="width:110px;height:30px" placeholder="请选择学位">
-                <el-option label="学士" key="1" value="1">
-                </el-option>
-                <el-option label="硕士" key="2" value="2">
-                </el-option>
-                <el-option label="博士" key="3" value="3">
                 </el-option>
                 <el-option label="其他" key="99" value="99">
                 </el-option>
@@ -98,13 +81,7 @@
                 <el-checkbox label="5">领域</el-checkbox>
               </el-checkbox-group>
               <el-checkbox-group v-model="input.sex" style="margin:10px 5px;float:right">
-                <el-checkbox label="5">性别</el-checkbox>
-              </el-checkbox-group>
-              <el-checkbox-group v-model="input.education" style="margin:10px 5px;float:right">
-                <el-checkbox label="6">学历</el-checkbox>
-              </el-checkbox-group>
-              <el-checkbox-group v-model="input.degree" style="margin:10px 5px;float:right">
-                <el-checkbox label="6">学位</el-checkbox>
+                <el-checkbox label="5">所处阶段</el-checkbox>
               </el-checkbox-group>
             </div>
           </div>

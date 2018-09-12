@@ -10,7 +10,7 @@ import {
   debounce
 } from '@/utils'
 import {
-  gettjlib,
+  gettjvisiters,
 } from '@/api/statistics'
 export default {
   props: {
@@ -76,7 +76,7 @@ export default {
       let {
         data,
         success
-      } = await gettjlib()
+      } = await gettjvisiters()
       if (success) {
         arr = data.month
          this.$emit('childByValue', data.total)

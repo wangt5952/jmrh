@@ -47,7 +47,11 @@ const buttExpert = r => require.ensure([], () => r(require("@/views/buttExpert/i
 const registerSee = r => require.ensure([], () => r(require("@/views/registerSee/index")), 'registerSee');
 const registerUser = r => require.ensure([], () => r(require("@/views/registerUser/index")), 'registerUser');
 const registerExpert = r => require.ensure([], () => r(require("@/views/registerExpert/index")), 'registerExpert');
-const registerxqcg = r => require.ensure([], () => r(require("@/views/registerxqcg/index")), 'registerxqcg');
+const registerQy = r => require.ensure([], () => r(require("@/views/registerQy/index")), 'registerQy');
+const registerHshcool = r => require.ensure([], () => r(require("@/views/registerHshcool/index")), 'registerHshcool');
+const registerfwjg = r => require.ensure([], () => r(require("@/views/registerfwjg/index")), 'registerfwjg');
+const registerXq = r => require.ensure([], () => r(require("@/views/registerXq/index")), 'registerXq');
+const registerCg = r => require.ensure([], () => r(require("@/views/registerCg/index")), 'registerCg');
 const registerDj = r => require.ensure([], () => r(require("@/views/registerDj/index")), 'registerDj');
 const robotResponse = r => require.ensure([], () => r(require("@/views/robot/robotResponse/index")), 'robotResponse');
 
@@ -439,20 +443,56 @@ export const constantRouterMap = [{
         }
       },{
         path: 'registerExpert',
-        name: '专家机构统计',
+        name: '专家统计',
         component: registerExpert,
         leaf: true,
         meta: {
-          title: '专家机构统计',
+          title: '专家统计',
           icon: 'table'
         }
       },{
-        path: 'registerxqcg',
-        name: '需求成果统计',
-        component: registerxqcg,
+        path: 'registerQy',
+        name: '企业统计',
+        component: registerQy,
         leaf: true,
         meta: {
-          title: '需求成果统计',
+          title: '企业统计',
+          icon: 'table'
+        }
+      },{
+        path: 'registerHshcool',
+        name: '高校统计',
+        component: registerHshcool,
+        leaf: true,
+        meta: {
+          title: '高校统计',
+          icon: 'table'
+        }
+      },{
+        path: 'registerfwjg',
+        name: '服务机构统计',
+        component: registerfwjg,
+        leaf: true,
+        meta: {
+          title: '服务机构统计',
+          icon: 'table'
+        }
+      },{
+        path: 'registerXq',
+        name: '需求统计',
+        component: registerXq,
+        leaf: true,
+        meta: {
+          title: '需求统计',
+          icon: 'table'
+        }
+      },{
+        path: 'registerCg',
+        name: '成果统计',
+        component: registerCg,
+        leaf: true,
+        meta: {
+          title: '成果统计',
           icon: 'table'
         }
       },{

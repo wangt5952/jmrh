@@ -11,7 +11,7 @@ import {
 } from '@/utils'
 
 import {
-  gettjlibqy,
+  gettjUserqy,
 } from '@/api/statistics'
 
 import {
@@ -118,7 +118,7 @@ export default {
       let {
         data,
         success
-      } = await gettjlibqy(obj)
+      } = await gettjUserqy(obj)
       if (success) {
         arr = data.lib
       }

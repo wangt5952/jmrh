@@ -29,7 +29,7 @@
                 <el-option v-for="item in arrValue3" :label=item.value :key=item.value :value=item.name>
                 </el-option>
               </el-select>
-              <el-select v-model="input.domains" style="width:80px;height:30px" placeholder="领域">
+              <el-select v-model="input.domains" style="width:110px;height:30px" placeholder="企业规模">
                 <el-option label="智能装备" :key=1 :value=1>
                 </el-option>
                 <el-option label="电子信息" :key=2 :value=2>
@@ -47,14 +47,14 @@
                 <el-option label="其他" :key=99 :value=99>
                 </el-option>
               </el-select>
-              <el-select v-model="input.sexs" style="width:80px;height:30px" placeholder="性别">
+              <el-select v-model="input.sexs" style="width:110px;height:30px" placeholder="注册类型">
                 <el-option label="男" :key=-1 :value=-1>
                 </el-option>
                 <el-option label="女" :key=0 :value=0>
                 </el-option>
               </el-select>
 
-              <el-select v-model="input.educations" style="width:110px;height:30px" placeholder="请选择学历">
+              <el-select v-model="input.educations" style="width:110px;height:30px" placeholder="是否上市">
                 <el-option label="小学" key="1" value="1">
                 </el-option>
                 <el-option label="初中" key="2" value="2">
@@ -73,7 +73,7 @@
                 </el-option>
               </el-select>
 
-              <el-select v-model="input.degrees" style="width:110px;height:30px" placeholder="请选择学位">
+              <el-select v-model="input.degrees" style="width:110px;height:30px" placeholder="领域统计">
                 <el-option label="学士" key="1" value="1">
                 </el-option>
                 <el-option label="硕士" key="2" value="2">
@@ -95,16 +95,16 @@
                 <el-checkbox label="3">区 </el-checkbox>
               </el-checkbox-group>
               <el-checkbox-group v-model="input.domain" style="margin:10px 5px;float:right">
-                <el-checkbox label="5">领域</el-checkbox>
+                <el-checkbox label="5">企业规模</el-checkbox>
               </el-checkbox-group>
               <el-checkbox-group v-model="input.sex" style="margin:10px 5px;float:right">
-                <el-checkbox label="5">性别</el-checkbox>
+                <el-checkbox label="5">注册类型</el-checkbox>
               </el-checkbox-group>
               <el-checkbox-group v-model="input.education" style="margin:10px 5px;float:right">
-                <el-checkbox label="6">学历</el-checkbox>
+                <el-checkbox label="6">是否上市</el-checkbox>
               </el-checkbox-group>
               <el-checkbox-group v-model="input.degree" style="margin:10px 5px;float:right">
-                <el-checkbox label="6">学位</el-checkbox>
+                <el-checkbox label="6">领域统计</el-checkbox>
               </el-checkbox-group>
             </div>
           </div>

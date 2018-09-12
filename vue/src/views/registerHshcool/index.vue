@@ -29,60 +29,7 @@
                 <el-option v-for="item in arrValue3" :label=item.value :key=item.value :value=item.name>
                 </el-option>
               </el-select>
-              <el-select v-model="input.domains" style="width:80px;height:30px" placeholder="领域">
-                <el-option label="智能装备" :key=1 :value=1>
-                </el-option>
-                <el-option label="电子信息" :key=2 :value=2>
-                </el-option>
-                <el-option label="新材料" :key=3 :value=3>
-                </el-option>
-                <el-option label="航空航天" :key=4 :value=4>
-                </el-option>
-                <el-option label="生物技术与新医药" :key=5 :value=5>
-                </el-option>
-                <el-option label="能源与环保" :key=6 :value=6>
-                </el-option>
-                <el-option label="管理" :key=7 :value=7>
-                </el-option>
-                <el-option label="其他" :key=99 :value=99>
-                </el-option>
-              </el-select>
-              <el-select v-model="input.sexs" style="width:80px;height:30px" placeholder="性别">
-                <el-option label="男" :key=-1 :value=-1>
-                </el-option>
-                <el-option label="女" :key=0 :value=0>
-                </el-option>
-              </el-select>
 
-              <el-select v-model="input.educations" style="width:110px;height:30px" placeholder="请选择学历">
-                <el-option label="小学" key="1" value="1">
-                </el-option>
-                <el-option label="初中" key="2" value="2">
-                </el-option>
-                <el-option label="高中" key="3" value="3">
-                </el-option>
-                <el-option label="大专" key="4" value="4">
-                </el-option>
-                <el-option label="本科" key="5" value="5">
-                </el-option>
-                <el-option label="研究生" key="6" value="6">
-                </el-option>
-                <el-option label="博士" key="7" value="7">
-                </el-option>
-                <el-option label="其他" key="99" value="99">
-                </el-option>
-              </el-select>
-
-              <el-select v-model="input.degrees" style="width:110px;height:30px" placeholder="请选择学位">
-                <el-option label="学士" key="1" value="1">
-                </el-option>
-                <el-option label="硕士" key="2" value="2">
-                </el-option>
-                <el-option label="博士" key="3" value="3">
-                </el-option>
-                <el-option label="其他" key="99" value="99">
-                </el-option>
-              </el-select>
             </div>
               <div class="" style="display: flex;">
               <el-checkbox-group v-model="input.site1" style="margin:10px 5px;float:right">
@@ -94,18 +41,7 @@
               <el-checkbox-group v-model="input.site3" style="margin:10px 5px;float:right">
                 <el-checkbox label="3">区 </el-checkbox>
               </el-checkbox-group>
-              <el-checkbox-group v-model="input.domain" style="margin:10px 5px;float:right">
-                <el-checkbox label="5">领域</el-checkbox>
-              </el-checkbox-group>
-              <el-checkbox-group v-model="input.sex" style="margin:10px 5px;float:right">
-                <el-checkbox label="5">性别</el-checkbox>
-              </el-checkbox-group>
-              <el-checkbox-group v-model="input.education" style="margin:10px 5px;float:right">
-                <el-checkbox label="6">学历</el-checkbox>
-              </el-checkbox-group>
-              <el-checkbox-group v-model="input.degree" style="margin:10px 5px;float:right">
-                <el-checkbox label="6">学位</el-checkbox>
-              </el-checkbox-group>
+      
             </div>
           </div>
           <div class="" style="flex:1;margin:5px;">
