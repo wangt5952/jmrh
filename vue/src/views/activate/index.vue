@@ -98,6 +98,7 @@ export default {
           this.$store.commit('SET_ROLES', {
             userType: data.userType
           })
+          window.sessionStorage.setItem('token',data.token)
           window.sessionStorage.setItem('userName', data.userName)
           window.sessionStorage.setItem('userId', data.userId)
           window.sessionStorage.setItem('userType', data.userType)

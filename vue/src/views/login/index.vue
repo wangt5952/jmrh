@@ -312,9 +312,9 @@ export default {
 
           let data = await getUserMenusone()
           let treeData = data.data
+          window.sessionStorage.setItem('treeData', JSON.stringify(treeData)) //必须传入 路由进行渲染
           let bbb = this.forload(treeData)
           this.login(bbb)
-          debugger
           this.$router.addRoutes(routers)
           this.$router.push({
             path: '/'

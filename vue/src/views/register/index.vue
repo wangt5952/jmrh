@@ -257,6 +257,7 @@ export default {
         success,
         message
       } = await registers(this.registerForm)
+      this.registerForm.agreement = true
       if (success) {
         const h = this.$createElement;
         this.$notify({

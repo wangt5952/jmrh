@@ -4,7 +4,78 @@ const _import = require('./_import_' + process.env.NODE_ENV)
 // in development-env not use lazy-loading, because lazy-loading too many pages will cause webpack hot update too slow. so only in production use lazy-loading;
 // detail: https://panjiachen.github.io/vue-element-admin-site/#/lazy-loading
 
+import MenuUtils from '@/views/MenuUtils'
+
 Vue.use(Router)
+
+let load = {
+forload: function(treeData) {
+  for (let i = 0; i < treeData.length; i++) {
+      if (treeData[i].children && treeData[i].children.length > 0 && treeData[i].leaf == false) { //有下级
+        treeData[i].meta = {
+          title: treeData[i].label,
+          icon: 'tree'
+        }
+        treeData[i].path = '/' + treeData[i].menuUrl
+        treeData[i].leaf = false
+        treeData[i].component = treeData[i].menuUrl
+        if (treeData[i].isMenu == "1") { //有下级 第一个菜单
+          treeData[i].component = 'layout'
+          treeData[i].redirect = '/' + treeData[i].menuUrl + '/' + treeData[i].children[0].menuUrl + ''
+        }
+      } else if (treeData[i].leaf == true && treeData[i].isMenu == "1"&& treeData[i].sortOrder != 9999 && treeData[i].menuLevel != 1) {
+        treeData[i].meta = {
+          title: treeData[i].label,
+          icon: 'table'
+        }
+        treeData[i].path = treeData[i].menuUrl
+        treeData[i].leaf = true
+        treeData[i].component = treeData[i].menuUrl
+        treeData[i].children = []
+      }  else if (treeData[i].leaf == true && treeData[i].isMenu == "1"&& treeData[i].sortOrder == 9999 && treeData[i].menuLevel != 1) {
+        treeData[i].meta = {
+          title: treeData[i].label,
+          icon: 'table'
+        }
+        treeData[i].path = treeData[i].menuUrl
+        treeData[i].name = treeData[i].menuUrl
+        treeData[i].leaf = true
+        treeData[i].hidden = true
+        treeData[i].component = treeData[i].menuUrl
+        treeData[i].children = []
+      } else if (treeData[i].menuLevel == 1 && treeData[i].isMenu == "1" && treeData[i].leaf == true) { //第一层菜单无下级生成一个
+        let chil = {}
+        chil.meta = {
+          title: treeData[i].label,
+          icon: 'table'
+        }
+        chil.path = treeData[i].menuUrl
+        chil.leaf = true
+        chil.component = treeData[i].menuUrl
+        treeData[i].children = []
+        treeData[i].children.push(chil)
+
+        treeData[i].path = '/index'
+        treeData[i].leaf = false
+        treeData[i].component = 'layout'
+      }
+      if(treeData[i].children){
+        treeData[i].children = this.forload(treeData[i].children)
+      }else{
+        continue
+      }
+  }
+  return treeData
+}
+}
+
+var routers = []
+var treeData = window.sessionStorage.getItem('treeData')
+if(treeData != null){
+  treeData = JSON.parse(treeData)
+ let data = load.forload(treeData)
+ MenuUtils(routers, treeData)
+}
 
 /* Layout */
 import Layout from '@/views/layout/index.vue'
@@ -70,7 +141,7 @@ const robotResponse = r => require.ensure([], () => r(require("@/views/robot/rob
     icon: 'svg-name'             the icon show in the sidebar,
   }
 **/
-export const constantRouterMap = [{
+let arrRouter = [{
     path: '/login',
     component: login,
     name: 'login',
@@ -158,7 +229,15 @@ export const constantRouterMap = [{
         icon: 'dashboard'
       },
     }]
-  },
+  }]
+
+
+let arr = [...arrRouter,...routers];
+export const constantRouterMap = arr
+
+
+// export const constantRouterMap = [
+
   // {
   //   path: '/manage',
   //   component: Layout,
@@ -554,7 +633,15 @@ export const constantRouterMap = [{
     //     }
     //   }]
     // },
-]
+
+
+
+
+// ]
+
+
+
+
 // { path: '/login', component: _import('login/index'), hidden: true },
 // { path: '/404', component: _import('404'), hidden: true },
 //
@@ -606,7 +693,6 @@ export const constantRouterMap = [{
 // },
 //
 // { path: '*', redirect: '/404', hidden: true }
-
 
 export default new Router({
   // mode: 'history', //后端支持可开

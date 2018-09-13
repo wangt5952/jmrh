@@ -95,6 +95,7 @@ const user = {
         removeToken()
         resolve()
         window.sessionStorage.removeItem('user')
+        window.sessionStorage.removeItem('treeData') //必须传入 路由进行渲染
         window.sessionStorage.removeItem('isLoadNodes')
         }).catch(error => {
           reject(error)

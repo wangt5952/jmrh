@@ -31,7 +31,7 @@
         <el-button v-show="userType =='0' && tfcheckStatus == 0" style="" @click="plsh" type="primary">批量审核</el-button>
         <el-button v-show="userType =='0' && tfcheckStatus == 1" style="" @click="plxj" type="primary">批量下架</el-button>
         <el-button v-show="userType =='0' && tfcheckStatus == 1" style="" @click="plsj" type="primary">批量上架</el-button>
-        <el-button v-show="userType =='0' && tfcheckStatus == 1" style="" @click="pldc" type="primary">批量导出</el-button>
+        <a :href=pldcUrl target="_blank"><el-button v-show="userType =='0' && tfcheckStatus == 1" style=""  type="primary">批量导出</el-button></a>
       </div>
 
     </div>
@@ -388,7 +388,11 @@ export default {
         checkStatus: 1,
         creditLevel: '',
       },
+      pldcUrl : "",
     }
+  },
+  created(){
+    this.pldcUrl = this.docUrl + '/xtcx/lib/exportLib?objName='+this.input.objName+'&checkStatus=1&userType=7&creditLevel=&status='+this.input.status+'&token='+window.sessionStorage.getItem('token')
   },
   async mounted() {
     if (typeof this.$route.query.checkStatus == 'number') {

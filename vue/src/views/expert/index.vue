@@ -45,7 +45,8 @@
         <el-button v-show="userType =='0' && tfcheckStatus == 0" style="" @click="plsh" type="primary">批量审核</el-button>
         <el-button v-show="userType =='0' && tfcheckStatus == 1" style="" @click="plxj" type="primary">批量下架</el-button>
         <el-button v-show="userType =='0' && tfcheckStatus == 1" style="" @click="plsj" type="primary">批量上架</el-button>
-        <el-button v-show="userType =='0' && tfcheckStatus == 1" style="" @click="pldc" type="primary">批量导出</el-button>
+        <a :href=pldcUrl target="_blank"><el-button v-show="userType =='0' && tfcheckStatus == 1" style=""  type="primary">批量导出</el-button></a>
+
       </div>
 
     </div>
@@ -528,7 +529,11 @@ export default {
         }]
       },
       tfcheckStatus: '',
+      pldcUrl : ""
     }
+  },
+  created(){
+    this.pldcUrl = this.docUrl + '/xtcx/lib/exportLib?objName='+this.input.objName+'&checkStatus=1&userType=1&creditLevel='+this.input.creditLevel+'&status='+this.input.status+'&token='+window.sessionStorage.getItem('token')
   },
   async mounted() {
     if (typeof this.$route.query.checkStatus == 'number') {
@@ -725,12 +730,14 @@ export default {
       }
     },
     async pldc() {
+      docUrl
       let obj = {}
       obj.objName = this.input.objName
-      obj.userType = window.sessionStorage.getItem('userType')
+      obj.userType = '1'
       obj.creditLevel = this.input.creditLevel
       obj.status = this.input.status
       obj.token = window.sessionStorage.getItem('token')
+      debugger
       let {
         data,
         success
