@@ -190,7 +190,7 @@
 
     <div style="padding-left: 35%;margin: 40px 0  0  0;">
 
-      <div class="" style="padding:15px" v-if="!$route.params.objData">
+      <div class="" v-show="userType == '0'" style="padding:15px" v-if="!$route.params.objData">
         <el-radio-group v-model="checkStatus">
           <el-radio :label="-1">草稿</el-radio>
           <el-radio :label="0">提交待审</el-radio>
@@ -287,6 +287,8 @@ export default {
         this.demandLibrary.cardSide  =  []
       }
     }
+    this.userType = window.sessionStorage.getItem('userType')
+    if (this.userType != '0') this.checkStatus = 0
   },
   computed: {},
   methods: {

@@ -10,6 +10,7 @@ Vue.use(Router)
 
 let load = {
 forload: function(treeData) {
+  let userType = window.sessionStorage.getItem('userType')
   for (let i = 0; i < treeData.length; i++) {
       if (treeData[i].children && treeData[i].children.length > 0 && treeData[i].leaf == false) { //有下级
         treeData[i].meta = {
@@ -23,6 +24,7 @@ forload: function(treeData) {
           treeData[i].component = 'layout'
           treeData[i].redirect = '/' + treeData[i].menuUrl + '/' + treeData[i].children[0].menuUrl + ''
         }
+        if(userType != '0' && treeData[i].menuUrl != 'dashboard') treeData[i].hidden = true
       } else if (treeData[i].leaf == true && treeData[i].isMenu == "1"&& treeData[i].sortOrder != 9999 && treeData[i].menuLevel != 1) {
         treeData[i].meta = {
           title: treeData[i].label,
@@ -30,6 +32,7 @@ forload: function(treeData) {
         }
         treeData[i].path = treeData[i].menuUrl
         treeData[i].leaf = true
+        if(userType != '0') treeData[i].hidden = true
         treeData[i].component = treeData[i].menuUrl
         treeData[i].children = []
       }  else if (treeData[i].leaf == true && treeData[i].isMenu == "1"&& treeData[i].sortOrder == 9999 && treeData[i].menuLevel != 1) {

@@ -39,7 +39,7 @@
         <el-option label="已超时" :key=3 :value=3>
         </el-option>
       </el-select>
-      <el-button style="margin-left:20px" @click="loadPageList" type="primary">查询</el-button>
+      <el-button style="margin-left:20px" @click="loadMeeting" type="primary">查询</el-button>
       <div class="" style="padding:10px 0px;">
         <el-button v-show="userType =='0' && tfcheckStatus == 0" style="" @click="plsh" type="primary">批量审核</el-button>
         <el-button v-show="userType =='0' && tfcheckStatus == 1" style="" @click="plxj" type="primary">批量下架</el-button>
@@ -64,7 +64,7 @@
                       <div class="" >{{ scope.row.applicationContentName }}</div>
                   </template>
     </el-table-column>
-    <el-table-column align="center" label="对接类别" width="70">
+    <el-table-column align="center" label="对接类别" width="90">
       <template slot-scope="scope">
                               <span v-if="scope.row.typeId == 0">专家对接</span>
                               <span v-if="scope.row.typeId == 1">需求对接</span>
@@ -317,6 +317,10 @@ export default {
     }
   },
   mounted() {
+      if (typeof this.$route.query.checkStatus == "string") {
+        this.input.checkStatus = parseInt(this.$route.query.checkStatus)
+        this.input.typeId = parseInt(this.$route.query.typeId)
+      }
     this.loadMeeting()
   },
   computed: {},

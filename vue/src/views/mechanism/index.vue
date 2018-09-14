@@ -41,7 +41,7 @@
       </el-select>
       <el-button style="margin-left:20px" @click="loadPageList" type="primary">查询</el-button>
       <div class="" style="padding:10px 0px;">
-        <el-button  style="" @click="handleEdit" type="primary">添加服务机构</el-button>
+        <el-button v-show="userType =='0'" @click="handleEdit" type="primary">添加服务机构</el-button>
         <el-button v-show="userType =='0' && tfcheckStatus == 0" style="" @click="plsh" type="primary">批量审核</el-button>
         <el-button v-show="userType =='0' && tfcheckStatus == 1" style="" @click="plxj" type="primary">批量下架</el-button>
         <el-button v-show="userType =='0' && tfcheckStatus == 1" style="" @click="plsj" type="primary">批量上架</el-button>
@@ -100,19 +100,19 @@
                                         <span v-if='scope.row.orgNature.includes(99)'>{{scope.row.orgTypeOther}}</span>
                 </template>
     </el-table-column>
-    <el-table-column v-if="tfcheckStatus == 1" align="center" label="信用级别" width="70">
+    <el-table-column v-if="tfcheckStatus == 1" align="center" label="信用级别" width="100">
       <template slot-scope="scope">
                         <span>
                             {{ scope.row.creditLevel}}</span>
                     </template>
     </el-table-column>
-    <el-table-column v-if="tfcheckStatus == 1" align="center" label="是否可见" width="70">
+    <el-table-column v-if="tfcheckStatus == 1" align="center" label="是否可见" width="100">
       <template slot-scope="scope">
                         <span v-if="scope.row.status == 1">可见</span>
                         <span v-if="scope.row.status == 0">不可见</span>
                     </template>
     </el-table-column>
-    <el-table-column v-if="tfcheckStatus == 1" align="center" label="发布人" width="80">
+    <el-table-column v-if="tfcheckStatus == 1" align="center" label="发布人" width="100">
       <template slot-scope="scope">
                         <span>
                             {{ scope.row.creater}}</span>
@@ -137,7 +137,7 @@
 
     <el-table-column v-show="userType =='0'" align="center" label="操作" width="120">
       <template slot-scope="scope">
-                                <div style="text-align:center" >
+                                <div v-show="userType =='0'" style="text-align:center" >
                       <span v-if="tfcheckStatus == 1" @click="handlexy(scope.row)" class="clickText" >
                         信用
                       </span>
@@ -155,6 +155,9 @@
                   </span></span>
 
                     </div>
+                    <span v-show="userType !='0'" @click="showDetail(scope.row,'edit')" class="clickText" >
+                      查看
+                    </span>
                 </template>
     </el-table-column>
 
