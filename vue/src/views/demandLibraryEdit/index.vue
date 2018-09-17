@@ -84,8 +84,8 @@
                   <el-checkbox label="4">航空航天</el-checkbox>
                   <el-checkbox label="5">生物技术与新医药</el-checkbox>
                   <el-checkbox label="6">能源与环保</el-checkbox>
-                  <el-checkbox label="7">其他</el-checkbox>
-                  <el-input v-if="demandLibrary.domain.includes('7')" placeholder="请输入其他" v-model="demandLibrary.domainOther" style="width:80%"></el-input>
+                  <el-checkbox label="99">其他</el-checkbox>
+                  <el-input v-if="demandLibrary.domain.includes('99')" placeholder="请输入其他" v-model="demandLibrary.domainOther" style="width:80%"></el-input>
                 </el-checkbox-group>
               </el-form-item>
 

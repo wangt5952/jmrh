@@ -271,32 +271,32 @@
 
 
                     <el-form-item label="项目或课题名称">
-                        <el-input   type="text" v-model="item.projectname" style="width: 50%;"></el-input>
+                      <el-input type="text" v-model="item.projectname" style="width: 50%;"></el-input>
                     </el-form-item>
 
                     <el-form-item label="项目或课题来源">
 
-                        <el-input   type="text" v-model="item.projectSrc" style="width: 50%;"></el-input>
+                      <el-input type="text" v-model="item.projectSrc" style="width: 50%;"></el-input>
                     </el-form-item>
 
 
                     <el-form-item label="完成情况">
-                    <el-input   type="text" v-model="item.finishcon" style="width: 50%;"></el-input>
+                      <el-input type="text" v-model="item.finishcon" style="width: 50%;"></el-input>
                     </el-form-item>
 
-                        <el-form-item label="完成时间">
-                        <el-date-picker v-model="item.finishtime" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="" style="width: 50%;">
-                        </el-date-picker>
+                    <el-form-item label="完成时间">
+                      <el-date-picker v-model="item.finishtime" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="" style="width: 50%;">
+                      </el-date-picker>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
                     <el-form-item label="奖项名称">
-                        <el-input   type="text" v-model="item.rewname" style="width: 50%;"></el-input>
+                      <el-input type="text" v-model="item.rewname" style="width: 50%;"></el-input>
                     </el-form-item>
 
                     <el-form-item label="获奖等级">
 
-                        <el-input   type="text" v-model="item.rewlevel" style="width: 50%;"></el-input>
+                      <el-input type="text" v-model="item.rewlevel" style="width: 50%;"></el-input>
                     </el-form-item>
 
 
@@ -387,19 +387,19 @@ export default {
       expert: {
         cardPositive: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
         }],
         cardSide: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idback.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
         }],
         cardHands: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/handPhoto.jpg`
+          url: this.imgBaseUrl + `/jmrhupload/def/handPhoto.jpg`
         }],
         onepicture: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/livePhoto.jpg`
+          url: this.imgBaseUrl + `/jmrhupload/def/livePhoto.jpg`
         }],
         name: '',
         sex: '',
@@ -431,7 +431,8 @@ export default {
           rewname: '',
           rewlevel: '',
           rewtime: ''
-        }]
+        }],
+        search_param: []
       },
       checkStatus: 1
     }
@@ -546,17 +547,42 @@ export default {
     back() {
       window.history.go(-1);
     },
+    addCN(data) {
+      if (data.edu.includes(1)) data.search_param.push('小学')
+      if (data.edu.includes(2)) data.search_param.push('初中')
+      if (data.edu.includes(3)) data.search_param.push('高中')
+      if (data.edu.includes(4)) data.search_param.push('大专')
+      if (data.edu.includes(5)) data.search_param.push('本科')
+      if (data.edu.includes(6)) data.search_param.push('研究生')
+      if (data.edu.includes(7)) data.search_param.push('博士')
+      if (data.edu.includes(8)) data.search_param.push('研究生')
+
+      if (data.academic.includes(1)) data.search_param.push('学士')
+      if (data.academic.includes(2)) data.search_param.push('硕士')
+      if (data.academic.includes(3)) data.search_param.push('博士')
+
+      if (JSON.stringify(data.research_field).includes(1)) data.search_param.push('智能装备')
+      if (JSON.stringify(data.research_field).includes(2)) data.search_param.push('电子信息')
+      if (JSON.stringify(data.research_field).includes(3)) data.search_param.push('新材料')
+      if (JSON.stringify(data.research_field).includes(4)) data.search_param.push('航空航天')
+      if (JSON.stringify(data.research_field).includes(5)) data.search_param.push('生物技术与新医药')
+      if (JSON.stringify(data.research_field).includes(6)) data.search_param.push('能源与环保')
+      if (JSON.stringify(data.research_field).includes(7)) data.search_param.push('管理')
+
+      return data
+    },
     async saveFile(checkStatus) {
       if (!this.validata.validaExpert(this.expert)) return
       let arr = {}
       arr.formType = '1'
       arr.checkStatus = checkStatus
       arr.id = this.$route.params.objId
-      debugger
+      this.expert = this.addCN(this.expert)
       arr.detail = JSON.stringify(this.expert)
       let {
         data,
-        success
+        success,
+        message
       } = await addLib(arr)
 
       if (success) {
@@ -567,7 +593,7 @@ export default {
         this.dialogFormVisible = false
       } else {
         this.$message({
-          message: data.message,
+          message: message,
           type: 'success'
         });
       }
@@ -615,7 +641,7 @@ export default {
       })
     },
 
-  delProjectexpert(item) {
+    delProjectexpert(item) {
       this.expert.research_record.splice(this.expert.research_record.indexOf(item), 1)
       this.$message({
         type: 'info',

@@ -629,6 +629,13 @@ function validaExpert(str) {
     });
     return false;
   }
+  if (!str || verify.isNull(str.sex)) {
+    Message({
+      message: '性别不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
   if (!str || verify.isNull(str.code)) {
     Message({
       message: '身份证号不能为空！',
@@ -636,13 +643,44 @@ function validaExpert(str) {
     });
     return false;
   }
-
   if (!str || verify.isIDCard(str.code)) {
     Message({
       message: '请输入正确的身份证格式！',
       type: 'error'
     });
     return false;
+  }
+
+
+  if (!str || verify.isNull(str.edu)) {
+    Message({
+      message: '学历不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.academic)) {
+    Message({
+      message: '学位不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.research_field)) {
+    Message({
+      message: '研究领域不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (str.research_field == 99) {
+    if (!str || verify.isNull(str.researchFieldOther)) {
+      Message({
+        message: '研究领域其他不能为空！',
+        type: 'error'
+      });
+      return false;
+    }
   }
   if (!str || verify.isNull(str.mobilephone)) {
     Message({
@@ -672,6 +710,14 @@ function validaExpert(str) {
     });
     return false;
   }
+  if (!str || verify.isNull(str.country)) {
+    Message({
+      message: '区域不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+
   return true;
 }
 
@@ -808,13 +854,13 @@ function validaDemandLibrary(str) {
     });
     return false;
   }
-    if (!str || verify.isNull(str.name)) {
-      Message({
-        message: '需求单位名称不能为空！',
-        type: 'error'
-      });
-      return false;
-    }
+  if (!str || verify.isNull(str.name)) {
+    Message({
+      message: '需求单位名称不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
   if (!str || verify.isNull(str.code)) {
     Message({
       message: '统一社会信用代码不能为空！',
@@ -868,13 +914,13 @@ function validaAchieveLibrary(str) {
     });
     return false;
   }
-    if (!str || verify.isNull(str.name)) {
-      Message({
-        message: '企业名称不能为空！',
-        type: 'error'
-      });
-      return false;
-    }
+  if (!str || verify.isNull(str.name)) {
+    Message({
+      message: '企业名称不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
   if (!str || verify.isNull(str.code)) {
     Message({
       message: '统一社会信用代码不能为空！',
