@@ -29,10 +29,10 @@
       <el-button style="margin-left:20px" @click="loadPageList" type="primary">查询</el-button>
       <div class="" style="padding:10px 0px;">
         <el-button @click="handleEdit" type="primary">发布成果</el-button>
-        <el-button v-show="userType =='0' && tfcheckStatus == 0" style="" @click="plsh" type="primary">批量审核</el-button>
-        <el-button v-show="userType =='0' && tfcheckStatus == 1" style="" @click="plxj" type="primary">批量下架</el-button>
-        <el-button v-show="userType =='0' && tfcheckStatus == 1" style="" @click="plsj" type="primary">批量上架</el-button>
-        <a :href=pldcUrl target="_blank"><el-button v-show="userType =='0' && tfcheckStatus == 1" style=""  type="primary">批量导出</el-button></a>
+        <el-button v-show="userType =='0' && tfcheckStatus == 0  || userType =='101' && tfcheckStatus == 0" style="" @click="plsh" type="primary">批量审核</el-button>
+        <el-button v-show="userType =='0' && tfcheckStatus == 1  || userType =='101' && tfcheckStatus == 1" style="" @click="plxj" type="primary">批量下架</el-button>
+        <el-button v-show="userType =='0' && tfcheckStatus == 1  || userType =='101' && tfcheckStatus == 1" style="" @click="plsj" type="primary">批量上架</el-button>
+        <a :href=pldcUrl target="_blank"><el-button v-show="userType =='0' && tfcheckStatus == 1  || userType =='101' && tfcheckStatus == 1" style=""  type="primary">批量导出</el-button></a>
       </div>
 
     </div>
@@ -114,7 +114,7 @@
     </el-table-column>
     <el-table-column v-show="userType =='0'" align="center" label="操作" width="120">
       <template slot-scope="scope">
-                                <div v-show="userType =='0'" style="text-align:center" >
+                                <div v-show="userType =='0' || userType =='101'" style="text-align:center" >
                         <span v-if="tfcheckStatus == 0" @click="handlesh(scope.row)" class="clickText" >
                           审核
                         </span>
@@ -129,7 +129,7 @@
                   </span></span>
 
                     </div>
-                    <span v-show="userType !='0'" @click="showDetail(scope.row,'edit')" class="clickText" >
+                    <span v-show="userType !='0' && userType !='101'" @click="showDetail(scope.row,'edit')" class="clickText" >
                       查看
                     </span>
                 </template>

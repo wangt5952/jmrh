@@ -42,10 +42,10 @@
       <el-button style="margin-left:20px" @click="loadPageList" type="primary">查询</el-button>
       <div class="" style="padding:10px 0px;">
         <el-button v-show="userType =='0'" @click="handleEdit" type="primary">添加服务机构</el-button>
-        <el-button v-show="userType =='0' && tfcheckStatus == 0" style="" @click="plsh" type="primary">批量审核</el-button>
-        <el-button v-show="userType =='0' && tfcheckStatus == 1" style="" @click="plxj" type="primary">批量下架</el-button>
-        <el-button v-show="userType =='0' && tfcheckStatus == 1" style="" @click="plsj" type="primary">批量上架</el-button>
-        <a :href=pldcUrl target="_blank"><el-button v-show="userType =='0' && tfcheckStatus == 1" style=""  type="primary">批量导出</el-button></a>
+        <el-button v-show="userType =='0' && tfcheckStatus == 0 || userType =='101' && tfcheckStatus == 0" style="" @click="plsh" type="primary">批量审核</el-button>
+        <el-button v-show="userType =='0' && tfcheckStatus == 1 || userType =='101' && tfcheckStatus == 1" style="" @click="plxj" type="primary">批量下架</el-button>
+        <el-button v-show="userType =='0' && tfcheckStatus == 1 || userType =='101' && tfcheckStatus == 1" style="" @click="plsj" type="primary">批量上架</el-button>
+        <a :href=pldcUrl target="_blank"><el-button v-show="userType =='0' && tfcheckStatus == 1 || userType =='101' && tfcheckStatus == 1" style=""  type="primary">批量导出</el-button></a>
       </div>
 
     </div>
@@ -186,7 +186,7 @@
           <td class=x22>{{detailData.name}}</td>
           <td class=x21>所在地区</td>
           <td class=x25>
-            <area-cascader :level="1" v-model="detailData.selected" :data="pcaa"></area-cascader>
+            <area-cascader :level="1" v-model="detailData.country" :data="pcaa"></area-cascader>
           </td>
           <td class=x25>通信地址{{detailData.address}}</td>
           <td colspan=4 class=x28>邮编{{detailData.ecode}}</td>
@@ -525,7 +525,7 @@ export default {
         perNum: '',
         ecode: '',
         address: '',
-        selected: '',
+        country: '',
         name: '',
         fdemail: '',
         fdphone: '',
@@ -812,7 +812,7 @@ export default {
         getUserIddata[i].value = getUserIddata[i].id
       }
       debugger
-      this.selected = getUserIddata
+      this.country = getUserIddata
 
     },
     async loadgetdep() {
@@ -829,7 +829,7 @@ export default {
       if (!this.validata.validausr(obj)) return
       obj.method = 'post'
       let arr = []
-      let getAlldata = this.selected
+      let getAlldata = this.country
       for (let i = 0; i < getAlldata.length; i++) {
         let obja = {}
         obja.id = getAlldata[i].value

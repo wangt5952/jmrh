@@ -29,7 +29,7 @@
                 <el-option v-for="item in arrValue3" :label=item.value :key=item.value :value=item.name>
                 </el-option>
               </el-select>
-              <el-select v-model="input.scales" style="width:110px;height:30px" placeholder="企业规模">
+              <!-- <el-select v-model="input.scales" style="width:110px;height:30px" placeholder="企业规模">
                 <el-option label="小于2000万（含）" :key=1 :value=1>
                 </el-option>
                 <el-option label="2000-5000万" :key=2 :value=2>
@@ -42,7 +42,7 @@
                 </el-option>
                 <el-option label="4亿及以上（含）" :key=6 :value=6>
                 </el-option>
-              </el-select>
+              </el-select> -->
               <el-select v-model="input.regTypes" style="width:110px;height:30px" placeholder="注册类型">
                 <el-option label="内资企业" :key=1 :value=1>
                 </el-option>
@@ -89,9 +89,9 @@
               <el-checkbox-group v-model="input.site3" style="margin:10px 5px;float:right">
                 <el-checkbox label="3">区 </el-checkbox>
               </el-checkbox-group>
-              <el-checkbox-group v-model="input.scale" style="margin:10px 5px;float:right">
+              <!-- <el-checkbox-group v-model="input.scale" style="margin:10px 5px;float:right">
                 <el-checkbox label="5">企业规模</el-checkbox>
-              </el-checkbox-group>
+              </el-checkbox-group> -->
               <el-checkbox-group v-model="input.regType" style="margin:10px 5px;float:right">
                 <el-checkbox label="5">注册类型</el-checkbox>
               </el-checkbox-group>

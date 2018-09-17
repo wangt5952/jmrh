@@ -51,7 +51,7 @@
               </el-form-item>
               <el-form-item label="所在地区">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
-                <area-cascader :level="1" v-model="mech.selected" :data="pcaa"></area-cascader>
+                <area-cascader :level="1" v-model="mech.country" :data="pcaa"></area-cascader>
                 <!-- <area-cascader v-model="selected" :level="1" :data="pca"></area-cascader> -->
               </el-form-item>
               <el-form-item label="联系地址">
@@ -552,7 +552,7 @@ export default {
         perNum: '',
         ecode: '',
         address: '',
-        selected: '',
+        country: '',
         name: '',
         fdemail: '',
         fdtel: '',

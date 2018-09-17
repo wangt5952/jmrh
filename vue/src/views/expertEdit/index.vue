@@ -88,19 +88,11 @@
                 <el-select v-model="expert.edu" style="width:100px;height:30px" placeholder="请选择">
                   <el-option label="请选择" key="" value="">
                   </el-option>
-                  <el-option label="小学" key="1" value="1">
-                  </el-option>
-                  <el-option label="初中" key="2" value="2">
-                  </el-option>
-                  <el-option label="高中" key="3" value="3">
-                  </el-option>
-                  <el-option label="大专" key="4" value="4">
-                  </el-option>
                   <el-option label="本科" key="5" value="5">
                   </el-option>
-                  <el-option label="研究生" key="6" value="6">
+                  <el-option label="硕士研究生" key="6" value="6">
                   </el-option>
-                  <el-option label="博士" key="7" value="7">
+                  <el-option label="博士研究生" key="7" value="7">
                   </el-option>
                   <el-option label="其他" key="99" value="99">
                   </el-option>
@@ -325,11 +317,11 @@
   </div>
   <el-row>
     <div style="padding-left: 35%;margin: 40px 0  0  0;">
-      <div class="" v-show="userType == '0'" style="padding:15px" v-if="!$route.params.objData">
+      <div class="" style="padding:15px">
         <el-radio-group v-model="checkStatus">
           <el-radio :label="-1">草稿</el-radio>
           <el-radio :label="0">提交待审</el-radio>
-          <el-radio :label="1">直接审核</el-radio>
+          <el-radio  v-show="userType == '0' && !$route.params.objData" :label="1">直接审核</el-radio>
         </el-radio-group>
       </div>
       <div class="">

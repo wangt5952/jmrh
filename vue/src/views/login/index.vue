@@ -159,7 +159,7 @@ export default {
       loginForm: {
         userName: 'gyx',
         password: '123',
-        isAdmin: false,
+        isAdmin: true,
       },
       loginRules: {
         username: [{
@@ -261,7 +261,7 @@ export default {
               treeData[i].redirect = '/' + treeData[i].menuUrl + '/' + treeData[i].children[0].menuUrl + ''
             }
 
-            if(userType != '0' && treeData[i].menuUrl != 'dashboard') treeData[i].hidden = true
+            if(userType != '0' && userType != '101' && treeData[i].menuUrl != 'dashboard') treeData[i].hidden = true
 
           } else if (treeData[i].leaf == true && treeData[i].isMenu == "1"&& treeData[i].sortOrder != 9999 && treeData[i].menuLevel != 1) {
             treeData[i].meta = {
@@ -270,7 +270,7 @@ export default {
             }
             treeData[i].path = treeData[i].menuUrl
             treeData[i].leaf = true
-            if(userType != '0') treeData[i].hidden = true
+            if(userType != '0' && userType != '101') treeData[i].hidden = true
 
             treeData[i].component = treeData[i].menuUrl
             treeData[i].children = []

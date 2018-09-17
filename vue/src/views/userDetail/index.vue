@@ -91,19 +91,11 @@
                 <el-select v-model="expert.edu" style="width:100px;height:30px" placeholder="请选择">
                   <el-option label="请选择" key="" value="">
                   </el-option>
-                  <el-option label="小学" key="1" value="1">
-                  </el-option>
-                  <el-option label="初中" key="2" value="2">
-                  </el-option>
-                  <el-option label="高中" key="3" value="3">
-                  </el-option>
-                  <el-option label="大专" key="4" value="4">
-                  </el-option>
                   <el-option label="本科" key="5" value="5">
                   </el-option>
-                  <el-option label="研究生" key="6" value="6">
+                  <el-option label="硕士研究生" key="6" value="6">
                   </el-option>
-                  <el-option label="博士" key="7" value="7">
+                  <el-option label="博士研究生" key="7" value="7">
                   </el-option>
                   <el-option label="其他" key="99" value="99">
                   </el-option>
@@ -973,7 +965,7 @@
               </el-form-item>
               <el-form-item label="所在地区">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
-                <area-cascader :level="1" v-model="mech.selected" :data="pcaa"></area-cascader>
+                <area-cascader :level="1" v-model="mech.country" :data="pcaa"></area-cascader>
                 <!-- <area-cascader v-model="selected" :level="1" :data="pca"></area-cascader> -->
               </el-form-item>
               <el-form-item label="联系地址">
@@ -1656,7 +1648,7 @@ export default {
         perNum: '',
         ecode: '',
         address: '',
-        selected: '',
+        country: '',
         name: '',
         fdemail: '',
         fdtel: '',
