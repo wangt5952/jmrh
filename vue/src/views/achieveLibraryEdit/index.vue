@@ -380,7 +380,7 @@ export default {
       window.history.go(-1);
     },
     async saveFile(checkStatus) {
-      // if (!this.validata.validaRole(obj)) return
+      if (!this.validata.validaAchieveLibrary(this.achieveLibrary)) return
       let arr = {}
       arr.formType = '6'
       arr.checkStatus = checkStatus

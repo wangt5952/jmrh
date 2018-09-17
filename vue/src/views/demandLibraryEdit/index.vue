@@ -327,7 +327,7 @@ export default {
 
     },
     async saveFile(checkStatus) {
-      // if (!this.validata.validaRole(obj)) return
+      if (!this.validata.validaDemandLibrary(this.demandLibrary)) return
       let arr = {}
       arr.formType = '7'
       arr.checkStatus = checkStatus

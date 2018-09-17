@@ -65,13 +65,14 @@
     </div>
     <div label="地方管理员代办" v-if="userType =='101' || userType =='102' || userType =='103'" name="2">
 
+
       <el-row :gutter="24" style="font-size: 12px;">
         <el-col :span="5" style="display:flex;background: #fff;height: 100px; display: flex;justify-content:center; align-items:Center;text-align:center;margin-right: 20px;">
-          <div @click="Toexpert2('activeManage')" style="flex:1;font-size: 20px;color: #409EFF;cursor: pointer;">{{activeNums || 0}}</div>
+          <div @click="Toexpert2('activeManage')" style="flex:1;font-size: 20px;color: #409EFF;cursor: pointer;">{{myActiveNums || 0}}</div>
           <div style="flex:1;text-align:left;color: #97a8be;">我的活动申请</div>
         </el-col>
         <el-col :span="5" style="display:flex;background: #fff;height: 100px; display: flex;justify-content:center; align-items:Center;text-align:center;margin-right: 20px;">
-          <div @click="Toexpert2('contentManage')" style="flex:1;font-size: 20px;color: #409EFF;cursor: pointer;">{{contentNums || 0}}</div>
+          <div @click="Toexpert2('contentManage')" style="flex:1;font-size: 20px;color: #409EFF;cursor: pointer;">{{myContentNums || 0}}</div>
           <div style="flex:1;text-align:left;color: #97a8be;">我的内容申请</div>
         </el-col>
 
@@ -102,7 +103,7 @@
                 <div v-show="!formTypeShow" class="">
                   <el-button style=" padding: 5px;font-size: 12px;" @click="TouserDetail" type="primary">加入平台</el-button>
                 </div>
-                <div  v-show="formTypeShow == 1" class="" style="flex:1;text-align: right;padding-right:20px;">
+                <div v-show="formTypeShow == 1" class="" style="flex:1;text-align: right;padding-right:20px;">
                   <el-button style=" padding: 5px;font-size: 12px;" @click="TouserDetail" type="primary">查看/编辑</el-button>
                 </div>
 
@@ -230,7 +231,7 @@
 
         <el-col :span="5" style="display:flex;">
           <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;cursor: pointer;">
-            <div @click="ToDJ(0,'-1')" style="flex:1;font-size: 20px;color: #409EFF;">{{expertNums || 0}}</div>
+            <div @click="ToDJ(0,'-1')" style="flex:1;font-size: 20px;color: #409EFF;">{{tomeexpertDjshNums || 0}}</div>
             <div style="flex:1;text-align:left;color: #97a8be;">待处理的专家对接</div>
           </div>
         </el-col>
@@ -421,13 +422,13 @@
       <el-row :gutter="24" style="font-size: 12px;margin-top:15px">
         <el-col :span="5" style="display:flex;">
           <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;text-align:center;cursor: pointer;">
-            <div @click="ToDJ(1,'-1')" style="flex:1;font-size: 20px;color: #409EFF;">{{activeNums || 0}}</div>
+            <div @click="ToDJ(1,'-1')" style="flex:1;font-size: 20px;color: #409EFF;">{{tomedemandDjshNums || 0}}</div>
             <div style="flex:2;text-align:left;color: #97a8be;">待处理的需求对接</div>
           </div>
         </el-col>
         <el-col :span="5" style="display:flex;">
           <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;cursor: pointer;">
-            <div @click="ToDJ(2,'-1')" style="flex:1;font-size: 20px;color: #409EFF;">{{contentNums || 0}}</div>
+            <div @click="ToDJ(2,'-1')" style="flex:1;font-size: 20px;color: #409EFF;">{{tomeactiveDjshNums || 0}}</div>
             <div style="flex:2;text-align:left;color: #97a8be;">待处理的成果对接</div>
           </div>
         </el-col>
@@ -619,13 +620,13 @@
       <el-row :gutter="24" style="font-size: 12px;margin-top:15px">
         <el-col :span="5" style="display:flex;">
           <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;text-align:center;cursor: pointer;">
-            <div @click="ToDJ(1,'-1')" style="flex:1;font-size: 20px;color: #409EFF;">{{activeNums || 0}}</div>
+            <div @click="ToDJ(1,'-1')" style="flex:1;font-size: 20px;color: #409EFF;">{{tomedemandDjshNums || 0}}</div>
             <div style="flex:2;text-align:left;color: #97a8be;">待处理的需求对接</div>
           </div>
         </el-col>
         <el-col :span="5" style="display:flex;">
           <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;cursor: pointer;">
-            <div @click="ToDJ(2,'-1')" style="flex:1;font-size: 20px;color: #409EFF;">{{contentNums || 0}}</div>
+            <div @click="ToDJ(2,'-1')" style="flex:1;font-size: 20px;color: #409EFF;">{{tomeactiveDjshNums || 0}}</div>
             <div style="flex:2;text-align:left;color: #97a8be;">待处理的成果对接</div>
           </div>
         </el-col>
@@ -633,7 +634,7 @@
 
         <el-col :span="5" style="display:flex;">
           <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;cursor: pointer;">
-            <div @click="ToDJ(3,'-1')" style="flex:1;font-size: 20px;color: #409EFF;">{{enterpriseNums|| 0}}</div>
+            <div @click="ToDJ(3,'-1')" style="flex:1;font-size: 20px;color: #409EFF;">{{tomefwDjshNums|| 0}}</div>
             <div style="flex:1;text-align:left;color: #97a8be;">待处理的服务对接</div>
           </div>
         </el-col>
@@ -828,13 +829,13 @@
       <el-row :gutter="24" style="font-size: 12px;margin-top:15px">
         <el-col :span="5" style="display:flex;">
           <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;text-align:center;cursor: pointer;">
-            <div @click="ToDJ(1,'-1')" style="flex:1;font-size: 20px;color: #409EFF;">{{activeNums || 0}}</div>
+            <div @click="ToDJ(1,'-1')" style="flex:1;font-size: 20px;color: #409EFF;">{{tomedemandDjshNums || 0}}</div>
             <div style="flex:2;text-align:left;color: #97a8be;">待处理的需求对接</div>
           </div>
         </el-col>
         <el-col :span="5" style="display:flex;">
           <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;cursor: pointer;">
-            <div @click="ToDJ(2,'-1')" style="flex:1;font-size: 20px;color: #409EFF;">{{contentNums || 0}}</div>
+            <div @click="ToDJ(2,'-1')" style="flex:1;font-size: 20px;color: #409EFF;">{{tomeactiveDjshNums || 0}}</div>
             <div style="flex:2;text-align:left;color: #97a8be;">待处理的成果对接</div>
           </div>
         </el-col>
@@ -924,7 +925,9 @@ import LineChart2 from './components/LineChart2'
 import LineChart3 from './components/LineChart3'
 import {
   getSubmitLibSum,
-  getSubmitLib
+  getSubmitLib,
+  getMyTaskSum,
+  getSubmitCmsSum
 } from '@/api/dashboard'
 
 import {
@@ -985,7 +988,12 @@ export default {
       expertDjbhNums: '',
       expertDjpassNums: '',
       expertDjshNums: '',
-
+      myActiveNums: '',
+      myContentNums: '',
+      tomeexpertDjshNums: '',
+      tomedemandDjshNums: '',
+      tomeactiveDjshNums: '',
+      tomefwDjshNums: '',
     }
   },
   mounted() {
@@ -1032,12 +1040,25 @@ export default {
         }
 
       }
+      let djfromsum = await getMyTaskSum()
+      djfromsum = djfromsum.data
+      for (var i in djfromsum) {
+        if (djfromsum[i].formType == 1) {
+          this.myActiveNums = djfromsum[i].count
+        }
+        if (djfromsum[i].formType == 2) {
+          this.myContentNums = djfromsum[i].count
+        }
+      }
     },
     async loadSubmitLib() {
       let {
         data,
         success
       } = await getSubmitLib()
+
+
+      let data3 = data.djtargetsum
       let data2 = data.djfromsum
       data = data.libsum
       if (data.length > 0) {
@@ -1161,6 +1182,34 @@ export default {
         }
 
       }
+
+      if (data3.length > 0) {
+        for (var i in data3) {
+
+          if (data3[i].formType == 0 && data3[i].checkStatus == 0) {
+            this.tomeexpertDjshNums = data3[i].count
+          }
+
+
+          if (data3[i].formType == 1 && data3[i].checkStatus == 0) {
+            this.tomedemandDjshNums = data3[i].count
+          }
+
+
+          if (data3[i].formType == 2 && data3[i].checkStatus == 0) {
+            this.tomeactiveDjshNums = data3[i].count
+          }
+
+
+          if (data3[i].formType == 3 && data3[i].checkStatus == 0) {
+            this.tomefwDjshNums = data3[i].count
+          }
+
+
+        }
+
+      }
+
 
     },
 

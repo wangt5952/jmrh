@@ -157,8 +157,8 @@ export default {
         number: ''
       },
       loginForm: {
-        userName: '116762952@qq.com',
-        password: '111',
+        userName: 'gyx',
+        password: '123',
         isAdmin: false,
       },
       loginRules: {

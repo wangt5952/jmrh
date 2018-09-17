@@ -325,7 +325,7 @@ export default {
         window.history.go(-1);
       },
     async saveFile(checkStatus) {
-      // if (!this.validata.validaRole(obj)) return
+      if (!this.validata.validaHschool(this.school)) return
         let arr ={}
         arr.formType = '4'
         arr.checkStatus = checkStatus

@@ -1727,7 +1727,7 @@ export default {
           zxqk: [],
         }],
       },
-      userType: '1',
+      userType: '3',
       registerValue: '',
       loginVerify: { // 普通登录
         phone: '',
@@ -1857,7 +1857,15 @@ export default {
       })
     },
     async saveFile(obj) {
-      // if (!this.validata.validaRole(obj)) return
+      if (this.userType == '1') {
+        if (!this.validata.validaExpert(this.expert)) return
+      } else if (this.userType == '2') {
+        if (!this.validata.validaEnterprise(this.com)) return
+      } else if (this.userType == '3') {
+        if (!this.validata.validaMechanism(this.mech)) return
+      } else if (this.userType == '4') {
+        if (!this.validata.validaHschool(this.school)) return
+      }
       let arr = []
       obj.method = 'post'
       let {

@@ -274,32 +274,32 @@
 
 
                     <el-form-item label="项目或课题名称">
-                        <el-input   type="text" v-model="item.projectname" style="width: 50%;"></el-input>
+                      <el-input type="text" v-model="item.projectname" style="width: 50%;"></el-input>
                     </el-form-item>
 
                     <el-form-item label="项目或课题来源">
 
-                        <el-input   type="text" v-model="item.projectSrc" style="width: 50%;"></el-input>
+                      <el-input type="text" v-model="item.projectSrc" style="width: 50%;"></el-input>
                     </el-form-item>
 
 
                     <el-form-item label="完成情况">
-                    <el-input   type="text" v-model="item.finishcon" style="width: 50%;"></el-input>
+                      <el-input type="text" v-model="item.finishcon" style="width: 50%;"></el-input>
                     </el-form-item>
 
-                        <el-form-item label="完成时间">
-                        <el-date-picker v-model="item.finishtime" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="" style="width: 50%;">
-                        </el-date-picker>
+                    <el-form-item label="完成时间">
+                      <el-date-picker v-model="item.finishtime" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="" style="width: 50%;">
+                      </el-date-picker>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
                     <el-form-item label="奖项名称">
-                        <el-input   type="text" v-model="item.rewname" style="width: 50%;"></el-input>
+                      <el-input type="text" v-model="item.rewname" style="width: 50%;"></el-input>
                     </el-form-item>
 
                     <el-form-item label="获奖等级">
 
-                        <el-input   type="text" v-model="item.rewlevel" style="width: 50%;"></el-input>
+                      <el-input type="text" v-model="item.rewlevel" style="width: 50%;"></el-input>
                     </el-form-item>
 
 
@@ -1515,19 +1515,19 @@ export default {
       expert: {
         cardPositive: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
         }],
         cardSide: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idback.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
         }],
         cardHands: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/handPhoto.jpg`
+          url: this.imgBaseUrl + `/jmrhupload/def/handPhoto.jpg`
         }],
         onepicture: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/livePhoto.jpg`
+          url: this.imgBaseUrl + `/jmrhupload/def/livePhoto.jpg`
         }],
         name: '',
         sex: '',
@@ -1564,23 +1564,23 @@ export default {
       school: {
         zhengben: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
         }],
-          zhengben1: [{
-            name: '默认',
-            url:  this.imgBaseUrl + `/jmrhupload/def/companyZS.png`
-          }],
+        zhengben1: [{
+          name: '默认',
+          url: this.imgBaseUrl + `/jmrhupload/def/companyZS.png`
+        }],
         fuben: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
         }],
         fuben2: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idback.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
         }],
         logo: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
         }],
         introduction: '',
         major_platform: '',
@@ -1595,31 +1595,31 @@ export default {
       mech: {
         zhengben: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
         }],
         zhengben1: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/companyZS.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/companyZS.png`
         }],
         fuben: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
         }],
         fuben2: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idback.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
         }],
         lxridz: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
         }],
         lxridf: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idback.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
         }],
         logo: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
         }],
         code: '',
         registerNature: [],
@@ -1671,19 +1671,19 @@ export default {
       com: {
         zhengben: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
         }],
         fuben: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
         }],
         fuben2: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idback.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
         }],
         logo: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
         }],
         lxname: '',
         lxzw: '',
@@ -1841,7 +1841,16 @@ export default {
     },
 
     async saveFile(obj) {
-      // if (!this.validata.validaRole(obj)) return
+
+      if (this.userType == '1') {
+        if (!this.validata.validaExpert(this.expert)) return
+      } else if (this.userType == '2') {
+        if (!this.validata.validaEnterprise(this.com)) return
+      } else if (this.userType == '3') {
+        if (!this.validata.validaMechanism(this.mech)) return
+      } else if (this.userType == '4') {
+        if (!this.validata.validaHschool(this.school)) return
+      }
 
       let arr = []
       obj.method = 'post'
@@ -1906,12 +1915,12 @@ export default {
       })
     },
     delProjectexpert(item) {
-        this.expert.research_record.splice(this.expert.research_record.indexOf(item), 1)
-        this.$message({
-          type: 'info',
-          message: '删除成功'
-        });
-      },
+      this.expert.research_record.splice(this.expert.research_record.indexOf(item), 1)
+      this.$message({
+        type: 'info',
+        message: '删除成功'
+      });
+    },
     addProjectcom() {
       this.com.comPorcolumnDefinitions.push({
         name: '',
@@ -1952,7 +1961,7 @@ export default {
         issuingAgency: ''
       })
     },
-  delhonrmech(item) {
+    delhonrmech(item) {
       this.mech.honor.splice(this.mech.honor.indexOf(item), 1)
       this.$message({
         type: 'info',
@@ -1967,7 +1976,7 @@ export default {
       })
     },
 
-  delcjmech(item) {
+    delcjmech(item) {
       this.mech.workrPorcolumnDefinitions.splice(this.mech.workrPorcolumnDefinitions.indexOf(item), 1)
       this.$message({
         type: 'info',
@@ -2145,27 +2154,27 @@ export default {
       }
     },
 
-        async uploadSectionFile80(param) {
-          this.mech.zhengben = []
-          var fileObj = param.file;
-          // 接收上传文件的后台地址
-          // FormData 对象
-          var form = new FormData();
-          // 文件对象
-          form.append("file", fileObj);
-          // 其他参数
-          // form.append("xxx", xxx);
-          let {
-            data,
-            success
-          } = await libupload(form)
-          if (success) {
-            let arro = {}
-            arro.name = data.fileName,
-              arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-            this.mech.zhengben.push(arro)
-          }
-        },
+    async uploadSectionFile80(param) {
+      this.mech.zhengben = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.mech.zhengben.push(arro)
+      }
+    },
     async uploadSectionFile8(param) {
       this.mech.zhengben1 = []
       var fileObj = param.file;
@@ -2365,13 +2374,14 @@ export default {
 </style>
 
 <style>
-
 .tools {
   height: 5%
 }
+
 .cxxm .el-input__inner {
- padding: 0 30px !important;
+  padding: 0 30px !important;
 }
+
 .area-select .area-selected-trigger {
   position: relative;
   display: block;

@@ -746,7 +746,7 @@ export default {
       window.history.go(-1);
     },
     async saveFile(checkStatus) {
-      // if (!this.validata.validaRole(obj)) return
+      if (!this.validata.validaMechanism(this.mech)) return
 
       let arr = {}
       arr.formType = '3'

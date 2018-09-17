@@ -461,6 +461,7 @@ export default {
           data,
           success
         } = await getUserDetailByUserId(item.id)
+          debugger
         this.content = data
         this.dialogFormVisible = true
         this.show = true

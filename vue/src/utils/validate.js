@@ -622,52 +622,52 @@ function validresetPW(str, checkStatus, cellphone) {
 
 
 function validaExpert(str) {
-  if (!str || verify.isNull(str.email)) {
-    Message({
-      message: '邮箱不能为空！',
-      type: 'error'
-    });
-    return false;
-  }
-  if (!str || verify.checkEmail(str.email)) {
-    Message({
-      message: '请输入正确的邮箱地址！',
-      type: 'error'
-    });
-    return false;
-  }
-
-  if (!str || verify.isNull(str.password)) {
-    Message({
-      message: '密码不能为空！',
-      type: 'error'
-    });
-    return false;
-  }
-  if (!str || verify.isNull(str.repassword)) {
-    Message({
-      message: '请再次输入密码！',
-      type: 'error'
-    });
-    return false;
-  }
   if (!str || verify.isNull(str.name)) {
     Message({
-      message: '名字不能为空！',
+      message: '姓名不能为空！',
       type: 'error'
     });
     return false;
   }
   if (!str || verify.isNull(str.code)) {
     Message({
-      message: '身份证不能为空！',
+      message: '身份证号不能为空！',
       type: 'error'
     });
     return false;
   }
+
   if (!str || verify.isIDCard(str.code)) {
     Message({
       message: '请输入正确的身份证格式！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.mobilephone)) {
+    Message({
+      message: '手机号不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isPoneAvailable(str.mobilephone)) {
+    Message({
+      message: '手机号格式不正确！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.fdemail)) {
+    Message({
+      message: '邮箱不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.checkEmail(str.fdemail)) {
+    Message({
+      message: '请输入正确的邮箱地址！',
       type: 'error'
     });
     return false;
@@ -676,52 +676,51 @@ function validaExpert(str) {
 }
 
 function validaEnterprise(str) {
-  if (!str || verify.isNull(str.email)) {
-    Message({
-      message: '邮箱不能为空！',
-      type: 'error'
-    });
-    return false;
-  }
-  if (!str || verify.checkEmail(str.email)) {
-    Message({
-      message: '请输入正确的邮箱地址！',
-      type: 'error'
-    });
-    return false;
-  }
-
-  if (!str || verify.isNull(str.password)) {
-    Message({
-      message: '密码不能为空！',
-      type: 'error'
-    });
-    return false;
-  }
-  if (!str || verify.isNull(str.repassword)) {
-    Message({
-      message: '请再次输入密码！',
-      type: 'error'
-    });
-    return false;
-  }
   if (!str || verify.isNull(str.name)) {
     Message({
-      message: '名字不能为空！',
+      message: '企业名称不能为空！',
       type: 'error'
     });
     return false;
   }
   if (!str || verify.isNull(str.code)) {
     Message({
-      message: '身份证不能为空！',
+      message: '企业编码不能为空！',
       type: 'error'
     });
     return false;
   }
-  if (!str || verify.isIDCard(str.code)) {
+  if (!str || verify.isNull(str.lpname)) {
     Message({
-      message: '请输入正确的身份证格式！',
+      message: '联系人姓名不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.lpphone)) {
+    Message({
+      message: '联系人手机号不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isPoneAvailable(str.lpphone)) {
+    Message({
+      message: '联系人手机号格式不正确！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.lpemail)) {
+    Message({
+      message: '联系人邮箱不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.checkEmail(str.lpemail)) {
+    Message({
+      message: '请输入正确的联系人邮箱地址！',
       type: 'error'
     });
     return false;
@@ -730,106 +729,70 @@ function validaEnterprise(str) {
 }
 
 function validaHschool(str) {
-  if (!str || verify.isNull(str.email)) {
-    Message({
-      message: '邮箱不能为空！',
-      type: 'error'
-    });
-    return false;
-  }
-  if (!str || verify.checkEmail(str.email)) {
-    Message({
-      message: '请输入正确的邮箱地址！',
-      type: 'error'
-    });
-    return false;
-  }
-
-  if (!str || verify.isNull(str.password)) {
-    Message({
-      message: '密码不能为空！',
-      type: 'error'
-    });
-    return false;
-  }
-  if (!str || verify.isNull(str.repassword)) {
-    Message({
-      message: '请再次输入密码！',
-      type: 'error'
-    });
-    return false;
-  }
   if (!str || verify.isNull(str.name)) {
     Message({
-      message: '名字不能为空！',
+      message: '名称不能为空！',
       type: 'error'
     });
     return false;
   }
   if (!str || verify.isNull(str.code)) {
     Message({
-      message: '身份证不能为空！',
+      message: '统一社会信用代码不能为空！',
       type: 'error'
     });
     return false;
   }
-  if (!str || verify.isIDCard(str.code)) {
-    Message({
-      message: '请输入正确的身份证格式！',
-      type: 'error'
-    });
-    return false;
-  }
+
   return true;
 }
 
 function validaMechanism(str) {
-  if (!str || verify.isNull(str.email)) {
-    Message({
-      message: '邮箱不能为空！',
-      type: 'error'
-    });
-    return false;
-  }
-  if (!str || verify.checkEmail(str.email)) {
-    Message({
-      message: '请输入正确的邮箱地址！',
-      type: 'error'
-    });
-    return false;
-  }
-
-  if (!str || verify.isNull(str.password)) {
-    Message({
-      message: '密码不能为空！',
-      type: 'error'
-    });
-    return false;
-  }
-  if (!str || verify.isNull(str.repassword)) {
-    Message({
-      message: '请再次输入密码！',
-      type: 'error'
-    });
-    return false;
-  }
   if (!str || verify.isNull(str.name)) {
     Message({
-      message: '名字不能为空！',
+      message: '单位名称不能为空！',
       type: 'error'
     });
     return false;
   }
   if (!str || verify.isNull(str.code)) {
     Message({
-      message: '身份证不能为空！',
+      message: '统一社会信用代码不能为空！',
       type: 'error'
     });
     return false;
   }
-  if (!str || verify.isIDCard(str.code)) {
+  if (!str || verify.isNull(str.linkman)) {
     Message({
-      message: '请输入正确的身份证格式！',
+      message: '联系人姓名不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.lxphone)) {
+    Message({
+      message: '联系人手机号不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isPoneAvailable(str.lxphone)) {
+    Message({
+      message: '联系人手机号格式不正确！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.lxemail)) {
+    Message({
+      message: '联系人邮箱不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.checkEmail(str.lxemail)) {
+    Message({
+      message: '请输入正确的联系人邮箱地址！',
       type: 'error'
     });
     return false;
@@ -838,52 +801,58 @@ function validaMechanism(str) {
 }
 
 function validaDemandLibrary(str) {
-  if (!str || verify.isNull(str.email)) {
+  if (!str || verify.isNull(str.re_name)) {
     Message({
-      message: '邮箱不能为空！',
+      message: '技术需求名称不能为空！',
       type: 'error'
     });
     return false;
   }
-  if (!str || verify.checkEmail(str.email)) {
-    Message({
-      message: '请输入正确的邮箱地址！',
-      type: 'error'
-    });
-    return false;
-  }
-
-  if (!str || verify.isNull(str.password)) {
-    Message({
-      message: '密码不能为空！',
-      type: 'error'
-    });
-    return false;
-  }
-  if (!str || verify.isNull(str.repassword)) {
-    Message({
-      message: '请再次输入密码！',
-      type: 'error'
-    });
-    return false;
-  }
-  if (!str || verify.isNull(str.name)) {
-    Message({
-      message: '名字不能为空！',
-      type: 'error'
-    });
-    return false;
-  }
+    if (!str || verify.isNull(str.name)) {
+      Message({
+        message: '需求单位名称不能为空！',
+        type: 'error'
+      });
+      return false;
+    }
   if (!str || verify.isNull(str.code)) {
     Message({
-      message: '身份证不能为空！',
+      message: '统一社会信用代码不能为空！',
       type: 'error'
     });
     return false;
   }
-  if (!str || verify.isIDCard(str.code)) {
+  if (!str || verify.isNull(str.fzname2)) {
     Message({
-      message: '请输入正确的身份证格式！',
+      message: '联系人姓名不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.fzphone2)) {
+    Message({
+      message: '联系人手机号不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isPoneAvailable(str.fzphone2)) {
+    Message({
+      message: '联系人手机号格式不正确！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.fzemail2)) {
+    Message({
+      message: '联系人邮箱不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.checkEmail(str.fzemail2)) {
+    Message({
+      message: '请输入正确的联系人邮箱地址！',
       type: 'error'
     });
     return false;
@@ -892,52 +861,58 @@ function validaDemandLibrary(str) {
 }
 
 function validaAchieveLibrary(str) {
-  if (!str || verify.isNull(str.email)) {
+  if (!str || verify.isNull(str.re_name)) {
     Message({
-      message: '邮箱不能为空！',
+      message: '技术成果名称不能为空！',
       type: 'error'
     });
     return false;
   }
-  if (!str || verify.checkEmail(str.email)) {
-    Message({
-      message: '请输入正确的邮箱地址！',
-      type: 'error'
-    });
-    return false;
-  }
-
-  if (!str || verify.isNull(str.password)) {
-    Message({
-      message: '密码不能为空！',
-      type: 'error'
-    });
-    return false;
-  }
-  if (!str || verify.isNull(str.repassword)) {
-    Message({
-      message: '请再次输入密码！',
-      type: 'error'
-    });
-    return false;
-  }
-  if (!str || verify.isNull(str.name)) {
-    Message({
-      message: '名字不能为空！',
-      type: 'error'
-    });
-    return false;
-  }
+    if (!str || verify.isNull(str.name)) {
+      Message({
+        message: '企业名称不能为空！',
+        type: 'error'
+      });
+      return false;
+    }
   if (!str || verify.isNull(str.code)) {
     Message({
-      message: '身份证不能为空！',
+      message: '统一社会信用代码不能为空！',
       type: 'error'
     });
     return false;
   }
-  if (!str || verify.isIDCard(str.code)) {
+  if (!str || verify.isNull(str.fzname2)) {
     Message({
-      message: '请输入正确的身份证格式！',
+      message: '项目联系人不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.fzphone2)) {
+    Message({
+      message: '项目联系人电话不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isPoneAvailable(str.fzphone2)) {
+    Message({
+      message: '项目联系人电话格式不正确！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.fzemail2)) {
+    Message({
+      message: '项目联系人邮箱不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.checkEmail(str.fzemail2)) {
+    Message({
+      message: '请输入正确的项目联系人邮箱地址！',
       type: 'error'
     });
     return false;
@@ -984,6 +959,8 @@ function validmajorPlatform(str) {
   }
   return true;
 }
+
+
 
 //success/warning/info/error
 export default {

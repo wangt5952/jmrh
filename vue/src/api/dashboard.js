@@ -15,3 +15,20 @@ export function getSubmitLib(data) {
 
   });
 }
+
+export function getMyTaskSum(data) {
+  return request({
+    url: '/xtcx/category/getMyTaskSum',
+    method: 'get',
+
+  });
+}
+
+
+export function getSubmitCmsSum(data) {
+  return request({
+    url: '/xtcx/exchanges/getSubmitCmsSum',
+    method: 'get',
+
+  });
+}

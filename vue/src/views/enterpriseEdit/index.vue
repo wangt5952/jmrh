@@ -853,7 +853,7 @@ export default {
     },
 
     async saveFile(checkStatus) {
-      // if (!this.validata.validaRole(obj)) return
+      if (!this.validata.validaEnterprise(this.com)) return
       let arr = {}
       arr.formType = '2'
       arr.checkStatus = checkStatus
