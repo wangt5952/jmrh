@@ -80,12 +80,12 @@
                 </div>
               </el-form-item>
               <el-form-item label="毕业院校">
-                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入毕业院校" v-model="expert.shcool" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="学历">
                 <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
-                <el-select v-model="expert.edu" style="width:100px;height:30px" placeholder="请选择">
+                <el-select v-model="expert.edu" style="width:120px;height:30px" placeholder="请选择">
                   <el-option label="请选择" key="" value="">
                   </el-option>
                   <el-option label="本科" key="5" value="5">
@@ -130,7 +130,7 @@
               </el-form-item>
 
               <el-form-item label="研究方向">
-                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入研究方向" v-model="expert.research_area" style="width:80%"></el-input>
               </el-form-item>
 
@@ -151,23 +151,23 @@
             <el-col :span="20">
 
               <el-form-item label="工作单位">
-                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入工作单位" v-model="expert.work_unit" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="工作部门">
-                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入工作部门" v-model="expert.work_bumen" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="现任职务">
-                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入现任职务" v-model="expert.zwname" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="职称">
-                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -50px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入职称" v-model="expert.zcname" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="职称级别">
-                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                 <el-checkbox-group v-model="expert.zclevel">
                   <el-checkbox label="1">正高</el-checkbox>
                   <el-checkbox label="2">副高</el-checkbox>
@@ -178,7 +178,7 @@
                 <el-input placeholder="请输入手机号" v-model="expert.mobilephone" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="办公电话">
-                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入办公电话" v-model="expert.telphone" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="邮箱">
@@ -190,7 +190,7 @@
                 <area-cascader :level="1" v-model="expert.country" :data="pcaa"></area-cascader>
               </el-form-item>
               <el-form-item label="通讯地址">
-                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入通讯地址" v-model="expert.address" style="width:80%"></el-input>
               </el-form-item>
             </el-col>
@@ -211,7 +211,7 @@
             <el-col :span="24">
 
               <el-form-item label="主要学术成就/研究成果/管理成就">
-                <span style='position: absolute;left: -230px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -230px;color: #f60d0d;'></span>
                 <textarea v-model="expert.success_record" rows="3" cols="20" style="width:60%;height: 120px;">
                 </textarea>
               </el-form-item>
@@ -321,7 +321,7 @@
         <el-radio-group v-model="checkStatus">
           <el-radio :label="-1">草稿</el-radio>
           <el-radio :label="0">提交待审</el-radio>
-          <el-radio  v-show="userType == '0' && !$route.params.objData" :label="1">直接审核</el-radio>
+          <el-radio v-show="userType == '0' ||  userType =='101'" :label="1">直接审核</el-radio>
         </el-radio-group>
       </div>
       <div class="">
@@ -446,8 +446,12 @@ export default {
       if (!this.expert.onepicture) {
         this.expert.onepicture = []
       }
-      this.userType = window.sessionStorage.getItem('userType')
-      if (this.userType != '0') this.checkStatus = 0
+    }
+    this.userType = window.sessionStorage.getItem('userType')
+    if (this.userType == '0' || this.userType == '101') {
+      this.checkStatus = 1
+    } else {
+      this.checkStatus = 0
     }
   },
   computed: {},

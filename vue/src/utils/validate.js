@@ -736,35 +736,79 @@ function validaEnterprise(str) {
     });
     return false;
   }
+  if (!str || verify.isNull(str.registered_capital)) {
+    Message({
+      message: '企业规模不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+
+  if (!str || verify.isNull(str.registered_type)) {
+    Message({
+      message: '注册类型不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+    if (!str || verify.isNull(str.country)) {
+      Message({
+        message: '所在地区不能为空！',
+        type: 'error'
+      });
+      return false;
+    }
+    if (!str || verify.isNull(str.registerMarket)) {
+      Message({
+        message: '必须选择是否上市！',
+        type: 'error'
+      });
+      return false;
+    }
+    if (!str || verify.isNull(str.domain)) {
+      Message({
+        message: '所属领域不能为空！',
+        type: 'error'
+      });
+      return false;
+    }
+    debugger
   if (!str || verify.isNull(str.lpname)) {
+    Message({
+      message: '法人姓名不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.lxname)) {
     Message({
       message: '联系人姓名不能为空！',
       type: 'error'
     });
     return false;
   }
-  if (!str || verify.isNull(str.lpphone)) {
+  if (!str || verify.isNull(str.lxphone)) {
     Message({
       message: '联系人手机号不能为空！',
       type: 'error'
     });
     return false;
   }
-  if (!str || verify.isPoneAvailable(str.lpphone)) {
+  if (!str || verify.isPoneAvailable(str.lxphone)) {
     Message({
       message: '联系人手机号格式不正确！',
       type: 'error'
     });
     return false;
   }
-  if (!str || verify.isNull(str.lpemail)) {
+  if (!str || verify.isNull(str.lxemail)) {
     Message({
       message: '联系人邮箱不能为空！',
       type: 'error'
     });
     return false;
   }
-  if (!str || verify.checkEmail(str.lpemail)) {
+  if (!str || verify.checkEmail(str.lxemail)) {
     Message({
       message: '请输入正确的联系人邮箱地址！',
       type: 'error'
