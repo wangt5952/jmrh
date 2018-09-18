@@ -34,17 +34,17 @@
 
               <el-form-item label="身份证号">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入身份证号" v-model="expert.code" style="width:80%"></el-input>
+                <el-input disabled="expertCodeD" placeholder="请输入身份证号" v-model="expert.code" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="上传身份证正面">
                 <div>
                   <!--这是正面照-->
                   <div class="photo">
-                    <el-upload class="upload-demo" :http-request="uploadSectionFile1" :file-list="expert.cardPositive" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile1" :file-list="expert.picLmIdCardFront" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
                     <!-- <input type="file" @change="uploadImg($event)" id="IdCard"> -->
-                    <!-- <input type="file"  @change="per.cardPositive"  id="IdCard"> -->
+                    <!-- <input type="file"  @change="per.picLmIdCardFront"  id="IdCard"> -->
 
                   </div>
                 </div>
@@ -53,7 +53,7 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" :http-request="uploadSectionFile2" :file-list="expert.cardSide" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile2" :file-list="expert.picLmIdCardBack" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -64,7 +64,7 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" :http-request="uploadSectionFile3" :file-list="expert.cardHands" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile3" :file-list="expert.picLmIdCardInHand" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -75,7 +75,7 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" :http-request="uploadSectionFile4" :file-list="expert.onepicture" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile4" :file-list="expert.picLogo" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -340,7 +340,7 @@
               </el-form-item>
               <el-form-item label="企业编码">
                 <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入企业编码" v-model="com.code" style="width:80%"></el-input>
+                <el-input disabled="comCodeD" placeholder="请输入企业编码" v-model="com.code" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="企业规模（注册资金）">
                 <span style='position: absolute;left: -170px;color: #f60d0d;'>*</span>
@@ -500,30 +500,18 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" :http-request="uploadSectionFile5" :file-list="com.zhengben" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile5" :file-list="com.picOrgLicense" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
                   </div>
                 </div>
               </el-form-item>
-
-              <el-form-item label="法人身份证正面">
+              <el-form-item label="事业单位法人证书">
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" :http-request="uploadSectionFile6" :file-list="com.fuben" list-type="picture">
-                      <el-button size="small" type="primary">点击上传</el-button>
-                    </el-upload>
-
-                  </div>
-                </div>
-              </el-form-item>
-              <el-form-item label="法人身份证反面">
-                <div>
-                  <!--这是背面照-->
-                  <div class="photo photo1">
-                    <el-upload class="upload-demo" :http-request="uploadSectionFile66" :file-list="com.fuben2" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFilepicLpLicense" :file-list="com.picLpLicense" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -534,7 +522,7 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" :http-request="uploadSectionFile7" :file-list="com.logo" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile7" :file-list="com.picLogo" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -561,8 +549,41 @@
                 <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入姓名" v-model="com.lxname" style="width:80%"></el-input>
               </el-form-item>
+              <el-form-item label="联系人身份证正面">
+                <div>
+                  <!--这是背面照-->
+                  <div class="photo photo1">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile6" :file-list="com.picLmIdCardFront" list-type="picture">
+                      <el-button size="small" type="primary">点击上传</el-button>
+                    </el-upload>
+
+                  </div>
+                </div>
+              </el-form-item>
+              <el-form-item label="联系人身份证反面">
+                <div>
+                  <!--这是背面照-->
+                  <div class="photo photo1">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile66" :file-list="com.picLmIdCardBack" list-type="picture">
+                      <el-button size="small" type="primary">点击上传</el-button>
+                    </el-upload>
+
+                  </div>
+                </div>
+              </el-form-item>
+              <el-form-item label="手持身份证">
+                <div>
+                  <!--这是背面照-->
+                  <div class="photo photo1">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFilepicLmIdCardInHand" :file-list="com.picLmIdCardInHand" list-type="picture">
+                      <el-button size="small" type="primary">点击上传</el-button>
+                    </el-upload>
+
+                  </div>
+                </div>
+              </el-form-item>
               <el-form-item label="职务">
-                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                <span style='position: relative;left: -50px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入职务" v-model="com.lxzw" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="手机号">
@@ -927,13 +948,13 @@
               </el-form-item>
               <el-form-item label="统一社会信用代码">
                 <span style='position: absolute;left: -135px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入统一社会信用代码" v-model="mech.code" style="width:80%"></el-input>
+                <el-input disabled="mechCodeD" placeholder="请输入统一社会信用代码" v-model="mech.code" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="营业执照">
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" :http-request="uploadSectionFile0" :file-list="mech.zhengben" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="mechuploadSectionFile0" :file-list="mech.picOrgLicense" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -945,7 +966,7 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" :http-request="uploadSectionFile3" :file-list="mech.logo" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="mechuploadSectionFile3" :file-list="mech.picLogo" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -956,7 +977,7 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" :http-request="uploadSectionFile1" :file-list="mech.zhengben1" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="mechuploadSectionFile1" :file-list="mech.picLpLicense" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -1065,28 +1086,6 @@
                 <el-input placeholder="请输入邮箱" v-model="mech.fdemail" style="width:80%"></el-input>
               </el-form-item>
 
-              <el-form-item label="法人身份证正面">
-                <div>
-                  <!--这是背面照-->
-                  <div class="photo photo1">
-                    <el-upload class="upload-demo" :http-request="uploadSectionFile2" :file-list="mech.fuben" list-type="picture">
-                      <el-button size="small" type="primary">点击上传</el-button>
-                    </el-upload>
-
-                  </div>
-                </div>
-              </el-form-item>
-              <el-form-item label="法人身份证反面">
-                <div>
-                  <!--这是背面照-->
-                  <div class="photo photo1">
-                    <el-upload class="upload-demo" :http-request="uploadSectionFile22" :file-list="mech.fuben2" list-type="picture">
-                      <el-button size="small" type="primary">点击上传</el-button>
-                    </el-upload>
-
-                  </div>
-                </div>
-              </el-form-item>
 
             </el-col>
             <el-col :span="10">
@@ -1111,7 +1110,7 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" :http-request="uploadSectionFilelxridz" :file-list="mech.lxridz" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="mechuploadSectionFilepicLmIdCardFront" :file-list="mech.picLmIdCardFront" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -1122,7 +1121,19 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" :http-request="uploadSectionFilelxridf" :file-list="mech.lxridf" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="mechuploadSectionFilepicLmIdCardBack" :file-list="mech.picLmIdCardBack" list-type="picture">
+                      <el-button size="small" type="primary">点击上传</el-button>
+                    </el-upload>
+
+                  </div>
+                </div>
+              </el-form-item>
+
+              <el-form-item label="手持身份证">
+                <div>
+                  <!--这是背面照-->
+                  <div class="photo photo1">
+                    <el-upload class="upload-demo" :http-request="mechuploadSectionFilepicLmIdCardInHand" :file-list="mech.picLmIdCardInHand" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -1360,14 +1371,14 @@
               </el-form-item>
               <el-form-item label="统一社会信用代码">
                 <span style='position: absolute;left: -140px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入统一社会信用代码" v-model="school.code" style="width:80%"></el-input>
+                <el-input disabled="schoolCodeD" placeholder="请输入统一社会信用代码" v-model="school.code" style="width:80%"></el-input>
               </el-form-item>
 
               <el-form-item label="营业执照">
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" :http-request="uploadSectionFile110" :file-list="school.zhengben" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile110" :file-list="school.picOrgLicense" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -1378,7 +1389,7 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" :http-request="uploadSectionFile11" :file-list="school.zhengben1" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile11" :file-list="school.picLpLicense" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -1386,23 +1397,35 @@
                 </div>
               </el-form-item>
 
-              <el-form-item label="法人身份证正面">
+              <el-form-item label="联系人身份证正面">
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" :http-request="uploadSectionFile12" :file-list="school.fuben" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile12" :file-list="school.picLmIdCardFront" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
                   </div>
                 </div>
               </el-form-item>
-              <el-form-item label="法人身份证反面">
+              <el-form-item label="联系人身份证反面">
                 <span style='position: absolute;left: -120px;color: #f60d0d;'>*</span>
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" :http-request="uploadSectionFile122" :file-list="school.fuben2" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile122" :file-list="school.picLmIdCardBack" list-type="picture">
+                      <el-button size="small" type="primary">点击上传</el-button>
+                    </el-upload>
+
+                  </div>
+                </div>
+              </el-form-item>
+
+              <el-form-item label="手持身份证">
+                <div>
+                  <!--这是背面照-->
+                  <div class="photo photo1">
+                    <el-upload class="upload-demo" :http-request="schooluploadSectionFilepicLmIdCardInHand" :file-list="school.picLmIdCardInHand" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -1413,10 +1436,9 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" :http-request="uploadSectionFile13" :file-list="school.logo" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile13" :file-list="school.picLogo" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
-
                   </div>
                 </div>
               </el-form-item>
@@ -1489,6 +1511,10 @@ import {
 export default {
   data() {
     return {
+      expertCodeD: false,
+      comCodeD: false,
+      mechCodeD: false,
+      schoolCodeD : false,
       userType: '',
       dateValue: '',
       selected: [],
@@ -1505,19 +1531,19 @@ export default {
       service_research_previoust: '',
 
       expert: {
-        cardPositive: [{
+        picLmIdCardFront: [{
           name: '默认',
           url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
         }],
-        cardSide: [{
+        picLmIdCardBack: [{
           name: '默认',
           url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
         }],
-        cardHands: [{
+        picLmIdCardInHand: [{
           name: '默认',
           url: this.imgBaseUrl + `/jmrhupload/def/handPhoto.jpg`
         }],
-        onepicture: [{
+        picLogo: [{
           name: '默认',
           url: this.imgBaseUrl + `/jmrhupload/def/livePhoto.jpg`
         }],
@@ -1554,23 +1580,29 @@ export default {
         }],
         search_param: []
       },
+
       school: {
-        zhengben: [{
+        picOrgLicense: [{
           name: '默认',
           url: this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
         }],
-        zhengben1: [{
+        picLpLicense: [{
           name: '默认',
           url: this.imgBaseUrl + `/jmrhupload/def/companyZS.png`
         }],
-        fuben: [{
+        picLmIdCardFront: [{
           name: '默认',
           url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
         }],
-        fuben2: [{
+        picLmIdCardBack: [{
           name: '默认',
           url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
         }],
+        picLmIdCardInHand: [{
+          name: '默认',
+          url: this.imgBaseUrl + `/jmrhupload/def/handPhoto.jpg`
+        }],
+
         logo: [{
           name: '默认',
           url: this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
@@ -1586,32 +1618,38 @@ export default {
         search_param: []
       },
 
+
       mech: {
-        zhengben: [{
+        picOrgLicense: [{
           name: '默认',
           url: this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
         }],
-        zhengben1: [{
+        picLpLicense: [{
           name: '默认',
           url: this.imgBaseUrl + `/jmrhupload/def/companyZS.png`
         }],
-        fuben: [{
+        // fuben: [{
+        //   name: '默认',
+        //   url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+        // }],
+        // fuben2: [{
+        //   name: '默认',
+        //   url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
+        // }],
+        picLmIdCardFront: [{
           name: '默认',
           url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
         }],
-        fuben2: [{
+        picLmIdCardBack: [{
           name: '默认',
           url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
         }],
-        lxridz: [{
+        picLmIdCardInHand: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/handPhoto.jpg`
         }],
-        lxridf: [{
-          name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
-        }],
-        logo: [{
+
+        picLogo: [{
           name: '默认',
           url: this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
         }],
@@ -1664,24 +1702,33 @@ export default {
         search_param: []
       },
       com: {
-        zhengben: [{
+        picOrgLicense: [{
           name: '默认',
           url: this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
         }],
-        fuben: [{
+        picLpLicense: [{
+          name: '默认',
+          url: this.imgBaseUrl + `/jmrhupload/def/companyZS.png`
+        }],
+        picLmIdCardFront: [{
           name: '默认',
           url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
         }],
-        fuben2: [{
+        picLmIdCardBack: [{
           name: '默认',
           url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
         }],
-        logo: [{
+        picLmIdCardInHand: [{
+          name: '默认',
+          url: this.imgBaseUrl + `/jmrhupload/def/handPhoto.jpg`
+        }],
+        picLogo: [{
           name: '默认',
           url: this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
         }],
-        lxname: '',
-        lxzw: '',
+        lxname: '123',
+        lxzw: '123',
+        search_param: [],
         lxphone: '',
         lxemail: '',
         lpname: '',
@@ -1696,7 +1743,7 @@ export default {
         country: '',
         registeraddress: '',
         registerecode: '',
-        is_high_new_tech: [],
+        is_high_new_tech: '',
         registerSite: [],
         registerSiteOther: '',
         registerHSite: [],
@@ -1752,8 +1799,7 @@ export default {
           fwbm: [],
           fwbmOther: '',
           zxqk: [],
-        }],
-        search_param: []
+        }]
       },
     }
   },
@@ -1804,25 +1850,30 @@ export default {
         } = await getUserDetail()
         if (this.userType == '1') {
           this.expert = JSON.parse(data.detail)
-          if (!this.expert.cardPositive) {
-            this.expert.cardPositive = []
-          }
-          if (!this.expert.cardSide) {
-            this.expert.cardSide = []
-          }
-          if (!this.expert.cardHands) {
-            this.expert.cardHands = []
-          }
+          if (this.expert.code != "") this.expertCodeD = true
+          // if (!this.expert.picLmIdCardFront) {
+          //   this.expert.picLmIdCardFront = []
+          // }
+          // if (!this.expert.picLmIdCardBack) {
+          //   this.expert.picLmIdCardBack = []
+          // }
+          // if (!this.expert.picLmIdCardInHand) {
+          //   this.expert.picLmIdCardInHand = []
+          // }
+          //
+          // if (!this.expert.picLogo) {
+          //   this.expert.picLogo = []
+          // }
 
-          if (!this.expert.onepicture) {
-            this.expert.onepicture = []
-          }
         } else if (this.userType == '2') {
           this.com = JSON.parse(data.detail)
+          if (this.com.code != "") this.comCodeD = true
         } else if (this.userType == '3') {
           this.mech = JSON.parse(data.detail)
+          if (this.mech.code != "") this.mechCodeD = true
         } else if (this.userType == '4') {
           this.school = JSON.parse(data.detail)
+          if (this.school.code != "") this.schoolCodeD = true
         }
         if (data.checkStatus == 0) {
           this.$message({
@@ -1856,32 +1907,32 @@ export default {
             });
             if (this.userType == '1') {
               this.expert = JSON.parse(data.form.detail)
-              this.expert.code = this.code
-              if (!this.expert.cardPositive) {
-                this.expert.cardPositive = []
-              }
-              if (!this.expert.cardSide) {
-                this.expert.cardSide = []
-              }
-              if (!this.expert.cardHands) {
-                this.expert.cardHands = []
-              }
-
-              if (!this.expert.onepicture) {
-                this.expert.onepicture = []
-              }
+              if (this.expert.code != "") this.expertCodeD = true
+              // if (!this.expert.picLmIdCardFront) {
+              //   this.expert.picLmIdCardFront = []
+              // }
+              // if (!this.expert.picLmIdCardBack) {
+              //   this.expert.picLmIdCardBack = []
+              // }
+              // if (!this.expert.picLmIdCardInHand) {
+              //   this.expert.picLmIdCardInHand = []
+              // }
+              //
+              // if (!this.expert.picLogo) {
+              //   this.expert.picLogo = []
+              // }
             }
             if (this.userType == '2') {
               this.com = JSON.parse(data.form.detail)
-              this.com.code = this.code
+              if (this.com.code != "") this.comCodeD = true
             }
             if (this.userType == '3') {
               this.mech = JSON.parse(data.form.detail)
-              this.mech.code = this.code
+              if (this.mech.code != "") this.mechCodeD = true
             }
             if (this.userType == '4') {
               this.school = JSON.parse(data.form.detail)
-              this.school.code = this.code
+              if (this.school.code != "") this.schoolCodeD = true
             }
           }
         }
@@ -2303,7 +2354,7 @@ export default {
       });
     },
     async uploadSectionFile1(param) {
-      this.expert.cardPositive = []
+      this.expert.picLmIdCardFront = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -2320,12 +2371,12 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-        this.expert.cardPositive.push(arro)
+        this.expert.picLmIdCardFront.push(arro)
       }
     },
 
     async uploadSectionFile2(param) {
-      this.expert.cardSide = []
+      this.expert.picLmIdCardBack = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -2342,11 +2393,11 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-        this.expert.cardSide.push(arro)
+        this.expert.picLmIdCardBack.push(arro)
       }
     },
     async uploadSectionFile3(param) {
-      this.expert.cardHands = []
+      this.expert.picLmIdCardInHand = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -2363,11 +2414,11 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-        this.expert.cardHands.push(arro)
+        this.expert.picLmIdCardInHand.push(arro)
       }
     },
     async uploadSectionFile4(param) {
-      this.expert.onepicture = []
+      this.expert.picLogo = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -2384,12 +2435,12 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-        this.expert.onepicture.push(arro)
+        this.expert.picLogo.push(arro)
       }
     },
 
     async uploadSectionFile5(param) {
-      this.com.zhengben = []
+      this.com.picOrgLicense = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -2406,11 +2457,32 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-        this.com.zhengben.push(arro)
+        this.com.picOrgLicense.push(arro)
+      }
+    },
+    async uploadSectionFilepicLpLicense(param) {
+      this.com.picLpLicense = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.com.picLpLicense.push(arro)
       }
     },
     async uploadSectionFile6(param) {
-      this.com.fuben = []
+      this.com.picLmIdCardFront = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -2427,11 +2499,11 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-        this.com.fuben.push(arro)
+        this.com.picLmIdCardFront.push(arro)
       }
     },
     async uploadSectionFile66(param) {
-      this.com.fuben2 = []
+      this.com.picLmIdCardBack = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -2448,11 +2520,33 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-        this.com.fuben2.push(arro)
+        this.com.picLmIdCardBack.push(arro)
+      }
+    },
+
+    async uploadSectionFilepicLmIdCardInHand(param) {
+      this.com.picLmIdCardInHand = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.com.picLmIdCardInHand.push(arro)
       }
     },
     async uploadSectionFile7(param) {
-      this.com.logo = []
+      this.com.picLogo = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -2469,12 +2563,12 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-        this.com.logo.push(arro)
+        this.com.picLogo.push(arro)
       }
     },
 
     async uploadSectionFile80(param) {
-      this.mech.zhengben = []
+      this.mech.picOrgLicense = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -2491,11 +2585,11 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-        this.mech.zhengben.push(arro)
+        this.mech.picOrgLicense.push(arro)
       }
     },
     async uploadSectionFile8(param) {
-      this.mech.zhengben1 = []
+      this.mech.picLpLicense = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -2512,11 +2606,11 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-        this.mech.zhengben1.push(arro)
+        this.mech.picLpLicense.push(arro)
       }
     },
     async uploadSectionFile9(param) {
-      this.mech.fuben = []
+      this.mech.picLmIdCardFront = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -2533,11 +2627,11 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-        this.mech.fuben.push(arro)
+        this.mech.picLmIdCardFront.push(arro)
       }
     },
     async uploadSectionFile99(param) {
-      this.mech.fuben2 = []
+      this.mech.picLmIdCardBack = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -2554,11 +2648,11 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-        this.mech.fuben2.push(arro)
+        this.mech.picLmIdCardBack.push(arro)
       }
     },
     async uploadSectionFile10(param) {
-      this.mech.logo = []
+      this.mech.picLogo = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -2575,12 +2669,12 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-        this.mech.logo.push(arro)
+        this.mech.picLogo.push(arro)
       }
     },
 
     async uploadSectionFile110(param) {
-      this.school.zhengben = []
+      this.school.picOrgLicense = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -2597,11 +2691,11 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-        this.school.zhengben.push(arro)
+        this.school.picOrgLicense.push(arro)
       }
     },
     async uploadSectionFile11(param) {
-      this.school.zhengben1 = []
+      this.school.picLpLicense = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -2618,11 +2712,11 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-        this.school.zhengben1.push(arro)
+        this.school.picLpLicense.push(arro)
       }
     },
     async uploadSectionFile12(param) {
-      this.school.fuben = []
+      this.school.picLmIdCardFront = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -2639,11 +2733,11 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-        this.school.fuben.push(arro)
+        this.school.picLmIdCardFront.push(arro)
       }
     },
     async uploadSectionFile122(param) {
-      this.school.fuben2 = []
+      this.school.picLmIdCardBack = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -2660,11 +2754,11 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-        this.school.fuben2.push(arro)
+        this.school.picLmIdCardBack.push(arro)
       }
     },
-    async uploadSectionFile13(param) {
-      this.school.logo = []
+    async mechuploadSectionFile0(param) {
+      this.mech.picOrgLicense = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -2681,7 +2775,157 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-        this.school.logo.push(arro)
+        this.mech.picOrgLicense.push(arro)
+      }
+    },
+    async mechuploadSectionFile1(param) {
+      this.mech.picLpLicense = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.mech.picLpLicense.push(arro)
+      }
+    },
+    async mechuploadSectionFile3(param) {
+      this.mech.picLogo = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.mech.picLogo.push(arro)
+      }
+    },
+    async mechuploadSectionFilepicLmIdCardFront(param) {
+      this.mech.picLmIdCardFront = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.mech.picLmIdCardFront.push(arro)
+      }
+    },
+
+    async mechuploadSectionFilepicLmIdCardBack(param) {
+      this.mech.picLmIdCardBack = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.mech.picLmIdCardBack.push(arro)
+      }
+    },
+
+    async mechuploadSectionFilepicLmIdCardInHand(param) {
+      this.mech.picLmIdCardInHand = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.mech.picLmIdCardInHand.push(arro)
+      }
+    },
+
+        async schooluploadSectionFilepicLmIdCardInHand(param) {
+          this.school.picLmIdCardInHand = []
+          var fileObj = param.file;
+          // 接收上传文件的后台地址
+          // FormData 对象
+          var form = new FormData();
+          // 文件对象
+          form.append("file", fileObj);
+          // 其他参数
+          // form.append("xxx", xxx);
+          let {
+            data,
+            success
+          } = await libupload(form)
+          if (success) {
+            let arro = {}
+            arro.name = data.fileName,
+              arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+            this.school.picLmIdCardInHand.push(arro)
+          }
+        },
+    async uploadSectionFile13(param) {
+      this.school.picLogo = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.school.picLogo.push(arro)
       }
     },
   }

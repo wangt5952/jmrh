@@ -1,132 +1,144 @@
 <template>
 <div class="tab-container">
 
-    <div class="" style="height: 80% !important;overflow-y: auto;">
-      <el-tabs type="border-card">
-        <el-tab-pane>
-          <span slot="label"><i class="el-icon-date"></i> 高校基本信息</span>
-          <el-form class="" label-width="30%" style="text-align:left">
-            <el-row :gutter="20">
-              <el-col :span="20">
+  <div class="" style="height: 80% !important;overflow-y: auto;">
+    <el-tabs type="border-card">
+      <el-tab-pane>
+        <span slot="label"><i class="el-icon-date"></i> 高校基本信息</span>
+        <el-form class="" label-width="30%" style="text-align:left">
+          <el-row :gutter="20">
+            <el-col :span="20">
 
-                <el-form-item label="名称">
-                  <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
-                  <el-input placeholder="请输入名称" v-model="school.name" style="width:80%"></el-input>
-                </el-form-item>
-                <el-form-item label="统一社会信用代码">
-                  <span style='position: absolute;left: -140px;color: #f60d0d;'>*</span>
-                  <el-input placeholder="请输入统一社会信用代码" v-model="school.code" style="width:80%"></el-input>
-                </el-form-item>
-                <el-form-item label="营业执照">
-                  <div>
-                    <!--这是背面照-->
-                    <div class="photo photo1">
-                      <el-upload class="upload-demo" :http-request="uploadSectionFile0" :file-list="school.zhengben" list-type="picture">
-                        <el-button size="small" type="primary">点击上传</el-button>
-                      </el-upload>
+              <el-form-item label="名称">
+                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
+                <el-input placeholder="请输入名称" v-model="school.name" style="width:80%"></el-input>
+              </el-form-item>
+              <el-form-item label="统一社会信用代码">
+                <span style='position: absolute;left: -140px;color: #f60d0d;'>*</span>
+                <el-input placeholder="请输入统一社会信用代码" v-model="school.code" style="width:80%"></el-input>
+              </el-form-item>
+              <el-form-item label="营业执照">
+                <div>
+                  <!--这是背面照-->
+                  <div class="photo photo1">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile0" :file-list="school.picOrgLicense" list-type="picture">
+                      <el-button size="small" type="primary">点击上传</el-button>
+                    </el-upload>
 
-                    </div>
                   </div>
-                </el-form-item>
-                <el-form-item label="事业单位法人证书">
-                  <div>
-                    <!--这是背面照-->
-                    <div class="photo photo1">
-                      <el-upload class="upload-demo" :http-request="uploadSectionFile1" :file-list="school.zhengben1" list-type="picture">
-                        <el-button size="small" type="primary">点击上传</el-button>
-                      </el-upload>
+                </div>
+              </el-form-item>
+              <el-form-item label="事业单位法人证书">
+                <div>
+                  <!--这是背面照-->
+                  <div class="photo photo1">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile1" :file-list="school.picLpLicense" list-type="picture">
+                      <el-button size="small" type="primary">点击上传</el-button>
+                    </el-upload>
 
-                    </div>
                   </div>
-                </el-form-item>
-                <el-form-item label="法人身份证正面">
-                  <div>
-                    <!--这是背面照-->
-                    <div class="photo photo1">
-                      <el-upload class="upload-demo" :http-request="uploadSectionFile2" :file-list="school.fuben" list-type="picture">
-                        <el-button size="small" type="primary">点击上传</el-button>
-                      </el-upload>
+                </div>
+              </el-form-item>
+              <el-form-item label="联系人身份证正面">
+                <div>
+                  <!--这是背面照-->
+                  <div class="photo photo1">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile2" :file-list="school.picLmIdCardFront" list-type="picture">
+                      <el-button size="small" type="primary">点击上传</el-button>
+                    </el-upload>
 
-                    </div>
                   </div>
-                </el-form-item>
-                <el-form-item label="法人身份证反面">
-                  <div>
-                    <!--这是背面照-->
-                    <div class="photo photo1">
-                      <el-upload class="upload-demo" :http-request="uploadSectionFile22" :file-list="school.fuben2" list-type="picture">
-                        <el-button size="small" type="primary">点击上传</el-button>
-                      </el-upload>
+                </div>
+              </el-form-item>
+              <el-form-item label="联系人身份证反面">
+                <div>
+                  <!--这是背面照-->
+                  <div class="photo photo1">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile22" :file-list="school.picLmIdCardBack" list-type="picture">
+                      <el-button size="small" type="primary">点击上传</el-button>
+                    </el-upload>
 
-                    </div>
                   </div>
-                </el-form-item>
-                <el-form-item label="高校logo">
-                  <div>
-                    <!--这是背面照-->
-                    <div class="photo photo1">
-                      <el-upload class="upload-demo" :http-request="uploadSectionFile3" :file-list="school.logo" list-type="picture">
-                        <el-button size="small" type="primary">点击上传</el-button>
-                      </el-upload>
+                </div>
+              </el-form-item>
 
-                    </div>
+              <el-form-item label="手持身份证">
+                <div>
+                  <!--这是背面照-->
+                  <div class="photo photo1">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFilepicLmIdCardInHand" :file-list="school.picLmIdCardInHand" list-type="picture">
+                      <el-button size="small" type="primary">点击上传</el-button>
+                    </el-upload>
+
                   </div>
-                </el-form-item>
-                <el-form-item label="所在地区">
-                  <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
-                  <area-cascader :level="1" v-model="school.country" :data="pcaa"></area-cascader>
-                  <!-- <area-cascader v-model="selected" :level="1" :data="pca"></area-cascader> -->
-                </el-form-item>
-                <el-form-item label="联系地址">
-                  <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
-                  <el-input placeholder="请输入联系地址" v-model="school.address" style="width:80%"></el-input>
-                </el-form-item>
-                <el-form-item label="邮编">
-                  <el-input placeholder="请输入邮编" v-model="school.zip_code" style="width:80%"></el-input>
-                </el-form-item>
+                </div>
+              </el-form-item>
+              <el-form-item label="高校logo">
+                <div>
+                  <!--这是背面照-->
+                  <div class="photo photo1">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile3" :file-list="school.logo" list-type="picture">
+                      <el-button size="small" type="primary">点击上传</el-button>
+                    </el-upload>
 
-                <el-form-item label="单位网址">
-                  <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
-                  <el-input placeholder="请输入单位网址" v-model="school.unit_url" style="width:80%"></el-input>
-                </el-form-item>
+                  </div>
+                </div>
+              </el-form-item>
+              <el-form-item label="所在地区">
+                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                <area-cascader :level="1" v-model="school.country" :data="pcaa"></area-cascader>
+                <!-- <area-cascader v-model="selected" :level="1" :data="pca"></area-cascader> -->
+              </el-form-item>
+              <el-form-item label="联系地址">
+                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
+                <el-input placeholder="请输入联系地址" v-model="school.address" style="width:80%"></el-input>
+              </el-form-item>
+              <el-form-item label="邮编">
+                <el-input placeholder="请输入邮编" v-model="school.zip_code" style="width:80%"></el-input>
+              </el-form-item>
 
-                <el-form-item label="单位简介">
-                  <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
-                  <el-input placeholder="请输入单位简介" v-model="school.major_platform" style="width:80%"></el-input>
-                </el-form-item>
-                <el-form-item label="重大平台">
-                  <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
-                  <el-input placeholder="请输入重大平台" v-model="school.introduction" style="width:80%"></el-input>
-                </el-form-item>
-              </el-col>
+              <el-form-item label="单位网址">
+                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
+                <el-input placeholder="请输入单位网址" v-model="school.unit_url" style="width:80%"></el-input>
+              </el-form-item>
+
+              <el-form-item label="单位简介">
+                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
+                <el-input placeholder="请输入单位简介" v-model="school.major_platform" style="width:80%"></el-input>
+              </el-form-item>
+              <el-form-item label="重大平台">
+                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
+                <el-input placeholder="请输入重大平台" v-model="school.introduction" style="width:80%"></el-input>
+              </el-form-item>
+            </el-col>
 
 
 
-            </el-row>
-          </el-form>
+          </el-row>
+        </el-form>
 
-        </el-tab-pane>
+      </el-tab-pane>
 
-      </el-tabs>
+    </el-tabs>
 
   </div>
 
   <el-row>
 
-      <div style="padding-left: 35%;margin: 40px 0  0  0;">
-        <div class=""  style="padding:15px" >
-          <el-radio-group v-model="checkStatus">
-            <el-radio :label="-1">草稿</el-radio>
-            <el-radio :label="0">提交待审</el-radio>
-            <el-radio v-show="userType == '0' ||  userType =='101'" :label="1">直接审核</el-radio>
-          </el-radio-group>
-        </div>
-        <div class="">
-          <el-button type="primary" style="width: 120px;" @click="saveFile(checkStatus)">保存</el-button>
-          <el-button type="primary" style="width: 120px;" @click="back">返回</el-button>
-        </div>
-
+    <div style="padding-left: 35%;margin: 40px 0  0  0;">
+      <div class="" style="padding:15px">
+        <el-radio-group v-model="checkStatus">
+          <el-radio :label="-1">草稿</el-radio>
+          <el-radio :label="0">提交待审</el-radio>
+          <el-radio v-show="userType == '0' ||  userType =='101'" :label="1">直接审核</el-radio>
+        </el-radio-group>
       </div>
+      <div class="">
+        <el-button type="primary" style="width: 120px;" @click="saveFile(checkStatus)">保存</el-button>
+        <el-button type="primary" style="width: 120px;" @click="back">返回</el-button>
+      </div>
+
+    </div>
   </el-row>
 
 
@@ -177,25 +189,30 @@ export default {
       service_research_beforet: '',
       service_research_previoust: '',
       school: {
-        zhengben: [{
+        picOrgLicense: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
         }],
-          zhengben1: [{
-            name: '默认',
-            url:  this.imgBaseUrl + `/jmrhupload/def/companyZS.png`
-          }],
-        fuben: [{
+        picLpLicense: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/companyZS.png`
         }],
-        fuben2: [{
+        picLmIdCardFront: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idback.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
         }],
+        picLmIdCardBack: [{
+          name: '默认',
+          url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
+        }],
+        picLmIdCardInHand: [{
+          name: '默认',
+          url: this.imgBaseUrl + `/jmrhupload/def/handPhoto.jpg`
+        }],
+
         logo: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
         }],
         introduction: '',
         major_platform: '',
@@ -207,7 +224,7 @@ export default {
         name: '',
         search_param: []
       },
-      checkStatus:1
+      checkStatus: 1
     }
   },
   async mounted() {
@@ -225,7 +242,7 @@ export default {
   computed: {},
   methods: {
     async uploadSectionFile0(param) {
-      this.school.zhengben = []
+      this.school.picOrgLicense = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -242,11 +259,11 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-        this.school.zhengben.push(arro)
+        this.school.picOrgLicense.push(arro)
       }
     },
     async uploadSectionFile1(param) {
-      this.school.zhengben1 = []
+      this.school.picLpLicense = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -263,12 +280,12 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-        this.school.zhengben1.push(arro)
+        this.school.picLpLicense.push(arro)
       }
     },
 
     async uploadSectionFile2(param) {
-      this.school.fuben = []
+      this.school.picLmIdCardFront = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -285,30 +302,52 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-        this.school.fuben.push(arro)
+        this.school.picLmIdCardFront.push(arro)
       }
     },
-        async uploadSectionFile22(param) {
-          this.school.fuben2 = []
-          var fileObj = param.file;
-          // 接收上传文件的后台地址
-          // FormData 对象
-          var form = new FormData();
-          // 文件对象
-          form.append("file", fileObj);
-          // 其他参数
-          // form.append("xxx", xxx);
-          let {
-            data,
-            success
-          } = await libupload(form)
-          if (success) {
-            let arro = {}
-            arro.name = data.fileName,
-              arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-            this.school.fuben2.push(arro)
-          }
-        },
+    async uploadSectionFile22(param) {
+      this.school.picLmIdCardBack = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.school.picLmIdCardBack.push(arro)
+      }
+    },
+
+    async uploadSectionFilepicLmIdCardInHand(param) {
+      this.school.picLmIdCardInHand = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.school.picLmIdCardInHand.push(arro)
+      }
+    },
     async uploadSectionFile3(param) {
       this.school.logo = []
       var fileObj = param.file;
@@ -330,10 +369,10 @@ export default {
         this.school.logo.push(arro)
       }
     },
-      back() {
-        window.history.go(-1);
-      },
-      addCN(data) {
+    back() {
+      window.history.go(-1);
+    },
+    addCN(data) {
       if (data.country.length > 0) {
         this.loadOneTree(data.country[0])
         this.loadtwoTree(data.country[0], data.country[1])
@@ -343,103 +382,103 @@ export default {
         data.search_param.push(this.arrValue3)
       }
       data.search_param.push(JSON.stringify(data))
-        return data
-      },
+      return data
+    },
 
-      loadOneTree(code) {
-        let pcadata = this.pcaa
-        let arr = []
-        for (var i in pcadata) {
-          if (i == '86') {
-            let obj = {}
-            obj.date = i
-            obj.value = pcadata[i]
-            arr.push(obj)
-          }
+    loadOneTree(code) {
+      let pcadata = this.pcaa
+      let arr = []
+      for (var i in pcadata) {
+        if (i == '86') {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
         }
-        arr = arr[0].value
-        for (var j in arr) {
-          if (j == code) {
-            let obj = {}
-            obj.name = j
-            obj.value = arr[j]
-            this.arrValue1 = obj.value
-          }
+      }
+      arr = arr[0].value
+      for (var j in arr) {
+        if (j == code) {
+          let obj = {}
+          obj.name = j
+          obj.value = arr[j]
+          this.arrValue1 = obj.value
         }
-      },
-      loadtwoTree(code1, code2) {
-        this.arrValue2 = []
-        let pcadata = this.pcaa
-        let arr = []
-        for (var i in pcadata) {
-          if (i == code1) {
-            let obj = {}
-            obj.date = i
-            obj.value = pcadata[i]
-            arr.push(obj)
-          }
+      }
+    },
+    loadtwoTree(code1, code2) {
+      this.arrValue2 = []
+      let pcadata = this.pcaa
+      let arr = []
+      for (var i in pcadata) {
+        if (i == code1) {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
         }
+      }
+      arr = arr[0].value
+      for (var j in arr) {
+        if (j == code2) {
+          let obj = {}
+          obj.name = j
+          obj.value = arr[j]
+          this.arrValue2 = obj.value
+        }
+      }
+    },
+    loadThreeTree(code1, code2) {
+      this.arrValue3 = []
+      let pcadata = this.pcaa
+      let arr = []
+      for (var i in pcadata) {
+        if (i == code1) {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
+        }
+      }
+      if (arr.length > 0) {
         arr = arr[0].value
         for (var j in arr) {
           if (j == code2) {
             let obj = {}
             obj.name = j
             obj.value = arr[j]
-            this.arrValue2 = obj.value
+            this.arrValue3 = obj.value
           }
         }
-      },
-      loadThreeTree(code1, code2) {
-        this.arrValue3 = []
-        let pcadata = this.pcaa
-        let arr = []
-        for (var i in pcadata) {
-          if (i == code1) {
-            let obj = {}
-            obj.date = i
-            obj.value = pcadata[i]
-            arr.push(obj)
-          }
-        }
-        if (arr.length > 0) {
-          arr = arr[0].value
-          for (var j in arr) {
-            if (j == code2) {
-              let obj = {}
-              obj.name = j
-              obj.value = arr[j]
-              this.arrValue3 = obj.value
-            }
-          }
-        }
-      },
+      }
+    },
     async saveFile(checkStatus) {
       if (!this.validata.validaHschool(this.school)) return
-        let arr ={}
-        arr.formType = '4'
-        arr.checkStatus = checkStatus
-        arr.id = this.$route.params.objId
-        this.school.search_param = []
-        this.school = this.addCN(this.school)
-        arr.detail = JSON.stringify(this.school)
-        let {
-          data,
-          success,
-          message
-        } = await addLib(arr)
-        if (success) {
-          this.$message({
-            message: '保存成功',
-            type: 'success'
-          });
-          this.dialogFormVisible = false
-          this.loadPageList()
-        } else {
-          this.$message({
-            message: data.message,
-            type: 'success'
-          });
-        }
+      let arr = {}
+      arr.formType = '4'
+      arr.checkStatus = checkStatus
+      arr.id = this.$route.params.objId
+      this.school.search_param = []
+      this.school = this.addCN(this.school)
+      arr.detail = JSON.stringify(this.school)
+      let {
+        data,
+        success,
+        message
+      } = await addLib(arr)
+      if (success) {
+        this.$message({
+          message: '保存成功',
+          type: 'success'
+        });
+        this.dialogFormVisible = false
+        this.loadPageList()
+      } else {
+        this.$message({
+          message: data.message,
+          type: 'success'
+        });
+      }
 
     },
 
@@ -520,7 +559,6 @@ export default {
 </style>
 
 <style>
-
 .tools {
   height: 5%
 }

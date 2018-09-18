@@ -1,6 +1,13 @@
 import request from '@/utils/request'
 
 
+export function importLibExcel(data) {
+  return request({
+    url: '/xtcx/lib/importLibExcel',
+    method: 'post',
+    data
+  });
+}
 export function exportLib(data) {
   return request({
     url: '/xtcx/lib/exportLib?objName='+data.objName+'&checkStatus=1&userType='+data.userType+'&creditLevel='+data.creditLevel+'&status='+data.status+'&token='+data.token,

@@ -37,11 +37,11 @@
                 <div>
                   <!--这是正面照-->
                   <div class="photo">
-                    <el-upload class="upload-demo" :http-request="uploadSectionFile1" :file-list="expert.cardPositive" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile1" :file-list="expert.picLmIdCardFront" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
                     <!-- <input type="file" @change="uploadImg($event)" id="IdCard"> -->
-                    <!-- <input type="file"  @change="per.cardPositive"  id="IdCard"> -->
+                    <!-- <input type="file"  @change="per.picLmIdCardFront"  id="IdCard"> -->
 
                   </div>
                 </div>
@@ -50,7 +50,7 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" :http-request="uploadSectionFile2" :file-list="expert.cardSide" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile2" :file-list="expert.picLmIdCardBack" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -61,7 +61,7 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" :http-request="uploadSectionFile3" :file-list="expert.cardHands" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile3" :file-list="expert.picLmIdCardInHand" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -72,7 +72,7 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" :http-request="uploadSectionFile4" :file-list="expert.onepicture" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile4" :file-list="expert.picLogo" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -380,19 +380,19 @@ export default {
       service_research_beforet: '',
       service_research_previoust: '',
       expert: {
-        cardPositive: [{
+        picLmIdCardFront: [{
           name: '默认',
           url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
         }],
-        cardSide: [{
+        picLmIdCardBack: [{
           name: '默认',
           url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
         }],
-        cardHands: [{
+        picLmIdCardInHand: [{
           name: '默认',
           url: this.imgBaseUrl + `/jmrhupload/def/handPhoto.jpg`
         }],
-        onepicture: [{
+        picLogo: [{
           name: '默认',
           url: this.imgBaseUrl + `/jmrhupload/def/livePhoto.jpg`
         }],
@@ -436,18 +436,18 @@ export default {
     this.listLoading = false
     if (this.$route.params.objData) {
       this.expert = JSON.parse(this.$route.params.objData)
-      if (!this.expert.cardPositive) {
-        this.expert.cardPositive = []
+      if (!this.expert.picLmIdCardFront) {
+        this.expert.picLmIdCardFront = []
       }
-      if (!this.expert.cardSide) {
-        this.expert.cardSide = []
+      if (!this.expert.picLmIdCardBack) {
+        this.expert.picLmIdCardBack = []
       }
-      if (!this.expert.cardHands) {
-        this.expert.cardHands = []
+      if (!this.expert.picLmIdCardInHand) {
+        this.expert.picLmIdCardInHand = []
       }
 
-      if (!this.expert.onepicture) {
-        this.expert.onepicture = []
+      if (!this.expert.picLogo) {
+        this.expert.picLogo = []
       }
     }
     this.userType = window.sessionStorage.getItem('userType')
@@ -460,7 +460,7 @@ export default {
   computed: {},
   methods: {
     async uploadSectionFile1(param) {
-      this.expert.cardPositive = []
+      this.expert.picLmIdCardFront = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -477,11 +477,11 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-        this.expert.cardPositive.push(arro)
+        this.expert.picLmIdCardFront.push(arro)
       }
     },
     async uploadSectionFile2(param) {
-      this.expert.cardSide = []
+      this.expert.picLmIdCardBack = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -498,11 +498,11 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-        this.expert.cardSide.push(arro)
+        this.expert.picLmIdCardBack.push(arro)
       }
     },
     async uploadSectionFile3(param) {
-      this.expert.cardHands = []
+      this.expert.picLmIdCardInHand = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -519,11 +519,11 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-        this.expert.cardHands.push(arro)
+        this.expert.picLmIdCardInHand.push(arro)
       }
     },
     async uploadSectionFile4(param) {
-      this.expert.onepicture = []
+      this.expert.picLogo = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -540,7 +540,7 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-        this.expert.onepicture.push(arro)
+        this.expert.picLogo.push(arro)
       }
     },
     back() {
@@ -585,6 +585,7 @@ export default {
     },
 
     async saveFile(checkStatus) {
+      debugger
       if (!this.validata.validaExpert(this.expert)) return
       let arr = {}
       arr.formType = '1'

@@ -21,11 +21,69 @@
                 <span style='position: absolute;left: -130px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入统一社会信用代码" v-model="demandLibrary.code" style="width:80%"></el-input>
               </el-form-item>
+
+              <el-form-item label="营业执照">
+                <div>
+                  <!--这是背面照-->
+                  <div class="photo photo1">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile0" :file-list="demandLibrary.picOrgLicense" list-type="picture">
+                      <el-button size="small" type="primary">点击上传</el-button>
+                    </el-upload>
+
+                  </div>
+                </div>
+              </el-form-item>
+              <el-form-item label="事业单位法人证书">
+                <div>
+                  <!--这是背面照-->
+                  <div class="photo photo1">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile1" :file-list="demandLibrary.picLpLicense" list-type="picture">
+                      <el-button size="small" type="primary">点击上传</el-button>
+                    </el-upload>
+
+                  </div>
+                </div>
+              </el-form-item>
+              <el-form-item label="联系人身份证正面">
+                <div>
+                  <!--这是背面照-->
+                  <div class="photo photo1">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile2" :file-list="demandLibrary.picLmIdCardFront" list-type="picture">
+                      <el-button size="small" type="primary">点击上传</el-button>
+                    </el-upload>
+
+                  </div>
+                </div>
+              </el-form-item>
+              <el-form-item label="联系人身份证反面">
+                <div>
+                  <!--这是背面照-->
+                  <div class="photo photo1">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile22" :file-list="demandLibrary.picLmIdCardBack" list-type="picture">
+                      <el-button size="small" type="primary">点击上传</el-button>
+                    </el-upload>
+
+                  </div>
+                </div>
+              </el-form-item>
+
+              <el-form-item label="手持身份证">
+                <div>
+                  <!--这是背面照-->
+                  <div class="photo photo1">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFilepicLmIdCardInHand" :file-list="demandLibrary.picLmIdCardInHand" list-type="picture">
+                      <el-button size="small" type="primary">点击上传</el-button>
+                    </el-upload>
+
+                  </div>
+                </div>
+              </el-form-item>
+
               <el-form-item label="承诺书上传(图片)">
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload :http-request="uploadSectionFile1" class="upload-demo" :file-list="demandLibrary.cardSide" list-type="picture" style="float:left">
+                    <el-upload :http-request="uploadSectionFile1c" class="upload-demo" :file-list="demandLibrary.picCommitmentLetter" list-type="picture" style="float:left">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
                     <div style="color:#63a9f1;float:left;margin-left:20px">
@@ -256,9 +314,29 @@ export default {
         re_name: '',
         code: '',
         name: '',
-        cardSide: [{
+        picCommitmentLetter: [{
+          name: '默认',
+          url: this.imgBaseUrl + `/jmrhupload/def/commitment.png`
+        }],
+        picOrgLicense: [{
           name: '默认',
           url: this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
+        }],
+        picLpLicense: [{
+          name: '默认',
+          url: this.imgBaseUrl + `/jmrhupload/def/companyZS.png`
+        }],
+        picLmIdCardFront: [{
+          name: '默认',
+          url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+        }],
+        picLmIdCardBack: [{
+          name: '默认',
+          url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
+        }],
+        picLmIdCardInHand: [{
+          name: '默认',
+          url: this.imgBaseUrl + `/jmrhupload/def/handPhoto.jpg`
         }],
         fzname: '',
         fzzw: '',
@@ -287,8 +365,8 @@ export default {
     this.listLoading = false
     if (this.$route.params.objData) {
       this.demandLibrary = JSON.parse(this.$route.params.objData)
-      if (!this.demandLibrary.cardSide) {
-        this.demandLibrary.cardSide = []
+      if (!this.demandLibrary.picCommitmentLetter) {
+        this.demandLibrary.picCommitmentLetter = []
       }
     }
 
@@ -301,8 +379,8 @@ export default {
   },
   computed: {},
   methods: {
-    async uploadSectionFile1(param) {
-      this.demandLibrary.cardSide = []
+    async uploadSectionFile1c(param) {
+      this.demandLibrary.picCommitmentLetter = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -319,10 +397,116 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-        this.demandLibrary.cardSide.push(arro)
+        this.demandLibrary.picCommitmentLetter.push(arro)
+      }
+    },
+    async uploadSectionFile0(param) {
+      this.demandLibrary.picOrgLicense = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.demandLibrary.picOrgLicense.push(arro)
+      }
+    },
+    async uploadSectionFile1(param) {
+      this.demandLibrary.picLpLicense = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.demandLibrary.picLpLicense.push(arro)
       }
     },
 
+    async uploadSectionFile2(param) {
+      this.demandLibrary.picLmIdCardFront = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.demandLibrary.picLmIdCardFront.push(arro)
+      }
+    },
+    async uploadSectionFile22(param) {
+      this.demandLibrary.picLmIdCardBack = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.demandLibrary.picLmIdCardBack.push(arro)
+      }
+    },
+
+    async uploadSectionFilepicLmIdCardInHand(param) {
+      this.demandLibrary.picLmIdCardInHand = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.demandLibrary.picLmIdCardInHand.push(arro)
+      }
+    },
     back() {
       window.history.go(-1);
     },

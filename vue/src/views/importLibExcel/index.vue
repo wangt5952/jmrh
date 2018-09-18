@@ -1,0 +1,82 @@
+<template>
+<div class="tab-container">
+  <div class="" style="padding:60px;">
+    <div class="paddingb textc paddingr" style="font-size:14px">
+      <el-radio-group v-model="userType">
+        <el-radio :label="1">专家</el-radio>
+        <el-radio :label="2">企业</el-radio>
+        <el-radio :label="3">服务机构</el-radio>
+        <el-radio :label="4">高校院所</el-radio>
+        <el-radio :label="6">需求库</el-radio>
+        <el-radio :label="7">成果库</el-radio>
+      </el-radio-group>
+    </div>
+    <div class="textc" style="padding:60px;">
+      <el-upload class="upload-demo" accept=".xlsx,.xls" drag :http-request="uploadSectionFile2" :before-upload="beforeUploadImg" >
+        <i class="el-icon-upload"></i>
+        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+        <div class="el-upload__tip" slot="tip">只能上传xlsx/xls文件，且不超过500kb</div>
+      </el-upload>
+    </div>
+  </div>
+
+
+
+</div>
+</template>
+
+
+<script>
+import {
+  importLibExcel
+} from '@/api/library'
+export default {
+  data() {
+    return {
+      userType: 1,
+
+    }
+  },
+  mounted() {
+
+  },
+  computed: {},
+  methods: {
+    beforeUploadImg(file) {
+      // const isLt10M = file.size / 1024 / 1024 < 10;
+      if (['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', ].indexOf(file.type) == -1) {
+          this.$message.error('请上传正确的格式');
+          return false;
+      }
+      // if (!isLt10M) {
+      //   this.$message.error('上传文件大小不能超过10MB哦!');
+      //   return false;
+      // }
+    },
+    async uploadSectionFile2(param) {
+      this.cardSide = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      form.append("userType", this.userType);
+      let {
+        data,
+        success
+      } = await importLibExcel(form)
+      if (success) {
+        debugger
+      }
+    },
+
+
+  }
+}
+</script>
+
+<style lang="scss">
+</style>
