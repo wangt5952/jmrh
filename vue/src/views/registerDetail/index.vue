@@ -276,32 +276,32 @@
 
 
                             <el-form-item label="项目或课题名称">
-                                <el-input   type="text" v-model="item.projectname" style="width: 50%;"></el-input>
+                              <el-input type="text" v-model="item.projectname" style="width: 50%;"></el-input>
                             </el-form-item>
 
                             <el-form-item label="项目或课题来源">
 
-                                <el-input   type="text" v-model="item.projectSrc" style="width: 50%;"></el-input>
+                              <el-input type="text" v-model="item.projectSrc" style="width: 50%;"></el-input>
                             </el-form-item>
 
 
                             <el-form-item label="完成情况">
-                            <el-input   type="text" v-model="item.finishcon" style="width: 50%;"></el-input>
+                              <el-input type="text" v-model="item.finishcon" style="width: 50%;"></el-input>
                             </el-form-item>
 
-                                <el-form-item label="完成时间">
-                                <el-date-picker v-model="item.finishtime" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="" style="width: 50%;">
-                                </el-date-picker>
+                            <el-form-item label="完成时间">
+                              <el-date-picker v-model="item.finishtime" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="" style="width: 50%;">
+                              </el-date-picker>
                             </el-form-item>
                           </el-col>
                           <el-col :span="12">
                             <el-form-item label="奖项名称">
-                                <el-input   type="text" v-model="item.rewname" style="width: 50%;"></el-input>
+                              <el-input type="text" v-model="item.rewname" style="width: 50%;"></el-input>
                             </el-form-item>
 
                             <el-form-item label="获奖等级">
 
-                                <el-input   type="text" v-model="item.rewlevel" style="width: 50%;"></el-input>
+                              <el-input type="text" v-model="item.rewlevel" style="width: 50%;"></el-input>
                             </el-form-item>
 
 
@@ -355,11 +355,16 @@
                       <el-form-item label="企业规模（注册资金）">
                         <span style='position: absolute;left: -170px;color: #f60d0d;'>*</span>
                         <el-checkbox-group v-model="com.registered_capital">
-                          <el-checkbox label="1">小于2000万（含）</el-checkbox></br>
-                          <el-checkbox label="2">2000-5000万</el-checkbox></br>
-                          <el-checkbox label="3">5000-1亿（含）</el-checkbox></br>
-                          <el-checkbox label="4">1亿-2亿（含）</el-checkbox></br>
-                          <el-checkbox label="5">2亿-4亿（含）</el-checkbox></br>
+                          <el-checkbox label="1">小于2000万（含）</el-checkbox>
+                          </br>
+                          <el-checkbox label="2">2000-5000万</el-checkbox>
+                          </br>
+                          <el-checkbox label="3">5000-1亿（含）</el-checkbox>
+                          </br>
+                          <el-checkbox label="4">1亿-2亿（含）</el-checkbox>
+                          </br>
+                          <el-checkbox label="5">2亿-4亿（含）</el-checkbox>
+                          </br>
                           <el-checkbox label="6">4亿及以上（含）</el-checkbox>
                         </el-checkbox-group>
                       </el-form-item>
@@ -449,13 +454,20 @@
                       <el-form-item label="所属领域">
                         <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                         <el-checkbox-group v-model="com.domain">
-                          <el-checkbox label="1">智能装备</el-checkbox></br>
-                          <el-checkbox label="2">电子信息</el-checkbox></br>
-                          <el-checkbox label="3">新材料 </el-checkbox></br>
-                          <el-checkbox label="4">航空航天</el-checkbox></br>
-                          <el-checkbox label="5">生物技术与新医药</el-checkbox></br>
-                          <el-checkbox label="6">能源与环保</el-checkbox></br>
-                          <el-checkbox label="99">其他</el-checkbox></br>
+                          <el-checkbox label="1">智能装备</el-checkbox>
+                          </br>
+                          <el-checkbox label="2">电子信息</el-checkbox>
+                          </br>
+                          <el-checkbox label="3">新材料 </el-checkbox>
+                          </br>
+                          <el-checkbox label="4">航空航天</el-checkbox>
+                          </br>
+                          <el-checkbox label="5">生物技术与新医药</el-checkbox>
+                          </br>
+                          <el-checkbox label="6">能源与环保</el-checkbox>
+                          </br>
+                          <el-checkbox label="99">其他</el-checkbox>
+                          </br>
                           <el-input v-if="com.domain.includes('99')" placeholder="请输入其他" v-model="com.domainOther" style="width:80%"></el-input>
                         </el-checkbox-group>
                       </el-form-item>
@@ -643,13 +655,20 @@
                       <el-form-item label="高层次人才类型">
                         <span style='position: absolute;left: -120px;color: #f60d0d;'></span>
                         <el-checkbox-group v-model="com.highleveltalentType">
-                          <el-checkbox label="1">院士</el-checkbox></br>
-                          <el-checkbox label="2">国家千人</el-checkbox></br>
-                          <el-checkbox label="3">青年千人 </el-checkbox></br>
-                          <el-checkbox label="4">中青年科技创新领军人才</el-checkbox></br>
-                          <el-checkbox label="5">长江学者</el-checkbox></br>
-                          <el-checkbox label="6">国家杰青</el-checkbox></br>
-                          <el-checkbox label="99">其他</el-checkbox></br>
+                          <el-checkbox label="1">院士</el-checkbox>
+                          </br>
+                          <el-checkbox label="2">国家千人</el-checkbox>
+                          </br>
+                          <el-checkbox label="3">青年千人 </el-checkbox>
+                          </br>
+                          <el-checkbox label="4">中青年科技创新领军人才</el-checkbox>
+                          </br>
+                          <el-checkbox label="5">长江学者</el-checkbox>
+                          </br>
+                          <el-checkbox label="6">国家杰青</el-checkbox>
+                          </br>
+                          <el-checkbox label="99">其他</el-checkbox>
+                          </br>
                           <el-input v-if="com.highleveltalentType.includes('99')" placeholder="请输入其他" v-model="com.comhighleveltalentTypeOther" style="width:80%"></el-input>
                         </el-checkbox-group>
                       </el-form-item>
@@ -669,12 +688,18 @@
                       <el-form-item label="平台建设情况">
                         <span style='position: absolute;left: -100px;color: #f60d0d;'></span>
                         <el-checkbox-group v-model="com.platform">
-                          <el-checkbox label="1">企业重点实验室（国家级）</el-checkbox></br>
-                          <el-checkbox label="2">企业重点实验室（省级）</el-checkbox></br>
-                          <el-checkbox label="3">企业院士工作站 </el-checkbox></br>
-                          <el-checkbox label="4">程技术研究中心（国家级）</el-checkbox></br>
-                          <el-checkbox label="5">程技术研究中心（省级）</el-checkbox></br>
-                          <el-checkbox label="99">其他</el-checkbox></br>
+                          <el-checkbox label="1">企业重点实验室（国家级）</el-checkbox>
+                          </br>
+                          <el-checkbox label="2">企业重点实验室（省级）</el-checkbox>
+                          </br>
+                          <el-checkbox label="3">企业院士工作站 </el-checkbox>
+                          </br>
+                          <el-checkbox label="4">程技术研究中心（国家级）</el-checkbox>
+                          </br>
+                          <el-checkbox label="5">程技术研究中心（省级）</el-checkbox>
+                          </br>
+                          <el-checkbox label="99">其他</el-checkbox>
+                          </br>
                           <el-input v-if="com.platform.includes('99')" placeholder="请输入其他" v-model="com.platformOther" style="width:80%"></el-input>
                         </el-checkbox-group>
                       </el-form-item>
@@ -709,19 +734,24 @@
                         <el-checkbox-group v-model="com.szget">
                           <el-checkbox label="1">获得武器装备科研生产单位保密资格认证一级 </el-checkbox>
                           <el-date-picker v-if="com.szget.includes('1')" v-model="com.qdtime1" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="取得时间" style="margin-left:20px;">
-                          </el-date-picker></br>
-                            <el-checkbox label="2">获得武器装备科研生产单位保密资格认证二级 </el-checkbox>
-                            <el-date-picker v-if="com.szget.includes('2')" v-model="com.qdtime2" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="取得时间" style="margin-left:20px;">
-                            </el-date-picker></br>
-                              <el-checkbox label="3">获得武器装备科研生产单位保密资格认证三级 </el-checkbox>
-                              <el-date-picker v-if="com.szget.includes('3')" v-model="com.qdtime3" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="取得时间" style="margin-left:20px;">
-                              </el-date-picker></br>
+                          </el-date-picker>
+                          </br>
+                          <el-checkbox label="2">获得武器装备科研生产单位保密资格认证二级 </el-checkbox>
+                          <el-date-picker v-if="com.szget.includes('2')" v-model="com.qdtime2" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="取得时间" style="margin-left:20px;">
+                          </el-date-picker>
+                          </br>
+                          <el-checkbox label="3">获得武器装备科研生产单位保密资格认证三级 </el-checkbox>
+                          <el-date-picker v-if="com.szget.includes('3')" v-model="com.qdtime3" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="取得时间" style="margin-left:20px;">
+                          </el-date-picker>
+                          </br>
                           <el-checkbox label="4">武器装备科研生产许可证 </el-checkbox>
                           <el-date-picker v-if="com.szget.includes('4')" v-model="com.qdtime4" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="取得时间" style="margin-left:20px;">
-                          </el-date-picker></br>
+                          </el-date-picker>
+                          </br>
                           <el-checkbox label="5">装备承制单位资格认证 </el-checkbox>
                           <el-date-picker v-if="com.szget.includes('5')" v-model="com.qdtime5" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="取得时间" style="margin-left:20px;">
-                          </el-date-picker></br>
+                          </el-date-picker>
+                          </br>
                         </el-checkbox-group>
                       </el-form-item>
                       <el-form-item label="是否计划申请">
@@ -747,34 +777,44 @@
                         <el-input placeholder="请输入负责人姓名" v-model="com.jmrhgnName" style="width:80%"></el-input>
                       </el-form-item>
 
-                      <el-form-item  v-show="com.jmrhgn == 3" label="负责人职务">
+                      <el-form-item v-show="com.jmrhgn == 3" label="负责人职务">
                         <span style='position: relative;left: -100px;color: #f60d0d;'></span>
                         <el-input placeholder="请输入负责人职务" v-model="com.jmrhgnZW" style="width:80%"></el-input>
                       </el-form-item>
 
-                      <el-form-item  v-show="com.jmrhgn == 3" label="负责人电话">
+                      <el-form-item v-show="com.jmrhgn == 3" label="负责人电话">
                         <span style='position: relative;left: -100px;color: #f60d0d;'></span>
                         <el-input placeholder="请输入负责人电话" v-model="com.jmrhgnTel" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="“民参军”过程中，遇到的障碍及困难">
                         <span style='position: absolute;left: -240px;color: #f60d0d;'></span>
                         <el-checkbox-group v-model="com.ydkn">
-                          <el-checkbox label="1">需求信息</el-checkbox></br>
-                          <el-checkbox label="2">产品准入</el-checkbox></br>
-                          <el-checkbox label="3">人才保障 </el-checkbox></br>
-                          <el-checkbox label="4">审批程序 </el-checkbox></br>
-                          <el-checkbox label="5">资质认证 </el-checkbox></br>
-                          <el-checkbox label="6">无人管理 </el-checkbox></br>
-                          <el-checkbox label="99">其他 </el-checkbox></br>
+                          <el-checkbox label="1">需求信息</el-checkbox>
+                          </br>
+                          <el-checkbox label="2">产品准入</el-checkbox>
+                          </br>
+                          <el-checkbox label="3">人才保障 </el-checkbox>
+                          </br>
+                          <el-checkbox label="4">审批程序 </el-checkbox>
+                          </br>
+                          <el-checkbox label="5">资质认证 </el-checkbox>
+                          </br>
+                          <el-checkbox label="6">无人管理 </el-checkbox>
+                          </br>
+                          <el-checkbox label="99">其他 </el-checkbox>
+                          </br>
                           <el-input v-if="com.ydkn.includes('99')" placeholder="请输入其他" v-model="com.comydknOther" style="width:80%"></el-input>
                         </el-checkbox-group>
                       </el-form-item>
                       <el-form-item label="“民参军”过程中企业自身存在的问题">
                         <span style='position: absolute;left: -240px;color: #f60d0d;'></span>
                         <el-checkbox-group v-model="com.problem">
-                          <el-checkbox label="1">技术人才不足</el-checkbox></br>
-                          <el-checkbox label="2">资金保障困难</el-checkbox></br>
-                          <el-checkbox label="3">保密设施设备不足 </el-checkbox></br>
+                          <el-checkbox label="1">技术人才不足</el-checkbox>
+                          </br>
+                          <el-checkbox label="2">资金保障困难</el-checkbox>
+                          </br>
+                          <el-checkbox label="3">保密设施设备不足 </el-checkbox>
+                          </br>
                           <el-checkbox label="4">需求信息不了解 </el-checkbox>
                         </el-checkbox-group>
                       </el-form-item>
@@ -938,7 +978,7 @@
                         <!-- <area-cascader v-model="selected" :level="1" :data="pca"></area-cascader> -->
                       </el-form-item>
                       <el-form-item label="联系地址">
-                        <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                        <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                         <el-input placeholder="请输入联系地址" v-model="mech.address" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="邮编">
@@ -975,35 +1015,35 @@
                       </el-form-item>
 
                       <el-form-item label="可提供的服务简介（200字以内）">
-                        <span style='position: absolute;left: -225px;color: #f60d0d;'>*</span>
+                        <span style='position: absolute;left: -225px;color: #f60d0d;'></span>
 
                         <textarea rows="3" v-model="mech.serviceAbout" cols="20" style="width:100%;height: 120px;">
                             </textarea>
                       </el-form-item>
 
                       <el-form-item :label="service_amount_lastt">
-                        <span style='position: absolute;left: -180px;color: #f60d0d;'>*</span>
+                        <span style='position: absolute;left: -180px;color: #f60d0d;'></span>
                         <el-input placeholder="请输入服务收入" v-model="mech.service_amount_last" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item :label="service_amount_beforet">
-                        <span style='position: absolute;left: -180px;color: #f60d0d;'>*</span>
+                        <span style='position: absolute;left: -180px;color: #f60d0d;'></span>
                         <el-input placeholder="请输入服务收入" v-model="mech.service_amount_before" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item :label="service_amount_previoust">
-                        <span style='position: absolute;left: -180px;color: #f60d0d;'>*</span>
+                        <span style='position: absolute;left: -180px;color: #f60d0d;'></span>
                         <el-input placeholder="请输入服务收入" v-model="mech.service_amount_previous" style="width:80%"></el-input>
                       </el-form-item>
 
                       <el-form-item :label="service_quantity_lastt">
-                        <span style='position: absolute;left: -160px;color: #f60d0d;'>*</span>
+                        <span style='position: absolute;left: -160px;color: #f60d0d;'></span>
                         <el-input placeholder="请输入服务数量" v-model="mech.service_quantity_last" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item :label="service_quantity_beforet">
-                        <span style='position: absolute;left: -160px;color: #f60d0d;'>*</span>
+                        <span style='position: absolute;left: -160px;color: #f60d0d;'></span>
                         <el-input placeholder="请输入服务数量" v-model="mech.service_quantity_before" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item :label="service_quantity_previoust">
-                        <span style='position: absolute;left: -160px;color: #f60d0d;'>*</span>
+                        <span style='position: absolute;left: -160px;color: #f60d0d;'></span>
                         <el-input placeholder="请输入服务数量" v-model="mech.service_quantity_previous" style="width:80%"></el-input>
                       </el-form-item>
                     </el-col>
@@ -1022,15 +1062,15 @@
                         <el-input placeholder="请输入姓名" v-model="mech.fdname" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="电话">
-                        <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
+                        <span style='position: absolute;left: -50px;color: #f60d0d;'></span>
                         <el-input placeholder="请输入电话" v-model="mech.fdtel" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="手机号">
-                        <span style='position: absolute;left: -60px;color: #f60d0d;'>*</span>
+                        <span style='position: absolute;left: -60px;color: #f60d0d;'></span>
                         <el-input placeholder="请输入手机号" v-model="mech.fdphone" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="邮箱">
-                        <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
+                        <span style='position: absolute;left: -50px;color: #f60d0d;'></span>
                         <el-input placeholder="请输入邮箱" v-model="mech.fdemail" style="width:80%"></el-input>
                       </el-form-item>
 
@@ -1099,11 +1139,11 @@
                         </div>
                       </el-form-item>
                       <el-form-item label="职务">
-                        <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
+                        <span style='position: absolute;left: -50px;color: #f60d0d;'></span>
                         <el-input placeholder="请输入职务" v-model="mech.lxzw" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="电话">
-                        <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
+                        <span style='position: absolute;left: -50px;color: #f60d0d;'></span>
                         <el-input placeholder="请输入电话" v-model="mech.lxtel" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="手机号">
@@ -1133,15 +1173,15 @@
                   <el-row :gutter="20">
                     <el-col :span="20">
                       <el-form-item label="人员总数">
-                        <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                        <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                         <el-input v-model="mech.perNum" placeholder="请输入人员总数" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="本科及以上学历人员数">
-                        <span style='position: absolute;left: -160px;color: #f60d0d;'>*</span>
+                        <span style='position: absolute;left: -160px;color: #f60d0d;'></span>
                         <el-input v-model="mech.underPer" placeholder="请输入人员本科及以上学历人员数" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="中高级职称以上人员数">
-                        <span style='position: absolute;left: -160px;color: #f60d0d;'>*</span>
+                        <span style='position: absolute;left: -160px;color: #f60d0d;'></span>
                         <el-input v-model="mech.MHPer" placeholder="请输入中高级职称以上人员数" style="width:80%"></el-input>
                       </el-form-item>
                     </el-col>
@@ -1394,7 +1434,7 @@
                         <!-- <area-cascader v-model="selected" :level="1" :data="pca"></area-cascader> -->
                       </el-form-item>
                       <el-form-item label="联系地址">
-                        <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                        <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                         <el-input placeholder="请输入联系地址" v-model="school.address" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="邮编">
@@ -1402,16 +1442,16 @@
                       </el-form-item>
 
                       <el-form-item label="单位网址">
-                        <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                        <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                         <el-input placeholder="请输入单位网址" v-model="school.unit_url" style="width:80%"></el-input>
                       </el-form-item>
 
                       <el-form-item label="单位简介">
-                        <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                        <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                         <el-input placeholder="请输入单位简介" v-model="school.major_platform" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="重大平台">
-                        <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                        <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                         <el-input placeholder="请输入重大平台" v-model="school.introduction" style="width:80%"></el-input>
                       </el-form-item>
                     </el-col>
@@ -1477,19 +1517,19 @@ export default {
       expert: {
         cardPositive: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
         }],
         cardSide: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idback.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
         }],
         cardHands: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/handPhoto.jpg`
+          url: this.imgBaseUrl + `/jmrhupload/def/handPhoto.jpg`
         }],
         onepicture: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/livePhoto.jpg`
+          url: this.imgBaseUrl + `/jmrhupload/def/livePhoto.jpg`
         }],
         name: '',
         sex: '',
@@ -1521,28 +1561,29 @@ export default {
           rewname: '',
           rewlevel: '',
           rewtime: ''
-        }]
+        }],
+        search_param: []
       },
       school: {
         zhengben: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
         }],
-          zhengben1: [{
-            name: '默认',
-            url:  this.imgBaseUrl + `/jmrhupload/def/companyZS.png`
-          }],
+        zhengben1: [{
+          name: '默认',
+          url: this.imgBaseUrl + `/jmrhupload/def/companyZS.png`
+        }],
         fuben: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
         }],
         fuben2: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idback.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
         }],
         logo: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
         }],
         introduction: '',
         major_platform: '',
@@ -1552,36 +1593,37 @@ export default {
         country: '',
         code: '',
         name: '',
+        search_param: []
       },
 
       mech: {
         zhengben: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
         }],
         zhengben1: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/companyZS.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/companyZS.png`
         }],
         fuben: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
         }],
         fuben2: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idback.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
         }],
         lxridz: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
         }],
         lxridf: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idback.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
         }],
         logo: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
         }],
         code: '',
         registerNature: [],
@@ -1628,24 +1670,25 @@ export default {
         lxphone: '',
         lxtel: '',
         lxzw: '',
-        linkman: ''
+        linkman: '',
+        search_param: []
       },
       com: {
         zhengben: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
         }],
         fuben: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
         }],
         fuben2: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idback.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
         }],
         logo: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
         }],
         lxname: '',
         lxzw: '',
@@ -1720,6 +1763,7 @@ export default {
           fwbmOther: '',
           zxqk: [],
         }],
+        search_param: []
       },
       userType: '3',
       registerValue: '',
@@ -1785,15 +1829,15 @@ export default {
     }
     var myDate = new Date();
     this.service_amount_lastt = parseInt(myDate.getFullYear() - 1) + '年服务收入（万元）';
-    this.service_amount_beforet = parseInt(myDate.getFullYear() -2) + '年服务收入（万元）';
+    this.service_amount_beforet = parseInt(myDate.getFullYear() - 2) + '年服务收入（万元）';
     this.service_amount_previoust = parseInt(myDate.getFullYear() - 3) + '年服务收入（万元）';
 
-    this.service_quantity_lastt =  parseInt(myDate.getFullYear() - 1) + '年服务数量（次）';
+    this.service_quantity_lastt = parseInt(myDate.getFullYear() - 1) + '年服务数量（次）';
     this.service_quantity_beforet = parseInt(myDate.getFullYear() - 2) + '年服务数量（次）';
     this.service_quantity_previoust = parseInt(myDate.getFullYear() - 3) + '年服务数量（次）';
 
 
-    this.service_research_lastt =  parseInt(myDate.getFullYear() - 1) + '年研发投入（万元）';
+    this.service_research_lastt = parseInt(myDate.getFullYear() - 1) + '年研发投入（万元）';
     this.service_research_beforet = parseInt(myDate.getFullYear() - 2) + '年研发投入（万元）';
     this.service_research_previoust = parseInt(myDate.getFullYear() - 3) + '年研发投入（万元）';
 
@@ -1852,12 +1896,20 @@ export default {
     async saveFile(obj) {
       if (this.userType == '1') {
         if (!this.validata.validaExpert(this.expert)) return
+        this.expert.search_param = []
+        obj = this.addCN1(this.expert)
       } else if (this.userType == '2') {
         if (!this.validata.validaEnterprise(this.com)) return
+        this.com.search_param = []
+        obj = this.addCN2(this.com)
       } else if (this.userType == '3') {
         if (!this.validata.validaMechanism(this.mech)) return
+        this.mech.search_param = []
+        obj = this.addCN3(this.mech)
       } else if (this.userType == '4') {
         if (!this.validata.validaHschool(this.school)) return
+        this.school.search_param = []
+        obj = this.addCN4(this.school)
       }
       let arr = []
       obj.method = 'post'
@@ -1880,6 +1932,268 @@ export default {
       }
 
     },
+    loadOneTree(code) {
+      let pcadata = this.pcaa
+      let arr = []
+      for (var i in pcadata) {
+        if (i == '86') {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
+        }
+      }
+      arr = arr[0].value
+      for (var j in arr) {
+        if (j == code) {
+          let obj = {}
+          obj.name = j
+          obj.value = arr[j]
+          this.arrValue1 = obj.value
+        }
+      }
+    },
+    loadtwoTree(code1, code2) {
+      this.arrValue2 = []
+      let pcadata = this.pcaa
+      let arr = []
+      for (var i in pcadata) {
+        if (i == code1) {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
+        }
+      }
+      arr = arr[0].value
+      for (var j in arr) {
+        if (j == code2) {
+          let obj = {}
+          obj.name = j
+          obj.value = arr[j]
+          this.arrValue2 = obj.value
+        }
+      }
+    },
+    loadThreeTree(code1, code2) {
+      this.arrValue3 = []
+      let pcadata = this.pcaa
+      let arr = []
+      for (var i in pcadata) {
+        if (i == code1) {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
+        }
+      }
+      if (arr.length > 0) {
+        arr = arr[0].value
+        for (var j in arr) {
+          if (j == code2) {
+            let obj = {}
+            obj.name = j
+            obj.value = arr[j]
+            this.arrValue3 = obj.value
+          }
+        }
+      }
+    },
+    addCN1(data) {
+      if (data.edu.includes(1)) data.search_param.push('小学')
+      if (data.edu.includes(2)) data.search_param.push('初中')
+      if (data.edu.includes(3)) data.search_param.push('高中')
+      if (data.edu.includes(4)) data.search_param.push('大专')
+      if (data.edu.includes(5)) data.search_param.push('本科')
+      if (data.edu.includes(6)) data.search_param.push('研究生')
+      if (data.edu.includes(7)) data.search_param.push('博士')
+      if (data.edu.includes(8)) data.search_param.push('研究生')
+
+      if (data.academic.includes(1)) data.search_param.push('学士')
+      if (data.academic.includes(2)) data.search_param.push('硕士')
+      if (data.academic.includes(3)) data.search_param.push('博士')
+
+      if (JSON.stringify(data.research_field).includes(1)) data.search_param.push('智能装备')
+      if (JSON.stringify(data.research_field).includes(2)) data.search_param.push('电子信息')
+      if (JSON.stringify(data.research_field).includes(3)) data.search_param.push('新材料')
+      if (JSON.stringify(data.research_field).includes(4)) data.search_param.push('航空航天')
+      if (JSON.stringify(data.research_field).includes(5)) data.search_param.push('生物技术与新医药')
+      if (JSON.stringify(data.research_field).includes(6)) data.search_param.push('能源与环保')
+      if (JSON.stringify(data.research_field).includes(7)) data.search_param.push('管理')
+
+      if (JSON.stringify(data.zclevel).includes(1)) data.search_param.push('正高')
+      if (JSON.stringify(data.zclevel).includes(2)) data.search_param.push('副高')
+
+
+      if (data.country.length > 0) {
+        this.loadOneTree(data.country[0])
+        this.loadtwoTree(data.country[0], data.country[1])
+        this.loadThreeTree(data.country[1], data.country[2])
+        data.search_param.push(this.arrValue1)
+        data.search_param.push(this.arrValue2)
+        data.search_param.push(this.arrValue3)
+      }
+      data.search_param.push(JSON.stringify(data))
+      return data
+    },
+    addCN2(data) {
+
+      if (JSON.stringify(data.registered_capital).includes(1)) data.search_param.push('小于2000万')
+      if (JSON.stringify(data.registered_capital).includes(2)) data.search_param.push('2000-5000万')
+      if (JSON.stringify(data.registered_capital).includes(3)) data.search_param.push('5000-1亿')
+      if (JSON.stringify(data.registered_capital).includes(4)) data.search_param.push('1亿-2亿')
+      if (JSON.stringify(data.registered_capital).includes(5)) data.search_param.push('2亿-4亿')
+      if (JSON.stringify(data.registered_capital).includes(6)) data.search_param.push('4亿及以上')
+
+      if (JSON.stringify(data.registered_type).includes(1)) data.search_param.push('内资企业')
+      if (JSON.stringify(data.registered_type).includes(2)) data.search_param.push('合资企业')
+      if (JSON.stringify(data.registered_type).includes(3)) data.search_param.push('外资企业')
+
+      if (JSON.stringify(data.registerSite).includes(1)) data.search_param.push('国家级高新区')
+      if (JSON.stringify(data.registerSite).includes(2)) data.search_param.push('省级高新区')
+      if (JSON.stringify(data.registerSite).includes(3)) data.search_param.push('国家级经开区')
+      if (JSON.stringify(data.registerSite).includes(4)) data.search_param.push('省级经开区')
+
+      if (JSON.stringify(data.registerHSite).includes(1)) data.search_param.push('南京高新区')
+      if (JSON.stringify(data.registerHSite).includes(2)) data.search_param.push('无锡高新区')
+      if (JSON.stringify(data.registerHSite).includes(3)) data.search_param.push('昆山高新区')
+      if (JSON.stringify(data.registerHSite).includes(4)) data.search_param.push('徐州高新区')
+
+      if (JSON.stringify(data.registerMarkeSite).includes(1)) data.search_param.push('上交所')
+      if (JSON.stringify(data.registerMarkeSite).includes(2)) data.search_param.push('深交所')
+      if (JSON.stringify(data.registerMarkeSite).includes(3)) data.search_param.push('新三板')
+      if (JSON.stringify(data.registerMarkeSite).includes(4)) data.search_param.push('港交所')
+      if (JSON.stringify(data.registerMarkeSite).includes(5)) data.search_param.push('主版')
+      if (JSON.stringify(data.registerMarkeSite).includes(6)) data.search_param.push('中小板')
+      if (JSON.stringify(data.registerMarkeSite).includes(7)) data.search_param.push('创业板')
+
+      if (JSON.stringify(data.domain).includes(1)) data.search_param.push('智能装备')
+      if (JSON.stringify(data.domain).includes(2)) data.search_param.push('电子信息')
+      if (JSON.stringify(data.domain).includes(3)) data.search_param.push('新材料')
+      if (JSON.stringify(data.domain).includes(4)) data.search_param.push('航空航天')
+      if (JSON.stringify(data.domain).includes(5)) data.search_param.push('生物技术与新医药')
+      if (JSON.stringify(data.domain).includes(6)) data.search_param.push('能源与环保')
+
+      if (JSON.stringify(data.highleveltalentType).includes(1)) data.search_param.push('院士')
+      if (JSON.stringify(data.highleveltalentType).includes(2)) data.search_param.push('国家千人')
+      if (JSON.stringify(data.highleveltalentType).includes(3)) data.search_param.push('青年千人')
+      if (JSON.stringify(data.highleveltalentType).includes(4)) data.search_param.push('中青年科技创新领军人才')
+      if (JSON.stringify(data.highleveltalentType).includes(5)) data.search_param.push('长江学者')
+      if (JSON.stringify(data.highleveltalentType).includes(6)) data.search_param.push('国家杰青')
+
+      if (JSON.stringify(data.platform).includes(1)) data.search_param.push('企业重点实验室（国家级）')
+      if (JSON.stringify(data.platform).includes(2)) data.search_param.push('企业重点实验室（省级）')
+      if (JSON.stringify(data.platform).includes(3)) data.search_param.push('企业院士工作站')
+      if (JSON.stringify(data.platform).includes(4)) data.search_param.push('程技术研究中心（国家级）')
+      if (JSON.stringify(data.platform).includes(5)) data.search_param.push('程技术研究中心（省级）')
+
+      if (JSON.stringify(data.szget).includes(1)) data.search_param.push('获得武器装备科研生产单位保密资格认证一级')
+      if (JSON.stringify(data.szget).includes(2)) data.search_param.push('获得武器装备科研生产单位保密资格认证二级')
+      if (JSON.stringify(data.szget).includes(3)) data.search_param.push('获得武器装备科研生产单位保密资格认证三级')
+      if (JSON.stringify(data.szget).includes(4)) data.search_param.push('武器装备科研生产许可证')
+      if (JSON.stringify(data.szget).includes(5)) data.search_param.push('装备承制单位资格认证')
+
+      if (JSON.stringify(data.jmrhgn).includes(1)) data.search_param.push('内设专门机构')
+      if (JSON.stringify(data.jmrhgn).includes(2)) data.search_param.push('设有专项经费')
+      if (JSON.stringify(data.jmrhgn).includes(3)) data.search_param.push('有专人负责')
+
+      if (JSON.stringify(data.ydkn).includes(1)) data.search_param.push('需求信息')
+      if (JSON.stringify(data.ydkn).includes(2)) data.search_param.push('产品准入')
+      if (JSON.stringify(data.ydkn).includes(3)) data.search_param.push('人才保障')
+      if (JSON.stringify(data.ydkn).includes(4)) data.search_param.push('审批程序')
+      if (JSON.stringify(data.ydkn).includes(5)) data.search_param.push('资质认证')
+      if (JSON.stringify(data.ydkn).includes(6)) data.search_param.push('无人管理')
+
+      if (JSON.stringify(data.problem).includes(1)) data.search_param.push('技术人才不足')
+      if (JSON.stringify(data.problem).includes(2)) data.search_param.push('资金保障困难')
+      if (JSON.stringify(data.problem).includes(3)) data.search_param.push('保密设施设备不足')
+      if (JSON.stringify(data.problem).includes(4)) data.search_param.push('需求信息不了解')
+
+
+      let arr = data.comPorcolumnDefinitions
+      let arr1 = []
+      let arr2 = []
+      for (var i in arr) {
+        arr1 = arr[i].fwbm
+        arr2 = arr[i].zxqk
+      }
+      if (arr1.includes("1")) data.search_param.push('海军')
+      if (arr1.includes("2")) data.search_param.push('陆军')
+      if (arr1.includes("3")) data.search_param.push('空军')
+      if (arr1.includes("4")) data.search_param.push('火箭军')
+      if (arr1.includes("5")) data.search_param.push('战略支援部队')
+      if (arr1.includes("6")) data.search_param.push('军工企业')
+
+      if (arr2.includes("1")) data.search_param.push('申请')
+      if (arr2.includes("2")) data.search_param.push('在研')
+      if (arr2.includes("3")) data.search_param.push('验收/结题')
+
+      if (data.country.length > 0) {
+        this.loadOneTree(data.country[0])
+        this.loadtwoTree(data.country[0], data.country[1])
+        this.loadThreeTree(data.country[1], data.country[2])
+        data.search_param.push(this.arrValue1)
+        data.search_param.push(this.arrValue2)
+        data.search_param.push(this.arrValue3)
+      }
+      data.search_param.push(JSON.stringify(data))
+      return data
+    },
+
+    addCN3(data) {
+      if (JSON.stringify(data.registerNature).includes(1)) data.search_param.push('企业')
+      if (JSON.stringify(data.registerNature).includes(2)) data.search_param.push('科研院所')
+      if (JSON.stringify(data.registerNature).includes(3)) data.search_param.push('高等院校')
+
+      if (JSON.stringify(data.orgType).includes(1)) data.search_param.push('研究开发')
+      if (JSON.stringify(data.orgType).includes(2)) data.search_param.push('科技投融资')
+      if (JSON.stringify(data.orgType).includes(3)) data.search_param.push('技术转移')
+      if (JSON.stringify(data.orgType).includes(4)) data.search_param.push('检验检测')
+      if (JSON.stringify(data.orgType).includes(5)) data.search_param.push('创业孵化')
+      if (JSON.stringify(data.orgType).includes(6)) data.search_param.push('知识产权')
+      if (JSON.stringify(data.orgType).includes(7)) data.search_param.push('科技评估')
+      if (JSON.stringify(data.orgType).includes(8)) data.search_param.push('标准认证')
+      if (JSON.stringify(data.orgType).includes(9)) data.search_param.push('管理咨询')
+      if (JSON.stringify(data.orgType).includes(10)) data.search_param.push('综合科技服务')
+
+
+      let arr = data.PorcolumnDefinitions
+      let arr1 = []
+      let arr2 = []
+      for (var i in arr) {
+        arr1 = arr[i].registerSupport
+        arr2 = arr[i].registerImplement
+      }
+      if (arr1.includes("1")) data.search_param.push('拨款')
+      if (arr1.includes("2")) data.search_param.push('贴息')
+      if (arr1.includes("3")) data.search_param.push('减免税')
+      if (arr1.includes("4")) data.search_param.push('以上全无')
+      if (arr2.includes("1")) data.search_param.push('申请')
+      if (arr2.includes("2")) data.search_param.push('在研')
+      if (arr2.includes("3")) data.search_param.push('验收/结题')
+      if (data.country.length > 0) {
+        this.loadOneTree(data.country[0])
+        this.loadtwoTree(data.country[0], data.country[1])
+        this.loadThreeTree(data.country[1], data.country[2])
+        data.search_param.push(this.arrValue1)
+        data.search_param.push(this.arrValue2)
+        data.search_param.push(this.arrValue3)
+      }
+      data.search_param.push(JSON.stringify(data))
+      return data
+    },
+    addCN4(data) {
+      if (data.country.length > 0) {
+        this.loadOneTree(data.country[0])
+        this.loadtwoTree(data.country[0], data.country[1])
+        this.loadThreeTree(data.country[1], data.country[2])
+        data.search_param.push(this.arrValue1)
+        data.search_param.push(this.arrValue2)
+        data.search_param.push(this.arrValue3)
+      }
+      data.search_param.push(JSON.stringify(data))
+      return data
+    },
     addProjectexpert() {
       this.expert.research_record.push({
         projectname: '',
@@ -1892,12 +2206,12 @@ export default {
       })
     },
     delProjectexpert(item) {
-        this.expert.research_record.splice(this.expert.research_record.indexOf(item), 1)
-        this.$message({
-          type: 'info',
-          message: '删除成功'
-        });
-      },
+      this.expert.research_record.splice(this.expert.research_record.indexOf(item), 1)
+      this.$message({
+        type: 'info',
+        message: '删除成功'
+      });
+    },
     addProjectcom() {
       this.com.comPorcolumnDefinitions.push({
         name: '',
@@ -1907,7 +2221,7 @@ export default {
         zxqk: [],
       })
     },
-   delProjectcom(item) {
+    delProjectcom(item) {
       this.com.comPorcolumnDefinitions.splice(this.com.comPorcolumnDefinitions.indexOf(item), 1)
       this.$message({
         type: 'info',
@@ -1937,7 +2251,7 @@ export default {
         issuingAgency: ''
       })
     },
-  delhonrmech(item) {
+    delhonrmech(item) {
       this.mech.honor.splice(this.mech.honor.indexOf(item), 1)
       this.$message({
         type: 'info',
@@ -1952,7 +2266,7 @@ export default {
       })
     },
 
-  delcjmech(item) {
+    delcjmech(item) {
       this.mech.workrPorcolumnDefinitions.splice(this.mech.workrPorcolumnDefinitions.indexOf(item), 1)
       this.$message({
         type: 'info',
@@ -2156,27 +2470,27 @@ export default {
       }
     },
 
-        async uploadSectionFile80(param) {
-          this.mech.zhengben = []
-          var fileObj = param.file;
-          // 接收上传文件的后台地址
-          // FormData 对象
-          var form = new FormData();
-          // 文件对象
-          form.append("file", fileObj);
-          // 其他参数
-          // form.append("xxx", xxx);
-          let {
-            data,
-            success
-          } = await libupload(form)
-          if (success) {
-            let arro = {}
-            arro.name = data.fileName,
-              arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-            this.mech.zhengben.push(arro)
-          }
-        },
+    async uploadSectionFile80(param) {
+      this.mech.zhengben = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.mech.zhengben.push(arro)
+      }
+    },
     async uploadSectionFile8(param) {
       this.mech.zhengben1 = []
       var fileObj = param.file;
@@ -2376,7 +2690,7 @@ export default {
     display: flex;
 }
 .cxxm .el-input__inner {
- padding: 0 30px !important;
+    padding: 0 30px !important;
 }
 .el-upload-list--picture .el-upload-list__item {
     width: 220px;

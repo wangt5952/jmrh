@@ -78,7 +78,7 @@
                   <!-- <area-cascader v-model="selected" :level="1" :data="pca"></area-cascader> -->
                 </el-form-item>
                 <el-form-item label="联系地址">
-                  <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                  <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                   <el-input placeholder="请输入联系地址" v-model="school.address" style="width:80%"></el-input>
                 </el-form-item>
                 <el-form-item label="邮编">
@@ -86,16 +86,16 @@
                 </el-form-item>
 
                 <el-form-item label="单位网址">
-                  <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                  <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                   <el-input placeholder="请输入单位网址" v-model="school.unit_url" style="width:80%"></el-input>
                 </el-form-item>
 
                 <el-form-item label="单位简介">
-                  <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                  <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                   <el-input placeholder="请输入单位简介" v-model="school.major_platform" style="width:80%"></el-input>
                 </el-form-item>
                 <el-form-item label="重大平台">
-                  <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                  <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                   <el-input placeholder="请输入重大平台" v-model="school.introduction" style="width:80%"></el-input>
                 </el-form-item>
               </el-col>
@@ -164,6 +164,9 @@ export default {
       selected: [],
       titleName: '',
       pcaa: pcaa, //最多省市区三级，结合:level='2'选择，0省、1省市、2省市区
+      arrValue1: '',
+      arrValue2: '',
+      arrValue3: '',
       service_amount_lastt: '',
       service_amount_beforet: '',
       service_amount_previoust: '',
@@ -202,6 +205,7 @@ export default {
         country: '',
         code: '',
         name: '',
+        search_param: []
       },
       checkStatus:1
     }
@@ -329,12 +333,94 @@ export default {
       back() {
         window.history.go(-1);
       },
+      addCN(data) {
+      if (data.country.length > 0) {
+        this.loadOneTree(data.country[0])
+        this.loadtwoTree(data.country[0], data.country[1])
+        this.loadThreeTree(data.country[1], data.country[2])
+        data.search_param.push(this.arrValue1)
+        data.search_param.push(this.arrValue2)
+        data.search_param.push(this.arrValue3)
+      }
+      data.search_param.push(JSON.stringify(data))
+        return data
+      },
+
+      loadOneTree(code) {
+        let pcadata = this.pcaa
+        let arr = []
+        for (var i in pcadata) {
+          if (i == '86') {
+            let obj = {}
+            obj.date = i
+            obj.value = pcadata[i]
+            arr.push(obj)
+          }
+        }
+        arr = arr[0].value
+        for (var j in arr) {
+          if (j == code) {
+            let obj = {}
+            obj.name = j
+            obj.value = arr[j]
+            this.arrValue1 = obj.value
+          }
+        }
+      },
+      loadtwoTree(code1, code2) {
+        this.arrValue2 = []
+        let pcadata = this.pcaa
+        let arr = []
+        for (var i in pcadata) {
+          if (i == code1) {
+            let obj = {}
+            obj.date = i
+            obj.value = pcadata[i]
+            arr.push(obj)
+          }
+        }
+        arr = arr[0].value
+        for (var j in arr) {
+          if (j == code2) {
+            let obj = {}
+            obj.name = j
+            obj.value = arr[j]
+            this.arrValue2 = obj.value
+          }
+        }
+      },
+      loadThreeTree(code1, code2) {
+        this.arrValue3 = []
+        let pcadata = this.pcaa
+        let arr = []
+        for (var i in pcadata) {
+          if (i == code1) {
+            let obj = {}
+            obj.date = i
+            obj.value = pcadata[i]
+            arr.push(obj)
+          }
+        }
+        if (arr.length > 0) {
+          arr = arr[0].value
+          for (var j in arr) {
+            if (j == code2) {
+              let obj = {}
+              obj.name = j
+              obj.value = arr[j]
+              this.arrValue3 = obj.value
+            }
+          }
+        }
+      },
     async saveFile(checkStatus) {
       if (!this.validata.validaHschool(this.school)) return
         let arr ={}
         arr.formType = '4'
         arr.checkStatus = checkStatus
         arr.id = this.$route.params.objId
+        this.school.search_param = []
+        this.school = this.addCN(this.school)
         arr.detail = JSON.stringify(this.school)
         let {
           data,

@@ -83,7 +83,7 @@
                 </div>
               </el-form-item>
               <el-form-item label="毕业院校">
-                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入毕业院校" v-model="expert.shcool" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="学历">
@@ -133,7 +133,7 @@
               </el-form-item>
 
               <el-form-item label="研究方向">
-                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入研究方向" v-model="expert.research_area" style="width:80%"></el-input>
               </el-form-item>
 
@@ -148,30 +148,29 @@
         </el-form>
 
       </el-tab-pane>
-
       <el-tab-pane label="联系方式">
         <el-form class="" label-width="30%" style="text-align:left">
           <el-row :gutter="20">
             <el-col :span="20">
 
               <el-form-item label="工作单位">
-                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入工作单位" v-model="expert.work_unit" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="工作部门">
-                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入工作部门" v-model="expert.work_bumen" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="现任职务">
-                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入现任职务" v-model="expert.zwname" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="职称">
-                <span style='position: absolute;left: -50px;color: #f60d0d;'></span>
+                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入职称" v-model="expert.zcname" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="职称级别">
-                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                 <el-checkbox-group v-model="expert.zclevel">
                   <el-checkbox label="1">正高</el-checkbox>
                   <el-checkbox label="2">副高</el-checkbox>
@@ -182,7 +181,7 @@
                 <el-input placeholder="请输入手机号" v-model="expert.mobilephone" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="办公电话">
-                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入办公电话" v-model="expert.telphone" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="邮箱">
@@ -194,7 +193,7 @@
                 <area-cascader :level="1" v-model="expert.country" :data="pcaa"></area-cascader>
               </el-form-item>
               <el-form-item label="通讯地址">
-                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入通讯地址" v-model="expert.address" style="width:80%"></el-input>
               </el-form-item>
             </el-col>
@@ -209,14 +208,13 @@
       </el-tab-pane>
 
 
-
       <el-tab-pane label="主要学术成就/研究成果/管理成就">
         <el-form class="" label-width="30%" style="text-align:left">
           <el-row :gutter="24">
             <el-col :span="24">
 
               <el-form-item label="主要学术成就/研究成果/管理成就">
-                <span style='position: absolute;left: -230px;color: #f60d0d;'></span>
+                <span style='position: absolute;left: -230px;color: #f60d0d;'>*</span>
                 <textarea v-model="expert.success_record" rows="3" cols="20" style="width:60%;height: 120px;">
                 </textarea>
               </el-form-item>
@@ -361,7 +359,7 @@
                 </el-checkbox-group>
               </el-form-item>
               <el-form-item label="注册时间">
-                <span style='position: relative;left: -80px;color: #f60d0d;'></span>
+                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
                 <el-date-picker v-model="com.registerDate" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期">
                 </el-date-picker>
               </el-form-item>
@@ -379,14 +377,14 @@
                 <!-- <area-cascader v-model="selected" :level="1" :data="pca"></area-cascader> -->
               </el-form-item>
               <el-form-item label="通讯地址">
-                <span style='position: relative;left: -80px;color: #f60d0d;'></span>
+                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入通讯地址" v-model="com.registeraddress" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="邮编">
                 <el-input placeholder="请输入邮编" v-model="com.registerecode" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="是否高新技术企业">
-                <span style='position: absolute;left: -140px;color: #f60d0d;'></span>
+                <span style='position: absolute;left: -140px;color: #f60d0d;'>*</span>
                 <el-select v-model="com.is_high_new_tech" style="width:100px" placeholder="请选择">
                   <el-option label="是" key="1" value='1'>
                   </el-option>
@@ -395,7 +393,7 @@
                 </el-select>
               </el-form-item>
               <el-form-item v-show="com.is_high_new_tech == 1" label="企业所在地性质">
-                <span style='position: absolute;left: -130px;color: #f60d0d;'></span>
+                <span style='position: absolute;left: -130px;color: #f60d0d;'>*</span>
                 <el-checkbox-group v-model="com.registerSite">
                   <el-checkbox label="1">国家级高新区 </el-checkbox>
                   <el-checkbox label="2">省级高新区</el-checkbox>
@@ -406,7 +404,7 @@
                 </el-checkbox-group>
               </el-form-item>
               <el-form-item v-show="com.is_high_new_tech == 1 && com.registerSite.includes('1')" label="所在国家高新区">
-                <span style='position: absolute;left: -130px;color: #f60d0d;'></span>
+                <span style='position: absolute;left: -130px;color: #f60d0d;'>*</span>
                 <el-checkbox-group v-model="com.registerHSite">
                   <el-checkbox label="1">南京高新区</el-checkbox>
                   <el-checkbox label="2">无锡高新区</el-checkbox>
@@ -426,11 +424,11 @@
                 </el-select>
               </el-form-item>
               <el-form-item v-show="com.registerMarket == 1" label="股票代码">
-                <span style='position: relative;left: -80px;color: #f60d0d;'></span>
+                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入股票代码" v-model="com.stockCode" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item v-show="com.registerMarket == 1" label="上市地点">
-                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                 <el-checkbox-group v-model="com.registerMarkeSite">
                   <el-checkbox label="1">上交所</el-checkbox>
                   <el-checkbox label="2">深交所</el-checkbox>
@@ -464,7 +462,7 @@
                 </el-checkbox-group>
               </el-form-item>
               <el-form-item label="主营产品">
-                <span style='position: relative;left: -80px;color: #f60d0d;'></span>
+                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入主营产品" v-model="com.product" style="width:80%"></el-input>
               </el-form-item>
             </el-col>
@@ -487,15 +485,15 @@
                 <el-input placeholder="请输入姓名" v-model="com.lpname" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="职务">
-                <span style='position: relative;left: -50px;color: #f60d0d;'></span>
+                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入职务" v-model="com.lpzw" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="电话/手机">
-                <span style='position: relative;left: -60px;color: #f60d0d;'></span>
+                <span style='position: relative;left: -60px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入电话/手机" v-model="com.lpphone" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="邮箱">
-                <span style='position: relative;left: -50px;color: #f60d0d;'></span>
+                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入邮箱" v-model="com.lpemail" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="营业执照">
@@ -564,7 +562,7 @@
                 <el-input placeholder="请输入姓名" v-model="com.lxname" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="职务">
-                <span style='position: relative;left: -50px;color: #f60d0d;'></span>
+                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入职务" v-model="com.lxzw" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="手机号">
@@ -629,24 +627,24 @@
           <el-row :gutter="20">
             <el-col :span="20">
               <el-form-item label="研发团队人员总数(人)">
-                <span style='position: relative;left: -160px;color: #f60d0d;'></span>
+                <span style='position: relative;left: -160px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入人员总数" v-model="com.researchTeamnum" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="本科及以上人数(人)">
-                <span style='position: relative;left: -140px;color: #f60d0d;'></span>
+                <span style='position: relative;left: -140px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入国家新药数量" v-model="com.bachelorAbovenum" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="中高级职称以上人员人数(人)">
-                <span style='position: relative;left: -200px;color: #f60d0d;'></span>
+                <span style='position: relative;left: -200px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入中高级职称人数" v-model="com.middleLevelnum" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="研发团队高层次人才(人)">
-                <span style='position: relative;left: -170px;color: #f60d0d;'></span>
+                <span style='position: relative;left: -170px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入研发团队人才人数" v-model="com.highleveltalentsnum" style="width:80%"></el-input>
               </el-form-item>
 
               <el-form-item label="高层次人才类型">
-                <span style='position: absolute;left: -120px;color: #f60d0d;'></span>
+                <span style='position: absolute;left: -120px;color: #f60d0d;'>*</span>
                 <el-checkbox-group v-model="com.highleveltalentType">
                   <el-checkbox label="1">院士</el-checkbox>
                   </br>
@@ -667,19 +665,19 @@
               </el-form-item>
 
               <el-form-item :label="service_research_lastt">
-                <span style='position: absolute;left: -180px;color: #f60d0d;'></span>
+                <span style='position: absolute;left: -180px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入研发投入" v-model="com.service_research_last" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item :label="service_research_beforet">
-                <span style='position: relative;left: -180px;color: #f60d0d;'></span>
+                <span style='position: relative;left: -180px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入研发投入" v-model="com.service_research_before" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item :label="service_research_previoust">
-                <span style='position: relative;left: -180px;color: #f60d0d;'></span>
+                <span style='position: relative;left: -180px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入研发投入" v-model="com.service_research_previous" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="平台建设情况">
-                <span style='position: absolute;left: -100px;color: #f60d0d;'></span>
+                <span style='position: absolute;left: -100px;color: #f60d0d;'>*</span>
                 <el-checkbox-group v-model="com.platform">
                   <el-checkbox label="1">企业重点实验室（国家级）</el-checkbox>
                   </br>
@@ -713,7 +711,7 @@
             <el-col :span="20">
 
               <el-form-item label="是否承担过武器装备科研生产任务">
-                <span style='position: absolute;left: -230px;color: #f60d0d;'></span>
+                <span style='position: absolute;left: -230px;color: #f60d0d;'>*</span>
 
                 <el-select v-model="com.sfkyrw" style="width:100px" placeholder="请选择">
                   <el-option label="是" key="1" value='1'>
@@ -724,7 +722,7 @@
               </el-form-item>
 
               <el-form-item label="“三证”已获得">
-                <span style='position: absolute;left: -100px;color: #f60d0d;'></span>
+                <span style='position: absolute;left: -100px;color: #f60d0d;'>*</span>
                 <el-checkbox-group v-model="com.szget">
                   <el-checkbox label="1">获得武器装备科研生产单位保密资格认证一级 </el-checkbox>
                   <el-date-picker v-if="com.szget.includes('1')" v-model="com.qdtime1" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="取得时间" style="margin-left:20px;">
@@ -750,7 +748,7 @@
               </el-form-item>
 
               <el-form-item label="是否计划申请">
-                <span style='position: absolute;left: -100px;color: #f60d0d;'></span>
+                <span style='position: absolute;left: -100px;color: #f60d0d;'>*</span>
                 <el-select v-model="com.szwhd" style="width:100px" placeholder="请选择">
                   <el-option label="是" key="1" value='1'>
                   </el-option>
@@ -760,7 +758,7 @@
               </el-form-item>
 
               <el-form-item label="军民融合建设管理情况">
-                <span style='position: absolute;left: -160px;color: #f60d0d;'></span>
+                <span style='position: absolute;left: -160px;color: #f60d0d;'>*</span>
                 <el-checkbox-group v-model="com.jmrhgn">
                   <el-checkbox label="1">内设专门机构</el-checkbox>
                   <el-checkbox label="2">设有专项经费</el-checkbox>
@@ -768,21 +766,21 @@
                 </el-checkbox-group>
               </el-form-item>
               <el-form-item v-show="com.jmrhgn == 3" label="负责人姓名">
-                <span style='position: relative;left: -100px;color: #f60d0d;'></span>
+                <span style='position: relative;left: -100px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入负责人姓名" v-model="com.jmrhgnName" style="width:80%"></el-input>
               </el-form-item>
 
               <el-form-item v-show="com.jmrhgn == 3" label="负责人职务">
-                <span style='position: relative;left: -100px;color: #f60d0d;'></span>
+                <span style='position: relative;left: -100px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入负责人职务" v-model="com.jmrhgnZW" style="width:80%"></el-input>
               </el-form-item>
 
               <el-form-item v-show="com.jmrhgn == 3" label="负责人电话">
-                <span style='position: relative;left: -100px;color: #f60d0d;'></span>
+                <span style='position: relative;left: -100px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入负责人电话" v-model="com.jmrhgnTel" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="“民参军”过程中，遇到的障碍及困难">
-                <span style='position: absolute;left: -240px;color: #f60d0d;'></span>
+                <span style='position: absolute;left: -240px;color: #f60d0d;'>*</span>
                 <el-checkbox-group v-model="com.ydkn">
                   <el-checkbox label="1">需求信息</el-checkbox>
                   </br>
@@ -802,7 +800,7 @@
                 </el-checkbox-group>
               </el-form-item>
               <el-form-item label="“民参军”过程中企业自身存在的问题">
-                <span style='position: absolute;left: -240px;color: #f60d0d;'></span>
+                <span style='position: absolute;left: -240px;color: #f60d0d;'>*</span>
                 <el-checkbox-group v-model="com.problem">
                   <el-checkbox label="1">技术人才不足</el-checkbox>
                   </br>
@@ -971,7 +969,7 @@
                 <!-- <area-cascader v-model="selected" :level="1" :data="pca"></area-cascader> -->
               </el-form-item>
               <el-form-item label="联系地址">
-                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入联系地址" v-model="mech.address" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="邮编">
@@ -1008,35 +1006,35 @@
               </el-form-item>
 
               <el-form-item label="可提供的服务简介（200字以内）">
-                <span style='position: absolute;left: -225px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -225px;color: #f60d0d;'></span>
 
                 <textarea rows="3" v-model="mech.serviceAbout" cols="20" style="width:100%;height: 120px;">
                     </textarea>
               </el-form-item>
 
               <el-form-item :label="service_amount_lastt">
-                <span style='position: absolute;left: -180px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -180px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入服务收入" v-model="mech.service_amount_last" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item :label="service_amount_beforet">
-                <span style='position: absolute;left: -180px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -180px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入服务收入" v-model="mech.service_amount_before" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item :label="service_amount_previoust">
-                <span style='position: absolute;left: -180px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -180px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入服务收入" v-model="mech.service_amount_previous" style="width:80%"></el-input>
               </el-form-item>
 
               <el-form-item :label="service_quantity_lastt">
-                <span style='position: absolute;left: -160px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -160px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入服务数量" v-model="mech.service_quantity_last" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item :label="service_quantity_beforet">
-                <span style='position: absolute;left: -160px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -160px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入服务数量" v-model="mech.service_quantity_before" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item :label="service_quantity_previoust">
-                <span style='position: absolute;left: -160px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -160px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入服务数量" v-model="mech.service_quantity_previous" style="width:80%"></el-input>
               </el-form-item>
             </el-col>
@@ -1055,15 +1053,15 @@
                 <el-input placeholder="请输入姓名" v-model="mech.fdname" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="电话">
-                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -50px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入电话" v-model="mech.fdtel" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="手机号">
-                <span style='position: absolute;left: -60px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -60px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入手机号" v-model="mech.fdphone" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="邮箱">
-                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -50px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入邮箱" v-model="mech.fdemail" style="width:80%"></el-input>
               </el-form-item>
 
@@ -1132,11 +1130,11 @@
                 </div>
               </el-form-item>
               <el-form-item label="职务">
-                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -50px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入职务" v-model="mech.lxzw" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="电话">
-                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -50px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入电话" v-model="mech.lxtel" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="手机号">
@@ -1166,15 +1164,15 @@
           <el-row :gutter="20">
             <el-col :span="20">
               <el-form-item label="人员总数">
-                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                 <el-input v-model="mech.perNum" placeholder="请输入人员总数" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="本科及以上学历人员数">
-                <span style='position: absolute;left: -160px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -160px;color: #f60d0d;'></span>
                 <el-input v-model="mech.underPer" placeholder="请输入人员本科及以上学历人员数" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="中高级职称以上人员数">
-                <span style='position: absolute;left: -160px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -160px;color: #f60d0d;'></span>
                 <el-input v-model="mech.MHPer" placeholder="请输入中高级职称以上人员数" style="width:80%"></el-input>
               </el-form-item>
             </el-col>
@@ -1428,7 +1426,7 @@
                 <!-- <area-cascader v-model="selected" :level="1" :data="pca"></area-cascader> -->
               </el-form-item>
               <el-form-item label="联系地址">
-                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: relative;left: -80px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入联系地址" v-model="school.address" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="邮编">
@@ -1436,16 +1434,16 @@
               </el-form-item>
 
               <el-form-item label="单位网址">
-                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: relative;left: -80px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入单位网址" v-model="school.unit_url" style="width:80%"></el-input>
               </el-form-item>
 
               <el-form-item label="单位简介">
-                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: relative;left: -80px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入单位简介" v-model="school.major_platform" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="重大平台">
-                <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: relative;left: -80px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入重大平台" v-model="school.introduction" style="width:80%"></el-input>
               </el-form-item>
             </el-col>
@@ -1553,7 +1551,8 @@ export default {
           rewname: '',
           rewlevel: '',
           rewtime: ''
-        }]
+        }],
+        search_param: []
       },
       school: {
         zhengben: [{
@@ -1584,6 +1583,7 @@ export default {
         country: '',
         code: '',
         name: '',
+        search_param: []
       },
 
       mech: {
@@ -1660,7 +1660,8 @@ export default {
         lxphone: '',
         lxtel: '',
         lxzw: '',
-        linkman: ''
+        linkman: '',
+        search_param: []
       },
       com: {
         zhengben: [{
@@ -1752,6 +1753,7 @@ export default {
           fwbmOther: '',
           zxqk: [],
         }],
+        search_param: []
       },
     }
   },
@@ -1794,11 +1796,8 @@ export default {
 
     async loadPageList() {
 
-      if (data.checkStatus == 2) {
-        this.$message({
-          message: '您的信息已被驳回。',
-          type: 'success'
-        });
+      let fromCheckStatus = window.sessionStorage.getItem('checkStatus')
+      if (fromCheckStatus == '2') {
         let {
           data,
           success
@@ -1825,15 +1824,20 @@ export default {
         } else if (this.userType == '4') {
           this.school = JSON.parse(data.detail)
         }
-
-      }else{
         if (data.checkStatus == 0) {
           this.$message({
             message: '您的提交的信息等待审核中...',
             type: 'success'
           });
         }
+        if (data.checkStatus == 2) {
+          this.$message({
+            message: '您的信息已被驳回。',
+            type: 'success'
+          });
+        }
 
+      } else {
         let {
           data,
           success
@@ -1841,11 +1845,15 @@ export default {
         if (success) {
           if (data == null) {
             this.$message({
-              message: '还没有加入社区，请完善信息！',
+              message: '社区内没有您的信息，请完善信息！',
               type: 'success'
             });
             return
           } else {
+            this.$message({
+              message: '社区内已存在您的信息，请关联并完善！',
+              type: 'success'
+            });
             if (this.userType == '1') {
               this.expert = JSON.parse(data.form.detail)
               this.expert.code = this.code
@@ -1877,9 +1885,9 @@ export default {
             }
           }
         }
-
-
       }
+
+
       this.loading = false
     },
 
@@ -1887,12 +1895,20 @@ export default {
 
       if (this.userType == '1') {
         if (!this.validata.validaExpert(this.expert)) return
+        this.expert.search_param = []
+        obj = this.addCN1(this.expert)
       } else if (this.userType == '2') {
         if (!this.validata.validaEnterprise(this.com)) return
+        this.com.search_param = []
+        obj = this.addCN2(this.com)
       } else if (this.userType == '3') {
         if (!this.validata.validaMechanism(this.mech)) return
+        this.mech.search_param = []
+        obj = this.addCN3(this.mech)
       } else if (this.userType == '4') {
         if (!this.validata.validaHschool(this.school)) return
+        this.school.search_param = []
+        obj = this.addCN4(this.school)
       }
 
       let arr = []
@@ -1916,8 +1932,268 @@ export default {
       }
 
     },
+    loadOneTree(code) {
+      let pcadata = this.pcaa
+      let arr = []
+      for (var i in pcadata) {
+        if (i == '86') {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
+        }
+      }
+      arr = arr[0].value
+      for (var j in arr) {
+        if (j == code) {
+          let obj = {}
+          obj.name = j
+          obj.value = arr[j]
+          this.arrValue1 = obj.value
+        }
+      }
+    },
+    loadtwoTree(code1, code2) {
+      this.arrValue2 = []
+      let pcadata = this.pcaa
+      let arr = []
+      for (var i in pcadata) {
+        if (i == code1) {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
+        }
+      }
+      arr = arr[0].value
+      for (var j in arr) {
+        if (j == code2) {
+          let obj = {}
+          obj.name = j
+          obj.value = arr[j]
+          this.arrValue2 = obj.value
+        }
+      }
+    },
+    loadThreeTree(code1, code2) {
+      this.arrValue3 = []
+      let pcadata = this.pcaa
+      let arr = []
+      for (var i in pcadata) {
+        if (i == code1) {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
+        }
+      }
+      if (arr.length > 0) {
+        arr = arr[0].value
+        for (var j in arr) {
+          if (j == code2) {
+            let obj = {}
+            obj.name = j
+            obj.value = arr[j]
+            this.arrValue3 = obj.value
+          }
+        }
+      }
+    },
+    addCN1(data) {
+      if (data.edu.includes(1)) data.search_param.push('小学')
+      if (data.edu.includes(2)) data.search_param.push('初中')
+      if (data.edu.includes(3)) data.search_param.push('高中')
+      if (data.edu.includes(4)) data.search_param.push('大专')
+      if (data.edu.includes(5)) data.search_param.push('本科')
+      if (data.edu.includes(6)) data.search_param.push('研究生')
+      if (data.edu.includes(7)) data.search_param.push('博士')
+      if (data.edu.includes(8)) data.search_param.push('研究生')
+
+      if (data.academic.includes(1)) data.search_param.push('学士')
+      if (data.academic.includes(2)) data.search_param.push('硕士')
+      if (data.academic.includes(3)) data.search_param.push('博士')
+
+      if (JSON.stringify(data.research_field).includes(1)) data.search_param.push('智能装备')
+      if (JSON.stringify(data.research_field).includes(2)) data.search_param.push('电子信息')
+      if (JSON.stringify(data.research_field).includes(3)) data.search_param.push('新材料')
+      if (JSON.stringify(data.research_field).includes(4)) data.search_param.push('航空航天')
+      if (JSON.stringify(data.research_field).includes(5)) data.search_param.push('生物技术与新医药')
+      if (JSON.stringify(data.research_field).includes(6)) data.search_param.push('能源与环保')
+      if (JSON.stringify(data.research_field).includes(7)) data.search_param.push('管理')
+
+      if (JSON.stringify(data.zclevel).includes(1)) data.search_param.push('正高')
+      if (JSON.stringify(data.zclevel).includes(2)) data.search_param.push('副高')
 
 
+      if (data.country.length > 0) {
+        this.loadOneTree(data.country[0])
+        this.loadtwoTree(data.country[0], data.country[1])
+        this.loadThreeTree(data.country[1], data.country[2])
+        data.search_param.push(this.arrValue1)
+        data.search_param.push(this.arrValue2)
+        data.search_param.push(this.arrValue3)
+      }
+      data.search_param.push(JSON.stringify(data))
+      return data
+    },
+    addCN2(data) {
+
+      if (JSON.stringify(data.registered_capital).includes(1)) data.search_param.push('小于2000万')
+      if (JSON.stringify(data.registered_capital).includes(2)) data.search_param.push('2000-5000万')
+      if (JSON.stringify(data.registered_capital).includes(3)) data.search_param.push('5000-1亿')
+      if (JSON.stringify(data.registered_capital).includes(4)) data.search_param.push('1亿-2亿')
+      if (JSON.stringify(data.registered_capital).includes(5)) data.search_param.push('2亿-4亿')
+      if (JSON.stringify(data.registered_capital).includes(6)) data.search_param.push('4亿及以上')
+
+      if (JSON.stringify(data.registered_type).includes(1)) data.search_param.push('内资企业')
+      if (JSON.stringify(data.registered_type).includes(2)) data.search_param.push('合资企业')
+      if (JSON.stringify(data.registered_type).includes(3)) data.search_param.push('外资企业')
+
+      if (JSON.stringify(data.registerSite).includes(1)) data.search_param.push('国家级高新区')
+      if (JSON.stringify(data.registerSite).includes(2)) data.search_param.push('省级高新区')
+      if (JSON.stringify(data.registerSite).includes(3)) data.search_param.push('国家级经开区')
+      if (JSON.stringify(data.registerSite).includes(4)) data.search_param.push('省级经开区')
+
+      if (JSON.stringify(data.registerHSite).includes(1)) data.search_param.push('南京高新区')
+      if (JSON.stringify(data.registerHSite).includes(2)) data.search_param.push('无锡高新区')
+      if (JSON.stringify(data.registerHSite).includes(3)) data.search_param.push('昆山高新区')
+      if (JSON.stringify(data.registerHSite).includes(4)) data.search_param.push('徐州高新区')
+
+      if (JSON.stringify(data.registerMarkeSite).includes(1)) data.search_param.push('上交所')
+      if (JSON.stringify(data.registerMarkeSite).includes(2)) data.search_param.push('深交所')
+      if (JSON.stringify(data.registerMarkeSite).includes(3)) data.search_param.push('新三板')
+      if (JSON.stringify(data.registerMarkeSite).includes(4)) data.search_param.push('港交所')
+      if (JSON.stringify(data.registerMarkeSite).includes(5)) data.search_param.push('主版')
+      if (JSON.stringify(data.registerMarkeSite).includes(6)) data.search_param.push('中小板')
+      if (JSON.stringify(data.registerMarkeSite).includes(7)) data.search_param.push('创业板')
+
+      if (JSON.stringify(data.domain).includes(1)) data.search_param.push('智能装备')
+      if (JSON.stringify(data.domain).includes(2)) data.search_param.push('电子信息')
+      if (JSON.stringify(data.domain).includes(3)) data.search_param.push('新材料')
+      if (JSON.stringify(data.domain).includes(4)) data.search_param.push('航空航天')
+      if (JSON.stringify(data.domain).includes(5)) data.search_param.push('生物技术与新医药')
+      if (JSON.stringify(data.domain).includes(6)) data.search_param.push('能源与环保')
+
+      if (JSON.stringify(data.highleveltalentType).includes(1)) data.search_param.push('院士')
+      if (JSON.stringify(data.highleveltalentType).includes(2)) data.search_param.push('国家千人')
+      if (JSON.stringify(data.highleveltalentType).includes(3)) data.search_param.push('青年千人')
+      if (JSON.stringify(data.highleveltalentType).includes(4)) data.search_param.push('中青年科技创新领军人才')
+      if (JSON.stringify(data.highleveltalentType).includes(5)) data.search_param.push('长江学者')
+      if (JSON.stringify(data.highleveltalentType).includes(6)) data.search_param.push('国家杰青')
+
+      if (JSON.stringify(data.platform).includes(1)) data.search_param.push('企业重点实验室（国家级）')
+      if (JSON.stringify(data.platform).includes(2)) data.search_param.push('企业重点实验室（省级）')
+      if (JSON.stringify(data.platform).includes(3)) data.search_param.push('企业院士工作站')
+      if (JSON.stringify(data.platform).includes(4)) data.search_param.push('程技术研究中心（国家级）')
+      if (JSON.stringify(data.platform).includes(5)) data.search_param.push('程技术研究中心（省级）')
+
+      if (JSON.stringify(data.szget).includes(1)) data.search_param.push('获得武器装备科研生产单位保密资格认证一级')
+      if (JSON.stringify(data.szget).includes(2)) data.search_param.push('获得武器装备科研生产单位保密资格认证二级')
+      if (JSON.stringify(data.szget).includes(3)) data.search_param.push('获得武器装备科研生产单位保密资格认证三级')
+      if (JSON.stringify(data.szget).includes(4)) data.search_param.push('武器装备科研生产许可证')
+      if (JSON.stringify(data.szget).includes(5)) data.search_param.push('装备承制单位资格认证')
+
+      if (JSON.stringify(data.jmrhgn).includes(1)) data.search_param.push('内设专门机构')
+      if (JSON.stringify(data.jmrhgn).includes(2)) data.search_param.push('设有专项经费')
+      if (JSON.stringify(data.jmrhgn).includes(3)) data.search_param.push('有专人负责')
+
+      if (JSON.stringify(data.ydkn).includes(1)) data.search_param.push('需求信息')
+      if (JSON.stringify(data.ydkn).includes(2)) data.search_param.push('产品准入')
+      if (JSON.stringify(data.ydkn).includes(3)) data.search_param.push('人才保障')
+      if (JSON.stringify(data.ydkn).includes(4)) data.search_param.push('审批程序')
+      if (JSON.stringify(data.ydkn).includes(5)) data.search_param.push('资质认证')
+      if (JSON.stringify(data.ydkn).includes(6)) data.search_param.push('无人管理')
+
+      if (JSON.stringify(data.problem).includes(1)) data.search_param.push('技术人才不足')
+      if (JSON.stringify(data.problem).includes(2)) data.search_param.push('资金保障困难')
+      if (JSON.stringify(data.problem).includes(3)) data.search_param.push('保密设施设备不足')
+      if (JSON.stringify(data.problem).includes(4)) data.search_param.push('需求信息不了解')
+
+
+      let arr = data.comPorcolumnDefinitions
+      let arr1 = []
+      let arr2 = []
+      for (var i in arr) {
+        arr1 = arr[i].fwbm
+        arr2 = arr[i].zxqk
+      }
+      if (arr1.includes("1")) data.search_param.push('海军')
+      if (arr1.includes("2")) data.search_param.push('陆军')
+      if (arr1.includes("3")) data.search_param.push('空军')
+      if (arr1.includes("4")) data.search_param.push('火箭军')
+      if (arr1.includes("5")) data.search_param.push('战略支援部队')
+      if (arr1.includes("6")) data.search_param.push('军工企业')
+
+      if (arr2.includes("1")) data.search_param.push('申请')
+      if (arr2.includes("2")) data.search_param.push('在研')
+      if (arr2.includes("3")) data.search_param.push('验收/结题')
+
+      if (data.country.length > 0) {
+        this.loadOneTree(data.country[0])
+        this.loadtwoTree(data.country[0], data.country[1])
+        this.loadThreeTree(data.country[1], data.country[2])
+        data.search_param.push(this.arrValue1)
+        data.search_param.push(this.arrValue2)
+        data.search_param.push(this.arrValue3)
+      }
+      data.search_param.push(JSON.stringify(data))
+      return data
+    },
+
+    addCN3(data) {
+      if (JSON.stringify(data.registerNature).includes(1)) data.search_param.push('企业')
+      if (JSON.stringify(data.registerNature).includes(2)) data.search_param.push('科研院所')
+      if (JSON.stringify(data.registerNature).includes(3)) data.search_param.push('高等院校')
+
+      if (JSON.stringify(data.orgType).includes(1)) data.search_param.push('研究开发')
+      if (JSON.stringify(data.orgType).includes(2)) data.search_param.push('科技投融资')
+      if (JSON.stringify(data.orgType).includes(3)) data.search_param.push('技术转移')
+      if (JSON.stringify(data.orgType).includes(4)) data.search_param.push('检验检测')
+      if (JSON.stringify(data.orgType).includes(5)) data.search_param.push('创业孵化')
+      if (JSON.stringify(data.orgType).includes(6)) data.search_param.push('知识产权')
+      if (JSON.stringify(data.orgType).includes(7)) data.search_param.push('科技评估')
+      if (JSON.stringify(data.orgType).includes(8)) data.search_param.push('标准认证')
+      if (JSON.stringify(data.orgType).includes(9)) data.search_param.push('管理咨询')
+      if (JSON.stringify(data.orgType).includes(10)) data.search_param.push('综合科技服务')
+
+
+      let arr = data.PorcolumnDefinitions
+      let arr1 = []
+      let arr2 = []
+      for (var i in arr) {
+        arr1 = arr[i].registerSupport
+        arr2 = arr[i].registerImplement
+      }
+      if (arr1.includes("1")) data.search_param.push('拨款')
+      if (arr1.includes("2")) data.search_param.push('贴息')
+      if (arr1.includes("3")) data.search_param.push('减免税')
+      if (arr1.includes("4")) data.search_param.push('以上全无')
+      if (arr2.includes("1")) data.search_param.push('申请')
+      if (arr2.includes("2")) data.search_param.push('在研')
+      if (arr2.includes("3")) data.search_param.push('验收/结题')
+      if (data.country.length > 0) {
+        this.loadOneTree(data.country[0])
+        this.loadtwoTree(data.country[0], data.country[1])
+        this.loadThreeTree(data.country[1], data.country[2])
+        data.search_param.push(this.arrValue1)
+        data.search_param.push(this.arrValue2)
+        data.search_param.push(this.arrValue3)
+      }
+      data.search_param.push(JSON.stringify(data))
+      return data
+    },
+    addCN4(data) {
+      if (data.country.length > 0) {
+        this.loadOneTree(data.country[0])
+        this.loadtwoTree(data.country[0], data.country[1])
+        this.loadThreeTree(data.country[1], data.country[2])
+        data.search_param.push(this.arrValue1)
+        data.search_param.push(this.arrValue2)
+        data.search_param.push(this.arrValue3)
+      }
+      data.search_param.push(JSON.stringify(data))
+      return data
+    },
     async handleEdit(data, type) {
       if (type === 'edit') {
         this.obj = data

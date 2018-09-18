@@ -588,7 +588,7 @@
   </div>
   <el-row>
     <div style="padding-left: 35%;margin: 40px 0  0  0;">
-      <div class="" style="padding:15px" >
+      <div class="" style="padding:15px">
         <el-radio-group v-model="checkStatus">
           <el-radio :label="-1">草稿</el-radio>
           <el-radio :label="0">提交待审</el-radio>
@@ -636,6 +636,9 @@ export default {
       selected: [],
       titleName: '',
       pcaa: pcaa, //最多省市区三级，结合:level='2'选择，0省、1省市、2省市区
+      arrValue1: '',
+      arrValue2: '',
+      arrValue3: '',
       service_amount_lastt: '',
       service_amount_beforet: '',
       service_amount_previoust: '',
@@ -648,22 +651,23 @@ export default {
       com: {
         zhengben: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
         }],
         fuben: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
         }],
         fuben2: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idback.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
         }],
         logo: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
         }],
-        lxname: '',
-        lxzw: '',
+        lxname: '123',
+        lxzw: '123',
+        search_param: [],
         lxphone: '',
         lxemail: '',
         lpname: '',
@@ -734,7 +738,7 @@ export default {
           fwbm: [],
           fwbmOther: '',
           zxqk: [],
-        }],
+        }]
       },
       checkStatus: 1
     }
@@ -857,14 +861,187 @@ export default {
       window.history.go(-1);
     },
 
+    addCN(data) {
+      debugger
+      if (JSON.stringify(data.registered_capital).includes("1")) data.search_param.push('小于2000万')
+      if (JSON.stringify(data.registered_capital).includes("2")) data.search_param.push('2000-5000万')
+      if (JSON.stringify(data.registered_capital).includes("3")) data.search_param.push('5000-1亿')
+      if (JSON.stringify(data.registered_capital).includes("4")) data.search_param.push('1亿-2亿')
+      if (JSON.stringify(data.registered_capital).includes("5")) data.search_param.push('2亿-4亿')
+      if (JSON.stringify(data.registered_capital).includes("6")) data.search_param.push('4亿及以上')
+
+      if (JSON.stringify(data.registered_type).includes(1)) data.search_param.push('内资企业')
+      if (JSON.stringify(data.registered_type).includes(2)) data.search_param.push('合资企业')
+      if (JSON.stringify(data.registered_type).includes(3)) data.search_param.push('外资企业')
+
+      if (JSON.stringify(data.registerSite).includes(1)) data.search_param.push('国家级高新区')
+      if (JSON.stringify(data.registerSite).includes(2)) data.search_param.push('省级高新区')
+      if (JSON.stringify(data.registerSite).includes(3)) data.search_param.push('国家级经开区')
+      if (JSON.stringify(data.registerSite).includes(4)) data.search_param.push('省级经开区')
+
+      if (JSON.stringify(data.registerHSite).includes(1)) data.search_param.push('南京高新区')
+      if (JSON.stringify(data.registerHSite).includes(2)) data.search_param.push('无锡高新区')
+      if (JSON.stringify(data.registerHSite).includes(3)) data.search_param.push('昆山高新区')
+      if (JSON.stringify(data.registerHSite).includes(4)) data.search_param.push('徐州高新区')
+
+      if (JSON.stringify(data.registerMarkeSite).includes(1)) data.search_param.push('上交所')
+      if (JSON.stringify(data.registerMarkeSite).includes(2)) data.search_param.push('深交所')
+      if (JSON.stringify(data.registerMarkeSite).includes(3)) data.search_param.push('新三板')
+      if (JSON.stringify(data.registerMarkeSite).includes(4)) data.search_param.push('港交所')
+      if (JSON.stringify(data.registerMarkeSite).includes(5)) data.search_param.push('主版')
+      if (JSON.stringify(data.registerMarkeSite).includes(6)) data.search_param.push('中小板')
+      if (JSON.stringify(data.registerMarkeSite).includes(7)) data.search_param.push('创业板')
+
+      if (JSON.stringify(data.domain).includes(1)) data.search_param.push('智能装备')
+      if (JSON.stringify(data.domain).includes(2)) data.search_param.push('电子信息')
+      if (JSON.stringify(data.domain).includes(3)) data.search_param.push('新材料')
+      if (JSON.stringify(data.domain).includes(4)) data.search_param.push('航空航天')
+      if (JSON.stringify(data.domain).includes(5)) data.search_param.push('生物技术与新医药')
+      if (JSON.stringify(data.domain).includes(6)) data.search_param.push('能源与环保')
+
+      if (JSON.stringify(data.highleveltalentType).includes(1)) data.search_param.push('院士')
+      if (JSON.stringify(data.highleveltalentType).includes(2)) data.search_param.push('国家千人')
+      if (JSON.stringify(data.highleveltalentType).includes(3)) data.search_param.push('青年千人')
+      if (JSON.stringify(data.highleveltalentType).includes(4)) data.search_param.push('中青年科技创新领军人才')
+      if (JSON.stringify(data.highleveltalentType).includes(5)) data.search_param.push('长江学者')
+      if (JSON.stringify(data.highleveltalentType).includes(6)) data.search_param.push('国家杰青')
+
+      if (JSON.stringify(data.platform).includes(1)) data.search_param.push('企业重点实验室（国家级）')
+      if (JSON.stringify(data.platform).includes(2)) data.search_param.push('企业重点实验室（省级）')
+      if (JSON.stringify(data.platform).includes(3)) data.search_param.push('企业院士工作站')
+      if (JSON.stringify(data.platform).includes(4)) data.search_param.push('程技术研究中心（国家级）')
+      if (JSON.stringify(data.platform).includes(5)) data.search_param.push('程技术研究中心（省级）')
+
+      if (JSON.stringify(data.szget).includes(1)) data.search_param.push('获得武器装备科研生产单位保密资格认证一级')
+      if (JSON.stringify(data.szget).includes(2)) data.search_param.push('获得武器装备科研生产单位保密资格认证二级')
+      if (JSON.stringify(data.szget).includes(3)) data.search_param.push('获得武器装备科研生产单位保密资格认证三级')
+      if (JSON.stringify(data.szget).includes(4)) data.search_param.push('武器装备科研生产许可证')
+      if (JSON.stringify(data.szget).includes(5)) data.search_param.push('装备承制单位资格认证')
+
+      if (JSON.stringify(data.jmrhgn).includes(1)) data.search_param.push('内设专门机构')
+      if (JSON.stringify(data.jmrhgn).includes(2)) data.search_param.push('设有专项经费')
+      if (JSON.stringify(data.jmrhgn).includes(3)) data.search_param.push('有专人负责')
+
+      if (JSON.stringify(data.ydkn).includes(1)) data.search_param.push('需求信息')
+      if (JSON.stringify(data.ydkn).includes(2)) data.search_param.push('产品准入')
+      if (JSON.stringify(data.ydkn).includes(3)) data.search_param.push('人才保障')
+      if (JSON.stringify(data.ydkn).includes(4)) data.search_param.push('审批程序')
+      if (JSON.stringify(data.ydkn).includes(5)) data.search_param.push('资质认证')
+      if (JSON.stringify(data.ydkn).includes(6)) data.search_param.push('无人管理')
+
+      if (JSON.stringify(data.problem).includes(1)) data.search_param.push('技术人才不足')
+      if (JSON.stringify(data.problem).includes(2)) data.search_param.push('资金保障困难')
+      if (JSON.stringify(data.problem).includes(3)) data.search_param.push('保密设施设备不足')
+      if (JSON.stringify(data.problem).includes(4)) data.search_param.push('需求信息不了解')
+
+
+      let arr = data.comPorcolumnDefinitions
+      let arr1 = []
+      let arr2 = []
+      for (var i in arr) {
+        arr1 = arr[i].fwbm
+        arr2 = arr[i].zxqk
+      }
+      if (arr1.includes("1")) data.search_param.push('海军')
+      if (arr1.includes("2")) data.search_param.push('陆军')
+      if (arr1.includes("3")) data.search_param.push('空军')
+      if (arr1.includes("4")) data.search_param.push('火箭军')
+      if (arr1.includes("5")) data.search_param.push('战略支援部队')
+      if (arr1.includes("6")) data.search_param.push('军工企业')
+
+      if (arr2.includes("1")) data.search_param.push('申请')
+      if (arr2.includes("2")) data.search_param.push('在研')
+      if (arr2.includes("3")) data.search_param.push('验收/结题')
+
+      if (data.country.length > 0) {
+        this.loadOneTree(data.country[0])
+        this.loadtwoTree(data.country[0], data.country[1])
+        this.loadThreeTree(data.country[1], data.country[2])
+        data.search_param.push(this.arrValue1)
+        data.search_param.push(this.arrValue2)
+        data.search_param.push(this.arrValue3)
+      }
+      data.search_param.push(JSON.stringify(data))
+      return data
+    },
+
+    loadOneTree(code) {
+      let pcadata = this.pcaa
+      let arr = []
+      for (var i in pcadata) {
+        if (i == '86') {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
+        }
+      }
+      arr = arr[0].value
+      for (var j in arr) {
+        if (j == code) {
+          let obj = {}
+          obj.name = j
+          obj.value = arr[j]
+          this.arrValue1 = obj.value
+        }
+      }
+    },
+    loadtwoTree(code1, code2) {
+      this.arrValue2 = []
+      let pcadata = this.pcaa
+      let arr = []
+      for (var i in pcadata) {
+        if (i == code1) {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
+        }
+      }
+      arr = arr[0].value
+      for (var j in arr) {
+        if (j == code2) {
+          let obj = {}
+          obj.name = j
+          obj.value = arr[j]
+          this.arrValue2 = obj.value
+        }
+      }
+    },
+    loadThreeTree(code1, code2) {
+      this.arrValue3 = []
+      let pcadata = this.pcaa
+      let arr = []
+      for (var i in pcadata) {
+        if (i == code1) {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
+        }
+      }
+      if (arr.length > 0) {
+        arr = arr[0].value
+        for (var j in arr) {
+          if (j == code2) {
+            let obj = {}
+            obj.name = j
+            obj.value = arr[j]
+            this.arrValue3 = obj.value
+          }
+        }
+      }
+    },
     async saveFile(checkStatus) {
       if (!this.validata.validaEnterprise(this.com)) return
+
       let arr = {}
       arr.formType = '2'
       arr.checkStatus = checkStatus
       arr.id = this.$route.params.objId
+      this.com.search_param = []
+      this.com = this.addCN(this.com)
       arr.detail = JSON.stringify(this.com)
-      debugger
       let {
         data,
         success
@@ -973,9 +1150,11 @@ export default {
 .tools {
   height: 5%
 }
+
 .cxxm .el-input__inner {
- padding: 0 30px !important;
+  padding: 0 30px !important;
 }
+
 .area-select .area-selected-trigger {
   position: relative;
   display: block;

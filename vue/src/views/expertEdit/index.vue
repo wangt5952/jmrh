@@ -367,6 +367,9 @@ export default {
       selected: [],
       titleName: '专家信息填写',
       pcaa: pcaa, //最多省市区三级，结合:level='2'选择，0省、1省市、2省市区
+      arrValue1: '',
+      arrValue2: '',
+      arrValue3: '',
       service_amount_lastt: '',
       service_amount_beforet: '',
       service_amount_previoust: '',
@@ -565,14 +568,29 @@ export default {
       if (JSON.stringify(data.research_field).includes(6)) data.search_param.push('能源与环保')
       if (JSON.stringify(data.research_field).includes(7)) data.search_param.push('管理')
 
+      if (JSON.stringify(data.zclevel).includes(1)) data.search_param.push('正高')
+      if (JSON.stringify(data.zclevel).includes(2)) data.search_param.push('副高')
+
+
+      if (data.country.length > 0) {
+        this.loadOneTree(data.country[0])
+        this.loadtwoTree(data.country[0], data.country[1])
+        this.loadThreeTree(data.country[1], data.country[2])
+        data.search_param.push(this.arrValue1)
+        data.search_param.push(this.arrValue2)
+        data.search_param.push(this.arrValue3)
+      }
+      data.search_param.push(JSON.stringify(data))
       return data
     },
+
     async saveFile(checkStatus) {
       if (!this.validata.validaExpert(this.expert)) return
       let arr = {}
       arr.formType = '1'
       arr.checkStatus = checkStatus
       arr.id = this.$route.params.objId
+      this.expert.search_param = []
       this.expert = this.addCN(this.expert)
       arr.detail = JSON.stringify(this.expert)
       let {
@@ -671,6 +689,73 @@ export default {
         object: '',
         time: ''
       })
+    },
+    loadOneTree(code) {
+      let pcadata = this.pcaa
+      let arr = []
+      for (var i in pcadata) {
+        if (i == '86') {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
+        }
+      }
+      arr = arr[0].value
+      for (var j in arr) {
+        if (j == code) {
+          let obj = {}
+          obj.name = j
+          obj.value = arr[j]
+          this.arrValue1 = obj.value
+        }
+      }
+    },
+    loadtwoTree(code1, code2) {
+      this.arrValue2 = []
+      let pcadata = this.pcaa
+      let arr = []
+      for (var i in pcadata) {
+        if (i == code1) {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
+        }
+      }
+      arr = arr[0].value
+      for (var j in arr) {
+        if (j == code2) {
+          let obj = {}
+          obj.name = j
+          obj.value = arr[j]
+          this.arrValue2 = obj.value
+        }
+      }
+    },
+    loadThreeTree(code1, code2) {
+      this.arrValue3 = []
+      let pcadata = this.pcaa
+      let arr = []
+      for (var i in pcadata) {
+        if (i == code1) {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
+        }
+      }
+      if (arr.length > 0) {
+        arr = arr[0].value
+        for (var j in arr) {
+          if (j == code2) {
+            let obj = {}
+            obj.name = j
+            obj.value = arr[j]
+            this.arrValue3 = obj.value
+          }
+        }
+      }
     },
   }
 }

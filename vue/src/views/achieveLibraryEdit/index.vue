@@ -39,7 +39,7 @@
                 <area-cascader :level="1" v-model="achieveLibrary.country" :data="pcaa"></area-cascader>
               </el-form-item>
               <el-form-item label="通讯地址">
-                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入通讯地址" v-model="achieveLibrary.address" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="项目负责人">
@@ -88,7 +88,7 @@
                 </el-checkbox-group>
               </el-form-item>
               <el-form-item label="合作方式">
-                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                 <el-checkbox-group v-model="achieveLibrary.cooperation">
                   <el-checkbox label="1">技术转让</el-checkbox>
                   <el-checkbox label="2">技术许可</el-checkbox>
@@ -115,13 +115,13 @@
             <el-col :span="24">
 
               <el-form-item label="技术成果简介">
-                <span style='position: absolute;left: -110px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -110px;color: #f60d0d;'></span>
                 <textarea v-model="achieveLibrary.resDesc" rows="3" cols="20" style="width:60%;height: 150px;">
                 </textarea>
               </el-form-item>
 
               <el-form-item label="可应用领域">
-                <span style='position: absolute;left: -90px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -90px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入可应用领域" v-model="achieveLibrary.applyLY" style="width:80%"></el-input>
               </el-form-item>
 
@@ -140,7 +140,7 @@
           <el-row :gutter="24">
             <el-col :span="24">
               <el-form-item label="技术创新点">
-                <span style='position: absolute;left: -90px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -90px;color: #f60d0d;'></span>
                 <textarea v-model="achieveLibrary.newIdea" rows="3" cols="20" style="width:60%;height: 150px;">
                 </textarea>
               </el-form-item>
@@ -232,7 +232,7 @@
   <el-row>
 
     <div style="padding-left: 35%;margin: 40px 0  0  0;">
-      <div class=""  style="padding:15px" >
+      <div class="" style="padding:15px">
         <el-radio-group v-model="checkStatus">
           <el-radio :label="-1">草稿</el-radio>
           <el-radio :label="0">提交待审</el-radio>
@@ -283,6 +283,9 @@ export default {
       selected: [],
       titleName: '专家信息填写',
       pcaa: pcaa, //最多省市区三级，结合:level='2'选择，0省、1省市、2省市区
+      arrValue1: '',
+      arrValue2: '',
+      arrValue3: '',
       service_amount_lastt: '',
       service_amount_beforet: '',
       service_amount_previoust: '',
@@ -325,7 +328,8 @@ export default {
           projectNum: '',
           projectPer: '',
           projectTime: '',
-        }]
+        }],
+        search_param: []
 
       },
       checkStatus: 1
@@ -383,12 +387,113 @@ export default {
     back() {
       window.history.go(-1);
     },
+
+    addCN(data) {
+
+      if (JSON.stringify(data.domain).includes(1)) data.search_param.push('智能装备')
+      if (JSON.stringify(data.domain).includes(2)) data.search_param.push('电子信息')
+      if (JSON.stringify(data.domain).includes(3)) data.search_param.push('新材料')
+      if (JSON.stringify(data.domain).includes(4)) data.search_param.push('航空航天')
+      if (JSON.stringify(data.domain).includes(5)) data.search_param.push('生物技术与新医药')
+      if (JSON.stringify(data.domain).includes(6)) data.search_param.push('能源与环保')
+
+      if (JSON.stringify(data.stage).includes(1)) data.search_param.push('实验室阶段')
+      if (JSON.stringify(data.stage).includes(2)) data.search_param.push('试制阶段')
+      if (JSON.stringify(data.stage).includes(3)) data.search_param.push('产业化阶段')
+
+      if (JSON.stringify(data.cooperation).includes(1)) data.search_param.push('技术转让')
+      if (JSON.stringify(data.cooperation).includes(2)) data.search_param.push('技术许可')
+      if (JSON.stringify(data.cooperation).includes(3)) data.search_param.push('技术开发')
+      if (JSON.stringify(data.cooperation).includes(4)) data.search_param.push('技术服务')
+      if (JSON.stringify(data.cooperation).includes(5)) data.search_param.push('技术入股')
+
+      if (data.country.length > 0) {
+        this.loadOneTree(data.country[0])
+        this.loadtwoTree(data.country[0], data.country[1])
+        this.loadThreeTree(data.country[1], data.country[2])
+        data.search_param.push(this.arrValue1)
+        data.search_param.push(this.arrValue2)
+        data.search_param.push(this.arrValue3)
+      }
+      data.search_param.push(JSON.stringify(data))
+      return data
+    },
+
+    loadOneTree(code) {
+      let pcadata = this.pcaa
+      let arr = []
+      for (var i in pcadata) {
+        if (i == '86') {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
+        }
+      }
+      arr = arr[0].value
+      for (var j in arr) {
+        if (j == code) {
+          let obj = {}
+          obj.name = j
+          obj.value = arr[j]
+          this.arrValue1 = obj.value
+        }
+      }
+    },
+    loadtwoTree(code1, code2) {
+      this.arrValue2 = []
+      let pcadata = this.pcaa
+      let arr = []
+      for (var i in pcadata) {
+        if (i == code1) {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
+        }
+      }
+      arr = arr[0].value
+      for (var j in arr) {
+        if (j == code2) {
+          let obj = {}
+          obj.name = j
+          obj.value = arr[j]
+          this.arrValue2 = obj.value
+        }
+      }
+    },
+    loadThreeTree(code1, code2) {
+      this.arrValue3 = []
+      let pcadata = this.pcaa
+      let arr = []
+      for (var i in pcadata) {
+        if (i == code1) {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
+        }
+      }
+      if (arr.length > 0) {
+        arr = arr[0].value
+        for (var j in arr) {
+          if (j == code2) {
+            let obj = {}
+            obj.name = j
+            obj.value = arr[j]
+            this.arrValue3 = obj.value
+          }
+        }
+      }
+    },
     async saveFile(checkStatus) {
       if (!this.validata.validaAchieveLibrary(this.achieveLibrary)) return
       let arr = {}
       arr.formType = '6'
       arr.checkStatus = checkStatus
       arr.id = this.$route.params.objId
+      this.achieveLibrary.search_param = []
+      this.achieveLibrary = this.addCN(this.achieveLibrary)
       arr.detail = JSON.stringify(this.achieveLibrary)
 
       let {

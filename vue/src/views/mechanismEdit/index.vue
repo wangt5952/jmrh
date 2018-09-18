@@ -22,7 +22,6 @@
                     <el-upload class="upload-demo" :http-request="uploadSectionFile0" :file-list="mech.zhengben" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
-
                   </div>
                 </div>
               </el-form-item>
@@ -55,7 +54,7 @@
                 <!-- <area-cascader v-model="selected" :level="1" :data="pca"></area-cascader> -->
               </el-form-item>
               <el-form-item label="联系地址">
-                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入联系地址" v-model="mech.address" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="邮编">
@@ -92,35 +91,35 @@
               </el-form-item>
 
               <el-form-item label="可提供的服务简介（200字以内）">
-                <span style='position: absolute;left: -225px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -225px;color: #f60d0d;'></span>
 
                 <textarea rows="3" v-model="mech.serviceAbout" cols="20" style="width:100%;height: 120px;">
                     </textarea>
               </el-form-item>
 
               <el-form-item :label="service_amount_lastt">
-                <span style='position: absolute;left: -180px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -180px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入服务收入" v-model="mech.service_amount_last" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item :label="service_amount_beforet">
-                <span style='position: absolute;left: -180px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -180px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入服务收入" v-model="mech.service_amount_before" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item :label="service_amount_previoust">
-                <span style='position: absolute;left: -180px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -180px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入服务收入" v-model="mech.service_amount_previous" style="width:80%"></el-input>
               </el-form-item>
 
               <el-form-item :label="service_quantity_lastt">
-                <span style='position: absolute;left: -160px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -160px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入服务数量" v-model="mech.service_quantity_last" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item :label="service_quantity_beforet">
-                <span style='position: absolute;left: -160px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -160px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入服务数量" v-model="mech.service_quantity_before" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item :label="service_quantity_previoust">
-                <span style='position: absolute;left: -160px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -160px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入服务数量" v-model="mech.service_quantity_previous" style="width:80%"></el-input>
               </el-form-item>
             </el-col>
@@ -139,15 +138,15 @@
                 <el-input placeholder="请输入姓名" v-model="mech.fdname" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="电话">
-                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -50px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入电话" v-model="mech.fdtel" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="手机号">
-                <span style='position: absolute;left: -60px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -60px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入手机号" v-model="mech.fdphone" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="邮箱">
-                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -50px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入邮箱" v-model="mech.fdemail" style="width:80%"></el-input>
               </el-form-item>
 
@@ -216,11 +215,11 @@
                 </div>
               </el-form-item>
               <el-form-item label="职务">
-                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -50px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入职务" v-model="mech.lxzw" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="电话">
-                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -50px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入电话" v-model="mech.lxtel" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="手机号">
@@ -250,15 +249,15 @@
           <el-row :gutter="20">
             <el-col :span="20">
               <el-form-item label="人员总数">
-                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                 <el-input v-model="mech.perNum" placeholder="请输入人员总数" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="本科及以上学历人员数">
-                <span style='position: absolute;left: -160px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -160px;color: #f60d0d;'></span>
                 <el-input v-model="mech.underPer" placeholder="请输入人员本科及以上学历人员数" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="中高级职称以上人员数">
-                <span style='position: absolute;left: -160px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -160px;color: #f60d0d;'></span>
                 <el-input v-model="mech.MHPer" placeholder="请输入中高级职称以上人员数" style="width:80%"></el-input>
               </el-form-item>
             </el-col>
@@ -430,7 +429,7 @@
   <el-row>
 
     <div style="padding-left: 35%;margin: 40px 0  0  0;">
-      <div class=""  style="padding:15px">
+      <div class="" style="padding:15px">
         <el-radio-group v-model="checkStatus">
           <el-radio :label="-1">草稿</el-radio>
           <el-radio :label="0">提交待审</el-radio>
@@ -479,6 +478,9 @@ export default {
       selected: [],
       titleName: '',
       pcaa: pcaa, //最多省市区三级，结合:level='2'选择，0省、1省市、2省市区
+      arrValue1: '',
+      arrValue2: '',
+      arrValue3: '',
       service_amount_lastt: '',
       service_amount_beforet: '',
       service_amount_previoust: '',
@@ -491,31 +493,31 @@ export default {
       mech: {
         zhengben: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
         }],
         zhengben1: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/companyZS.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/companyZS.png`
         }],
         fuben: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
         }],
         fuben2: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idback.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
         }],
         lxridz: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
         }],
         lxridf: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/idback.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
         }],
         logo: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
         }],
         code: '',
         registerNature: [],
@@ -562,7 +564,8 @@ export default {
         lxphone: '',
         lxtel: '',
         lxzw: '',
-        linkman: ''
+        linkman: '',
+        search_param: []
       },
       checkStatus: 1
     }
@@ -750,6 +753,116 @@ export default {
     back() {
       window.history.go(-1);
     },
+    addCN(data) {
+      if (JSON.stringify(data.registerNature).includes(1)) data.search_param.push('企业')
+      if (JSON.stringify(data.registerNature).includes(2)) data.search_param.push('科研院所')
+      if (JSON.stringify(data.registerNature).includes(3)) data.search_param.push('高等院校')
+
+      if (JSON.stringify(data.orgType).includes(1)) data.search_param.push('研究开发')
+      if (JSON.stringify(data.orgType).includes(2)) data.search_param.push('科技投融资')
+      if (JSON.stringify(data.orgType).includes(3)) data.search_param.push('技术转移')
+      if (JSON.stringify(data.orgType).includes(4)) data.search_param.push('检验检测')
+      if (JSON.stringify(data.orgType).includes(5)) data.search_param.push('创业孵化')
+      if (JSON.stringify(data.orgType).includes(6)) data.search_param.push('知识产权')
+      if (JSON.stringify(data.orgType).includes(7)) data.search_param.push('科技评估')
+      if (JSON.stringify(data.orgType).includes(8)) data.search_param.push('标准认证')
+      if (JSON.stringify(data.orgType).includes(9)) data.search_param.push('管理咨询')
+      if (JSON.stringify(data.orgType).includes(10)) data.search_param.push('综合科技服务')
+
+
+      let arr = data.PorcolumnDefinitions
+      let arr1 = []
+      let arr2 = []
+      for (var i in arr) {
+        arr1 = arr[i].registerSupport
+        arr2 = arr[i].registerImplement
+      }
+      if (arr1.includes("1")) data.search_param.push('拨款')
+      if (arr1.includes("2")) data.search_param.push('贴息')
+      if (arr1.includes("3")) data.search_param.push('减免税')
+      if (arr1.includes("4")) data.search_param.push('以上全无')
+      if (arr2.includes("1")) data.search_param.push('申请')
+      if (arr2.includes("2")) data.search_param.push('在研')
+      if (arr2.includes("3")) data.search_param.push('验收/结题')
+      if (data.country.length > 0) {
+        this.loadOneTree(data.country[0])
+        this.loadtwoTree(data.country[0], data.country[1])
+        this.loadThreeTree(data.country[1], data.country[2])
+        data.search_param.push(this.arrValue1)
+        data.search_param.push(this.arrValue2)
+        data.search_param.push(this.arrValue3)
+      }
+      data.search_param.push(JSON.stringify(data))
+      return data
+    },
+
+    loadOneTree(code) {
+      let pcadata = this.pcaa
+      let arr = []
+      for (var i in pcadata) {
+        if (i == '86') {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
+        }
+      }
+      arr = arr[0].value
+      for (var j in arr) {
+        if (j == code) {
+          let obj = {}
+          obj.name = j
+          obj.value = arr[j]
+          this.arrValue1 = obj.value
+        }
+      }
+    },
+    loadtwoTree(code1, code2) {
+      this.arrValue2 = []
+      let pcadata = this.pcaa
+      let arr = []
+      for (var i in pcadata) {
+        if (i == code1) {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
+        }
+      }
+      arr = arr[0].value
+      for (var j in arr) {
+        if (j == code2) {
+          let obj = {}
+          obj.name = j
+          obj.value = arr[j]
+          this.arrValue2 = obj.value
+        }
+      }
+    },
+    loadThreeTree(code1, code2) {
+      this.arrValue3 = []
+      let pcadata = this.pcaa
+      let arr = []
+      for (var i in pcadata) {
+        if (i == code1) {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
+        }
+      }
+      if (arr.length > 0) {
+        arr = arr[0].value
+        for (var j in arr) {
+          if (j == code2) {
+            let obj = {}
+            obj.name = j
+            obj.value = arr[j]
+            this.arrValue3 = obj.value
+          }
+        }
+      }
+    },
     async saveFile(checkStatus) {
       if (!this.validata.validaMechanism(this.mech)) return
 
@@ -757,6 +870,8 @@ export default {
       arr.formType = '3'
       arr.checkStatus = checkStatus
       arr.id = this.$route.params.objId
+      this.mech.search_param = []
+      this.mech = this.addCN(this.mech)
       arr.detail = JSON.stringify(this.mech)
       let {
         data,
@@ -849,7 +964,7 @@ export default {
         issuingAgency: ''
       })
     },
-  delhonrmech(item) {
+    delhonrmech(item) {
       this.mech.honor.splice(this.mech.honor.indexOf(item), 1)
       this.$message({
         type: 'info',
@@ -864,7 +979,7 @@ export default {
       })
     },
 
-  delcjmech(item) {
+    delcjmech(item) {
       this.mech.workrPorcolumnDefinitions.splice(this.mech.workrPorcolumnDefinitions.indexOf(item), 1)
       this.$message({
         type: 'info',

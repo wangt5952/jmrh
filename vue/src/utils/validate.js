@@ -751,28 +751,27 @@ function validaEnterprise(str) {
     });
     return false;
   }
-    if (!str || verify.isNull(str.country)) {
-      Message({
-        message: '所在地区不能为空！',
-        type: 'error'
-      });
-      return false;
-    }
-    if (!str || verify.isNull(str.registerMarket)) {
-      Message({
-        message: '必须选择是否上市！',
-        type: 'error'
-      });
-      return false;
-    }
-    if (!str || verify.isNull(str.domain)) {
-      Message({
-        message: '所属领域不能为空！',
-        type: 'error'
-      });
-      return false;
-    }
-    debugger
+  if (!str || verify.isNull(str.country)) {
+    Message({
+      message: '所在地区不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.registerMarket)) {
+    Message({
+      message: '必须选择是否上市！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.domain)) {
+    Message({
+      message: '所属领域不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
   if (!str || verify.isNull(str.lpname)) {
     Message({
       message: '法人姓名不能为空！',
@@ -833,6 +832,13 @@ function validaHschool(str) {
     });
     return false;
   }
+  if (!str || verify.isNull(str.country)) {
+    Message({
+      message: '所在地区不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
 
   return true;
 }
@@ -848,6 +854,27 @@ function validaMechanism(str) {
   if (!str || verify.isNull(str.code)) {
     Message({
       message: '统一社会信用代码不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.country)) {
+    Message({
+      message: '所在地区不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.orgType)) {
+    Message({
+      message: '机构类别不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.fdname)) {
+    Message({
+      message: '法定代表人姓名不能为空！',
       type: 'error'
     });
     return false;
@@ -912,41 +939,108 @@ function validaDemandLibrary(str) {
     });
     return false;
   }
-  if (!str || verify.isNull(str.fzname2)) {
+  if (!str || verify.isNull(str.country)) {
     Message({
-      message: '联系人姓名不能为空！',
+      message: '所在地区不能为空！',
       type: 'error'
     });
     return false;
   }
-  if (!str || verify.isNull(str.fzphone2)) {
+  var flag = false
+  if (!str || !verify.isNull(str.fzname) || !verify.isNull(str.fzphone) || !verify.isNull(str.fzemail)) {
+    if (!str || verify.isNull(str.fzname)) {
+      Message({
+        message: '负责人姓名不能为空！',
+        type: 'error'
+      });
+      return false;
+    }
+    if (!str || verify.isNull(str.fzphone)) {
+      Message({
+        message: '负责人电话不能为空！',
+        type: 'error'
+      });
+      return false;
+    }
+    if (!str || verify.isPoneAvailable(str.fzphone)) {
+      Message({
+        message: '负责人电话格式不正确！',
+        type: 'error'
+      });
+      return false;
+    }
+
+    if (!str || verify.isNull(str.fzemail)) {
+      Message({
+        message: '负责人邮箱不能为空！',
+        type: 'error'
+      });
+      return false;
+    }
+    if (!str || verify.checkEmail(str.fzemail)) {
+      Message({
+        message: '请输入正确的负责人邮箱地址！',
+        type: 'error'
+      });
+      return false;
+    }
+    flag = true
+  }
+
+  if (!str || !verify.isNull(str.fzname2) || !verify.isNull(str.fzphone2) || !verify.isNull(str.fzemail2)) {
+    if (!str || verify.isNull(str.fzname2)) {
+      Message({
+        message: '联系人姓名不能为空！',
+        type: 'error'
+      });
+      return false;
+    }
+    if (!str || verify.isNull(str.fzphone2)) {
+      Message({
+        message: '联系人电话不能为空！',
+        type: 'error'
+      });
+      return false;
+    }
+    if (!str || verify.isPoneAvailable(str.fzphone2)) {
+      Message({
+        message: '联系人电话格式不正确！',
+        type: 'error'
+      });
+      return false;
+    }
+
+    if (!str || verify.isPoneAvailable(str.fzphone2)) {
+      Message({
+        message: '联系人电话格式不正确！',
+        type: 'error'
+      });
+      return false;
+    }
+    if (!str || verify.isNull(str.fzemail2)) {
+      Message({
+        message: '联系人邮箱不能为空！',
+        type: 'error'
+      });
+      return false;
+    }
+    if (!str || verify.checkEmail(str.fzemail2)) {
+      Message({
+        message: '请输入正确的联系人邮箱地址！',
+        type: 'error'
+      });
+      return false;
+    }
+    flag = true
+  }
+  if (!flag) {
     Message({
-      message: '联系人手机号不能为空！',
+      message: '负责人和联系人信息不能同时为空！',
       type: 'error'
     });
     return false;
   }
-  if (!str || verify.isPoneAvailable(str.fzphone2)) {
-    Message({
-      message: '联系人手机号格式不正确！',
-      type: 'error'
-    });
-    return false;
-  }
-  if (!str || verify.isNull(str.fzemail2)) {
-    Message({
-      message: '联系人邮箱不能为空！',
-      type: 'error'
-    });
-    return false;
-  }
-  if (!str || verify.checkEmail(str.fzemail2)) {
-    Message({
-      message: '请输入正确的联系人邮箱地址！',
-      type: 'error'
-    });
-    return false;
-  }
+
   return true;
 }
 
@@ -972,37 +1066,111 @@ function validaAchieveLibrary(str) {
     });
     return false;
   }
-  if (!str || verify.isNull(str.fzname2)) {
+  var flag = false
+  if (!str || !verify.isNull(str.fzname) || !verify.isNull(str.fzphone) || !verify.isNull(str.fzemail)) {
+    if (!str || verify.isNull(str.fzname)) {
+      Message({
+        message: '负责人姓名不能为空！',
+        type: 'error'
+      });
+      return false;
+    }
+    if (!str || verify.isNull(str.fzphone)) {
+      Message({
+        message: '负责人电话不能为空！',
+        type: 'error'
+      });
+      return false;
+    }
+    if (!str || verify.isPoneAvailable(str.fzphone)) {
+      Message({
+        message: '负责人电话格式不正确！',
+        type: 'error'
+      });
+      return false;
+    }
+
+    if (!str || verify.isNull(str.fzemail)) {
+      Message({
+        message: '负责人邮箱不能为空！',
+        type: 'error'
+      });
+      return false;
+    }
+    if (!str || verify.checkEmail(str.fzemail)) {
+      Message({
+        message: '请输入正确的负责人邮箱地址！',
+        type: 'error'
+      });
+      return false;
+    }
+    flag = true
+  }
+
+  if (!str || !verify.isNull(str.fzname2) || !verify.isNull(str.fzphone2) || !verify.isNull(str.fzemail2)) {
+    if (!str || verify.isNull(str.fzname2)) {
+      Message({
+        message: '联系人姓名不能为空！',
+        type: 'error'
+      });
+      return false;
+    }
+    if (!str || verify.isNull(str.fzphone2)) {
+      Message({
+        message: '联系人电话不能为空！',
+        type: 'error'
+      });
+      return false;
+    }
+    if (!str || verify.isPoneAvailable(str.fzphone2)) {
+      Message({
+        message: '联系人电话格式不正确！',
+        type: 'error'
+      });
+      return false;
+    }
+
+    if (!str || verify.isPoneAvailable(str.fzphone2)) {
+      Message({
+        message: '联系人电话格式不正确！',
+        type: 'error'
+      });
+      return false;
+    }
+    if (!str || verify.isNull(str.fzemail2)) {
+      Message({
+        message: '联系人邮箱不能为空！',
+        type: 'error'
+      });
+      return false;
+    }
+    if (!str || verify.checkEmail(str.fzemail2)) {
+      Message({
+        message: '请输入正确的联系人邮箱地址！',
+        type: 'error'
+      });
+      return false;
+    }
+    flag = true
+  }
+  if (!flag) {
     Message({
-      message: '项目联系人不能为空！',
+      message: '负责人和联系人信息不能同时为空！',
       type: 'error'
     });
     return false;
   }
-  if (!str || verify.isNull(str.fzphone2)) {
+
+  if (!str || verify.isNull(str.domain)) {
     Message({
-      message: '项目联系人电话不能为空！',
+      message: '所属领域不能为空！',
       type: 'error'
     });
     return false;
   }
-  if (!str || verify.isPoneAvailable(str.fzphone2)) {
+  if (!str || verify.isNull(str.stage)) {
     Message({
-      message: '项目联系人电话格式不正确！',
-      type: 'error'
-    });
-    return false;
-  }
-  if (!str || verify.isNull(str.fzemail2)) {
-    Message({
-      message: '项目联系人邮箱不能为空！',
-      type: 'error'
-    });
-    return false;
-  }
-  if (!str || verify.checkEmail(str.fzemail2)) {
-    Message({
-      message: '请输入正确的项目联系人邮箱地址！',
+      message: '所处阶段不能为空！',
       type: 'error'
     });
     return false;

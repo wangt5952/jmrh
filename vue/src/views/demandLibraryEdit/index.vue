@@ -25,11 +25,11 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload :http-request="uploadSectionFile1" class="upload-demo"  :file-list="demandLibrary.cardSide" list-type="picture" style="float:left">
+                    <el-upload :http-request="uploadSectionFile1" class="upload-demo" :file-list="demandLibrary.cardSide" list-type="picture" style="float:left">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
                     <div style="color:#63a9f1;float:left;margin-left:20px">
-                       <a :href="docUrl+'/xtcx/lib/download?fileName=3-信息报送承诺书.doc'" target="_blank" >承诺书下载</a>
+                      <a :href="docUrl+'/xtcx/lib/download?fileName=3-信息报送承诺书.doc'" target="_blank">承诺书下载</a>
                     </div>
                   </div>
                 </div>
@@ -39,7 +39,7 @@
                 <area-cascader :level="1" v-model="demandLibrary.country" :data="pcaa"></area-cascader>
               </el-form-item>
               <el-form-item label="通讯地址">
-                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入通讯地址" v-model="demandLibrary.address" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="负责人">
@@ -47,7 +47,7 @@
                 <el-input placeholder="请输入负责人" v-model="demandLibrary.fzname" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="职务">
-                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -50px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入职务" v-model="demandLibrary.fzzw" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="电话">
@@ -63,7 +63,7 @@
                 <el-input placeholder="请输入联系人" v-model="demandLibrary.fzname2" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="职务">
-                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -50px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入职务" v-model="demandLibrary.fzzw2" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="电话">
@@ -90,7 +90,7 @@
               </el-form-item>
 
               <el-form-item label="需求背景">
-                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                 <el-checkbox-group v-model="demandLibrary.reqBack">
                   <el-checkbox label="1">新产品开发</el-checkbox>
                   <el-checkbox label="2">制造工艺改进</el-checkbox>
@@ -104,7 +104,7 @@
               </el-form-item>
 
               <el-form-item label="意向获得方式">
-                <span style='position: absolute;left: -110px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -110px;color: #f60d0d;'></span>
                 <el-checkbox-group v-model="demandLibrary.reqGet">
                   <el-checkbox label="1">技术转让</el-checkbox>
                   <el-checkbox label="2">技术许可</el-checkbox>
@@ -131,7 +131,7 @@
             <el-col :span="24">
 
               <el-form-item label="希望解决的技术需求概述">
-                <span style='position: absolute;left: -180px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -180px;color: #f60d0d;'></span>
                 <textarea v-model="demandLibrary.reqDesc" rows="3" cols="20" style="width:60%;height: 120px;">
                 </textarea>
               </el-form-item>
@@ -190,7 +190,7 @@
 
     <div style="padding-left: 35%;margin: 40px 0  0  0;">
 
-      <div class=""  style="padding:15px">
+      <div class="" style="padding:15px">
         <el-radio-group v-model="checkStatus">
           <el-radio :label="-1">草稿</el-radio>
           <el-radio :label="0">提交待审</el-radio>
@@ -240,6 +240,9 @@ export default {
       selected: [],
       titleName: '专家信息填写',
       pcaa: pcaa, //最多省市区三级，结合:level='2'选择，0省、1省市、2省市区
+      arrValue1: '',
+      arrValue2: '',
+      arrValue3: '',
       service_amount_lastt: '',
       service_amount_beforet: '',
       service_amount_previoust: '',
@@ -250,12 +253,12 @@ export default {
       service_research_beforet: '',
       service_research_previoust: '',
       demandLibrary: {
-        re_name:'',
-        code:'',
+        re_name: '',
+        code: '',
         name: '',
-        cardSide:[{
+        cardSide: [{
           name: '默认',
-          url:  this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
+          url: this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
         }],
         fzname: '',
         fzzw: '',
@@ -272,9 +275,10 @@ export default {
         reqDesc: '',
         reqNew: '',
         reqOther: '',
-        reqGet:[],
+        reqGet: [],
         reqBack: [],
         reqBackOther: '',
+        search_param: []
       },
       checkStatus: 1
     }
@@ -283,8 +287,8 @@ export default {
     this.listLoading = false
     if (this.$route.params.objData) {
       this.demandLibrary = JSON.parse(this.$route.params.objData)
-      if(!this.demandLibrary.cardSide){
-        this.demandLibrary.cardSide  =  []
+      if (!this.demandLibrary.cardSide) {
+        this.demandLibrary.cardSide = []
       }
     }
 
@@ -297,27 +301,27 @@ export default {
   },
   computed: {},
   methods: {
-        async uploadSectionFile1(param) {
-          this.demandLibrary.cardSide = []
-          var fileObj = param.file;
-          // 接收上传文件的后台地址
-          // FormData 对象
-          var form = new FormData();
-          // 文件对象
-          form.append("file", fileObj);
-          // 其他参数
-          // form.append("xxx", xxx);
-          let {
-            data,
-            success
-          } = await libupload(form)
-          if (success) {
-            let arro = {}
-            arro.name = data.fileName,
-              arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-            this.demandLibrary.cardSide.push(arro)
-          }
-        },
+    async uploadSectionFile1(param) {
+      this.demandLibrary.cardSide = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+        this.demandLibrary.cardSide.push(arro)
+      }
+    },
 
     back() {
       window.history.go(-1);
@@ -331,12 +335,117 @@ export default {
 
 
     },
+
+    addCN(data) {
+
+      if (JSON.stringify(data.domain).includes(1)) data.search_param.push('智能装备')
+      if (JSON.stringify(data.domain).includes(2)) data.search_param.push('电子信息')
+      if (JSON.stringify(data.domain).includes(3)) data.search_param.push('新材料')
+      if (JSON.stringify(data.domain).includes(4)) data.search_param.push('航空航天')
+      if (JSON.stringify(data.domain).includes(5)) data.search_param.push('生物技术与新医药')
+      if (JSON.stringify(data.domain).includes(6)) data.search_param.push('能源与环保')
+
+      if (JSON.stringify(data.reqBack).includes(1)) data.search_param.push('新产品开发')
+      if (JSON.stringify(data.reqBack).includes(2)) data.search_param.push('制造工艺改进')
+      if (JSON.stringify(data.reqBack).includes(3)) data.search_param.push('产品升级换代')
+      if (JSON.stringify(data.reqBack).includes(4)) data.search_param.push('制造设备改进')
+      if (JSON.stringify(data.reqBack).includes(5)) data.search_param.push('生产线技术改造')
+
+      if (JSON.stringify(data.reqGet).includes(1)) data.search_param.push('技术转让')
+      if (JSON.stringify(data.reqGet).includes(2)) data.search_param.push('技术许可')
+      if (JSON.stringify(data.reqGet).includes(3)) data.search_param.push('技术开发')
+      if (JSON.stringify(data.reqGet).includes(4)) data.search_param.push('技术服务')
+      if (JSON.stringify(data.reqGet).includes(5)) data.search_param.push('技术入股')
+
+
+      if (data.country.length > 0) {
+        this.loadOneTree(data.country[0])
+        this.loadtwoTree(data.country[0], data.country[1])
+        this.loadThreeTree(data.country[1], data.country[2])
+        data.search_param.push(this.arrValue1)
+        data.search_param.push(this.arrValue2)
+        data.search_param.push(this.arrValue3)
+      }
+
+      data.search_param.push(JSON.stringify(data))
+      return data
+    },
+
+    loadOneTree(code) {
+      let pcadata = this.pcaa
+      let arr = []
+      for (var i in pcadata) {
+        if (i == '86') {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
+        }
+      }
+      arr = arr[0].value
+      for (var j in arr) {
+        if (j == code) {
+          let obj = {}
+          obj.name = j
+          obj.value = arr[j]
+          this.arrValue1 = obj.value
+        }
+      }
+    },
+    loadtwoTree(code1, code2) {
+      this.arrValue2 = []
+      let pcadata = this.pcaa
+      let arr = []
+      for (var i in pcadata) {
+        if (i == code1) {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
+        }
+      }
+      arr = arr[0].value
+      for (var j in arr) {
+        if (j == code2) {
+          let obj = {}
+          obj.name = j
+          obj.value = arr[j]
+          this.arrValue2 = obj.value
+        }
+      }
+    },
+    loadThreeTree(code1, code2) {
+      this.arrValue3 = []
+      let pcadata = this.pcaa
+      let arr = []
+      for (var i in pcadata) {
+        if (i == code1) {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
+        }
+      }
+      if (arr.length > 0) {
+        arr = arr[0].value
+        for (var j in arr) {
+          if (j == code2) {
+            let obj = {}
+            obj.name = j
+            obj.value = arr[j]
+            this.arrValue3 = obj.value
+          }
+        }
+      }
+    },
     async saveFile(checkStatus) {
       if (!this.validata.validaDemandLibrary(this.demandLibrary)) return
       let arr = {}
       arr.formType = '7'
       arr.checkStatus = checkStatus
       arr.id = this.$route.params.objId
+      this.demandLibrary.search_param = []
+      this.demandLibrary = this.addCN(this.demandLibrary)
       arr.detail = JSON.stringify(this.demandLibrary)
 
       let {
