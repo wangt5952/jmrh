@@ -436,6 +436,13 @@ export default {
     this.listLoading = false
     if (this.$route.params.objData) {
       this.expert = JSON.parse(this.$route.params.objData)
+
+      this.expert.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLmIdCardFront[0].url
+      this.expert.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLmIdCardBack[0].url
+      this.expert.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLmIdCardInHand[0].url
+      this.expert.picLogo[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLogo[0].url
+
+
       if (!this.expert.picLmIdCardFront) {
         this.expert.picLmIdCardFront = []
       }
@@ -585,8 +592,36 @@ export default {
     },
 
     async saveFile(checkStatus) {
-      debugger
       if (!this.validata.validaExpert(this.expert)) return
+
+      let picLmIdCardFront = this.expert.picLmIdCardFront[0].url
+      if (picLmIdCardFront.indexOf('/user/') > -1) {
+        this.expert.picLmIdCardFront[0].url = picLmIdCardFront.substring(picLmIdCardFront.indexOf('/user/') + 1, picLmIdCardFront.length)
+      } else {
+        this.expert.picLmIdCardFront[0].url = picLmIdCardFront.substring(picLmIdCardFront.indexOf('/def/') + 1, picLmIdCardFront.length)
+      }
+
+      let picLmIdCardBack = this.expert.picLmIdCardBack[0].url
+      if (picLmIdCardBack.indexOf('/user/') > -1) {
+        this.expert.picLmIdCardBack[0].url = picLmIdCardBack.substring(picLmIdCardBack.indexOf('/user/') + 1, picLmIdCardBack.length)
+      } else {
+        this.expert.picLmIdCardBack[0].url = picLmIdCardBack.substring(picLmIdCardBack.indexOf('/def/') + 1, picLmIdCardBack.length)
+      }
+
+      let picLmIdCardInHand = this.expert.picLmIdCardInHand[0].url
+      if (picLmIdCardInHand.indexOf('/user/') > -1) {
+        this.expert.picLmIdCardInHand[0].url = picLmIdCardInHand.substring(picLmIdCardInHand.indexOf('/user/') + 1, picLmIdCardInHand.length)
+      } else {
+        this.expert.picLmIdCardInHand[0].url = picLmIdCardInHand.substring(picLmIdCardInHand.indexOf('/def/') + 1, picLmIdCardInHand.length)
+      }
+
+      let picLogo = this.expert.picLogo[0].url
+      if (picLogo.indexOf('/user/') > -1) {
+        this.expert.picLogo[0].url = picLogo.substring(picLogo.indexOf('/user/') + 1, picLogo.length)
+      } else {
+        this.expert.picLogo[0].url = picLogo.substring(picLogo.indexOf('/def/') + 1, picLogo.length)
+      }
+
       let arr = {}
       arr.formType = '1'
       arr.checkStatus = checkStatus
@@ -605,6 +640,10 @@ export default {
           message: '保存成功',
           type: 'success'
         });
+        this.expert.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLmIdCardFront[0].url
+        this.expert.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLmIdCardBack[0].url
+        this.expert.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLmIdCardInHand[0].url
+        this.expert.picLogo[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLogo[0].url
         this.dialogFormVisible = false
       } else {
         this.$message({

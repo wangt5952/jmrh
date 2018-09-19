@@ -77,12 +77,24 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" :http-request="uploadSectionFile3" :file-list="school.logo" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile3" :file-list="school.picLogo" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
                   </div>
                 </div>
+              </el-form-item>
+              <el-form-item label="联系人姓名">
+                <span style='position: relative;left: -60px;color: #f60d0d;'></span>
+                <el-input placeholder="请输入手机号" v-model="school.lxname" style="width:80%"></el-input>
+              </el-form-item>
+              <el-form-item label="联系人手机号">
+                <span style='position: relative;left: -60px;color: #f60d0d;'></span>
+                <el-input placeholder="请输入手机号" v-model="school.lxmobile" style="width:80%"></el-input>
+              </el-form-item>
+              <el-form-item label="联系人邮箱">
+                <span style='position: relative;left: -50px;color: #f60d0d;'></span>
+                <el-input placeholder="请输入邮箱" v-model="school.lxemail" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="所在地区">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
@@ -209,11 +221,13 @@ export default {
           name: '默认',
           url: this.imgBaseUrl + `/jmrhupload/def/handPhoto.jpg`
         }],
-
-        logo: [{
+        picLogo: [{
           name: '默认',
           url: this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
         }],
+        lxname: '',
+        lxmobile: '',
+        lxemail: '',
         introduction: '',
         major_platform: '',
         unit_url: '',
@@ -230,6 +244,12 @@ export default {
   async mounted() {
     if (this.$route.params.objData) {
       this.school = JSON.parse(this.$route.params.objData)
+      this.school.picOrgLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picOrgLicense[0].url
+      this.school.picLpLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLpLicense[0].url
+      this.school.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLmIdCardFront[0].url
+      this.school.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLmIdCardBack[0].url
+      this.school.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLmIdCardInHand[0].url
+      this.school.picLogo[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLogo[0].url
     }
 
     this.userType = window.sessionStorage.getItem('userType')
@@ -349,7 +369,7 @@ export default {
       }
     },
     async uploadSectionFile3(param) {
-      this.school.logo = []
+      this.school.picLogo = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -366,7 +386,7 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
-        this.school.logo.push(arro)
+        this.school.picLogo.push(arro)
       }
     },
     back() {
@@ -452,8 +472,52 @@ export default {
         }
       }
     },
+
     async saveFile(checkStatus) {
       if (!this.validata.validaHschool(this.school)) return
+
+      let picOrgLicense = this.school.picOrgLicense[0].url
+      if (picOrgLicense.indexOf('/user/') > -1) {
+        this.school.picOrgLicense[0].url = picOrgLicense.substring(picOrgLicense.indexOf('/user/') + 1, picOrgLicense.length)
+      } else {
+        this.school.picOrgLicense[0].url = picOrgLicense.substring(picOrgLicense.indexOf('/def/') + 1, picOrgLicense.length)
+      }
+      let picLpLicense = this.school.picLpLicense[0].url
+      if (picLpLicense.indexOf('/user/') > -1) {
+        this.school.picLpLicense[0].url = picLpLicense.substring(picLpLicense.indexOf('/user/') + 1, picLpLicense.length)
+      } else {
+        this.school.picLpLicense[0].url = picLpLicense.substring(picLpLicense.indexOf('/def/') + 1, picLpLicense.length)
+      }
+      let picLmIdCardFront = this.school.picLmIdCardFront[0].url
+      if (picLmIdCardFront.indexOf('/user/') > -1) {
+        this.school.picLmIdCardFront[0].url = picLmIdCardFront.substring(picLmIdCardFront.indexOf('/user/') + 1, picLmIdCardFront.length)
+      } else {
+        this.school.picLmIdCardFront[0].url = picLmIdCardFront.substring(picLmIdCardFront.indexOf('/def/') + 1, picLmIdCardFront.length)
+      }
+
+      let picLmIdCardBack = this.school.picLmIdCardBack[0].url
+      if (picLmIdCardBack.indexOf('/user/') > -1) {
+        this.school.picLmIdCardBack[0].url = picLmIdCardBack.substring(picLmIdCardBack.indexOf('/user/') + 1, picLmIdCardBack.length)
+      } else {
+        this.school.picLmIdCardBack[0].url = picLmIdCardBack.substring(picLmIdCardBack.indexOf('/def/') + 1, picLmIdCardBack.length)
+      }
+
+      let picLmIdCardInHand = this.school.picLmIdCardInHand[0].url
+      if (picLmIdCardInHand.indexOf('/user/') > -1) {
+        this.school.picLmIdCardInHand[0].url = picLmIdCardInHand.substring(picLmIdCardInHand.indexOf('/user/') + 1, picLmIdCardInHand.length)
+      } else {
+        this.school.picLmIdCardInHand[0].url = picLmIdCardInHand.substring(picLmIdCardInHand.indexOf('/def/') + 1, picLmIdCardInHand.length)
+      }
+
+      let picLogo = this.school.picLogo[0].url
+      if (picLogo.indexOf('/user/') > -1) {
+        this.school.picLogo[0].url = picLogo.substring(picLogo.indexOf('/user/') + 1, picLogo.length)
+      } else {
+        this.school.picLogo[0].url = picLogo.substring(picLogo.indexOf('/def/') + 1, picLogo.length)
+      }
+
+
+
       let arr = {}
       arr.formType = '4'
       arr.checkStatus = checkStatus
@@ -471,8 +535,13 @@ export default {
           message: '保存成功',
           type: 'success'
         });
+        this.school.picOrgLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picOrgLicense[0].url
+        this.school.picLpLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLpLicense[0].url
+        this.school.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLmIdCardFront[0].url
+        this.school.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLmIdCardBack[0].url
+        this.school.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLmIdCardInHand[0].url
+        this.school.picLogo[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLogo[0].url
         this.dialogFormVisible = false
-        this.loadPageList()
       } else {
         this.$message({
           message: data.message,

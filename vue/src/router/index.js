@@ -87,6 +87,7 @@ const login = r => require.ensure([], () => r(require('@/views/login/index')), '
 const register = r => require.ensure([], () => r(require("@/views/register/index")), 'register');
 const registerDetail = r => require.ensure([], () => r(require("@/views/registerDetail/index")), 'registerDetail');
 const resetPaw = r => require.ensure([], () => r(require("@/views/resetPaw/index")), 'resetPaw');
+const resetPawManage = r => require.ensure([], () => r(require("@/views/resetPawManage/index")), 'resetPawManage');
 const activate = r => require.ensure([], () => r(require("@/views/activate/index")), 'activate');
 const userBaseDetail = r => require.ensure([], () => r(require("@/views/userBaseDetail/index")), 'userBaseDetail');
 const userDetail = r => require.ensure([], () => r(require("@/views/userDetail/index")), 'userDetail');
@@ -166,6 +167,12 @@ let arrRouter = [{
     path: '/resetPaw',
     component: resetPaw,
     name: 'resetPaw',
+    leaf: true,
+    hidden: true
+  },{
+    path: '/resetPawManage',
+    component: resetPawManage,
+    name: 'resetPawManage',
     leaf: true,
     hidden: true
   },

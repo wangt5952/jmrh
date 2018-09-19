@@ -697,8 +697,8 @@ export default {
           name: '默认',
           url: this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
         }],
-        lxname: '123',
-        lxzw: '123',
+        lxname: '',
+        lxzw: '',
         search_param: [],
         lxphone: '',
         lxemail: '',
@@ -779,6 +779,12 @@ export default {
     this.listLoading = false
     if (this.$route.params.objData) {
       this.com = JSON.parse(this.$route.params.objData)
+      this.com.picOrgLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picOrgLicense[0].url
+      this.com.picLpLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLpLicense[0].url
+      this.com.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLmIdCardFront[0].url
+      this.com.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLmIdCardBack[0].url
+      this.com.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLmIdCardInHand[0].url
+      this.com.picLogo[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLogo[0].url
     }
 
     this.userType = window.sessionStorage.getItem('userType')
@@ -936,7 +942,6 @@ export default {
     },
 
     addCN(data) {
-      debugger
       if (JSON.stringify(data.registered_capital).includes("1")) data.search_param.push('小于2000万')
       if (JSON.stringify(data.registered_capital).includes("2")) data.search_param.push('2000-5000万')
       if (JSON.stringify(data.registered_capital).includes("3")) data.search_param.push('5000-1亿')
@@ -1109,6 +1114,47 @@ export default {
     async saveFile(checkStatus) {
       if (!this.validata.validaEnterprise(this.com)) return
 
+      let picOrgLicense = this.com.picOrgLicense[0].url
+      if (picOrgLicense.indexOf('/user/') > -1) {
+        this.com.picOrgLicense[0].url = picOrgLicense.substring(picOrgLicense.indexOf('/user/') + 1, picOrgLicense.length)
+      } else {
+        this.com.picOrgLicense[0].url = picOrgLicense.substring(picOrgLicense.indexOf('/def/') + 1, picOrgLicense.length)
+      }
+      let picLpLicense = this.com.picLpLicense[0].url
+      if (picLpLicense.indexOf('/user/') > -1) {
+        this.com.picLpLicense[0].url = picLpLicense.substring(picLpLicense.indexOf('/user/') + 1, picLpLicense.length)
+      } else {
+        this.com.picLpLicense[0].url = picLpLicense.substring(picLpLicense.indexOf('/def/') + 1, picLpLicense.length)
+      }
+      let picLmIdCardFront = this.com.picLmIdCardFront[0].url
+      if (picLmIdCardFront.indexOf('/user/') > -1) {
+        this.com.picLmIdCardFront[0].url = picLmIdCardFront.substring(picLmIdCardFront.indexOf('/user/') + 1, picLmIdCardFront.length)
+      } else {
+        this.com.picLmIdCardFront[0].url = picLmIdCardFront.substring(picLmIdCardFront.indexOf('/def/') + 1, picLmIdCardFront.length)
+      }
+
+      let picLmIdCardBack = this.com.picLmIdCardBack[0].url
+      if (picLmIdCardBack.indexOf('/user/') > -1) {
+        this.com.picLmIdCardBack[0].url = picLmIdCardBack.substring(picLmIdCardBack.indexOf('/user/') + 1, picLmIdCardBack.length)
+      } else {
+        this.com.picLmIdCardBack[0].url = picLmIdCardBack.substring(picLmIdCardBack.indexOf('/def/') + 1, picLmIdCardBack.length)
+      }
+
+      let picLmIdCardInHand = this.com.picLmIdCardInHand[0].url
+      if (picLmIdCardInHand.indexOf('/user/') > -1) {
+        this.com.picLmIdCardInHand[0].url = picLmIdCardInHand.substring(picLmIdCardInHand.indexOf('/user/') + 1, picLmIdCardInHand.length)
+      } else {
+        this.com.picLmIdCardInHand[0].url = picLmIdCardInHand.substring(picLmIdCardInHand.indexOf('/def/') + 1, picLmIdCardInHand.length)
+      }
+
+      let picLogo = this.com.picLogo[0].url
+      if (picLogo.indexOf('/user/') > -1) {
+        this.com.picLogo[0].url = picLogo.substring(picLogo.indexOf('/user/') + 1, picLogo.length)
+      } else {
+        this.com.picLogo[0].url = picLogo.substring(picLogo.indexOf('/def/') + 1, picLogo.length)
+      }
+
+
       let arr = {}
       arr.formType = '2'
       arr.checkStatus = checkStatus
@@ -1126,7 +1172,12 @@ export default {
           message: '保存成功',
           type: 'success'
         });
-        this.dialogFormVisible = false
+        this.com.picOrgLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picOrgLicense[0].url
+        this.com.picLpLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLpLicense[0].url
+        this.com.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLmIdCardFront[0].url
+        this.com.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLmIdCardBack[0].url
+        this.com.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLmIdCardInHand[0].url
+        this.com.picLogo[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLogo[0].url
       } else {
         this.$message({
           message: data.message,

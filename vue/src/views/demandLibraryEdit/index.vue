@@ -365,6 +365,12 @@ export default {
     this.listLoading = false
     if (this.$route.params.objData) {
       this.demandLibrary = JSON.parse(this.$route.params.objData)
+      this.demandLibrary.picOrgLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.demandLibrary.picOrgLicense[0].url
+      this.demandLibrary.picLpLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.demandLibrary.picLpLicense[0].url
+      this.demandLibrary.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.demandLibrary.picLmIdCardFront[0].url
+      this.demandLibrary.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.demandLibrary.picLmIdCardBack[0].url
+      this.demandLibrary.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.demandLibrary.picLmIdCardInHand[0].url
+      this.demandLibrary.picCommitmentLetter[0].url = this.imgBaseUrl + '/jmrhupload/' + this.demandLibrary.picCommitmentLetter[0].url
       if (!this.demandLibrary.picCommitmentLetter) {
         this.demandLibrary.picCommitmentLetter = []
       }
@@ -624,6 +630,48 @@ export default {
     },
     async saveFile(checkStatus) {
       if (!this.validata.validaDemandLibrary(this.demandLibrary)) return
+
+      let picOrgLicense = this.demandLibrary.picOrgLicense[0].url
+      if (picOrgLicense.indexOf('/user/') > -1) {
+        this.demandLibrary.picOrgLicense[0].url = picOrgLicense.substring(picOrgLicense.indexOf('/user/') + 1, picOrgLicense.length)
+      } else {
+        this.demandLibrary.picOrgLicense[0].url = picOrgLicense.substring(picOrgLicense.indexOf('/def/') + 1, picOrgLicense.length)
+      }
+      let picLpLicense = this.demandLibrary.picLpLicense[0].url
+      if (picLpLicense.indexOf('/user/') > -1) {
+        this.demandLibrary.picLpLicense[0].url = picLpLicense.substring(picLpLicense.indexOf('/user/') + 1, picLpLicense.length)
+      } else {
+        this.demandLibrary.picLpLicense[0].url = picLpLicense.substring(picLpLicense.indexOf('/def/') + 1, picLpLicense.length)
+      }
+      let picLmIdCardFront = this.demandLibrary.picLmIdCardFront[0].url
+      if (picLmIdCardFront.indexOf('/user/') > -1) {
+        this.demandLibrary.picLmIdCardFront[0].url = picLmIdCardFront.substring(picLmIdCardFront.indexOf('/user/') + 1, picLmIdCardFront.length)
+      } else {
+        this.demandLibrary.picLmIdCardFront[0].url = picLmIdCardFront.substring(picLmIdCardFront.indexOf('/def/') + 1, picLmIdCardFront.length)
+      }
+
+      let picLmIdCardBack = this.demandLibrary.picLmIdCardBack[0].url
+      if (picLmIdCardBack.indexOf('/user/') > -1) {
+        this.demandLibrary.picLmIdCardBack[0].url = picLmIdCardBack.substring(picLmIdCardBack.indexOf('/user/') + 1, picLmIdCardBack.length)
+      } else {
+        this.demandLibrary.picLmIdCardBack[0].url = picLmIdCardBack.substring(picLmIdCardBack.indexOf('/def/') + 1, picLmIdCardBack.length)
+      }
+
+      let picLmIdCardInHand = this.demandLibrary.picLmIdCardInHand[0].url
+      if (picLmIdCardInHand.indexOf('/user/') > -1) {
+        this.demandLibrary.picLmIdCardInHand[0].url = picLmIdCardInHand.substring(picLmIdCardInHand.indexOf('/user/') + 1, picLmIdCardInHand.length)
+      } else {
+        this.demandLibrary.picLmIdCardInHand[0].url = picLmIdCardInHand.substring(picLmIdCardInHand.indexOf('/def/') + 1, picLmIdCardInHand.length)
+      }
+
+      let picCommitmentLetter = this.demandLibrary.picCommitmentLetter[0].url
+      if (picCommitmentLetter.indexOf('/user/') > -1) {
+        this.demandLibrary.picCommitmentLetter[0].url = picCommitmentLetter.substring(picCommitmentLetter.indexOf('/user/') + 1, picCommitmentLetter.length)
+      } else {
+        this.demandLibrary.picCommitmentLetter[0].url = picCommitmentLetter.substring(picCommitmentLetter.indexOf('/def/') + 1, picCommitmentLetter.length)
+      }
+
+
       let arr = {}
       arr.formType = '7'
       arr.checkStatus = checkStatus
@@ -642,7 +690,12 @@ export default {
           message: '保存成功',
           type: 'success'
         });
-        this.dialogFormVisible = false
+        this.demandLibrary.picOrgLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.demandLibrary.picOrgLicense[0].url
+        this.demandLibrary.picLpLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.demandLibrary.picLpLicense[0].url
+        this.demandLibrary.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.demandLibrary.picLmIdCardFront[0].url
+        this.demandLibrary.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.demandLibrary.picLmIdCardBack[0].url
+        this.demandLibrary.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.demandLibrary.picLmIdCardInHand[0].url
+        this.demandLibrary.picCommitmentLetter[0].url = this.imgBaseUrl + '/jmrhupload/' + this.demandLibrary.picCommitmentLetter[0].url
       } else {
         this.$message({
           message: data.message,

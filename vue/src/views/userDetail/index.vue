@@ -1442,6 +1442,18 @@
                   </div>
                 </div>
               </el-form-item>
+              <el-form-item label="联系人姓名">
+                <span style='position: relative;left: -60px;color: #f60d0d;'></span>
+                <el-input placeholder="请输入手机号" v-model="school.lxname" style="width:80%"></el-input>
+              </el-form-item>
+              <el-form-item label="联系人手机号">
+                <span style='position: relative;left: -60px;color: #f60d0d;'></span>
+                <el-input placeholder="请输入手机号" v-model="school.lxmobile" style="width:80%"></el-input>
+              </el-form-item>
+              <el-form-item label="联系人邮箱">
+                <span style='position: relative;left: -50px;color: #f60d0d;'></span>
+                <el-input placeholder="请输入邮箱" v-model="school.lxemail" style="width:80%"></el-input>
+              </el-form-item>
               <el-form-item label="所在地区">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                 <area-cascader :level="1" v-model="school.country" :data="pcaa"></area-cascader>
@@ -1607,6 +1619,9 @@ export default {
           name: '默认',
           url: this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
         }],
+        lxname: '',
+        lxmobile: '',
+        lxemail: '',
         introduction: '',
         major_platform: '',
         unit_url: '',
@@ -1726,8 +1741,8 @@ export default {
           name: '默认',
           url: this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
         }],
-        lxname: '123',
-        lxzw: '123',
+        lxname: '',
+        lxzw: '',
         search_param: [],
         lxphone: '',
         lxemail: '',
@@ -1851,29 +1866,37 @@ export default {
         if (this.userType == '1') {
           this.expert = JSON.parse(data.detail)
           if (this.expert.code != "") this.expertCodeD = true
-          // if (!this.expert.picLmIdCardFront) {
-          //   this.expert.picLmIdCardFront = []
-          // }
-          // if (!this.expert.picLmIdCardBack) {
-          //   this.expert.picLmIdCardBack = []
-          // }
-          // if (!this.expert.picLmIdCardInHand) {
-          //   this.expert.picLmIdCardInHand = []
-          // }
-          //
-          // if (!this.expert.picLogo) {
-          //   this.expert.picLogo = []
-          // }
-
+          this.expert.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLmIdCardFront[0].url
+          this.expert.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLmIdCardBack[0].url
+          this.expert.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLmIdCardInHand[0].url
+          this.expert.picLogo[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLogo[0].url
         } else if (this.userType == '2') {
           this.com = JSON.parse(data.detail)
           if (this.com.code != "") this.comCodeD = true
+          this.com.picOrgLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picOrgLicense[0].url
+          this.com.picLpLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLpLicense[0].url
+          this.com.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLmIdCardFront[0].url
+          this.com.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLmIdCardBack[0].url
+          this.com.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLmIdCardInHand[0].url
+          this.com.picLogo[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLogo[0].url
         } else if (this.userType == '3') {
           this.mech = JSON.parse(data.detail)
           if (this.mech.code != "") this.mechCodeD = true
+          this.mech.picOrgLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.mech.picOrgLicense[0].url
+          this.mech.picLpLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.mech.picLpLicense[0].url
+          this.mech.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.mech.picLmIdCardFront[0].url
+          this.mech.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.mech.picLmIdCardBack[0].url
+          this.mech.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.mech.picLmIdCardInHand[0].url
+          this.mech.picLogo[0].url = this.imgBaseUrl + '/jmrhupload/' + this.mech.picLogo[0].url
         } else if (this.userType == '4') {
           this.school = JSON.parse(data.detail)
           if (this.school.code != "") this.schoolCodeD = true
+          this.school.picOrgLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picOrgLicense[0].url
+          this.school.picLpLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLpLicense[0].url
+          this.school.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLmIdCardFront[0].url
+          this.school.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLmIdCardBack[0].url
+          this.school.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLmIdCardInHand[0].url
+          this.school.picLogo[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLogo[0].url
         }
         if (data.checkStatus == 0) {
           this.$message({
@@ -1947,18 +1970,163 @@ export default {
       if (this.userType == '1') {
         if (!this.validata.validaExpert(this.expert)) return
         this.expert.search_param = []
+        let picLmIdCardFront = this.expert.picLmIdCardFront[0].url
+        if (picLmIdCardFront.indexOf('/user/') > -1) {
+          this.expert.picLmIdCardFront[0].url = picLmIdCardFront.substring(picLmIdCardFront.indexOf('/user/') + 1, picLmIdCardFront.length)
+        } else {
+          this.expert.picLmIdCardFront[0].url = picLmIdCardFront.substring(picLmIdCardFront.indexOf('/def/') + 1, picLmIdCardFront.length)
+        }
+
+        let picLmIdCardBack = this.expert.picLmIdCardBack[0].url
+        if (picLmIdCardBack.indexOf('/user/') > -1) {
+          this.expert.picLmIdCardBack[0].url = picLmIdCardBack.substring(picLmIdCardBack.indexOf('/user/') + 1, picLmIdCardBack.length)
+        } else {
+          this.expert.picLmIdCardBack[0].url = picLmIdCardBack.substring(picLmIdCardBack.indexOf('/def/') + 1, picLmIdCardBack.length)
+        }
+
+        let picLmIdCardInHand = this.expert.picLmIdCardInHand[0].url
+        if (picLmIdCardInHand.indexOf('/user/') > -1) {
+          this.expert.picLmIdCardInHand[0].url = picLmIdCardInHand.substring(picLmIdCardInHand.indexOf('/user/') + 1, picLmIdCardInHand.length)
+        } else {
+          this.expert.picLmIdCardInHand[0].url = picLmIdCardInHand.substring(picLmIdCardInHand.indexOf('/def/') + 1, picLmIdCardInHand.length)
+        }
+
+        let picLogo = this.expert.picLogo[0].url
+        if (picLogo.indexOf('/user/') > -1) {
+          this.expert.picLogo[0].url = picLogo.substring(picLogo.indexOf('/user/') + 1, picLogo.length)
+        } else {
+          this.expert.picLogo[0].url = picLogo.substring(picLogo.indexOf('/def/') + 1, picLogo.length)
+        }
         obj = this.addCN1(this.expert)
       } else if (this.userType == '2') {
         if (!this.validata.validaEnterprise(this.com)) return
         this.com.search_param = []
+        let picOrgLicense = this.com.picOrgLicense[0].url
+        if (picOrgLicense.indexOf('/user/') > -1) {
+          this.com.picOrgLicense[0].url = picOrgLicense.substring(picOrgLicense.indexOf('/user/') + 1, picOrgLicense.length)
+        } else {
+          this.com.picOrgLicense[0].url = picOrgLicense.substring(picOrgLicense.indexOf('/def/') + 1, picOrgLicense.length)
+        }
+        let picLpLicense = this.com.picLpLicense[0].url
+        if (picLpLicense.indexOf('/user/') > -1) {
+          this.com.picLpLicense[0].url = picLpLicense.substring(picLpLicense.indexOf('/user/') + 1, picLpLicense.length)
+        } else {
+          this.com.picLpLicense[0].url = picLpLicense.substring(picLpLicense.indexOf('/def/') + 1, picLpLicense.length)
+        }
+        let picLmIdCardFront = this.com.picLmIdCardFront[0].url
+        if (picLmIdCardFront.indexOf('/user/') > -1) {
+          this.com.picLmIdCardFront[0].url = picLmIdCardFront.substring(picLmIdCardFront.indexOf('/user/') + 1, picLmIdCardFront.length)
+        } else {
+          this.com.picLmIdCardFront[0].url = picLmIdCardFront.substring(picLmIdCardFront.indexOf('/def/') + 1, picLmIdCardFront.length)
+        }
+
+        let picLmIdCardBack = this.com.picLmIdCardBack[0].url
+        if (picLmIdCardBack.indexOf('/user/') > -1) {
+          this.com.picLmIdCardBack[0].url = picLmIdCardBack.substring(picLmIdCardBack.indexOf('/user/') + 1, picLmIdCardBack.length)
+        } else {
+          this.com.picLmIdCardBack[0].url = picLmIdCardBack.substring(picLmIdCardBack.indexOf('/def/') + 1, picLmIdCardBack.length)
+        }
+
+        let picLmIdCardInHand = this.com.picLmIdCardInHand[0].url
+        if (picLmIdCardInHand.indexOf('/user/') > -1) {
+          this.com.picLmIdCardInHand[0].url = picLmIdCardInHand.substring(picLmIdCardInHand.indexOf('/user/') + 1, picLmIdCardInHand.length)
+        } else {
+          this.com.picLmIdCardInHand[0].url = picLmIdCardInHand.substring(picLmIdCardInHand.indexOf('/def/') + 1, picLmIdCardInHand.length)
+        }
+
+        let picLogo = this.com.picLogo[0].url
+        if (picLogo.indexOf('/user/') > -1) {
+          this.com.picLogo[0].url = picLogo.substring(picLogo.indexOf('/user/') + 1, picLogo.length)
+        } else {
+          this.com.picLogo[0].url = picLogo.substring(picLogo.indexOf('/def/') + 1, picLogo.length)
+        }
         obj = this.addCN2(this.com)
       } else if (this.userType == '3') {
         if (!this.validata.validaMechanism(this.mech)) return
         this.mech.search_param = []
+        let picOrgLicense = this.mech.picOrgLicense[0].url
+        if (picOrgLicense.indexOf('/user/') > -1) {
+          this.mech.picOrgLicense[0].url = picOrgLicense.substring(picOrgLicense.indexOf('/user/') + 1, picOrgLicense.length)
+        } else {
+          this.mech.picOrgLicense[0].url = picOrgLicense.substring(picOrgLicense.indexOf('/def/') + 1, picOrgLicense.length)
+        }
+        let picLpLicense = this.mech.picLpLicense[0].url
+        if (picLpLicense.indexOf('/user/') > -1) {
+          this.mech.picLpLicense[0].url = picLpLicense.substring(picLpLicense.indexOf('/user/') + 1, picLpLicense.length)
+        } else {
+          this.mech.picLpLicense[0].url = picLpLicense.substring(picLpLicense.indexOf('/def/') + 1, picLpLicense.length)
+        }
+        let picLmIdCardFront = this.mech.picLmIdCardFront[0].url
+        if (picLmIdCardFront.indexOf('/user/') > -1) {
+          this.mech.picLmIdCardFront[0].url = picLmIdCardFront.substring(picLmIdCardFront.indexOf('/user/') + 1, picLmIdCardFront.length)
+        } else {
+          this.mech.picLmIdCardFront[0].url = picLmIdCardFront.substring(picLmIdCardFront.indexOf('/def/') + 1, picLmIdCardFront.length)
+        }
+
+        let picLmIdCardBack = this.mech.picLmIdCardBack[0].url
+        if (picLmIdCardBack.indexOf('/user/') > -1) {
+          this.mech.picLmIdCardBack[0].url = picLmIdCardBack.substring(picLmIdCardBack.indexOf('/user/') + 1, picLmIdCardBack.length)
+        } else {
+          this.mech.picLmIdCardBack[0].url = picLmIdCardBack.substring(picLmIdCardBack.indexOf('/def/') + 1, picLmIdCardBack.length)
+        }
+
+        let picLmIdCardInHand = this.mech.picLmIdCardInHand[0].url
+        if (picLmIdCardInHand.indexOf('/user/') > -1) {
+          this.mech.picLmIdCardInHand[0].url = picLmIdCardInHand.substring(picLmIdCardInHand.indexOf('/user/') + 1, picLmIdCardInHand.length)
+        } else {
+          this.mech.picLmIdCardInHand[0].url = picLmIdCardInHand.substring(picLmIdCardInHand.indexOf('/def/') + 1, picLmIdCardInHand.length)
+        }
+
+        let picLogo = this.mech.picLogo[0].url
+        if (picLogo.indexOf('/user/') > -1) {
+          this.mech.picLogo[0].url = picLogo.substring(picLogo.indexOf('/user/') + 1, picLogo.length)
+        } else {
+          this.mech.picLogo[0].url = picLogo.substring(picLogo.indexOf('/def/') + 1, picLogo.length)
+        }
         obj = this.addCN3(this.mech)
       } else if (this.userType == '4') {
         if (!this.validata.validaHschool(this.school)) return
         this.school.search_param = []
+        let picOrgLicense = this.school.picOrgLicense[0].url
+        if (picOrgLicense.indexOf('/user/') > -1) {
+          this.school.picOrgLicense[0].url = picOrgLicense.substring(picOrgLicense.indexOf('/user/') + 1, picOrgLicense.length)
+        } else {
+          this.school.picOrgLicense[0].url = picOrgLicense.substring(picOrgLicense.indexOf('/def/') + 1, picOrgLicense.length)
+        }
+        let picLpLicense = this.school.picLpLicense[0].url
+        if (picLpLicense.indexOf('/user/') > -1) {
+          this.school.picLpLicense[0].url = picLpLicense.substring(picLpLicense.indexOf('/user/') + 1, picLpLicense.length)
+        } else {
+          this.school.picLpLicense[0].url = picLpLicense.substring(picLpLicense.indexOf('/def/') + 1, picLpLicense.length)
+        }
+        let picLmIdCardFront = this.school.picLmIdCardFront[0].url
+        if (picLmIdCardFront.indexOf('/user/') > -1) {
+          this.school.picLmIdCardFront[0].url = picLmIdCardFront.substring(picLmIdCardFront.indexOf('/user/') + 1, picLmIdCardFront.length)
+        } else {
+          this.school.picLmIdCardFront[0].url = picLmIdCardFront.substring(picLmIdCardFront.indexOf('/def/') + 1, picLmIdCardFront.length)
+        }
+
+        let picLmIdCardBack = this.school.picLmIdCardBack[0].url
+        if (picLmIdCardBack.indexOf('/user/') > -1) {
+          this.school.picLmIdCardBack[0].url = picLmIdCardBack.substring(picLmIdCardBack.indexOf('/user/') + 1, picLmIdCardBack.length)
+        } else {
+          this.school.picLmIdCardBack[0].url = picLmIdCardBack.substring(picLmIdCardBack.indexOf('/def/') + 1, picLmIdCardBack.length)
+        }
+
+        let picLmIdCardInHand = this.school.picLmIdCardInHand[0].url
+        if (picLmIdCardInHand.indexOf('/user/') > -1) {
+          this.school.picLmIdCardInHand[0].url = picLmIdCardInHand.substring(picLmIdCardInHand.indexOf('/user/') + 1, picLmIdCardInHand.length)
+        } else {
+          this.school.picLmIdCardInHand[0].url = picLmIdCardInHand.substring(picLmIdCardInHand.indexOf('/def/') + 1, picLmIdCardInHand.length)
+        }
+
+        let picLogo = this.school.picLogo[0].url
+        if (picLogo.indexOf('/user/') > -1) {
+          this.school.picLogo[0].url = picLogo.substring(picLogo.indexOf('/user/') + 1, picLogo.length)
+        } else {
+          this.school.picLogo[0].url = picLogo.substring(picLogo.indexOf('/def/') + 1, picLogo.length)
+        }
+
         obj = this.addCN4(this.school)
       }
 
@@ -1974,7 +2142,37 @@ export default {
           message: '保存成功',
           type: 'success'
         });
-        this.dialogFormVisible = false
+        if (this.userType == '1') {
+          this.expert.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLmIdCardFront[0].url
+          this.expert.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLmIdCardBack[0].url
+          this.expert.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLmIdCardInHand[0].url
+          this.expert.picLogo[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLogo[0].url
+        }
+        if (this.userType == '2') {
+          this.com.picOrgLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picOrgLicense[0].url
+          this.com.picLpLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLpLicense[0].url
+          this.com.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLmIdCardFront[0].url
+          this.com.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLmIdCardBack[0].url
+          this.com.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLmIdCardInHand[0].url
+          this.com.picLogo[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLogo[0].url
+        }
+        if (this.userType == '3') {
+          this.mech.picOrgLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.mech.picOrgLicense[0].url
+          this.mech.picLpLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.mech.picLpLicense[0].url
+          this.mech.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.mech.picLmIdCardFront[0].url
+          this.mech.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.mech.picLmIdCardBack[0].url
+          this.mech.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.mech.picLmIdCardInHand[0].url
+          this.mech.picLogo[0].url = this.imgBaseUrl + '/jmrhupload/' + this.mech.picLogo[0].url
+        }
+        if (this.userType == '4') {
+          this.school.picOrgLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picOrgLicense[0].url
+          this.school.picLpLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLpLicense[0].url
+          this.school.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLmIdCardFront[0].url
+          this.school.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLmIdCardBack[0].url
+          this.school.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLmIdCardInHand[0].url
+          this.school.picLogo[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLogo[0].url
+        }
+
       } else {
         this.$message({
           message: data.message,

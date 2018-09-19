@@ -64,7 +64,8 @@
               <el-button v-if="!restEmail" @keyup.enter="handleLogin" type="primary" @click.native.prevent="handleLogin">登录</el-button>
               <el-button v-if="restEmail" @click="tosendEmailActivate" type="primary">重新发送</el-button>
               <span @click="toRegister" class="toLogin">立即注册</span>
-              <span @click="toresetPaw" class="resetPaw">忘记密码?</span>
+              <span @click="toresetPawManage" v-show="loginForm.isAdmin" class="resetPaw">忘记密码?</span>
+              <span @click="toresetPaw" v-show="!loginForm.isAdmin" class="resetPaw">忘记密码?</span>
             </el-form-item>
           </el-form>
           <!-- <div class="loginQuick">
@@ -220,6 +221,11 @@ export default {
     toresetPaw() {
       this.$router.push({
         path: '/resetPaw'
+      })
+    },
+    toresetPawManage() {
+      this.$router.push({
+        path: '/resetPawManage'
       })
     },
     toRegister() {

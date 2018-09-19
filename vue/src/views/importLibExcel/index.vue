@@ -7,8 +7,8 @@
         <el-radio :label="2">企业</el-radio>
         <el-radio :label="3">服务机构</el-radio>
         <el-radio :label="4">高校院所</el-radio>
-        <el-radio :label="6">需求库</el-radio>
-        <el-radio :label="7">成果库</el-radio>
+        <el-radio :label="6">成果库</el-radio>
+        <el-radio :label="7">需求库</el-radio>
       </el-radio-group>
     </div>
     <div class="textc" style="padding:60px;">
@@ -17,6 +17,9 @@
         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
         <div class="el-upload__tip" slot="tip">只能上传xlsx/xls文件，且不超过500kb</div>
       </el-upload>
+    </div>
+    <div class="textc">
+       <li v-for="item in list" style="list-style:none">{{item}}</li>
     </div>
   </div>
 
@@ -34,7 +37,7 @@ export default {
   data() {
     return {
       userType: 1,
-
+      list:[]
     }
   },
   mounted() {
@@ -66,10 +69,22 @@ export default {
       form.append("userType", this.userType);
       let {
         data,
-        success
+        success,
+        message
       } = await importLibExcel(form)
       if (success) {
-        debugger
+        this.$message({
+          type: 'success',
+          message: message
+        });
+      }else{
+        let arr =[]
+        arr = message.split(';')
+        this.list = arr
+        // this.$message({
+        //   type: 'warning',
+        //   message: message
+        // });
       }
     },
 

@@ -1,12 +1,11 @@
 <template>
 <div class="reset-container" style="background: #1896d2">
   <div class="content">
-    <h3 class="title">用户忘记密码</h3>
+    <h3 class="title">管理员忘记密码</h3>
     <el-form :label-position="labelPosition" label-width="80px" :model="loginVerify">
       <el-form-item label="">
         <el-radio-group v-model="checkStatus">
-          <el-radio :label="0">邮箱验证</el-radio>
-          <el-radio :label="1">手机号验证</el-radio>
+          <el-radio :label="0">手机号验证</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item v-if="checkStatus == 0" label="">
