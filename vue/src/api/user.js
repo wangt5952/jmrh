@@ -78,3 +78,10 @@ export function lookPwd(data) {
     data
   });
 }
+export function lookAdminPwd(data) {
+  return request({
+    url: '/xtcx/user/lookAdminPwd',
+    method: 'post',
+    data
+  });
+}

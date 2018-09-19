@@ -562,7 +562,52 @@ function validactive(str) {
   }
   return true;
 }
+function validresetAdminPW(str, checkStatus, cellphone) {
 
+  if (!str || verify.isNull(str.userName)) {
+    Message({
+      message: '用户名不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+    if (!str || verify.isNull(cellphone)) {
+      Message({
+        message: '手机号不能为空！',
+        type: 'error'
+      });
+      return false;
+    }
+    if (!str || verify.isPoneAvailable(cellphone)) {
+      Message({
+        message: '手机号格式不正确！',
+        type: 'error'
+      });
+      return false;
+    }
+  if (!str || verify.isNull(str.code)) {
+    Message({
+      message: '验证码不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.newPassword)) {
+    Message({
+      message: '新密码不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.rePassword)) {
+    Message({
+      message: '请重复输入新密码！',
+      type: 'error'
+    });
+    return false;
+  }
+  return true;
+}
 function validresetPW(str, checkStatus, cellphone) {
   if (checkStatus == 0) {
     if (!str || verify.isNull(str.email)) {
@@ -1229,6 +1274,7 @@ export default {
   validaMechanism,
   validaDemandLibrary,
   validaAchieveLibrary,
+  validresetAdminPW,
   validresetPW,
   validaTree,
   validatoRegistere,

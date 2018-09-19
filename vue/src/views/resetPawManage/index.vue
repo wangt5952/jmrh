@@ -4,14 +4,13 @@
     <h3 class="title">管理员忘记密码</h3>
     <el-form :label-position="labelPosition" label-width="80px" :model="loginVerify">
       <el-form-item label="">
-        <el-radio-group v-model="checkStatus">
-          <el-radio :label="0">手机号验证</el-radio>
-        </el-radio-group>
+        <el-form-item  label="">
+          <el-input v-model="obj.userName" placeholder="请输入用户名"></el-input>
+        </el-form-item>
+
       </el-form-item>
-      <el-form-item v-if="checkStatus == 0" label="">
-        <el-input v-model="obj.email" placeholder="请输入邮箱地址"></el-input>
-      </el-form-item>
-      <el-form-item v-if="checkStatus == 1" label="">
+
+      <el-form-item  label="">
         <el-input v-model="cellphone" placeholder="请输入手机号"></el-input>
       </el-form-item>
       <el-form-item label="">
@@ -36,7 +35,7 @@
 <script>
 import {
   sendEmailCode,
-  lookPwd,
+  lookAdminPwd,
   sendCellphoneCode
 } from '@/api/user'
 
@@ -49,14 +48,10 @@ export default {
       isDisabled: false,
       time: 60,
       obj: {
-        email: '',
+        userName: '',
         code: '',
         newPassword: '',
         rePassword: '',
-      },
-      obj2: {
-        code: '',
-        newPassword: ''
       },
       cellphone: '',
       checkStatus: 0
@@ -76,69 +71,46 @@ export default {
           window.clearInterval(interval);
         }
       }, 1000);
-
-      if (this.checkStatus == 0) {
-        const {
-          message,
-          success
-        } = await sendEmailCode(this.obj)
-        if (success) {
-          this.$message({
-            message: '发送成功',
-            type: 'success'
-          });
-        } else {
-          this.$message({
-            message: '发送失败',
-            type: 'success'
-          });
-        }
-      } else if (this.checkStatus == 1) {
-        this.obj2.code = this.obj.code
-        this.obj2.cellphone = this.cellphone
-        const {
-          message,
-          success
-        } = await sendCellphoneCode(this.obj2)
-        if (success) {
-          this.$message({
-            message: '发送成功',
-            type: 'success'
-          });
-        } else {
-          this.$message({
-            message: '发送失败',
-            type: 'success'
-          });
-        }
+      let obj = {}
+      obj.cellphone = this.cellphone
+      const {
+        message,
+        success
+      } = await sendCellphoneCode(obj)
+      if (success) {
+        this.$message({
+          message: '发送成功',
+          type: 'success'
+        });
+      } else {
+        this.$message({
+          message: '发送失败',
+          type: 'success'
+        });
       }
 
 
     },
     async tolookPwd() {
-       if (!this.validata.validresetPW(this.obj,this.checkStatus,this.cellphone)) return
+      if (!this.validata.validresetAdminPW(this.obj, this.checkStatus, this.cellphone)) return
 
-        if(this.obj.newPassword != this.obj.rePassword){
-          this.$message({
-            message: '两次密码输入不一致！',
-            type: 'error'
-          })
-          return
-        }
-      let objA ={}
-      if (this.checkStatus == 0) {
-        objA = this.obj
-      } else if (this.checkStatus == 1) {
-          objA.code = this.obj.code
-          objA.newPassword = this.obj.newPassword
-          objA.cellphone = this.cellphone
+      if (this.obj.newPassword != this.obj.rePassword) {
+        this.$message({
+          message: '两次密码输入不一致！',
+          type: 'error'
+        })
+        return
       }
-
+      let objA = {}
+      objA.code = this.obj.code
+      objA.code = this.obj.code
+      objA.newPassword = this.obj.newPassword
+      objA.cellphone = this.cellphone
       let {
         message,
         success,
         data
-      } = await lookPwd(objA)
+      } = await lookAdminPwd(objA)
       if (success) {
         this.$message({
           message: '修改成功',
