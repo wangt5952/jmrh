@@ -191,7 +191,7 @@
 
 <script>
 // import Tinymce from '@/components/Tinymce'
-// import Editor from '@tinymce/tinymce-vue';
+import Editor from '@tinymce/tinymce-vue';
 
 import {
   getExchanges,
@@ -221,7 +221,6 @@ import {
 import table2excel from 'table2excel'
 import printArea from 'printArea'
 
-import idback from '@/assets/logo/idback.png'
 import {
   getToken,
 } from '@/utils/auth'
@@ -229,7 +228,7 @@ import {
 export default {
   components: {
     // Tinymce
-    // 'editor': Editor
+    'editor': Editor
   },
   data() {
     return {
@@ -248,7 +247,7 @@ export default {
           const formData = new FormData()
           formData.append('file', blobInfo.blob())
           uploadExchanges(formData, '1').then(res => {
-            success(Vue.prototype.imgBaseUrl+"/jmrhupload" + res.data.savePath)
+            success(Vue.prototype.imgBaseUrl+ res.data.savePath)
           }).catch(() => {
             failure('上传失败，请重新上传')
           })
@@ -301,7 +300,7 @@ export default {
         cover: '',
         covers: [{
           name: '默认',
-          url: idback
+          url: this.imgBaseUrl + `def/activitycover.png`
         }],
         exAddr: '',
         enrollStart: '',
@@ -338,7 +337,7 @@ export default {
   computed: {},
   methods: {
     async subDownloadExchanges(item) {
-      window.open(this.imgBaseUrl+"/jmrhupload" + item.savePath);
+      window.open(this.imgBaseUrl+ item.savePath);
     },
     async subDelFile(item) {
       let {
@@ -358,6 +357,10 @@ export default {
       } = await getExchangesC(id)
       var myFilter = Vue.filter('formatTime')
       this.active = data
+      this.active.covers = [{
+        name: 'name.jpg',
+        url: this.imgBaseUrl +  data.cover
+      }] //封面赋值显示仅仅
       let arr = data.cmsFileList
       if (arr.length > 0) {
         for (var i in arr) {
@@ -449,7 +452,7 @@ export default {
       } = await uploadFile(form)
       let obj = {
         name: data.fileName,
-        url: this.imgBaseUrl+"/jmrhupload" + data.savePath
+        url: this.imgBaseUrl+ data.savePath
       }
       this.active.covers.push(obj)
     },
@@ -464,30 +467,21 @@ export default {
     back() {
       window.history.go(-1);
     },
-    async saveFile(objdata) {
-      if (objdata.order == '') {
-        this.$message({
-          message: '请输入置顶排序！',
-          type: 'success'
-        });
-        return
-      }
-      let {
-        data,
-        success
-      } = await topExchanges(objdata)
-      this.$message({
-        message: '设置成功',
-        type: 'success'
-      });
-      this.loadPageList()
-    },
 
     async saveObj(checkStatus) {
       if (!this.active.publishDate && this.active.publishNow == 0) {
         this.active.publishDate = this.getformatTime()
       }
-      if (!this.validata.validactive(this.active)) return
+      // if (!this.validata.validactive(this.active)) return
+
+      let coversarr = this.active.covers[0].url
+      if (coversarr.indexOf('/cover/') > -1) {
+        this.active.covers[0].url = coversarr.substring(coversarr.indexOf('/cover/') + 1, coversarr.length)
+      } else {
+        this.active.covers[0].url = coversarr.substring(coversarr.indexOf('/def/') + 1, coversarr.length)
+      }
+
+
       let arr = {}
       arr = this.active
       arr.checkStatus = checkStatus
@@ -502,6 +496,10 @@ export default {
           message: '发布成功',
           type: 'success'
         });
+        this.active.covers = [{
+          name: 'name.jpg',
+          url: this.imgBaseUrl +  this.active.covers[0].url
+        }] //封面赋值显示仅仅
       } else {
         this.$message({
           message: data.message,

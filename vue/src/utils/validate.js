@@ -79,7 +79,7 @@ let verify = {
   }, //身份证
 
   isBianMa: function(str) {
-    var re = /^[a-zA-Z][0-9]\w*$/g;
+    var re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,18}$/g;
     return !re.test(str) ? true : false;
   },
   isChinese: function(str) {　
@@ -163,6 +163,13 @@ function validaManageUser(str) {
     });
     return false;
   }
+  if (!str || verify.isBianMa(str.password)) {
+    Message({
+      message: '密码必须包含至少一个字母和一个数字,长度大于6位！',
+      type: 'error'
+    });
+    return false;
+  }
   if (!str || verify.isNull(str.selected)) {
     Message({
       message: '角色不能为空！',
@@ -200,6 +207,13 @@ function validatoRegistere(str) {
   if (!str || verify.isNull(str.password)) {
     Message({
       message: '密码不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isBianMa(str.password)) {
+    Message({
+      message: '密码必须包含至少一个字母和一个数字,长度大于6位！',
       type: 'error'
     });
     return false;
@@ -252,6 +266,13 @@ function validatoRegistere2(str) {
     });
     return false;
   }
+  if (!str || verify.isBianMa(str.password)) {
+    Message({
+      message: '密码必须包含至少一个字母和一个数字,长度大于6位！',
+      type: 'error'
+    });
+    return false;
+  }
   if (!str || verify.isNull(str.repassword)) {
     Message({
       message: '请再次输入密码！',
@@ -291,13 +312,13 @@ function validacolumn(str) {
     });
     return false;
   }
-  if (!str || verify.isBianMa(str.code)) {
-    Message({
-      message: '分类编码必须英文字母+数字的组合！',
-      type: 'error'
-    });
-    return false;
-  }
+  // if (!str || verify.isBianMa(str.code)) {
+  //   Message({
+  //     message: '分类编码必须英文字母+数字的组合！',
+  //     type: 'error'
+  //   });
+  //   return false;
+  // }
   if (!str || verify.isChinese(str.code)) {
     Message({
       message: '分类编码不能含有中文！',
@@ -599,6 +620,13 @@ function validresetAdminPW(str, checkStatus, cellphone) {
     });
     return false;
   }
+  if (!str || verify.isBianMa(str.newPassword)) {
+    Message({
+      message: '密码必须必须包含至少一个字母和一个数字,长度大于6位！',
+      type: 'error'
+    });
+    return false;
+  }
   if (!str || verify.isNull(str.rePassword)) {
     Message({
       message: '请重复输入新密码！',
@@ -651,6 +679,13 @@ function validresetPW(str, checkStatus, cellphone) {
   if (!str || verify.isNull(str.newPassword)) {
     Message({
       message: '新密码不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isBianMa(str.newPassword)) {
+    Message({
+      message: '密码必须包含至少一个字母和一个数字,长度大于6位！',
       type: 'error'
     });
     return false;
@@ -1264,9 +1299,69 @@ function validmajorPlatform(str) {
 }
 
 
+function validaUserBaseDetail(str) {
 
+  if (!str || verify.isNull(str.cellphone)) {
+    Message({
+      message: '手机号不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isPoneAvailable(str.cellphone)) {
+    Message({
+      message: '手机号格式不正确！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.email)) {
+    Message({
+      message: '邮箱不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.checkEmail(str.email)) {
+    Message({
+      message: '请输入正确的邮箱地址！',
+      type: 'error'
+    });
+    return false;
+  }
+  return true;
+}
+
+function validachangePWD(str) {
+
+  if (!str || verify.isNull(str.newPassword)) {
+    Message({
+      message: '密码不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isBianMa(str.newPassword)) {
+    Message({
+      message: '密码必须包含至少一个字母和一个数字,长度大于6位！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isNull(str.rePassword)) {
+    Message({
+      message: '请再次输入密码！',
+      type: 'error'
+    });
+    return false;
+  }
+
+  return true;
+}
 //success/warning/info/error
 export default {
+  validachangePWD,
+  validaUserBaseDetail,
   validmajorPlatform,
   validaExpert,
   validaEnterprise,

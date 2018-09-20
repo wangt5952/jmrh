@@ -2,21 +2,21 @@ import request from '@/utils/request'
 
 export function isInLibs(data) {
   return request({
-    url: 'xtcx/lib/isInLibs',
+    url: '/lib/isInLibs',
     method: 'get',
     data
   });
 }
 export function activate(data) {
   return request({
-    url: '/xtcx/user/activate?activateId='+data,
+    url: '/user/activate?activateId='+data,
     method: 'get',
     data
   });
 }
 export function sendEmailActivate(data) {
   return request({
-    url: '/xtcx/user/sendEmailActivate',
+    url: '/user/sendEmailActivate',
     method: 'post',
     data
   });
@@ -24,7 +24,7 @@ export function sendEmailActivate(data) {
 
 export function registers(data) {
   return request({
-    url: '/xtcx/user/register',
+    url: '/user/register',
     method: 'post',
     data
   })
@@ -32,7 +32,7 @@ export function registers(data) {
 export function login(data) {
   return request({
     //url: '/user/login',
-    url: '/xtcx/user/login',
+    url: '/user/login',
     method: 'post',
     data
   });
@@ -40,28 +40,28 @@ export function login(data) {
 
 export function getUserDetail(activateId) {
   return request({
-    url: '/xtcx/lib/getUserDetail?isDraft=false',
+    url: '/lib/getUserDetail?isDraft=false',
     method: 'get'
   })
 }
 
 export function setUserDetail(data) {
   return request({
-    url: '/xtcx/lib/setUserDetail?isDraft=false',
+    url: '/lib/setUserDetail?isDraft=false',
     method: 'post',
     data
   });
 }
 export function getBaseUserDetail() {
   return request({
-    url: '/xtcx/user',
+    url: '/user',
     method: 'get'
   })
 }
 
 export function setBaseUserDetail(data) {
   return request({
-    url: '/xtcx/user',
+    url: '/user',
     method: 'put',
     data
   });
@@ -69,7 +69,7 @@ export function setBaseUserDetail(data) {
 
 export function getActivate(activateId) {
   return request({
-    url: '/xtcx/user/activate?=activateId'+activateId,
+    url: '/user/activate?=activateId'+activateId,
     method: 'get'
   })
 }
@@ -90,7 +90,7 @@ export function getInfo(token) {
 
 export function logout() {
   return request({
-    url: '/xtcx/user/logout',
+    url: '/user/logout',
     method: 'get'
   })
 }

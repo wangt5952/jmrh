@@ -319,6 +319,12 @@
     </el-tabs>
     <el-row>
       <div style="padding-left: 35%;margin: 40px 0  0  0;">
+        <div class="" style="padding:15px">
+          <el-radio-group v-model="checkStatus">
+            <el-radio :label="-1">草稿</el-radio>
+            <el-radio :label="0">提交待审</el-radio>
+          </el-radio-group>
+        </div>
         <el-button type="primary" style="width: 120px;" @click="saveFile(expert)">保存</el-button>
       </div>
     </el-row>
@@ -930,6 +936,12 @@
 
     <el-row>
       <div style="padding-left: 35%;margin: 40px 0  0  0;">
+        <div class="" style="padding:15px">
+          <el-radio-group v-model="checkStatus">
+            <el-radio :label="-1">草稿</el-radio>
+            <el-radio :label="0">提交待审</el-radio>
+          </el-radio-group>
+        </div>
         <el-button type="primary" style="width: 120px;" @click="saveFile(com)">保存</el-button>
       </div>
     </el-row>
@@ -1352,6 +1364,12 @@
     </el-tabs>
     <el-row>
       <div style="padding-left: 35%;margin: 40px 0  0  0;">
+        <div class="" style="padding:15px">
+          <el-radio-group v-model="checkStatus">
+            <el-radio :label="-1">草稿</el-radio>
+            <el-radio :label="0">提交待审</el-radio>
+          </el-radio-group>
+        </div>
         <el-button type="primary" style="width: 120px;" @click="saveFile(mech)">保存</el-button>
       </div>
     </el-row>
@@ -1492,8 +1510,25 @@
     </el-tabs>
     <el-row>
       <div style="padding-left: 35%;margin: 40px 0  0  0;">
-        <el-button type="primary" style="width: 120px;" @click="saveFile(school)">保存</el-button>
+        <div class="" style="padding:15px">
+          <el-radio-group v-model="checkStatus">
+            <el-radio :label="-1">草稿</el-radio>
+            <el-radio :label="0">提交待审</el-radio>
+          </el-radio-group>
+        </div>
+        <div class="">
+          <div class="" style="padding:15px">
+            <el-radio-group v-model="checkStatus">
+              <el-radio :label="-1">草稿</el-radio>
+              <el-radio :label="0">提交待审</el-radio>
+            </el-radio-group>
+          </div>
+          <el-button type="primary" style="width: 120px;" @click="saveFile(school)">保存</el-button>
+          <el-button type="primary" style="width: 120px;" @click="back">返回</el-button>
+        </div>
+
       </div>
+
     </el-row>
   </div>
 
@@ -1523,6 +1558,7 @@ import {
 export default {
   data() {
     return {
+      checkStatus : 0,
       expertCodeD: false,
       comCodeD: false,
       mechCodeD: false,
@@ -1545,19 +1581,19 @@ export default {
       expert: {
         picLmIdCardFront: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+          url: this.imgBaseUrl + `def/idfront.png`
         }],
         picLmIdCardBack: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
+          url: this.imgBaseUrl + `def/idback.png`
         }],
         picLmIdCardInHand: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/handPhoto.jpg`
+          url: this.imgBaseUrl + `def/handPhoto.jpg`
         }],
         picLogo: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/livePhoto.jpg`
+          url: this.imgBaseUrl + `def/livePhoto.jpg`
         }],
         name: '',
         sex: '',
@@ -1596,28 +1632,28 @@ export default {
       school: {
         picOrgLicense: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
+          url: this.imgBaseUrl + `def/companyZZ.png`
         }],
         picLpLicense: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/companyZS.png`
+          url: this.imgBaseUrl + `def/companyZS.png`
         }],
         picLmIdCardFront: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+          url: this.imgBaseUrl + `def/idfront.png`
         }],
         picLmIdCardBack: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
+          url: this.imgBaseUrl + `def/idback.png`
         }],
         picLmIdCardInHand: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/handPhoto.jpg`
+          url: this.imgBaseUrl + `def/handPhoto.jpg`
         }],
 
         logo: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
+          url: this.imgBaseUrl + `def/qylogo.png`
         }],
         lxname: '',
         lxmobile: '',
@@ -1637,36 +1673,36 @@ export default {
       mech: {
         picOrgLicense: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
+          url: this.imgBaseUrl + `def/companyZZ.png`
         }],
         picLpLicense: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/companyZS.png`
+          url: this.imgBaseUrl + `def/companyZS.png`
         }],
         // fuben: [{
         //   name: '默认',
-        //   url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+        //   url: this.imgBaseUrl + `def/idfront.png`
         // }],
         // fuben2: [{
         //   name: '默认',
-        //   url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
+        //   url: this.imgBaseUrl + `def/idback.png`
         // }],
         picLmIdCardFront: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+          url: this.imgBaseUrl + `def/idfront.png`
         }],
         picLmIdCardBack: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
+          url: this.imgBaseUrl + `def/idback.png`
         }],
         picLmIdCardInHand: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/handPhoto.jpg`
+          url: this.imgBaseUrl + `def/handPhoto.jpg`
         }],
 
         picLogo: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
+          url: this.imgBaseUrl + `def/qylogo.png`
         }],
         code: '',
         registerNature: [],
@@ -1719,27 +1755,27 @@ export default {
       com: {
         picOrgLicense: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
+          url: this.imgBaseUrl + `def/companyZZ.png`
         }],
         picLpLicense: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/companyZS.png`
+          url: this.imgBaseUrl + `def/companyZS.png`
         }],
         picLmIdCardFront: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+          url: this.imgBaseUrl + `def/idfront.png`
         }],
         picLmIdCardBack: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
+          url: this.imgBaseUrl + `def/idback.png`
         }],
         picLmIdCardInHand: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/handPhoto.jpg`
+          url: this.imgBaseUrl + `def/handPhoto.jpg`
         }],
         picLogo: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
+          url: this.imgBaseUrl + `def/qylogo.png`
         }],
         lxname: '',
         lxzw: '',
@@ -1866,37 +1902,37 @@ export default {
         if (this.userType == '1') {
           this.expert = JSON.parse(data.detail)
           if (this.expert.code != "") this.expertCodeD = true
-          this.expert.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLmIdCardFront[0].url
-          this.expert.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLmIdCardBack[0].url
-          this.expert.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLmIdCardInHand[0].url
-          this.expert.picLogo[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLogo[0].url
+          this.expert.picLmIdCardFront[0].url = this.imgBaseUrl + this.expert.picLmIdCardFront[0].url
+          this.expert.picLmIdCardBack[0].url = this.imgBaseUrl + this.expert.picLmIdCardBack[0].url
+          this.expert.picLmIdCardInHand[0].url = this.imgBaseUrl + this.expert.picLmIdCardInHand[0].url
+          this.expert.picLogo[0].url = this.imgBaseUrl + this.expert.picLogo[0].url
         } else if (this.userType == '2') {
           this.com = JSON.parse(data.detail)
           if (this.com.code != "") this.comCodeD = true
-          this.com.picOrgLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picOrgLicense[0].url
-          this.com.picLpLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLpLicense[0].url
-          this.com.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLmIdCardFront[0].url
-          this.com.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLmIdCardBack[0].url
-          this.com.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLmIdCardInHand[0].url
-          this.com.picLogo[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLogo[0].url
+          this.com.picOrgLicense[0].url = this.imgBaseUrl + this.com.picOrgLicense[0].url
+          this.com.picLpLicense[0].url = this.imgBaseUrl + this.com.picLpLicense[0].url
+          this.com.picLmIdCardFront[0].url = this.imgBaseUrl + this.com.picLmIdCardFront[0].url
+          this.com.picLmIdCardBack[0].url = this.imgBaseUrl + this.com.picLmIdCardBack[0].url
+          this.com.picLmIdCardInHand[0].url = this.imgBaseUrl + this.com.picLmIdCardInHand[0].url
+          this.com.picLogo[0].url = this.imgBaseUrl + this.com.picLogo[0].url
         } else if (this.userType == '3') {
           this.mech = JSON.parse(data.detail)
           if (this.mech.code != "") this.mechCodeD = true
-          this.mech.picOrgLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.mech.picOrgLicense[0].url
-          this.mech.picLpLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.mech.picLpLicense[0].url
-          this.mech.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.mech.picLmIdCardFront[0].url
-          this.mech.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.mech.picLmIdCardBack[0].url
-          this.mech.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.mech.picLmIdCardInHand[0].url
-          this.mech.picLogo[0].url = this.imgBaseUrl + '/jmrhupload/' + this.mech.picLogo[0].url
+          this.mech.picOrgLicense[0].url = this.imgBaseUrl + this.mech.picOrgLicense[0].url
+          this.mech.picLpLicense[0].url = this.imgBaseUrl + this.mech.picLpLicense[0].url
+          this.mech.picLmIdCardFront[0].url = this.imgBaseUrl + this.mech.picLmIdCardFront[0].url
+          this.mech.picLmIdCardBack[0].url = this.imgBaseUrl + this.mech.picLmIdCardBack[0].url
+          this.mech.picLmIdCardInHand[0].url = this.imgBaseUrl + this.mech.picLmIdCardInHand[0].url
+          this.mech.picLogo[0].url = this.imgBaseUrl + this.mech.picLogo[0].url
         } else if (this.userType == '4') {
           this.school = JSON.parse(data.detail)
           if (this.school.code != "") this.schoolCodeD = true
-          this.school.picOrgLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picOrgLicense[0].url
-          this.school.picLpLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLpLicense[0].url
-          this.school.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLmIdCardFront[0].url
-          this.school.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLmIdCardBack[0].url
-          this.school.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLmIdCardInHand[0].url
-          this.school.picLogo[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLogo[0].url
+          this.school.picOrgLicense[0].url = this.imgBaseUrl + this.school.picOrgLicense[0].url
+          this.school.picLpLicense[0].url = this.imgBaseUrl + this.school.picLpLicense[0].url
+          this.school.picLmIdCardFront[0].url = this.imgBaseUrl + this.school.picLmIdCardFront[0].url
+          this.school.picLmIdCardBack[0].url = this.imgBaseUrl + this.school.picLmIdCardBack[0].url
+          this.school.picLmIdCardInHand[0].url = this.imgBaseUrl + this.school.picLmIdCardInHand[0].url
+          this.school.picLogo[0].url = this.imgBaseUrl + this.school.picLogo[0].url
         }
         if (data.checkStatus == 0) {
           this.$message({
@@ -1931,31 +1967,40 @@ export default {
             if (this.userType == '1') {
               this.expert = JSON.parse(data.form.detail)
               if (this.expert.code != "") this.expertCodeD = true
-              // if (!this.expert.picLmIdCardFront) {
-              //   this.expert.picLmIdCardFront = []
-              // }
-              // if (!this.expert.picLmIdCardBack) {
-              //   this.expert.picLmIdCardBack = []
-              // }
-              // if (!this.expert.picLmIdCardInHand) {
-              //   this.expert.picLmIdCardInHand = []
-              // }
-              //
-              // if (!this.expert.picLogo) {
-              //   this.expert.picLogo = []
-              // }
+              this.expert.picLmIdCardFront[0].url = this.imgBaseUrl + this.expert.picLmIdCardFront[0].url
+              this.expert.picLmIdCardBack[0].url = this.imgBaseUrl + this.expert.picLmIdCardBack[0].url
+              this.expert.picLmIdCardInHand[0].url = this.imgBaseUrl + this.expert.picLmIdCardInHand[0].url
+              this.expert.picLogo[0].url = this.imgBaseUrl + this.expert.picLogo[0].url
             }
             if (this.userType == '2') {
               this.com = JSON.parse(data.form.detail)
               if (this.com.code != "") this.comCodeD = true
+              this.com.picOrgLicense[0].url = this.imgBaseUrl + this.com.picOrgLicense[0].url
+              this.com.picLpLicense[0].url = this.imgBaseUrl + this.com.picLpLicense[0].url
+              this.com.picLmIdCardFront[0].url = this.imgBaseUrl + this.com.picLmIdCardFront[0].url
+              this.com.picLmIdCardBack[0].url = this.imgBaseUrl + this.com.picLmIdCardBack[0].url
+              this.com.picLmIdCardInHand[0].url = this.imgBaseUrl + this.com.picLmIdCardInHand[0].url
+              this.com.picLogo[0].url = this.imgBaseUrl + this.com.picLogo[0].url
             }
             if (this.userType == '3') {
               this.mech = JSON.parse(data.form.detail)
               if (this.mech.code != "") this.mechCodeD = true
+              this.mech.picOrgLicense[0].url = this.imgBaseUrl + this.mech.picOrgLicense[0].url
+              this.mech.picLpLicense[0].url = this.imgBaseUrl + this.mech.picLpLicense[0].url
+              this.mech.picLmIdCardFront[0].url = this.imgBaseUrl + this.mech.picLmIdCardFront[0].url
+              this.mech.picLmIdCardBack[0].url = this.imgBaseUrl + this.mech.picLmIdCardBack[0].url
+              this.mech.picLmIdCardInHand[0].url = this.imgBaseUrl + this.mech.picLmIdCardInHand[0].url
+              this.mech.picLogo[0].url = this.imgBaseUrl + this.mech.picLogo[0].url
             }
             if (this.userType == '4') {
               this.school = JSON.parse(data.form.detail)
               if (this.school.code != "") this.schoolCodeD = true
+              this.school.picOrgLicense[0].url = this.imgBaseUrl + this.school.picOrgLicense[0].url
+              this.school.picLpLicense[0].url = this.imgBaseUrl + this.school.picLpLicense[0].url
+              this.school.picLmIdCardFront[0].url = this.imgBaseUrl + this.school.picLmIdCardFront[0].url
+              this.school.picLmIdCardBack[0].url = this.imgBaseUrl + this.school.picLmIdCardBack[0].url
+              this.school.picLmIdCardInHand[0].url = this.imgBaseUrl + this.school.picLmIdCardInHand[0].url
+              this.school.picLogo[0].url = this.imgBaseUrl + this.school.picLogo[0].url
             }
           }
         }
@@ -2132,6 +2177,7 @@ export default {
 
       let arr = []
       obj.method = 'post'
+      debugger
       let {
         data,
         success
@@ -2143,34 +2189,34 @@ export default {
           type: 'success'
         });
         if (this.userType == '1') {
-          this.expert.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLmIdCardFront[0].url
-          this.expert.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLmIdCardBack[0].url
-          this.expert.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLmIdCardInHand[0].url
-          this.expert.picLogo[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLogo[0].url
+          this.expert.picLmIdCardFront[0].url = this.imgBaseUrl + this.expert.picLmIdCardFront[0].url
+          this.expert.picLmIdCardBack[0].url = this.imgBaseUrl + this.expert.picLmIdCardBack[0].url
+          this.expert.picLmIdCardInHand[0].url = this.imgBaseUrl + this.expert.picLmIdCardInHand[0].url
+          this.expert.picLogo[0].url = this.imgBaseUrl + this.expert.picLogo[0].url
         }
         if (this.userType == '2') {
-          this.com.picOrgLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picOrgLicense[0].url
-          this.com.picLpLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLpLicense[0].url
-          this.com.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLmIdCardFront[0].url
-          this.com.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLmIdCardBack[0].url
-          this.com.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLmIdCardInHand[0].url
-          this.com.picLogo[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLogo[0].url
+          this.com.picOrgLicense[0].url = this.imgBaseUrl + this.com.picOrgLicense[0].url
+          this.com.picLpLicense[0].url = this.imgBaseUrl + this.com.picLpLicense[0].url
+          this.com.picLmIdCardFront[0].url = this.imgBaseUrl + this.com.picLmIdCardFront[0].url
+          this.com.picLmIdCardBack[0].url = this.imgBaseUrl + this.com.picLmIdCardBack[0].url
+          this.com.picLmIdCardInHand[0].url = this.imgBaseUrl + this.com.picLmIdCardInHand[0].url
+          this.com.picLogo[0].url = this.imgBaseUrl + this.com.picLogo[0].url
         }
         if (this.userType == '3') {
-          this.mech.picOrgLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.mech.picOrgLicense[0].url
-          this.mech.picLpLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.mech.picLpLicense[0].url
-          this.mech.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.mech.picLmIdCardFront[0].url
-          this.mech.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.mech.picLmIdCardBack[0].url
-          this.mech.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.mech.picLmIdCardInHand[0].url
-          this.mech.picLogo[0].url = this.imgBaseUrl + '/jmrhupload/' + this.mech.picLogo[0].url
+          this.mech.picOrgLicense[0].url = this.imgBaseUrl + this.mech.picOrgLicense[0].url
+          this.mech.picLpLicense[0].url = this.imgBaseUrl + this.mech.picLpLicense[0].url
+          this.mech.picLmIdCardFront[0].url = this.imgBaseUrl + this.mech.picLmIdCardFront[0].url
+          this.mech.picLmIdCardBack[0].url = this.imgBaseUrl + this.mech.picLmIdCardBack[0].url
+          this.mech.picLmIdCardInHand[0].url = this.imgBaseUrl + this.mech.picLmIdCardInHand[0].url
+          this.mech.picLogo[0].url = this.imgBaseUrl + this.mech.picLogo[0].url
         }
         if (this.userType == '4') {
-          this.school.picOrgLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picOrgLicense[0].url
-          this.school.picLpLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLpLicense[0].url
-          this.school.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLmIdCardFront[0].url
-          this.school.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLmIdCardBack[0].url
-          this.school.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLmIdCardInHand[0].url
-          this.school.picLogo[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLogo[0].url
+          this.school.picOrgLicense[0].url = this.imgBaseUrl + this.school.picOrgLicense[0].url
+          this.school.picLpLicense[0].url = this.imgBaseUrl + this.school.picLpLicense[0].url
+          this.school.picLmIdCardFront[0].url = this.imgBaseUrl + this.school.picLmIdCardFront[0].url
+          this.school.picLmIdCardBack[0].url = this.imgBaseUrl + this.school.picLmIdCardBack[0].url
+          this.school.picLmIdCardInHand[0].url = this.imgBaseUrl + this.school.picLmIdCardInHand[0].url
+          this.school.picLogo[0].url = this.imgBaseUrl + this.school.picLogo[0].url
         }
 
       } else {
@@ -2568,7 +2614,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.expert.picLmIdCardFront.push(arro)
       }
     },
@@ -2590,7 +2636,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.expert.picLmIdCardBack.push(arro)
       }
     },
@@ -2611,7 +2657,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.expert.picLmIdCardInHand.push(arro)
       }
     },
@@ -2632,7 +2678,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.expert.picLogo.push(arro)
       }
     },
@@ -2654,7 +2700,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.com.picOrgLicense.push(arro)
       }
     },
@@ -2675,7 +2721,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.com.picLpLicense.push(arro)
       }
     },
@@ -2696,7 +2742,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.com.picLmIdCardFront.push(arro)
       }
     },
@@ -2717,7 +2763,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.com.picLmIdCardBack.push(arro)
       }
     },
@@ -2739,7 +2785,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.com.picLmIdCardInHand.push(arro)
       }
     },
@@ -2760,7 +2806,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.com.picLogo.push(arro)
       }
     },
@@ -2782,7 +2828,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.mech.picOrgLicense.push(arro)
       }
     },
@@ -2803,7 +2849,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.mech.picLpLicense.push(arro)
       }
     },
@@ -2824,7 +2870,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.mech.picLmIdCardFront.push(arro)
       }
     },
@@ -2845,7 +2891,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.mech.picLmIdCardBack.push(arro)
       }
     },
@@ -2866,7 +2912,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.mech.picLogo.push(arro)
       }
     },
@@ -2888,7 +2934,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.school.picOrgLicense.push(arro)
       }
     },
@@ -2909,7 +2955,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.school.picLpLicense.push(arro)
       }
     },
@@ -2930,7 +2976,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.school.picLmIdCardFront.push(arro)
       }
     },
@@ -2951,7 +2997,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.school.picLmIdCardBack.push(arro)
       }
     },
@@ -2972,7 +3018,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.mech.picOrgLicense.push(arro)
       }
     },
@@ -2993,7 +3039,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.mech.picLpLicense.push(arro)
       }
     },
@@ -3014,7 +3060,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.mech.picLogo.push(arro)
       }
     },
@@ -3035,7 +3081,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.mech.picLmIdCardFront.push(arro)
       }
     },
@@ -3057,7 +3103,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.mech.picLmIdCardBack.push(arro)
       }
     },
@@ -3079,7 +3125,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.mech.picLmIdCardInHand.push(arro)
       }
     },
@@ -3101,7 +3147,7 @@ export default {
           if (success) {
             let arro = {}
             arro.name = data.fileName,
-              arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+              arro.url = this.imgBaseUrl + `user/` + data
             this.school.picLmIdCardInHand.push(arro)
           }
         },
@@ -3122,7 +3168,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.school.picLogo.push(arro)
       }
     },

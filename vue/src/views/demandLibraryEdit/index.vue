@@ -19,7 +19,7 @@
               </el-form-item>
               <el-form-item label="统一社会信用代码">
                 <span style='position: absolute;left: -130px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入统一社会信用代码" v-model="demandLibrary.code" style="width:80%"></el-input>
+                <el-input disabled="codeD" placeholder="请输入统一社会信用代码" v-model="demandLibrary.code" style="width:80%"></el-input>
               </el-form-item>
 
               <el-form-item label="营业执照">
@@ -280,7 +280,8 @@ import {
 } from '@/api/role'
 import {
   getUserDetail,
-  setUserDetail
+  setUserDetail,
+  isInLibs
 } from '@/api/login'
 import {
   getrequirement,
@@ -291,6 +292,7 @@ import {
 export default {
   data() {
     return {
+      codeD: false,
       userType: '3',
       dateValue: '',
       contrary: '',
@@ -316,27 +318,27 @@ export default {
         name: '',
         picCommitmentLetter: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/commitment.png`
+          url: this.imgBaseUrl + `def/commitment.png`
         }],
         picOrgLicense: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
+          url: this.imgBaseUrl + `def/companyZZ.png`
         }],
         picLpLicense: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/companyZS.png`
+          url: this.imgBaseUrl + `def/companyZS.png`
         }],
         picLmIdCardFront: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+          url: this.imgBaseUrl + `def/idfront.png`
         }],
         picLmIdCardBack: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
+          url: this.imgBaseUrl + `def/idback.png`
         }],
         picLmIdCardInHand: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/handPhoto.jpg`
+          url: this.imgBaseUrl + `def/handPhoto.jpg`
         }],
         fzname: '',
         fzzw: '',
@@ -365,12 +367,12 @@ export default {
     this.listLoading = false
     if (this.$route.params.objData) {
       this.demandLibrary = JSON.parse(this.$route.params.objData)
-      this.demandLibrary.picOrgLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.demandLibrary.picOrgLicense[0].url
-      this.demandLibrary.picLpLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.demandLibrary.picLpLicense[0].url
-      this.demandLibrary.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.demandLibrary.picLmIdCardFront[0].url
-      this.demandLibrary.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.demandLibrary.picLmIdCardBack[0].url
-      this.demandLibrary.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.demandLibrary.picLmIdCardInHand[0].url
-      this.demandLibrary.picCommitmentLetter[0].url = this.imgBaseUrl + '/jmrhupload/' + this.demandLibrary.picCommitmentLetter[0].url
+      this.demandLibrary.picOrgLicense[0].url = this.imgBaseUrl +  this.demandLibrary.picOrgLicense[0].url
+      this.demandLibrary.picLpLicense[0].url = this.imgBaseUrl +  this.demandLibrary.picLpLicense[0].url
+      this.demandLibrary.picLmIdCardFront[0].url = this.imgBaseUrl +  this.demandLibrary.picLmIdCardFront[0].url
+      this.demandLibrary.picLmIdCardBack[0].url = this.imgBaseUrl +  this.demandLibrary.picLmIdCardBack[0].url
+      this.demandLibrary.picLmIdCardInHand[0].url = this.imgBaseUrl +  this.demandLibrary.picLmIdCardInHand[0].url
+      this.demandLibrary.picCommitmentLetter[0].url = this.imgBaseUrl +  this.demandLibrary.picCommitmentLetter[0].url
       if (!this.demandLibrary.picCommitmentLetter) {
         this.demandLibrary.picCommitmentLetter = []
       }
@@ -381,6 +383,55 @@ export default {
       this.checkStatus = 1
     } else {
       this.checkStatus = 0
+      let fromCheckStatus = window.sessionStorage.getItem('checkStatus')
+      debugger
+      if (fromCheckStatus == '2') {
+        let {
+          data,
+          success
+        } = await getUserDetail()
+          let detail = JSON.parse(data.detail)
+          this.demandLibrary.code = detail.code
+          this.demandLibrary.name = detail.name
+          this.demandLibrary.country = detail.country
+
+          if (this.demandLibrary.code != "") this.codeD = true
+          this.demandLibrary.picOrgLicense[0].url = this.imgBaseUrl +  detail.picOrgLicense[0].url
+          this.demandLibrary.picLpLicense[0].url = this.imgBaseUrl +  detail.picLpLicense[0].url
+          this.demandLibrary.picLmIdCardFront[0].url = this.imgBaseUrl +  detail.picLmIdCardFront[0].url
+          this.demandLibrary.picLmIdCardBack[0].url = this.imgBaseUrl +  detail.picLmIdCardBack[0].url
+          this.demandLibrary.picLmIdCardInHand[0].url = this.imgBaseUrl +  detail.picLmIdCardInHand[0].url
+
+
+      } else {
+
+        let {
+          data,
+          success
+        } = await isInLibs()
+        if (success) {
+          if (data == null) {
+
+            return
+          } else {
+
+            let detail = JSON.parse(data.detail)
+            this.demandLibrary.code = detail.code
+            this.demandLibrary.name = detail.name
+            this.demandLibrary.country = detail.country
+
+            if (this.demandLibrary.code != "") this.codeD = true
+            this.demandLibrary.picOrgLicense[0].url = this.imgBaseUrl +  detail.picOrgLicense[0].url
+            this.demandLibrary.picLpLicense[0].url = this.imgBaseUrl +  detail.picLpLicense[0].url
+            this.demandLibrary.picLmIdCardFront[0].url = this.imgBaseUrl +  detail.picLmIdCardFront[0].url
+            this.demandLibrary.picLmIdCardBack[0].url = this.imgBaseUrl +  detail.picLmIdCardBack[0].url
+            this.demandLibrary.picLmIdCardInHand[0].url = this.imgBaseUrl +  detail.picLmIdCardInHand[0].url
+
+          }
+        }
+
+      }
+
     }
   },
   computed: {},
@@ -402,7 +453,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.demandLibrary.picCommitmentLetter.push(arro)
       }
     },
@@ -423,7 +474,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.demandLibrary.picOrgLicense.push(arro)
       }
     },
@@ -444,7 +495,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.demandLibrary.picLpLicense.push(arro)
       }
     },
@@ -466,7 +517,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.demandLibrary.picLmIdCardFront.push(arro)
       }
     },
@@ -487,7 +538,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.demandLibrary.picLmIdCardBack.push(arro)
       }
     },
@@ -509,7 +560,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.demandLibrary.picLmIdCardInHand.push(arro)
       }
     },
@@ -690,12 +741,12 @@ export default {
           message: '保存成功',
           type: 'success'
         });
-        this.demandLibrary.picOrgLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.demandLibrary.picOrgLicense[0].url
-        this.demandLibrary.picLpLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.demandLibrary.picLpLicense[0].url
-        this.demandLibrary.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.demandLibrary.picLmIdCardFront[0].url
-        this.demandLibrary.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.demandLibrary.picLmIdCardBack[0].url
-        this.demandLibrary.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.demandLibrary.picLmIdCardInHand[0].url
-        this.demandLibrary.picCommitmentLetter[0].url = this.imgBaseUrl + '/jmrhupload/' + this.demandLibrary.picCommitmentLetter[0].url
+        this.demandLibrary.picOrgLicense[0].url = this.imgBaseUrl +  this.demandLibrary.picOrgLicense[0].url
+        this.demandLibrary.picLpLicense[0].url = this.imgBaseUrl +  this.demandLibrary.picLpLicense[0].url
+        this.demandLibrary.picLmIdCardFront[0].url = this.imgBaseUrl +  this.demandLibrary.picLmIdCardFront[0].url
+        this.demandLibrary.picLmIdCardBack[0].url = this.imgBaseUrl +  this.demandLibrary.picLmIdCardBack[0].url
+        this.demandLibrary.picLmIdCardInHand[0].url = this.imgBaseUrl +  this.demandLibrary.picLmIdCardInHand[0].url
+        this.demandLibrary.picCommitmentLetter[0].url = this.imgBaseUrl +  this.demandLibrary.picCommitmentLetter[0].url
       } else {
         this.$message({
           message: data.message,

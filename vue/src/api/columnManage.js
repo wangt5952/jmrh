@@ -7,7 +7,7 @@ let token= getToken()
 
 export function getCategoryTree(data) {
   return request({
-    url: '/xtcx/category/tree',
+    url: '/category/tree',
     method: 'post',
     data
   });
@@ -15,7 +15,7 @@ export function getCategoryTree(data) {
 
 export function getLeafNodes(data) {
   return request({
-    url: '/xtcx/category/getLeafNodes',
+    url: '/category/getLeafNodes',
     method: 'get',
   });
 }
@@ -23,7 +23,7 @@ export function getLeafNodes(data) {
 
 export function putCategory(data) {//编辑栏目
   return request({
-    url: '/xtcx/category',
+    url: '/category',
     method: 'put',
     data
   });
@@ -31,7 +31,7 @@ export function putCategory(data) {//编辑栏目
 
 export function postCategory(data) {
   return request({
-    url: '/xtcx/category',
+    url: '/category',
     method: 'post',
     data
   });
@@ -39,7 +39,7 @@ export function postCategory(data) {
 
 export function delcategory(data) {
   return request({
-    url: '/xtcx/category?id='+data.id,
+    url: '/category?id='+data.id,
     method: 'delete'
   });
 }
@@ -49,28 +49,28 @@ export function delcategory(data) {
 
 export function getExchanges(data) {
   return request({
-    url: '/xtcx/exchanges/page?pageNum='+data.page+'&pageSize='+data.limit,
+    url: '/exchanges/page?pageNum='+data.page+'&pageSize='+data.limit,
     method: 'post',
     data
   });
 }
 export function getEnrolls(data) {
   return request({
-    url: '/xtcx/exchanges/enrolls/page?pageNum='+data.page+'&pageSize='+data.limit,
+    url: '/exchanges/enrolls/page?pageNum='+data.page+'&pageSize='+data.limit,
     method: 'post',
     data
   });
 }
 export function getExchangesC(id) {
   return request({
-    url: '/xtcx/exchanges?id='+id,
+    url: '/exchanges?id='+id,
     method: 'get'
   });
 }
 
 export function postExchanges(data) {
   return request({
-    url: '/xtcx/exchanges/add',
+    url: '/exchanges/add',
     method: 'post',
     data
   });
@@ -78,7 +78,7 @@ export function postExchanges(data) {
 
 export function submitExchanges(data) {
   return request({
-    url: '/xtcx/exchanges/submit',
+    url: '/exchanges/submit',
     method: 'post',
     data
   });
@@ -86,7 +86,7 @@ export function submitExchanges(data) {
 
 export function delexchanges(data) {
   return request({
-    url: '/xtcx/exchanges?id='+data.id,
+    url: '/exchanges?id='+data.id,
     method: 'delete',
     data
   });
@@ -95,41 +95,41 @@ export function delexchanges(data) {
 
 export function rejectExchanges(data) {
   return request({
-    url: '/xtcx/exchanges/reject',
+    url: '/exchanges/reject',
     method: 'put',
     data
   });
 }
 export function checkExchanges(data) {
   return request({
-    url: '/xtcx/exchanges/check',
+    url: '/exchanges/check',
     method: 'put',
     data
   });
 }
 export function onExchanges(data) {
   return request({
-    url: '/xtcx/exchanges/on?id='+data.id,
+    url: '/exchanges/on?id='+data.id,
     method: 'put'
   });
 }
 export function offExchanges(data) {
   return request({
-    url: '/xtcx/exchanges/off',
+    url: '/exchanges/off',
     method: 'put',
     data
   });
 }
 export function plonExchanges(data) {
   return request({
-    url: '/xtcx/exchanges/on',
+    url: '/exchanges/on',
     method: 'put',
     data
   });
 }
 export function topExchanges(data) {
   return request({
-    url: '/xtcx/exchanges/top?id='+data.id+'&order='+data.order,
+    url: '/exchanges/top?id='+data.id+'&order='+data.order,
     method: 'put'
   });
 }
@@ -140,7 +140,7 @@ export function topExchanges(data) {
 
 export function getCategory(data) {
   return request({
-    url: '/xtcx/category/content/page?pageNum='+data.page+'&pageSize='+data.limit,
+    url: '/category/content/page?pageNum='+data.page+'&pageSize='+data.limit,
     method: 'post',
     data
   });
@@ -149,7 +149,7 @@ export function getCategory(data) {
 
 export function postCategoryC(data) {
   return request({
-    url: '/xtcx/category/content/add',
+    url: '/category/content/add',
     method: 'post',
     data
   });
@@ -157,14 +157,14 @@ export function postCategoryC(data) {
 
 export function getCategoryC(id) {
   return request({
-    url: '/xtcx/category/content?id='+id,
+    url: '/category/content?id='+id,
     method: 'get'
   });
 }
 
 export function delCategoryC(data) {
   return request({
-    url: '/xtcx/category/content?id='+data.id,
+    url: '/category/content?id='+data.id,
     method: 'delete',
     data
   });
@@ -174,41 +174,41 @@ export function delCategoryC(data) {
 
 export function rejectCategory(data) {
   return request({
-    url: '/xtcx/category/content/reject',
+    url: '/category/content/reject',
     method: 'put',
     data
   });
 }
 export function checkCategory(data) {
   return request({
-    url: '/xtcx/category/content/check',
+    url: '/category/content/check',
     method: 'put',
     data
   });
 }
 export function onCategory(data) {
   return request({
-    url: '/xtcx/category/content/on?id='+data.id,
+    url: '/category/content/on?id='+data.id,
     method: 'put'
   });
 }
 export function offCategory(data) {
   return request({
-    url: '/xtcx/category/content/off',
+    url: '/category/content/off',
     method: 'put',
     data
   });
 }
 export function plonCategory(data) {
   return request({
-    url: '/xtcx/category/content/on',
+    url: '/category/content/on',
     method: 'put',
     data
   });
 }
 export function topCategory(data) {
   return request({
-    url: '/xtcx/category/content/top?id='+data.id+'&order='+data.order,
+    url: '/category/content/top?id='+data.id+'&order='+data.order,
     method: 'put'
   });
 }
@@ -217,7 +217,7 @@ export function topCategory(data) {
 
 export function downloadExchanges(data) {
   return request({
-    url: '/xtcx/exchanges/download?fileName='+data,
+    url: '/exchanges/download?fileName='+data,
     method: 'get'
   });
 }
@@ -226,21 +226,21 @@ export function downloadExchanges(data) {
 
 export function uploadExchanges(data,num) {//活动上传附件以及富文本图片
   return request({
-    url: '/xtcx/exchanges/upload?token='+token+'&fileType='+num,
+    url: '/exchanges/upload?token='+token+'&fileType='+num,
     method: 'post',
     data
   });
 }
 export function uploadCategory(data,num) {//内容上传附件以及富文本图片
   return request({
-    url: '/xtcx/category/content/upload?token='+token+'&fileType='+num,
+    url: '/category/content/upload?token='+token+'&fileType='+num,
     method: 'post',
     data
   });
 }
 export function uploadFile(data) {//封面
   return request({
-    url: '/xtcx/file/upload?token='+token,
+    url: '/file/upload?token='+token,
     method: 'post',
     data
   });
@@ -249,7 +249,7 @@ export function uploadFile(data) {//封面
 
 export function delFile(data) {
   return request({
-    url: '/xtcx/file?id='+data,
+    url: '/file?id='+data,
     method: 'delete'
   });
 }

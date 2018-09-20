@@ -675,27 +675,27 @@ export default {
       com: {
         picOrgLicense: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
+          url: this.imgBaseUrl + `def/companyZZ.png`
         }],
         picLpLicense: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/companyZS.png`
+          url: this.imgBaseUrl + `def/companyZS.png`
         }],
         picLmIdCardFront: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+          url: this.imgBaseUrl + `def/idfront.png`
         }],
         picLmIdCardBack: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
+          url: this.imgBaseUrl + `def/idback.png`
         }],
         picLmIdCardInHand: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/handPhoto.jpg`
+          url: this.imgBaseUrl + `def/handPhoto.jpg`
         }],
         picLogo: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
+          url: this.imgBaseUrl + `def/qylogo.png`
         }],
         lxname: '',
         lxzw: '',
@@ -779,12 +779,12 @@ export default {
     this.listLoading = false
     if (this.$route.params.objData) {
       this.com = JSON.parse(this.$route.params.objData)
-      this.com.picOrgLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picOrgLicense[0].url
-      this.com.picLpLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLpLicense[0].url
-      this.com.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLmIdCardFront[0].url
-      this.com.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLmIdCardBack[0].url
-      this.com.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLmIdCardInHand[0].url
-      this.com.picLogo[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLogo[0].url
+      this.com.picOrgLicense[0].url = this.imgBaseUrl +  this.com.picOrgLicense[0].url
+      this.com.picLpLicense[0].url = this.imgBaseUrl +  this.com.picLpLicense[0].url
+      this.com.picLmIdCardFront[0].url = this.imgBaseUrl +  this.com.picLmIdCardFront[0].url
+      this.com.picLmIdCardBack[0].url = this.imgBaseUrl +  this.com.picLmIdCardBack[0].url
+      this.com.picLmIdCardInHand[0].url = this.imgBaseUrl +  this.com.picLmIdCardInHand[0].url
+      this.com.picLogo[0].url = this.imgBaseUrl +  this.com.picLogo[0].url
     }
 
     this.userType = window.sessionStorage.getItem('userType')
@@ -827,7 +827,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.com.picOrgLicense.push(arro)
       }
     },
@@ -848,7 +848,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.com.picLpLicense.push(arro)
       }
     },
@@ -869,7 +869,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.com.picLmIdCardFront.push(arro)
       }
     },
@@ -890,7 +890,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.com.picLmIdCardBack.push(arro)
       }
     },
@@ -911,7 +911,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.com.picLmIdCardInHand.push(arro)
       }
     },
@@ -933,7 +933,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.com.picLogo.push(arro)
       }
     },
@@ -1172,12 +1172,12 @@ export default {
           message: '保存成功',
           type: 'success'
         });
-        this.com.picOrgLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picOrgLicense[0].url
-        this.com.picLpLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLpLicense[0].url
-        this.com.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLmIdCardFront[0].url
-        this.com.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLmIdCardBack[0].url
-        this.com.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLmIdCardInHand[0].url
-        this.com.picLogo[0].url = this.imgBaseUrl + '/jmrhupload/' + this.com.picLogo[0].url
+        this.com.picOrgLicense[0].url = this.imgBaseUrl +  this.com.picOrgLicense[0].url
+        this.com.picLpLicense[0].url = this.imgBaseUrl +  this.com.picLpLicense[0].url
+        this.com.picLmIdCardFront[0].url = this.imgBaseUrl +  this.com.picLmIdCardFront[0].url
+        this.com.picLmIdCardBack[0].url = this.imgBaseUrl +  this.com.picLmIdCardBack[0].url
+        this.com.picLmIdCardInHand[0].url = this.imgBaseUrl +  this.com.picLmIdCardInHand[0].url
+        this.com.picLogo[0].url = this.imgBaseUrl +  this.com.picLogo[0].url
       } else {
         this.$message({
           message: data.message,

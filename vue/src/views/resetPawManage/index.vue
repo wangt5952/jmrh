@@ -113,7 +113,7 @@ export default {
       } = await lookAdminPwd(objA)
       if (success) {
         this.$message({
-          message: '修改成功',
+          message: message,
           type: 'success'
         });
         this.$router.push({
@@ -121,7 +121,7 @@ export default {
         })
       } else {
         this.$message({
-          message: data,
+          message: message,
           type: 'error'
         });
       }

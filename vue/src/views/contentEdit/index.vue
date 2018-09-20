@@ -188,7 +188,6 @@ import {
   getToken,
 } from '@/utils/auth'
 
-import idback from '@/assets/logo/idback.png'
 export default {
   components: {
     // Tinymce
@@ -209,8 +208,7 @@ export default {
           const formData = new FormData()
           formData.append('file', blobInfo.blob())
           uploadCategory(formData, '1').then(res => {
-            debugger
-            success(Vue.prototype.imgBaseUrl+"/jmrhupload" + res.data.savePath)
+            success(Vue.prototype.imgBaseUrl+ res.data.savePath)
           }).catch(() => {
             failure('上传失败，请重新上传')
           })
@@ -270,7 +268,7 @@ export default {
         cover: '',
         covers: [{
           name: '默认',
-          url: idback
+          url: this.imgBaseUrl + `def/topiccover.png`
         }],
         tags: '',
         description: '',
@@ -331,7 +329,7 @@ export default {
       debugger
       let obj = {
         name: data.fileName,
-        url: this.imgBaseUrl+"/jmrhupload" + data.savePath
+        url: this.imgBaseUrl+ data.savePath
       }
       this.content.covers.push(obj)
     },
@@ -349,7 +347,7 @@ export default {
       this.content.publishDate = myFilter(data.publishDate)
       this.content.covers = [{
         name: 'name.jpg',
-        url: data.cover
+        url: this.imgBaseUrl + data.cover
       }] //封面赋值显示仅仅
       this.loadgetLeafNodes()
     },
@@ -372,6 +370,15 @@ export default {
       } else {
         if (!this.validata.validacontent2(this.content)) return
       }
+
+
+      let coversarr = this.content.covers[0].url
+      if (coversarr.indexOf('/cover/') > -1) {
+        this.content.covers[0].url = coversarr.substring(coversarr.indexOf('/cover/') + 1, coversarr.length)
+      } else {
+        this.content.covers[0].url = coversarr.substring(coversarr.indexOf('/def/') + 1, coversarr.length)
+      }
+
       let arr = {}
       arr = this.content
       arr.checkStatus = checkStatus
@@ -385,7 +392,11 @@ export default {
           message: '保存成功',
           type: 'success'
         });
-        this.dialogFormVisible = false
+
+        this.content.covers = [{
+          name: 'name.jpg',
+          url: this.imgBaseUrl + this.content.covers[0].url
+        }] //封面赋值显示仅仅
       } else {
         this.$message({
           message: data.message,
@@ -425,55 +436,6 @@ export default {
     },
 
 
-    async handleEdit(item, type) {
-      if (type === 'edit') {
-        this.loadgetLeafNodes()
-        this.title = '编辑内容'
-        this.dialogFormVisible = true
-        let {
-          data,
-          success
-        } = await getCategoryC(item.id)
-        var myFilter = Vue.filter('formatTime')
-        this.content = data
-        this.content.publishDate = myFilter(data.publishDate)
-      } else if (type === 'add') {
-        this.loadgetLeafNodes()
-        this.title = '添加内容'
-        this.show = false
-        this.dialogFormVisible = true
-      } else if (type === 'show') {
-        let {
-          data,
-          success
-        } = await getCategoryC(item.id)
-        this.content = data
-        this.dialogFormVisible = true
-        this.show = true
-        this.title = '查看内容详情'
-
-      }
-    },
-    delObj(item) {
-      this.$confirm('此操作将删除该记录, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(async () => {
-        let del = await delCategoryC(item)
-        this.list.splice(this.list.indexOf(item), 1)
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-        });
-        // this.splice(data.id, 1);
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        });
-      });
-    },
 
 
   }

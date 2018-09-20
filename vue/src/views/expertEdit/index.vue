@@ -382,19 +382,19 @@ export default {
       expert: {
         picLmIdCardFront: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+          url: this.imgBaseUrl + `def/idfront.png`
         }],
         picLmIdCardBack: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
+          url: this.imgBaseUrl + `def/idback.png`
         }],
         picLmIdCardInHand: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/handPhoto.jpg`
+          url: this.imgBaseUrl + `def/handPhoto.jpg`
         }],
         picLogo: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/livePhoto.jpg`
+          url: this.imgBaseUrl + `def/livePhoto.jpg`
         }],
         name: '',
         sex: '',
@@ -437,10 +437,10 @@ export default {
     if (this.$route.params.objData) {
       this.expert = JSON.parse(this.$route.params.objData)
 
-      this.expert.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLmIdCardFront[0].url
-      this.expert.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLmIdCardBack[0].url
-      this.expert.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLmIdCardInHand[0].url
-      this.expert.picLogo[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLogo[0].url
+      this.expert.picLmIdCardFront[0].url = this.imgBaseUrl +  this.expert.picLmIdCardFront[0].url
+      this.expert.picLmIdCardBack[0].url = this.imgBaseUrl +  this.expert.picLmIdCardBack[0].url
+      this.expert.picLmIdCardInHand[0].url = this.imgBaseUrl +  this.expert.picLmIdCardInHand[0].url
+      this.expert.picLogo[0].url = this.imgBaseUrl +  this.expert.picLogo[0].url
 
 
       if (!this.expert.picLmIdCardFront) {
@@ -483,7 +483,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.expert.picLmIdCardFront.push(arro)
       }
     },
@@ -504,7 +504,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.expert.picLmIdCardBack.push(arro)
       }
     },
@@ -525,7 +525,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.expert.picLmIdCardInHand.push(arro)
       }
     },
@@ -546,7 +546,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.expert.picLogo.push(arro)
       }
     },
@@ -640,10 +640,10 @@ export default {
           message: '保存成功',
           type: 'success'
         });
-        this.expert.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLmIdCardFront[0].url
-        this.expert.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLmIdCardBack[0].url
-        this.expert.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLmIdCardInHand[0].url
-        this.expert.picLogo[0].url = this.imgBaseUrl + '/jmrhupload/' + this.expert.picLogo[0].url
+        this.expert.picLmIdCardFront[0].url = this.imgBaseUrl +  this.expert.picLmIdCardFront[0].url
+        this.expert.picLmIdCardBack[0].url = this.imgBaseUrl +  this.expert.picLmIdCardBack[0].url
+        this.expert.picLmIdCardInHand[0].url = this.imgBaseUrl +  this.expert.picLmIdCardInHand[0].url
+        this.expert.picLogo[0].url = this.imgBaseUrl +  this.expert.picLogo[0].url
         this.dialogFormVisible = false
       } else {
         this.$message({

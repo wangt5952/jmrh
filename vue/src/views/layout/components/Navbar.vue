@@ -115,6 +115,8 @@ export default {
   },
   methods: {
     async savePaw(obj) {
+
+      if (!this.validata.validachangePWD(obj)) return
       if(obj.newPassword != obj.rePassword){
         Message({
           message: '两次密码输入不一致！',
@@ -122,6 +124,7 @@ export default {
         })
         return
       }
+
       let {
         message,
         success

@@ -4,7 +4,7 @@ import request from '@/utils/request'
 export function getAllrole(data) {
   return request({
     //url: '/user/login',
-    url: '/xtcx/sysManager/role/page?pageNum='+data.page+'&pageSize='+data.limit,
+    url: '/sysManager/role/page?pageNum='+data.page+'&pageSize='+data.limit,
     method: 'post',
     data
   });
@@ -12,14 +12,14 @@ export function getAllrole(data) {
 
 export function addRole(data) {
   return request({
-    url: '/xtcx/sysManager/role',
+    url: '/sysManager/role',
     method: 'post',
     data
   });
 }
 export function saveRoleMenus(data) {
   return request({
-    url: '/xtcx/sysManager/role',
+    url: '/sysManager/role',
     method: 'post',
     data
   });
@@ -33,7 +33,7 @@ export function getRoleId(id) {//用户详情
 }
 export function delRole(id) {
   return request({
-    url: '/xtcx/sysManager/role?id='+id,
+    url: '/sysManager/role?id='+id,
     method: 'delete',
 
   });

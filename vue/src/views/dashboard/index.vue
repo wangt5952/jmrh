@@ -106,7 +106,9 @@
                 <div v-show="formTypeShow == 1 && comLibrarycheckStatus != 0" class="" style="flex:1;text-align: right;padding-right:20px;">
                   <el-button style=" padding: 5px;font-size: 12px;" @click="TouserDetail" type="primary">查看/编辑</el-button>
                 </div>
-
+                <div v-show="formTypeShow == 1 && comLibrarycheckStatus == 0" class="" style="flex:1;text-align: right;padding-right:20px;">
+                  <el-button style=" padding: 5px;font-size: 12px;" @click="TouserDetail" type="primary">查看</el-button>
+                </div>
               </div>
             </div>
 
@@ -262,10 +264,13 @@
                 <div v-show="!formTypeShow" class="">
                   <el-button style=" padding: 5px;font-size: 12px;" @click="TouserDetail" type="primary">加入平台</el-button>
                 </div>
-                <div v-show="formTypeShow == 2" class="" style="flex:1;text-align: right;padding-right:20px;">
+                <div v-show="formTypeShow == 2 && comLibrarycheckStatus != 0" class="" style="flex:1;text-align: right;padding-right:20px;">
                   <el-button style=" padding: 5px;font-size: 12px;" @click="TouserDetail" type="primary">查看/编辑</el-button>
                 </div>
 
+                <div v-show="formTypeShow == 2 && comLibrarycheckStatus == 0" class="" style="flex:1;text-align: right;padding-right:20px;">
+                  <el-button style=" padding: 5px;font-size: 12px;" @click="TouserDetail" type="primary">查看</el-button>
+                </div>
               </div>
             </div>
             <div class=" bg" style="height: 150px;width:100%;margin-top:15px">
@@ -459,10 +464,13 @@
                 <div v-show="!formTypeShow" class="">
                   <el-button style=" padding: 5px;font-size: 12px;" @click="TouserDetail" type="primary">加入平台</el-button>
                 </div>
-                <div v-show="formTypeShow == 3" class="" style="flex:1;text-align: right;padding-right:20px;">
+                <div v-show="formTypeShow == 3 && comLibrarycheckStatus != 0" class="" style="flex:1;text-align: right;padding-right:20px;">
                   <el-button style=" padding: 5px;font-size: 12px;" @click="TouserDetail" type="primary">查看/编辑</el-button>
                 </div>
 
+                <div v-show="formTypeShow == 3 && comLibrarycheckStatus == 0" class="" style="flex:1;text-align: right;padding-right:20px;">
+                  <el-button style=" padding: 5px;font-size: 12px;" @click="TouserDetail" type="primary">查看</el-button>
+                </div>
               </div>
             </div>
             <div class=" bg" style="height: 150px;width:100%;margin-top:15px">
@@ -667,10 +675,13 @@
                 <div v-show="!formTypeShow" class="">
                   <el-button style=" padding: 5px;font-size: 12px;" @click="TouserDetail" type="primary">加入平台</el-button>
                 </div>
-                <div v-show="formTypeShow == 4" class="" style="flex:1;text-align: right;padding-right:20px;">
+                <div v-show="formTypeShow == 4 && comLibrarycheckStatus != 0" class="" style="flex:1;text-align: right;padding-right:20px;">
                   <el-button style=" padding: 5px;font-size: 12px;" @click="TouserDetail" type="primary">查看/编辑</el-button>
                 </div>
 
+                <div v-show="formTypeShow == 4 && comLibrarycheckStatus == 0" class="" style="flex:1;text-align: right;padding-right:20px;">
+                  <el-button style=" padding: 5px;font-size: 12px;" @click="TouserDetail" type="primary">查看</el-button>
+                </div>
               </div>
             </div>
             <div class=" bg" style="height: 150px;width:100%;margin-top:15px">

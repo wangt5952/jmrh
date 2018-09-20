@@ -203,27 +203,27 @@ export default {
       school: {
         picOrgLicense: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/companyZZ.png`
+          url: this.imgBaseUrl + `def/companyZZ.png`
         }],
         picLpLicense: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/companyZS.png`
+          url: this.imgBaseUrl + `def/companyZS.png`
         }],
         picLmIdCardFront: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/idfront.png`
+          url: this.imgBaseUrl + `def/idfront.png`
         }],
         picLmIdCardBack: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/idback.png`
+          url: this.imgBaseUrl + `def/idback.png`
         }],
         picLmIdCardInHand: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/handPhoto.jpg`
+          url: this.imgBaseUrl + `def/handPhoto.jpg`
         }],
         picLogo: [{
           name: '默认',
-          url: this.imgBaseUrl + `/jmrhupload/def/qylogo.png`
+          url: this.imgBaseUrl + `def/qylogo.png`
         }],
         lxname: '',
         lxmobile: '',
@@ -244,12 +244,12 @@ export default {
   async mounted() {
     if (this.$route.params.objData) {
       this.school = JSON.parse(this.$route.params.objData)
-      this.school.picOrgLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picOrgLicense[0].url
-      this.school.picLpLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLpLicense[0].url
-      this.school.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLmIdCardFront[0].url
-      this.school.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLmIdCardBack[0].url
-      this.school.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLmIdCardInHand[0].url
-      this.school.picLogo[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLogo[0].url
+      this.school.picOrgLicense[0].url = this.imgBaseUrl + this.school.picOrgLicense[0].url
+      this.school.picLpLicense[0].url = this.imgBaseUrl + this.school.picLpLicense[0].url
+      this.school.picLmIdCardFront[0].url = this.imgBaseUrl + this.school.picLmIdCardFront[0].url
+      this.school.picLmIdCardBack[0].url = this.imgBaseUrl + this.school.picLmIdCardBack[0].url
+      this.school.picLmIdCardInHand[0].url = this.imgBaseUrl + this.school.picLmIdCardInHand[0].url
+      this.school.picLogo[0].url = this.imgBaseUrl + this.school.picLogo[0].url
     }
 
     this.userType = window.sessionStorage.getItem('userType')
@@ -278,7 +278,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.school.picOrgLicense.push(arro)
       }
     },
@@ -299,7 +299,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.school.picLpLicense.push(arro)
       }
     },
@@ -321,7 +321,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.school.picLmIdCardFront.push(arro)
       }
     },
@@ -342,7 +342,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.school.picLmIdCardBack.push(arro)
       }
     },
@@ -364,7 +364,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.school.picLmIdCardInHand.push(arro)
       }
     },
@@ -385,7 +385,7 @@ export default {
       if (success) {
         let arro = {}
         arro.name = data.fileName,
-          arro.url = this.imgBaseUrl + `/jmrhupload/user/` + data
+          arro.url = this.imgBaseUrl + `user/` + data
         this.school.picLogo.push(arro)
       }
     },
@@ -535,12 +535,12 @@ export default {
           message: '保存成功',
           type: 'success'
         });
-        this.school.picOrgLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picOrgLicense[0].url
-        this.school.picLpLicense[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLpLicense[0].url
-        this.school.picLmIdCardFront[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLmIdCardFront[0].url
-        this.school.picLmIdCardBack[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLmIdCardBack[0].url
-        this.school.picLmIdCardInHand[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLmIdCardInHand[0].url
-        this.school.picLogo[0].url = this.imgBaseUrl + '/jmrhupload/' + this.school.picLogo[0].url
+        this.school.picOrgLicense[0].url = this.imgBaseUrl + this.school.picOrgLicense[0].url
+        this.school.picLpLicense[0].url = this.imgBaseUrl + this.school.picLpLicense[0].url
+        this.school.picLmIdCardFront[0].url = this.imgBaseUrl + this.school.picLmIdCardFront[0].url
+        this.school.picLmIdCardBack[0].url = this.imgBaseUrl + this.school.picLmIdCardBack[0].url
+        this.school.picLmIdCardInHand[0].url = this.imgBaseUrl + this.school.picLmIdCardInHand[0].url
+        this.school.picLogo[0].url = this.imgBaseUrl + this.school.picLogo[0].url
         this.dialogFormVisible = false
       } else {
         this.$message({

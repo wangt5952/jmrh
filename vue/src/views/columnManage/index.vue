@@ -211,7 +211,6 @@ import {
   getToken,
 } from '@/utils/auth'
 
-import idback from '@/assets/logo/idback.png'
 export default {
   components: {
     treeTable
@@ -241,7 +240,7 @@ export default {
         icon: '',
         icons: [{
           name: '默认',
-          url: idback
+          url: this.imgBaseUrl + `def/categorylogo.png`
         }],
         onlyUrl: 0,
         contentUrl: '',
@@ -310,7 +309,7 @@ export default {
       this.column = obj
       this.column.icons = [{
         name: 'name.jpg',
-        url: obj.icon
+        url: this.imgBaseUrl + obj.icon
       }] //封面赋值显示仅仅
 
       this.dialogsave = true
@@ -323,7 +322,7 @@ export default {
 
           this.column.icons = [{
             name: 'name.jpg',
-            url: item.icon
+            url: this.imgBaseUrl + item.icon
           }] //封面赋值显示仅仅
 
           this.show = true
@@ -339,7 +338,7 @@ export default {
             icon: '',
             icons: [{
               name: '默认',
-              url: idback
+              url:  this.imgBaseUrl + `def/categorylogo.png`
             }],
             onlyUrl: 0,
             contentUrl: '',
@@ -374,7 +373,7 @@ export default {
           icon: '',
           icons: [{
             name: '默认',
-            url: idback
+            url:  this.imgBaseUrl + `def/categorylogo.png`
           }],
           onlyUrl: 0,
           contentUrl: '',
@@ -388,6 +387,15 @@ export default {
     },
     async saveObj() {
       if (!this.validata.validacolumn(this.column)) return
+
+      let icons = this.column.icons[0].url
+      if (icons.indexOf('/cover/') > -1) {
+        this.column.icons[0].url = icons.substring(icons.indexOf('/cover/') + 1, icons.length)
+      } else {
+        this.column.icons[0].url = icons.substring(icons.indexOf('/def/') + 1, icons.length)
+      }
+
+
       if (this.dialogsave) {
         if (this.title == '添加子分类') {
           var {
@@ -417,7 +425,11 @@ export default {
           message: text,
           type: 'success'
         });
-        this.dialogFormVisible = false
+        this.column.icons = [{
+          name: 'name.jpg',
+          url: this.imgBaseUrl +this.column.icons[0].url
+        }] //封面赋值显示仅仅
+
       } else {
         this.$message({
           message: data.message,
@@ -482,9 +494,10 @@ export default {
         data,
         success
       } = await uploadFile(form)
+
       let obj = {
         name: data.fileName,
-        url: this.imgBaseUrl + "/jmrhupload" + data.savePath
+        url: this.imgBaseUrl +  data.savePath
       }
       this.column.icons.push(obj)
     },

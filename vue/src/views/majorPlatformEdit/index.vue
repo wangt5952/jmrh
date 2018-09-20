@@ -82,7 +82,7 @@ export default {
           const formData = new FormData()
           formData.append('file', blobInfo.blob())
           uploadExchanges(formData, '1').then(res => {
-            success(Vue.prototype.imgBaseUrl + "/jmrhupload" + res.data.savePath)
+            success(Vue.prototype.imgBaseUrl +  res.data.savePath)
           }).catch(() => {
             failure('上传失败，请重新上传')
           })
@@ -151,7 +151,7 @@ export default {
   computed: {},
   methods: {
     async subDownloadExchanges(item) {
-      window.open(this.imgBaseUrl + "/jmrhupload" + item.savePath);
+      window.open(this.imgBaseUrl + item.savePath);
     },
     async subDelFile(item) {
       let {
@@ -231,7 +231,7 @@ export default {
       } = await uploadFile(form)
       let obj = {
         name: data.fileName,
-        url: this.imgBaseUrl + "/jmrhupload" + data.savePath
+        url: this.imgBaseUrl + data.savePath
       }
       this.active.covers.push(obj)
     },

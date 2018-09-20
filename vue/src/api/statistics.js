@@ -3,7 +3,7 @@ import request from '@/utils/request'
 
 export function gettjlib(num) {
   return request({
-    url: '/xtcx/data/lib?formType='+num,
+    url: '/data/lib?formType='+num,
     method: 'get',
   });
 }
@@ -11,7 +11,7 @@ export function gettjlib(num) {
 
 export function gettjlibqy(data,num) {
   return request({
-    url: '/xtcx/data/lib?formType='+num,
+    url: '/data/lib?formType='+num,
     method: 'post',
     data
   });
@@ -20,7 +20,7 @@ export function gettjlibqy(data,num) {
 
 export function gettjUser(data) {
   return request({
-    url: '/xtcx/data/user',
+    url: '/data/user',
     method: 'get',
   });
 }
@@ -28,7 +28,7 @@ export function gettjUser(data) {
 
 export function gettjUserqy(data) {
   return request({
-    url: '/xtcx/data/user',
+    url: '/data/user',
     method: 'post',
     data
   });
@@ -36,13 +36,13 @@ export function gettjUserqy(data) {
 
 export function gettjvisiters(data) {
   return request({
-    url: '/xtcx/data/visiters',
+    url: '/data/visiters',
     method: 'get',
   });
 }
 export function gettjmeeting(data) {
   return request({
-    url: '/xtcx/data/meeting',
+    url: '/data/meeting',
     method: 'get',
   });
 }

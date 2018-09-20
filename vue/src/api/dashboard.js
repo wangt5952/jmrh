@@ -3,14 +3,14 @@ import request from '@/utils/request'
 
 export function getSubmitLibSum(data) {
   return request({
-    url: '/xtcx/lib/getSubmitLibSum',
+    url: '/lib/getSubmitLibSum',
     method: 'get',
 
   });
 }
 export function getSubmitLib(data) {
   return request({
-    url: '/xtcx/lib/getSubmitLib',
+    url: '/lib/getSubmitLib',
     method: 'get',
 
   });
@@ -18,7 +18,7 @@ export function getSubmitLib(data) {
 
 export function getMyTaskSum(data) {
   return request({
-    url: '/xtcx/category/getMyTaskSum',
+    url: '/category/getMyTaskSum',
     method: 'get',
 
   });
@@ -27,7 +27,7 @@ export function getMyTaskSum(data) {
 
 export function getSubmitCmsSum(data) {
   return request({
-    url: '/xtcx/exchanges/getSubmitCmsSum',
+    url: '/exchanges/getSubmitCmsSum',
     method: 'get',
 
   });

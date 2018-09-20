@@ -3,7 +3,7 @@ import request from '@/utils/request'
 
 export function getMeeting(data) {
   return request({
-    url: '/xtcx/meeting/userpage',
+    url: '/meeting/userpage',
     method: 'post',
     data
   });
@@ -12,7 +12,7 @@ export function getMeeting(data) {
 
 export function saveMeeting(data) {
   return request({
-    url: '/xtcx/meeting/reapply',
+    url: '/meeting/reapply',
     method: 'put',
     data
   });
@@ -21,7 +21,7 @@ export function saveMeeting(data) {
 
 export function getMeetingC(id) {//获取详情
   return request({
-    url: '/xtcx/meeting?id='+id,
+    url: '/meeting?id='+id,
     method: 'get'
   });
 }
@@ -29,7 +29,7 @@ export function getMeetingC(id) {//获取详情
 
 export function rejectrefuse(data) {//拒绝
   return request({
-    url: '/xtcx/refuse',
+    url: '/refuse',
     method: 'post',
     data
   });
@@ -38,7 +38,7 @@ export function rejectrefuse(data) {//拒绝
 
 export function rejectagree(data) {//同意
   return request({
-    url: '/xtcx/agree',
+    url: '/agree',
     method: 'post',
     data
   });

@@ -21,18 +21,31 @@
 
       <el-col :span="10">
 
-        <el-form-item label="邮箱">
-          <el-input placeholder="请输入邮箱" v-model="per.email" style="width:80%"></el-input>
+        <el-form-item label="是否修改邮箱">
+          <el-switch
+            v-model="per.needModifyEmail" >
+          </el-switch>
         </el-form-item>
 
-        <el-form-item label="">
+        <el-form-item label="邮箱">
+          <el-input :disabled = !per.needModifyEmail placeholder="请输入邮箱" v-model="per.email" style="width:80%"></el-input>
+        </el-form-item>
+
+        <el-form-item v-show="per.needModifyEmail" label="">
           <el-input v-model="per.code1" placeholder="请输入邮箱验证码" style="width:230px">13</el-input>
           <el-button type="primary" @click="sendcode(0)" :disabled="isDisabled1">{{buttonName1}}</el-button>
         </el-form-item>
-        <el-form-item label="手机号">
-          <el-input placeholder="请输入手机号" v-model="per.cellphone" style="width:80%"></el-input>
+
+        <el-form-item label="是否修改手机号">
+          <el-switch
+            v-model="per.needModifyMobile" >
+          </el-switch>
         </el-form-item>
-        <el-form-item label="">
+
+        <el-form-item label="手机号">
+          <el-input :disabled = !per.needModifyMobile placeholder="请输入手机号" v-model="per.cellphone" style="width:80%"></el-input>
+        </el-form-item>
+        <el-form-item v-show="per.needModifyMobile" label="">
           <el-input v-model="per.code2" placeholder="请输入邮箱验证码" style="width:230px">13</el-input>
           <el-button type="primary" @click="sendcode(1)" :disabled="isDisabled2">{{buttonName2}}</el-button>
         </el-form-item>
@@ -69,15 +82,19 @@ import {
 export default {
   data() {
     return {
+      needModifyEmail: false,
+      needModifyMobile: false,
       listLoading: true,
       titleName: '',
       buttonName1: "获取邮箱验证码",
       buttonName2: "获取手机验证码",
       isDisabled1: false,
       isDisabled2: false,
-      time1: 10,
-      time2: 10,
+      time1: 60,
+      time2: 60,
       per: {
+        needModifyEmail: false,
+        needModifyMobile: false,
         name: '',
         userName: '',
         email: '',
@@ -92,6 +109,9 @@ export default {
     this.listLoading = false
     this.titleName = '基础资料完善'
     this.loadPageList()
+    // if (this.userType == '1' || this.userType == '2' || this.userType == '3' || this.userType == '4') {
+    //   // this.needModifyEmail = true
+    // }
   },
   computed: {},
   methods: {
@@ -117,7 +137,7 @@ export default {
           --me.time1;
           if (me.time1 < 0) {
             me.buttonName1 = "重新发送";
-            me.time1 = 10;
+            me.time1 = 60;
             me.isDisabled1 = false;
             window.clearInterval(interval);
           }
@@ -125,7 +145,6 @@ export default {
 
         let obj = {}
         obj.email = this.per.email
-        debugger
         const {
           message,
           success
@@ -149,7 +168,7 @@ export default {
           --me.time2;
           if (me.time2 < 0) {
             me.buttonName2 = "重新发送";
-            me.time2 = 10;
+            me.time2 = 60;
             me.isDisabled2 = false;
             window.clearInterval(interval);
           }
@@ -178,10 +197,11 @@ export default {
     },
     async saveCreate(obj) {
       let aobj = {}
+      aobj = obj
       aobj.id = obj.id
       aobj.userName = obj.userName
       aobj.cellphone = obj.cellphone
-      // if (!this.validata.validaRole(obj)) return
+      if (!this.validata.validaUserBaseDetail(obj)) return
       let {
         data,
         success,

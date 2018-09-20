@@ -80,7 +80,7 @@
         <span v-if="scope.row.status =='0'">禁用</span>
                     </template>
     </el-table-column>
-    <el-table-column v-if="userType =='0'" align="center" label="操作">
+    <el-table-column v-if="userType =='0'  || userType =='101' " align="center" label="操作">
       <template slot-scope="scope">
                     <div style="margin:2% 2% 2% 2%">
                         <el-button size="small" v-if="scope.row.status =='0'" @click="handleEdit(scope.row,'1')" type="" style="border-radius: 5px;">开启</el-button>

@@ -4,21 +4,21 @@ import request from '@/utils/request'
 
 export function getUser(data) {
   return request({
-    url: '/xtcx/sysManager/user/page?pageNum='+data.page+'&pageSize='+data.limit,
+    url: '/sysManager/user/page?pageNum='+data.page+'&pageSize='+data.limit,
     method: 'post',
     data
   });
 }
 export function addUser(data) {
   return request({
-    url: '/xtcx/sysManager/user',
+    url: '/sysManager/user',
     method: 'post',
     data
   });
 }
 export function setUserStatus(data) {
   return request({
-    url: '/xtcx/sysManager/sysuser/status',
+    url: '/sysManager/sysuser/status',
     method: 'put',
     data
   });
@@ -26,7 +26,7 @@ export function setUserStatus(data) {
 
 export function saveUser(data) {
   return request({
-    url: '/xtcx/sysManager/user',
+    url: '/sysManager/user',
     method: 'put',
     data
   });
@@ -39,7 +39,7 @@ export function getUserId(id) {//用户详情
 }
 export function delUser(id) {
   return request({
-    url: '/xtcx/sysManager/user?id='+id,
+    url: '/sysManager/user?id='+id,
     method: 'delete',
 
   });
