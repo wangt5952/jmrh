@@ -11,11 +11,11 @@ import validate from './utils/validate' // 验证
 import jsPlumb from 'jsplumb'
 import VueAreaLinkage from 'vue-area-linkage';
 //全局变量
-// Vue.prototype.imgBaseUrl = 'http://106.14.172.38:8990/jmrhupload/';
-// Vue.prototype.docUrl = 'http://106.14.172.38:8080';
+Vue.prototype.imgBaseUrl = 'http://106.14.172.38:8990/jmrhupload/';
+Vue.prototype.docUrl = 'http://106.14.172.38:8080';
 
-Vue.prototype.imgBaseUrl = 'http://127.0.0.1:9990/upload/';
-Vue.prototype.docUrl = 'http://127.0.0.1:9990';
+// Vue.prototype.imgBaseUrl = 'http://127.0.0.1:9990/upload/';
+// Vue.prototype.docUrl = 'http://127.0.0.1:9990';
 
 // Vue.prototype.imgBaseUrl = 'http://127.0.0.1:9009/upload/';
 // Vue.prototype.docUrl = 'http://127.0.0.1:9009';

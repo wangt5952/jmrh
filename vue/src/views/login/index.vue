@@ -175,13 +175,19 @@ export default {
         }]
       },
       loading: false,
-      pwdType: 'password'
+      pwdType: 'password',
+      callbackUrl: ''
     }
   },
   created() {
     this.keyupSubmit()
-  },
 
+  },
+  mounted() {
+    if (this.$route.query.callback) {
+      this.callbackUrl = this.$route.query.callback
+    }
+  },
   methods: {
     keyupSubmit() {
       document.onkeydown = e => {
@@ -254,64 +260,64 @@ export default {
     forload(treeData) {
       let userType = window.sessionStorage.getItem('userType')
       for (let i = 0; i < treeData.length; i++) {
-          if (treeData[i].children && treeData[i].children.length > 0 && treeData[i].leaf == false) { //有下级
-            treeData[i].meta = {
-              title: treeData[i].label,
-              icon: 'tree'
-            }
-            treeData[i].path = '/' + treeData[i].menuUrl
-            treeData[i].leaf = false
-            treeData[i].component = treeData[i].menuUrl
-            if (treeData[i].isMenu == "1") { //有下级 第一个菜单
-              treeData[i].component = 'layout'
-              treeData[i].redirect = '/' + treeData[i].menuUrl + '/' + treeData[i].children[0].menuUrl + ''
-            }
-
-            if(userType != '0' && userType != '101' && treeData[i].menuUrl != 'dashboard') treeData[i].hidden = true
-
-          } else if (treeData[i].leaf == true && treeData[i].isMenu == "1"&& treeData[i].sortOrder != 9999 && treeData[i].menuLevel != 1) {
-            treeData[i].meta = {
-              title: treeData[i].label,
-              icon: 'table'
-            }
-            treeData[i].path = treeData[i].menuUrl
-            treeData[i].leaf = true
-            if(userType != '0' && userType != '101') treeData[i].hidden = true
-
-            treeData[i].component = treeData[i].menuUrl
-            treeData[i].children = []
-          }  else if (treeData[i].leaf == true && treeData[i].isMenu == "1"&& treeData[i].sortOrder == 9999 && treeData[i].menuLevel != 1) {
-            treeData[i].meta = {
-              title: treeData[i].label,
-              icon: 'table'
-            }
-            treeData[i].path = treeData[i].menuUrl
-            treeData[i].name = treeData[i].menuUrl
-            treeData[i].leaf = true
-            treeData[i].hidden = true
-            treeData[i].component = treeData[i].menuUrl
-            treeData[i].children = []
-          } else if (treeData[i].menuLevel == 1 && treeData[i].isMenu == "1" && treeData[i].leaf == true) { //第一层菜单无下级生成一个
-            let chil = {}
-            chil.meta = {
-              title: treeData[i].label,
-              icon: 'table'
-            }
-            chil.path = treeData[i].menuUrl
-            chil.leaf = true
-            chil.component = treeData[i].menuUrl
-            treeData[i].children = []
-            treeData[i].children.push(chil)
-
-            treeData[i].path = '/index'
-            treeData[i].leaf = false
+        if (treeData[i].children && treeData[i].children.length > 0 && treeData[i].leaf == false) { //有下级
+          treeData[i].meta = {
+            title: treeData[i].label,
+            icon: 'tree'
+          }
+          treeData[i].path = '/' + treeData[i].menuUrl
+          treeData[i].leaf = false
+          treeData[i].component = treeData[i].menuUrl
+          if (treeData[i].isMenu == "1") { //有下级 第一个菜单
             treeData[i].component = 'layout'
+            treeData[i].redirect = '/' + treeData[i].menuUrl + '/' + treeData[i].children[0].menuUrl + ''
           }
-          if(treeData[i].children){
-            treeData[i].children = this.forload(treeData[i].children)
-          }else{
-            continue
+
+          if (userType != '0' && userType != '101' && treeData[i].menuUrl != 'dashboard') treeData[i].hidden = true
+
+        } else if (treeData[i].leaf == true && treeData[i].isMenu == "1" && treeData[i].sortOrder != 9999 && treeData[i].menuLevel != 1) {
+          treeData[i].meta = {
+            title: treeData[i].label,
+            icon: 'table'
           }
+          treeData[i].path = treeData[i].menuUrl
+          treeData[i].leaf = true
+          if (userType != '0' && userType != '101') treeData[i].hidden = true
+
+          treeData[i].component = treeData[i].menuUrl
+          treeData[i].children = []
+        } else if (treeData[i].leaf == true && treeData[i].isMenu == "1" && treeData[i].sortOrder == 9999 && treeData[i].menuLevel != 1) {
+          treeData[i].meta = {
+            title: treeData[i].label,
+            icon: 'table'
+          }
+          treeData[i].path = treeData[i].menuUrl
+          treeData[i].name = treeData[i].menuUrl
+          treeData[i].leaf = true
+          treeData[i].hidden = true
+          treeData[i].component = treeData[i].menuUrl
+          treeData[i].children = []
+        } else if (treeData[i].menuLevel == 1 && treeData[i].isMenu == "1" && treeData[i].leaf == true) { //第一层菜单无下级生成一个
+          let chil = {}
+          chil.meta = {
+            title: treeData[i].label,
+            icon: 'table'
+          }
+          chil.path = treeData[i].menuUrl
+          chil.leaf = true
+          chil.component = treeData[i].menuUrl
+          treeData[i].children = []
+          treeData[i].children.push(chil)
+
+          treeData[i].path = '/index'
+          treeData[i].leaf = false
+          treeData[i].component = 'layout'
+        }
+        if (treeData[i].children) {
+          treeData[i].children = this.forload(treeData[i].children)
+        } else {
+          continue
+        }
       }
       return treeData
     },
@@ -328,9 +334,24 @@ export default {
           let bbb = this.forload(treeData)
           this.login(bbb)
           this.$router.addRoutes(routers)
-          this.$router.push({
-            path: '/'
-          })
+          // window.sessionStorage.setItem('checkStatus',data.checkStatus)
+          // window.sessionStorage.setItem('userName', data.userName)
+          // window.sessionStorage.setItem('userId', data.userId)
+          // window.sessionStorage.setItem('userType', data.userType)
+          // window.sessionStorage.setItem('cellphone', data.cellphone)
+          // window.sessionStorage.setItem('email', data.email)
+          // window.sessionStorage.setItem('orgType', data.orgType)
+          if(this.callbackUrl != ''){
+            let url = "https://"+this.callbackUrl+"?token="+window.sessionStorage.getItem('token')+"&checkStatus="+window.sessionStorage.getItem('checkStatus')+"&userName="+window.sessionStorage.getItem('userName')+"&userId="+window.sessionStorage.getItem('userId')+"&userType="+window.sessionStorage.getItem('userType')+"&cellphone="+window.sessionStorage.getItem('cellphone')+"&email="+window.sessionStorage.getItem('email')+"&orgType="+window.sessionStorage.getItem('orgType')
+debugger
+            window.location.href = url
+          }else{
+            this.$router.push({
+              path: '/'
+            })
+          }
+
+
         } else {
           this.$message({
             message: this.$store.getters.message,

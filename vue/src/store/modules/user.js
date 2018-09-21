@@ -55,6 +55,9 @@ const user = {
             window.sessionStorage.setItem('userName', data.userName)
             window.sessionStorage.setItem('userId', data.userId)
             window.sessionStorage.setItem('userType', data.userType)
+            window.sessionStorage.setItem('cellphone', data.cellphone)
+            window.sessionStorage.setItem('email', data.email)
+            window.sessionStorage.setItem('orgType', data.orgType)
           } else {
             commit('SET_MES', response.message)
           }
