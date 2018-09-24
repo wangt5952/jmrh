@@ -542,6 +542,7 @@ export default {
         this.school.picLmIdCardInHand[0].url = this.imgBaseUrl + this.school.picLmIdCardInHand[0].url
         this.school.picLogo[0].url = this.imgBaseUrl + this.school.picLogo[0].url
         this.dialogFormVisible = false
+          window.history.go(-1);
       } else {
         this.$message({
           message: data.message,

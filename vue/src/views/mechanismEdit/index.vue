@@ -971,6 +971,7 @@ export default {
         this.mech.picLmIdCardBack[0].url = this.imgBaseUrl +  this.mech.picLmIdCardBack[0].url
         this.mech.picLmIdCardInHand[0].url = this.imgBaseUrl +  this.mech.picLmIdCardInHand[0].url
         this.mech.picLogo[0].url = this.imgBaseUrl +  this.mech.picLogo[0].url
+          window.history.go(-1);
       } else {
         this.$message({
           message: data.message,

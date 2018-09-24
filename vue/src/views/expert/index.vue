@@ -113,7 +113,7 @@
     <el-table-column v-if="tfcheckStatus == 1" align="center" label="发布人" width="100">
       <template slot-scope="scope">
                         <span>
-                            {{ scope.row.form.creater}}</span>
+                            {{ scope.row.creater}}</span>
                     </template>
     </el-table-column>
 
@@ -328,7 +328,7 @@
               </el-option>
               <el-option label="4" key="4" value="4">
               </el-option>
-              <el-option label="5" key="5" value="4">
+              <el-option label="5" key="5" value="5">
               </el-option>
             </el-select>
           </el-form-item>
@@ -571,6 +571,7 @@ export default {
           success
         } = await PLrejectUserDetail(arr)
         if (success) {
+            this.dialogShowSH =false
           this.$message({
             message: '保存成功',
             type: 'success'

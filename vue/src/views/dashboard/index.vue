@@ -355,13 +355,13 @@
               发布成果</h3>
             <div class="" style="display:flex;justify-content:center; align-items:Center;">
               <div class="" style="flex:4;padding: 10px;">
-                <div @click="Todemand('achieveLibrary','1')" class="" style="cursor: pointer;">
+                <div @click="Todemand('achieveLibrary',1)" class="" style="cursor: pointer;">
                   <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span style="color: #409EFF;">{{achievepassNums|| 0}}</span>
                 </div>
-                <div @click="Todemand('achieveLibrary','2')" class="" style="cursor: pointer;margin-top:15px">
+                <div @click="Todemand('achieveLibrary',2)" class="" style="cursor: pointer;margin-top:15px">
                   <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span style="color: #409EFF;">{{achievebhNums|| 0}}</span>
                 </div>
-                <div @click="Todemand('achieveLibrary','0')" class="" style="cursor: pointer;margin-top:15px">
+                <div @click="Todemand('achieveLibrary',0)" class="" style="cursor: pointer;margin-top:15px">
                   <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span style="color: #409EFF;">{{achieveshNums|| 0}}</span>
                 </div>
               </div>
@@ -555,13 +555,13 @@
               发布成果</h3>
             <div class="" style="display:flex;justify-content:center; align-items:Center;">
               <div class="" style="flex:4;padding: 10px;">
-                <div @click="Todemand('achieveLibrary','1')" class="" style="cursor: pointer;">
+                <div @click="Todemand('achieveLibrary',1)" class="" style="cursor: pointer;">
                   <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span style="color: #409EFF;">{{achievepassNums|| 0}}</span>
                 </div>
-                <div @click="Todemand('achieveLibrary','2')" class="" style="cursor: pointer;margin-top:15px">
+                <div @click="Todemand('achieveLibrary',2)" class="" style="cursor: pointer;margin-top:15px">
                   <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span style="color: #409EFF;">{{achievebhNums|| 0}}</span>
                 </div>
-                <div @click="Todemand('achieveLibrary','0')" class="" style="cursor: pointer;margin-top:15px">
+                <div @click="Todemand('achieveLibrary',0)" class="" style="cursor: pointer;margin-top:15px">
                   <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span style="color: #409EFF;">{{achieveshNums|| 0}}</span>
                 </div>
               </div>
@@ -767,13 +767,13 @@
               发布成果</h3>
             <div class="" style="display:flex;justify-content:center; align-items:Center;">
               <div class="" style="flex:4;padding: 10px;">
-                <div @click="Todemand('achieveLibrary','1')" class="" style="cursor: pointer;">
+                <div @click="Todemand('achieveLibrary',1)" class="" style="cursor: pointer;">
                   <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span style="color: #409EFF;">{{achievepassNums|| 0}}</span>
                 </div>
-                <div @click="Todemand('achieveLibrary','2')" class="" style="cursor: pointer;margin-top:15px">
+                <div @click="Todemand('achieveLibrary',2)" class="" style="cursor: pointer;margin-top:15px">
                   <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span style="color: #409EFF;">{{achievebhNums || 0}}</span>
                 </div>
-                <div @click="Todemand('achieveLibrary','0')" class="" style="cursor: pointer;margin-top:15px">
+                <div @click="Todemand('achieveLibrary',0)" class="" style="cursor: pointer;margin-top:15px">
                   <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span style="color: #409EFF;">{{achieveshNums|| 0}}</span>
                 </div>
               </div>
@@ -1122,22 +1122,22 @@ export default {
           }
 
 
-          if (data[i].formType == 6 && data[i].checkStatus == 0) {
+          if (data[i].formType == 7 && data[i].checkStatus == 0) {
             this.demandshNums = data[i].count
           }
-          if (data[i].formType == 6 && data[i].checkStatus == 1) {
+          if (data[i].formType == 7 && data[i].checkStatus == 1) {
             this.demandpassNums = data[i].count
           }
-          if (data[i].formType == 6 && data[i].checkStatus == 2) {
+          if (data[i].formType == 7 && data[i].checkStatus == 2) {
             this.demandbhNums = data[i].count
           }
-          if (data[i].formType == 7 && data[i].checkStatus == 0) {
+          if (data[i].formType == 6 && data[i].checkStatus == 0) {
             this.achieveshNums = data[i].count
           }
-          if (data[i].formType == 7 && data[i].checkStatus == 1) {
+          if (data[i].formType == 6 && data[i].checkStatus == 1) {
             this.achievepassNums = data[i].count
           }
-          if (data[i].formType == 7 && data[i].checkStatus == 2) {
+          if (data[i].formType == 6 && data[i].checkStatus == 2) {
             this.achievebhNums = data[i].count
           }
 

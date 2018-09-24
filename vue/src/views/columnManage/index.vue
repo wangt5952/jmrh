@@ -416,6 +416,8 @@ export default {
         } = await postCategory(this.column)
       }
       if (success) {
+
+        this.dialogFormVisible = false
         let text
         this.dialogsave ? text = '保存成功' : text = '添加成功'
         if (this.title == '添加子分类') text = '添加成功'

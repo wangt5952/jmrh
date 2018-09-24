@@ -41,12 +41,14 @@ service.interceptors.response.use(
           })
         })
       }
-      if (res.code !== 10000) {
+
+      if (res.code !== 10000 && !(response.config.url.indexOf('importLibExcel') > -1)) {
         Message({
           message: res.message,
           type: 'error',
           duration: 5 * 1000
         })
+
       }
     // if (res.code !== 20000) {
     //   Message({

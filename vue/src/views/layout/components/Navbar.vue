@@ -3,7 +3,7 @@
   <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
   <el-dropdown class="avatar-container" trigger="click">
     <div class="avatar-wrapper">
-      <img class="user-avatar" :src="avatar+'?imageView2/1/w/80/h/80'">
+      <img class="user-avatar" :src=livePhoto>
     </div>
     <el-dropdown-menu class="user-dropdown" slot="dropdown">
       <router-link class="inlineBlock" to="/">
@@ -68,6 +68,7 @@ import {
   mapGetters
 } from 'vuex'
 import Hamburger from '@/components/Hamburger'
+import livePhoto from '@/assets/logo/livePhoto.jpg'
 import {
   resetPwd,
   sendCellphoneCode
@@ -81,7 +82,7 @@ export default {
 
   data() {
     return {
-      avatar: 'http://77g1mh.com1.z0.glb.clouddn.com/5753c62386f39448cf77608db4081b3a',
+      livePhoto,
       name: '',
       dialogFormVisible: false,
       obj: {

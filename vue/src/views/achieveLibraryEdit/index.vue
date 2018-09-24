@@ -18,7 +18,7 @@
               </el-form-item>
               <el-form-item label="统一社会信用代码">
                 <span style='position: absolute;left: -130px;color: #f60d0d;'>*</span>
-                <el-input disabled="codeD" placeholder="请输入统一社会信用代码" v-model="achieveLibrary.code" style="width:80%"></el-input>
+                <el-input :disabled="codeD" placeholder="请输入统一社会信用代码" v-model="achieveLibrary.code" style="width:80%"></el-input>
               </el-form-item>
 
 
@@ -267,8 +267,7 @@
 
                 <el-table-column align="center" label="有效期" style="width: 50%;">
                   <template slot-scope="scope">
-                  <el-date-picker v-model="scope.row.projectTime" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="" style="width: 70%;">
-                  </el-date-picker>
+                                      <el-input  type="text" v-model="scope.row.projectTime" style="width: 50%;"></el-input>
                                   </template>
                 </el-table-column>
                 <el-table-column align="center" label="" style="width: 50%;">
@@ -420,12 +419,12 @@ export default {
     if (this.$route.params.objData) {
       this.achieveLibrary = JSON.parse(this.$route.params.objData)
 
-      this.achieveLibrary.picOrgLicense[0].url = this.imgBaseUrl +this.achieveLibrary.picOrgLicense[0].url
-      this.achieveLibrary.picLpLicense[0].url = this.imgBaseUrl +this.achieveLibrary.picLpLicense[0].url
-      this.achieveLibrary.picLmIdCardFront[0].url = this.imgBaseUrl +this.achieveLibrary.picLmIdCardFront[0].url
-      this.achieveLibrary.picLmIdCardBack[0].url = this.imgBaseUrl +this.achieveLibrary.picLmIdCardBack[0].url
-      this.achieveLibrary.picLmIdCardInHand[0].url = this.imgBaseUrl +this.achieveLibrary.picLmIdCardInHand[0].url
-      this.achieveLibrary.picCommitmentLetter[0].url = this.imgBaseUrl +this.achieveLibrary.picCommitmentLetter[0].url
+      this.achieveLibrary.picOrgLicense[0].url = this.imgBaseUrl + this.achieveLibrary.picOrgLicense[0].url
+      this.achieveLibrary.picLpLicense[0].url = this.imgBaseUrl + this.achieveLibrary.picLpLicense[0].url
+      this.achieveLibrary.picLmIdCardFront[0].url = this.imgBaseUrl + this.achieveLibrary.picLmIdCardFront[0].url
+      this.achieveLibrary.picLmIdCardBack[0].url = this.imgBaseUrl + this.achieveLibrary.picLmIdCardBack[0].url
+      this.achieveLibrary.picLmIdCardInHand[0].url = this.imgBaseUrl + this.achieveLibrary.picLmIdCardInHand[0].url
+      this.achieveLibrary.picCommitmentLetter[0].url = this.imgBaseUrl + this.achieveLibrary.picCommitmentLetter[0].url
 
       if (!this.achieveLibrary.cardSide) {
         this.achieveLibrary.cardSide = []
@@ -436,6 +435,7 @@ export default {
     this.userType = window.sessionStorage.getItem('userType')
     if (this.userType == '0' || this.userType == '101') {
       this.checkStatus = 1
+      if (this.achieveLibrary.code != "") this.codeD = true
     } else {
       this.checkStatus = 0
 
@@ -445,17 +445,16 @@ export default {
           data,
           success
         } = await getUserDetail()
-          let detail = JSON.parse(data.detail)
-          this.achieveLibrary.code = detail.code
-          this.achieveLibrary.name = detail.name
-          this.achieveLibrary.country = detail.country
-
-          if (this.achieveLibrary.code != "") this.codeD = true
-          this.achieveLibrary.picOrgLicense[0].url = this.imgBaseUrl +detail.picOrgLicense[0].url
-          this.achieveLibrary.picLpLicense[0].url = this.imgBaseUrl +detail.picLpLicense[0].url
-          this.achieveLibrary.picLmIdCardFront[0].url = this.imgBaseUrl +detail.picLmIdCardFront[0].url
-          this.achieveLibrary.picLmIdCardBack[0].url = this.imgBaseUrl +detail.picLmIdCardBack[0].url
-          this.achieveLibrary.picLmIdCardInHand[0].url = this.imgBaseUrl +detail.picLmIdCardInHand[0].url
+        let detail = JSON.parse(data.detail)
+        this.achieveLibrary.code = detail.code
+        this.achieveLibrary.name = detail.name
+        this.achieveLibrary.country = detail.country
+        if (this.achieveLibrary.code != "") this.codeD = true
+        this.achieveLibrary.picOrgLicense[0].url = this.imgBaseUrl + detail.picOrgLicense[0].url
+        this.achieveLibrary.picLpLicense[0].url = this.imgBaseUrl + detail.picLpLicense[0].url
+        this.achieveLibrary.picLmIdCardFront[0].url = this.imgBaseUrl + detail.picLmIdCardFront[0].url
+        this.achieveLibrary.picLmIdCardBack[0].url = this.imgBaseUrl + detail.picLmIdCardBack[0].url
+        this.achieveLibrary.picLmIdCardInHand[0].url = this.imgBaseUrl + detail.picLmIdCardInHand[0].url
 
 
       } else {
@@ -476,11 +475,11 @@ export default {
             this.achieveLibrary.country = detail.country
 
             if (this.achieveLibrary.code != "") this.codeD = true
-            this.achieveLibrary.picOrgLicense[0].url = this.imgBaseUrl +detail.picOrgLicense[0].url
-            this.achieveLibrary.picLpLicense[0].url = this.imgBaseUrl +detail.picLpLicense[0].url
-            this.achieveLibrary.picLmIdCardFront[0].url = this.imgBaseUrl +detail.picLmIdCardFront[0].url
-            this.achieveLibrary.picLmIdCardBack[0].url = this.imgBaseUrl +detail.picLmIdCardBack[0].url
-            this.achieveLibrary.picLmIdCardInHand[0].url = this.imgBaseUrl +detail.picLmIdCardInHand[0].url
+            this.achieveLibrary.picOrgLicense[0].url = this.imgBaseUrl + detail.picOrgLicense[0].url
+            this.achieveLibrary.picLpLicense[0].url = this.imgBaseUrl + detail.picLpLicense[0].url
+            this.achieveLibrary.picLmIdCardFront[0].url = this.imgBaseUrl + detail.picLmIdCardFront[0].url
+            this.achieveLibrary.picLmIdCardBack[0].url = this.imgBaseUrl + detail.picLmIdCardBack[0].url
+            this.achieveLibrary.picLmIdCardInHand[0].url = this.imgBaseUrl + detail.picLmIdCardInHand[0].url
 
           }
         }
@@ -792,12 +791,13 @@ export default {
           message: '保存成功',
           type: 'success'
         });
-        this.achieveLibrary.picOrgLicense[0].url = this.imgBaseUrl +this.achieveLibrary.picOrgLicense[0].url
-        this.achieveLibrary.picLpLicense[0].url = this.imgBaseUrl +this.achieveLibrary.picLpLicense[0].url
-        this.achieveLibrary.picLmIdCardFront[0].url = this.imgBaseUrl +this.achieveLibrary.picLmIdCardFront[0].url
-        this.achieveLibrary.picLmIdCardBack[0].url = this.imgBaseUrl +this.achieveLibrary.picLmIdCardBack[0].url
-        this.achieveLibrary.picLmIdCardInHand[0].url = this.imgBaseUrl +this.achieveLibrary.picLmIdCardInHand[0].url
-        this.achieveLibrary.picCommitmentLetter[0].url = this.imgBaseUrl +this.achieveLibrary.picCommitmentLetter[0].url
+        this.achieveLibrary.picOrgLicense[0].url = this.imgBaseUrl + this.achieveLibrary.picOrgLicense[0].url
+        this.achieveLibrary.picLpLicense[0].url = this.imgBaseUrl + this.achieveLibrary.picLpLicense[0].url
+        this.achieveLibrary.picLmIdCardFront[0].url = this.imgBaseUrl + this.achieveLibrary.picLmIdCardFront[0].url
+        this.achieveLibrary.picLmIdCardBack[0].url = this.imgBaseUrl + this.achieveLibrary.picLmIdCardBack[0].url
+        this.achieveLibrary.picLmIdCardInHand[0].url = this.imgBaseUrl + this.achieveLibrary.picLmIdCardInHand[0].url
+        this.achieveLibrary.picCommitmentLetter[0].url = this.imgBaseUrl + this.achieveLibrary.picCommitmentLetter[0].url
+          window.history.go(-1);
       } else {
         this.$message({
           message: data.message,

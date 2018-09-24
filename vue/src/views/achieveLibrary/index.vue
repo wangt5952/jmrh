@@ -443,6 +443,7 @@ export default {
           success
         } = await PLrejectUserDetail(arr)
         if (success) {
+            this.dialogShowSH =false
           this.$message({
             message: '保存成功',
             type: 'success'

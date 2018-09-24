@@ -779,6 +779,7 @@ export default {
     this.listLoading = false
     if (this.$route.params.objData) {
       this.com = JSON.parse(this.$route.params.objData)
+      debugger
       this.com.picOrgLicense[0].url = this.imgBaseUrl +  this.com.picOrgLicense[0].url
       this.com.picLpLicense[0].url = this.imgBaseUrl +  this.com.picLpLicense[0].url
       this.com.picLmIdCardFront[0].url = this.imgBaseUrl +  this.com.picLmIdCardFront[0].url
@@ -787,12 +788,7 @@ export default {
       this.com.picLogo[0].url = this.imgBaseUrl +  this.com.picLogo[0].url
     }
 
-    this.userType = window.sessionStorage.getItem('userType')
-    if (this.userType == '0' || this.userType == '101') {
-      this.checkStatus = 1
-    } else {
-      this.checkStatus = 0
-    }
+
     var myDate = new Date();
     this.service_amount_lastt = parseInt(myDate.getFullYear() - 1) + '年服务收入（万元）';
     this.service_amount_beforet = parseInt(myDate.getFullYear() - 2) + '年服务收入（万元）';
@@ -806,6 +802,13 @@ export default {
     this.service_research_lastt = parseInt(myDate.getFullYear() - 1) + '年研发投入（万元）';
     this.service_research_beforet = parseInt(myDate.getFullYear() - 2) + '年研发投入（万元）';
     this.service_research_previoust = parseInt(myDate.getFullYear() - 3) + '年研发投入（万元）';
+    this.userType = window.sessionStorage.getItem('userType')
+    debugger
+    if (this.userType == '0' || this.userType == '101') {
+      this.checkStatus = 1
+    } else {
+      this.checkStatus = 0
+    }
   },
   computed: {},
   methods: {
@@ -1178,6 +1181,7 @@ export default {
         this.com.picLmIdCardBack[0].url = this.imgBaseUrl +  this.com.picLmIdCardBack[0].url
         this.com.picLmIdCardInHand[0].url = this.imgBaseUrl +  this.com.picLmIdCardInHand[0].url
         this.com.picLogo[0].url = this.imgBaseUrl +  this.com.picLogo[0].url
+          window.history.go(-1);
       } else {
         this.$message({
           message: data.message,

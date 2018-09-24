@@ -158,9 +158,9 @@ export default {
         number: ''
       },
       loginForm: {
-        userName: 'gyx',
-        password: '123',
-        isAdmin: true,
+        userName: 'admin',
+        password: 'admin',
+        isAdmin: false,
       },
       loginRules: {
         username: [{
@@ -342,8 +342,13 @@ export default {
           // window.sessionStorage.setItem('email', data.email)
           // window.sessionStorage.setItem('orgType', data.orgType)
           if(this.callbackUrl != ''){
-            let url = "https://"+this.callbackUrl+"?token="+window.sessionStorage.getItem('token')+"&checkStatus="+window.sessionStorage.getItem('checkStatus')+"&userName="+window.sessionStorage.getItem('userName')+"&userId="+window.sessionStorage.getItem('userId')+"&userType="+window.sessionStorage.getItem('userType')+"&cellphone="+window.sessionStorage.getItem('cellphone')+"&email="+window.sessionStorage.getItem('email')+"&orgType="+window.sessionStorage.getItem('orgType')
-debugger
+            if(this.callbackUrl.indexOf('?') > -1) {
+            var url = "http://"+this.callbackUrl+"&token="+window.sessionStorage.getItem('token')+"&checkStatus="+window.sessionStorage.getItem('checkStatus')+"&userName="+window.sessionStorage.getItem('userName')+"&userId="+window.sessionStorage.getItem('userId')+"&userType="+window.sessionStorage.getItem('userType')+"&cellphone="+window.sessionStorage.getItem('cellphone')+"&email="+window.sessionStorage.getItem('email')+"&orgType="+window.sessionStorage.getItem('orgType')
+
+
+           }else{
+            var url = "http://"+this.callbackUrl+"?token="+window.sessionStorage.getItem('token')+"&checkStatus="+window.sessionStorage.getItem('checkStatus')+"&userName="+window.sessionStorage.getItem('userName')+"&userId="+window.sessionStorage.getItem('userId')+"&userType="+window.sessionStorage.getItem('userType')+"&cellphone="+window.sessionStorage.getItem('cellphone')+"&email="+window.sessionStorage.getItem('email')+"&orgType="+window.sessionStorage.getItem('orgType')
+         }
             window.location.href = url
           }else{
             this.$router.push({

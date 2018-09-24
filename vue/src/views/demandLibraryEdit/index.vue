@@ -19,7 +19,7 @@
               </el-form-item>
               <el-form-item label="统一社会信用代码">
                 <span style='position: absolute;left: -130px;color: #f60d0d;'>*</span>
-                <el-input disabled="codeD" placeholder="请输入统一社会信用代码" v-model="demandLibrary.code" style="width:80%"></el-input>
+                <el-input :disabled="codeD" placeholder="请输入统一社会信用代码" v-model="demandLibrary.code" style="width:80%"></el-input>
               </el-form-item>
 
               <el-form-item label="营业执照">
@@ -381,10 +381,10 @@ export default {
     this.userType = window.sessionStorage.getItem('userType')
     if (this.userType == '0' || this.userType == '101') {
       this.checkStatus = 1
+      if (this.demandLibrary.code != "") this.codeD = true
     } else {
       this.checkStatus = 0
       let fromCheckStatus = window.sessionStorage.getItem('checkStatus')
-      debugger
       if (fromCheckStatus == '2') {
         let {
           data,
@@ -747,6 +747,7 @@ export default {
         this.demandLibrary.picLmIdCardBack[0].url = this.imgBaseUrl +  this.demandLibrary.picLmIdCardBack[0].url
         this.demandLibrary.picLmIdCardInHand[0].url = this.imgBaseUrl +  this.demandLibrary.picLmIdCardInHand[0].url
         this.demandLibrary.picCommitmentLetter[0].url = this.imgBaseUrl +  this.demandLibrary.picCommitmentLetter[0].url
+          window.history.go(-1);
       } else {
         this.$message({
           message: data.message,

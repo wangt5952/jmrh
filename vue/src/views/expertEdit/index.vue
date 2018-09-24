@@ -645,6 +645,7 @@ export default {
         this.expert.picLmIdCardInHand[0].url = this.imgBaseUrl +  this.expert.picLmIdCardInHand[0].url
         this.expert.picLogo[0].url = this.imgBaseUrl +  this.expert.picLogo[0].url
         this.dialogFormVisible = false
+          window.history.go(-1);
       } else {
         this.$message({
           message: message,
