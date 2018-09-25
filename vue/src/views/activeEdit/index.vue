@@ -500,6 +500,7 @@ export default {
           name: 'name.jpg',
           url: this.imgBaseUrl +  this.active.covers[0].url
         }] //封面赋值显示仅仅
+          window.history.go(-1);
       } else {
         this.$message({
           message: data.message,

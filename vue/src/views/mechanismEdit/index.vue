@@ -134,7 +134,7 @@
             <el-col :span="20">
 
               <el-form-item label="姓名">
-                <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -50px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入姓名" v-model="mech.fdname" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="电话">

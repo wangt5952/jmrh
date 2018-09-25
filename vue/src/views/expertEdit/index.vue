@@ -11,7 +11,7 @@
 
               <el-form-item label="姓名">
                 <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入姓名" v-model="expert.name" style="width:80%"></el-input>
+                <el-input placeholder="请输入姓名" v-model="expert.name" style="width:80%" maxlength="20"></el-input>
               </el-form-item>
               <el-form-item label="性别">
                 <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
@@ -24,14 +24,14 @@
               </el-form-item>
 
               <el-form-item label="出生日期">
-                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                 <el-date-picker v-model="expert.bornDate" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期">
                 </el-date-picker>
               </el-form-item>
 
               <el-form-item label="身份证号">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入身份证号" v-model="expert.code" style="width:80%"></el-input>
+                <el-input placeholder="请输入身份证号" v-model="expert.code" style="width:80%"  type="number"></el-input>
               </el-form-item>
               <el-form-item label="上传身份证正面">
                 <div>
@@ -81,7 +81,7 @@
               </el-form-item>
               <el-form-item label="毕业院校">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入毕业院校" v-model="expert.shcool" style="width:80%"></el-input>
+                <el-input placeholder="请输入毕业院校" v-model="expert.shcool" style="width:80%"  maxlength="15"></el-input>
               </el-form-item>
               <el-form-item label="学历">
                 <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
@@ -131,7 +131,7 @@
 
               <el-form-item label="研究方向">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入研究方向" v-model="expert.research_area" style="width:80%"></el-input>
+                <el-input placeholder="请输入研究方向" v-model="expert.research_area" style="width:80%"  maxlength="20"></el-input>
               </el-form-item>
 
             </el-col>

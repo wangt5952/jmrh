@@ -9,16 +9,16 @@
           <el-row :gutter="20">
             <el-col :span="20">
               <el-form-item label="技术需求名称">
-                <span style='position: absolute;left: -110px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -105px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入技术需求名称" v-model="demandLibrary.re_name" style="width:80%"></el-input>
               </el-form-item>
 
               <el-form-item label="需求单位名称">
-                <span style='position: absolute;left: -110px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -105px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入需求单位名称" v-model="demandLibrary.name" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="统一社会信用代码">
-                <span style='position: absolute;left: -130px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -135px;color: #f60d0d;'>*</span>
                 <el-input :disabled="codeD" placeholder="请输入统一社会信用代码" v-model="demandLibrary.code" style="width:80%"></el-input>
               </el-form-item>
 
@@ -101,7 +101,7 @@
                 <el-input placeholder="请输入通讯地址" v-model="demandLibrary.address" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="负责人">
-                <span style='position: absolute;left: -70px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -650px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入负责人" v-model="demandLibrary.fzname" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="职务">
@@ -117,7 +117,7 @@
                 <el-input placeholder="请输入邮箱" v-model="demandLibrary.fzemail" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="联系人">
-                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -65px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入联系人" v-model="demandLibrary.fzname2" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="职务">

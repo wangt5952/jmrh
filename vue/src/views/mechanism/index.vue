@@ -618,6 +618,7 @@ export default {
         message: '保存成功',
         type: 'success'
       });
+     this.dialogShowLevel = false
       this.loadPageList()
     },
 
@@ -655,6 +656,7 @@ export default {
             type: 'success'
           });
           this.loadPageList()
+            this.dialogShowSH = false
         }
       }
     },
@@ -686,6 +688,7 @@ export default {
           type: 'success',
           message: '请勾选上架内容!'
         });
+        return
       }
       let {
         data,
@@ -705,6 +708,7 @@ export default {
         type: 'success',
         message: '请勾选下架内容!'
       });
+      return
     }
       let {
         data,

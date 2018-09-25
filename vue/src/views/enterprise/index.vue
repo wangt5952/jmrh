@@ -816,6 +816,7 @@ export default {
         message: '保存成功',
         type: 'success'
       });
+     this.dialogShowLevel = false
       this.loadPageList()
     },
     handlexy(data) {
@@ -857,6 +858,7 @@ export default {
             type: 'success'
           });
           this.loadPageList()
+            this.dialogShowSH = false
         }
       }
 
@@ -891,6 +893,7 @@ export default {
           type: 'success',
           message: '请勾选上架内容!'
         });
+        return
       }
       let {
         data,
@@ -905,11 +908,13 @@ export default {
       }
     },
     async plxj() {
+      debugger
       if (this.multipleSelection.length == 0) {
         this.$message({
           type: 'success',
           message: '请勾选下架内容!'
         });
+        return
       }
       let {
         data,

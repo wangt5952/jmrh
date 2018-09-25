@@ -14,7 +14,7 @@
                 <el-input placeholder="请输入名称" v-model="school.name" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="统一社会信用代码">
-                <span style='position: absolute;left: -140px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -135px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入统一社会信用代码" v-model="school.code" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="营业执照">

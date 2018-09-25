@@ -158,9 +158,9 @@ export default {
         number: ''
       },
       loginForm: {
-        userName: 'admin',
-        password: 'admin',
-        isAdmin: false,
+        userName: 'gyx',
+        password: '123',
+        isAdmin: true,
       },
       loginRules: {
         username: [{
@@ -265,6 +265,7 @@ export default {
             title: treeData[i].label,
             icon: 'tree'
           }
+          treeData[i].name = treeData[i].label
           treeData[i].path = '/' + treeData[i].menuUrl
           treeData[i].leaf = false
           treeData[i].component = treeData[i].menuUrl
@@ -280,6 +281,7 @@ export default {
             title: treeData[i].label,
             icon: 'table'
           }
+          treeData[i].name = treeData[i].label
           treeData[i].path = treeData[i].menuUrl
           treeData[i].leaf = true
           if (userType != '0' && userType != '101') treeData[i].hidden = true
@@ -303,6 +305,7 @@ export default {
             title: treeData[i].label,
             icon: 'table'
           }
+          treeData[i].name = treeData[i].label
           chil.path = treeData[i].menuUrl
           chil.leaf = true
           chil.component = treeData[i].menuUrl
@@ -322,18 +325,22 @@ export default {
       return treeData
     },
     handleLogin() {
+      let token = window.sessionStorage.getItem('token')
       this.loading = true
       this.$store.dispatch('Login', this.loginForm).then(async () => {
         if (this.$store.getters.token && this.$store.getters.token != undefined && this.$store.getters.token != '') {
 
           this.loading = false
           window.sessionStorage.setItem('user', JSON.stringify('true'))
-          let data = await getUserMenusone()
-          let treeData = data.data
-          window.sessionStorage.setItem('treeData', JSON.stringify(treeData)) //必须传入 路由进行渲染
-          let bbb = this.forload(treeData)
-          this.login(bbb)
-          this.$router.addRoutes(routers)
+
+          if(!token){
+            let data = await getUserMenusone()
+            let treeData = data.data
+            window.sessionStorage.setItem('treeData', JSON.stringify(treeData)) //必须传入 路由进行渲染
+            let bbb = this.forload(treeData)
+            this.login(bbb)
+            this.$router.addRoutes(routers)
+          }
 
           if (this.callbackUrl != '') {
             if (this.callbackUrl.indexOf('?') > -1) {

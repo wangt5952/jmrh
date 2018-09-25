@@ -35,7 +35,7 @@
                       </el-form-item>
 
                       <el-form-item label="出生日期">
-                        <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                        <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                         <el-date-picker v-model="expert.bornDate" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期">
                         </el-date-picker>
                       </el-form-item>
@@ -353,7 +353,7 @@
                         <el-input placeholder="请输入企业编码" v-model="com.code" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="企业规模（注册资金）">
-                        <span style='position: absolute;left: -170px;color: #f60d0d;'>*</span>
+                        <span style='position: absolute;left: -170px;color: #f60d0d;'></span>
                         <el-checkbox-group v-model="com.registered_capital">
                           <el-checkbox label="1">小于2000万（含）</el-checkbox>
                           </br>
@@ -374,7 +374,7 @@
                         </el-date-picker>
                       </el-form-item>
                       <el-form-item label="注册类型">
-                        <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                        <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                         <el-checkbox-group v-model="com.registered_type">
                           <el-checkbox label="1">内资企业</el-checkbox>
                           <el-checkbox label="2">合资企业</el-checkbox>
@@ -491,7 +491,7 @@
                     <el-col :span="20">
 
                       <el-form-item label="姓名">
-                        <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                        <span style='position: relative;left: -50px;color: #f60d0d;'></span>
                         <el-input placeholder="请输入姓名" v-model="com.lpname" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="职务">
@@ -1081,7 +1081,7 @@
                     <el-col :span="20">
 
                       <el-form-item label="姓名">
-                        <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
+                        <span style='position: absolute;left: -50px;color: #f60d0d;'></span>
                         <el-input placeholder="请输入姓名" v-model="mech.fdname" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="电话">
@@ -1381,7 +1381,7 @@
                         <el-input placeholder="请输入名称" v-model="school.name" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="统一社会信用代码">
-                        <span style='position: absolute;left: -140px;color: #f60d0d;'>*</span>
+                        <span style='position: absolute;left: -135px;color: #f60d0d;'>*</span>
                         <el-input placeholder="请输入统一社会信用代码" v-model="school.code" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="营业执照">

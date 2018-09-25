@@ -17,7 +17,7 @@
                 <el-input placeholder="请输入企业名称" v-model="achieveLibrary.name" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="统一社会信用代码">
-                <span style='position: absolute;left: -130px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -135px;color: #f60d0d;'>*</span>
                 <el-input :disabled="codeD" placeholder="请输入统一社会信用代码" v-model="achieveLibrary.code" style="width:80%"></el-input>
               </el-form-item>
 
@@ -100,8 +100,8 @@
                 <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入通讯地址" v-model="achieveLibrary.address" style="width:80%"></el-input>
               </el-form-item>
-              <el-form-item label="项目负责人">
-                <span style='position: absolute;left: -90px;color: #f60d0d;'>*</span>
+              <el-form-item label="负责人">
+                <span style='position: absolute;left: -65px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入项目负责人" v-model="achieveLibrary.fzname" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="电话">
@@ -112,8 +112,8 @@
                 <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入邮箱" v-model="achieveLibrary.fzemail" style="width:80%"></el-input>
               </el-form-item>
-              <el-form-item label="项目联系人">
-                <span style='position: absolute;left: -90px;color: #f60d0d;'>*</span>
+              <el-form-item label="联系人">
+                <span style='position: absolute;left: -65px;color: #f60d0d;'>*</span>
                 <el-input placeholder="请输入项目联系人" v-model="achieveLibrary.fzname2" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="电话">

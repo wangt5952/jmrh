@@ -97,6 +97,7 @@ const user = {
         commit('SET_ROLES', [])
         removeToken()
         resolve()
+        window.sessionStorage.removeItem('token')
         window.sessionStorage.removeItem('user')
         window.sessionStorage.removeItem('treeData') //必须传入 路由进行渲染
         window.sessionStorage.removeItem('isLoadNodes')

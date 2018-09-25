@@ -73,6 +73,11 @@ let verify = {
     var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
     return !myreg.test(str) ? true : false;
   },
+  isTelAvailable: function(str) {
+    var myreg = /^0\d{2,3}-\d{7,8}(-\d{1,6})?$/;
+    return !myreg.test(str) ? true : false;
+  },
+
   isIDCard: function(str) {
     var myisIDCard = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
     return !myisIDCard.test(str) ? true : false;
@@ -583,6 +588,7 @@ function validactive(str) {
   }
   return true;
 }
+
 function validresetAdminPW(str, checkStatus, cellphone) {
 
   if (!str || verify.isNull(str.userName)) {
@@ -592,20 +598,20 @@ function validresetAdminPW(str, checkStatus, cellphone) {
     });
     return false;
   }
-    if (!str || verify.isNull(cellphone)) {
-      Message({
-        message: '手机号不能为空！',
-        type: 'error'
-      });
-      return false;
-    }
-    if (!str || verify.isPoneAvailable(cellphone)) {
-      Message({
-        message: '手机号格式不正确！',
-        type: 'error'
-      });
-      return false;
-    }
+  if (!str || verify.isNull(cellphone)) {
+    Message({
+      message: '手机号不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
+  if (!str || verify.isPoneAvailable(cellphone)) {
+    Message({
+      message: '手机号格式不正确！',
+      type: 'error'
+    });
+    return false;
+  }
   if (!str || verify.isNull(str.code)) {
     Message({
       message: '验证码不能为空！',
@@ -636,6 +642,7 @@ function validresetAdminPW(str, checkStatus, cellphone) {
   }
   return true;
 }
+
 function validresetPW(str, checkStatus, cellphone) {
   if (checkStatus == 0) {
     if (!str || verify.isNull(str.email)) {
@@ -816,21 +823,7 @@ function validaEnterprise(str) {
     });
     return false;
   }
-  if (!str || verify.isNull(str.registered_capital)) {
-    Message({
-      message: '企业规模不能为空！',
-      type: 'error'
-    });
-    return false;
-  }
 
-  if (!str || verify.isNull(str.registered_type)) {
-    Message({
-      message: '注册类型不能为空！',
-      type: 'error'
-    });
-    return false;
-  }
   if (!str || verify.isNull(str.country)) {
     Message({
       message: '所在地区不能为空！',
@@ -852,13 +845,7 @@ function validaEnterprise(str) {
     });
     return false;
   }
-  if (!str || verify.isNull(str.lpname)) {
-    Message({
-      message: '法人姓名不能为空！',
-      type: 'error'
-    });
-    return false;
-  }
+
   if (!str || verify.isNull(str.lxname)) {
     Message({
       message: '联系人姓名不能为空！',
@@ -952,13 +939,7 @@ function validaMechanism(str) {
     });
     return false;
   }
-  if (!str || verify.isNull(str.fdname)) {
-    Message({
-      message: '法定代表人姓名不能为空！',
-      type: 'error'
-    });
-    return false;
-  }
+
   if (!str || verify.isNull(str.linkman)) {
     Message({
       message: '联系人姓名不能为空！',
@@ -974,11 +955,24 @@ function validaMechanism(str) {
     return false;
   }
   if (!str || verify.isPoneAvailable(str.lxphone)) {
-    Message({
-      message: '联系人手机号格式不正确！',
-      type: 'error'
-    });
-    return false;
+    if (verify.isTelAvailable(str.lxphone)) {
+      Message({
+        message: '联系人电话格式不正确！',
+        type: 'error'
+      });
+      return false;
+    }
+
+  }
+  if (!str || verify.isTelAvailable(str.lxphone)) {
+    if (verify.isPoneAvailable(str.lxphone)) {
+      Message({
+        message: '联系人电话格式不正确！',
+        type: 'error'
+      });
+      return false;
+    }
+
   }
   if (!str || verify.isNull(str.lxemail)) {
     Message({

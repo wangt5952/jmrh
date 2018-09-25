@@ -17,7 +17,7 @@
                 <el-input placeholder="请输入企业编码" v-model="com.code" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="企业规模（注册资金）">
-                <span style='position: absolute;left: -170px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -170px;color: #f60d0d;'></span>
                 <el-checkbox-group v-model="com.registered_capital">
                   <el-checkbox label="1">小于2000万（含）</el-checkbox>
                   </br>
@@ -38,7 +38,7 @@
                 </el-date-picker>
               </el-form-item>
               <el-form-item label="注册类型">
-                <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
+                <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
                 <el-checkbox-group v-model="com.registered_type">
                   <el-checkbox label="1">内资企业</el-checkbox>
                   <el-checkbox label="2">合资企业</el-checkbox>
@@ -47,7 +47,7 @@
               </el-form-item>
               <el-form-item label="所在地区">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
-                <area-cascader :level="1" v-model="com.country" :data="pcaa"></area-cascader>
+                <area-cascader :level="1" v-model="com.country" :data="pcaa" style="width:80%"></area-cascader>
                 <!-- <area-cascader v-model="selected" :level="1" :data="pca"></area-cascader> -->
               </el-form-item>
               <el-form-item label="通讯地址">
@@ -156,7 +156,7 @@
             <el-col :span="20">
 
               <el-form-item label="姓名">
-                <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
+                <span style='position: relative;left: -50px;color: #f60d0d;'></span>
                 <el-input placeholder="请输入姓名" v-model="com.lpname" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="职务">

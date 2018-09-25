@@ -17,6 +17,7 @@ forload: function(treeData) {
           title: treeData[i].label,
           icon: 'tree'
         }
+        treeData[i].name = treeData[i].label
         treeData[i].path = '/' + treeData[i].menuUrl
         treeData[i].leaf = false
         treeData[i].component = treeData[i].menuUrl
@@ -30,6 +31,7 @@ forload: function(treeData) {
           title: treeData[i].label,
           icon: 'table'
         }
+        treeData[i].name = treeData[i].label
         treeData[i].path = treeData[i].menuUrl
         treeData[i].leaf = true
         if(userType != '0' && userType != '101') treeData[i].hidden = true
@@ -52,6 +54,7 @@ forload: function(treeData) {
           title: treeData[i].label,
           icon: 'table'
         }
+        treeData[i].name = treeData[i].label
         chil.path = treeData[i].menuUrl
         chil.leaf = true
         chil.component = treeData[i].menuUrl
@@ -241,7 +244,6 @@ let arrRouter = [{
     }]
   }
 ]
-
 
 let arr = [...arrRouter,...routers];
 export const constantRouterMap = arr
