@@ -130,7 +130,7 @@
             <span v-show="userType =='0' &&tfcheckStatus == 0 || userType =='101' && tfcheckStatus == 0" @click="handlesh(scope.row)" class="clickText" >
             审核
             </span>
-          <span v-show="userType =='0' || userType =='101'" @click="handleEdit(scope.row,'edit')" class="clickText" >
+          <span v-show="userType =='0'&& tfcheckStatus != 0 || userType =='101'&& tfcheckStatus != 0" @click="handleEdit(scope.row,'edit')" class="clickText" >
             编辑
           </span>
       <span v-show="userType =='0' &&scope.row.status == 1 && tfcheckStatus == 1 || userType =='101'  &&scope.row.status == 1 && tfcheckStatus == 1">  <span @click="handlexj(scope.row)" class="clickText" >
@@ -176,14 +176,16 @@
         <tr height=19 id='r3'>
           <td height=19 class=x22 style='height:14.25pt;'>所在地区</td>
           <td colspan=3 id='tc3' class=x28 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;overflow:hidden;'>
-            <area-cascader :level="1" v-model="detailData.country" :data="pcaa"></area-cascader>
+            {{detailData.search_paramobj}}
           </td>
         </tr>
         <tr height=19 id='r4'>
           <td height=19 class=x22 style='height:14.25pt;'>通信地址</td>
           <td class=x28>{{detailData.address}}</td>
-          <td class=x29>邮编</td>
-          <td class=x29>{{detailData.zip_code}}</td>
+        </tr>
+        <tr height=19 id='r5'>
+          <td height=19 class=x22 style='height:14.25pt;'>邮编</td>
+          <td colspan=3 id='tc4' class=x23 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>{{detailData.zip_code}}</td>
         </tr>
         <tr height=19 id='r5'>
           <td height=19 class=x22 style='height:14.25pt;'>单位网址</td>
@@ -369,12 +371,26 @@ export default {
         country: '',
         code: '',
         name: '',
+        search_paramobj: ''
       },
       treeData: [],
       loading: true,
       userType: '',
       multipleSelection: [],
-      detailData: '',
+      detailData: {
+        zhengben: [],
+        fuben: [],
+        logo: [],
+        introduction: '',
+        major_platform: '',
+        unit_url: '',
+        zip_code: '',
+        address: '',
+        country: '',
+        code: '',
+        name: '',
+        search_paramobj: ''
+      },
       tfcheckStatus: '',
     }
   },
@@ -560,6 +576,10 @@ export default {
         objData = data.detail
       }
       this.detailData = JSON.parse(objData)
+      this.loadOneTree(this.detailData.country[0])
+      this.loadtwoTree(this.detailData.country[0], this.detailData.country[1])
+      this.loadThreeTree(this.detailData.country[1], this.detailData.country[2])
+      this.detailData.search_paramobj = this.arrValue1 + '-' + this.arrValue2 + '-' + this.arrValue3
     },
     handlePrint() {
       $("#tablePrint").printArea();
@@ -739,15 +759,74 @@ export default {
         })
       }
     },
-    onDate1Change(val) {
-      this.obj.loanDate = val
-    },
-    onDate2Change(val) {
-      this.obj.appointmentRepaymentDate = val
-    },
-    onDate3Change(val) {
-      this.obj.interestPayTime = val
-    },
+
+        loadOneTree(code) {
+          let pcadata = this.pcaa
+          let arr = []
+          for (var i in pcadata) {
+            if (i == '86') {
+              let obj = {}
+              obj.date = i
+              obj.value = pcadata[i]
+              arr.push(obj)
+            }
+          }
+          arr = arr[0].value
+          for (var j in arr) {
+            if (j == code) {
+              let obj = {}
+              obj.name = j
+              obj.value = arr[j]
+              this.arrValue1 = obj.value
+            }
+          }
+        },
+        loadtwoTree(code1, code2) {
+          this.arrValue2 = []
+          let pcadata = this.pcaa
+          let arr = []
+          for (var i in pcadata) {
+            if (i == code1) {
+              let obj = {}
+              obj.date = i
+              obj.value = pcadata[i]
+              arr.push(obj)
+            }
+          }
+          arr = arr[0].value
+          for (var j in arr) {
+            if (j == code2) {
+              let obj = {}
+              obj.name = j
+              obj.value = arr[j]
+              this.arrValue2 = obj.value
+            }
+          }
+        },
+        loadThreeTree(code1, code2) {
+          this.arrValue3 = []
+          let pcadata = this.pcaa
+          let arr = []
+          for (var i in pcadata) {
+            if (i == code1) {
+              let obj = {}
+              obj.date = i
+              obj.value = pcadata[i]
+              arr.push(obj)
+            }
+          }
+          if (arr.length > 0) {
+            arr = arr[0].value
+            for (var j in arr) {
+              if (j == code2) {
+                let obj = {}
+                obj.name = j
+                obj.value = arr[j]
+                this.arrValue3 = obj.value
+              }
+            }
+          }
+        },
   }
 }
 </script>

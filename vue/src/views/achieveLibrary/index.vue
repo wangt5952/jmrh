@@ -32,7 +32,9 @@
         <el-button v-show="userType =='0' && tfcheckStatus == 0  || userType =='101' && tfcheckStatus == 0" style="" @click="plsh" type="primary">批量审核</el-button>
         <el-button v-show="userType =='0' && tfcheckStatus == 1  || userType =='101' && tfcheckStatus == 1" style="" @click="plxj" type="primary">批量下架</el-button>
         <el-button v-show="userType =='0' && tfcheckStatus == 1  || userType =='101' && tfcheckStatus == 1" style="" @click="plsj" type="primary">批量上架</el-button>
-        <a :href=pldcUrl target="_blank"><el-button v-show="userType =='0' && tfcheckStatus == 1  || userType =='101' && tfcheckStatus == 1" style=""  type="primary">批量导出</el-button></a>
+        <a :href=pldcUrl target="_blank">
+          <el-button v-show="userType =='0' && tfcheckStatus == 1  || userType =='101' && tfcheckStatus == 1" style="" type="primary">批量导出</el-button>
+        </a>
       </div>
 
     </div>
@@ -41,7 +43,7 @@
   <el-table v-loading="loading" ref="multipleTable" @selection-change="handleSelectionChange" class="tableH" :data="list" border style="margin-top:5px;width:100%;font-size:12px;">
     <el-table-column type="selection" width="30">
     </el-table-column>
-    <el-table-column align="center" label="编号"  width="150">
+    <el-table-column align="center" label="编号" width="150">
       <template slot-scope="scope">
                     <span>{{ scope.row.number }}</span>
                 </template>
@@ -104,7 +106,7 @@
                     </template>
     </el-table-column>
 
-    <el-table-column  align="center" label="状态" width="70px;">
+    <el-table-column align="center" label="状态" width="70px;">
       <template slot-scope="scope">
                             <span v-show="tfcheckStatus == -1">草稿</span>
                             <span v-show="tfcheckStatus == 0">审核</span>
@@ -121,7 +123,7 @@
             <span v-show="userType =='0' &&tfcheckStatus == 0 || userType =='101' && tfcheckStatus == 0" @click="handlesh(scope.row)" class="clickText" >
             审核
             </span>
-          <span v-show="userType =='0' || userType =='101'" @click="handleEdit(scope.row,'edit')" class="clickText" >
+          <span v-show="userType =='0'&& tfcheckStatus != 0 || userType =='101' && tfcheckStatus != 0" @click="handleEdit(scope.row,'edit')" class="clickText" >
             编辑
           </span>
       <span v-show="userType =='0' &&scope.row.status == 1 && tfcheckStatus == 1 || userType =='101'  &&scope.row.status == 1 && tfcheckStatus == 1">  <span @click="handlexj(scope.row)" class="clickText" >
@@ -210,7 +212,7 @@
           <td class=x28>{{detailData.address}}</td>
           <td class=x25>所在地区</td>
           <td colspan=2 id='tc4' class=x54 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>
-            <area-cascader :level="1" v-model="detailData.country" :data="pcaa"></area-cascader>
+            {{detailData.search_paramobj}}
           </td>
         </tr>
         <tr height=38 style='mso-height-source:userset;height:28.8pt' id='r4'>
@@ -232,16 +234,14 @@
         <tr height=38 style='mso-height-source:userset;height:28.8pt' id='r6'>
           <td height=38 class=x36 style='height:28.8pt;'>所属领域</td>
           <td colspan=7 id='tc7' class=x37 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>
-            <el-checkbox-group v-model="detailData.domain">
-              <el-checkbox label="1">智能装备</el-checkbox>
-              <el-checkbox label="2">电子信息</el-checkbox>
-              <el-checkbox label="3">新材料</el-checkbox>
-              <el-checkbox label="4">航空航天</el-checkbox>
-              <el-checkbox label="5">生物技术与新医药</el-checkbox>
-              <el-checkbox label="6">能源与环保</el-checkbox>
-              <el-checkbox label="7">其他</el-checkbox>
-              <!-- <el-input v-show="achieveLibrary.domain.includes('7')" placeholder="请输入其他" v-model="achieveLibrary.domainOther" style="width:80%"></el-input> -->
-            </el-checkbox-group>
+            <span v-if="detailData.domain.includes('1')">智能装备;</span>
+            <span v-if="detailData.domain.includes('2')">电子信息;</span>
+            <span v-if="detailData.domain.includes('3')">新材料;</span>
+            <span v-if="detailData.domain.includes('4')">航空航天;</span>
+            <span v-if="detailData.domain.includes('5')">生物技术与新医药;</span>
+            <span v-if="detailData.domain.includes('6')">能源与环保;</span>
+            <span v-if="detailData.domain.includes('99')">{{detailData.domainOther}};</span>
+
           </td>
         </tr>
         <tr height=38 style='mso-height-source:userset;height:28.8pt' id='r7'>
@@ -253,61 +253,61 @@
           <td colspan=7 id='tc9' class=x42 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>{{detailData.newIdea}}</td>
         </tr>
         <tr height=19 style='mso-height-source:userset;height:14.4pt' id='r9'>
-          <td rowspan=4 height=76 class=x44 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;height:57.6pt;'>知识产权情况</td>
+          <td :rowspan=(detailData.patents.length+2) height=76 class=x44 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;height:57.6pt;'>知识产权情况</td>
           <td colspan=7 id='tc10' class=x43 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>
+            <span v-show="detailData.sqPatent">
             <font class="font3">已申请专利</font>
             <font class="font11"> </font>
             <font class="font12"><span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></font>
             <font class="font11">{{detailData.sqPatent}}</font>
             <font class="font3">件</font>
-            <font class="font11"><span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><br></font>
-            <font class="font3">□获授权专利</font>
+            </span>
+            <span v-show="detailData.havePatent">
+            <font class="font3">获授权专利</font>
             <font class="font11">{{detailData.havePatent}}</font>
-            <font class="font12"><span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></font>
             <font class="font3">件</font>
-            <font class="font11"><span style='mso-spacerun:yes'>&nbsp; </span><br></font>
+            <font class="font11"><span style='mso-spacerun:yes'>&nbsp; </span></font>
+            </span>
+            <span v-show="detailData.otherPatentotherPatent">
             <font class="font3">其他知识产权</font>
             <font class="font11">{{detailData.otherPatentotherPatent}}</font>
-            <font class="font12"><span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></font>
             <font class="font3">件</font>
+            </span>
           </td>
         </tr>
         <tr height=19 style='mso-height-source:userset;height:14.4pt' id='r10'>
-          <td class=x44>序号</td>
-          <td class=x30>专利名称</td>
+          <td colspan=2 class=x30>专利名称</td>
           <td class=x32>专利类型</td>
           <td class=x32>专利号</td>
           <td class=x44>专利权人</td>
           <td colspan=2 id='tc11' class=x44 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>有效期</td>
         </tr>
         <tr v-for="item in detailData.patents" height=19 style='mso-height-source:userset;height:14.4pt' id='r11'>
-          <td class=x46>{{item.projectname}}</td>
+          <td colspan=2 class=x46>{{item.projectname}}</td>
           <td class=x47>{{item.projecType}}</td>
           <td class=x48>{{item.projectNum}}</td>
           <td class=x45>{{item.projectPer}}</td>
-          <td class=x45>{{item.projectTime}}</td>
+          <td colspan=2 class=x45>{{item.projectTime}}</td>
         </tr>
 
         <tr height=38 style='mso-height-source:userset;height:28.8pt' id='r13'>
           <td height=38 class=x50 style='height:28.8pt;'>所处阶段</td>
           <td colspan=7 id='tc14' class=x56 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>
-            <el-checkbox-group v-model="detailData.stage">
-              <el-checkbox label="1">实验室阶段</el-checkbox>
-              <el-checkbox label="2">试制阶段</el-checkbox>
-              <el-checkbox label="3">产业化阶段</el-checkbox>
-            </el-checkbox-group>
-      </td>
+
+              <span v-if="detailData.stage.includes('1')">实验室阶段;</span>
+              <span v-if="detailData.stage.includes('2')">试制阶段;</span>
+              <span v-if="detailData.stage.includes('3')">产业化阶段;</span>
+
+          </td>
         </tr>
         <tr height=38 style='mso-height-source:userset;height:28.8pt' id='r14'>
           <td height=38 class=x41 style='height:28.8pt;'>合作方式</td>
           <td colspan=7 id='tc15' class=x56 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>
-            <el-checkbox-group v-model="detailData.cooperation">
-              <el-checkbox label="1">技术转让</el-checkbox>
-              <el-checkbox label="2">技术许可</el-checkbox>
-              <el-checkbox label="3">技术开发</el-checkbox>
-              <el-checkbox label="4">技术服务</el-checkbox>
-              <el-checkbox label="5">技术入股</el-checkbox>
-            </el-checkbox-group>
+            <span v-if="detailData.cooperation.includes('1')">技术转让;</span>
+            <span v-if="detailData.cooperation.includes('2')">试制技术许可阶段;</span>
+            <span v-if="detailData.cooperation.includes('3')">技术开发;</span>
+            <span v-if="detailData.cooperation.includes('4')">技术服务;</span>
+            <span v-if="detailData.cooperation.includes('5')">技术入股;</span>
           </td>
         </tr>
 
@@ -341,6 +341,10 @@ import {
   PLonUserDetails,
   updateLevel
 } from '@/api/library'
+import {
+  pca,
+  pcaa
+} from "area-data";
 export default {
   data() {
     return {
@@ -365,6 +369,7 @@ export default {
         role: '角色详情',
         create: '添加'
       },
+      pcaa: pcaa, //最多省市区三级，结合:level='2'选择，0省、1省市、2省市区
       obj: {
         userName: '',
         userPassword: '',
@@ -385,19 +390,68 @@ export default {
       treeData: [],
       loading: true,
       multipleSelection: [],
-      detailData: '',
+      detailData: {
+        fzname: '',
+        fzphone: '',
+        picCommitmentLetter: [{
+          url: this.imgBaseUrl + `def/commitment.png`
+        }],
+        picOrgLicense: [{
+          url: this.imgBaseUrl + `def/companyZZ.png`
+        }],
+        picLpLicense: [{
+          url: this.imgBaseUrl + `def/companyZS.png`
+        }],
+        picLmIdCardFront: [{
+          url: this.imgBaseUrl + `def/idfront.png`
+        }],
+        picLmIdCardBack: [{
+          url: this.imgBaseUrl + `def/idback.png`
+        }],
+        picLmIdCardInHand: [{
+          url: this.imgBaseUrl + `def/handPhoto.jpg`
+        }],
+        fzemail: '',
+        fzname2: '',
+        fzphone2: '',
+        fzemail2: '',
+        re_name: '',
+        code: '',
+        name: '',
+        address: '',
+        country: '',
+        resDesc: '',
+        applyLY: '',
+        newIdea: '',
+        sqPatent: '',
+        havePatent: '',
+        otherPatent: '',
+        cooperation: [],
+        cooperationOther: '',
+        domain: [],
+        domainOther: '',
+        stage: [],
+        patents: [{
+          projectname: '',
+          projecType: '',
+          projectNum: '',
+          projectPer: '',
+          projectTime: '',
+        }],
+        search_paramobj: []
+      },
       tfcheckStatus: '',
       dialogShowDep: false,
       dialogShowSH: false,
-        rej: {
-          way: '1',
-          info: '',
-          formId: ''
-        },
-        xyset: {
-          creditLevel: '',
-          id: ''
-        },
+      rej: {
+        way: '1',
+        info: '',
+        formId: ''
+      },
+      xyset: {
+        creditLevel: '',
+        id: ''
+      },
       userType: '',
       input: {
         objName: '',
@@ -405,14 +459,14 @@ export default {
         checkStatus: 1,
         creditLevel: '',
       },
-      pldcUrl : "",
+      pldcUrl: "",
     }
   },
-  created(){
-    this.pldcUrl = this.docUrl + '/xtcx/lib/exportLib?objName='+this.input.objName+'&checkStatus=1&userType=6&creditLevel=&status='+this.input.status+'&token='+window.sessionStorage.getItem('token')
+  created() {
+    this.pldcUrl = this.docUrl + '/xtcx/lib/exportLib?objName=' + this.input.objName + '&checkStatus=1&userType=6&creditLevel=&status=' + this.input.status + '&token=' + window.sessionStorage.getItem('token')
   },
   async mounted() {
-    if (typeof this.$route.query.checkStatus == 'number' ) {
+    if (typeof this.$route.query.checkStatus == 'number') {
       this.input.checkStatus = this.$route.query.checkStatus
     }
     this.loadPageList()
@@ -443,7 +497,7 @@ export default {
           success
         } = await PLrejectUserDetail(arr)
         if (success) {
-            this.dialogShowSH =false
+          this.dialogShowSH = false
           this.$message({
             message: '保存成功',
             type: 'success'
@@ -451,7 +505,7 @@ export default {
           this.loadPageList()
         }
       } else {
-        if(rej.info==""){
+        if (rej.info == "") {
           this.$message({
             message: '请输入驳回原因！',
             type: 'success'
@@ -513,12 +567,12 @@ export default {
       }
     },
     async plxj() {
-    if(this.multipleSelection.length == 0){
-      this.$message({
-        type: 'success',
-        message: '请勾选下架内容!'
-      });
-    }
+      if (this.multipleSelection.length == 0) {
+        this.$message({
+          type: 'success',
+          message: '请勾选下架内容!'
+        });
+      }
       let {
         data,
         success
@@ -580,13 +634,17 @@ export default {
       }
     },
     showDetail(data) {
-    let objData
-    if (this.input.checkStatus == 1) {
-      objData = data.form.detail
-    } else if (this.input.checkStatus == 0 || this.input.checkStatus == -1) {
-      objData = data.detail
-    }
+      let objData
+      if (this.input.checkStatus == 1) {
+        objData = data.form.detail
+      } else if (this.input.checkStatus == 0 || this.input.checkStatus == -1) {
+        objData = data.detail
+      }
       this.detailData = JSON.parse(objData)
+      this.loadOneTree(this.detailData.country[0])
+      this.loadtwoTree(this.detailData.country[0], this.detailData.country[1])
+      this.loadThreeTree(this.detailData.country[1], this.detailData.country[2])
+      this.detailData.search_paramobj = this.arrValue1 + '-' + this.arrValue2 + '-' + this.arrValue3
       this.dialogShowDep = true
     },
     async loadPageList() {
@@ -748,7 +806,7 @@ export default {
     },
     async handleEdit(data, type) {
 
-     if (type === 'del') {
+      if (type === 'del') {
         this.$confirm('此操作将删除该记录, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -779,24 +837,83 @@ export default {
         this.$router.push({
           name: 'achieveLibraryEdit',
           params: {
-            objId:objId,
+            objId: objId,
             objData: objData
           }
         })
-      }else {
+      } else {
         this.$router.push({
           name: 'achieveLibraryEdit'
         })
       }
     },
-    onDate1Change(val) {
-      this.obj.loanDate = val
+
+    loadOneTree(code) {
+      let pcadata = this.pcaa
+      let arr = []
+      for (var i in pcadata) {
+        if (i == '86') {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
+        }
+      }
+      arr = arr[0].value
+      for (var j in arr) {
+        if (j == code) {
+          let obj = {}
+          obj.name = j
+          obj.value = arr[j]
+          this.arrValue1 = obj.value
+        }
+      }
     },
-    onDate2Change(val) {
-      this.obj.appointmentRepaymentDate = val
+    loadtwoTree(code1, code2) {
+      this.arrValue2 = []
+      let pcadata = this.pcaa
+      let arr = []
+      for (var i in pcadata) {
+        if (i == code1) {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
+        }
+      }
+      arr = arr[0].value
+      for (var j in arr) {
+        if (j == code2) {
+          let obj = {}
+          obj.name = j
+          obj.value = arr[j]
+          this.arrValue2 = obj.value
+        }
+      }
     },
-    onDate3Change(val) {
-      this.obj.interestPayTime = val
+    loadThreeTree(code1, code2) {
+      this.arrValue3 = []
+      let pcadata = this.pcaa
+      let arr = []
+      for (var i in pcadata) {
+        if (i == code1) {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
+        }
+      }
+      if (arr.length > 0) {
+        arr = arr[0].value
+        for (var j in arr) {
+          if (j == code2) {
+            let obj = {}
+            obj.name = j
+            obj.value = arr[j]
+            this.arrValue3 = obj.value
+          }
+        }
+      }
     },
   }
 }

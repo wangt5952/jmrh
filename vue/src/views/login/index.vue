@@ -325,32 +325,29 @@ export default {
       this.loading = true
       this.$store.dispatch('Login', this.loginForm).then(async () => {
         if (this.$store.getters.token && this.$store.getters.token != undefined && this.$store.getters.token != '') {
+
           this.loading = false
           window.sessionStorage.setItem('user', JSON.stringify('true'))
-
           let data = await getUserMenusone()
           let treeData = data.data
           window.sessionStorage.setItem('treeData', JSON.stringify(treeData)) //必须传入 路由进行渲染
           let bbb = this.forload(treeData)
           this.login(bbb)
           this.$router.addRoutes(routers)
-          // window.sessionStorage.setItem('checkStatus',data.checkStatus)
-          // window.sessionStorage.setItem('userName', data.userName)
-          // window.sessionStorage.setItem('userId', data.userId)
-          // window.sessionStorage.setItem('userType', data.userType)
-          // window.sessionStorage.setItem('cellphone', data.cellphone)
-          // window.sessionStorage.setItem('email', data.email)
-          // window.sessionStorage.setItem('orgType', data.orgType)
-          if(this.callbackUrl != ''){
-            if(this.callbackUrl.indexOf('?') > -1) {
-            var url = "http://"+this.callbackUrl+"&token="+window.sessionStorage.getItem('token')+"&checkStatus="+window.sessionStorage.getItem('checkStatus')+"&userName="+window.sessionStorage.getItem('userName')+"&userId="+window.sessionStorage.getItem('userId')+"&userType="+window.sessionStorage.getItem('userType')+"&cellphone="+window.sessionStorage.getItem('cellphone')+"&email="+window.sessionStorage.getItem('email')+"&orgType="+window.sessionStorage.getItem('orgType')
 
-
-           }else{
-            var url = "http://"+this.callbackUrl+"?token="+window.sessionStorage.getItem('token')+"&checkStatus="+window.sessionStorage.getItem('checkStatus')+"&userName="+window.sessionStorage.getItem('userName')+"&userId="+window.sessionStorage.getItem('userId')+"&userType="+window.sessionStorage.getItem('userType')+"&cellphone="+window.sessionStorage.getItem('cellphone')+"&email="+window.sessionStorage.getItem('email')+"&orgType="+window.sessionStorage.getItem('orgType')
-         }
+          if (this.callbackUrl != '') {
+            if (this.callbackUrl.indexOf('?') > -1) {
+              var url = "http://" + this.callbackUrl + "&token=" + window.sessionStorage.getItem('token') + "&checkStatus=" + window.sessionStorage.getItem('checkStatus') + "&userName=" + window.sessionStorage.getItem('userName') + "&userId=" +
+                window.sessionStorage.getItem('userId') + "&userType=" + window.sessionStorage.getItem('userType') + "&cellphone=" + window.sessionStorage.getItem('cellphone') + "&email=" + window.sessionStorage.getItem('email') + "&orgType=" +
+                window.sessionStorage.getItem('orgType')
+            } else {
+              var url = "http://" + this.callbackUrl + "?token=" + window.sessionStorage.getItem('token') + "&checkStatus=" + window.sessionStorage.getItem('checkStatus') + "&userName=" + window.sessionStorage.getItem('userName') + "&userId=" +
+                window.sessionStorage.getItem('userId') + "&userType=" + window.sessionStorage.getItem('userType') + "&cellphone=" + window.sessionStorage.getItem('cellphone') + "&email=" + window.sessionStorage.getItem('email') + "&orgType=" +
+                window.sessionStorage.getItem('orgType')
+            }
             window.location.href = url
-          }else{
+          } else {
+
             this.$router.push({
               path: '/'
             })

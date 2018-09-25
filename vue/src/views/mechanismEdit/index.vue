@@ -502,11 +502,9 @@ export default {
       service_research_previoust: '',
       mech: {
         picOrgLicense: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/companyZZ.png`
         }],
         picLpLicense: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/companyZS.png`
         }],
         // fuben: [{
@@ -518,20 +516,16 @@ export default {
         //   url: this.imgBaseUrl + `def/idback.png`
         // }],
         picLmIdCardFront: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/idfront.png`
         }],
         picLmIdCardBack: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/idback.png`
         }],
         picLmIdCardInHand: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/handPhoto.jpg`
         }],
 
         picLogo: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/qylogo.png`
         }],
         code: '',
@@ -589,12 +583,26 @@ export default {
     this.listLoading = false
     if (this.$route.params.objData) {
       this.mech = JSON.parse(this.$route.params.objData)
-      this.mech.picOrgLicense[0].url = this.imgBaseUrl +  this.mech.picOrgLicense[0].url
-      this.mech.picLpLicense[0].url = this.imgBaseUrl +  this.mech.picLpLicense[0].url
-      this.mech.picLmIdCardFront[0].url = this.imgBaseUrl +  this.mech.picLmIdCardFront[0].url
-      this.mech.picLmIdCardBack[0].url = this.imgBaseUrl +  this.mech.picLmIdCardBack[0].url
-      this.mech.picLmIdCardInHand[0].url = this.imgBaseUrl +  this.mech.picLmIdCardInHand[0].url
-      this.mech.picLogo[0].url = this.imgBaseUrl +  this.mech.picLogo[0].url
+
+      this.mech.picOrgLicense = [{
+        url: this.imgBaseUrl + this.mech.picOrgLicense
+      }]
+      this.mech.picLpLicense = [{
+        url: this.imgBaseUrl + this.mech.picLpLicense
+      }]
+      this.mech.picLmIdCardFront = [{
+        url: this.imgBaseUrl + this.mech.picLmIdCardFront
+      }]
+      this.mech.picLmIdCardBack = [{
+        url: this.imgBaseUrl + this.mech.picLmIdCardBack
+      }]
+      this.mech.picLmIdCardInHand = [{
+        url: this.imgBaseUrl + this.mech.picLmIdCardInHand
+      }]
+      this.mech.picLogo = [{
+        url: this.imgBaseUrl + this.mech.picLogo
+      }]
+
     }
     var myDate = new Date();
     this.service_amount_lastt = parseInt(myDate.getFullYear() - 1) + '年服务收入（万元）';

@@ -381,19 +381,19 @@ export default {
       service_research_previoust: '',
       expert: {
         picLmIdCardFront: [{
-          name: '默认',
+
           url: this.imgBaseUrl + `def/idfront.png`
         }],
         picLmIdCardBack: [{
-          name: '默认',
+
           url: this.imgBaseUrl + `def/idback.png`
         }],
         picLmIdCardInHand: [{
-          name: '默认',
+
           url: this.imgBaseUrl + `def/handPhoto.jpg`
         }],
         picLogo: [{
-          name: '默认',
+
           url: this.imgBaseUrl + `def/livePhoto.jpg`
         }],
         name: '',
@@ -436,11 +436,18 @@ export default {
     this.listLoading = false
     if (this.$route.params.objData) {
       this.expert = JSON.parse(this.$route.params.objData)
-
-      this.expert.picLmIdCardFront[0].url = this.imgBaseUrl +  this.expert.picLmIdCardFront[0].url
-      this.expert.picLmIdCardBack[0].url = this.imgBaseUrl +  this.expert.picLmIdCardBack[0].url
-      this.expert.picLmIdCardInHand[0].url = this.imgBaseUrl +  this.expert.picLmIdCardInHand[0].url
-      this.expert.picLogo[0].url = this.imgBaseUrl +  this.expert.picLogo[0].url
+      this.expert.picLmIdCardFront = [{
+        url: this.imgBaseUrl + this.expert.picLmIdCardFront
+      }]
+      this.expert.picLmIdCardBack = [{
+        url: this.imgBaseUrl + this.expert.picLmIdCardBack
+      }]
+      this.expert.picLmIdCardInHand = [{
+        url: this.imgBaseUrl + this.expert.picLmIdCardInHand
+      }]
+      this.expert.picLogo = [{
+        url: this.imgBaseUrl + this.expert.picLogo
+      }]
 
 
       if (!this.expert.picLmIdCardFront) {

@@ -144,7 +144,7 @@
             <span v-show="userType =='0' &&tfcheckStatus == 0 || userType =='101' && tfcheckStatus == 0" @click="handlesh(scope.row)" class="clickText" >
             审核
             </span>
-          <span v-show="userType =='0' || userType =='101'" @click="handleEdit(scope.row,'edit')" class="clickText" >
+          <span v-show="userType =='0'&& tfcheckStatus != 0 || userType =='101'&& tfcheckStatus != 0" @click="handleEdit(scope.row,'edit')" class="clickText" >
             编辑
           </span>
       <span v-show="userType =='0' &&scope.row.status == 1 && tfcheckStatus == 1 || userType =='101'  &&scope.row.status == 1 && tfcheckStatus == 1">  <span @click="handlexj(scope.row)" class="clickText" >
@@ -185,7 +185,7 @@
           <td class=x22>{{detailData.name}}</td>
           <td class=x21>所在地区</td>
           <td class=x25>
-            <area-cascader :level="1" v-model="detailData.country" :data="pcaa"></area-cascader>
+            {{detailData.search_paramobj}}
           </td>
           <td class=x25>通信地址{{detailData.address}}</td>
           <td colspan=4 class=x28>邮编{{detailData.ecode}}</td>
@@ -193,32 +193,27 @@
         <tr height=19 id='r2'>
           <td height=19 class=x42>机构性质</td>
           <td colspan=8 id='tc1' class=x90>
-            <el-checkbox-group v-model="detailData.registerNature">
-              <el-checkbox label="1">企业</el-checkbox>
-              <el-checkbox label="2">科研院所</el-checkbox>
-              <el-checkbox label="3">高等院校 </el-checkbox>
-              <el-checkbox label="4">其他</el-checkbox>
-              <!-- <el-input v-show="detailData.registerNature.includes('4')" placeholder="请输入其他" v-model="detailData.mechregisterNatureOther" style="width:80%"></el-input> -->
-            </el-checkbox-group>
+              <span v-if="detailData.registerNature.includes('1')">企业;</span>
+              <span v-if="detailData.registerNature.includes('2')">科研院所;</span>
+              <span v-if="detailData.registerNature.includes('3')">高等院校;</span>
+              <span v-if="detailData.registerNature.includes('99')">{{detailData.mechregisterNatureOther}};</span>
+
           </td>
         </tr>
         <tr height=19 id='r3'>
           <td height=19 class=x35>机构类别</td>
           <td colspan=8 id='tc2' class=x90>
-            <el-checkbox-group v-model="detailData.org_type">
-          <el-checkbox  label="1">研究开发</el-checkbox>
-          <el-checkbox  label="2">科技投融资</el-checkbox>
-          <el-checkbox  label="3">技术转移 </el-checkbox>
-          <el-checkbox  label="4">检验检测</el-checkbox>
-          <el-checkbox  label="5">创业孵化</el-checkbox>
-          <el-checkbox  label="6">知识产权</el-checkbox>
-          <el-checkbox  label="7">科技评估</el-checkbox>
-          <el-checkbox  label="8">标准认证</el-checkbox>
-          <el-checkbox  label="9">管理咨询</el-checkbox>
-          <el-checkbox  label="10">综合科技服务</el-checkbox>
-          <el-checkbox  label="11">其他</el-checkbox>
-          <!-- <el-input v-show="detailData.org_type.includes('11')" placeholder="请输入其他" v-model="detailData.mechorg_typeOther" style="width:80%"></el-input> -->
-        </el-checkbox-group>
+            <span v-if="detailData.orgType.includes('1')">研究开发;</span>
+            <span v-if="detailData.orgType.includes('2')">科技投融资;</span>
+            <span v-if="detailData.orgType.includes('3')">技术转移;</span>
+            <span v-if="detailData.orgType.includes('4')">检验检测;</span>
+            <span v-if="detailData.orgType.includes('5')">创业孵化;</span>
+            <span v-if="detailData.orgType.includes('6')">知识产权;</span>
+            <span v-if="detailData.orgType.includes('7')">科技评估;</span>
+            <span v-if="detailData.orgType.includes('8')">标准认证;</span>
+            <span v-if="detailData.orgType.includes('9')">管理咨询;</span>
+            <span v-if="detailData.orgType.includes('10')">综合科技服务;</span>
+            <span v-if="detailData.orgType.includes('99')">{{detailData.orgTypeOther}};</span>
           </td>
         </tr>
         <tr height=32 id='r4'>
@@ -279,41 +274,33 @@
           <td colspan=5 id='tc16' class=x27><span>{{detailData.MHPer}}</span>人（<span> </span>%）</td>
         </tr>
         <tr height=120 style='mso-height-source:userset;height:90pt' id='r12'>
-          <td rowspan=4 height=190 class=x91>承担的政府项目情况</td>
-          <td colspan=2 class=x65>项目名称</td>
-          <td colspan=2 class=x65>起止时间<br><span> </span>年<span> </span>月--<span> </span>年<span> </span>月</td>
-          <td colspan=2 class=x66>项目来源<br></td>
+          <td  :rowspan=(detailData.PorcolumnDefinitions.length+1) height=190 class=x91>承担的政府项目情况</td>
+          <td colspan=1 class=x65>项目名称</td>
+          <td colspan=1 class=x65>起止时间<br><span> </span>年<span> </span>月--<span> </span>年<span> </span>月</td>
+          <td colspan=1 class=x66>项目来源<br></td>
+          <td colspan=1 class=x66>资助方式<br></td>
+          <td colspan=2 class=x66>执行情况<br></td>
         </tr>
         <tr v-for="item in detailData.PorcolumnDefinitions" height=32 id='r13'>
-          <td colspan=2 class=x72>{{item.name}}</td>
-          <td colspan=2 class=x37>{{item.time}}</td>
-          <td colspan=2 class=x37>{{item.source}}</td>
-        </tr>
-        <tr height=19 id='r40'>
-          <td colspan=2 id='tc27' height=19 class=x71 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;height:14.25pt;overflow:hidden;'>资助方式</td>
-          <td colspan=5 id='tc28' class=x120>
-            <el-checkbox-group v-model="detailData.registerSupport">
-            <el-checkbox label="1">拨款</el-checkbox>
-            <el-checkbox label="2">贴息</el-checkbox>
-            <el-checkbox label="3">减免税 </el-checkbox>
-            <el-checkbox label="4">以上全无</el-checkbox>
-            <el-checkbox label="5">其他</el-checkbox>
-            <!-- <el-input v-show="mech.registerSupport.includes('5')" placeholder="请输入其他" v-model="mech.mechregisterSupportOther" style="width:80%"></el-input> -->
-            </el-checkbox-group>
+          <td colspan=1 class=x72>{{item.name}}</td>
+          <td colspan=1 class=x37>{{item.time}}</td>
+          <td colspan=1 class=x37>{{item.source}}</td>
+          <td colspan=1 class=x37>
+            <span v-if="item.registerSupport.includes('1')">拨款;</span>
+            <span v-if="item.registerSupport.includes('2')">贴息;</span>
+            <span v-if="item.registerSupport.includes('3')">减免税;</span>
+            <span v-if="item.registerSupport.includes('4')">以上全无;</span>
+            <span v-if="item.registerSupport.includes('99')">{{item.mechregisterSupportOther}};</span>
+          </td>
+          <td colspan=2 class=x37>
+              <span v-if="item.registerImplement.includes('1')">申请;</span>
+              <span v-if="item.registerImplement.includes('2')">在研;</span>
+              <span v-if="item.registerImplement.includes('3')">验收/结题;</span>
           </td>
         </tr>
-        <tr height=19 id='r40'>
-          <td colspan=2 id='tc27' height=19 class=x71 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;height:14.25pt;overflow:hidden;'>执行情况</td>
-          <td colspan=5 id='tc28' class=x120>
-            <el-checkbox-group v-model="detailData.registerImplement">
-            <el-checkbox  label="1">申请</el-checkbox>
-            <el-checkbox  label="2">在研</el-checkbox>
-            <el-checkbox  label="3">验收/结题 </el-checkbox>
-            </el-checkbox-group>
-          </td>
-        </tr>
+
         <tr height=19 id='r16'>
-          <td rowspan=3 height=57 class=x89>所获资质及荣誉</td>
+          <td :rowspan=(detailData.honor.length+1) height=57 class=x89>所获资质及荣誉</td>
           <td colspan=2 class=x32>名称</td>
           <td colspan=2 class=x32>获得时间</td>
           <td colspan=2  class=x26>颁发机构</td>
@@ -325,7 +312,7 @@
         </tr>
 
         <tr height=32 id='r19'>
-          <td rowspan=3 height=70 class=x89>主要工作成效（围绕国家军民融合公共服务开展的服务情况）</td>
+          <td :rowspan=(detailData.workrPorcolumnDefinitions.length+1) height=70 class=x89>主要工作成效</td>
           <td class=x41>服务项目名称</td>
           <td class=x25>服务对象</td>
           <td colspan=6 id='tc21' class=x37>服务时间</td>
@@ -532,16 +519,63 @@ export default {
         lxemail: '',
         lxphone: '',
         lxzw: '',
-        linkman: ''
+        linkman: '',
+        search_paramobj: ''
       },
       treeData: [],
       loading: true,
       userType: '',
       multipleSelection: [],
-      detailData: '',
       tfcheckStatus: '',
       multipleSelection: [],
-      detailData: '',
+      detailData: {
+        zhengben: [],
+        fuben: [],
+        logo: [],
+        registerNature: '',
+        orgType: '',
+        serviceAbout: '',
+        service_amount_last: '',
+        service_amount_before: '',
+        service_amount_previous: '',
+        service_quantity_last: '',
+        service_quantity_before: '',
+        service_quantity_previous: '',
+        registerImplement: '',
+        registerSupport: '',
+        honor: [{
+          name: '',
+          time: '',
+          issuingAgency: ''
+        }],
+        PorcolumnDefinitions: [{
+          name: '',
+          time: [],
+          source: '',
+          registerImplement: [],
+          registerSupport: [],
+        }],
+        workrPorcolumnDefinitions: [{
+          name: '',
+          object: '',
+          time: []
+        }],
+        MHPer: '',
+        underPer: '',
+        perNum: '',
+        ecode: '',
+        address: '',
+        country: '',
+        name: '',
+        fdemail: '',
+        fdphone: '',
+        fdname: '',
+        lxemail: '',
+        lxphone: '',
+        lxzw: '',
+        linkman: '',
+        search_paramobj: ''
+      },
       tfcheckStatus: '',
       dialogShowDep: false,
       dialogShowSH: false,
@@ -739,6 +773,10 @@ export default {
               objData = data.detail
             }
       this.detailData = JSON.parse(objData)
+      this.loadOneTree(this.detailData.country[0])
+      this.loadtwoTree(this.detailData.country[0], this.detailData.country[1])
+      this.loadThreeTree(this.detailData.country[1], this.detailData.country[2])
+      this.detailData.search_paramobj = this.arrValue1 + '-' + this.arrValue2 + '-' + this.arrValue3
     },
     handlePrint() {
       $("#tablePrint").printArea();
@@ -918,15 +956,74 @@ export default {
         })
       }
     },
-    onDate1Change(val) {
-      this.obj.loanDate = val
-    },
-    onDate2Change(val) {
-      this.obj.appointmentRepaymentDate = val
-    },
-    onDate3Change(val) {
-      this.obj.interestPayTime = val
-    },
+
+        loadOneTree(code) {
+          let pcadata = this.pcaa
+          let arr = []
+          for (var i in pcadata) {
+            if (i == '86') {
+              let obj = {}
+              obj.date = i
+              obj.value = pcadata[i]
+              arr.push(obj)
+            }
+          }
+          arr = arr[0].value
+          for (var j in arr) {
+            if (j == code) {
+              let obj = {}
+              obj.name = j
+              obj.value = arr[j]
+              this.arrValue1 = obj.value
+            }
+          }
+        },
+        loadtwoTree(code1, code2) {
+          this.arrValue2 = []
+          let pcadata = this.pcaa
+          let arr = []
+          for (var i in pcadata) {
+            if (i == code1) {
+              let obj = {}
+              obj.date = i
+              obj.value = pcadata[i]
+              arr.push(obj)
+            }
+          }
+          arr = arr[0].value
+          for (var j in arr) {
+            if (j == code2) {
+              let obj = {}
+              obj.name = j
+              obj.value = arr[j]
+              this.arrValue2 = obj.value
+            }
+          }
+        },
+        loadThreeTree(code1, code2) {
+          this.arrValue3 = []
+          let pcadata = this.pcaa
+          let arr = []
+          for (var i in pcadata) {
+            if (i == code1) {
+              let obj = {}
+              obj.date = i
+              obj.value = pcadata[i]
+              arr.push(obj)
+            }
+          }
+          if (arr.length > 0) {
+            arr = arr[0].value
+            for (var j in arr) {
+              if (j == code2) {
+                let obj = {}
+                obj.name = j
+                obj.value = arr[j]
+                this.arrValue3 = obj.value
+              }
+            }
+          }
+        },
   }
 }
 </script>

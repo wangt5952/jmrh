@@ -202,27 +202,21 @@ export default {
       service_research_previoust: '',
       school: {
         picOrgLicense: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/companyZZ.png`
         }],
         picLpLicense: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/companyZS.png`
         }],
         picLmIdCardFront: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/idfront.png`
         }],
         picLmIdCardBack: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/idback.png`
         }],
         picLmIdCardInHand: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/handPhoto.jpg`
         }],
         picLogo: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/qylogo.png`
         }],
         lxname: '',
@@ -244,12 +238,25 @@ export default {
   async mounted() {
     if (this.$route.params.objData) {
       this.school = JSON.parse(this.$route.params.objData)
-      this.school.picOrgLicense[0].url = this.imgBaseUrl + this.school.picOrgLicense[0].url
-      this.school.picLpLicense[0].url = this.imgBaseUrl + this.school.picLpLicense[0].url
-      this.school.picLmIdCardFront[0].url = this.imgBaseUrl + this.school.picLmIdCardFront[0].url
-      this.school.picLmIdCardBack[0].url = this.imgBaseUrl + this.school.picLmIdCardBack[0].url
-      this.school.picLmIdCardInHand[0].url = this.imgBaseUrl + this.school.picLmIdCardInHand[0].url
-      this.school.picLogo[0].url = this.imgBaseUrl + this.school.picLogo[0].url
+      this.school.picOrgLicense = [{
+        url: this.imgBaseUrl + this.school.picOrgLicense
+      }]
+      this.school.picLpLicense = [{
+        url: this.imgBaseUrl + this.school.picLpLicense
+      }]
+      this.school.picLmIdCardFront = [{
+        url: this.imgBaseUrl + this.school.picLmIdCardFront
+      }]
+      this.school.picLmIdCardBack = [{
+        url: this.imgBaseUrl + this.school.picLmIdCardBack
+      }]
+      this.school.picLmIdCardInHand = [{
+        url: this.imgBaseUrl + this.school.picLmIdCardInHand
+      }]
+      this.school.picLogo = [{
+        url: this.imgBaseUrl + this.school.picLogo
+      }]
+
     }
 
     this.userType = window.sessionStorage.getItem('userType')

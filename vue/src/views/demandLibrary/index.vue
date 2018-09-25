@@ -126,7 +126,7 @@
             <span v-show="userType =='0' &&tfcheckStatus == 0 || userType =='101' && tfcheckStatus == 0" @click="handlesh(scope.row)" class="clickText" >
             审核
             </span>
-          <span v-show="userType =='0' || userType =='101'" @click="handleEdit(scope.row,'edit')" class="clickText" >
+          <span v-show="userType =='0' && tfcheckStatus != 0 || userType =='101' && tfcheckStatus != 0" @click="handleEdit(scope.row,'edit')" class="clickText" >
             编辑
           </span>
       <span v-show="userType =='0' &&scope.row.status == 1 && tfcheckStatus == 1 || userType =='101'  &&scope.row.status == 1 && tfcheckStatus == 1">  <span @click="handlexj(scope.row)" class="clickText" >
@@ -207,7 +207,7 @@
           <td class=x28>{{detailData.address}}</td>
           <td class=x29>所在地区</td>
           <td class=x30 style='overflow:hidden;'>
-            <area-cascader :level="1" v-model="detailData.country" :data="pcaa"></area-cascader>
+            {{detailData.search_paramobj}}
           </td>
         </tr>
         <tr height=20 style='mso-height-source:userset;height:15.6pt' id='r4'>
@@ -231,16 +231,15 @@
         <tr height=41 style='mso-height-source:userset;height:31.2pt' id='r6'>
           <td height=41 class=x34 style='height:31.2pt;'>所属领域</td>
           <td colspan=6 id='tc3' class=x49 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>
-            <el-checkbox-group v-model="detailData.domain">
-              <el-checkbox label="1">智能装备</el-checkbox>
-              <el-checkbox label="2">电子信息</el-checkbox>
-              <el-checkbox label="3">新材料</el-checkbox>
-              <el-checkbox label="4">航空航天</el-checkbox>
-              <el-checkbox label="5">生物技术与新医药</el-checkbox>
-              <el-checkbox label="6">能源与环保</el-checkbox>
-              <el-checkbox label="7">其他</el-checkbox>
-              <!-- <el-input v-show="demandLibrary.domain.includes('7')" placeholder="请输入其他" v-model="demandLibrary.domainOther" style="width:80%"></el-input> -->
-            </el-checkbox-group>
+
+            <span v-if="detailData.domain.includes('1')">智能装备;</span>
+            <span v-if="detailData.domain.includes('2')">电子信息;</span>
+            <span v-if="detailData.domain.includes('3')">新材料;</span>
+            <span v-if="detailData.domain.includes('4')">航空航天;</span>
+            <span v-if="detailData.domain.includes('5')">生物技术与新医药;</span>
+            <span v-if="detailData.domain.includes('6')">能源与环保;</span>
+            <span v-if="detailData.domain.includes('99')">{{detailData.domainOther}};</span>
+
           </td>
         </tr>
         <tr height=83 style='mso-height-source:userset;height:62.4pt' id='r7'>
@@ -258,29 +257,23 @@
         <tr height=41 style='mso-height-source:userset;height:31.2pt' id='r10'>
           <td height=41 class=x38 style='height:31.2pt;'>需求背景</td>
           <td colspan=6 class=x46>
-            <el-checkbox-group v-model="detailData.reqBack">
-              <el-checkbox label="1">新产品开发</el-checkbox>
-              <el-checkbox label="2">制造工艺改进</el-checkbox>
-              <el-checkbox label="3">产品升级换代</el-checkbox>
-              <el-checkbox label="4">制造设备改进</el-checkbox>
-              <el-checkbox label="5">生产线技术改造</el-checkbox>
-              <el-checkbox label="6">其他</el-checkbox>
-              <!-- <el-input v-show="detailData.reqBack.includes('6')" placeholder="请输入其他" v-model="detailData.reqBackOther" style="width:80%"></el-input> -->
-
-            </el-checkbox-group>
+              <span v-if="detailData.reqBack.includes('1')">新产品开发;</span>
+              <span v-if="detailData.reqBack.includes('2')">制造工艺改进;</span>
+              <span v-if="detailData.reqBack.includes('3')">产品升级换代;</span>
+              <span v-if="detailData.reqBack.includes('4')">制造设备改进;</span>
+              <span v-if="detailData.reqBack.includes('5')">生产线技术改造;</span>
+              <span v-if="detailData.reqBack.includes('99')">{{detailData.reqBackOther}};</span>
           </td>
 
         </tr>
         <tr height=41 style='mso-height-source:userset;height:31.2pt' id='r11'>
           <td height=41 class=x38 style='height:31.2pt;'>意向获得方式</td>
           <td colspan=6 id='tc7' class=x49 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>
-            <el-checkbox-group v-model="detailData.reqGet">
-              <el-checkbox label="1">技术转让</el-checkbox>
-              <el-checkbox label="2">技术许可</el-checkbox>
-              <el-checkbox label="3">技术开发</el-checkbox>
-              <el-checkbox label="4">技术服务</el-checkbox>
-              <el-checkbox label="5">技术入股</el-checkbox>
-            </el-checkbox-group>
+                <span v-if="detailData.reqGet.includes('1')">技术转让;</span>
+                <span v-if="detailData.reqGet.includes('2')">技术许可;</span>
+                <span v-if="detailData.reqGet.includes('3')">技术开发;</span>
+                <span v-if="detailData.reqGet.includes('4')">技术服务;</span>
+                <span v-if="detailData.reqGet.includes('5')">技术入股;</span>
           </td>
         </tr>
         <tr height=0 style='display:none'>
@@ -324,6 +317,10 @@ import {
   PLonUserDetails,
   updateLevel
 } from '@/api/library'
+import {
+  pca,
+  pcaa
+} from "area-data";
 export default {
   data() {
     return {
@@ -346,6 +343,7 @@ export default {
         sort: '+id',
         objName: ''
       },
+      pcaa: pcaa, //最多省市区三级，结合:level='2'选择，0省、1省市、2省市区
       total: null,
       textMap: {
         update: '编辑',
@@ -373,7 +371,6 @@ export default {
       treeData: [],
       loading: true,
       multipleSelection: [],
-      detailData: '',
       tfcheckStatus: '',
       dialogShowDep: false,
       dialogShowSH: false,
@@ -394,6 +391,48 @@ export default {
         creditLevel: '',
       },
       pldcUrl : "",
+      detailData: {
+        re_name: '',
+        code: '',
+        name: '',
+        picCommitmentLetter: [{
+          url: this.imgBaseUrl + `def/commitment.png`
+        }],
+        picOrgLicense: [{
+          url: this.imgBaseUrl + `def/companyZZ.png`
+        }],
+        picLpLicense: [{
+          url: this.imgBaseUrl + `def/companyZS.png`
+        }],
+        picLmIdCardFront: [{
+          url: this.imgBaseUrl + `def/idfront.png`
+        }],
+        picLmIdCardBack: [{
+          url: this.imgBaseUrl + `def/idback.png`
+        }],
+        picLmIdCardInHand: [{
+          url: this.imgBaseUrl + `def/handPhoto.jpg`
+        }],
+        fzname: '',
+        fzzw: '',
+        fzphone: '',
+        fzemail: '',
+        fzname2: '',
+        fzzw2: '',
+        fzphone2: '',
+        fzemail2: '',
+        domain: [],
+        domainOther: '',
+        address: '',
+        country: '',
+        reqDesc: '',
+        reqNew: '',
+        reqOther: '',
+        reqGet: [],
+        reqBack: [],
+        reqBackOther: '',
+        search_paramobj: []
+      },
     }
   },
   created(){
@@ -574,6 +613,10 @@ export default {
         objData = data.detail
       }
       this.detailData = JSON.parse(objData)
+      this.loadOneTree(this.detailData.country[0])
+      this.loadtwoTree(this.detailData.country[0], this.detailData.country[1])
+      this.loadThreeTree(this.detailData.country[1], this.detailData.country[2])
+      this.detailData.search_paramobj = this.arrValue1 + '-' + this.arrValue2 + '-' + this.arrValue3
     },
     async loadPageList() {
       if (this.input) {
@@ -775,15 +818,74 @@ export default {
         })
       }
     },
-    onDate1Change(val) {
-      this.obj.loanDate = val
-    },
-    onDate2Change(val) {
-      this.obj.appointmentRepaymentDate = val
-    },
-    onDate3Change(val) {
-      this.obj.interestPayTime = val
-    },
+
+        loadOneTree(code) {
+          let pcadata = this.pcaa
+          let arr = []
+          for (var i in pcadata) {
+            if (i == '86') {
+              let obj = {}
+              obj.date = i
+              obj.value = pcadata[i]
+              arr.push(obj)
+            }
+          }
+          arr = arr[0].value
+          for (var j in arr) {
+            if (j == code) {
+              let obj = {}
+              obj.name = j
+              obj.value = arr[j]
+              this.arrValue1 = obj.value
+            }
+          }
+        },
+        loadtwoTree(code1, code2) {
+          this.arrValue2 = []
+          let pcadata = this.pcaa
+          let arr = []
+          for (var i in pcadata) {
+            if (i == code1) {
+              let obj = {}
+              obj.date = i
+              obj.value = pcadata[i]
+              arr.push(obj)
+            }
+          }
+          arr = arr[0].value
+          for (var j in arr) {
+            if (j == code2) {
+              let obj = {}
+              obj.name = j
+              obj.value = arr[j]
+              this.arrValue2 = obj.value
+            }
+          }
+        },
+        loadThreeTree(code1, code2) {
+          this.arrValue3 = []
+          let pcadata = this.pcaa
+          let arr = []
+          for (var i in pcadata) {
+            if (i == code1) {
+              let obj = {}
+              obj.date = i
+              obj.value = pcadata[i]
+              arr.push(obj)
+            }
+          }
+          if (arr.length > 0) {
+            arr = arr[0].value
+            for (var j in arr) {
+              if (j == code2) {
+                let obj = {}
+                obj.name = j
+                obj.value = arr[j]
+                this.arrValue3 = obj.value
+              }
+            }
+          }
+        },
   }
 }
 </script>

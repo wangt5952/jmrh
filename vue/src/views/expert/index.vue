@@ -45,7 +45,9 @@
         <el-button v-show="userType =='0' && tfcheckStatus == 0 || userType =='101' && tfcheckStatus == 0" style="" @click="plsh" type="primary">批量审核</el-button>
         <el-button v-show="userType =='0' && tfcheckStatus == 1 || userType =='101' && tfcheckStatus == 1" style="" @click="plxj" type="primary">批量下架</el-button>
         <el-button v-show="userType =='0' && tfcheckStatus == 1 || userType =='101' && tfcheckStatus == 1" style="" @click="plsj" type="primary">批量上架</el-button>
-        <a :href=pldcUrl target="_blank"><el-button v-show="userType =='0' && tfcheckStatus == 1 || userType =='101' && tfcheckStatus == 1" style=""  type="primary">批量导出</el-button></a>
+        <a :href=pldcUrl target="_blank">
+          <el-button v-show="userType =='0' && tfcheckStatus == 1 || userType =='101' && tfcheckStatus == 1" style="" type="primary">批量导出</el-button>
+        </a>
 
       </div>
 
@@ -88,6 +90,7 @@
 
     <el-table-column v-if="tfcheckStatus == 1" align="center" label="所属领域">
       <template slot-scope="scope">
+        <!-- {{scope.row.researchField}} -->
                         <span v-if='scope.row.researchField.includes(1)'>智能装备</span>
                         <span v-if='scope.row.researchField.includes(2)'>电子信息</span>
                         <span v-if='scope.row.researchField.includes(3)'>新材料</span>
@@ -123,7 +126,7 @@
                                 {{ scope.row.creater}}</span>
                         </template>
     </el-table-column>
-    <el-table-column  align="center" label="状态" width="70px;">
+    <el-table-column align="center" label="状态" width="70px;">
       <template slot-scope="scope">
                             <span v-show="tfcheckStatus == -1">草稿</span>
                             <span v-show="tfcheckStatus == 0">待审核</span>
@@ -133,8 +136,8 @@
     </el-table-column>
 
 
-  <el-table-column v-show="userType =='0'" align="center" label="操作" width="130">
-    <template slot-scope="scope">
+    <el-table-column v-show="userType =='0'" align="center" label="操作" width="130">
+      <template slot-scope="scope">
                               <div style="text-align:center" >
                                 <span v-show="userType =='0' && tfcheckStatus == 1 || userType =='101' && tfcheckStatus == 1" @click="handlexy(scope.row)" class="clickText" >
                                   信用
@@ -142,7 +145,7 @@
                                   <span v-show="userType =='0' &&tfcheckStatus == 0 || userType =='101' && tfcheckStatus == 0" @click="handlesh(scope.row)" class="clickText" >
                                   审核
                                   </span>
-                                <span v-show="userType =='0' || userType =='101'" @click="handleEdit(scope.row,'edit')" class="clickText" >
+                                <span v-show="userType =='0'&& tfcheckStatus != 0 || userType =='101'&& tfcheckStatus != 0" @click="handleEdit(scope.row,'edit')" class="clickText" >
                                   编辑
                                 </span>
                             <span v-show="userType =='0' &&scope.row.status == 1 && tfcheckStatus == 1 || userType =='101'  &&scope.row.status == 1 && tfcheckStatus == 1">  <span @click="handlexj(scope.row)" class="clickText" >
@@ -156,7 +159,7 @@
                             </span>
                               </div>
                           </template>
-  </el-table-column>
+    </el-table-column>
 
 
   </el-table>
@@ -212,6 +215,16 @@
         <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r3'>
           <td height=19 style='height:14.25pt;'>研究领域</td>
           <td colspan=12 id='tc10'>
+            <!-- {{detailData.research_field}} -->
+            <span v-if="detailData.research_field.includes('1')">智能装备</span>
+            <span v-if="detailData.research_field.includes('2')">电子信息</span>
+            <span v-if="detailData.research_field.includes('3')">新材料</span>
+            <span v-if="detailData.research_field.includes('4')">航空航天</span>
+            <span v-if="detailData.research_field.includes('5')">生物技术与新医药</span>
+            <span v-if="detailData.research_field.includes('6')">能源与环保</span>
+            <span v-if="detailData.research_field.includes('7')">管理</span>
+            <span v-if="detailData.research_field.includes('99')">{{detailData.researchFieldOther}}</span>
+            <!--
             <el-checkbox-group v-model="detailData.research_field">
               <el-checkbox label="1">智能装备</el-checkbox>
               <el-checkbox label="2">电子信息</el-checkbox>
@@ -221,7 +234,7 @@
               <el-checkbox label="6">能源与环保</el-checkbox>
               <el-checkbox label="7">管理</el-checkbox>
               <el-checkbox label="8">其他</el-checkbox>
-            </el-checkbox-group>
+            </el-checkbox-group> -->
           </td>
         </tr>
         <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r4'>
@@ -241,10 +254,8 @@
           <td colspan=2 id='tc15'>{{detailData.zcname}}</td>
           <td>职称级别</td>
           <td colspan=3 id='tc16'>
-            <el-checkbox-group v-model="detailData.zclevel">
-              <el-checkbox label="1">正高</el-checkbox>
-              <el-checkbox label="2">副高</el-checkbox>
-            </el-checkbox-group>
+          <span v-if="detailData.zclevel.includes('1')">正高</span>
+          <span v-if="detailData.zclevel.includes('2')">副高</span>
           </td>
         </tr>
         <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r7'>
@@ -258,7 +269,7 @@
         <tr height=19 style='mso-height-source:userset;height:14.25pt' id='r8'>
           <td height=19 style='height:14.25pt;'>所在地区</td>
           <td colspan=5 id='tc20' style='border-bottom:1px solid windowtext;'>
-            <area-cascader :level="1" v-model="detailData.country" :data="pcaas"></area-cascader>
+              {{detailData.search_paramobj}}
           </td>
           <td>通讯地址</td>
           <td colspan=6 id='tc21'>{{detailData.address}}</td>
@@ -277,9 +288,6 @@
         </tr>
         <tr>
           <td colspan=13 id='tc26' height=19>近5年专业研究及获奖情况</td>
-        </tr>
-        <tr>
-          <td colspan=13 id='tc27' height=19>（注：“项目或课题来源”指下达或委托任务单位，国际合作、国家、部门、地方、企业、单位自有等。奖励情况以获国家、省（部）级为主。）</td>
         </tr>
         <tr>
           <td height=34 style='height:25.5pt;overflow:hidden;'>项目或课题名称</td>
@@ -530,14 +538,15 @@ export default {
           rewname: '',
           rewlevel: '',
           rewtime: ''
-        }]
+        }],
+        search_paramobj: ''
       },
       tfcheckStatus: '',
-      pldcUrl : ""
+      pldcUrl: ""
     }
   },
-  created(){
-    this.pldcUrl = this.docUrl + '/xtcx/lib/exportLib?objName='+this.input.objName+'&checkStatus=1&userType=1&creditLevel='+this.input.creditLevel+'&status='+this.input.status+'&token='+window.sessionStorage.getItem('token')
+  created() {
+    this.pldcUrl = this.docUrl + '/xtcx/lib/exportLib?objName=' + this.input.objName + '&checkStatus=1&userType=1&creditLevel=' + this.input.creditLevel + '&status=' + this.input.status + '&token=' + window.sessionStorage.getItem('token')
   },
   async mounted() {
     if (typeof this.$route.query.checkStatus == 'number') {
@@ -571,7 +580,7 @@ export default {
           success
         } = await PLrejectUserDetail(arr)
         if (success) {
-            this.dialogShowSH =false
+          this.dialogShowSH = false
           this.$message({
             message: '保存成功',
             type: 'success'
@@ -621,6 +630,41 @@ export default {
       })
     },
     showDetail(data) {
+      this.detailData = {
+          cardPositive: [],
+          cardSide: [],
+          cardHands: [],
+          onepicture: [],
+          name: '',
+          sex: '',
+          bornDate: '',
+          code: '',
+          shcool: '',
+          edu: '',
+          academic: '',
+          research_field: '',
+          research_area: '',
+          zwname: '',
+          zcname: '',
+          zclevel: '',
+          work_unit: '',
+          mobilephone: '',
+          telphone: '',
+          fdemail: '',
+          country: '',
+          address: '',
+          success_record: '',
+          project_desc: '',
+          research_record: [{
+            projectname: '',
+            projectSrc: '',
+            finishcon: '',
+            finishtime: '',
+            rewname: '',
+            rewlevel: '',
+            rewtime: ''
+          }]
+        }
       this.dialogShowDep = true
       let objData
       if (this.input.checkStatus == 1) {
@@ -629,6 +673,13 @@ export default {
         objData = data.detail
       }
       this.detailData = JSON.parse(objData)
+      this.loadOneTree(this.detailData.country[0])
+      this.loadtwoTree(this.detailData.country[0], this.detailData.country[1])
+      this.loadThreeTree(this.detailData.country[1], this.detailData.country[2])
+      this.detailData.search_paramobj = this.arrValue1 + '-' + this.arrValue2 + '-' + this.arrValue3
+      debugger
+      // this.detailData.researchField = JSON.stringify(this.detailData.researchField)
+      // debugger
     },
     handlePrint() {
       $("#tablePrint").printArea();
@@ -839,15 +890,74 @@ export default {
         })
       }
     },
-    onDate1Change(val) {
-      this.obj.loanDate = val
-    },
-    onDate2Change(val) {
-      this.obj.appointmentRepaymentDate = val
-    },
-    onDate3Change(val) {
-      this.obj.interestPayTime = val
-    },
+
+        loadOneTree(code) {
+          let pcadata = this.pcaas
+          let arr = []
+          for (var i in pcadata) {
+            if (i == '86') {
+              let obj = {}
+              obj.date = i
+              obj.value = pcadata[i]
+              arr.push(obj)
+            }
+          }
+          arr = arr[0].value
+          for (var j in arr) {
+            if (j == code) {
+              let obj = {}
+              obj.name = j
+              obj.value = arr[j]
+              this.arrValue1 = obj.value
+            }
+          }
+        },
+        loadtwoTree(code1, code2) {
+          this.arrValue2 = []
+          let pcadata = this.pcaas
+          let arr = []
+          for (var i in pcadata) {
+            if (i == code1) {
+              let obj = {}
+              obj.date = i
+              obj.value = pcadata[i]
+              arr.push(obj)
+            }
+          }
+          arr = arr[0].value
+          for (var j in arr) {
+            if (j == code2) {
+              let obj = {}
+              obj.name = j
+              obj.value = arr[j]
+              this.arrValue2 = obj.value
+            }
+          }
+        },
+        loadThreeTree(code1, code2) {
+          this.arrValue3 = []
+          let pcadata = this.pcaas
+          let arr = []
+          for (var i in pcadata) {
+            if (i == code1) {
+              let obj = {}
+              obj.date = i
+              obj.value = pcadata[i]
+              arr.push(obj)
+            }
+          }
+          if (arr.length > 0) {
+            arr = arr[0].value
+            for (var j in arr) {
+              if (j == code2) {
+                let obj = {}
+                obj.name = j
+                obj.value = arr[j]
+                this.arrValue3 = obj.value
+              }
+            }
+          }
+        },
   }
 }
 </script>

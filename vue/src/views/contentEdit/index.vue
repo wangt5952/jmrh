@@ -267,7 +267,6 @@ export default {
         editor: '',
         cover: '',
         covers: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/topiccover.png`
         }],
         tags: '',

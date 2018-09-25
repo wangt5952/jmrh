@@ -1552,19 +1552,15 @@ export default {
 
       expert: {
         picLmIdCardFront: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/idfront.png`
         }],
         picLmIdCardBack: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/idback.png`
         }],
         picLmIdCardInHand: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/handPhoto.jpg`
         }],
         picLogo: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/livePhoto.jpg`
         }],
         name: '',
@@ -1603,28 +1599,22 @@ export default {
 
       school: {
         picOrgLicense: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/companyZZ.png`
         }],
         picLpLicense: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/companyZS.png`
         }],
         picLmIdCardFront: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/idfront.png`
         }],
         picLmIdCardBack: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/idback.png`
         }],
         picLmIdCardInHand: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/handPhoto.jpg`
         }],
 
         logo: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/qylogo.png`
         }],
         lxname: '',
@@ -1644,11 +1634,9 @@ export default {
 
       mech: {
         picOrgLicense: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/companyZZ.png`
         }],
         picLpLicense: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/companyZS.png`
         }],
         // fuben: [{
@@ -1660,20 +1648,16 @@ export default {
         //   url: this.imgBaseUrl + `def/idback.png`
         // }],
         picLmIdCardFront: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/idfront.png`
         }],
         picLmIdCardBack: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/idback.png`
         }],
         picLmIdCardInHand: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/handPhoto.jpg`
         }],
 
         picLogo: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/qylogo.png`
         }],
         code: '',
@@ -1726,27 +1710,21 @@ export default {
       },
       com: {
         picOrgLicense: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/companyZZ.png`
         }],
         picLpLicense: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/companyZS.png`
         }],
         picLmIdCardFront: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/idfront.png`
         }],
         picLmIdCardBack: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/idback.png`
         }],
         picLmIdCardInHand: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/handPhoto.jpg`
         }],
         picLogo: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/qylogo.png`
         }],
         lxname: '',
@@ -1855,10 +1833,18 @@ export default {
           if (data.form.formType == '1') {
             this.expert = JSON.parse(data.form.detail)
             this.expert.code = this.code
-            this.expert.picLmIdCardFront[0].url = this.imgBaseUrl + this.expert.picLmIdCardFront[0].url
-            this.expert.picLmIdCardBack[0].url = this.imgBaseUrl + this.expert.picLmIdCardBack[0].url
-            this.expert.picLmIdCardInHand[0].url = this.imgBaseUrl + this.expert.picLmIdCardInHand[0].url
-            this.expert.picLogo[0].url = this.imgBaseUrl + this.expert.picLogo[0].url
+            this.expert.picLmIdCardFront = [{
+              url: this.imgBaseUrl + this.expert.picLmIdCardFront
+            }]
+            this.expert.picLmIdCardBack = [{
+              url: this.imgBaseUrl + this.expert.picLmIdCardBack
+            }]
+            this.expert.picLmIdCardInHand = [{
+              url: this.imgBaseUrl + this.expert.picLmIdCardInHand
+            }]
+            this.expert.picLogo = [{
+              url: this.imgBaseUrl + this.expert.picLogo
+            }]
 
             if (!this.expert.picLmIdCardFront) {
               this.expert.picLmIdCardFront = []
@@ -1877,32 +1863,68 @@ export default {
           if (data.form.formType == '2') {
             this.com = JSON.parse(data.form.detail)
             this.com.code = this.code
-            this.com.picOrgLicense[0].url = this.imgBaseUrl + this.com.picOrgLicense[0].url
-            this.com.picLpLicense[0].url = this.imgBaseUrl + this.com.picLpLicense[0].url
-            this.com.picLmIdCardFront[0].url = this.imgBaseUrl + this.com.picLmIdCardFront[0].url
-            this.com.picLmIdCardBack[0].url = this.imgBaseUrl + this.com.picLmIdCardBack[0].url
-            this.com.picLmIdCardInHand[0].url = this.imgBaseUrl + this.com.picLmIdCardInHand[0].url
-            this.com.picLogo[0].url = this.imgBaseUrl + this.com.picLogo[0].url
+            this.com.picOrgLicense = [{
+              url: this.imgBaseUrl + this.com.picOrgLicense
+            }]
+            this.com.picLpLicense = [{
+              url: this.imgBaseUrl + this.com.picLpLicense
+            }]
+            this.com.picLmIdCardFront = [{
+              url: this.imgBaseUrl + this.com.picLmIdCardFront
+            }]
+            this.com.picLmIdCardBack = [{
+              url: this.imgBaseUrl + this.com.picLmIdCardBack
+            }]
+            this.com.picLmIdCardInHand = [{
+              url: this.imgBaseUrl + this.com.picLmIdCardInHand
+            }]
+            this.com.picLogo = [{
+              url: this.imgBaseUrl + this.com.picLogo
+            }]
           }
           if (data.form.formType == '3') {
             this.mech = JSON.parse(data.form.detail)
             this.mech.code = this.code
-            this.mech.picOrgLicense[0].url = this.imgBaseUrl + this.mech.picOrgLicense[0].url
-            this.mech.picLpLicense[0].url = this.imgBaseUrl + this.mech.picLpLicense[0].url
-            this.mech.picLmIdCardFront[0].url = this.imgBaseUrl + this.mech.picLmIdCardFront[0].url
-            this.mech.picLmIdCardBack[0].url = this.imgBaseUrl + this.mech.picLmIdCardBack[0].url
-            this.mech.picLmIdCardInHand[0].url = this.imgBaseUrl + this.mech.picLmIdCardInHand[0].url
-            this.mech.picLogo[0].url = this.imgBaseUrl + this.mech.picLogo[0].url
+            this.mech.picOrgLicense = [{
+              url: this.imgBaseUrl + this.mech.picOrgLicense
+            }]
+            this.mech.picLpLicense = [{
+              url: this.imgBaseUrl + this.mech.picLpLicense
+            }]
+            this.mech.picLmIdCardFront = [{
+              url: this.imgBaseUrl + this.mech.picLmIdCardFront
+            }]
+            this.mech.picLmIdCardBack = [{
+              url: this.imgBaseUrl + this.mech.picLmIdCardBack
+            }]
+            this.mech.picLmIdCardInHand = [{
+              url: this.imgBaseUrl + this.mech.picLmIdCardInHand
+            }]
+            this.mech.picLogo = [{
+              url: this.imgBaseUrl + this.mech.picLogo
+            }]
           }
           if (data.form.formType == '4') {
             this.school = JSON.parse(data.form.detail)
             this.school.code = this.code
-            this.school.picOrgLicense[0].url = this.imgBaseUrl + this.school.picOrgLicense[0].url
-            this.school.picLpLicense[0].url = this.imgBaseUrl + this.school.picLpLicense[0].url
-            this.school.picLmIdCardFront[0].url = this.imgBaseUrl + this.school.picLmIdCardFront[0].url
-            this.school.picLmIdCardBack[0].url = this.imgBaseUrl + this.school.picLmIdCardBack[0].url
-            this.school.picLmIdCardInHand[0].url = this.imgBaseUrl + this.school.picLmIdCardInHand[0].url
-            this.school.picLogo[0].url = this.imgBaseUrl + this.school.picLogo[0].url
+            this.school.picOrgLicense = [{
+              url: this.imgBaseUrl + this.school.picOrgLicense
+            }]
+            this.school.picLpLicense = [{
+              url: this.imgBaseUrl + this.school.picLpLicense
+            }]
+            this.school.picLmIdCardFront = [{
+              url: this.imgBaseUrl + this.school.picLmIdCardFront
+            }]
+            this.school.picLmIdCardBack = [{
+              url: this.imgBaseUrl + this.school.picLmIdCardBack
+            }]
+            this.school.picLmIdCardInHand = [{
+              url: this.imgBaseUrl + this.school.picLmIdCardInHand
+            }]
+            this.school.picLogo = [{
+              url: this.imgBaseUrl + this.school.picLogo
+            }]
           }
         }
 

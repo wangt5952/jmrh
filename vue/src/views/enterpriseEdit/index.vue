@@ -488,15 +488,15 @@
                   </br>
                   <el-checkbox label="2">产品准入</el-checkbox>
                   </br>
-                  <el-checkbox label="3">人才保障 </el-checkbox>
+                  <el-checkbox label="3">人才保障</el-checkbox>
                   </br>
-                  <el-checkbox label="4">审批程序 </el-checkbox>
+                  <el-checkbox label="4">审批程序</el-checkbox>
                   </br>
-                  <el-checkbox label="5">资质认证 </el-checkbox>
+                  <el-checkbox label="5">资质认证</el-checkbox>
                   </br>
-                  <el-checkbox label="6">无人管理 </el-checkbox>
+                  <el-checkbox label="6">无人管理</el-checkbox>
                   </br>
-                  <el-checkbox label="99">其他 </el-checkbox>
+                  <el-checkbox label="99">其他</el-checkbox>
                   </br>
                   <el-input v-if="com.ydkn.includes('99')" placeholder="请输入其他" v-model="com.comydknOther" style="width:80%"></el-input>
                 </el-checkbox-group>
@@ -508,9 +508,9 @@
                   </br>
                   <el-checkbox label="2">资金保障困难</el-checkbox>
                   </br>
-                  <el-checkbox label="3">保密设施设备不足 </el-checkbox>
+                  <el-checkbox label="3">保密设施设备不足</el-checkbox>
                   </br>
-                  <el-checkbox label="4">需求信息不了解 </el-checkbox>
+                  <el-checkbox label="4">需求信息不了解</el-checkbox>
                 </el-checkbox-group>
               </el-form-item>
 
@@ -674,27 +674,21 @@ export default {
       service_research_previoust: '',
       com: {
         picOrgLicense: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/companyZZ.png`
         }],
         picLpLicense: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/companyZS.png`
         }],
         picLmIdCardFront: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/idfront.png`
         }],
         picLmIdCardBack: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/idback.png`
         }],
         picLmIdCardInHand: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/handPhoto.jpg`
         }],
         picLogo: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/qylogo.png`
         }],
         lxname: '',
@@ -779,13 +773,26 @@ export default {
     this.listLoading = false
     if (this.$route.params.objData) {
       this.com = JSON.parse(this.$route.params.objData)
-      debugger
-      this.com.picOrgLicense[0].url = this.imgBaseUrl +  this.com.picOrgLicense[0].url
-      this.com.picLpLicense[0].url = this.imgBaseUrl +  this.com.picLpLicense[0].url
-      this.com.picLmIdCardFront[0].url = this.imgBaseUrl +  this.com.picLmIdCardFront[0].url
-      this.com.picLmIdCardBack[0].url = this.imgBaseUrl +  this.com.picLmIdCardBack[0].url
-      this.com.picLmIdCardInHand[0].url = this.imgBaseUrl +  this.com.picLmIdCardInHand[0].url
-      this.com.picLogo[0].url = this.imgBaseUrl +  this.com.picLogo[0].url
+    debugger
+      this.com.picOrgLicense = [{
+        url: this.imgBaseUrl + this.com.picOrgLicense
+      }]
+      this.com.picLpLicense = [{
+        url: this.imgBaseUrl + this.com.picLpLicense
+      }]
+      this.com.picLmIdCardFront = [{
+        url: this.imgBaseUrl + this.com.picLmIdCardFront
+      }]
+      this.com.picLmIdCardBack = [{
+        url: this.imgBaseUrl + this.com.picLmIdCardBack
+      }]
+      this.com.picLmIdCardInHand = [{
+        url: this.imgBaseUrl + this.com.picLmIdCardInHand
+      }]
+      this.com.picLogo = [{
+        url: this.imgBaseUrl + this.com.picLogo
+      }]
+
     }
 
 
@@ -803,7 +810,7 @@ export default {
     this.service_research_beforet = parseInt(myDate.getFullYear() - 2) + '年研发投入（万元）';
     this.service_research_previoust = parseInt(myDate.getFullYear() - 3) + '年研发投入（万元）';
     this.userType = window.sessionStorage.getItem('userType')
-    debugger
+
     if (this.userType == '0' || this.userType == '101') {
       this.checkStatus = 1
     } else {
@@ -1175,13 +1182,13 @@ export default {
           message: '保存成功',
           type: 'success'
         });
-        this.com.picOrgLicense[0].url = this.imgBaseUrl +  this.com.picOrgLicense[0].url
-        this.com.picLpLicense[0].url = this.imgBaseUrl +  this.com.picLpLicense[0].url
-        this.com.picLmIdCardFront[0].url = this.imgBaseUrl +  this.com.picLmIdCardFront[0].url
-        this.com.picLmIdCardBack[0].url = this.imgBaseUrl +  this.com.picLmIdCardBack[0].url
-        this.com.picLmIdCardInHand[0].url = this.imgBaseUrl +  this.com.picLmIdCardInHand[0].url
-        this.com.picLogo[0].url = this.imgBaseUrl +  this.com.picLogo[0].url
-          window.history.go(-1);
+        this.com.picOrgLicense[0].url = this.imgBaseUrl + this.com.picOrgLicense[0].url
+        this.com.picLpLicense[0].url = this.imgBaseUrl + this.com.picLpLicense[0].url
+        this.com.picLmIdCardFront[0].url = this.imgBaseUrl + this.com.picLmIdCardFront[0].url
+        this.com.picLmIdCardBack[0].url = this.imgBaseUrl + this.com.picLmIdCardBack[0].url
+        this.com.picLmIdCardInHand[0].url = this.imgBaseUrl + this.com.picLmIdCardInHand[0].url
+        this.com.picLogo[0].url = this.imgBaseUrl + this.com.picLogo[0].url
+        window.history.go(-1);
       } else {
         this.$message({
           message: data.message,

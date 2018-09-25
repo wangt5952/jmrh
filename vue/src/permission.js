@@ -30,7 +30,7 @@ router.beforeEach((route, redirect, next) => {
     //而我们在刷新之前已经把sessionStorage里的user移除了，所以上面的添加路由也不行执行
     window.sessionStorage.removeItem('user')
     window.sessionStorage.removeItem('isLoadNodes')
-    window.location.href = '/'
+    next()
     return false
   }
   if (route.path !== '/main/moudle1') {

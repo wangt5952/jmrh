@@ -48,7 +48,7 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" :http-request="uploadSectionFile2" :file-list="achieveLibrary.picLmIdCardFront" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile2" :file-list="achieveLibrary.picLpIdCardFront" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -59,7 +59,7 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" :http-request="uploadSectionFile22" :file-list="achieveLibrary.picLmIdCardBack" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFile22" :file-list="achieveLibrary.picLpIdCardBack" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -71,7 +71,7 @@
                 <div>
                   <!--这是背面照-->
                   <div class="photo photo1">
-                    <el-upload class="upload-demo" :http-request="uploadSectionFilepicLmIdCardInHand" :file-list="achieveLibrary.picLmIdCardInHand" list-type="picture">
+                    <el-upload class="upload-demo" :http-request="uploadSectionFilepicLpIdCardInHand" :file-list="achieveLibrary.picLpIdCardInHand" list-type="picture">
                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
 
@@ -358,27 +358,21 @@ export default {
         fzname: '',
         fzphone: '',
         picCommitmentLetter: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/commitment.png`
         }],
         picOrgLicense: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/companyZZ.png`
         }],
         picLpLicense: [{
-          name: '默认',
           url: this.imgBaseUrl + `def/companyZS.png`
         }],
-        picLmIdCardFront: [{
-          name: '默认',
+        picLpIdCardFront: [{
           url: this.imgBaseUrl + `def/idfront.png`
         }],
-        picLmIdCardBack: [{
-          name: '默认',
+        picLpIdCardBack: [{
           url: this.imgBaseUrl + `def/idback.png`
         }],
-        picLmIdCardInHand: [{
-          name: '默认',
+        picLpIdCardInHand: [{
           url: this.imgBaseUrl + `def/handPhoto.jpg`
         }],
         fzemail: '',
@@ -418,17 +412,29 @@ export default {
     this.listLoading = false
     if (this.$route.params.objData) {
       this.achieveLibrary = JSON.parse(this.$route.params.objData)
-
-      this.achieveLibrary.picOrgLicense[0].url = this.imgBaseUrl + this.achieveLibrary.picOrgLicense[0].url
-      this.achieveLibrary.picLpLicense[0].url = this.imgBaseUrl + this.achieveLibrary.picLpLicense[0].url
-      this.achieveLibrary.picLmIdCardFront[0].url = this.imgBaseUrl + this.achieveLibrary.picLmIdCardFront[0].url
-      this.achieveLibrary.picLmIdCardBack[0].url = this.imgBaseUrl + this.achieveLibrary.picLmIdCardBack[0].url
-      this.achieveLibrary.picLmIdCardInHand[0].url = this.imgBaseUrl + this.achieveLibrary.picLmIdCardInHand[0].url
-      this.achieveLibrary.picCommitmentLetter[0].url = this.imgBaseUrl + this.achieveLibrary.picCommitmentLetter[0].url
-
-      if (!this.achieveLibrary.cardSide) {
-        this.achieveLibrary.cardSide = []
+      debugger
+      this.achieveLibrary.picOrgLicense = [{
+        url: this.imgBaseUrl + this.achieveLibrary.picOrgLicense
+      }]
+      this.achieveLibrary.picLpLicense = [{
+        url: this.imgBaseUrl + this.achieveLibrary.picLpLicense
+      }]
+      this.achieveLibrary.picLpIdCardFront = [{
+        url: this.imgBaseUrl + this.achieveLibrary.picLpIdCardFront
+      }]
+      this.achieveLibrary.picLpIdCardBack = [{
+        url: this.imgBaseUrl + this.achieveLibrary.picLpIdCardBack
+      }]
+      this.achieveLibrary.picLpIdCardInHand = [{
+        url: this.imgBaseUrl + this.achieveLibrary.picLpIdCardInHand
+      }]
+      this.achieveLibrary.picCommitmentLetter = [{
+        url: this.imgBaseUrl + this.achieveLibrary.picCommitmentLetter
+      }]
+      if (!this.achieveLibrary.picCommitmentLetter) {
+        this.achieveLibrary.picCommitmentLetter = []
       }
+
 
     }
 
@@ -452,9 +458,9 @@ export default {
         if (this.achieveLibrary.code != "") this.codeD = true
         this.achieveLibrary.picOrgLicense[0].url = this.imgBaseUrl + detail.picOrgLicense[0].url
         this.achieveLibrary.picLpLicense[0].url = this.imgBaseUrl + detail.picLpLicense[0].url
-        this.achieveLibrary.picLmIdCardFront[0].url = this.imgBaseUrl + detail.picLmIdCardFront[0].url
-        this.achieveLibrary.picLmIdCardBack[0].url = this.imgBaseUrl + detail.picLmIdCardBack[0].url
-        this.achieveLibrary.picLmIdCardInHand[0].url = this.imgBaseUrl + detail.picLmIdCardInHand[0].url
+        this.achieveLibrary.picLpIdCardFront[0].url = this.imgBaseUrl + detail.picLpIdCardFront[0].url
+        this.achieveLibrary.picLpIdCardBack[0].url = this.imgBaseUrl + detail.picLpIdCardBack[0].url
+        this.achieveLibrary.picLpIdCardInHand[0].url = this.imgBaseUrl + detail.picLpIdCardInHand[0].url
 
 
       } else {
@@ -477,9 +483,9 @@ export default {
             if (this.achieveLibrary.code != "") this.codeD = true
             this.achieveLibrary.picOrgLicense[0].url = this.imgBaseUrl + detail.picOrgLicense[0].url
             this.achieveLibrary.picLpLicense[0].url = this.imgBaseUrl + detail.picLpLicense[0].url
-            this.achieveLibrary.picLmIdCardFront[0].url = this.imgBaseUrl + detail.picLmIdCardFront[0].url
-            this.achieveLibrary.picLmIdCardBack[0].url = this.imgBaseUrl + detail.picLmIdCardBack[0].url
-            this.achieveLibrary.picLmIdCardInHand[0].url = this.imgBaseUrl + detail.picLmIdCardInHand[0].url
+            this.achieveLibrary.picLpIdCardFront[0].url = this.imgBaseUrl + detail.picLpIdCardFront[0].url
+            this.achieveLibrary.picLpIdCardBack[0].url = this.imgBaseUrl + detail.picLpIdCardBack[0].url
+            this.achieveLibrary.picLpIdCardInHand[0].url = this.imgBaseUrl + detail.picLpIdCardInHand[0].url
 
           }
         }
@@ -556,7 +562,7 @@ export default {
     },
 
     async uploadSectionFile2(param) {
-      this.achieveLibrary.picLmIdCardFront = []
+      this.achieveLibrary.picLpIdCardFront = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -573,11 +579,11 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `user/` + data
-        this.achieveLibrary.picLmIdCardFront.push(arro)
+        this.achieveLibrary.picLpIdCardFront.push(arro)
       }
     },
     async uploadSectionFile22(param) {
-      this.achieveLibrary.picLmIdCardBack = []
+      this.achieveLibrary.picLpIdCardBack = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -594,12 +600,12 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `user/` + data
-        this.achieveLibrary.picLmIdCardBack.push(arro)
+        this.achieveLibrary.picLpIdCardBack.push(arro)
       }
     },
 
-    async uploadSectionFilepicLmIdCardInHand(param) {
-      this.achieveLibrary.picLmIdCardInHand = []
+    async uploadSectionFilepicLpIdCardInHand(param) {
+      this.achieveLibrary.picLpIdCardInHand = []
       var fileObj = param.file;
       // 接收上传文件的后台地址
       // FormData 对象
@@ -616,7 +622,7 @@ export default {
         let arro = {}
         arro.name = data.fileName,
           arro.url = this.imgBaseUrl + `user/` + data
-        this.achieveLibrary.picLmIdCardInHand.push(arro)
+        this.achieveLibrary.picLpIdCardInHand.push(arro)
       }
     },
     async getdownloadfile() {
@@ -745,25 +751,25 @@ export default {
       } else {
         this.achieveLibrary.picLpLicense[0].url = picLpLicense.substring(picLpLicense.indexOf('/def/') + 1, picLpLicense.length)
       }
-      let picLmIdCardFront = this.achieveLibrary.picLmIdCardFront[0].url
-      if (picLmIdCardFront.indexOf('/user/') > -1) {
-        this.achieveLibrary.picLmIdCardFront[0].url = picLmIdCardFront.substring(picLmIdCardFront.indexOf('/user/') + 1, picLmIdCardFront.length)
+      let picLpIdCardFront = this.achieveLibrary.picLpIdCardFront[0].url
+      if (picLpIdCardFront.indexOf('/user/') > -1) {
+        this.achieveLibrary.picLpIdCardFront[0].url = picLpIdCardFront.substring(picLpIdCardFront.indexOf('/user/') + 1, picLpIdCardFront.length)
       } else {
-        this.achieveLibrary.picLmIdCardFront[0].url = picLmIdCardFront.substring(picLmIdCardFront.indexOf('/def/') + 1, picLmIdCardFront.length)
+        this.achieveLibrary.picLpIdCardFront[0].url = picLpIdCardFront.substring(picLpIdCardFront.indexOf('/def/') + 1, picLpIdCardFront.length)
       }
 
-      let picLmIdCardBack = this.achieveLibrary.picLmIdCardBack[0].url
-      if (picLmIdCardBack.indexOf('/user/') > -1) {
-        this.achieveLibrary.picLmIdCardBack[0].url = picLmIdCardBack.substring(picLmIdCardBack.indexOf('/user/') + 1, picLmIdCardBack.length)
+      let picLpIdCardBack = this.achieveLibrary.picLpIdCardBack[0].url
+      if (picLpIdCardBack.indexOf('/user/') > -1) {
+        this.achieveLibrary.picLpIdCardBack[0].url = picLpIdCardBack.substring(picLpIdCardBack.indexOf('/user/') + 1, picLpIdCardBack.length)
       } else {
-        this.achieveLibrary.picLmIdCardBack[0].url = picLmIdCardBack.substring(picLmIdCardBack.indexOf('/def/') + 1, picLmIdCardBack.length)
+        this.achieveLibrary.picLpIdCardBack[0].url = picLpIdCardBack.substring(picLpIdCardBack.indexOf('/def/') + 1, picLpIdCardBack.length)
       }
 
-      let picLmIdCardInHand = this.achieveLibrary.picLmIdCardInHand[0].url
-      if (picLmIdCardInHand.indexOf('/user/') > -1) {
-        this.achieveLibrary.picLmIdCardInHand[0].url = picLmIdCardInHand.substring(picLmIdCardInHand.indexOf('/user/') + 1, picLmIdCardInHand.length)
+      let picLpIdCardInHand = this.achieveLibrary.picLpIdCardInHand[0].url
+      if (picLpIdCardInHand.indexOf('/user/') > -1) {
+        this.achieveLibrary.picLpIdCardInHand[0].url = picLpIdCardInHand.substring(picLpIdCardInHand.indexOf('/user/') + 1, picLpIdCardInHand.length)
       } else {
-        this.achieveLibrary.picLmIdCardInHand[0].url = picLmIdCardInHand.substring(picLmIdCardInHand.indexOf('/def/') + 1, picLmIdCardInHand.length)
+        this.achieveLibrary.picLpIdCardInHand[0].url = picLpIdCardInHand.substring(picLpIdCardInHand.indexOf('/def/') + 1, picLpIdCardInHand.length)
       }
 
       let picCommitmentLetter = this.achieveLibrary.picCommitmentLetter[0].url
@@ -793,9 +799,9 @@ export default {
         });
         this.achieveLibrary.picOrgLicense[0].url = this.imgBaseUrl + this.achieveLibrary.picOrgLicense[0].url
         this.achieveLibrary.picLpLicense[0].url = this.imgBaseUrl + this.achieveLibrary.picLpLicense[0].url
-        this.achieveLibrary.picLmIdCardFront[0].url = this.imgBaseUrl + this.achieveLibrary.picLmIdCardFront[0].url
-        this.achieveLibrary.picLmIdCardBack[0].url = this.imgBaseUrl + this.achieveLibrary.picLmIdCardBack[0].url
-        this.achieveLibrary.picLmIdCardInHand[0].url = this.imgBaseUrl + this.achieveLibrary.picLmIdCardInHand[0].url
+        this.achieveLibrary.picLpIdCardFront[0].url = this.imgBaseUrl + this.achieveLibrary.picLpIdCardFront[0].url
+        this.achieveLibrary.picLpIdCardBack[0].url = this.imgBaseUrl + this.achieveLibrary.picLpIdCardBack[0].url
+        this.achieveLibrary.picLpIdCardInHand[0].url = this.imgBaseUrl + this.achieveLibrary.picLpIdCardInHand[0].url
         this.achieveLibrary.picCommitmentLetter[0].url = this.imgBaseUrl + this.achieveLibrary.picCommitmentLetter[0].url
           window.history.go(-1);
       } else {
