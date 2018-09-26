@@ -11,7 +11,7 @@
 
               <el-form-item label="姓名">
                 <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入姓名" v-model="expert.name" style="width:80%" maxlength="20"></el-input>
+                <el-input placeholder="请输入姓名，不能超过20个字符！" v-model="expert.name" style="width:80%" maxlength="20"></el-input>
               </el-form-item>
               <el-form-item label="性别">
                 <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
@@ -81,7 +81,7 @@
               </el-form-item>
               <el-form-item label="毕业院校">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入毕业院校" v-model="expert.shcool" style="width:80%"  maxlength="15"></el-input>
+                <el-input placeholder="请输入毕业院校，不能超过20个字符！" v-model="expert.shcool" style="width:80%"  maxlength="20"></el-input>
               </el-form-item>
               <el-form-item label="学历">
                 <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
@@ -125,13 +125,13 @@
                   <el-checkbox label="6">能源与环保</el-checkbox>
                   <el-checkbox label="7">管理</el-checkbox>
                   <el-checkbox label="99">其他</el-checkbox>
-                  <el-input v-if="expert.research_field.includes('99')" placeholder="请输入其他" v-model="expert.researchFieldOther" style="width:80%"></el-input>
+                  <el-input v-if="expert.research_field.includes('99')" placeholder="请输入其他，不能超过20个字符！" v-model="expert.researchFieldOther" maxlength="20" style="width:80%"></el-input>
                 </el-checkbox-group>
               </el-form-item>
 
               <el-form-item label="研究方向">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入研究方向" v-model="expert.research_area" style="width:80%"  maxlength="20"></el-input>
+                <el-input placeholder="请输入研究方向，不能超过20个字符！" v-model="expert.research_area" style="width:80%"  maxlength="20"></el-input>
               </el-form-item>
 
             </el-col>
@@ -152,19 +152,19 @@
 
               <el-form-item label="工作单位">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入工作单位" v-model="expert.work_unit" style="width:80%"></el-input>
+                <el-input placeholder="请输入工作单位，不能超过20个字符！" maxlength="20" v-model="expert.work_unit" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="工作部门">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入工作部门" v-model="expert.work_bumen" style="width:80%"></el-input>
+                <el-input placeholder="请输入工作部门，不能超过20个字符！" maxlength="20" v-model="expert.work_bumen" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="现任职务">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入现任职务" v-model="expert.zwname" style="width:80%"></el-input>
+                <el-input placeholder="请输入现任职务，不能超过20个字符！"  maxlength="20" v-model="expert.zwname" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="职称">
                 <span style='position: absolute;left: -50px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入职称" v-model="expert.zcname" style="width:80%"></el-input>
+                <el-input placeholder="请输入职称，不能超过20个字符！" maxlength="20" v-model="expert.zcname" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="职称级别">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
@@ -191,7 +191,7 @@
               </el-form-item>
               <el-form-item label="通讯地址">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入通讯地址" v-model="expert.address" style="width:80%"></el-input>
+                <el-input placeholder="请输入通讯地址，不能超过30个字符！" maxlength="30" v-model="expert.address" style="width:80%"></el-input>
               </el-form-item>
             </el-col>
 
@@ -212,7 +212,7 @@
 
               <el-form-item label="主要学术成就/研究成果/管理成就">
                 <span style='position: absolute;left: -230px;color: #f60d0d;'></span>
-                <textarea v-model="expert.success_record" rows="3" cols="20" style="width:60%;height: 120px;">
+                <textarea placeholder="不能超过200个字符！" maxlength="200" v-model="expert.success_record" rows="3" cols="20" style="width:60%;height: 120px;">
                 </textarea>
               </el-form-item>
 
@@ -231,7 +231,7 @@
           <el-row :gutter="24">
             <el-col :span="24">
               <el-form-item label="主要产学研合作项目情况（国防军工类项目）">
-                <textarea v-model="expert.project_desc" rows="3" cols="20" style="width:60%;height: 120px;">
+                <textarea placeholder="不能超过200个字符！" maxlength="200" v-model="expert.project_desc" rows="3" cols="20" style="width:60%;height: 120px;">
                 </textarea>
               </el-form-item>
 
@@ -263,17 +263,17 @@
 
 
                     <el-form-item label="项目或课题名称">
-                      <el-input type="text" v-model="item.projectname" style="width: 50%;"></el-input>
+                      <el-input placeholder="不能超过20个字符！" maxlength="20" type="text" v-model="item.projectname" style="width: 50%;"></el-input>
                     </el-form-item>
 
                     <el-form-item label="项目或课题来源">
 
-                      <el-input type="text" v-model="item.projectSrc" style="width: 50%;"></el-input>
+                      <el-input placeholder="不能超过20个字符！" maxlength="20" type="text" v-model="item.projectSrc" style="width: 50%;"></el-input>
                     </el-form-item>
 
 
                     <el-form-item label="完成情况">
-                      <el-input type="text" v-model="item.finishcon" style="width: 50%;"></el-input>
+                      <el-input placeholder="不能超过20个字符！" maxlength="20" type="text" v-model="item.finishcon" style="width: 50%;"></el-input>
                     </el-form-item>
 
                     <el-form-item label="完成时间">
@@ -283,12 +283,12 @@
                   </el-col>
                   <el-col :span="12">
                     <el-form-item label="奖项名称">
-                      <el-input type="text" v-model="item.rewname" style="width: 50%;"></el-input>
+                      <el-input placeholder="不能超过20个字符！" maxlength="20" type="text" v-model="item.rewname" style="width: 50%;"></el-input>
                     </el-form-item>
 
                     <el-form-item label="获奖等级">
 
-                      <el-input type="text" v-model="item.rewlevel" style="width: 50%;"></el-input>
+                      <el-input placeholder="不能超过20个字符！" maxlength="20" type="text" v-model="item.rewlevel" style="width: 50%;"></el-input>
                     </el-form-item>
 
 

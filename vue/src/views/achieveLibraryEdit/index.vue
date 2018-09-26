@@ -10,15 +10,15 @@
             <el-col :span="20">
               <el-form-item label="技术成果名称">
                 <span style='position: absolute;left: -110px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入技术成果名称" v-model="achieveLibrary.re_name" style="width:80%"></el-input>
+                <el-input placeholder="请输入技术成果名称，不能超过20个字符！"  maxlength="20" v-model="achieveLibrary.re_name" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="企业名称">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入企业名称" v-model="achieveLibrary.name" style="width:80%"></el-input>
+                <el-input placeholder="请输入企业名称，不能超过20个字符！"  maxlength="20" v-model="achieveLibrary.name" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="统一社会信用代码">
                 <span style='position: absolute;left: -135px;color: #f60d0d;'>*</span>
-                <el-input :disabled="codeD" placeholder="请输入统一社会信用代码" v-model="achieveLibrary.code" style="width:80%"></el-input>
+                <el-input :disabled="codeD" placeholder="请输入统一社会信用代码，不能超过20个字符！"  maxlength="20" v-model="achieveLibrary.code" style="width:80%"></el-input>
               </el-form-item>
 
 
@@ -98,11 +98,11 @@
               </el-form-item>
               <el-form-item label="通讯地址">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入通讯地址" v-model="achieveLibrary.address" style="width:80%"></el-input>
+                <el-input placeholder="请输入通讯地址，不能超过20个字符！"  maxlength="20" v-model="achieveLibrary.address" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="负责人">
                 <span style='position: absolute;left: -65px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入项目负责人" v-model="achieveLibrary.fzname" style="width:80%"></el-input>
+                <el-input placeholder="请输入项目负责人，不能超过20个字符！"  maxlength="20" v-model="achieveLibrary.fzname" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="电话">
                 <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
@@ -114,7 +114,7 @@
               </el-form-item>
               <el-form-item label="联系人">
                 <span style='position: absolute;left: -65px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入项目联系人" v-model="achieveLibrary.fzname2" style="width:80%"></el-input>
+                <el-input placeholder="请输入项目联系人，不能超过20个字符！"  maxlength="20" v-model="achieveLibrary.fzname2" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="电话">
                 <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
@@ -134,7 +134,7 @@
                   <el-checkbox label="5">生物技术与新医药</el-checkbox>
                   <el-checkbox label="6">能源与环保</el-checkbox>
                   <el-checkbox label="7">其他</el-checkbox>
-                  <el-input v-if="achieveLibrary.domain.includes('7')" placeholder="请输入其他" v-model="achieveLibrary.domainOther" style="width:80%"></el-input>
+                  <el-input v-if="achieveLibrary.domain.includes('7')" placeholder="请输入其他，不能超过20个字符！"  maxlength="20" v-model="achieveLibrary.domainOther" style="width:80%"></el-input>
                 </el-checkbox-group>
               </el-form-item>
               <el-form-item label="所处阶段">
@@ -174,13 +174,13 @@
 
               <el-form-item label="技术成果简介">
                 <span style='position: absolute;left: -110px;color: #f60d0d;'></span>
-                <textarea v-model="achieveLibrary.resDesc" rows="3" cols="20" style="width:60%;height: 150px;">
+                <textarea placeholder="不能超过200个字符！" maxlength="200" v-model="achieveLibrary.resDesc" rows="3" cols="20" style="width:60%;height: 150px;">
                 </textarea>
               </el-form-item>
 
               <el-form-item label="可应用领域">
                 <span style='position: absolute;left: -90px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入可应用领域" v-model="achieveLibrary.applyLY" style="width:80%"></el-input>
+                <el-input placeholder="请输入可应用领域，不能超过20个字符！"  maxlength="20" v-model="achieveLibrary.applyLY" style="width:80%"></el-input>
               </el-form-item>
 
             </el-col>
@@ -199,7 +199,7 @@
             <el-col :span="24">
               <el-form-item label="技术创新点">
                 <span style='position: absolute;left: -90px;color: #f60d0d;'></span>
-                <textarea v-model="achieveLibrary.newIdea" rows="3" cols="20" style="width:60%;height: 150px;">
+                <textarea placeholder="不能超过200个字符！" maxlength="200" v-model="achieveLibrary.newIdea" rows="3" cols="20" style="width:60%;height: 150px;">
                 </textarea>
               </el-form-item>
 
@@ -218,13 +218,13 @@
         <el-form class="" label-width="30%" style="text-align:left">
           <el-row :gutter="24">
             <el-form-item label="申请专利数量">
-              <el-input placeholder="请输入申请专利数量" v-model="achieveLibrary.sqPatent" style="width:80%"></el-input>
+              <el-input placeholder="请输入申请专利数量" v-model="achieveLibrary.sqPatent" style="width:80%"  type="number"></el-input>
             </el-form-item>
             <el-form-item label="获授权专利数量">
-              <el-input placeholder="请输入获授权专利数量" v-model="achieveLibrary.havePatent" style="width:80%"></el-input>
+              <el-input placeholder="请输入获授权专利数量" v-model="achieveLibrary.havePatent" style="width:80%"  type="number"></el-input>
             </el-form-item>
             <el-form-item label="其他知识产权数量">
-              <el-input placeholder="请输入其他知识产权数量" v-model="achieveLibrary.otherPatent" style="width:80%"></el-input>
+              <el-input placeholder="请输入其他知识产权数量" v-model="achieveLibrary.otherPatent" style="width:80%"  type="number"></el-input>
             </el-form-item>
           </el-row>
         </el-form>
@@ -243,31 +243,31 @@
 
                 <el-table-column align="center" label="专利名称">
                   <template slot-scope="scope">
-                  <el-input  type="text" v-model="scope.row.projectname" style="width: 50%;"></el-input>
+                  <el-input placeholder="不能超过20个字符！" maxlength="20" type="text" v-model="scope.row.projectname" style="width: 50%;"></el-input>
                                   </template>
                 </el-table-column>
                 <el-table-column align="center" label="专利类型">
                   <template slot-scope="scope">
                                         <span>
-                                          <el-input  type="text" v-model="scope.row.projecType" style="width: 50%;"></el-input>
+                                          <el-input placeholder="不能超过20个字符！" maxlength="20" type="text" v-model="scope.row.projecType" style="width: 50%;"></el-input>
                                         </span>
                                     </template>
                 </el-table-column>
                 <el-table-column align="center" label="专利号">
                   <template slot-scope="scope">
-                  <el-input  type="text" v-model="scope.row.projectNum" style="width: 50%;"></el-input>
+                  <el-input placeholder="不能超过20个字符！" maxlength="20" type="text" v-model="scope.row.projectNum" style="width: 50%;"></el-input>
                                   </template>
                 </el-table-column>
                 <el-table-column align="center" label="专利权人">
                   <template slot-scope="scope">
 
-                    <el-input  type="text" v-model="scope.row.projectPer" style="width: 50%;"></el-input>
+                    <el-input placeholder="不能超过20个字符！" maxlength="20" type="text" v-model="scope.row.projectPer" style="width: 50%;"></el-input>
                                   </template>
                 </el-table-column>
 
                 <el-table-column align="center" label="有效期" style="width: 50%;">
                   <template slot-scope="scope">
-                                      <el-input  type="text" v-model="scope.row.projectTime" style="width: 50%;"></el-input>
+                                      <el-input placeholder="不能超过20个字符！" maxlength="20" type="text" v-model="scope.row.projectTime" style="width: 50%;"></el-input>
                                   </template>
                 </el-table-column>
                 <el-table-column align="center" label="" style="width: 50%;">

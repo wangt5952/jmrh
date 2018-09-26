@@ -9,11 +9,11 @@
             <el-col :span="20">
               <el-form-item label="单位名称">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入单位名称" v-model="mech.name" style="width:80%"></el-input>
+                <el-input placeholder="请输入单位名称，不能超过20个字符！"  maxlength="20" v-model="mech.name" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="统一社会信用代码">
                 <span style='position: absolute;left: -135px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入统一社会信用代码" v-model="mech.code" style="width:80%"></el-input>
+                <el-input placeholder="请输入统一社会信用代码，不能超过20个字符！"  maxlength="20" v-model="mech.code" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="营业执照">
                 <div>
@@ -55,7 +55,7 @@
               </el-form-item>
               <el-form-item label="联系地址">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入联系地址" v-model="mech.address" style="width:80%"></el-input>
+                <el-input placeholder="请输入联系地址，不能超过20个字符！"  maxlength="20" v-model="mech.address" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="邮编">
                 <el-input placeholder="请输入邮编" v-model="mech.ecode" style="width:80%"></el-input>
@@ -68,7 +68,7 @@
                   <el-checkbox label="2">科研院所</el-checkbox>
                   <el-checkbox label="3">高等院校 </el-checkbox>
                   <el-checkbox label="99">其他</el-checkbox>
-                  <el-input v-if="mech.registerNature.includes('99')" placeholder="请输入其他" v-model="mech.mechregisterNatureOther" style="width:80%"></el-input>
+                  <el-input v-if="mech.registerNature.includes('99')" placeholder="请输入其他，不能超过20个字符！"  maxlength="20" v-model="mech.mechregisterNatureOther" style="width:80%"></el-input>
                 </el-checkbox-group>
               </el-form-item>
 
@@ -86,7 +86,7 @@
                   <el-checkbox label="9">管理咨询</el-checkbox>
                   <el-checkbox label="10">综合科技服务</el-checkbox>
                   <el-checkbox label="99">其他</el-checkbox>
-                  <el-input v-if="mech.orgType.includes('99')" placeholder="请输入其他" v-model="mech.orgTypeOther" style="width:80%"></el-input>
+                  <el-input v-if="mech.orgType.includes('99')" placeholder="请输入其他，不能超过20个字符！"  maxlength="20" v-model="mech.orgTypeOther" style="width:80%"></el-input>
                 </el-checkbox-group>
               </el-form-item>
 
@@ -99,28 +99,28 @@
 
               <el-form-item :label="service_amount_lastt">
                 <span style='position: absolute;left: -180px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入服务收入" v-model="mech.service_amount_last" style="width:80%"></el-input>
+                <el-input placeholder="请输入服务收入，不能超过20个字符！"  maxlength="20" v-model="mech.service_amount_last" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item :label="service_amount_beforet">
                 <span style='position: absolute;left: -180px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入服务收入" v-model="mech.service_amount_before" style="width:80%"></el-input>
+                <el-input placeholder="请输入服务收入，不能超过20个字符！"  maxlength="20" v-model="mech.service_amount_before" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item :label="service_amount_previoust">
                 <span style='position: absolute;left: -180px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入服务收入" v-model="mech.service_amount_previous" style="width:80%"></el-input>
+                <el-input placeholder="请输入服务收入，不能超过20个字符！"  maxlength="20" v-model="mech.service_amount_previous" style="width:80%"></el-input>
               </el-form-item>
 
               <el-form-item :label="service_quantity_lastt">
                 <span style='position: absolute;left: -160px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入服务数量" v-model="mech.service_quantity_last" style="width:80%"></el-input>
+                <el-input placeholder="请输入服务数量" v-model="mech.service_quantity_last" style="width:80%" type="number"></el-input>
               </el-form-item>
               <el-form-item :label="service_quantity_beforet">
                 <span style='position: absolute;left: -160px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入服务数量" v-model="mech.service_quantity_before" style="width:80%"></el-input>
+                <el-input placeholder="请输入服务数量" v-model="mech.service_quantity_before" style="width:80%" type="number"></el-input>
               </el-form-item>
               <el-form-item :label="service_quantity_previoust">
                 <span style='position: absolute;left: -160px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入服务数量" v-model="mech.service_quantity_previous" style="width:80%"></el-input>
+                <el-input placeholder="请输入服务数量" v-model="mech.service_quantity_previous" style="width:80%" type="number"></el-input>
               </el-form-item>
             </el-col>
 
@@ -135,7 +135,7 @@
 
               <el-form-item label="姓名">
                 <span style='position: absolute;left: -50px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入姓名" v-model="mech.fdname" style="width:80%"></el-input>
+                <el-input placeholder="请输入姓名，不能超过20个字符！"  maxlength="20" v-model="mech.fdname" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="电话">
                 <span style='position: absolute;left: -50px;color: #f60d0d;'></span>
@@ -187,7 +187,7 @@
 
               <el-form-item label="姓名">
                 <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入姓名" v-model="mech.linkman" style="width:80%"></el-input>
+                <el-input placeholder="请输入姓名，不能超过20个字符！"  maxlength="20" v-model="mech.linkman" style="width:80%"></el-input>
               </el-form-item>
 
               <el-form-item label="联系人身份证正面">
@@ -226,7 +226,7 @@
               </el-form-item>
               <el-form-item label="职务">
                 <span style='position: absolute;left: -50px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入职务" v-model="mech.lxzw" style="width:80%"></el-input>
+                <el-input placeholder="请输入职务，不能超过20个字符！"  maxlength="20" v-model="mech.lxzw" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="电话">
                 <span style='position: absolute;left: -50px;color: #f60d0d;'></span>
@@ -260,15 +260,15 @@
             <el-col :span="20">
               <el-form-item label="人员总数">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
-                <el-input v-model="mech.perNum" placeholder="请输入人员总数" style="width:80%"></el-input>
+                <el-input v-model="mech.perNum" placeholder="请输入人员总数" style="width:80%" type="number"></el-input>
               </el-form-item>
               <el-form-item label="本科及以上学历人员数">
                 <span style='position: absolute;left: -160px;color: #f60d0d;'></span>
-                <el-input v-model="mech.underPer" placeholder="请输入人员本科及以上学历人员数" style="width:80%"></el-input>
+                <el-input v-model="mech.underPer" placeholder="请输入人员本科及以上学历人员数" style="width:80%" type="number"></el-input>
               </el-form-item>
               <el-form-item label="中高级职称以上人员数">
                 <span style='position: absolute;left: -160px;color: #f60d0d;'></span>
-                <el-input v-model="mech.MHPer" placeholder="请输入中高级职称以上人员数" style="width:80%"></el-input>
+                <el-input v-model="mech.MHPer" placeholder="请输入中高级职称以上人员数" style="width:80%" type="number"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -294,7 +294,7 @@
 
 
                   <el-form-item label="项目名称">
-                    <el-input placeholder="请输入项目名称" v-model="item.name" style="width:130%"></el-input>
+                    <el-input placeholder="请输入项目名称，不能超过20个字符！"  maxlength="20" v-model="item.name" style="width:130%"></el-input>
                   </el-form-item>
 
                   <el-form-item label="起止时间">
@@ -305,7 +305,7 @@
 
 
                   <el-form-item label="项目来源">
-                    <el-input placeholder="请输入项目来源" v-model="item.source" style="width:130%"></el-input>
+                    <el-input placeholder="请输入项目来源，不能超过20个字符！"  maxlength="20" v-model="item.source" style="width:130%"></el-input>
                   </el-form-item>
 
                 </el-col>
@@ -318,7 +318,7 @@
                       <el-checkbox label="3">减免税 </el-checkbox>
                       <el-checkbox label="4">以上全无</el-checkbox>
                       <el-checkbox label="99">其他</el-checkbox>
-                      <el-input v-if="item.registerSupport.includes('99')" placeholder="请输入其他" v-model="item.mechregisterSupportOther" style="width:80%"></el-input>
+                      <el-input v-if="item.registerSupport.includes('99')" placeholder="请输入其他，不能超过20个字符！"  maxlength="20" v-model="item.mechregisterSupportOther" style="width:80%"></el-input>
                     </el-checkbox-group>
                   </el-form-item>
 
@@ -359,7 +359,7 @@
 
                 <el-table-column align="center" label="名称">
                   <template slot-scope="scope">
-                      <el-input  type="text" v-model="scope.row.name" style="width:80%"></el-input>
+                      <el-input placeholder="不能超过20个字符！"  maxlength="20"  type="text" v-model="scope.row.name" style="width:80%"></el-input>
                                       </template>
                 </el-table-column>
                 <el-table-column align="center" label="获得时间">
@@ -372,7 +372,7 @@
                 </el-table-column>
                 <el-table-column align="center" label="颁发机构">
                   <template slot-scope="scope">
-                      <el-input  type="text" v-model="scope.row.issuingAgency" style="width:80%"></el-input>
+                      <el-input  placeholder="不能超过20个字符！"  maxlength="20" type="text" v-model="scope.row.issuingAgency" style="width:80%"></el-input>
                                       </template>
                 </el-table-column>
 
@@ -402,25 +402,25 @@
               </el-button>
               <el-table class="tableH" :data="mech.workrPorcolumnDefinitions" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
 
-                <el-table-column align="center" label="服务项目名称">
+                <el-table-column align="center" label="服务项目名称" width="400">
                   <template slot-scope="scope">
-                      <el-input  type="text" v-model="scope.row.name" style="width:80%"></el-input>
+                      <el-input  placeholder="不能超过20个字符！"  maxlength="20" type="text" v-model="scope.row.name" style="width:80%"></el-input>
                                       </template>
                 </el-table-column>
-                <el-table-column align="center" label="服务对象">
+                <el-table-column align="center" label="服务对象" width="400">
                   <template slot-scope="scope">
                                             <span>
-                                              <el-input  type="text" v-model="scope.row.object" style="width:80%"></el-input>
+                                              <el-input placeholder="不能超过20个字符！"  maxlength="20"  type="text" v-model="scope.row.object" style="width:80%"></el-input>
                                             </span>
                                         </template>
                 </el-table-column>
-                <el-table-column align="center" label="服务时间起止">
+                <el-table-column align="center" label="服务时间起止"  >
                   <template slot-scope="scope">
-                                      <el-date-picker v-model="scope.row.time" type="datetimerange" value-format="yyyy-MM-dd" format="yyyy-MM-dd" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['12:00:00']" style="width:130%">
+                                      <el-date-picker v-model="scope.row.time" type="datetimerange" value-format="yyyy-MM-dd" format="yyyy-MM-dd" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['12:00:00']" style="width:100%">
                                       </el-date-picker>
                                       </template>
                 </el-table-column>
-                <el-table-column align="center" label="" style="width: 50%;">
+                <el-table-column align="center" label=""  width="100">
                   <template slot-scope="scope">
                     <el-button size="small" @click="delcjmech(scope.row)" style="color:red">
                       删除

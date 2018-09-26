@@ -11,11 +11,11 @@
 
               <el-form-item label="名称">
                 <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入名称" v-model="school.name" style="width:80%"></el-input>
+                <el-input placeholder="请输入名称，不能超过20个字符！"  maxlength="20" v-model="school.name" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="统一社会信用代码">
                 <span style='position: absolute;left: -135px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入统一社会信用代码" v-model="school.code" style="width:80%"></el-input>
+                <el-input placeholder="请输入统一社会信用代码，不能超过20个字符！"  maxlength="20" v-model="school.code" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="营业执照">
                 <div>
@@ -103,7 +103,7 @@
               </el-form-item>
               <el-form-item label="联系地址">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入联系地址" v-model="school.address" style="width:80%"></el-input>
+                <el-input placeholder="请输入联系地址，不能超过20个字符！"  maxlength="20" v-model="school.address" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="邮编">
                 <el-input placeholder="请输入邮编" v-model="school.zip_code" style="width:80%"></el-input>
@@ -116,11 +116,11 @@
 
               <el-form-item label="单位简介">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入单位简介" v-model="school.major_platform" style="width:80%"></el-input>
+                <el-input placeholder="请输入单位简介，不能超过30个字符！"  maxlength="30" v-model="school.major_platform" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="重大平台">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入重大平台" v-model="school.introduction" style="width:80%"></el-input>
+                <el-input placeholder="请输入重大平台，不能超过30个字符！"  maxlength="30" v-model="school.introduction" style="width:80%"></el-input>
               </el-form-item>
             </el-col>
 

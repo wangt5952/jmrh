@@ -10,16 +10,16 @@
             <el-col :span="20">
               <el-form-item label="技术需求名称">
                 <span style='position: absolute;left: -105px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入技术需求名称" v-model="demandLibrary.re_name" style="width:80%"></el-input>
+                <el-input placeholder="请输入技术需求名称，不能超过20个字符！"  maxlength="20" v-model="demandLibrary.re_name" style="width:80%"></el-input>
               </el-form-item>
 
               <el-form-item label="需求单位名称">
                 <span style='position: absolute;left: -105px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入需求单位名称" v-model="demandLibrary.name" style="width:80%"></el-input>
+                <el-input placeholder="请输入需求单位名称，不能超过20个字符！"  maxlength="20" v-model="demandLibrary.name" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="统一社会信用代码">
                 <span style='position: absolute;left: -135px;color: #f60d0d;'>*</span>
-                <el-input :disabled="codeD" placeholder="请输入统一社会信用代码" v-model="demandLibrary.code" style="width:80%"></el-input>
+                <el-input :disabled="codeD" placeholder="请输入统一社会信用代码，不能超过20个字符！"  maxlength="20" v-model="demandLibrary.code" style="width:80%"></el-input>
               </el-form-item>
 
               <el-form-item label="营业执照">
@@ -98,15 +98,15 @@
               </el-form-item>
               <el-form-item label="通讯地址">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入通讯地址" v-model="demandLibrary.address" style="width:80%"></el-input>
+                <el-input placeholder="请输入通讯地址，不能超过20个字符！"  maxlength="20" v-model="demandLibrary.address" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="负责人">
                 <span style='position: absolute;left: -650px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入负责人" v-model="demandLibrary.fzname" style="width:80%"></el-input>
+                <el-input placeholder="请输入负责人，不能超过20个字符！"  maxlength="20" v-model="demandLibrary.fzname" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="职务">
                 <span style='position: absolute;left: -50px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入职务" v-model="demandLibrary.fzzw" style="width:80%"></el-input>
+                <el-input placeholder="请输入职务，不能超过20个字符！"  maxlength="20" v-model="demandLibrary.fzzw" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="电话">
                 <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
@@ -118,11 +118,11 @@
               </el-form-item>
               <el-form-item label="联系人">
                 <span style='position: absolute;left: -65px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入联系人" v-model="demandLibrary.fzname2" style="width:80%"></el-input>
+                <el-input placeholder="请输入联系人，不能超过20个字符！"  maxlength="20" v-model="demandLibrary.fzname2" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="职务">
                 <span style='position: absolute;left: -50px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入职务" v-model="demandLibrary.fzzw2" style="width:80%"></el-input>
+                <el-input placeholder="请输入职务，不能超过20个字符！"  maxlength="20" v-model="demandLibrary.fzzw2" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="电话">
                 <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
@@ -143,7 +143,7 @@
                   <el-checkbox label="5">生物技术与新医药</el-checkbox>
                   <el-checkbox label="6">能源与环保</el-checkbox>
                   <el-checkbox label="99">其他</el-checkbox>
-                  <el-input v-if="demandLibrary.domain.includes('99')" placeholder="请输入其他" v-model="demandLibrary.domainOther" style="width:80%"></el-input>
+                  <el-input v-if="demandLibrary.domain.includes('99')" placeholder="请输入其他，不能超过20个字符！"  maxlength="20" v-model="demandLibrary.domainOther" style="width:80%"></el-input>
                 </el-checkbox-group>
               </el-form-item>
 
@@ -156,7 +156,7 @@
                   <el-checkbox label="4">制造设备改进</el-checkbox>
                   <el-checkbox label="5">生产线技术改造</el-checkbox>
                   <el-checkbox label="6">其他</el-checkbox>
-                  <el-input v-if="demandLibrary.reqBack.includes('6')" placeholder="请输入其他" v-model="demandLibrary.reqBackOther" style="width:80%"></el-input>
+                  <el-input v-if="demandLibrary.reqBack.includes('6')" placeholder="请输入其他，不能超过20个字符！"  maxlength="20" v-model="demandLibrary.reqBackOther" style="width:80%"></el-input>
 
                 </el-checkbox-group>
               </el-form-item>
@@ -190,7 +190,7 @@
 
               <el-form-item label="希望解决的技术需求概述">
                 <span style='position: absolute;left: -180px;color: #f60d0d;'></span>
-                <textarea v-model="demandLibrary.reqDesc" rows="3" cols="20" style="width:60%;height: 120px;">
+                <textarea placeholder="不能超过200个字符！" maxlength="200" v-model="demandLibrary.reqDesc" rows="3" cols="20" style="width:60%;height: 120px;">
                 </textarea>
               </el-form-item>
 
@@ -209,7 +209,7 @@
           <el-row :gutter="24">
             <el-col :span="24">
               <el-form-item label="要求达到的技术性能、参数指标等">
-                <textarea v-model="demandLibrary.reqNew" rows="3" cols="20" style="width:60%;height: 120px;">
+                <textarea placeholder="不能超过200个字符！" maxlength="200" v-model="demandLibrary.reqNew" rows="3" cols="20" style="width:60%;height: 120px;">
                 </textarea>
               </el-form-item>
 
@@ -228,7 +228,7 @@
           <el-row :gutter="24">
             <el-col :span="24">
               <el-form-item label="其他相关要求">
-                <textarea v-model="demandLibrary.reqOther" rows="3" cols="20" style="width:60%;height: 150px;">
+                <textarea placeholder="不能超过200个字符！" maxlength="200" v-model="demandLibrary.reqOther" rows="3" cols="20" style="width:60%;height: 150px;">
                 </textarea>
               </el-form-item>
 

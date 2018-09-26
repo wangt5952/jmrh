@@ -332,7 +332,7 @@ export default {
 
           this.loading = false
           window.sessionStorage.setItem('user', JSON.stringify('true'))
-          if(!token){
+          if(!token && this.$store.getters.token != undefined){
             let data = await getUserMenusone()
             let treeData = data.data
             window.sessionStorage.setItem('treeData', JSON.stringify(treeData)) //必须传入 路由进行渲染
@@ -361,10 +361,10 @@ export default {
 
 
         } else {
-          this.$message({
-            message: this.$store.getters.message,
-            type: 'warning'
-          });
+          // this.$message({
+          //   message: this.$store.getters.message,
+          //   type: 'warning'
+          // });
           if (this.$store.getters.message == '用户未激活,请重新发送邮箱进行激活！') {
             this.restEmail = true
           }
