@@ -3,8 +3,8 @@
   <div class="tools">
     <div class="paddingb textl paddingr">
       <el-input v-model="input.objName" placeholder="请输入ID/管理员/邮箱" style="width: 11%;"></el-input>
-      <el-select v-model="input.roleType" style="width:120px" placeholder="角色类型">
-        <el-option v-for="item in options" :label="item.label" :key="item.value" :value="item.value">
+      <el-select v-model="input.userType" style="width:120px" placeholder="角色类型">
+        <el-option v-for="item in options" :label="item.label" :key="item.value" :value="item.id">
         </el-option>
       </el-select>
       <el-select v-model="input.status" style="width:100px" placeholder="状态">
@@ -184,7 +184,7 @@ export default {
       userType: '',
       input: {
         objName: '',
-        roleType: '',
+        userType: '',
         status: '',
       },
       bank: '1',
@@ -246,7 +246,7 @@ export default {
     async loadPageList() {
       if (this.input) {
         this.listQuery.objName = this.input.objName
-        this.listQuery.roleType = this.input.roleType
+        this.listQuery.userType = this.input.userType
         this.listQuery.status = this.input.status
       } else {
         this.listQuery.objName = ''

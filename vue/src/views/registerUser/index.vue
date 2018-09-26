@@ -9,7 +9,7 @@
           <span style="flex:1;text-align:right;color: #fff;font-size: 24px;">总数</span>
           <span @click="Toexpert2('activeManage')" style="flex:1;font-size: 24px;color: #409EFF;text-align:center;">{{total || 0}}</span>
         </div>
-        <div class="" style="width: 450px;height:70%;margin: 0 auto;display:flex;justify-content:center; align-items:Center;text-align:center;padding-top:2%">
+        <div class="" style="width: 450px;height:300px;margin: 0 auto;display:flex;justify-content:center; align-items:Center;text-align:center;padding-top:8%">
           <line-chart :chartData="info" v-on:childByValue="childByValue"></line-chart>
         </div>
       </el-col>
@@ -28,20 +28,18 @@
                 <el-option label="高校院所" :key=4 :value=4>
                 </el-option>
               </el-select>
+                <el-button style="" @click="loadData" type="primary">统计</el-button>
 
             </div>
               <div class="" style="display: flex;">
-              <el-checkbox-group v-model="input.type" style="margin:10px 5px;float:right">
+              <el-checkbox-group v-model="input.type" style="margin:10px 0px;float:right">
                 <el-checkbox label="1">类别</el-checkbox>
               </el-checkbox-group>
 
             </div>
           </div>
-          <div class="" style="flex:1;margin:5px;">
-            <el-button style="" @click="loadData" type="primary">统计</el-button>
-          </div>
         </div>
-        <div class="" style="height:80%;padding-top: 8%;">
+        <div class="" style="height:340px;padding-top: 8%;">
           <pie-chart :chartData="input"  ref='piec'></pie-chart>
         </div>
       </el-col>

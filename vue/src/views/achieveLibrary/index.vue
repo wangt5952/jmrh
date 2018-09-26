@@ -109,7 +109,7 @@
     <el-table-column align="center" label="状态" width="70px;">
       <template slot-scope="scope">
                             <span v-show="tfcheckStatus == -1">草稿</span>
-                            <span v-show="tfcheckStatus == 0">审核</span>
+                            <span v-show="tfcheckStatus == 0">待审核</span>
                             <span v-show="tfcheckStatus == 1">已发布</span>
                             <span v-show="tfcheckStatus == 2">驳回</span>
                         </template>
@@ -644,7 +644,7 @@ export default {
       let objData
       if (this.input.checkStatus == 1) {
         objData = data.form.detail
-      } else if (this.input.checkStatus == 0 || this.input.checkStatus == -1) {
+      } else if (this.input.checkStatus == 0 || this.input.checkStatus == -1 || this.input.checkStatus == 2) {
         objData = data.detail
       }
       this.detailData = JSON.parse(objData)

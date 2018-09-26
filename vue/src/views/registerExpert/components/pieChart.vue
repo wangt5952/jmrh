@@ -33,11 +33,11 @@ export default {
     },
     width: {
       type: String,
-      default: '684px'
+      default: '484px'
     },
     height: {
       type: String,
-      default: '380px'
+      default: '340px'
     },
   },
   data() {

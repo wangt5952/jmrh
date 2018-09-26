@@ -158,9 +158,9 @@ export default {
         number: ''
       },
       loginForm: {
-        userName: 'gyx',
-        password: '123',
-        isAdmin: true,
+        userName: '',
+        password: '',
+        isAdmin: false,
       },
       loginRules: {
         username: [{

@@ -9,7 +9,7 @@
           <span style="flex:1;text-align:right;color: #fff;font-size: 24px;">总数</span>
           <span @click="Toexpert2('activeManage')" style="flex:1;font-size: 24px;color: #409EFF;text-align:center;">{{total || 0}}</span>
         </div>
-        <div class="" style="width: 450px;height:70%;margin: 0 auto;display:flex;justify-content:center; align-items:Center;text-align:center;padding-top:2%">
+        <div class="" style="width: 450px;height:300px;margin: 0 auto;display:flex;justify-content:center; align-items:Center;text-align:center;padding-top:8%">
           <line-chart :chartData="info" v-on:childByValue="childByValue"></line-chart>
         </div>
       </el-col>
@@ -47,28 +47,27 @@
                 <el-option label="其他" :key=99 :value=99>
                 </el-option>
               </el-select>
+                <el-button style="" @click="loadData" type="primary">统计</el-button>
 
             </div>
               <div class="" style="display: flex;">
-              <el-checkbox-group v-model="input.site1" style="margin:10px 5px;float:right">
+              <el-checkbox-group v-model="input.site1" style="margin:10px 0px;float:right">
                 <el-checkbox label="1">省</el-checkbox>
               </el-checkbox-group>
-              <el-checkbox-group v-model="input.site2" style="margin:10px 5px;float:right">
+              <el-checkbox-group v-model="input.site2" style="margin:10px 0px;float:right">
                 <el-checkbox label="2">市</el-checkbox>
               </el-checkbox-group>
-              <el-checkbox-group v-model="input.site3" style="margin:10px 5px;float:right">
+              <el-checkbox-group v-model="input.site3" style="margin:10px 0px;float:right">
                 <el-checkbox label="3">区 </el-checkbox>
               </el-checkbox-group>
-              <el-checkbox-group v-model="input.domain" style="margin:10px 5px;float:right">
+              <el-checkbox-group v-model="input.domain" style="margin:10px 0px;float:right">
                 <el-checkbox label="5">领域</el-checkbox>
               </el-checkbox-group>
             </div>
           </div>
-          <div class="" style="flex:1;margin:5px;">
-            <el-button style="" @click="loadData" type="primary">统计</el-button>
-          </div>
+
         </div>
-        <div class="" style="height:80%;padding-top: 8%;">
+        <div class="" style="height:340px;padding-top: 8%;">
           <pie-chart :chartData="input"  ref='piec'></pie-chart>
         </div>
       </el-col>

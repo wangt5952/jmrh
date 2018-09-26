@@ -9,7 +9,7 @@
           <span style="flex:2;text-align:right;color: #fff;font-size: 20px;">实时发起数统计</span>
           <span @click="Toexpert2('activeManage')" style="flex:1;font-size: 24px;color: #409EFF;text-align:center;">{{allMeeting || 0}}</span>
         </div>
-        <div class="" style="width: 450px;height:70%;margin: 0 auto;display:flex;justify-content:center; align-items:Center;text-align:center;padding-top:2%">
+        <div class="" style="width: 450px;height:340px;margin: 0 auto;display:flex;justify-content:center; align-items:Center;text-align:center;padding-top:8%">
           <line-chart :chartData="input" v-on:childByValue="childByValue"></line-chart>
         </div>
       </el-col>
@@ -18,7 +18,7 @@
           <span style="flex:2;text-align:right;color: #fff;font-size: 20px;">实时成功数统计</span>
           <span @click="Toexpert2('activeManage')" style="flex:1;font-size: 24px;color: #409EFF;text-align:center;">{{allSuccessMeeting || 0}}</span>
         </div>
-        <div class="" style="height:80%;padding-top: 8%;">
+        <div class="" style="height:340px;padding-top: 8%;">
           <pie-chart :chartData="input" ref='piec' v-on:childByValue2="childByValue2"></pie-chart>
         </div>
       </el-col>

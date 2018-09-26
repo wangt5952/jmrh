@@ -779,7 +779,7 @@ export default {
             let objData
             if (this.input.checkStatus == 1) {
               objData = data.form.detail
-            } else if (this.input.checkStatus == 0 || this.input.checkStatus == -1) {
+            } else if (this.input.checkStatus == 0 || this.input.checkStatus == -1|| this.input.checkStatus == 2) {
               objData = data.detail
             }
       this.detailData = JSON.parse(objData)

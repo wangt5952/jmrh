@@ -8,7 +8,7 @@ import store from './store'
 import '@/icons' // icon
 import '@/permission' // 权限
 import validate from './utils/validate' // 验证
-import jsPlumb from 'jsplumb'
+// import jsPlumb from 'jsplumb'
 import VueAreaLinkage from 'vue-area-linkage';
 //全局变量
 Vue.prototype.imgBaseUrl = 'http://106.14.172.38:8990/jmrhupload/';
@@ -77,7 +77,7 @@ Vue.filter('replaceKG', value => {
 //   debugger
 //   return arrV;
 // })
-Vue.prototype.$jsPlumb = jsPlumb.jsPlumb
+// Vue.prototype.$jsPlumb = jsPlumb.jsPlumb
 Vue.prototype.validata = validate
 
 
