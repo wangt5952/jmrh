@@ -647,6 +647,7 @@ export default {
           type: 'success',
           message: '请勾选上架内容!'
         });
+        return
       }
       let {
         data,
@@ -666,6 +667,7 @@ export default {
           type: 'success',
           message: '请勾选下架内容!'
         });
+        return
       }
       let {
         data,
@@ -850,7 +852,7 @@ export default {
       let arr = {}
       arr = this.active
       arr.checkStatus = checkStatus
-      
+
       let {
         data,
         success

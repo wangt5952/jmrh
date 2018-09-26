@@ -323,6 +323,9 @@
 
 <script>
 import 'vue-area-linkage/dist/index.css'; // v2 or higher
+
+import table2excel from 'table2excel'
+import printArea from 'printArea'
 import {
   getAllrole
 } from '@/api/role'
@@ -672,6 +675,19 @@ export default {
         this.total = data.total
         this.loading = false
       }
+    },
+    handlePrint() {
+      $("#tablePrint").printArea();
+    },
+    handleDownload() { //导出
+      $("#tableExcel").table2excel({
+        exclude: ".noExl", //过滤位置的 css 类名
+        filename: new Date().getTime() + ".xls", //文件名称
+        name: "Excel Document Name.xlsx",
+        exclude_img: true,
+        exclude_links: true,
+        exclude_inputs: true
+      })
     },
     handleSizeChange(val) {
       if (!isNaN(val)) {

@@ -3,14 +3,8 @@
   <div class="tools">
     <div class="paddingb textl paddingr">
       <el-input v-model="input.objName" placeholder="请输入ID/管理员/邮箱" style="width: 11%;"></el-input>
-      <el-select v-model="input.userType" style="width:120px" placeholder="用户类型">
-        <el-option label="专家" key="1" value="1">
-        </el-option>
-        <el-option label="企业" key="2" value="2">
-        </el-option>
-        <el-option label="服务机构" key="3" value="3">
-        </el-option>
-        <el-option label="高校院所" key="4" value="4">
+      <el-select v-model="input.roleType" style="width:120px" placeholder="角色类型">
+        <el-option v-for="item in options" :label="item.label" :key="item.value" :value="item.value">
         </el-option>
       </el-select>
       <el-select v-model="input.status" style="width:100px" placeholder="状态">
@@ -190,7 +184,7 @@ export default {
       userType: '',
       input: {
         objName: '',
-        userType: '',
+        roleType: '',
         status: '',
       },
       bank: '1',
@@ -244,6 +238,7 @@ export default {
   async mounted() {
     this.listLoading = false
     this.loadPageList()
+    this.loadoptions()
     this.userType = window.sessionStorage.getItem('userType') //权限控制
   },
   computed: {},
@@ -251,7 +246,7 @@ export default {
     async loadPageList() {
       if (this.input) {
         this.listQuery.objName = this.input.objName
-        this.listQuery.userType = this.input.userType
+        this.listQuery.roleType = this.input.roleType
         this.listQuery.status = this.input.status
       } else {
         this.listQuery.objName = ''

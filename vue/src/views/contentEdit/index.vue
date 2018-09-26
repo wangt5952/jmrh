@@ -103,7 +103,7 @@
           </el-option>
         </el-select>
       </td>
-      <td v-show="content.publishNow == 1" style="width:100px;padding:10px">&nbsp;&nbsp;发布日期</td>
+      <td v-show="content.publishNow == 1" style="width:100px;padding:10px"><span style='color: #f60d0d;'>*</span> 发布日期</td>
       <td v-show="content.publishNow == 1">
         <el-date-picker v-model="content.publishDate" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期">
         </el-date-picker>

@@ -70,7 +70,7 @@
       </td>
     </tr>
     <tr style="border-bottom: 1px solid#ccc;">
-      <td style="width:100px;padding:10px">&nbsp;&nbsp;主办方</td>
+      <td style="width:100px;padding:10px"><span style='color: #f60d0d;'>*</span>&nbsp;主办方</td>
       <td>
         <el-input v-model="active.organizerName" placeholder="请输入主办方" style="width:80%"></el-input>
       </td>

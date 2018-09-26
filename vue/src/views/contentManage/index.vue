@@ -441,7 +441,7 @@ export default {
   computed: {},
   methods: {
     async loadPageList() {
-      
+
       this.tfcheckStatus = this.input.checkStatus
       if (this.input) {
         this.input.page = this.listQuery.page
@@ -551,6 +551,7 @@ export default {
           type: 'success',
           message: '请勾选上架内容!'
         });
+        return
       }
       let {
         data,
@@ -570,6 +571,7 @@ export default {
         type: 'success',
         message: '请勾选下架内容!'
       });
+      return
     }
       let {
         data,

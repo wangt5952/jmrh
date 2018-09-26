@@ -1,6 +1,10 @@
 <template>
 <div class="tab-container" style="background: none;">
 
+  <div class="paddingb textl paddingr" style="font-size:14px">
+    <el-button style="margin-left:20px" @click="loadData" type="primary">刷新</el-button>
+    <el-button style="margin-left:20px" @click="loadIndex" type="primary">返回门户</el-button>
+  </div>
   <el-tabs v-model="activeName" @tab-click="handleClick" style=" overflow-y: auto;">
     <div label="我的代办（管理员代办）" v-if="userType =='101' || userType =='0'" name="1">
 
@@ -149,14 +153,14 @@
             <h3 style="font-size: 12px;margin: 0;padding: 10px;color: #a09b9b;font-weight: 500;border-bottom: 1px solid#d8d6d6;">
                   需求对接</h3>
             <div class="" style="display:flex;justify-content:center; align-items:Center;">
-              <div class="" style="flex:4;padding: 10px;" >
+              <div class="" style="flex:4;padding: 10px;">
                 <div class="" style="cursor: pointer;" @click="ToDJ(1,1)">
                   <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(1,1)" style="color: #409EFF;"> {{demandDjpassNums || 0}}</span>
                 </div>
                 <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(1,2)">
                   <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(1,2)" style="color: #409EFF;"> {{demandDjbhNums || 0}}</span>
                 </div>
-                <div class="" style="cursor: pointer;margin-top:15px"  @click="ToDJ(1,-1)">
+                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(1,-1)">
                   <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(1,-1)" style="color: #409EFF;"> {{demandDjshNums || 0}}</span>
                 </div>
               </div>
@@ -481,7 +485,7 @@
                   <div class="" style="cursor: pointer;" @click="ToDJ(0,1)">
                     <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(0,1)" style="color: #409EFF;"> {{expertDjpassNums || 0}}</span>
                   </div>
-                  <div class="" style="cursor: pointer;margin-top:15px"  @click="ToDJ(0,2)">
+                  <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(0,2)">
                     <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(0,2)" style="color: #409EFF;"> {{expertDjbhNums || 0}}</span>
                   </div>
                   <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(0,-1)">
@@ -533,7 +537,7 @@
                 <div class="" style="cursor: pointer;" @click="ToDJ(1,1)">
                   <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(1,1)" style="color: #409EFF;"> {{demandDjpassNums || 0}}</span>
                 </div>
-                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(1,2)" >
+                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(1,2)">
                   <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(1,2)" style="color: #409EFF;"> {{demandDjbhNums || 0}}</span>
                 </div>
                 <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(1,-1)">
@@ -580,10 +584,10 @@
                 <div class="" style="cursor: pointer;" @click="ToDJ(2,1)">
                   <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(2,1)" style="color: #409EFF;"> {{activeDjpassNums || 0}}</span>
                 </div>
-                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(2,2)" >
+                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(2,2)">
                   <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(2,2)" style="color: #409EFF;"> {{activeDjbhNums || 0}}</span>
                 </div>
-                <div class="" style="cursor: pointer;margin-top:15px"  @click="ToDJ(2,-1)">
+                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(2,-1)">
                   <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(2,-1)" style="color: #409EFF;"> {{activeDjshNums || 0}}</span>
                 </div>
               </div>
@@ -795,7 +799,7 @@
                 <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(2,2)">
                   <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(2,2)" style="color: #409EFF;"> {{activeDjbhNums || 0}}</span>
                 </div>
-                <div class="" style="cursor: pointer;margin-top:15px"  @click="ToDJ(2,-1)">
+                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(2,-1)">
                   <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(2,-1)" style="color: #409EFF;"> {{activeDjshNums || 0}}</span>
                 </div>
               </div>
@@ -1008,14 +1012,20 @@ export default {
     }
   },
   mounted() {
-    this.userType = window.sessionStorage.getItem('userType')
-    if (this.userType == 0 || this.userType == 101 || this.userType == 102 || this.userType == 103) {
-      this.loadPageList()
-    } else {
-      this.loadSubmitLib()
-    }
+      this.loadData()
   },
   methods: {
+    loadIndex(){
+       window.location.href = 'http://106.14.172.38:8990/front-net/index.html'
+    },
+    loadData(){
+      this.userType = window.sessionStorage.getItem('userType')
+      if (this.userType == 0 || this.userType == 101 || this.userType == 102 || this.userType == 103) {
+        this.loadPageList()
+      } else {
+        this.loadSubmitLib()
+      }
+    },
     async loadPageList() {
       let {
         data,
