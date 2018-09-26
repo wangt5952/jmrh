@@ -74,7 +74,7 @@ let verify = {
     return !myreg.test(str) ? true : false;
   },
   isTelAvailable: function(str) {
-    var myreg = /^0\d{2,3}-\d{7,8}(-\d{1,6})?$/;
+    var myreg = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,12}$/;
     return !myreg.test(str) ? true : false;
   },
 
@@ -140,12 +140,14 @@ function validaManageUser(str) {
     });
     return false;
   }
-  if (!str || verify.isPoneAvailable(str.cellphone)) {
-    Message({
-      message: '手机号格式不正确！',
-      type: 'error'
-    });
-    return false;
+
+  if (!str || verify.isPoneAvailable(str.cellphone) && verify.isTelAvailable(str.cellphone)) {
+
+      Message({
+        message: '格式错误，请输入正确的手机或电话号码！',
+        type: 'error'
+      });
+      return false;
   }
   if (!str || verify.isNull(str.email)) {
     Message({
@@ -570,12 +572,14 @@ function validactive(str) {
     });
     return false;
   }
-  if (!str || verify.isPoneAvailable(str.orgPhone)) {
-    Message({
-      message: '主办方联系电话格式不正确！',
-      type: 'error'
-    });
-    return false;
+
+  if (!str || verify.isPoneAvailable(str.orgPhone) && verify.isTelAvailable(str.orgPhone)) {
+
+      Message({
+        message: '格式错误，请输入正确的手机或电话号码！',
+        type: 'error'
+      });
+      return false;
   }
   if (str.publishNow == 1) {
     if (!str || verify.isNull(str.publishDate)) {
@@ -605,12 +609,14 @@ function validresetAdminPW(str, checkStatus, cellphone) {
     });
     return false;
   }
-  if (!str || verify.isPoneAvailable(cellphone)) {
-    Message({
-      message: '手机号格式不正确！',
-      type: 'error'
-    });
-    return false;
+
+  if (!str || verify.isPoneAvailable(cellphone) ) {
+
+      Message({
+        message: '格式错误，请输入正确的手机或电话号码！',
+        type: 'error'
+      });
+      return false;
   }
   if (!str || verify.isNull(str.code)) {
     Message({
@@ -668,14 +674,17 @@ function validresetPW(str, checkStatus, cellphone) {
       });
       return false;
     }
+
     if (!str || verify.isPoneAvailable(cellphone)) {
-      Message({
-        message: '手机号格式不正确！',
-        type: 'error'
-      });
-      return false;
+
+        Message({
+          message: '格式错误，请输入正确的手机或电话号码！',
+          type: 'error'
+        });
+        return false;
     }
   }
+
   if (!str || verify.isNull(str.code)) {
     Message({
       message: '验证码不能为空！',
@@ -776,12 +785,14 @@ function validaExpert(str) {
     });
     return false;
   }
-  if (!str || verify.isPoneAvailable(str.mobilephone)) {
-    Message({
-      message: '手机号格式不正确！',
-      type: 'error'
-    });
-    return false;
+
+  if (!str || verify.isPoneAvailable(str.mobilephone) && verify.isTelAvailable(str.mobilephone)) {
+
+      Message({
+        message: '格式错误，请输入正确的手机或电话号码！',
+        type: 'error'
+      });
+      return false;
   }
   if (!str || verify.isNull(str.fdemail)) {
     Message({
@@ -860,13 +871,16 @@ function validaEnterprise(str) {
     });
     return false;
   }
-  if (!str || verify.isPoneAvailable(str.lxphone)) {
-    Message({
-      message: '联系人手机号格式不正确！',
-      type: 'error'
-    });
-    return false;
+
+  if (!str || verify.isPoneAvailable(str.lxphone) && verify.isTelAvailable(str.lxphone)) {
+
+      Message({
+        message: '格式错误，请输入正确的手机或电话号码！',
+        type: 'error'
+      });
+      return false;
   }
+
   if (!str || verify.isNull(str.lxemail)) {
     Message({
       message: '联系人邮箱不能为空！',
@@ -954,26 +968,15 @@ function validaMechanism(str) {
     });
     return false;
   }
-  if (!str || verify.isPoneAvailable(str.lxphone)) {
-    if (verify.isTelAvailable(str.lxphone)) {
+  if (!str || verify.isPoneAvailable(str.lxphone) && verify.isTelAvailable(str.lxphone)) {
+
       Message({
-        message: '联系人电话格式不正确！',
+        message: '格式错误，请输入正确的手机或电话号码！',
         type: 'error'
       });
       return false;
-    }
-
   }
-  if (!str || verify.isTelAvailable(str.lxphone)) {
-    if (verify.isPoneAvailable(str.lxphone)) {
-      Message({
-        message: '联系人电话格式不正确！',
-        type: 'error'
-      });
-      return false;
-    }
 
-  }
   if (!str || verify.isNull(str.lxemail)) {
     Message({
       message: '联系人邮箱不能为空！',
@@ -1036,14 +1039,15 @@ function validaDemandLibrary(str) {
       });
       return false;
     }
-    if (!str || verify.isPoneAvailable(str.fzphone)) {
-      Message({
-        message: '负责人电话格式不正确！',
-        type: 'error'
-      });
-      return false;
-    }
 
+    if (!str || verify.isPoneAvailable(str.fzphone) && verify.isTelAvailable(str.fzphone)) {
+
+        Message({
+          message: '格式错误，请输入正确的手机或电话号码！',
+          type: 'error'
+        });
+        return false;
+    }
     if (!str || verify.isNull(str.fzemail)) {
       Message({
         message: '负责人邮箱不能为空！',
@@ -1076,21 +1080,16 @@ function validaDemandLibrary(str) {
       });
       return false;
     }
-    if (!str || verify.isPoneAvailable(str.fzphone2)) {
-      Message({
-        message: '联系人电话格式不正确！',
-        type: 'error'
-      });
-      return false;
+
+    if (!str || verify.isPoneAvailable(str.fzphone2) && verify.isTelAvailable(str.fzphone2)) {
+
+        Message({
+          message: '格式错误，请输入正确的手机或电话号码！',
+          type: 'error'
+        });
+        return false;
     }
 
-    if (!str || verify.isPoneAvailable(str.fzphone2)) {
-      Message({
-        message: '联系人电话格式不正确！',
-        type: 'error'
-      });
-      return false;
-    }
     if (!str || verify.isNull(str.fzemail2)) {
       Message({
         message: '联系人邮箱不能为空！',
@@ -1156,14 +1155,15 @@ function validaAchieveLibrary(str) {
       });
       return false;
     }
-    if (!str || verify.isPoneAvailable(str.fzphone)) {
-      Message({
-        message: '负责人电话格式不正确！',
-        type: 'error'
-      });
-      return false;
-    }
 
+    if (!str || verify.isPoneAvailable(str.fzphone) && verify.isTelAvailable(str.fzphone)) {
+
+        Message({
+          message: '格式错误，请输入正确的手机或电话号码！',
+          type: 'error'
+        });
+        return false;
+    }
     if (!str || verify.isNull(str.fzemail)) {
       Message({
         message: '负责人邮箱不能为空！',
@@ -1196,21 +1196,16 @@ function validaAchieveLibrary(str) {
       });
       return false;
     }
-    if (!str || verify.isPoneAvailable(str.fzphone2)) {
-      Message({
-        message: '联系人电话格式不正确！',
-        type: 'error'
-      });
-      return false;
+
+    if (!str || verify.isPoneAvailable(str.fzphone2) && verify.isTelAvailable(str.fzphone2)) {
+
+        Message({
+          message: '格式错误，请输入正确的手机或电话号码！',
+          type: 'error'
+        });
+        return false;
     }
 
-    if (!str || verify.isPoneAvailable(str.fzphone2)) {
-      Message({
-        message: '联系人电话格式不正确！',
-        type: 'error'
-      });
-      return false;
-    }
     if (!str || verify.isNull(str.fzemail2)) {
       Message({
         message: '联系人邮箱不能为空！',

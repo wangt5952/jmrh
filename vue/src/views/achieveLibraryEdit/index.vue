@@ -900,16 +900,4 @@ export default {
   height: 5%
 }
 
-.area-select .area-selected-trigger {
-  position: absolute;
-  display: block;
-  font-size: 14px;
-  cursor: pointer;
-  margin: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  height: 100%;
-  padding: 0px 0px 0px 12px;
-}
 </style>

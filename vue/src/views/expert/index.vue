@@ -135,6 +135,12 @@
                         </template>
     </el-table-column>
 
+    <el-table-column v-if="tfcheckStatus == 2" align="center" label="驳回原因">
+      <template slot-scope="scope">
+                        <span>
+                            {{ scope.row.info}}</span>
+                    </template>
+    </el-table-column>
 
     <el-table-column v-show="userType =='0'" align="center" label="操作" width="130">
       <template slot-scope="scope">
@@ -679,9 +685,9 @@ export default {
       this.loadtwoTree(this.detailData.country[0], this.detailData.country[1])
       this.loadThreeTree(this.detailData.country[1], this.detailData.country[2])
       this.detailData.search_paramobj = this.arrValue1 + '-' + this.arrValue2 + '-' + this.arrValue3
-      debugger
+
       // this.detailData.researchField = JSON.stringify(this.detailData.researchField)
-      // debugger
+      //
     },
     handlePrint() {
       $("#tablePrint").printArea();
@@ -797,7 +803,7 @@ export default {
       obj.creditLevel = this.input.creditLevel
       obj.status = this.input.status
       obj.token = window.sessionStorage.getItem('token')
-      debugger
+
       let {
         data,
         success
@@ -873,10 +879,10 @@ export default {
         });
       } else if (type === 'edit') {
         let objId, objData
-        if (this.input.checkStatus == 1) {
+        if (this.input.checkStatus == 1 ) {
           objId = data.form.id
           objData = data.form.detail
-        } else if (this.input.checkStatus == 0 || this.input.checkStatus == -1) {
+        } else if (this.input.checkStatus == 0 || this.input.checkStatus == -1|| this.input.checkStatus == 2) {
           objId = data.id
           objData = data.detail
         }

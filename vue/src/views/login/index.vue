@@ -332,7 +332,6 @@ export default {
 
           this.loading = false
           window.sessionStorage.setItem('user', JSON.stringify('true'))
-
           if(!token){
             let data = await getUserMenusone()
             let treeData = data.data

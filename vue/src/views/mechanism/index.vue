@@ -135,6 +135,12 @@
                         </template>
     </el-table-column>
 
+    <el-table-column v-if="tfcheckStatus == 2" align="center" label="驳回原因">
+      <template slot-scope="scope">
+                        <span>
+                            {{ scope.row.info}}</span>
+                    </template>
+    </el-table-column>
     <el-table-column v-show="userType =='0'" align="center" label="操作" width="120">
       <template slot-scope="scope">
         <div style="text-align:center" >
@@ -853,7 +859,7 @@ export default {
         getUserIddata[i].label = getUserIddata[i].roleName
         getUserIddata[i].value = getUserIddata[i].id
       }
-      debugger
+
       this.country = getUserIddata
 
     },
@@ -924,7 +930,7 @@ export default {
           cancelButtonText: '取消',
           type: 'warning'
         }).then(async () => {
-          debugger
+
           let del = await delLib(data)
           this.list.splice(this.list.indexOf(data), 1)
           this.$message({
@@ -940,10 +946,10 @@ export default {
         });
       } else if (type === 'edit') {
         let objId, objData
-        if (this.input.checkStatus == 1) {
+        if (this.input.checkStatus == 1 ) {
           objId = data.form.id
           objData = data.form.detail
-        } else if (this.input.checkStatus == 0 || this.input.checkStatus == -1) {
+        } else if (this.input.checkStatus == 0 || this.input.checkStatus == -1 || this.input.checkStatus == 2) {
           objId = data.id
           objData = data.detail
         }

@@ -112,15 +112,22 @@ export default {
 
       let domains = []
       domains.push(objdata.domains)
-      objdata.domains != '' ? obj.domains  = domains : obj.domains = null
+      objdata.domains != '' ? obj.domains = domains : obj.domains = null
 
 
       let arr = []
       let {
         data,
         success
-      } = await gettjlibqy(obj,'7')
+      } = await gettjlibqy(obj, '7')
       if (success) {
+        if (data.lib.length == 0) {
+          this.$message({
+            message: '没有获取到数据！',
+            type: 'warning'
+          });
+          return
+        }
         arr = data.lib
       }
 
@@ -128,12 +135,12 @@ export default {
       for (var i in arr) {
         let objArr = {}
         let country, domain, sex, degree, count, researchField
-        arr[i].country ? country = arr[i].country+" " : country = ''
-        arr[i].domain ? domain =   arr[i].domain+" " : domain = ''
-        arr[i].degree ? degree =   arr[i].degree+" " : degree = ''
-        arr[i].sex ? sex =   arr[i].sex+" " : sex = ''
+        arr[i].country ? country = arr[i].country + " " : country = ''
+        arr[i].domain ? domain = arr[i].domain + " " : domain = ''
+        arr[i].degree ? degree = arr[i].degree + " " : degree = ''
+        arr[i].sex ? sex = arr[i].sex + " " : sex = ''
         arr[i].researchField ? researchField = arr[i].researchField : researchField = ''
-        objArr.name = country + domain + degree+ sex + researchField
+        objArr.name = country + domain + degree + sex + researchField
         objArr.value = arr[i].count
         arrcount.push(objArr)
       }
@@ -159,7 +166,7 @@ export default {
           name: '需求统计',
           type: 'pie',
           radius: '55%',
-          center: ['40%', '50%'],//不镂空
+          center: ['40%', '50%'], //不镂空
           avoidLabelOverlap: false,
           label: {
             normal: {
@@ -238,32 +245,32 @@ export default {
       return data
     },
     fliterSex(data) {
-        if (data == '1') {
-          data = '男'
-        } else if (data == '0') {
-          data = '女'
-        }
-        return data
+      if (data == '1') {
+        data = '男'
+      } else if (data == '0') {
+        data = '女'
+      }
+      return data
     },
     fliterResearchField(data) {
-        if (data == '1') {
-          data = '智能装备'
-        } else if (data == '2') {
-          data = '电子信息'
-        } else if (data == '3') {
-          data = '新材料'
-        } else if (data == '4') {
-          data = '航空航天'
-        } else if (data == '5') {
-          data = '生物技术与新医药'
-        } else if (data == '6') {
-          data = '能源与环保'
-        } else if (data == '7') {
-          data = '管理'
-        } else if (data == '99') {
-          data = '其他'
-        }
-        return data
+      if (data == '1') {
+        data = '智能装备'
+      } else if (data == '2') {
+        data = '电子信息'
+      } else if (data == '3') {
+        data = '新材料'
+      } else if (data == '4') {
+        data = '航空航天'
+      } else if (data == '5') {
+        data = '生物技术与新医药'
+      } else if (data == '6') {
+        data = '能源与环保'
+      } else if (data == '7') {
+        data = '管理'
+      } else if (data == '99') {
+        data = '其他'
+      }
+      return data
     },
   },
   watch: {

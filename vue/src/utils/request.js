@@ -41,9 +41,8 @@ service.interceptors.response.use(
             location.reload()// 为了重新实例化vue-router对象 避免bug
           })
         })
-      }
-
-      if (res.code !== 10000 && !(response.config.url.indexOf('importLibExcel') > -1)) {
+      }else if (res.code !== 10000 && !(response.config.url.indexOf('importLibExcel') > -1)) {
+        debugger
         Message({
           message: res.message,
           type: 'error',

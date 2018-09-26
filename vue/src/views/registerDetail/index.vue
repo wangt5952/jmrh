@@ -3182,32 +3182,7 @@ export default {
     line-height: 40px;
     margin-top: 0;
 }
-.area-select .area-selected-trigger {
-    position: relative;
-    display: block;
-    font-size: 14px;
-    cursor: pointer;
-    margin: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    height: 100%;
-    padding: 0 0 0 12px;
-}
-.area-select {
-    position: relative;
-    display: inline-block;
-    vertical-align: top;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    height: 40px;
-    cursor: pointer;
-    background: #fff;
-    border-radius: 4px;
-    border: 1px solid #e1e2e6;
-}
+
 .el-tabs__header {
     z-index: 999;
 }

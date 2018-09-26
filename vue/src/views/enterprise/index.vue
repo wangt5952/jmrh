@@ -126,13 +126,20 @@
                             {{ scope.row.creater}}</span>
                     </template>
     </el-table-column>
-    <el-table-column align="center" label="状态" width="70px;">
+    <el-table-column  align="center" label="状态" width="70px;">
       <template slot-scope="scope">
                             <span v-show="tfcheckStatus == -1">草稿</span>
                             <span v-show="tfcheckStatus == 0">待审核</span>
                             <span v-show="tfcheckStatus == 1">已发布</span>
                             <span v-show="tfcheckStatus == 2">驳回</span>
                         </template>
+    </el-table-column>
+    
+    <el-table-column v-if="tfcheckStatus == 2" align="center" label="驳回原因">
+      <template slot-scope="scope">
+                        <span>
+                            {{ scope.row.info}}</span>
+                    </template>
     </el-table-column>
 
     <el-table-column v-show="userType =='0'" align="center" label="操作" width="120">
@@ -908,7 +915,7 @@ export default {
       }
     },
     async plxj() {
-      debugger
+
       if (this.multipleSelection.length == 0) {
         this.$message({
           type: 'success',
@@ -1055,7 +1062,7 @@ export default {
         getUserIddata[i].label = getUserIddata[i].roleName
         getUserIddata[i].value = getUserIddata[i].id
       }
-      debugger
+
       this.selected = getUserIddata
 
     },
@@ -1141,13 +1148,15 @@ export default {
         });
       } else if (type === 'edit') {
         let objId, objData
-        if (this.input.checkStatus == 1) {
+
+        if (this.input.checkStatus == 1 ) {
           objId = data.form.id
           objData = data.form.detail
-        } else if (this.input.checkStatus == 0 || this.input.checkStatus == -1) {
+        } else if (this.input.checkStatus == 0 || this.input.checkStatus == -1|| this.input.checkStatus == 2) {
           objId = data.id
           objData = data.detail
         }
+
         this.$router.push({
           name: 'enterpriseEdit',
           params: {

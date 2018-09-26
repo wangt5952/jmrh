@@ -773,7 +773,7 @@ export default {
     this.listLoading = false
     if (this.$route.params.objData) {
       this.com = JSON.parse(this.$route.params.objData)
-    debugger
+
       this.com.picOrgLicense = [{
         url: this.imgBaseUrl + this.com.picOrgLicense
       }]
@@ -1291,16 +1291,5 @@ export default {
   padding: 0 30px !important;
 }
 
-.area-select .area-selected-trigger {
-  position: relative;
-  display: block;
-  font-size: 14px;
-  cursor: pointer;
-  margin: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  height: 100%;
-  padding: 0px 0px 0px 12px;
-}
+
 </style>

@@ -115,6 +115,13 @@ export default {
         success
       } = await gettjlibqy(obj, '4')
       if (success) {
+        if(data.lib.length == 0){
+          this.$message({
+            message: '没有获取到数据！',
+            type: 'warning'
+          });
+          return
+        }
         arr = data.lib
       }
 

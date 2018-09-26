@@ -42,7 +42,7 @@
                     <div @click="handleEdit(scope.row,'show')" class="clickText" >{{ scope.row.title }}</div>
                 </template>
     </el-table-column>
-    <el-table-column v-show="tfcheckStatus == 1  || tfcheckStatus == ''" align="center" label="报名数" width="60px;">
+    <el-table-column v-if="tfcheckStatus == 1  || tfcheckStatus == ''" align="center" label="报名数" width="60px;">
       <template slot-scope="scope">
                     <span >
                         {{ scope.row.enrollNumber}}</span>
@@ -57,25 +57,25 @@
 
 
 
-    <el-table-column v-show="tfcheckStatus == 1  || tfcheckStatus == ''" align="center" label="发布日期">
+    <el-table-column v-if="tfcheckStatus == 1  || tfcheckStatus == ''" align="center" label="发布日期">
       <template slot-scope="scope">
                     <span>
                         {{ scope.row.publishDate | formatTime}}</span>
                 </template>
     </el-table-column>
-    <el-table-column v-show="tfcheckStatus == 1  || tfcheckStatus == ''" align="center" label="创建日期">
+    <el-table-column v-if="tfcheckStatus == 1  || tfcheckStatus == ''" align="center" label="创建日期">
       <template slot-scope="scope">
                         <span>
                             {{ scope.row.createTime  | formatTime}}</span>
                     </template>
     </el-table-column>
-    <el-table-column v-show="tfcheckStatus == 1  || tfcheckStatus == ''" align="center" label="置顶" width="50px;">
+    <el-table-column v-if="tfcheckStatus == 1  || tfcheckStatus == ''" align="center" label="置顶" width="50px;">
       <template slot-scope="scope">
                                 <span v-show="scope.row.stickSort == 0">是</span>
                                 <span v-show="scope.row.stickSort == 9999">否</span>
                     </template>
     </el-table-column>
-    <el-table-column v-show="tfcheckStatus == 1  || tfcheckStatus == ''" align="center" label="是否可见" width="70px;">
+    <el-table-column v-if="tfcheckStatus == 1  || tfcheckStatus == ''" align="center" label="是否可见" width="70px;">
       <template slot-scope="scope">
                         <span v-show="scope.row.readable == 1">可见</span>
                         <span v-show="scope.row.readable == 0">不可见</span>
@@ -83,7 +83,7 @@
     </el-table-column>
 
 
-    <el-table-column v-show="tfcheckStatus == 1|| tfcheckStatus == ''" align="center" label="状态" width="70px;">
+    <el-table-column v-if="tfcheckStatus == 1|| tfcheckStatus == ''" align="center" label="状态" width="70px;">
       <template slot-scope="scope">
                         <span v-show="scope.row.checkStatus == -1">草稿</span>
                         <span v-show="scope.row.checkStatus == 0">待审核</span>
@@ -91,16 +91,30 @@
                         <span v-show="scope.row.checkStatus == 2">驳回</span>
                     </template>
     </el-table-column>
-    <el-table-column v-show="tfcheckStatus == 1  || tfcheckStatus == ''" align="center" label="审核用户">
+    <el-table-column v-if="tfcheckStatus == 1  || tfcheckStatus == ''" align="center" label="审核用户">
       <template slot-scope="scope">
                         <span>
                             {{ scope.row.checkUserId}}</span>
                     </template>
     </el-table-column>
-
+    <el-table-column align="center" label="状态"  width="70px;">
+      <template slot-scope="scope">
+                        <span v-show="scope.row.checkStatus == -1">草稿</span>
+                        <span v-show="scope.row.checkStatus == 0">待审核</span>
+                        <span v-show="scope.row.checkStatus == 1">已发布</span>
+                        <span v-show="scope.row.checkStatus == 2">驳回</span>
+                    </template>
+    </el-table-column>
+    <el-table-column v-if="tfcheckStatus == 2" align="center" label="驳回原因">
+      <template slot-scope="scope">
+                        <span>
+                            {{ scope.row.info}}</span>
+                    </template>
+    </el-table-column>
     <el-table-column align="center" label="操作" width="150px;">
       <template slot-scope="scope">
-                    <div style="">
+
+          <div style="text-align:center" >
                         <div v-show="scope.row.checkStatus == 0" @click="handlesh(scope.row)" class="clickText" style="float:left;padding-left:5px">
                           审核
                         </div>
@@ -836,7 +850,7 @@ export default {
       let arr = {}
       arr = this.active
       arr.checkStatus = checkStatus
-      debugger
+      
       let {
         data,
         success

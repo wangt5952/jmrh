@@ -120,6 +120,13 @@ export default {
         success
       } = await gettjmeeting()
       if (success) {
+        if(data.lib.length == 0){
+          this.$message({
+            message: '没有获取到数据！',
+            type: 'warning'
+          });
+          return
+        }
         arr = data.allSuccessMeetingByType
         this.$emit('childByValue2', data.allSuccessMeeting)
       }

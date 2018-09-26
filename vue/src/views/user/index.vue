@@ -98,105 +98,54 @@
 
 
 
-  <el-dialog title="注册用户详情" :visible.sync="dialogFormVisible" width="30%" top='5%'>
+  <el-dialog title="注册用户详情" :visible.sync="dialogFormVisible" width="50%" top='5%'>
 
     <el-form class="" label-width="30%" style="text-align:left">
       <el-row :gutter="24">
         <el-col :span="24">
 
-          <!-- <table class="showDetailTable" v-show="show" cellpadding=0 cellspacing=0 border="0" style="width:100%;border: 1px solid#ccc;">
-            <tr v-show="content.typeId == 1" style="border-bottom: 1px solid#ccc;">
-              <td style="width:100px;padding:10px">name</td>
+          <table class="showDetailTable"  cellpadding=0 cellspacing=0 border="0" style="width:100%;border: 1px solid#ccc;text-align: center;">
+            <tr style="border-bottom: 1px solid#ccc;">
+              <td style="width:100px;padding:10px">单位名称</td>
               <td>
-                {{content.title}}
+                {{content.name}}
+              </td>
+              <td style="width:100px;padding:10px">邮箱</td>
+              <td>
+                {{content.email}}
+              </td>
+            </tr>
+            <tr style="border-bottom: 1px solid#ccc;">
+              <td style="width:100px;padding:10px">所在区域</td>
+              <td>
+                <area-cascader :level="1" v-model="content.country" :data="pcaa" style="width:80%"></area-cascader>
+              </td>
+              <td style="width:100px;padding:10px">邮箱</td>
+              <td>
+                {{content.email}}
+              </td>
+            </tr>
+            <tr style="border-bottom: 1px solid#ccc;">
+              <td style="width:100px;padding:10px">身份证号/社会统一信用代码</td>
+              <td>
+                {{content.code}}
               </td>
               <td style="width:100px;padding:10px">用户类别</td>
               <td>
-              <span v-if="scope.row.userType =='1'">
-                  个人/专家</span>
-            <span v-if="scope.row.userType =='2'">
-                    企业</span>
-              <span v-if="scope.row.userType =='3'">
-                服务机构  </span>
-                <span v-if="scope.row.userType =='4'">
-              高校院校</span>
-              <span v-if="scope.row.userType =='5'">
-              军方</span>
+                <span v-if="content.userType =='1'">
+                    个人/专家</span>
+                <span v-if="content.userType =='2'">
+                      企业</span>
+                <span v-if="content.userType =='3'">
+                  服务机构  </span>
+                <span v-if="content.userType =='4'">
+                高校院校</span>
+                <span v-if="content.userType =='5'">
+                军方</span>
               </td>
             </tr>
-            <tr style="border-bottom: 1px solid#ccc;">
-              <td style="width:100px;padding:10px">封面</td>
-              <td>
-                <img :src="content.cover" alt="" style="width:100px">
-              </td>
-              <td style="width:100px;padding:10px">内容类型</td>
-              <td>
 
-                <span v-show="content.typeId == 1" style="">文章</span>
-                <span v-show="content.typeId == 2" style="">轮播</span>
-              </td>
-            </tr>
-            <tr v-show="content.typeId == 1">
-              <td style="width:100px;padding:10px">是否转载</td>
-              <td>
-                <span v-show="content.copied == 1">转载</span>
-                <span v-show="content.copied == 0">非转载</span>
-              </td>
-            </tr>
-            <tr v-show="content.copied == 1 && content.typeId == 1" style="border-bottom: 1px solid#ccc;">
-              <td style="width:100px;padding:10px">来源</td>
-              <td>
-                {{content.copyFrom}}
-              </td>
-              <td style="width:100px;padding:10px">来源网址</td>
-              <td>
-                {{content.copyFromUrl}}
-              </td>
-            </tr>
-            <tr v-show="content.typeId == 1" style="border-bottom: 1px solid#ccc;">
-              <td style="width:100px;padding:10px">作者</td>
-              <td>
-                {{content.author}}
-              </td>
-              <td style="width:100px;padding:10px">编辑</td>
-              <td>
-                {{content.editor}}
-              </td>
-            </tr>
-            <tr style="border-bottom: 1px solid#ccc;">
-              <td v-show="content.typeId == 1" style="width:100px;padding:10px">标签</td>
-              <td v-show="content.typeId == 1">
-                {{content.tags}}
-              </td>
-              <td style="width:100px;padding:10px">描述</td>
-              <td>
-                {{content.description}}
-              </td>
-            </tr>
-            <tr v-show="content.typeId == 1" style="border-bottom: 1px solid#ccc;">
-              <td style="width:100px;padding:10px">定时发布</td>
-              <td>
-                <span v-show="content.publishNow == 1">是</span>
-                <span v-show="content.publishNow == 0">否</span>
-              </td>
-              <td v-show="content.publishNow == 1" style="width:100px;padding:10px">发布日期</td>
-              <td v-show="content.publishNow == 1">
-                {{content.publishDate | formatTime}}
-              </td>
-            </tr>
-            <tr v-show="content.typeId == 1" style="border-bottom: 1px solid#ccc;">
-              <td style="width:100px;padding:10px">置顶</td>
-              <td>
-                <span v-show="content.stickSort == 0">是</span>
-                <span v-show="content.stickSort == 9999">否</span>
-              </td>
-              <td style="width:100px;padding:10px">推荐</td>
-              <td>
-                <span v-show="content.recommend == 1">是</span>
-                <span v-show="content.recommend == 0">否</span>
-              </td>
-            </tr>
-          </table> -->
+          </table>
 
         </el-col>
 
@@ -214,6 +163,8 @@
 </template>
 
 <script>
+
+import 'vue-area-linkage/dist/index.css'; // v2 or higher
 import {
   getUser,
   setStatus,
@@ -226,9 +177,14 @@ import {
 import {
   depgetAll
 } from '@/api/department'
+import {
+  pca,
+  pcaa
+} from "area-data";
 export default {
   data() {
     return {
+     pcaa: pcaa, //最多省市区三级，结合:level='2'选择，0省、1省市、2省市区
       input: {
         objName: '',
         userType: '',
@@ -265,6 +221,7 @@ export default {
         fullName: '',
         department: '',
       },
+      content:'',
       selected: [],
       options: [{
         label: 'foo',
@@ -354,7 +311,6 @@ export default {
         getUserIddata[i].label = getUserIddata[i].roleName
         getUserIddata[i].value = getUserIddata[i].id
       }
-      debugger
       this.selected = getUserIddata
 
     },
@@ -457,15 +413,15 @@ export default {
     },
 
     async handleShow(item, type) {
-        let {
-          data,
-          success
-        } = await getUserDetailByUserId(item.id)
-          debugger
-        this.content = data
-        this.dialogFormVisible = true
-        this.show = true
-        this.title = '查看内容详情'
+      let {
+        data,
+        success
+      } = await getUserDetailByUserId(item.id)
+      debugger
+      this.content = data
+      this.dialogFormVisible = true
+      this.show = true
+      this.title = '查看内容详情'
     },
     onDate1Change(val) {
       this.obj.loanDate = val
