@@ -3,7 +3,7 @@
   <div class="">
     <div class="paddingb textl paddingr" style="font-size:14px">
       <span>关键字</span>
-      <el-input v-model="input.objName" placeholder="" style="width:200px;"></el-input>
+      <el-input v-model="input.objName" placeholder="请输入标题/主题/主办方信息/活动内容" style="width:30%"></el-input>
       <span style="margin-left: 15px;">发布日期</span>
       <el-date-picker v-model="input.publishStart" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期" style="width:140px">
       </el-date-picker>
@@ -279,6 +279,9 @@
             <el-date-picker v-model="inputE.enrollEnd" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期" style="width:140px">
             </el-date-picker>
             <el-button style="margin-left:20px" @click="loadEnrolls" type="primary">查询</el-button>
+            <a :href=pldcUrl target="_blank">
+            <el-button style="margin-left:20px" type="primary">导出</el-button>
+            </a>
             <el-table class="tableH" :data="listE" border style="margin-top:20px;width:100%;font-size:12px;">
 
               <el-table-column align="center" label="姓名">
@@ -462,6 +465,7 @@ export default {
       },
       activeTabPosition: '活动信息',
       ue1: "ue1", // 不同编辑器必须不同的id
+      pldcUrl : '',
       rej: {
         way: '1',
         info: '',
@@ -535,6 +539,8 @@ export default {
         exContent: '',
       }
     }
+  },
+  created() {
   },
   async mounted() {
     if (typeof this.$route.query.checkStatus == 'number') {
@@ -804,17 +810,20 @@ export default {
           success
         } = await getExchangesC(item.id)
         this.active = data
-       this.active.cover =  this.imgBaseUrl  + data.cover
+
+        this.pldcUrl = this.docUrl + '/exchanges/exportenroll?exId=' +item.id +'&token=' + window.sessionStorage.getItem('token')
+        this.active.cover =  this.imgBaseUrl  + data.cover
         this.show = true
         this.title = '查看活动详情'
-        this.loadEnrolls()
+        this.loadEnrolls(item.id)
 
       }
     },
-    async loadEnrolls() {
+    async loadEnrolls(id) {
       if (this.inputE) {
         this.inputE.page = this.listQuery2.page
         this.inputE.limit = this.listQuery2.limit
+        this.inputE.id = id
       }
       let {
         data,

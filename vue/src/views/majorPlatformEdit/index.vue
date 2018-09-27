@@ -68,7 +68,7 @@ export default {
   data() {
     return {
       formDatas: '',
-      uploadUrl: this.docUrl + '/xtcx/exchanges/upload?token=' + getToken(),
+      uploadUrl: this.docUrl + '/exchanges/upload?token=' + getToken(),
       editorInit: {
         language: 'zh_CN',
         plugins: [

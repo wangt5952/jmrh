@@ -2,7 +2,7 @@
 <div class="tab-container">
   <div class="tools">
     <div class="paddingb textl paddingr">
-      <el-input v-model="input.objName" placeholder="请输入内容" style="width: 15%;"></el-input>
+      <el-input v-model="input.objName" placeholder="请输入内容" style="width: 20%;"></el-input>
       <!-- <el-select v-model="input.userType" style="width:100px" placeholder="用户类型选择">
         <el-option label="专家" key="1" value="1">
         </el-option>

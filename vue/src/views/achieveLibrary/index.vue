@@ -4,7 +4,7 @@
   <div class="">
     <div class="paddingb textl paddingr" style="font-size:14px">
       <span>关键字</span>
-      <el-input v-model="input.objName" placeholder="" style="width:200px;"></el-input>
+      <el-input v-model="input.objName" placeholder="请输入名称/技术成果概述/领域" style="width:20%;"></el-input>
       <span style="margin-left: 15px;">是否可见</span>
       <el-select v-model="input.status" style="width:100px;height:30px" placeholder="请选择">
         <el-option label="请选择" key="" value="">
@@ -466,7 +466,7 @@ export default {
     }
   },
   created() {
-    this.pldcUrl = this.docUrl + '/xtcx/lib/exportLib?objName=' + this.input.objName + '&checkStatus=1&userType=6&creditLevel=&status=' + this.input.status + '&token=' + window.sessionStorage.getItem('token')
+    this.pldcUrl = this.docUrl + '/lib/exportLib?objName=' + this.input.objName + '&checkStatus=1&userType=6&creditLevel=&status=' + this.input.status + '&token=' + window.sessionStorage.getItem('token')
   },
   async mounted() {
     if (typeof this.$route.query.checkStatus == 'number') {
