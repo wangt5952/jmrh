@@ -92,7 +92,7 @@ let verify = {
     return !re.test(str) ? false : true;
   },
   isWeUrl: function(str) {　
-    var re = /^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/;
+    var re = /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/;
     return !re.test(str) ? true : false;
   },
 

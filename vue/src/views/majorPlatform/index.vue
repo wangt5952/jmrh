@@ -3,7 +3,7 @@
   <div class="">
     <div class="paddingb textl paddingr" style="font-size:14px">
       <span>关键字</span>
-      <el-input v-model="input.queryStr" placeholder="请输入名称/单位/领域/级别/链接" style="width:20%;"></el-input>
+      <el-input v-model="input.queryStr" placeholder="可根据名称/单位/领域/级别/链接查询" style="width:20%;"></el-input>
 
       <el-button style="margin-left:20px" @click="loadPageList" type="primary">查询</el-button>
       <el-button style="" @click="handleEdit('','add')" type="primary">添加</el-button>

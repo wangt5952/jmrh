@@ -3,7 +3,7 @@
   <div class="">
     <div class="paddingb textl paddingr" style="font-size:14px">
       <span>关键字</span>
-      <el-input v-model="input.objName" placeholder="请输入标题/主题/主办方信息/活动内容" style="width:30%"></el-input>
+      <el-input v-model="input.objName" placeholder="可根据标题/主题/主办方信息/活动内容查询" style="width:30%"></el-input>
       <span style="margin-left: 15px;">发布日期</span>
       <el-date-picker v-model="input.publishStart" value-format="yyyy-MM-dd" format="yyyy-MM-dd" type="date" placeholder="选择日期" style="width:140px">
       </el-date-picker>

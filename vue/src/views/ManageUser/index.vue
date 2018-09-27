@@ -2,7 +2,7 @@
 <div class="tab-container">
   <div class="tools">
     <div class="paddingb textl paddingr">
-      <el-input v-model="input.objName" placeholder="请输入ID/管理员/邮箱" style="width: 20%;"></el-input>
+      <el-input v-model="input.objName" placeholder="可根据ID/管理员/邮箱查询" style="width: 20%;"></el-input>
       <el-select v-model="input.userType" style="width:120px" placeholder="角色类型">
         <el-option v-for="item in options" :label="item.label" :key="item.value" :value="item.value">
         </el-option>
