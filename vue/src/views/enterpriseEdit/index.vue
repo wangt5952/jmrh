@@ -14,7 +14,7 @@
               </el-form-item>
               <el-form-item label="企业编码">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入企业编码，不能超过20个字符！"  maxlength="20" v-model="com.code" style="width:80%"></el-input>
+                <el-input  :disabled=codeD placeholder="请输入企业编码，不能超过20个字符！"  maxlength="20" v-model="com.code" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="企业规模（注册资金）">
                 <span style='position: absolute;left: -170px;color: #f60d0d;'></span>
@@ -653,6 +653,7 @@ import {
 export default {
   data() {
     return {
+      codeD: false,
       userType: '3',
       dateValue: '',
       contrary: '',
@@ -773,7 +774,7 @@ export default {
     this.listLoading = false
     if (this.$route.params.objData) {
       this.com = JSON.parse(this.$route.params.objData)
-
+      if (this.com.code != "") this.codeD = true
       this.com.picOrgLicense = [{
         url: this.imgBaseUrl + this.com.picOrgLicense
       }]

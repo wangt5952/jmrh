@@ -472,7 +472,7 @@ export default {
       if (!this.active.publishDate && this.active.publishNow == 0) {
         this.active.publishDate = this.getformatTime()
       }
-      // if (!this.validata.validactive(this.active)) return
+      if (!this.validata.validactive(this.active)) return
 
       let coversarr = this.active.covers[0].url
       if (coversarr.indexOf('/cover/') > -1) {

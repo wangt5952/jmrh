@@ -18,7 +18,7 @@
               </el-form-item>
               <el-form-item label="统一社会信用代码">
                 <span style='position: absolute;left: -135px;color: #f60d0d;'>*</span>
-                <el-input :disabled="codeD" placeholder="请输入统一社会信用代码，不能超过20个字符！"  maxlength="20" v-model="achieveLibrary.code" style="width:80%"></el-input>
+                <el-input :disabled=codeD placeholder="请输入统一社会信用代码，不能超过20个字符！"  maxlength="20" v-model="achieveLibrary.code" style="width:80%"></el-input>
               </el-form-item>
 
 

@@ -3,7 +3,7 @@
 
   <div class="paddingb textl paddingr" style="font-size:14px">
     <el-button style="margin-left:20px" @click="loadData" type="primary">刷新</el-button>
-    <el-button style="margin-left:20px" @click="loadIndex" type="primary">返回门户</el-button>
+    <el-button style="margin-left:20px" @click="loadIndex" type="primary">返回首页</el-button>
   </div>
   <el-tabs v-model="activeName" @tab-click="handleClick" style=" overflow-y: auto;">
     <div label="我的代办（管理员代办）" v-if="userType =='101' || userType =='0'" name="1">

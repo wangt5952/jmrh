@@ -15,7 +15,7 @@
               </el-form-item>
               <el-form-item label="统一社会信用代码">
                 <span style='position: absolute;left: -135px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入统一社会信用代码，不能超过20个字符！"  maxlength="20" v-model="school.code" style="width:80%"></el-input>
+                <el-input  :disabled=codeD placeholder="请输入统一社会信用代码，不能超过20个字符！"  maxlength="20" v-model="school.code" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="营业执照">
                 <div>
@@ -181,6 +181,7 @@ import {
 export default {
   data() {
     return {
+      codeD: false,
       userType: '3',
       dateValue: '',
       contrary: '',
@@ -238,6 +239,7 @@ export default {
   async mounted() {
     if (this.$route.params.objData) {
       this.school = JSON.parse(this.$route.params.objData)
+      if (this.school.code != "") this.codeD = true
       this.school.picOrgLicense = [{
         url: this.imgBaseUrl + this.school.picOrgLicense
       }]

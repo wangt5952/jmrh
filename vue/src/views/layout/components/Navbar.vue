@@ -26,9 +26,9 @@
           <span>加入社区</span>
         </el-dropdown-item>
       </router-link>
-      <el-dropdown-item divided>
+      <!-- <el-dropdown-item divided>
         <span @click="logout" style="display:block;">登出</span>
-      </el-dropdown-item>
+      </el-dropdown-item> -->
     </el-dropdown-menu>
   </el-dropdown>
 

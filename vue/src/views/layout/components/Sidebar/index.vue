@@ -57,7 +57,7 @@ export default {
     //另外在开发的时候，可能由于是热部署，也会不断重复的给nodes添加元素，造成导航条有重复的，简单解决，可以设置一个开关
     let isLoadNodes = sessionStorage.getItem('isLoadNodes')
     if (!isLoadNodes) {
-      let data = JSON.parse(window.sessionStorage.getItem('user'))
+      let data = JSON.parse(window.localStorage.getItem('user'))
       this.nodes.push(...data)
       console.log(this.nodes)
       sessionStorage.setItem('isLoadNodes', 'true')

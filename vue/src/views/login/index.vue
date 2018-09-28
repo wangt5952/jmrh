@@ -158,9 +158,9 @@ export default {
         number: ''
       },
       loginForm: {
-        userName: 'gyx',
-        password: '123',
-        isAdmin: true,
+        userName: '',
+        password: '',
+        isAdmin: false,
       },
       loginRules: {
         username: [{
@@ -254,7 +254,7 @@ export default {
       }
     },
     login(data) {
-      window.sessionStorage.setItem('user', JSON.stringify(data))
+      window.localStorage.setItem('user', JSON.stringify(data))
       MenuUtils(routers, data)
     },
     forload(treeData) {
@@ -325,20 +325,23 @@ export default {
       return treeData
     },
     handleLogin() {
-      let token = window.sessionStorage.getItem('token')
       this.loading = true
+      let token = window.sessionStorage.getItem('token')//过滤 仅限第一次获取菜单
       this.$store.dispatch('Login', this.loginForm).then(async () => {
+
         if (this.$store.getters.token && this.$store.getters.token != undefined && this.$store.getters.token != '') {
 
-          this.loading = false
-          window.sessionStorage.setItem('user', JSON.stringify('true'))
-          if(!token && this.$store.getters.token != undefined){
+
+          window.localStorage.setItem('user', JSON.stringify('true'))//没有进行菜单获取时的进入权限
+          if (!token && this.$store.getters.token != undefined) {
             let data = await getUserMenusone()
             let treeData = data.data
             window.sessionStorage.setItem('treeData', JSON.stringify(treeData)) //必须传入 路由进行渲染
-            let bbb = this.forload(treeData)
-            this.login(bbb)
-            this.$router.addRoutes(routers)
+            if (treeData) {
+              treeData = this.forload(treeData)
+              this.login(treeData)
+              this.$router.addRoutes(routers)
+            }
           }
 
           if (this.callbackUrl != '') {
@@ -353,7 +356,7 @@ export default {
             }
             window.location.href = url
           } else {
-
+debugger
             this.$router.push({
               path: '/'
             })

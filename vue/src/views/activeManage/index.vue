@@ -42,6 +42,12 @@
                     <div @click="handleEdit(scope.row,'show')" class="clickText" >{{ scope.row.title }}</div>
                 </template>
     </el-table-column>
+    <el-table-column align="center" label="活动进行状态">
+      <template slot-scope="scope">
+                    <span>
+                        {{ scope.row.exStatus}}</span>
+                </template>
+    </el-table-column>
     <el-table-column v-if="tfcheckStatus == 1  || tfcheckStatus == ''" align="center" label="报名数" width="60px;">
       <template slot-scope="scope">
                     <span >

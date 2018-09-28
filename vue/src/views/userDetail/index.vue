@@ -34,7 +34,7 @@
 
               <el-form-item label="身份证号">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
-                <el-input disabled="expertCodeD" placeholder="请输入身份证号" v-model="expert.code" style="width:80%" type="number"></el-input>
+                <el-input :disabled = expertCodeD placeholder="请输入身份证号" v-model="expert.code" style="width:80%" type="number"></el-input>
               </el-form-item>
               <el-form-item label="上传身份证正面">
                 <div>
@@ -346,7 +346,7 @@
               </el-form-item>
               <el-form-item label="企业编码">
                 <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
-                <el-input disabled="comCodeD" placeholder="请输入企业编码，不能超过20个字符！"  maxlength="20" v-model="com.code" style="width:80%"></el-input>
+                <el-input  :disabled = comCodeD  placeholder="请输入企业编码，不能超过20个字符！"  maxlength="20" v-model="com.code" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="企业规模（注册资金）">
                 <span style='position: absolute;left: -170px;color: #f60d0d;'></span>
@@ -960,7 +960,7 @@
               </el-form-item>
               <el-form-item label="统一社会信用代码">
                 <span style='position: absolute;left: -135px;color: #f60d0d;'>*</span>
-                <el-input disabled="mechCodeD" placeholder="请输入统一社会信用代码" v-model="mech.code" style="width:80%"></el-input>
+                <el-input :disabled = mechCodeD placeholder="请输入统一社会信用代码" v-model="mech.code" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="营业执照">
                 <div>
@@ -1389,7 +1389,7 @@
               </el-form-item>
               <el-form-item label="统一社会信用代码">
                 <span style='position: absolute;left: -135px;color: #f60d0d;'>*</span>
-                <el-input disabled="schoolCodeD" placeholder="请输入统一社会信用代码，不能超过20个字符！"  maxlength="20" v-model="school.code" style="width:80%"></el-input>
+                <el-input  :disabled = schoolCodeD placeholder="请输入统一社会信用代码，不能超过20个字符！"  maxlength="20" v-model="school.code" style="width:80%"></el-input>
               </el-form-item>
 
               <el-form-item label="营业执照">
@@ -1988,6 +1988,7 @@ export default {
             });
             if (this.userType == '1') {
               this.expert = JSON.parse(data.form.detail)
+              
               if (this.expert.code != "") this.expertCodeD = true
               this.expert.picLmIdCardFront[0].url = this.imgBaseUrl + this.expert.picLmIdCardFront[0].url
               this.expert.picLmIdCardBack[0].url = this.imgBaseUrl + this.expert.picLmIdCardBack[0].url
@@ -2199,7 +2200,7 @@ export default {
 
       let arr = []
       obj.method = 'post'
-      debugger
+      
       let {
         data,
         success

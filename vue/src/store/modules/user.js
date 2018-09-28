@@ -92,13 +92,14 @@ const user = {
       state
     }) {
       return new Promise((resolve, reject) => {
+        debugger
         logout(state.token).then(() => {
         commit('SET_TOKEN', '')
         commit('SET_ROLES', [])
         removeToken()
         resolve()
         window.sessionStorage.removeItem('token')
-        window.sessionStorage.removeItem('user')
+        window.localStorage.removeItem('user')
         window.sessionStorage.removeItem('treeData') //必须传入 路由进行渲染
         window.sessionStorage.removeItem('isLoadNodes')
         }).catch(error => {

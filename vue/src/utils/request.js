@@ -6,7 +6,6 @@ import { getToken } from '@/utils/auth'
 // 创建axios实例
 const service = axios.create({
    // baseURL: 'http://127.0.0.1:9990/api', // api的base_url
-  // baseURL: 'http://127.0.0.1:9009/jmrh', // api的base_url
   baseURL: 'http://106.14.172.38:8080/xtcx', // api的base_url
  // baseURL: 'http://192.168.191.1:8080/xtcx', // api的base_url
   timeout: 300000 // 请求超时时间
@@ -37,7 +36,7 @@ service.interceptors.response.use(
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          store.dispatch('FedLogOut').then(() => {
+          store.dispatch('LogOut').then(() => {
             location.reload()// 为了重新实例化vue-router对象 避免bug
           })
         })

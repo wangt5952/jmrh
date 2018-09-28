@@ -31,7 +31,7 @@
 
               <el-form-item label="身份证号">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入身份证号" v-model="expert.code" style="width:80%"  type="number"></el-input>
+                <el-input  :disabled=codeD placeholder="请输入身份证号" v-model="expert.code" style="width:80%"  type="number"></el-input>
               </el-form-item>
               <el-form-item label="上传身份证正面">
                 <div>
@@ -360,6 +360,7 @@ import {
 export default {
   data() {
     return {
+      codeD: false,
       userType: '3',
       dateValue: '',
       contrary: '',
@@ -436,6 +437,7 @@ export default {
     this.listLoading = false
     if (this.$route.params.objData) {
       this.expert = JSON.parse(this.$route.params.objData)
+      if (this.expert.code != "") this.codeD = true
       this.expert.picLmIdCardFront = [{
         url: this.imgBaseUrl + this.expert.picLmIdCardFront
       }]

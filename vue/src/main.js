@@ -16,7 +16,7 @@ Vue.prototype.docUrl = 'http://106.14.172.38:8080/xtcx';
 // Vue.prototype.docUrl = 'http://192.168.191.1:8080/xtcx';
 
 // Vue.prototype.imgBaseUrl = 'http://127.0.0.1:9990/upload/';
-// Vue.prototype.docUrl = 'http://127.0.0.1:8080';
+// Vue.prototype.docUrl = 'http://127.0.0.1:9990/api';
 
 // Vue.prototype.imgBaseUrl = 'http://127.0.0.1:9009/upload/';
 // Vue.prototype.docUrl = 'http://127.0.0.1:8080';

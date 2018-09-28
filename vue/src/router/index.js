@@ -77,7 +77,8 @@ forload: function(treeData) {
 
 var routers = []
 var treeData = window.sessionStorage.getItem('treeData')
-if(treeData != null){
+var data = JSON.parse(window.localStorage.getItem('user'))
+if(treeData != null && data){
   treeData = JSON.parse(treeData)
  let data = load.forload(treeData)
  MenuUtils(routers, treeData)
