@@ -29,8 +29,8 @@ export function getMeetingC(id) {//获取详情
 
 export function rejectrefuse(data) {//拒绝
   return request({
-    url: '/refuse',
-    method: 'post',
+    url: '/meeting/refuse',
+    method: 'put',
     data
   });
 }
@@ -38,8 +38,8 @@ export function rejectrefuse(data) {//拒绝
 
 export function rejectagree(data) {//同意
   return request({
-    url: '/agree',
-    method: 'post',
+    url: '/meeting/agree',
+    method: 'put',
     data
   });
 }

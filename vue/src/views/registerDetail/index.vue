@@ -163,7 +163,7 @@
                     <el-col :span="20">
 
                       <el-form-item label="工作单位">
-                        <span style='position: absolute;left: -80px;color: #f60d0d;'></span>
+                        <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
                         <el-input placeholder="请输入工作单位，不能超过20个字符！" maxlength="20" v-model="expert.work_unit" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="工作部门">

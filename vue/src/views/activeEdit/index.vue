@@ -239,9 +239,27 @@ export default {
         plugins: [
           'image  code codesample'
         ],
-        toolbar: ['bold italic underline strikethrough alignleft aligncenter alignright outdent indent  blockquote undo redo removeformat subscript superscript ',
-          'hr bullist numlist link image charmap preview anchor pagebreak fullscreen media table emoticons forecolor backcolor'
+        toolbar: ['fontselect fontsizeselect  bold italic underline strikethrough alignleft aligncenter alignright outdent indent  blockquote undo redo removeformat subscript superscript code codesample',
+          'hr bullist numlist link image charmap	 preview anchor pagebreak insertdatetime media table emoticons forecolor backcolor fullscreen'
         ],
+        fontsize_formats: "8px 10px 12px 14px 18px 20px 24px 36px",
+        font_formats: "Andale Mono=andale mono,times;" +
+          "Arial=arial,helvetica,sans-serif;" +
+          "Arial Black=arial black,avant garde;" +
+          "Book Antiqua=book antiqua,palatino;" +
+          "Comic Sans MS=comic sans ms,sans-serif;" +
+          "Courier New=courier new,courier;" +
+          "Georgia=georgia,palatino;" +
+          "Helvetica=helvetica;" +
+          "Impact=impact,chicago;" +
+          "Symbol=symbol;" +
+          "Tahoma=tahoma,arial,helvetica,sans-serif;" +
+          "Terminal=terminal,monaco;" +
+          "Times New Roman=times new roman,times;" +
+          "Trebuchet MS=trebuchet ms,geneva;" +
+          "Verdana=verdana,geneva;" +
+          "Webdings=webdings;" +
+          "Wingdings=wingdings,zapf dingbats",
         height: 300,
         images_upload_handler(blobInfo, success, failure) {
           const formData = new FormData()
@@ -357,6 +375,7 @@ export default {
       } = await getExchangesC(id)
       var myFilter = Vue.filter('formatTime')
       this.active = data
+      debugger
       this.active.covers = [{
         name: 'name.jpg',
         url: this.imgBaseUrl +  data.cover
@@ -382,10 +401,7 @@ export default {
         }
       }
       this.active.cmsFileList = data.cmsFileList
-      this.active.covers = [{
-        name: 'name.jpg',
-        url: data.cover
-      }] //封面赋值显示仅仅
+
 
       this.active.enrollStart = myFilter(data.enrollStart)
       this.active.enrollEnd = myFilter(data.enrollEnd)

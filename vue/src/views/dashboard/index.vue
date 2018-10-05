@@ -3,7 +3,7 @@
 
   <div class="paddingb textl paddingr" style="font-size:14px">
     <el-button style="margin-left:20px" @click="loadData" type="primary">刷新</el-button>
-    <el-button style="margin-left:20px" @click="loadIndex" type="primary">返回首页</el-button>
+    <!-- <el-button style="margin-left:20px" @click="loadIndex" type="primary">返回门户</el-button> -->
   </div>
   <el-tabs v-model="activeName" @tab-click="handleClick" style=" overflow-y: auto;">
     <div label="我的代办（管理员代办）" v-if="userType =='101' || userType =='0'" name="1">
@@ -11,27 +11,27 @@
       <el-row :gutter="24" style="font-size: 12px;">
         <el-col :span="5" style="display:flex;background: #fff;height: 100px; display: flex;justify-content:center; align-items:Center;text-align:center;margin-right: 20px;">
           <div @click="Toexpert2('contentManage')" style="flex:1;font-size: 20px;color: #409EFF;cursor: pointer;">{{contentNums || 0}}</div>
-          <div style="flex:1;text-align:left;color: #97a8be;cursor: pointer;">待审内容申请</div>
+          <div @click="Toexpert2('contentManage')" style="flex:1;text-align:left;color: #97a8be;cursor: pointer;">待审内容申请</div>
         </el-col>
         <el-col :span="5" style="display:flex;background: #fff;height: 100px; display: flex;justify-content:center; align-items:Center;text-align:center;margin-right: 20px;">
           <div @click="Toexpert2('activeManage')" style="flex:1;font-size: 20px;color: #409EFF;cursor: pointer;">{{activeNums || 0}}</div>
-          <div style="flex:1;text-align:left;color: #97a8be;cursor: pointer;">待审活动申请</div>
+          <div  @click="Toexpert2('activeManage')" style="flex:1;text-align:left;color: #97a8be;cursor: pointer;">待审活动申请</div>
         </el-col>
         <el-col :span="5" style="display:flex;background: #fff;height: 100px; display: flex;justify-content:center; align-items:Center;text-align:center;margin-right: 20px;">
           <div @click="Toexpert('expert')" style="flex:1;font-size: 20px;color: #409EFF;cursor: pointer;">{{expertNums || 0}}</div>
-          <div style="flex:1;text-align:left;color: #97a8be;cursor: pointer;">待审专家申请</div>
+          <div @click="Toexpert('expert')" style="flex:1;text-align:left;color: #97a8be;cursor: pointer;">待审专家申请</div>
         </el-col>
 
         <el-col :span="5" style="display:flex;background: #fff;height: 100px; display: flex;justify-content:center; align-items:Center;text-align:center;margin-right: 20px;">
           <div @click="Toexpert('enterprise')" style="flex:1;font-size: 20px;color: #409EFF;cursor: pointer;">{{enterpriseNums|| 0}}</div>
-          <div style="flex:1;text-align:left;color: #97a8be;cursor: pointer;">待审企业申请</div>
+          <div @click="Toexpert('enterprise')" style="flex:1;text-align:left;color: #97a8be;cursor: pointer;">待审企业申请</div>
         </el-col>
 
       </el-row>
       <el-row :gutter="25" style="margin-top:20px;font-size: 12px;">
 
         <el-col :span="5" style="background: #fff;height: 100px;text-align: center;width:20%;">
-          <div style="color: #97a8be;margin-top: 30px;cursor: pointer;">待审高校院所申请</div>
+          <div @click="Toexpert('hschool')" style="color: #97a8be;margin-top: 30px;cursor: pointer;">待审高校院所申请</div>
           <div @click="Toexpert('hschool')" style="font-size: 20px;color: #409EFF;margin-top: 10px;color:#f737bf;cursor: pointer;">{{hschoolNums|| 0}}</div>
         </el-col>
 
@@ -41,7 +41,7 @@
         </el-col>
 
         <el-col :span="5" style="background: #fff;height: 100px;text-align: center;">
-          <div style="color: #97a8be;margin-top: 30px;cursor: pointer;">待审服务机构申请</div>
+          <div @click="Toexpert('mechanism')" style="color: #97a8be;margin-top: 30px;cursor: pointer;">待审服务机构申请</div>
           <div @click="Toexpert('mechanism')" style="font-size: 20px;color: #409EFF;margin-top: 10px;color:#ffd85a;cursor: pointer;">{{mechanismNums|| 0}}</div>
         </el-col>
 
@@ -51,7 +51,7 @@
           </div>
         </el-col>
         <el-col :span="5" style="background: #fff;height: 100px;text-align: center;">
-          <div style="color: #97a8be;margin-top: 30px;cursor: pointer;">待审需求申请</div>
+          <div @click="Toexpert('demandLibrary')" style="color: #97a8be;margin-top: 30px;cursor: pointer;">待审需求申请</div>
           <div @click="Toexpert('demandLibrary')" style="font-size: 20px;color: #409EFF;margin-top: 10px;color:#98eca5;cursor: pointer;">{{demandLibraryNums|| 0}}</div>
         </el-col>
 
@@ -61,7 +61,7 @@
           </div>
         </el-col>
         <el-col :span="5" style="background: #fff;height: 100px;text-align: center;">
-          <div style="color: #97a8be;margin-top: 30px;cursor: pointer;">待审成果申请</div>
+          <div @click="Toexpert('achieveLibrary')" style="color: #97a8be;margin-top: 30px;cursor: pointer;">待审成果申请</div>
           <div @click="Toexpert('achieveLibrary')" style="font-size: 20px;color: #409EFF;margin-top: 10px;color:#7e95de;cursor: pointer;">{{achieveLibraryNums|| 0}}</div>
         </el-col>
       </el-row>
@@ -122,19 +122,19 @@
                     专家对接</h3>
               <div class="" style="display:flex;justify-content:center; align-items:Center;">
                 <div class="" style="flex:4;padding: 10px;">
-                  <div class="" style="cursor: pointer;" @click="ToDJ(0,1)">
-                    <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(0,1)" style="color: #409EFF;"> {{expertDjpassNums || 0}}</span>
+                  <div class="" style="cursor: pointer;" @click="ToDJ(0,1,1)">
+                    <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(0,1,1)" style="color: #409EFF;"> {{expertDjpassNums || 0}}</span>
                   </div>
-                  <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(0,2)">
-                    <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(0,2)" style="color: #409EFF;"> {{expertDjbhNums || 0}}</span>
+                  <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(0,2,1)">
+                    <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(0,2,1)" style="color: #409EFF;"> {{expertDjbhNums || 0}}</span>
                   </div>
-                  <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(0,-1)">
-                    <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(0,-1)" style="color: #409EFF;"> {{expertDjshNums || 0}}</span>
+                  <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(0,-1,1)">
+                    <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(0,-1,1)" style="color: #409EFF;"> {{expertDjshNums || 0}}</span>
                   </div>
                 </div>
 
                 <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                  <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
+                  <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate('zj')" type="primary">发起对接</el-button>
                 </div>
 
               </div>
@@ -154,19 +154,19 @@
                   需求对接</h3>
             <div class="" style="display:flex;justify-content:center; align-items:Center;">
               <div class="" style="flex:4;padding: 10px;">
-                <div class="" style="cursor: pointer;" @click="ToDJ(1,1)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(1,1)" style="color: #409EFF;"> {{demandDjpassNums || 0}}</span>
+                <div class="" style="cursor: pointer;" @click="ToDJ(1,1,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(1,1,1)" style="color: #409EFF;"> {{demandDjpassNums || 0}}</span>
                 </div>
-                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(1,2)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(1,2)" style="color: #409EFF;"> {{demandDjbhNums || 0}}</span>
+                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(1,2,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(1,2,1)" style="color: #409EFF;"> {{demandDjbhNums || 0}}</span>
                 </div>
-                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(1,-1)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(1,-1)" style="color: #409EFF;"> {{demandDjshNums || 0}}</span>
+                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(1,-1,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(1,-1,1)" style="color: #409EFF;"> {{demandDjshNums || 0}}</span>
                 </div>
               </div>
 
               <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
+                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate('xq')" type="primary">发起对接</el-button>
               </div>
 
             </div>
@@ -183,19 +183,19 @@
                   成果对接</h3>
             <div class="" style="display:flex;justify-content:center; align-items:Center;">
               <div class="" style="flex:4;padding: 10px;">
-                <div class="" style="cursor: pointer;" @click="ToDJ(2,1)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(2,1)" style="color: #409EFF;"> {{activeDjpassNums || 0}}</span>
+                <div class="" style="cursor: pointer;" @click="ToDJ(2,1,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(2,1,1)" style="color: #409EFF;"> {{activeDjpassNums || 0}}</span>
                 </div>
-                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(2,2)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(2,2)" style="color: #409EFF;"> {{activeDjbhNums || 0}}</span>
+                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(2,2,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(2,2,1)" style="color: #409EFF;"> {{activeDjbhNums || 0}}</span>
                 </div>
-                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(2,-1)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(2,-1)" style="color: #409EFF;"> {{activeDjshNums || 0}}</span>
+                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(2,-1,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(2,-1,1)" style="color: #409EFF;"> {{activeDjshNums || 0}}</span>
                 </div>
               </div>
 
               <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
+                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate('cg')" type="primary">发起对接</el-button>
               </div>
 
             </div>
@@ -213,19 +213,19 @@
 
             <div class="" style="display:flex;justify-content:center; align-items:Center;">
               <div class="" style="flex:4;padding: 10px;">
-                <div class="" style="cursor: pointer;" @click="ToDJ(3,1)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(3,1)" style="color: #409EFF;"> {{fwDjpassNums || 0}}</span>
+                <div class="" style="cursor: pointer;" @click="ToDJ(3,1,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(3,1,1)" style="color: #409EFF;"> {{fwDjpassNums || 0}}</span>
                 </div>
-                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(3,2)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(3,2)" style="color: #409EFF;"> {{fwDjbhNums || 0}}</span>
+                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(3,2,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(3,2,1)" style="color: #409EFF;"> {{fwDjbhNums || 0}}</span>
                 </div>
-                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(3,-1)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(3,-1)" style="color: #409EFF;"> {{fwDjshNums || 0}}</span>
+                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(3,-1,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(3,-1,1)" style="color: #409EFF;"> {{fwDjshNums || 0}}</span>
                 </div>
               </div>
 
               <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
+                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate(fwjg)" type="primary">发起对接</el-button>
               </div>
 
             </div>
@@ -237,8 +237,8 @@
 
         <el-col :span="5" style="display:flex;">
           <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;cursor: pointer;">
-            <div @click="ToDJ(0,-1)" style="flex:1;font-size: 20px;color: #409EFF;">{{tomeexpertDjshNums || 0}}</div>
-            <div style="flex:1;text-align:left;color: #97a8be;">待处理的专家对接</div>
+            <div @click="ToDJ(0,0,2)" style="flex:1;font-size: 20px;color: #409EFF;">{{tomeexpertDjshNums || 0}}</div>
+            <div @click="ToDJ(0,0,2)" style="flex:1;text-align:left;color: #97a8be;">待处理的专家对接</div>
           </div>
         </el-col>
 
@@ -282,19 +282,19 @@
                 专家对接</h3>
               <div class="" style="display:flex;justify-content:center; align-items:Center;">
                 <div class="" style="flex:4;padding: 10px;">
-                  <div class="" style="cursor: pointer;" @click="ToDJ(0,1)">
-                    <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(0,1)" style="color: #409EFF;"> {{expertDjpassNums || 0}}</span>
+                  <div class="" style="cursor: pointer;" @click="ToDJ(0,1,1)">
+                    <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(0,1,1)" style="color: #409EFF;"> {{expertDjpassNums || 0}}</span>
                   </div>
-                  <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(0,2)">
-                    <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(0,2)" style="color: #409EFF;"> {{expertDjbhNums || 0}}</span>
+                  <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(0,2,1)">
+                    <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(0,2,1)" style="color: #409EFF;"> {{expertDjbhNums || 0}}</span>
                   </div>
-                  <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(0,-1)">
-                    <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(0,-1)" style="color: #409EFF;"> {{expertDjshNums || 0}}</span>
+                  <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(0,-1,1)">
+                    <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(0,-1,1)" style="color: #409EFF;"> {{expertDjshNums || 0}}</span>
                   </div>
                 </div>
 
                 <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                  <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
+                  <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate('zj')" type="primary">发起对接</el-button>
                 </div>
 
               </div>
@@ -333,19 +333,19 @@
               需求对接</h3>
             <div class="" style="display:flex;justify-content:center; align-items:Center;">
               <div class="" style="flex:4;padding: 10px;">
-                <div class="" style="cursor: pointer;" @click="ToDJ(1,1)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(1,1)" style="color: #409EFF;"> {{demandDjpassNums || 0}}</span>
+                <div class="" style="cursor: pointer;" @click="ToDJ(1,1,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(1,1,1)" style="color: #409EFF;"> {{demandDjpassNums || 0}}</span>
                 </div>
-                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(1,2)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(1,2)" style="color: #409EFF;"> {{demandDjbhNums || 0}}</span>
+                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(1,2,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(1,2,1)" style="color: #409EFF;"> {{demandDjbhNums || 0}}</span>
                 </div>
-                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(1,-1)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(1,-1)" style="color: #409EFF;"> {{demandDjshNums || 0}}</span>
+                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(1,-1,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(1,-1,1)" style="color: #409EFF;"> {{demandDjshNums || 0}}</span>
                 </div>
               </div>
 
               <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
+                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate('xq')" type="primary">发起对接</el-button>
               </div>
 
             </div>
@@ -381,19 +381,19 @@
               成果对接</h3>
             <div class="" style="display:flex;justify-content:center; align-items:Center;">
               <div class="" style="flex:4;padding: 10px;">
-                <div class="" style="cursor: pointer;" @click="ToDJ(2,1)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(2,1)" style="color: #409EFF;"> {{activeDjpassNums || 0}}</span>
+                <div class="" style="cursor: pointer;" @click="ToDJ(2,1,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(2,1,1)" style="color: #409EFF;"> {{activeDjpassNums || 0}}</span>
                 </div>
-                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(2,2)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(2,2)" style="color: #409EFF;"> {{activeDjbhNums || 0}}</span>
+                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(2,2,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(2,2,1)" style="color: #409EFF;"> {{activeDjbhNums || 0}}</span>
                 </div>
-                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(2,-1)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(2,-1)" style="color: #409EFF;"> {{activeDjshNums || 0}}</span>
+                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(2,-1,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(2,-1,1)" style="color: #409EFF;"> {{activeDjshNums || 0}}</span>
                 </div>
               </div>
 
               <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
+                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate('cg')" type="primary">发起对接</el-button>
               </div>
 
             </div>
@@ -409,18 +409,18 @@
                       服务对接</h3>
             <div class="" style="display:flex;justify-content:center; align-items:Center;">
               <div class="" style="flex:4;padding: 10px;">
-                <div class="" style="cursor: pointer;" @click="ToDJ(3,1)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(3,1)" style="color: #409EFF;"> {{fwDjpassNums || 0}}</span>
+                <div class="" style="cursor: pointer;" @click="ToDJ(3,1,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(3,1,1)" style="color: #409EFF;"> {{fwDjpassNums || 0}}</span>
                 </div>
-                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(3,2)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(3,2)" style="color: #409EFF;"> {{fwDjbhNums || 0}}</span>
+                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(3,2,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(3,2,1)" style="color: #409EFF;"> {{fwDjbhNums || 0}}</span>
                 </div>
-                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(3,-1)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(3,-1)" style="color: #409EFF;"> {{fwDjshNums || 0}}</span>
+                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(3,-1,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(3,-1,1)" style="color: #409EFF;"> {{fwDjshNums || 0}}</span>
                 </div>
               </div>
               <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
+                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate('fwjg')" type="primary">发起对接</el-button>
               </div>
 
             </div>
@@ -431,14 +431,14 @@
       <el-row :gutter="24" style="font-size: 12px;margin-top:15px">
         <el-col :span="5" style="display:flex;">
           <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;text-align:center;cursor: pointer;">
-            <div @click="ToDJ(1,-1)" style="flex:1;font-size: 20px;color: #409EFF;">{{tomedemandDjshNums || 0}}</div>
-            <div @click="ToDJ(1,-1)" style="flex:2;text-align:left;color: #97a8be;">待处理的需求对接</div>
+            <div @click="ToDJ(1,0,2)" style="flex:1;font-size: 20px;color: #409EFF;">{{tomedemandDjshNums || 0}}</div>
+            <div @click="ToDJ(1,0,2)" style="flex:2;text-align:left;color: #97a8be;">待处理的需求对接</div>
           </div>
         </el-col>
         <el-col :span="5" style="display:flex;">
           <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;cursor: pointer;">
-            <div @click="ToDJ(2,-1)" style="flex:1;font-size: 20px;color: #409EFF;">{{tomeactiveDjshNums || 0}}</div>
-            <div @click="ToDJ(2,-1)" style="flex:2;text-align:left;color: #97a8be;">待处理的成果对接</div>
+            <div @click="ToDJ(2,0,2)" style="flex:1;font-size: 20px;color: #409EFF;">{{tomeactiveDjshNums || 0}}</div>
+            <div @click="ToDJ(2,0,2)" style="flex:2;text-align:left;color: #97a8be;">待处理的成果对接</div>
           </div>
         </el-col>
 
@@ -482,19 +482,19 @@
                   专家对接</h3>
               <div class="" style="display:flex;justify-content:center; align-items:Center;">
                 <div class="" style="flex:4;padding: 10px;">
-                  <div class="" style="cursor: pointer;" @click="ToDJ(0,1)">
-                    <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(0,1)" style="color: #409EFF;"> {{expertDjpassNums || 0}}</span>
+                  <div class="" style="cursor: pointer;" @click="ToDJ(0,1,1)">
+                    <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(0,1,1)" style="color: #409EFF;"> {{expertDjpassNums || 0}}</span>
                   </div>
-                  <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(0,2)">
-                    <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(0,2)" style="color: #409EFF;"> {{expertDjbhNums || 0}}</span>
+                  <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(0,2,1)">
+                    <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(0,2,1)" style="color: #409EFF;"> {{expertDjbhNums || 0}}</span>
                   </div>
-                  <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(0,-1)">
-                    <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(0,-1)" style="color: #409EFF;"> {{expertDjshNums || 0}}</span>
+                  <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(0,-1,1)">
+                    <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(0,-1,1)" style="color: #409EFF;"> {{expertDjshNums || 0}}</span>
                   </div>
                 </div>
 
                 <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                  <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
+                  <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate('zj')" type="primary">发起对接</el-button>
                 </div>
 
               </div>
@@ -534,18 +534,18 @@
                 需求对接</h3>
             <div class="" style="display:flex;justify-content:center; align-items:Center;">
               <div class="" style="flex:4;padding: 10px;">
-                <div class="" style="cursor: pointer;" @click="ToDJ(1,1)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(1,1)" style="color: #409EFF;"> {{demandDjpassNums || 0}}</span>
+                <div class="" style="cursor: pointer;" @click="ToDJ(1,1,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(1,1,1)" style="color: #409EFF;"> {{demandDjpassNums || 0}}</span>
                 </div>
-                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(1,2)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(1,2)" style="color: #409EFF;"> {{demandDjbhNums || 0}}</span>
+                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(1,2,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(1,2,1)" style="color: #409EFF;"> {{demandDjbhNums || 0}}</span>
                 </div>
-                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(1,-1)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(1,-1)" style="color: #409EFF;"> {{demandDjshNums || 0}}</span>
+                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(1,-1,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(1,-1,1)" style="color: #409EFF;"> {{demandDjshNums || 0}}</span>
                 </div>
               </div>
               <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
+                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate('xq')" type="primary">发起对接</el-button>
               </div>
 
             </div>
@@ -581,18 +581,18 @@
                 成果对接</h3>
             <div class="" style="display:flex;justify-content:center; align-items:Center;">
               <div class="" style="flex:4;padding: 10px;">
-                <div class="" style="cursor: pointer;" @click="ToDJ(2,1)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(2,1)" style="color: #409EFF;"> {{activeDjpassNums || 0}}</span>
+                <div class="" style="cursor: pointer;" @click="ToDJ(2,1,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(2,1,1)" style="color: #409EFF;"> {{activeDjpassNums || 0}}</span>
                 </div>
-                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(2,2)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(2,2)" style="color: #409EFF;"> {{activeDjbhNums || 0}}</span>
+                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(2,2,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(2,2,1)" style="color: #409EFF;"> {{activeDjbhNums || 0}}</span>
                 </div>
-                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(2,-1)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(2,-1)" style="color: #409EFF;"> {{activeDjshNums || 0}}</span>
+                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(2,-1,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(2,-1,1)" style="color: #409EFF;"> {{activeDjshNums || 0}}</span>
                 </div>
               </div>
               <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
+                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate('cg')" type="primary">发起对接</el-button>
               </div>
 
             </div>
@@ -609,19 +609,19 @@
 
             <div class="" style="display:flex;justify-content:center; align-items:Center;">
               <div class="" style="flex:4;padding: 10px;">
-                <div class="" style="cursor: pointer;" @click="ToDJ(3,1)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(3,1)" style="color: #409EFF;"> {{fwDjpassNums || 0}}</span>
+                <div class="" style="cursor: pointer;" @click="ToDJ(3,1,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(3,1,1)" style="color: #409EFF;"> {{fwDjpassNums || 0}}</span>
                 </div>
-                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(3,2)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(3,2)" style="color: #409EFF;"> {{fwDjbhNums || 0}}</span>
+                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(3,2,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(3,2,1)" style="color: #409EFF;"> {{fwDjbhNums || 0}}</span>
                 </div>
-                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(3,-1)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(3,-1)" style="color: #409EFF;"> {{fwDjshNums || 0}}</span>
+                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(3,-1,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(3,-1,1)" style="color: #409EFF;"> {{fwDjshNums || 0}}</span>
                 </div>
               </div>
 
               <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
+                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate('fwjg')" type="primary">发起对接</el-button>
               </div>
 
             </div>
@@ -632,22 +632,22 @@
       <el-row :gutter="24" style="font-size: 12px;margin-top:15px">
         <el-col :span="5" style="display:flex;">
           <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;text-align:center;cursor: pointer;">
-            <div @click="ToDJ(1,-1)" style="flex:1;font-size: 20px;color: #409EFF;">{{tomedemandDjshNums || 0}}</div>
-            <div @click="ToDJ(1,-1)" style="flex:2;text-align:left;color: #97a8be;">待处理的需求对接</div>
+            <div @click="ToDJ(1,0,2)" style="flex:1;font-size: 20px;color: #409EFF;">{{tomedemandDjshNums || 0}}</div>
+            <div @click="ToDJ(1,0,2)" style="flex:2;text-align:left;color: #97a8be;">待处理的需求对接</div>
           </div>
         </el-col>
         <el-col :span="5" style="display:flex;">
           <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;cursor: pointer;">
-            <div @click="ToDJ(2,-1)" style="flex:1;font-size: 20px;color: #409EFF;">{{tomeactiveDjshNums || 0}}</div>
-            <div @click="ToDJ(2,-1)" style="flex:2;text-align:left;color: #97a8be;">待处理的成果对接</div>
+            <div @click="ToDJ(2,0,2)" style="flex:1;font-size: 20px;color: #409EFF;">{{tomeactiveDjshNums || 0}}</div>
+            <div @click="ToDJ(2,0,2)" style="flex:2;text-align:left;color: #97a8be;">待处理的成果对接</div>
           </div>
         </el-col>
 
 
         <el-col :span="5" style="display:flex;">
           <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;cursor: pointer;">
-            <div @click="ToDJ(3,-1)" style="flex:1;font-size: 20px;color: #409EFF;">{{tomefwDjshNums|| 0}}</div>
-            <div @click="ToDJ(3,-1)" style="flex:1;text-align:left;color: #97a8be;">待处理的服务对接</div>
+            <div @click="ToDJ(3,0,2)" style="flex:1;font-size: 20px;color: #409EFF;">{{tomefwDjshNums|| 0}}</div>
+            <div @click="ToDJ(3,0,2)" style="flex:1;text-align:left;color: #97a8be;">待处理的服务对接</div>
           </div>
         </el-col>
 
@@ -693,19 +693,19 @@
               专家对接</h3>
               <div class="" style="display:flex;justify-content:center; align-items:Center;">
                 <div class="" style="flex:4;padding: 10px;">
-                  <div class="" style="cursor: pointer;" @click="ToDJ(0,1)">
-                    <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(0,1)" style="color: #409EFF;"> {{expertDjpassNums || 0}}</span>
+                  <div class="" style="cursor: pointer;" @click="ToDJ(0,1,1)">
+                    <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(0,1,1)" style="color: #409EFF;"> {{expertDjpassNums || 0}}</span>
                   </div>
-                  <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(0,2)">
-                    <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(0,2)" style="color: #409EFF;"> {{expertDjbhNums || 0}}</span>
+                  <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(0,2,1)">
+                    <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(0,2,1)" style="color: #409EFF;"> {{expertDjbhNums || 0}}</span>
                   </div>
-                  <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(0,-1)">
-                    <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(0,-1)" style="color: #409EFF;"> {{expertDjshNums || 0}}</span>
+                  <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(0,-1,1)">
+                    <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(0,-1,1)" style="color: #409EFF;"> {{expertDjshNums || 0}}</span>
                   </div>
                 </div>
 
                 <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                  <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
+                  <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate('zj')" type="primary">发起对接</el-button>
                 </div>
 
               </div>
@@ -745,19 +745,19 @@
             需求对接</h3>
             <div class="" style="display:flex;justify-content:center; align-items:Center;">
               <div class="" style="flex:4;padding: 10px;">
-                <div class="" style="cursor: pointer;" @click="ToDJ(1,1)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(1,1)" style="color: #409EFF;"> {{demandDjpassNums || 0}}</span>
+                <div class="" style="cursor: pointer;" @click="ToDJ(1,1,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(1,1,1)" style="color: #409EFF;"> {{demandDjpassNums || 0}}</span>
                 </div>
-                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(1,2)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(1,2)" style="color: #409EFF;"> {{demandDjbhNums || 0}}</span>
+                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(1,2,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(1,2,1)" style="color: #409EFF;"> {{demandDjbhNums || 0}}</span>
                 </div>
-                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(1,-1)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(1,-1)" style="color: #409EFF;"> {{demandDjshNums || 0}}</span>
+                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(1,-1,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(1,-1,1)" style="color: #409EFF;"> {{demandDjshNums || 0}}</span>
                 </div>
               </div>
 
               <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
+                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate('xq')" type="primary">发起对接</el-button>
               </div>
 
             </div>
@@ -793,19 +793,19 @@
             成果对接</h3>
             <div class="" style="display:flex;justify-content:center; align-items:Center;">
               <div class="" style="flex:4;padding: 10px;">
-                <div class="" style="cursor: pointer;" @click="ToDJ(2,1)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(2,1)" style="color: #409EFF;"> {{activeDjpassNums || 0}}</span>
+                <div class="" style="cursor: pointer;" @click="ToDJ(2,1,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(2,1,1)" style="color: #409EFF;"> {{activeDjpassNums || 0}}</span>
                 </div>
-                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(2,2)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(2,2)" style="color: #409EFF;"> {{activeDjbhNums || 0}}</span>
+                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(2,2,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(2,2,1)" style="color: #409EFF;"> {{activeDjbhNums || 0}}</span>
                 </div>
-                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(2,-1)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(2,-1)" style="color: #409EFF;"> {{activeDjshNums || 0}}</span>
+                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(2,-1,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(2,-1,1)" style="color: #409EFF;"> {{activeDjshNums || 0}}</span>
                 </div>
               </div>
 
               <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
+                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate('cg')" type="primary">发起对接</el-button>
               </div>
 
             </div>
@@ -822,18 +822,18 @@
 
             <div class="" style="display:flex;justify-content:center; align-items:Center;">
               <div class="" style="flex:4;padding: 10px;">
-                <div class="" style="cursor: pointer;" @click="ToDJ(3,1)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(3,1)" style="color: #409EFF;"> {{fwDjpassNums || 0}}</span>
+                <div class="" style="cursor: pointer;" @click="ToDJ(3,1,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 已通过 <span @click="ToDJ(3,1,1)" style="color: #409EFF;"> {{fwDjpassNums || 0}}</span>
                 </div>
-                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(3,2)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(3,2)" style="color: #409EFF;"> {{fwDjbhNums || 0}}</span>
+                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(3,2,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 被驳回 <span @click="ToDJ(3,2,1)" style="color: #409EFF;"> {{fwDjbhNums || 0}}</span>
                 </div>
-                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(3,-1)">
-                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(3,-1)" style="color: #409EFF;"> {{fwDjshNums || 0}}</span>
+                <div class="" style="cursor: pointer;margin-top:15px" @click="ToDJ(3,-1,1)">
+                  <i class="iconfont icon-naoling" slot="right"></i> 待审核 <span @click="ToDJ(3,-1,1)" style="color: #409EFF;"> {{fwDjshNums || 0}}</span>
                 </div>
               </div>
               <div class="" style="flex:1;text-align: right;padding-right: 10px;">
-                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate" type="primary">发起对接</el-button>
+                <el-button style=" padding: 5px;font-size: 12px;" @click="handleCreate('fwjg')" type="primary">发起对接</el-button>
               </div>
 
             </div>
@@ -844,14 +844,14 @@
       <el-row :gutter="24" style="font-size: 12px;margin-top:15px">
         <el-col :span="5" style="display:flex;">
           <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;text-align:center;cursor: pointer;">
-            <div @click="ToDJ(1,-1)" style="flex:1;font-size: 20px;color: #409EFF;">{{tomedemandDjshNums || 0}}</div>
-            <div @click="ToDJ(1,-1)" style="flex:2;text-align:left;color: #97a8be;">待处理的需求对接</div>
+            <div @click="ToDJ(1,0,2)" style="flex:1;font-size: 20px;color: #409EFF;">{{tomedemandDjshNums || 0}}</div>
+            <div @click="ToDJ(1,0,2)" style="flex:2;text-align:left;color: #97a8be;">待处理的需求对接</div>
           </div>
         </el-col>
         <el-col :span="5" style="display:flex;">
           <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;cursor: pointer;">
-            <div @click="ToDJ(2,-1)" style="flex:1;font-size: 20px;color: #409EFF;">{{tomeactiveDjshNums || 0}}</div>
-            <div @click="ToDJ(2,-1)" style="flex:2;text-align:left;color: #97a8be;">待处理的成果对接</div>
+            <div @click="ToDJ(2,0,2)" style="flex:1;font-size: 20px;color: #409EFF;">{{tomeactiveDjshNums || 0}}</div>
+            <div @click="ToDJ(2,0,2)" style="flex:2;text-align:left;color: #97a8be;">待处理的成果对接</div>
           </div>
         </el-col>
 
@@ -1016,7 +1016,7 @@ export default {
   },
   methods: {
     loadIndex(){
-       window.location.href = 'http://106.14.172.38:8990/front-net/index.html'
+       window.location.href = '/front-net/index.html?token=' + window.sessionStorage.getItem('token')
     },
     loadData(){
       this.userType = window.sessionStorage.getItem('userType')
@@ -1234,16 +1234,8 @@ export default {
 
     },
 
-    async handleCreate() {
-      this.dialogFormVisible = true
-      this.meeting = {
-        typeId: '',
-        fcn: '',
-        fcp: '',
-        fcm: '',
-        fca: '',
-        appId: '',
-      }
+    async handleCreate(e) {
+       window.location.href = '/front-net/resource_item.html?type='+ e +'&token=' + window.sessionStorage.getItem('token')
     },
     async saveObj() {
       // if (!this.validata.validameeting(this.meeting)) return
@@ -1279,12 +1271,13 @@ export default {
 
       })
     },
-    ToDJ(typeId, num) {
+    ToDJ(typeId, num,num2) {
       this.$router.push({
         path: '/buttManage/buttExpert',
         query: {
           typeId: typeId,
           checkStatus: num,
+          isFormOrToMe: num2,
         }
 
       })

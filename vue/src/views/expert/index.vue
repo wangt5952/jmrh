@@ -41,7 +41,7 @@
       </el-select>
       <el-button style="margin-left:20px" @click="loadPageList" type="primary">查询</el-button>
       <div class="" style="padding:10px 0px;">
-        <el-button v-show="userType =='0'" style="" @click="handleEdit" type="primary">添加专家</el-button>
+        <el-button v-show="userType =='0'|| userType =='101'" style="" @click="handleEdit" type="primary">添加专家</el-button>
         <el-button v-show="userType =='0' && tfcheckStatus == 0 || userType =='101' && tfcheckStatus == 0" style="" @click="plsh" type="primary">批量审核</el-button>
         <el-button v-show="userType =='0' && tfcheckStatus == 1 || userType =='101' && tfcheckStatus == 1" style="" @click="plxj" type="primary">批量下架</el-button>
         <el-button v-show="userType =='0' && tfcheckStatus == 1 || userType =='101' && tfcheckStatus == 1" style="" @click="plsj" type="primary">批量上架</el-button>

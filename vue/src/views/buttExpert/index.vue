@@ -54,12 +54,12 @@
   <el-table v-loading="loading" ref="multipleTable" @selection-change="handleSelectionChange" class="tableH" :data="list" border style="margin-top:5px;width:100%;font-size:12px;">
     <el-table-column type="selection" width="30">
     </el-table-column>
-    <el-table-column align="center" label="编码" >
+    <el-table-column align="center" label="编码">
       <template slot-scope="scope">
                       <div @click="handleEdit(scope.row,'show')" class="clickText" >{{ scope.row.code }}</div>
                   </template>
     </el-table-column>
-    <el-table-column align="center" label="对接内容" >
+    <el-table-column align="center" label="对接内容">
       <template slot-scope="scope">
                       <div class="" >{{ scope.row.applicationContentName }}</div>
                   </template>
@@ -72,43 +72,43 @@
                               <span v-if="scope.row.typeId == 3">服务对接</span>
                           </template>
     </el-table-column>
-    <el-table-column align="center" label="发起人" >
+    <el-table-column align="center" label="发起人">
       <template slot-scope="scope">
                       <div class="" >{{ scope.row.fromerName }}</div>
                   </template>
     </el-table-column>
-    <el-table-column  align="center" label="接收人">
+    <el-table-column align="center" label="接收人">
       <template slot-scope="scope">
                       <span>
                           {{ scope.row.targeterName}}</span>
                   </template>
     </el-table-column>
 
-    <el-table-column align="center" label="发起联系人姓名" >
+    <el-table-column align="center" label="发起联系人姓名">
       <template slot-scope="scope">
                       <div class="" >{{ scope.row.fromerContactsName }}</div>
                   </template>
     </el-table-column>
-    <el-table-column align="center" label="发起联系人电话"  >
+    <el-table-column align="center" label="发起联系人电话">
       <template slot-scope="scope">
                       <span>
                           {{ scope.row.fromerContactsPhone}}</span>
                   </template>
     </el-table-column>
-    <el-table-column  align="center" label="发起联系人邮箱">
+    <el-table-column align="center" label="发起联系人邮箱">
       <template slot-scope="scope">
                       <span>
                           {{ scope.row.fromerContactsMail}}</span>
                   </template>
     </el-table-column>
-    <el-table-column  align="center" label="发起联系人地址 ">
+    <el-table-column align="center" label="发起联系人地址 ">
       <template slot-scope="scope">
                       <span>
                           {{ scope.row.fromerContactsAddr}}</span>
                   </template>
     </el-table-column>
 
-    <el-table-column  align="center" label="提交时间" width="100">
+    <el-table-column align="center" label="提交时间" width="100">
       <template slot-scope="scope">
                           <span>
                               {{ scope.row.submitTime | formatTime}}</span>
@@ -124,16 +124,16 @@
                           </template>
     </el-table-column>
 
-    <el-table-column v-show="userType =='0'" align="center" label="操作" width="120">
+    <el-table-column v-if=" tfcheckStatus == 0" align="center" label="操作" width="120">
       <template slot-scope="scope">
                                   <div style="text-align:center" >
                                     <span v-show="scope.row.fromToMe == 1" @click="handleEdit(scope.row,'edit')" class="clickText" >
                                       重新发起
                                     </span>
-                                <span v-show="scope.row.fromToMe == 2 && scope.row.checkStatus !=1 ">  <span @click="handlexj(scope.row)" class="clickText" >
+                                <span v-show="scope.row.fromToMe == 2 && scope.row.checkStatus !=1 ">  <span @click="handleRejectagree(scope.row)" class="clickText" >
                                                           同意
                                           </span></span>
-                                      <span v-show="scope.row.fromToMe == 2 && scope.row.checkStatus !=1 ">  <span @click="handlexj(scope.row)" class="clickText" >
+                                      <span v-show="scope.row.fromToMe == 2 && scope.row.checkStatus !=1 ">  <span @click="handleRejectrefuse(scope.row)" class="clickText" >
                                                                 拒绝
                                                 </span></span>
 
@@ -147,7 +147,7 @@
     <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-sizes="[10,20,30, 50]" :page-size="listQuery.limit" layout="total, sizes, prev, pager, next, jumper" :total="total"></el-pagination>
   </div>
 
-  <el-dialog title="修改对接" :visible.sync="dialogFormVisible" width="50%" top='9%'>
+  <el-dialog title="重新发起" :visible.sync="dialogFormVisible" width="50%" top='9%'>
 
     <el-form class="" label-width="30%" style="text-align:left">
 
@@ -155,54 +155,51 @@
       <el-row :gutter="24">
         <el-col :span="24">
           <table v-show="!show" cellpadding=0 cellspacing=0 border="0" style="width:100%;border: 1px solid#ccc;height: 350px;">
-
             <tr style="border-bottom: 1px solid#ccc;">
-              <td style="width:150px;padding:20px">&nbsp;&nbsp;分类类型</td>
+              <td style="width:150px;padding:20px;">&nbsp;&nbsp;编号</td>
               <td>
-                <el-select v-model="meeting.typeId" style="height:30px;width:80%" placeholder="请选择">
-                  <el-option label="专家对接" :key=0 :value=0>
-                  </el-option>
-                  <el-option label="需求对接" :key=1 :value=1>
-                  </el-option>
-                  <el-option label="成果对接" :key=2 :value=2>
-                  </el-option>
-                  <el-option label="服务对接" :key=3 :value=3>
-                  </el-option>
-                </el-select>
+                {{meeting.code}}
+              </td>
+              <td style="width:150px;padding:20px;">&nbsp;&nbsp;类别</td>
+              <td>
+                <span v-show="meeting.typeId == '0'">专家对接</span>
+                <span v-show="meeting.typeId == '1'">需求对接</span>
+                <span v-show="meeting.typeId == '2'">成果对接</span>
+                <span v-show="meeting.typeId == '3'">服务对接</span>
               </td>
             </tr>
             <tr style="border-bottom: 1px solid#ccc;">
-              <td style="width:150px;padding:20px;">&nbsp;&nbsp;发起联系人姓名</td>
+              <td style="width:150px;padding:20px;">&nbsp;&nbsp;申请方名称</td>
               <td>
-                <el-input v-model="meeting.fcn" placeholder="请输入发起联系人姓名" style="width:80%"></el-input>
-              </td>
-              <td style="width:150px;padding:20px;">&nbsp;&nbsp;发起联系人电话</td>
-              <td>
-                <el-input v-model="meeting.fcp" placeholder="请输入发起联系人电话" style="width:80%"></el-input>
-              </td>
-            </tr>
-
-            <tr style="border-bottom: 1px solid#ccc;">
-              <td style="width:150px;padding:20px;">&nbsp;&nbsp;发起联系人邮箱</td>
-              <td>
-                <el-input v-model="meeting.fcm" placeholder="请输入发起联系人邮箱" style="width:80%"></el-input>
-              </td>
-              <td style="width:150px;padding:20px;">&nbsp;&nbsp;发起联系人地址</td>
-              <td>
-                <el-input v-model="meeting.fca" placeholder="请输入发起联系人地址" style="width:80%"></el-input>
-              </td>
-            </tr>
-
-            <tr style="border-bottom: 1px solid#ccc;">
-              <td style="width:150px;padding:20px;">&nbsp;&nbsp;内容ID</td>
-              <td>
-                <el-input v-model="meeting.appId" placeholder="请输入内容ID" style="width:80%"></el-input>
+                {{meeting.applicationContentName}}
               </td>
               <td style="width:150px;padding:20px;">&nbsp;&nbsp;申请说明</td>
               <td>
-                <el-input v-model="meeting.appNote" placeholder="请输入申请说明" style="width:80%"></el-input>
+                {{meeting.applicationNote}}
               </td>
             </tr>
+            <tr style="border-bottom: 1px solid#ccc;">
+              <td style="width:150px;padding:20px;">&nbsp;&nbsp;联系人姓名</td>
+              <td>
+                <el-input v-model="meeting.fromerContactsName" placeholder="请输入联系人姓名" style="width:80%"></el-input>
+              </td>
+              <td style="width:150px;padding:20px;">&nbsp;&nbsp;联系人电话</td>
+              <td>
+                <el-input v-model="meeting.fromerContactsPhone" placeholder="请输入联系人电话" style="width:80%"></el-input>
+              </td>
+            </tr>
+
+            <tr style="border-bottom: 1px solid#ccc;">
+              <td style="width:150px;padding:20px;">&nbsp;&nbsp;联系人邮箱</td>
+              <td>
+                <el-input v-model="meeting.fromerContactsMail" placeholder="请输入联系人邮箱" style="width:80%"></el-input>
+              </td>
+              <td style="width:150px;padding:20px;">&nbsp;&nbsp;联系人地址</td>
+              <td>
+                <el-input v-model="meeting.fromerContactsAddr" placeholder="请输入联系人地址" style="width:80%"></el-input>
+              </td>
+            </tr>
+
           </table>
 
         </el-col>
@@ -217,6 +214,67 @@
   </el-dialog>
 
 
+  <el-dialog title="查看详情" :visible.sync="dialogFormVisibleShow" width="50%" top='9%'>
+
+    <el-form class="" label-width="30%" style="text-align:left">
+
+
+      <el-row :gutter="24">
+        <el-col :span="24">
+          <table v-show="!show" cellpadding=0 cellspacing=0 border="0" style="width:100%;border: 1px solid#ccc;height: 350px;">
+            <tr style="border-bottom: 1px solid#ccc;">
+              <td style="width:150px;padding:20px;">&nbsp;&nbsp;编号</td>
+              <td>
+                {{meeting.code}}
+              </td>
+              <td style="width:150px;padding:20px;">&nbsp;&nbsp;类别</td>
+              <td>
+                <span v-show="meeting.typeId == '0'">专家对接</span>
+                <span v-show="meeting.typeId == '1'">需求对接</span>
+                <span v-show="meeting.typeId == '2'">成果对接</span>
+                <span v-show="meeting.typeId == '3'">服务对接</span>
+              </td>
+            </tr>
+            <tr style="border-bottom: 1px solid#ccc;">
+              <td style="width:150px;padding:20px;">&nbsp;&nbsp;申请方名称</td>
+              <td>
+                {{meeting.applicationContentName}}
+              </td>
+              <td style="width:150px;padding:20px;">&nbsp;&nbsp;申请说明</td>
+              <td>
+                {{meeting.applicationNote}}
+              </td>
+            </tr>
+            <tr style="border-bottom: 1px solid#ccc;">
+              <td style="width:150px;padding:20px;">&nbsp;&nbsp;联系人姓名</td>
+              <td>
+                {{meeting.fromerContactsName}}
+              </td>
+              <td style="width:150px;padding:20px;">&nbsp;&nbsp;联系人电话</td>
+              <td>
+                {{meeting.fromerContactsPhone}}
+              </td>
+            </tr>
+
+            <tr style="border-bottom: 1px solid#ccc;">
+              <td style="width:150px;padding:20px;">&nbsp;&nbsp;联系人邮箱</td>
+              <td>
+                {{meeting.fromerContactsMail}}
+              </td>
+              <td style="width:150px;padding:20px;">&nbsp;&nbsp;联系人地址</td>
+              <td>
+                {{meeting.fromerContactsAddr}}
+              </td>
+            </tr>
+
+          </table>
+
+        </el-col>
+
+      </el-row>
+    </el-form>
+
+  </el-dialog>
 
   <!-- <el-dialog title="信用等级" :visible.sync="dialogShowLevel" width="30%" top='5%'>
 
@@ -291,11 +349,17 @@
 
 <script>
 import {
-  getMeeting
+  getMeeting,
+  getMeetingC,
+  saveMeeting,
+  rejectrefuse,
+  rejectagree
 } from '@/api/buttManage'
 export default {
   data() {
     return {
+      dialogFormVisibleShow: false,
+      dialogFormVisible: false,
       list: [],
       input: {
         typeId: null,
@@ -307,20 +371,20 @@ export default {
         limit: 10,
       },
       meeting: {
-        typeId: '',
-        fcn: '',
-        fcp: '',
-        fcm: '',
-        fca: '',
-        appId: '',
+        fromerContactsName: '',
+        fromerContactsPhone: '',
+        fromerContactsMail: '',
+        fromerContactsAddr: '',
+        application_note: '',
       },
     }
   },
   mounted() {
-      if (typeof this.$route.query.checkStatus == "number") {
-        this.input.checkStatus = parseInt(this.$route.query.checkStatus)
-        this.input.typeId = parseInt(this.$route.query.typeId)
-      }
+    if (typeof this.$route.query.checkStatus == "number" || typeof this.$route.query.checkStatus == "string") {
+      this.input.checkStatus = parseInt(this.$route.query.checkStatus)
+      this.input.isFormOrToMe = parseInt(this.$route.query.isFormOrToMe)
+      this.input.typeId = parseInt(this.$route.query.typeId)
+    }
     this.loadMeeting()
   },
   computed: {},
@@ -340,7 +404,7 @@ export default {
         data,
         success
       } = await getMeeting(this.listQuery)
-       this.list = data.list
+      this.list = data.list
     },
 
 
@@ -348,20 +412,63 @@ export default {
       if (type === 'edit') {
         this.title = '编辑活动'
         this.dialogFormVisible = true
-
-      } else if (type === 'show') {
-        this.dialogFormVisible = true
         let {
           data,
           success
-        } = await getExchangesC(item.id)
-        this.active = data
-        this.show = true
+        } = await getMeetingC(item.id)
+        debugger
+        this.meeting = data
+
+      } else if (type === 'show') {
+        debugger
+        this.dialogFormVisibleShow = true
+        let {
+          data,
+          success,
+          message
+        } = await getMeetingC(item.id)
+        this.meeting = data
         this.title = '查看活动详情'
-        this.loadEnrolls()
       }
     },
+    async handleRejectagree(objdata) {
+      let obj = {}
+      obj.id = objdata.id
+      let {
+        data,
+        success,
+        message
+      } = await rejectagree(obj)
+      debugger
+      this.$message({
+        type: 'success',
+        message: message
+      });
+    },
 
+    async handleRejectrefuse(obj) {
+      obj
+      let {
+        data,
+        success
+      } = await rejectrefuse(this.meeting)
+      debugger
+      this.$message({
+        type: 'success',
+        message: message
+      });
+    },
+    async saveObj() {
+      let {
+        data,
+        success
+      } = await saveMeeting(this.meeting)
+      debugger
+      this.$message({
+        type: 'success',
+        message: message
+      });
+    },
     handleSizeChange(val) {
       if (!isNaN(val)) {
         this.listQuery.limit = val

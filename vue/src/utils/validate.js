@@ -769,6 +769,13 @@ function validaExpert(str) {
     });
     return false;
   }
+  if (!str || verify.isNull(str.work_unit)) {
+    Message({
+      message: '工作单位不能为空！',
+      type: 'error'
+    });
+    return false;
+  }
   if (str.research_field == 99) {
     if (!str || verify.isNull(str.researchFieldOther)) {
       Message({

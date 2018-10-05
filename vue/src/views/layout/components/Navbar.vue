@@ -6,11 +6,11 @@
       <img class="user-avatar" :src=livePhoto>
     </div>
     <el-dropdown-menu class="user-dropdown" slot="dropdown">
-      <router-link class="inlineBlock" to="/">
+      <!-- <router-link class="inlineBlock" to="/">
         <el-dropdown-item>
         <span>首页</span>
         </el-dropdown-item>
-      </router-link>
+      </router-link> -->
       <router-link class="inlineBlock" to="">
         <el-dropdown-item>
           <span @click="dialogFormVisible = true">密码修改</span>
@@ -26,16 +26,18 @@
           <span>加入社区</span>
         </el-dropdown-item>
       </router-link>
-      <!-- <el-dropdown-item divided>
+      <el-dropdown-item divided>
         <span @click="logout" style="display:block;">登出</span>
-      </el-dropdown-item> -->
+      </el-dropdown-item>
     </el-dropdown-menu>
   </el-dropdown>
 
   <div class="avatarname">
-    {{name}}
+      <el-button style="margin-left:20px" @click="loadIndex" type="primary">返回门户</el-button> {{name}} 
   </div>
+  <div class="avatarBUT">
 
+  </div>
   <el-dialog title="密码修改" :visible.sync="dialogFormVisible" width="30%" top='5%'>
 
     <el-form class="" label-width="30%" style="text-align:left">
@@ -115,6 +117,9 @@ export default {
 
   },
   methods: {
+    loadIndex(){
+       window.location.href = '/front-net/index.html?token=' + window.sessionStorage.getItem('token')
+    },
     async savePaw(obj) {
 
       if (!this.validata.validachangePWD(obj)) return
@@ -189,6 +194,12 @@ export default {
         display: inline-block;
         right: 100px;
     }
+    .avatarBUT {
+        position: absolute;
+        display: inline-block;
+        right: 260px;
+    }
+
     .avatar-container {
         height: 50px;
         display: inline-block;

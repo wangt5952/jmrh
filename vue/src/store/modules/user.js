@@ -92,7 +92,7 @@ const user = {
       state
     }) {
       return new Promise((resolve, reject) => {
-        debugger
+        
         logout(state.token).then(() => {
         commit('SET_TOKEN', '')
         commit('SET_ROLES', [])

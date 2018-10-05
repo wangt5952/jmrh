@@ -775,6 +775,7 @@ export default {
     if (this.$route.params.objData) {
       this.com = JSON.parse(this.$route.params.objData)
       if (this.com.code != "") this.codeD = true
+      debugger
       this.com.picOrgLicense = [{
         url: this.imgBaseUrl + this.com.picOrgLicense
       }]

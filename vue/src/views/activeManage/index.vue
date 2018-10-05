@@ -124,7 +124,7 @@
                         <div v-show="scope.row.checkStatus == 0" @click="handlesh(scope.row)" class="clickText" style="float:left;padding-left:5px">
                           审核
                         </div>
-                      <div  v-show="scope.row.checkStatus != 0 && scope.row.checkStatus != 1" @click="handleEdit(scope.row,'edit')" class="clickText" style="float:left;padding-left:5px">
+                      <div  v-show="scope.row.checkStatus != 0" @click="handleEdit(scope.row,'edit')" class="clickText" style="float:left;padding-left:5px">
                         编辑
                       </div>
 

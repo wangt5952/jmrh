@@ -2,7 +2,7 @@
 <div class="tab-container" style="overflow-y: auto;">
 
   <table v-show="!show" cellpadding=0 cellspacing=0 border="0" style="width:100%;border: 1px solid#ccc;padding: 50px;">
-    <tr  style="border-bottom: 1px solid#ccc;">
+    <tr style="border-bottom: 1px solid#ccc;">
       <td style="width:100px;padding:10px"><span style='color: #f60d0d;'>*</span> 标题</td>
       <td>
         <el-input v-model="content.title" placeholder="请输入标题" style="width:80%"></el-input>
@@ -19,7 +19,8 @@
     <tr style="border-bottom: 1px solid#ccc;">
       <td style="width:100px;padding:10px"><span style='color: #f60d0d;'>*</span> 封面</td>
       <td>
-        <el-upload class="avatar-uploader"  accept=".jpg,.jpeg,.png,.gif,.bmp,.pdf,.JPG,.JPEG,.PBG,.GIF,.BMP,.PDF" :http-request="uploadSectionFile" :before-upload="beforeUploadImg" list-type="picture-card" :file-list="content.covers" :on-success="handleAvatarSuccess" :on-remove="handleRemove">
+        <el-upload class="avatar-uploader" accept=".jpg,.jpeg,.png,.gif,.bmp,.pdf,.JPG,.JPEG,.PBG,.GIF,.BMP,.PDF" :http-request="uploadSectionFile" :before-upload="beforeUploadImg" list-type="picture-card" :file-list="content.covers" :on-success="handleAvatarSuccess"
+          :on-remove="handleRemove">
           <i class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </td>
@@ -45,8 +46,8 @@
           </el-option>
         </el-select>
       </td>
-      <td  v-show="content.onlyUrl == 1" style="width:100px;padding:10px"><span style='color: #f60d0d;'>*</span> 外链地址</td>
-      <td  v-show="content.onlyUrl == 1">
+      <td v-show="content.onlyUrl == 1" style="width:100px;padding:10px"><span style='color: #f60d0d;'>*</span> 外链地址</td>
+      <td v-show="content.onlyUrl == 1">
         <el-input v-model="content.contentUrl" placeholder="请输入外链地址" style="width:80%"></el-input>
       </td>
     </tr>
@@ -112,15 +113,15 @@
     <tr style="border-bottom: 1px solid#ccc;">
       <td style="width:100px;padding:10px">&nbsp;&nbsp;置顶</td>
       <td>
-            <el-select v-model="content.stickSort" style="height:30px;width:80%" placeholder="请选择">
-              <el-option label="是" :key=0 :value=0>
-              </el-option>
-              <el-option label="否" :key=9999 :value=9999>
-              </el-option>
-            </el-select>
+        <el-select v-model="content.stickSort" style="height:30px;width:80%" placeholder="请选择">
+          <el-option label="是" :key=0 :value=0>
+          </el-option>
+          <el-option label="否" :key=9999 :value=9999>
+          </el-option>
+        </el-select>
       </td>
-      <td v-show="content.typeId == 1"  style="width:100px;padding:10px">&nbsp;&nbsp;推荐</td>
-      <td v-show="content.typeId == 1" >
+      <td v-show="content.typeId == 1" style="width:100px;padding:10px">&nbsp;&nbsp;推荐</td>
+      <td v-show="content.typeId == 1">
         <el-select v-model="content.recommend" style="height:30px;width:80%" placeholder="请选择">
 
           <el-option label="是" :key=1 :value=1>
@@ -200,15 +201,33 @@ export default {
         plugins: [
           'image  code codesample'
         ],
-        toolbar: ['bold italic underline strikethrough alignleft aligncenter alignright outdent indent  blockquote undo redo removeformat subscript superscript ',
-          'hr bullist numlist link image charmap preview anchor pagebreak fullscreen media table emoticons forecolor backcolor'
+        toolbar: ['fontselect fontsizeselect  bold italic underline strikethrough alignleft aligncenter alignright outdent indent  blockquote undo redo removeformat subscript superscript code codesample',
+          'hr bullist numlist link image charmap	 preview anchor pagebreak insertdatetime media table emoticons forecolor backcolor fullscreen'
         ],
+        fontsize_formats: "8px 10px 12px 14px 18px 20px 24px 36px",
+        font_formats: "Andale Mono=andale mono,times;" +
+          "Arial=arial,helvetica,sans-serif;" +
+          "Arial Black=arial black,avant garde;" +
+          "Book Antiqua=book antiqua,palatino;" +
+          "Comic Sans MS=comic sans ms,sans-serif;" +
+          "Courier New=courier new,courier;" +
+          "Georgia=georgia,palatino;" +
+          "Helvetica=helvetica;" +
+          "Impact=impact,chicago;" +
+          "Symbol=symbol;" +
+          "Tahoma=tahoma,arial,helvetica,sans-serif;" +
+          "Terminal=terminal,monaco;" +
+          "Times New Roman=times new roman,times;" +
+          "Trebuchet MS=trebuchet ms,geneva;" +
+          "Verdana=verdana,geneva;" +
+          "Webdings=webdings;" +
+          "Wingdings=wingdings,zapf dingbats",
         height: 300,
         images_upload_handler(blobInfo, success, failure) {
           const formData = new FormData()
           formData.append('file', blobInfo.blob())
           uploadCategory(formData, '1').then(res => {
-            success(Vue.prototype.imgBaseUrl+ res.data.savePath)
+            success(Vue.prototype.imgBaseUrl + res.data.savePath)
           }).catch(() => {
             failure('上传失败，请重新上传')
           })
@@ -302,8 +321,8 @@ export default {
     beforeUploadImg(file) {
       const isLt10M = file.size / 1024 / 1024 < 10;
       if (['image/png', 'image/jpeg', ].indexOf(file.type) == -1) {
-          this.$message.error('请上传正确的图片');
-          return false;
+        this.$message.error('请上传正确的图片');
+        return false;
       }
       if (!isLt10M) {
         this.$message.error('上传文件大小不能超过10MB哦!');
@@ -328,7 +347,7 @@ export default {
       debugger
       let obj = {
         name: data.fileName,
-        url: this.imgBaseUrl+ data.savePath
+        url: this.imgBaseUrl + data.savePath
       }
       this.content.covers.push(obj)
     },
@@ -396,7 +415,7 @@ export default {
           name: 'name.jpg',
           url: this.imgBaseUrl + this.content.covers[0].url
         }] //封面赋值显示仅仅
-          window.history.go(-1);
+        window.history.go(-1);
       } else {
         this.$message({
           message: data.message,

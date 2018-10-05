@@ -158,6 +158,8 @@ export default {
         number: ''
       },
       loginForm: {
+        // userName: '725223570@qq.com',
+        // password: 'Gyx199146',
         userName: '',
         password: '',
         isAdmin: false,
@@ -185,18 +187,24 @@ export default {
   },
   mounted() {
     if (this.$route.query.callback) {
-      this.callbackUrl = this.$route.query.callback
+      if(this.$route.query.type){
+        this.callbackUrl = this.$route.query.callback +'&type='+this.$route.query.type
+      }else{
+        this.callbackUrl = this.$route.query.callback
+      }
+
     }
+    this.$store.dispatch('LogOut')
   },
   methods: {
-    keyupSubmit() {
-      document.onkeydown = e => {
-        let _key = window.event.keyCode;
-        if (_key === 13) {
-          this.handleLogin()
-        }
-      }
-    },
+    // keyupSubmit() {
+    //   document.onkeydown = e => {
+    //     let _key = window.event.keyCode;
+    //     if (_key === 13) {
+    //       this.handleLogin()
+    //     }
+    //   }
+    // },
     async tosendEmailActivate() {
       let obj = {}
       obj.email = this.loginForm.userName
@@ -326,37 +334,35 @@ export default {
     },
     handleLogin() {
       this.loading = true
-      let token = window.sessionStorage.getItem('token')//过滤 仅限第一次获取菜单
+      let token = window.sessionStorage.getItem('token') //过滤 仅限第一次获取菜单
       this.$store.dispatch('Login', this.loginForm).then(async () => {
 
         if (this.$store.getters.token && this.$store.getters.token != undefined && this.$store.getters.token != '') {
+          window.localStorage.setItem('user', JSON.stringify('true')) //没有进行菜单获取时的进入权限
 
-
-          window.localStorage.setItem('user', JSON.stringify('true'))//没有进行菜单获取时的进入权限
           if (!token && this.$store.getters.token != undefined) {
             let data = await getUserMenusone()
-            let treeData = data.data
+            var treeData = data.data
             window.sessionStorage.setItem('treeData', JSON.stringify(treeData)) //必须传入 路由进行渲染
+          }
+debugger
+          // var url = "http://" + this.callbackUrl + "&token=" + window.sessionStorage.getItem('token') + "&checkStatus=" + window.sessionStorage.getItem('checkStatus') + "&userName=" + window.sessionStorage.getItem('userName') + "&userId=" +
+          //   window.sessionStorage.getItem('userId') + "&userType=" + window.sessionStorage.getItem('userType') + "&cellphone=" + window.sessionStorage.getItem('cellphone') + "&email=" + window.sessionStorage.getItem('email') + "&orgType=" +
+          //   window.sessionStorage.getItem('orgType' )
+          if (this.callbackUrl != '') {
+            if (this.callbackUrl.indexOf('?') > -1) {
+              var url = "http://" + this.callbackUrl + "&token=" + window.sessionStorage.getItem('token')
+            } else {
+              var url = "http://" + this.callbackUrl + "?token=" + window.sessionStorage.getItem('token')
+            }
+            window.location.href = url
+          } else {
+
             if (treeData) {
               treeData = this.forload(treeData)
               this.login(treeData)
               this.$router.addRoutes(routers)
             }
-          }
-
-          if (this.callbackUrl != '') {
-            if (this.callbackUrl.indexOf('?') > -1) {
-              var url = "http://" + this.callbackUrl + "&token=" + window.sessionStorage.getItem('token') + "&checkStatus=" + window.sessionStorage.getItem('checkStatus') + "&userName=" + window.sessionStorage.getItem('userName') + "&userId=" +
-                window.sessionStorage.getItem('userId') + "&userType=" + window.sessionStorage.getItem('userType') + "&cellphone=" + window.sessionStorage.getItem('cellphone') + "&email=" + window.sessionStorage.getItem('email') + "&orgType=" +
-                window.sessionStorage.getItem('orgType')
-            } else {
-              var url = "http://" + this.callbackUrl + "?token=" + window.sessionStorage.getItem('token') + "&checkStatus=" + window.sessionStorage.getItem('checkStatus') + "&userName=" + window.sessionStorage.getItem('userName') + "&userId=" +
-                window.sessionStorage.getItem('userId') + "&userType=" + window.sessionStorage.getItem('userType') + "&cellphone=" + window.sessionStorage.getItem('cellphone') + "&email=" + window.sessionStorage.getItem('email') + "&orgType=" +
-                window.sessionStorage.getItem('orgType')
-            }
-            window.location.href = url
-          } else {
-debugger
             this.$router.push({
               path: '/'
             })
