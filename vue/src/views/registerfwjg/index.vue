@@ -121,8 +121,8 @@ export default {
         site1: true,
         site2: false,
         site3: false,
-        categorys: false,
-        natures: false,
+        category: false,
+        nature: false,
         sites1: '',
         sites2: '',
         sites3: '',
@@ -142,13 +142,15 @@ export default {
   },
   methods: {
     loadData(){
-      if(!this.input.site1  && !this.input.site2  && !this.input.site3 && !this.input.categorys && !this.input.natures){
+      if(!this.input.site1  && !this.input.site2  && !this.input.site3 && !this.input.category && !this.input.nature){
         this.$message({
           message: '统计项（复选框）必选一个！',
           type: 'warning'
         });
         return
       }
+
+
        this.$refs.piec.initChart(this.input);
     },
     loadOneTree() {

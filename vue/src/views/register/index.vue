@@ -195,7 +195,16 @@ export default {
     }
   },
   mounted() {
-
+    this.registerForm = { // 普通登录
+      email: '',
+      password: '',
+      repassword: '',
+      name: '',
+      idNumber: '',
+      name: '',
+      userType: '',
+      agreement :false
+    }
   },
   methods: {
     agree() {

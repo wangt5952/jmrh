@@ -125,7 +125,7 @@
       <el-row :gutter="24">
 
         <el-form-item label="用户名">
-          <el-input v-model="obj.userName" placeholder="请输入内容" style="width:80%"></el-input>
+          <el-input disabled v-model="obj.userName" placeholder="请输入内容" style="width:80%"></el-input>
         </el-form-item>
         <!-- <el-form-item label="全名">
           <el-input v-model="obj.fullName" placeholder="请输入内容" style="width:80%"></el-input>
@@ -137,7 +137,7 @@
           <el-input v-model="obj.email" placeholder="请输入内容" style="width:80%"></el-input>
         </el-form-item>
         <el-form-item label="密码">
-          <el-input type="password" v-model="obj.password" placeholder="请输入内容" style="width:80%"></el-input>
+          <el-input disabled type="password" v-model="obj.password" placeholder="请输入内容" style="width:80%"></el-input>
         </el-form-item>
         <el-form-item label="角色">
           <v-select multiple v-model="selected" :options="options" style="width:80%"></v-select>

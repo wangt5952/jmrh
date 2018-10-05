@@ -5,7 +5,8 @@
     <tr style="border-bottom: 1px solid#ccc;">
       <td style="width:100px;padding:10px"><span style='color: #f60d0d;'>*</span> 名称</td>
       <td>
-        <el-input v-model="majorPlatform.spName" placeholder="请输入名称" style="width:80%"></el-input>
+        <textarea placeholder="请输入名称" maxlength="200" v-model="majorPlatform.spName" rows="3" cols="20" style="width:80%;height:80px;">
+        </textarea>
       </td>
       <td style="width:100px;padding:10px"><span style='color: #f60d0d;'>*</span> 承担单位</td>
       <td>

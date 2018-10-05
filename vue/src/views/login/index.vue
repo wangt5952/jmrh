@@ -186,6 +186,11 @@ export default {
 
   },
   mounted() {
+    this.loginForm =  {
+      userName: '',
+      password: '',
+      isAdmin: false,
+    }
     if (this.$route.query.callback) {
       if(this.$route.query.type){
         this.callbackUrl = this.$route.query.callback +'&type='+this.$route.query.type
