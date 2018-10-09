@@ -45,9 +45,9 @@ export function getUserDetail(activateId) {
   })
 }
 
-export function setUserDetail(data) {
+export function setUserDetail(data,flag) {
   return request({
-    url: '/lib/setUserDetail?isDraft=false',
+    url: '/lib/setUserDetail?isDraft='+flag,
     method: 'post',
     data
   });

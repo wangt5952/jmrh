@@ -158,6 +158,7 @@ export default {
         },
         legend: {
           orient: 'vertical',
+            type: 'scroll',
           x: 'right',
           data: arrdate
         },

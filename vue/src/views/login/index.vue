@@ -158,7 +158,7 @@ export default {
         number: ''
       },
       loginForm: {
-        // userName: '725223570@qq.com',
+        // userName: '3438477624@qq.com',
         // password: 'Gyx199146',
         userName: '',
         password: '',
@@ -186,11 +186,11 @@ export default {
 
   },
   mounted() {
-    this.loginForm =  {
-      userName: '',
-      password: '',
-      isAdmin: false,
-    }
+    // this.loginForm =  {
+    //   userName: '',
+    //   password: '',
+    //   isAdmin: false,
+    // }
     if (this.$route.query.callback) {
       if(this.$route.query.type){
         this.callbackUrl = this.$route.query.callback +'&type='+this.$route.query.type

@@ -34,7 +34,7 @@
 
               <el-form-item label="身份证号">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
-                <el-input :disabled = expertCodeD placeholder="请输入身份证号" v-model="expert.code" style="width:80%" type="number"></el-input>
+                <el-input :disabled=e xpertCodeD placeholder="请输入身份证号" v-model="expert.code" style="width:80%" type="number"></el-input>
               </el-form-item>
               <el-form-item label="上传身份证正面">
                 <div>
@@ -319,7 +319,7 @@
     </el-tabs>
     <el-row>
       <div style="padding-left: 35%;margin: 40px 0  0  0;">
-        <div  v-show='shenHD' class="" style="padding:15px">
+        <div v-show='shenHD' class="" style="padding:15px">
           <el-radio-group v-model="checkStatus">
             <el-radio :label="-1">草稿</el-radio>
             <el-radio :label="0">提交待审</el-radio>
@@ -342,11 +342,11 @@
 
               <el-form-item label="企业名称">
                 <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入企业名称，不能超过20个字符！"  maxlength="20" v-model="com.name" style="width:80%"></el-input>
+                <el-input placeholder="请输入企业名称，不能超过20个字符！" maxlength="20" v-model="com.name" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="企业编码">
                 <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
-                <el-input  :disabled = comCodeD  placeholder="请输入企业编码，不能超过20个字符！"  maxlength="20" v-model="com.code" style="width:80%"></el-input>
+                <el-input :disabled=c omCodeD placeholder="请输入企业编码，不能超过20个字符！" maxlength="20" v-model="com.code" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="企业规模（注册资金）">
                 <span style='position: absolute;left: -170px;color: #f60d0d;'></span>
@@ -384,10 +384,10 @@
               </el-form-item>
               <el-form-item label="通讯地址">
                 <span style='position: relative;left: -80px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入通讯地址，不能超过20个字符！"  maxlength="20"v-model="com.registeraddress" style="width:80%"></el-input>
+                <el-input placeholder="请输入通讯地址，不能超过20个字符！" maxlength="20" v-model="com.registeraddress" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="邮编">
-                <el-input placeholder="请输入邮编，不能超过20个字符！"  maxlength="20" v-model="com.registerecode" style="width:80%"></el-input>
+                <el-input placeholder="请输入邮编，不能超过20个字符！" maxlength="20" v-model="com.registerecode" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="是否高新技术企业">
                 <span style='position: absolute;left: -140px;color: #f60d0d;'></span>
@@ -406,7 +406,7 @@
                   <el-checkbox label="3">国家级经开区 </el-checkbox>
                   <el-checkbox label="4">省级经开区</el-checkbox>
                   <el-checkbox label="99">其他</el-checkbox>
-                  <el-input v-if="com.registerSite.includes('99')" placeholder="请输入其他，不能超过20个字符！"  maxlength="20" v-model="com.registerSiteOther" style="width:80%"></el-input>
+                  <el-input v-if="com.registerSite.includes('99')" placeholder="请输入其他，不能超过20个字符！" maxlength="20" v-model="com.registerSiteOther" style="width:80%"></el-input>
                 </el-checkbox-group>
               </el-form-item>
               <el-form-item v-show="com.is_high_new_tech == 1 && com.registerSite.includes('1')" label="所在国家高新区">
@@ -417,7 +417,7 @@
                   <el-checkbox label="3">昆山高新区 </el-checkbox>
                   <el-checkbox label="4">徐州高新区</el-checkbox>
                   <el-checkbox label="99">其他</el-checkbox>
-                  <el-input v-if="com.registerHSite.includes('99')" placeholder="请输入其他，不能超过20个字符！"  maxlength="20" v-model="com.registerHSiteOther" style="width:80%"></el-input>
+                  <el-input v-if="com.registerHSite.includes('99')" placeholder="请输入其他，不能超过20个字符！" maxlength="20" v-model="com.registerHSiteOther" style="width:80%"></el-input>
                 </el-checkbox-group>
               </el-form-item>
               <el-form-item label="是否上市">
@@ -444,7 +444,7 @@
                   <el-checkbox label="6">中小板</el-checkbox>
                   <el-checkbox label="7">创业板</el-checkbox>
                   <el-checkbox label="99">其他</el-checkbox>
-                  <el-input v-if="com.registerMarkeSite.includes('99')" placeholder="请输入其他，不能超过20个字符！"  maxlength="20" v-model="com.registerMarkeSiteOther" style="width:80%"></el-input>
+                  <el-input v-if="com.registerMarkeSite.includes('99')" placeholder="请输入其他，不能超过20个字符！" maxlength="20" v-model="com.registerMarkeSiteOther" style="width:80%"></el-input>
                 </el-checkbox-group>
               </el-form-item>
               <el-form-item label="所属领域">
@@ -464,12 +464,12 @@
                   </br>
                   <el-checkbox label="99">其他</el-checkbox>
                   </br>
-                  <el-input v-if="com.domain.includes('99')" placeholder="请输入其他，不能超过20个字符！"  maxlength="20" v-model="com.domainOther" style="width:80%"></el-input>
+                  <el-input v-if="com.domain.includes('99')" placeholder="请输入其他，不能超过20个字符！" maxlength="20" v-model="com.domainOther" style="width:80%"></el-input>
                 </el-checkbox-group>
               </el-form-item>
               <el-form-item label="主营产品">
                 <span style='position: relative;left: -80px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入主营产品，不能超过20个字符！"  maxlength="20" v-model="com.product" style="width:80%"></el-input>
+                <el-input placeholder="请输入主营产品，不能超过20个字符！" maxlength="20" v-model="com.product" style="width:80%"></el-input>
               </el-form-item>
             </el-col>
 
@@ -488,11 +488,11 @@
 
               <el-form-item label="姓名">
                 <span style='position: relative;left: -50px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入姓名，不能超过20个字符！"  maxlength="20" v-model="com.lpname" style="width:80%"></el-input>
+                <el-input placeholder="请输入姓名，不能超过20个字符！" maxlength="20" v-model="com.lpname" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="职务">
                 <span style='position: relative;left: -50px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入职务，不能超过20个字符！"  maxlength="20" v-model="com.lpzw" style="width:80%"></el-input>
+                <el-input placeholder="请输入职务，不能超过20个字符！" maxlength="20" v-model="com.lpzw" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="电话/手机">
                 <span style='position: relative;left: -60px;color: #f60d0d;'></span>
@@ -553,7 +553,7 @@
             <el-col :span="20">
               <el-form-item label="姓名">
                 <span style='position: relative;left: -50px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入姓名，不能超过20个字符！"  maxlength="20" v-model="com.lxname" style="width:80%"></el-input>
+                <el-input placeholder="请输入姓名，不能超过20个字符！" maxlength="20" v-model="com.lxname" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="联系人身份证正面">
                 <div>
@@ -590,7 +590,7 @@
               </el-form-item>
               <el-form-item label="职务">
                 <span style='position: relative;left: -50px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入职务，不能超过20个字符！"  maxlength="20" v-model="com.lxzw" style="width:80%"></el-input>
+                <el-input placeholder="请输入职务，不能超过20个字符！" maxlength="20" v-model="com.lxzw" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="手机号">
                 <span style='position: relative;left: -60px;color: #f60d0d;'>*</span>
@@ -687,21 +687,21 @@
                   </br>
                   <el-checkbox label="99">其他</el-checkbox>
                   </br>
-                  <el-input v-if="com.highleveltalentType.includes('99')" placeholder="请输入其他，不能超过20个字符！"  maxlength="20" v-model="com.comhighleveltalentTypeOther" style="width:80%"></el-input>
+                  <el-input v-if="com.highleveltalentType.includes('99')" placeholder="请输入其他，不能超过20个字符！" maxlength="20" v-model="com.comhighleveltalentTypeOther" style="width:80%"></el-input>
                 </el-checkbox-group>
               </el-form-item>
 
               <el-form-item :label="service_research_lastt">
                 <span style='position: absolute;left: -180px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入研发投入，不能超过20个字符！"  maxlength="20" v-model="com.service_research_last" style="width:80%"></el-input>
+                <el-input placeholder="请输入研发投入，不能超过20个字符！" maxlength="20" v-model="com.service_research_last" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item :label="service_research_beforet">
                 <span style='position: relative;left: -180px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入研发投入，不能超过20个字符！"  maxlength="20" v-model="com.service_research_before" style="width:80%"></el-input>
+                <el-input placeholder="请输入研发投入，不能超过20个字符！" maxlength="20" v-model="com.service_research_before" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item :label="service_research_previoust">
                 <span style='position: relative;left: -180px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入研发投入，不能超过20个字符！"  maxlength="20" v-model="com.service_research_previous" style="width:80%"></el-input>
+                <el-input placeholder="请输入研发投入，不能超过20个字符！" maxlength="20" v-model="com.service_research_previous" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="平台建设情况">
                 <span style='position: absolute;left: -100px;color: #f60d0d;'></span>
@@ -718,7 +718,7 @@
                   </br>
                   <el-checkbox label="99">其他</el-checkbox>
                   </br>
-                  <el-input v-if="com.platform.includes('99')" placeholder="请输入其他，不能超过20个字符！"  maxlength="20" v-model="com.platformOther" style="width:80%"></el-input>
+                  <el-input v-if="com.platform.includes('99')" placeholder="请输入其他，不能超过20个字符！" maxlength="20" v-model="com.platformOther" style="width:80%"></el-input>
                 </el-checkbox-group>
               </el-form-item>
             </el-col>
@@ -794,12 +794,12 @@
               </el-form-item>
               <el-form-item v-show="com.jmrhgn == 3" label="负责人姓名">
                 <span style='position: relative;left: -100px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入负责人姓名，不能超过20个字符！"  maxlength="20" v-model="com.jmrhgnName" style="width:80%"></el-input>
+                <el-input placeholder="请输入负责人姓名，不能超过20个字符！" maxlength="20" v-model="com.jmrhgnName" style="width:80%"></el-input>
               </el-form-item>
 
               <el-form-item v-show="com.jmrhgn == 3" label="负责人职务">
                 <span style='position: relative;left: -100px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入负责人职务，不能超过20个字符！"  maxlength="20" v-model="com.jmrhgnZW" style="width:80%"></el-input>
+                <el-input placeholder="请输入负责人职务，不能超过20个字符！" maxlength="20" v-model="com.jmrhgnZW" style="width:80%"></el-input>
               </el-form-item>
 
               <el-form-item v-show="com.jmrhgn == 3" label="负责人电话">
@@ -823,7 +823,7 @@
                   </br>
                   <el-checkbox label="99">其他 </el-checkbox>
                   </br>
-                  <el-input v-if="com.ydkn.includes('99')" placeholder="请输入其他，不能超过20个字符！"  maxlength="20" v-model="com.comydknOther" style="width:80%"></el-input>
+                  <el-input v-if="com.ydkn.includes('99')" placeholder="请输入其他，不能超过20个字符！" maxlength="20" v-model="com.comydknOther" style="width:80%"></el-input>
                 </el-checkbox-group>
               </el-form-item>
               <el-form-item label="“民参军”过程中企业自身存在的问题">
@@ -840,7 +840,7 @@
               </el-form-item>
 
               <el-form-item label="有参军潜力的技术成果">
-                <el-input placeholder="请输入有参军潜力的技术成果，不能超过20个字符！"  maxlength="20" v-model="com.jscg" style="width:80%"></el-input>
+                <el-input placeholder="请输入有参军潜力的技术成果，不能超过20个字符！" maxlength="20" v-model="com.jscg" style="width:80%"></el-input>
               </el-form-item>
 
               <el-form-item label="可用于军民融合共享的资源情况（不超过200字）">
@@ -878,7 +878,7 @@
 
 
                       <el-form-item label="项目名称">
-                        <el-input placeholder="请输入项目名称，不能超过20个字符！"  maxlength="20" v-model="item.name" style="width:80%"></el-input>
+                        <el-input placeholder="请输入项目名称，不能超过20个字符！" maxlength="20" v-model="item.name" style="width:80%"></el-input>
                       </el-form-item>
 
                       <el-form-item label="起止时间">
@@ -888,7 +888,7 @@
 
 
                       <el-form-item label="项目来源">
-                        <el-input placeholder="请输入项目来源，不能超过20个字符！"  maxlength="20" v-model="item.source" style="width:80%"></el-input>
+                        <el-input placeholder="请输入项目来源，不能超过20个字符！" maxlength="20" v-model="item.source" style="width:80%"></el-input>
                       </el-form-item>
 
                     </el-col>
@@ -903,7 +903,7 @@
                           <el-checkbox label="5">战略支援部队</el-checkbox>
                           <el-checkbox label="6">军工企业</el-checkbox>
                           <el-checkbox label="99">其他 </el-checkbox>
-                          <el-input v-if="item.fwbm.includes('99')" placeholder="请输入其他，不能超过20个字符！"  maxlength="20" v-model="item.fwbmOther" style="width:80%"></el-input>
+                          <el-input v-if="item.fwbm.includes('99')" placeholder="请输入其他，不能超过20个字符！" maxlength="20" v-model="item.fwbmOther" style="width:80%"></el-input>
                         </el-checkbox-group>
                       </el-form-item>
 
@@ -936,7 +936,7 @@
 
     <el-row>
       <div style="padding-left: 35%;margin: 40px 0  0  0;">
-        <div  v-show='shenHD' class="" style="padding:15px">
+        <div v-show='shenHD' class="" style="padding:15px">
           <el-radio-group v-model="checkStatus">
             <el-radio :label="-1">草稿</el-radio>
             <el-radio :label="0">提交待审</el-radio>
@@ -960,7 +960,7 @@
               </el-form-item>
               <el-form-item label="统一社会信用代码">
                 <span style='position: absolute;left: -135px;color: #f60d0d;'>*</span>
-                <el-input :disabled = mechCodeD placeholder="请输入统一社会信用代码" v-model="mech.code" style="width:80%"></el-input>
+                <el-input :disabled=m echCodeD placeholder="请输入统一社会信用代码" v-model="mech.code" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="营业执照">
                 <div>
@@ -1330,12 +1330,12 @@
               </el-button>
               <el-table class="tableH" :data="mech.workrPorcolumnDefinitions" border style="margin-top:20px;width:100%;font-size:12px;overflow-y:auto">
 
-                <el-table-column align="center" label="服务项目名称"  width="400">
+                <el-table-column align="center" label="服务项目名称" width="400">
                   <template slot-scope="scope">
                       <el-input placeholder="不能超过20个字符！"  maxlength="20" type="text" v-model="scope.row.name" style="width:80%"></el-input>
                                       </template>
                 </el-table-column>
-                <el-table-column align="center" label="服务对象"  width="400">
+                <el-table-column align="center" label="服务对象" width="400">
                   <template slot-scope="scope">
                                             <span>
                                               <el-input placeholder="不能超过20个字符！"  maxlength="20" type="text" v-model="scope.row.object" style="width:80%"></el-input>
@@ -1348,7 +1348,7 @@
                                       </el-date-picker>
                                       </template>
                 </el-table-column>
-                <el-table-column align="center" label=""  width="100">
+                <el-table-column align="center" label="" width="100">
                   <template slot-scope="scope">
                     <el-button size="small" @click="delcjmech(scope.row)" style="color:red">
                       删除
@@ -1364,7 +1364,7 @@
     </el-tabs>
     <el-row>
       <div style="padding-left: 35%;margin: 40px 0  0  0;">
-        <div  v-show='shenHD' class="" style="padding:15px">
+        <div v-show='shenHD' class="" style="padding:15px">
           <el-radio-group v-model="checkStatus">
             <el-radio :label="-1">草稿</el-radio>
             <el-radio :label="0">提交待审</el-radio>
@@ -1385,11 +1385,11 @@
 
               <el-form-item label="名称">
                 <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入名称，不能超过20个字符！"  maxlength="20" v-model="school.name" style="width:80%"></el-input>
+                <el-input placeholder="请输入名称，不能超过20个字符！" maxlength="20" v-model="school.name" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="统一社会信用代码">
                 <span style='position: absolute;left: -135px;color: #f60d0d;'>*</span>
-                <el-input  :disabled = schoolCodeD placeholder="请输入统一社会信用代码，不能超过20个字符！"  maxlength="20" v-model="school.code" style="width:80%"></el-input>
+                <el-input :disabled=s choolCodeD placeholder="请输入统一社会信用代码，不能超过20个字符！" maxlength="20" v-model="school.code" style="width:80%"></el-input>
               </el-form-item>
 
               <el-form-item label="营业执照">
@@ -1479,7 +1479,7 @@
               </el-form-item>
               <el-form-item label="联系地址">
                 <span style='position: relative;left: -80px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入联系地址，不能超过20个字符！"  maxlength="20" v-model="school.address" style="width:80%"></el-input>
+                <el-input placeholder="请输入联系地址，不能超过20个字符！" maxlength="20" v-model="school.address" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="邮编">
                 <el-input placeholder="请输入邮编" v-model="school.zip_code" style="width:80%"></el-input>
@@ -1492,11 +1492,11 @@
 
               <el-form-item label="单位简介">
                 <span style='position: relative;left: -80px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入单位简介，不能超过30个字符！"  maxlength="30" v-model="school.major_platform" style="width:80%"></el-input>
+                <el-input placeholder="请输入单位简介，不能超过30个字符！" maxlength="30" v-model="school.major_platform" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="重大平台">
                 <span style='position: relative;left: -80px;color: #f60d0d;'></span>
-                <el-input placeholder="请输入重大平台，不能超过30个字符！"  maxlength="30" v-model="school.introduction" style="width:80%"></el-input>
+                <el-input placeholder="请输入重大平台，不能超过30个字符！" maxlength="30" v-model="school.introduction" style="width:80%"></el-input>
               </el-form-item>
             </el-col>
 
@@ -1512,7 +1512,7 @@
       <div style="padding-left: 35%;margin: 40px 0  0  0;">
 
         <div class="">
-          <div  v-show='shenHD' class="" style="padding:15px">
+          <div v-show='shenHD' class="" style="padding:15px">
             <el-radio-group v-model="checkStatus">
               <el-radio :label="-1">草稿</el-radio>
               <el-radio :label="0">提交待审</el-radio>
@@ -1554,11 +1554,11 @@ export default {
   data() {
     return {
       shenHD: true,
-      checkStatus : 0,
+      checkStatus: 0,
       expertCodeD: false,
       comCodeD: false,
       mechCodeD: false,
-      schoolCodeD : false,
+      schoolCodeD: false,
       userType: '',
       dateValue: '',
       selected: [],
@@ -2200,12 +2200,15 @@ export default {
       }
 
       let arr = []
+      let flag
       obj.method = 'post'
-
+      if (this.checkStatus == -1) flag =  true
+      if (this.checkStatus == 0) flag = false
+// debugger
       let {
         data,
         success
-      } = await setUserDetail(obj)
+      } = await setUserDetail(obj,flag)
 
       if (success) {
         this.$message({
@@ -3154,27 +3157,27 @@ export default {
       }
     },
 
-        async schooluploadSectionFilepicLmIdCardInHand(param) {
-          this.school.picLmIdCardInHand = []
-          var fileObj = param.file;
-          // 接收上传文件的后台地址
-          // FormData 对象
-          var form = new FormData();
-          // 文件对象
-          form.append("file", fileObj);
-          // 其他参数
-          // form.append("xxx", xxx);
-          let {
-            data,
-            success
-          } = await libupload(form)
-          if (success) {
-            let arro = {}
-            arro.name = data.fileName,
-              arro.url = this.imgBaseUrl + `user/` + data
-            this.school.picLmIdCardInHand.push(arro)
-          }
-        },
+    async schooluploadSectionFilepicLmIdCardInHand(param) {
+      this.school.picLmIdCardInHand = []
+      var fileObj = param.file;
+      // 接收上传文件的后台地址
+      // FormData 对象
+      var form = new FormData();
+      // 文件对象
+      form.append("file", fileObj);
+      // 其他参数
+      // form.append("xxx", xxx);
+      let {
+        data,
+        success
+      } = await libupload(form)
+      if (success) {
+        let arro = {}
+        arro.name = data.fileName,
+          arro.url = this.imgBaseUrl + `user/` + data
+        this.school.picLmIdCardInHand.push(arro)
+      }
+    },
     async uploadSectionFile13(param) {
       this.school.picLogo = []
       var fileObj = param.file;
@@ -3212,6 +3215,4 @@ export default {
 .cxxm .el-input__inner {
   padding: 0 30px !important;
 }
-
-
 </style>

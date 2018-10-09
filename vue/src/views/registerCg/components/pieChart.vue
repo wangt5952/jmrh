@@ -157,6 +157,7 @@ export default {
         },
         legend: {
           orient: 'vertical',
+            type: 'scroll',
           x: 'right', // 'center' | 'left' | {number},
           // y: 'bottom', // 'center' | 'bottom' | {number}
           data: arrdate

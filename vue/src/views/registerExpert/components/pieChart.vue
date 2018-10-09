@@ -161,8 +161,10 @@ export default {
           formatter: "{a} <br/>{b}: {c} ({d}%)"
         },
         legend: {
+          type: 'scroll',
           orient: 'vertical',
           x: 'right',
+           // y: 'bottom', // 'center' | 'bottom' | {number}
           data: arrdate
         },
         series: [{
