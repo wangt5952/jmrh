@@ -1877,7 +1877,7 @@ export default {
 
       let fromCheckStatus = window.sessionStorage.getItem('checkStatus')
 
-      if (fromCheckStatus == '2') {
+      // if (fromCheckStatus == '2') {
         let {
           data,
           success
@@ -1963,100 +1963,98 @@ export default {
             url: this.imgBaseUrl + this.school.picLogo
           }]
         }
-        if (data.checkStatus == 0) {
-          this.$message({
-            message: '您的提交的信息等待审核中...',
-            type: 'success'
-          });
-          this.shenHD = false
-
-        }
-        if (data.checkStatus == 2) {
-          this.$message({
-            message: '您的信息已被驳回。',
-            type: 'success'
-          });
-        }
-
-      } else {
-        let {
-          data,
-          success
-        } = await isInLibs()
-        if (success) {
-          if (data == null) {
-            if (this.userType == '1') {
-                this.expert.name = window.sessionStorage.getItem('name')
-                this.expert.code = window.sessionStorage.getItem('code')
-                if (this.expert.code != "") this.expertCodeD = true
-
-            } else if (this.userType == '2') {
-                this.com.name = window.sessionStorage.getItem('name')
-                this.com.code = window.sessionStorage.getItem('code')
-                if (this.com.code != "") this.comCodeD = true
-
-            } else if (this.userType == '3') {
-                this.mech.name = window.sessionStorage.getItem('name')
-                this.mech.code = window.sessionStorage.getItem('code')
-                if (this.mech.code != "") this.mechCodeD = true
-
-            } else if (this.userType == '4') {
-                this.school.name = window.sessionStorage.getItem('name')
-                this.school.code = window.sessionStorage.getItem('code')
-                if (this.school.code != "") this.schoolCodeD = true
-            }
-            this.$message({
-              message: '社区内没有您的信息，请完善信息！',
-              type: 'success'
-            });
-            return
-          } else {
-            this.$message({
-              message: '社区内已存在您的信息，请关联并完善！',
-              type: 'success'
-            });
-            if (this.userType == '1') {
-              this.expert = JSON.parse(data.form.detail)
-
-              if (this.expert.code != "") this.expertCodeD = true
-              this.expert.picLmIdCardFront[0].url = this.imgBaseUrl + this.expert.picLmIdCardFront[0].url
-              this.expert.picLmIdCardBack[0].url = this.imgBaseUrl + this.expert.picLmIdCardBack[0].url
-              this.expert.picLmIdCardInHand[0].url = this.imgBaseUrl + this.expert.picLmIdCardInHand[0].url
-              this.expert.picLogo[0].url = this.imgBaseUrl + this.expert.picLogo[0].url
-            }
-            if (this.userType == '2') {
-              this.com = JSON.parse(data.form.detail)
-              if (this.com.code != "") this.comCodeD = true
-              this.com.picOrgLicense[0].url = this.imgBaseUrl + this.com.picOrgLicense[0].url
-              this.com.picLpLicense[0].url = this.imgBaseUrl + this.com.picLpLicense[0].url
-              this.com.picLmIdCardFront[0].url = this.imgBaseUrl + this.com.picLmIdCardFront[0].url
-              this.com.picLmIdCardBack[0].url = this.imgBaseUrl + this.com.picLmIdCardBack[0].url
-              this.com.picLmIdCardInHand[0].url = this.imgBaseUrl + this.com.picLmIdCardInHand[0].url
-              this.com.picLogo[0].url = this.imgBaseUrl + this.com.picLogo[0].url
-            }
-            if (this.userType == '3') {
-              this.mech = JSON.parse(data.form.detail)
-              if (this.mech.code != "") this.mechCodeD = true
-              this.mech.picOrgLicense[0].url = this.imgBaseUrl + this.mech.picOrgLicense[0].url
-              this.mech.picLpLicense[0].url = this.imgBaseUrl + this.mech.picLpLicense[0].url
-              this.mech.picLmIdCardFront[0].url = this.imgBaseUrl + this.mech.picLmIdCardFront[0].url
-              this.mech.picLmIdCardBack[0].url = this.imgBaseUrl + this.mech.picLmIdCardBack[0].url
-              this.mech.picLmIdCardInHand[0].url = this.imgBaseUrl + this.mech.picLmIdCardInHand[0].url
-              this.mech.picLogo[0].url = this.imgBaseUrl + this.mech.picLogo[0].url
-            }
-            if (this.userType == '4') {
-              this.school = JSON.parse(data.form.detail)
-              if (this.school.code != "") this.schoolCodeD = true
-              this.school.picOrgLicense[0].url = this.imgBaseUrl + this.school.picOrgLicense[0].url
-              this.school.picLpLicense[0].url = this.imgBaseUrl + this.school.picLpLicense[0].url
-              this.school.picLmIdCardFront[0].url = this.imgBaseUrl + this.school.picLmIdCardFront[0].url
-              this.school.picLmIdCardBack[0].url = this.imgBaseUrl + this.school.picLmIdCardBack[0].url
-              this.school.picLmIdCardInHand[0].url = this.imgBaseUrl + this.school.picLmIdCardInHand[0].url
-              this.school.picLogo[0].url = this.imgBaseUrl + this.school.picLogo[0].url
-            }
-          }
-        }
-      }
+        // if (data.checkStatus == 0) {
+        //   this.$message({
+        //     message: '您的提交的信息等待审核中...',
+        //     type: 'success'
+        //   });
+        //   this.shenHD = false
+        // }
+        // if (data.checkStatus == 2) {
+        //   this.$message({
+        //     message: '您的信息已被驳回。',
+        //     type: 'success'
+        //   });
+        // }
+    // } else {
+    //     let {
+    //       data,
+    //       success
+    //     } = await isInLibs()
+    //     if (success) {
+    //       if (data == null) {
+    //         if (this.userType == '1') {
+    //             this.expert.name = window.sessionStorage.getItem('name')
+    //             this.expert.code = window.sessionStorage.getItem('code')
+    //             if (this.expert.code != "") this.expertCodeD = true
+    //
+    //         } else if (this.userType == '2') {
+    //             this.com.name = window.sessionStorage.getItem('name')
+    //             this.com.code = window.sessionStorage.getItem('code')
+    //             if (this.com.code != "") this.comCodeD = true
+    //
+    //         } else if (this.userType == '3') {
+    //             this.mech.name = window.sessionStorage.getItem('name')
+    //             this.mech.code = window.sessionStorage.getItem('code')
+    //             if (this.mech.code != "") this.mechCodeD = true
+    //
+    //         } else if (this.userType == '4') {
+    //             this.school.name = window.sessionStorage.getItem('name')
+    //             this.school.code = window.sessionStorage.getItem('code')
+    //             if (this.school.code != "") this.schoolCodeD = true
+    //         }
+    //         this.$message({
+    //           message: '社区内没有您的信息，请完善信息！',
+    //           type: 'success'
+    //         });
+    //         return
+    //       } else {
+    //         this.$message({
+    //           message: '社区内已存在您的信息，请关联并完善！',
+    //           type: 'success'
+    //         });
+    //         if (this.userType == '1') {
+    //           this.expert = JSON.parse(data.form.detail)
+    //
+    //           if (this.expert.code != "") this.expertCodeD = true
+    //           this.expert.picLmIdCardFront[0].url = this.imgBaseUrl + this.expert.picLmIdCardFront[0].url
+    //           this.expert.picLmIdCardBack[0].url = this.imgBaseUrl + this.expert.picLmIdCardBack[0].url
+    //           this.expert.picLmIdCardInHand[0].url = this.imgBaseUrl + this.expert.picLmIdCardInHand[0].url
+    //           this.expert.picLogo[0].url = this.imgBaseUrl + this.expert.picLogo[0].url
+    //         }
+    //         if (this.userType == '2') {
+    //           this.com = JSON.parse(data.form.detail)
+    //           if (this.com.code != "") this.comCodeD = true
+    //           this.com.picOrgLicense[0].url = this.imgBaseUrl + this.com.picOrgLicense[0].url
+    //           this.com.picLpLicense[0].url = this.imgBaseUrl + this.com.picLpLicense[0].url
+    //           this.com.picLmIdCardFront[0].url = this.imgBaseUrl + this.com.picLmIdCardFront[0].url
+    //           this.com.picLmIdCardBack[0].url = this.imgBaseUrl + this.com.picLmIdCardBack[0].url
+    //           this.com.picLmIdCardInHand[0].url = this.imgBaseUrl + this.com.picLmIdCardInHand[0].url
+    //           this.com.picLogo[0].url = this.imgBaseUrl + this.com.picLogo[0].url
+    //         }
+    //         if (this.userType == '3') {
+    //           this.mech = JSON.parse(data.form.detail)
+    //           if (this.mech.code != "") this.mechCodeD = true
+    //           this.mech.picOrgLicense[0].url = this.imgBaseUrl + this.mech.picOrgLicense[0].url
+    //           this.mech.picLpLicense[0].url = this.imgBaseUrl + this.mech.picLpLicense[0].url
+    //           this.mech.picLmIdCardFront[0].url = this.imgBaseUrl + this.mech.picLmIdCardFront[0].url
+    //           this.mech.picLmIdCardBack[0].url = this.imgBaseUrl + this.mech.picLmIdCardBack[0].url
+    //           this.mech.picLmIdCardInHand[0].url = this.imgBaseUrl + this.mech.picLmIdCardInHand[0].url
+    //           this.mech.picLogo[0].url = this.imgBaseUrl + this.mech.picLogo[0].url
+    //         }
+    //         if (this.userType == '4') {
+    //           this.school = JSON.parse(data.form.detail)
+    //           if (this.school.code != "") this.schoolCodeD = true
+    //           this.school.picOrgLicense[0].url = this.imgBaseUrl + this.school.picOrgLicense[0].url
+    //           this.school.picLpLicense[0].url = this.imgBaseUrl + this.school.picLpLicense[0].url
+    //           this.school.picLmIdCardFront[0].url = this.imgBaseUrl + this.school.picLmIdCardFront[0].url
+    //           this.school.picLmIdCardBack[0].url = this.imgBaseUrl + this.school.picLmIdCardBack[0].url
+    //           this.school.picLmIdCardInHand[0].url = this.imgBaseUrl + this.school.picLmIdCardInHand[0].url
+    //           this.school.picLogo[0].url = this.imgBaseUrl + this.school.picLogo[0].url
+    //         }
+    //       }
+    //     }
+    //   }
       if (this.userType == '1') {
           this.expert.name = window.sessionStorage.getItem('name')
           this.expert.code = window.sessionStorage.getItem('code')

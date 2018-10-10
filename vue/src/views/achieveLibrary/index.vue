@@ -294,9 +294,9 @@
           <td height=38 class=x50 style='height:28.8pt;'>所处阶段</td>
           <td colspan=7 id='tc14' class=x56 style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>
 
-              <span v-if="detailData.stage.includes('1')">实验室阶段;</span>
-              <span v-if="detailData.stage.includes('2')">试制阶段;</span>
-              <span v-if="detailData.stage.includes('3')">产业化阶段;</span>
+            <span v-if="detailData.stage.includes('1')">实验室阶段;</span>
+            <span v-if="detailData.stage.includes('2')">试制阶段;</span>
+            <span v-if="detailData.stage.includes('3')">产业化阶段;</span>
 
           </td>
         </tr>
@@ -488,7 +488,7 @@ export default {
         message: '保存成功',
         type: 'success'
       });
-     this.dialogShowLevel = false
+      this.dialogShowLevel = false
       this.loadPageList()
     },
 
@@ -526,7 +526,7 @@ export default {
             type: 'success'
           });
           this.loadPageList()
-            this.dialogShowSH = false
+          this.dialogShowSH = false
         }
       }
     },

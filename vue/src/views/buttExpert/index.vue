@@ -124,10 +124,10 @@
                           </template>
     </el-table-column>
 
-    <el-table-column v-if=" tfcheckStatus == 0" align="center" label="操作" width="120">
+    <el-table-column v-if=" tfcheckStatus != 1" align="center" label="操作" width="120">
       <template slot-scope="scope">
                                   <div style="text-align:center" >
-                                    <span v-show="scope.row.fromToMe == 1&& scope.row.checkStatus ==2 " @click="handleEdit(scope.row,'edit')" class="clickText" >
+                                    <span v-show="scope.row.fromToMe == 1 && scope.row.checkStatus ==2 " @click="handleEdit(scope.row,'edit')" class="clickText" >
                                       重新发起
                                     </span>
                                 <span v-show="scope.row.fromToMe == 2 && scope.row.checkStatus !=1 ">  <span @click="handleRejectagree(scope.row)" class="clickText" >

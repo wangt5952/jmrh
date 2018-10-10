@@ -119,17 +119,7 @@
             <tr style="border-bottom: 1px solid#ccc;">
               <td style="width:100px;padding:10px">所在区域</td>
               <td>
-                <area-cascader :level="1" v-model="content.country" :data="pcaa" style="width:80%"></area-cascader>
-              </td>
-              <td style="width:100px;padding:10px">邮箱</td>
-              <td>
-                {{content.email}}
-              </td>
-            </tr>
-            <tr style="border-bottom: 1px solid#ccc;">
-              <td style="width:100px;padding:10px">身份证号/社会统一信用代码</td>
-              <td>
-                {{content.code}}
+                      {{content.country}}
               </td>
               <td style="width:100px;padding:10px">用户类别</td>
               <td>
@@ -144,6 +134,13 @@
                 <span v-if="content.userType =='5'">
                 军方</span>
               </td>
+            </tr>
+            <tr style="border-bottom: 1px solid#ccc;">
+              <td style="width:100px;padding:10px">身份证号/社会统一信用代码</td>
+              <td>
+                {{content.code}}
+              </td>
+
             </tr>
 
           </table>
@@ -187,6 +184,7 @@ export default {
   data() {
     return {
      pcaa: pcaa, //最多省市区三级，结合:level='2'选择，0省、1省市、2省市区
+      pcaas: pcaa, //最多省市区三级，结合:level='2'选择，0省、1省市、2省市区
       input: {
         objName: '',
         userType: '',
@@ -446,20 +444,88 @@ export default {
         data,
         success
       } = await getUserDetailByUserId(item.id)
-      debugger
+
+      let objData
+      objData = data.form.detail
       this.content = data
+      this.detailData = JSON.parse(objData)
+      debugger
+      this.loadOneTree(this.detailData.country[0])
+      this.loadtwoTree(this.detailData.country[0], this.detailData.country[1])
+      this.loadThreeTree(this.detailData.country[1], this.detailData.country[2])
+      this.content.country = this.arrValue1 + '-' + this.arrValue2 + '-' + this.arrValue3
+
       this.dialogFormVisible = true
       this.show = true
       this.title = '查看内容详情'
     },
-    onDate1Change(val) {
-      this.obj.loanDate = val
+    loadOneTree(code) {
+      let pcadata = this.pcaas
+      let arr = []
+      for (var i in pcadata) {
+        if (i == '86') {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
+        }
+      }
+      debugger
+      arr = arr[0].value
+      for (var j in arr) {
+        if (j == code) {
+          let obj = {}
+          obj.name = j
+          obj.value = arr[j]
+          this.arrValue1 = obj.value
+        }
+      }
     },
-    onDate2Change(val) {
-      this.obj.appointmentRepaymentDate = val
+    loadtwoTree(code1, code2) {
+      this.arrValue2 = []
+      let pcadata = this.pcaas
+      let arr = []
+      for (var i in pcadata) {
+        if (i == code1) {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
+        }
+      }
+      arr = arr[0].value
+      for (var j in arr) {
+        if (j == code2) {
+          let obj = {}
+          obj.name = j
+          obj.value = arr[j]
+          this.arrValue2 = obj.value
+        }
+      }
     },
-    onDate3Change(val) {
-      this.obj.interestPayTime = val
+    loadThreeTree(code1, code2) {
+      this.arrValue3 = []
+      let pcadata = this.pcaas
+      let arr = []
+      for (var i in pcadata) {
+        if (i == code1) {
+          let obj = {}
+          obj.date = i
+          obj.value = pcadata[i]
+          arr.push(obj)
+        }
+      }
+      if (arr.length > 0) {
+        arr = arr[0].value
+        for (var j in arr) {
+          if (j == code2) {
+            let obj = {}
+            obj.name = j
+            obj.value = arr[j]
+            this.arrValue3 = obj.value
+          }
+        }
+      }
     },
   }
 }
