@@ -83,7 +83,6 @@ export default {
           message
         } = await activate(this.$route.query.activateId)
         if (success) {
-          debugger
           this.text = message
           this.pic = '1'
           this.userType = data.userType
@@ -102,6 +101,8 @@ export default {
           window.sessionStorage.setItem('userName', data.userName)
           window.sessionStorage.setItem('userId', data.userId)
           window.sessionStorage.setItem('userType', data.userType)
+          window.sessionStorage.setItem('name', data.name)
+          window.sessionStorage.setItem('code', data.code)
         } else {
           this.text = message
           this.pic = '2'

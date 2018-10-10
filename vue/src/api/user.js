@@ -1,6 +1,13 @@
 import request from '@/utils/request'
 
 
+export function setDefPwd(data) {
+  return request({
+    url: 'user/setDefPwd',
+    method: 'post',
+    data
+  });
+}
 export function getUser(data) {
   return request({
     url: '/sysManager/bususer/page?pageNum='+data.page+'&pageSize='+data.limit,

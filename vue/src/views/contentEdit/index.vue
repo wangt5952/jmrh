@@ -347,6 +347,7 @@ export default {
       var myFilter = Vue.filter('formatTime')
       this.content = data
       this.content.publishDate = myFilter(data.publishDate)
+      debugger
       this.content.covers = [{
         name: 'name.jpg',
         url: this.imgBaseUrl + data.cover
@@ -383,6 +384,7 @@ export default {
 
       let arr = {}
       arr = this.content
+      debugger
       arr.checkStatus = checkStatus
       let {
         data,

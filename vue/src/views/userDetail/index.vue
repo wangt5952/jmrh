@@ -14,7 +14,7 @@
 
               <el-form-item label="姓名">
                 <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
-                <el-input placeholder="请输入姓名，不能超过20个字符！" maxlength="20" v-model="expert.name" style="width:80%"></el-input>
+                <el-input :disabled=expertCodeD placeholder="请输入姓名，不能超过20个字符！" maxlength="20" v-model="expert.name" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="性别">
                 <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
@@ -34,7 +34,7 @@
 
               <el-form-item label="身份证号">
                 <span style='position: absolute;left: -80px;color: #f60d0d;'>*</span>
-                <el-input :disabled=e xpertCodeD placeholder="请输入身份证号" v-model="expert.code" style="width:80%" type="number"></el-input>
+                <el-input :disabled=expertCodeD placeholder="请输入身份证号" v-model="expert.code" style="width:80%" type="number"></el-input>
               </el-form-item>
               <el-form-item label="上传身份证正面">
                 <div>
@@ -1835,15 +1835,23 @@ export default {
     }
     if (this.userType == '1') {
       this.titleName = '专家资料完善'
+        this.expert.name = window.sessionStorage.getItem('name')
+        this.expert.code = window.sessionStorage.getItem('code')
 
     } else if (this.userType == '2') {
       this.titleName = '企业资料完善'
+        this.com.name = window.sessionStorage.getItem('name')
+        this.com.code = window.sessionStorage.getItem('code')
 
     } else if (this.userType == '3') {
       this.titleName = '服务机构资料完善'
+        this.mech.name = window.sessionStorage.getItem('name')
+        this.mech.code = window.sessionStorage.getItem('code')
 
     } else if (this.userType == '4') {
       this.titleName = '高效院所资料完善'
+        this.school.name = window.sessionStorage.getItem('name')
+        this.school.code = window.sessionStorage.getItem('code')
 
     }
 
@@ -1977,6 +1985,26 @@ export default {
         } = await isInLibs()
         if (success) {
           if (data == null) {
+            if (this.userType == '1') {
+                this.expert.name = window.sessionStorage.getItem('name')
+                this.expert.code = window.sessionStorage.getItem('code')
+                if (this.expert.code != "") this.expertCodeD = true
+
+            } else if (this.userType == '2') {
+                this.com.name = window.sessionStorage.getItem('name')
+                this.com.code = window.sessionStorage.getItem('code')
+                if (this.com.code != "") this.comCodeD = true
+
+            } else if (this.userType == '3') {
+                this.mech.name = window.sessionStorage.getItem('name')
+                this.mech.code = window.sessionStorage.getItem('code')
+                if (this.mech.code != "") this.mechCodeD = true
+
+            } else if (this.userType == '4') {
+                this.school.name = window.sessionStorage.getItem('name')
+                this.school.code = window.sessionStorage.getItem('code')
+                if (this.school.code != "") this.schoolCodeD = true
+            }
             this.$message({
               message: '社区内没有您的信息，请完善信息！',
               type: 'success'
@@ -2029,7 +2057,26 @@ export default {
           }
         }
       }
+      if (this.userType == '1') {
+          this.expert.name = window.sessionStorage.getItem('name')
+          this.expert.code = window.sessionStorage.getItem('code')
+          if (this.expert.code != "") this.expertCodeD = true
 
+      } else if (this.userType == '2') {
+          this.com.name = window.sessionStorage.getItem('name')
+          this.com.code = window.sessionStorage.getItem('code')
+          if (this.com.code != "") this.comCodeD = true
+
+      } else if (this.userType == '3') {
+          this.mech.name = window.sessionStorage.getItem('name')
+          this.mech.code = window.sessionStorage.getItem('code')
+          if (this.mech.code != "") this.mechCodeD = true
+
+      } else if (this.userType == '4') {
+          this.school.name = window.sessionStorage.getItem('name')
+          this.school.code = window.sessionStorage.getItem('code')
+          if (this.school.code != "") this.schoolCodeD = true
+      }
 
       this.loading = false
     },
@@ -2202,13 +2249,13 @@ export default {
       let arr = []
       let flag
       obj.method = 'post'
-      if (this.checkStatus == -1) flag =  true
+      if (this.checkStatus == -1) flag = true
       if (this.checkStatus == 0) flag = false
-// debugger
+      // debugger
       let {
         data,
         success
-      } = await setUserDetail(obj,flag)
+      } = await setUserDetail(obj, flag)
 
       if (success) {
         this.$message({

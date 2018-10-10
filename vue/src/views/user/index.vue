@@ -33,17 +33,17 @@
                     <span  @click="handleShow(scope.row,'show')" class="clickText">{{ scope.row.name }}</span>
                 </template>
     </el-table-column>
+    <el-table-column align="center" label="手机号">
+      <template slot-scope="scope">
+                    <span>
+                        {{ scope.row.cellphone}}</span>
+                </template>
+    </el-table-column>
     <el-table-column align="center" label="用户名">
       <template slot-scope="scope">
                     <span>{{ scope.row.userName }}</span>
                 </template>
     </el-table-column>
-    <!-- <el-table-column align="center" label="手机号">
-      <template slot-scope="scope">
-                    <span>
-                        {{ scope.row.cellphone}}</span>
-                </template>
-    </el-table-column> -->
 
     <el-table-column align="center" label="用户类别">
       <template slot-scope="scope">
@@ -82,10 +82,11 @@
     </el-table-column>
     <el-table-column v-if="userType =='0'  || userType =='101' " align="center" label="操作">
       <template slot-scope="scope">
-                    <div style="margin:2% 2% 2% 2%">
+                     <el-button size="small"  @click="RsetDefPwd(scope.row)" type="" style="border-radius: 5px;">重置密码</el-button>
+
                         <el-button size="small" v-if="scope.row.status =='0'" @click="handleEdit(scope.row,'1')" type="" style="border-radius: 5px;">开启</el-button>
                         <el-button size="small" v-if="scope.row.status =='1'" @click="handleEdit(scope.row,'0')" type="" style="background: #f44;color: #fff;border-radius: 5px;">禁用</el-button>
-                    </div>
+
                 </template>
     </el-table-column>
 
@@ -169,6 +170,7 @@ import {
   getUser,
   setStatus,
   getUserDetailByUserId,
+  setDefPwd
 } from '@/api/user'
 
 import {
@@ -246,6 +248,33 @@ export default {
   },
   computed: {},
   methods: {
+    async RsetDefPwd(objData){
+      this.$confirm('此操作将密码重置, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        let obj ={}
+        obj.id = objData.id
+        let {
+          data,
+          success,
+          message
+        } = await setDefPwd(obj)
+        if (success) {
+          this.$message({
+            type: 'success',
+            message: '重置成功！'
+          });
+        }
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '取消重置'
+        });
+      });
+
+    },
     async loadPageList() {
       if (this.input) {
         this.listQuery.objName = this.input.objName

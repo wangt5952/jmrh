@@ -22,7 +22,7 @@
 
                       <el-form-item label="姓名">
                         <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
-                        <el-input placeholder="请输入姓名，不能超过20个字符！" maxlength="20" v-model="expert.name" style="width:80%"></el-input>
+                        <el-input :disabled = expertCodeD placeholder="请输入姓名，不能超过20个字符！" maxlength="20" v-model="expert.name" style="width:80%"></el-input>
                       </el-form-item>
                       <el-form-item label="性别">
                         <span style='position: absolute;left: -50px;color: #f60d0d;'>*</span>
@@ -1825,18 +1825,43 @@ export default {
         data,
         success
       } = await isInLibs()
+        debugger
       if (success) {
+         debugger
         if (data == null) {
+          if (this.userType == '1') {
+              this.expert.name = window.sessionStorage.getItem('name')
+              this.expert.code = window.sessionStorage.getItem('code')
+              if (this.expert.code != "") this.expertCodeD = true
+
+          } else if (this.userType == '2') {
+              this.com.name = window.sessionStorage.getItem('name')
+              this.com.code = window.sessionStorage.getItem('code')
+              if (this.com.code != "") this.comCodeD = true
+
+          } else if (this.userType == '3') {
+              this.mech.name = window.sessionStorage.getItem('name')
+              this.mech.code = window.sessionStorage.getItem('code')
+              if (this.mech.code != "") this.mechCodeD = true
+
+          } else if (this.userType == '4') {
+              this.school.name = window.sessionStorage.getItem('name')
+              this.school.code = window.sessionStorage.getItem('code')
+              if (this.school.code != "") this.schoolCodeD = true
+          }
           this.$message({
             message: '还没有加入社区，请完善信息！',
             type: 'success'
           });
           return
         } else {
-          this.userType = data.form.formType
+          debugger
+          // this.userType = data.form.formType
           if (data.form.formType == '1') {
             this.expert = JSON.parse(data.form.detail)
             this.expert.code = this.code
+            this.expert.name = window.sessionStorage.getItem('name')
+            this.expert.code = window.sessionStorage.getItem('code')
             if (this.expert.code != "") this.expertCodeD = true
             this.expert.picLmIdCardFront = [{
               url: this.imgBaseUrl + this.expert.picLmIdCardFront
@@ -1868,6 +1893,8 @@ export default {
           if (data.form.formType == '2') {
             this.com = JSON.parse(data.form.detail)
             this.com.code = this.code
+            this.com.name = window.sessionStorage.getItem('name')
+            this.com.code = window.sessionStorage.getItem('code')
             if (this.com.code != "") this.comCodeD = true
             this.com.picOrgLicense = [{
               url: this.imgBaseUrl + this.com.picOrgLicense
@@ -1891,6 +1918,8 @@ export default {
           if (data.form.formType == '3') {
             this.mech = JSON.parse(data.form.detail)
             this.mech.code = this.code
+            this.mech.name = window.sessionStorage.getItem('name')
+            this.mech.code = window.sessionStorage.getItem('code')
             if (this.mech.code != "") this.mechCodeD = true
             this.mech.picOrgLicense = [{
               url: this.imgBaseUrl + this.mech.picOrgLicense
@@ -1914,6 +1943,8 @@ export default {
           if (data.form.formType == '4') {
             this.school = JSON.parse(data.form.detail)
             this.school.code = this.code
+            this.school.name = window.sessionStorage.getItem('name')
+            this.school.code = window.sessionStorage.getItem('code')
             if (this.school.code != "") this.schoolCodeD = true
             this.school.picOrgLicense = [{
               url: this.imgBaseUrl + this.school.picOrgLicense
@@ -1934,8 +1965,36 @@ export default {
               url: this.imgBaseUrl + this.school.picLogo
             }]
           }
+
+
         }
 
+      }else{
+        if (this.userType == '1') {
+            this.expert.name = window.sessionStorage.getItem('name')
+            this.expert.code = window.sessionStorage.getItem('code')
+            if (this.expert.code != "") this.expertCodeD = true
+
+        } else if (this.userType == '2') {
+            this.com.name = window.sessionStorage.getItem('name')
+            this.com.code = window.sessionStorage.getItem('code')
+            if (this.com.code != "") this.comCodeD = true
+
+        } else if (this.userType == '3') {
+            this.mech.name = window.sessionStorage.getItem('name')
+            this.mech.code = window.sessionStorage.getItem('code')
+            if (this.mech.code != "") this.mechCodeD = true
+
+        } else if (this.userType == '4') {
+            this.school.name = window.sessionStorage.getItem('name')
+            this.school.code = window.sessionStorage.getItem('code')
+            if (this.school.code != "") this.schoolCodeD = true
+        }
+        this.$message({
+          message: '还没有加入社区，请完善信息！',
+          type: 'success'
+        });
+        return
       }
 
     }
@@ -1952,7 +2011,6 @@ export default {
     this.service_research_lastt = parseInt(myDate.getFullYear() - 1) + '年研发投入（万元）';
     this.service_research_beforet = parseInt(myDate.getFullYear() - 2) + '年研发投入（万元）';
     this.service_research_previoust = parseInt(myDate.getFullYear() - 3) + '年研发投入（万元）';
-
 
 
 
@@ -2173,7 +2231,7 @@ export default {
       let {
         data,
         success
-      } = await setUserDetail(obj)
+      } = await setUserDetail(obj,'false')
 
       if (success) {
         this.$message({

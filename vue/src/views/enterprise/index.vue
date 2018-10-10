@@ -60,7 +60,7 @@
     </el-table-column>
     <el-table-column align="center" label="编号" width="150">
       <template slot-scope="scope">
-                    <span>{{ scope.row.number }}</span>
+                    <span>{{ scope.row.number ||scope.row.form.number }}</span>
                 </template>
     </el-table-column>
     <el-table-column align="center" label="企业名">

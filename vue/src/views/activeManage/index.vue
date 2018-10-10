@@ -521,6 +521,7 @@ export default {
       detailData: '',
       tfcheckStatus: '',
       checkStatus: -1,
+      activeId: '',
       active: {
         title: '',
         subject: '',
@@ -821,15 +822,16 @@ export default {
         this.active.cover =  this.imgBaseUrl  + data.cover
         this.show = true
         this.title = '查看活动详情'
-        this.loadEnrolls(item.id)
+        this.activeId = item.id
+        this.loadEnrolls()
 
       }
     },
-    async loadEnrolls(id) {
+    async loadEnrolls() {
       if (this.inputE) {
         this.inputE.page = this.listQuery2.page
         this.inputE.limit = this.listQuery2.limit
-        this.inputE.id = id
+        this.inputE.id = this.activeId
       }
       let {
         data,

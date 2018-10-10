@@ -439,24 +439,28 @@ export default {
         success,
         message
       } = await rejectagree(obj)
-      debugger
+
       this.$message({
         type: 'success',
-        message: message
+        message: '操作成功！'
       });
+
     },
 
-    async handleRejectrefuse(obj) {
-      obj
+    async handleRejectrefuse(objdata) {
+
+        let obj = {}
+        obj.id = objdata.id
       let {
         data,
         success
-      } = await rejectrefuse(this.meeting)
-      debugger
+      } = await rejectrefuse(obj)
       this.$message({
         type: 'success',
-        message: message
+        message: '操作成功！'
       });
+      this.loadMeeting()
+
     },
     async saveObj() {
       let {
@@ -468,6 +472,7 @@ export default {
         type: 'success',
         message: message
       });
+      this.loadMeeting()
     },
     handleSizeChange(val) {
       if (!isNaN(val)) {

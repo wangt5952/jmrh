@@ -158,10 +158,10 @@ export default {
         number: ''
       },
       loginForm: {
-        // userName: '3438477624@qq.com',
-        // password: 'Gyx199146',
-        userName: '',
-        password: '',
+        userName: '725223570@qq.com',
+        password: '123456',
+        // userName: '',
+        // password: '',
         isAdmin: false,
       },
       loginRules: {
@@ -182,7 +182,7 @@ export default {
     }
   },
   created() {
-    this.keyupSubmit()
+    // this.keyupSubmit()
 
   },
   mounted() {

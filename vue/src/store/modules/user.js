@@ -53,6 +53,8 @@ const user = {
             window.sessionStorage.setItem('token',data.token)
             window.sessionStorage.setItem('checkStatus',data.checkStatus)
             window.sessionStorage.setItem('userName', data.userName)
+            window.sessionStorage.setItem('name', data.name)
+            window.sessionStorage.setItem('code', data.code)
             window.sessionStorage.setItem('userId', data.userId)
             window.sessionStorage.setItem('userType', data.userType)
             window.sessionStorage.setItem('cellphone', data.cellphone)
@@ -92,7 +94,7 @@ const user = {
       state
     }) {
       return new Promise((resolve, reject) => {
-        
+
         logout(state.token).then(() => {
         commit('SET_TOKEN', '')
         commit('SET_ROLES', [])
