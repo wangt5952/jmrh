@@ -4,7 +4,7 @@
   <div class="">
     <div class="paddingb textl paddingr" style="font-size:14px">
       <span>关键字</span>
-      <el-input v-model="input.objName" placeholder="可根据名称/需求概述/领域查询" style="width:20%;"></el-input>
+      <el-input v-model="input.objName"  style="width:20%;"></el-input>
       <span style="margin-left: 15px;">是否可见</span>
       <el-select v-model="input.status" style="width:100px;height:30px" placeholder="请选择">
         <el-option label="请选择" key="" value="">
@@ -45,15 +45,15 @@
                     <span>{{ scope.row.number ||scope.row.form.number }}</span>
                 </template>
     </el-table-column>
-    <el-table-column align="center" label="名称">
+    <el-table-column align="center" label="从属企业">
       <template slot-scope="scope">
                     <div @click="showDetail(scope.row,'edit')" class="clickText" >{{ scope.row.name }}</div>
                 </template>
     </el-table-column>
-    <el-table-column align="center" label="需求概述">
+    <el-table-column align="center" label="需求名称">
       <template slot-scope="scope">
                     <span>
-                        {{ scope.row.reqDesc}}</span>
+                        {{ scope.row.reqName}}</span>
                 </template>
     </el-table-column>
     <el-table-column v-if="tfcheckStatus == 0" align="center" label="创建时间">

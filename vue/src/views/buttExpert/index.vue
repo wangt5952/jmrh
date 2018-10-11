@@ -463,11 +463,13 @@ export default {
 
     },
     async saveObj() {
+      this.meeting.fcn =  this.meeting.fromerContactsName
+      this.meeting.fcp = this.meeting.fromerContactsPhone
+      this.meeting.fcm = this.meeting.fromerContactsMail
       let {
         data,
         success
       } = await saveMeeting(this.meeting)
-      debugger
       this.$message({
         type: 'success',
         message: message

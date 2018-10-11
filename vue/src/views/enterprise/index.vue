@@ -3,7 +3,7 @@
   <div class="">
     <div class="paddingb textl paddingr" style="font-size:14px">
       <span>关键字</span>
-      <el-input v-model="input.objName" placeholder="可根据企业名/营业执照号/领域/信用级别查询" style="width:20%;"></el-input>
+      <el-input v-model="input.objName"  style="width:20%;"></el-input>
       <span style="margin-left: 15px;">是否可见</span>
       <el-select v-model="input.status" style="width:100px;height:30px" placeholder="请选择">
         <el-option label="请选择" key="" value="">
@@ -60,7 +60,7 @@
     </el-table-column>
     <el-table-column align="center" label="编号" width="150">
       <template slot-scope="scope">
-                    <span>{{ scope.row.number ||scope.row.form.number }}</span>
+                    <span>{{ scope.row.number ||scope.row.form.number || 0}}</span>
                 </template>
     </el-table-column>
     <el-table-column align="center" label="企业名">
