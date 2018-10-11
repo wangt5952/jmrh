@@ -738,6 +738,8 @@ export default {
       this.demandLibrary = this.addCN(this.demandLibrary)
       arr.detail = JSON.stringify(this.demandLibrary)
 
+      arr.number = this.$route.params.number
+      arr.userId =  window.sessionStorage.getItem('userId')
       let {
         data,
         success

@@ -45,7 +45,7 @@
         <el-button v-show="userType =='0' && tfcheckStatus == 0 || userType =='101' && tfcheckStatus == 0" style="" @click="plsh" type="primary">批量审核</el-button>
         <el-button v-show="userType =='0' && tfcheckStatus == 1 || userType =='101' && tfcheckStatus == 1" style="" @click="plxj" type="primary">批量下架</el-button>
         <el-button v-show="userType =='0' && tfcheckStatus == 1 || userType =='101' && tfcheckStatus == 1" style="" @click="plsj" type="primary">批量上架</el-button>
-        <a :href=pldcUrl target="_blank"><el-button v-show="userType =='0' && tfcheckStatus == 1 || userType =='101' && tfcheckStatus == 1" style=""  type="primary">批量导出</el-button></a>
+        <a :href=pldcUrl target="_blank"><el-button v-show="userType =='0' && tfcheckStatus == 1" style=""  type="primary">批量导出</el-button></a>
       </div>
 
     </div>
@@ -751,6 +751,7 @@ export default {
         if (this.input.checkStatus == 1 ) {
           objId = data.form.id
           objData = data.form.detail
+          objnumber = data.form.number
         } else if (this.input.checkStatus == 0 || this.input.checkStatus == -1|| this.input.checkStatus == 2) {
           objId = data.id
           objData = data.detail
@@ -759,6 +760,7 @@ export default {
           name: 'hschoolEdit',
           params: {
             objId: objId,
+            objnumber: objnumber,
             objData: objData
           }
         })

@@ -443,7 +443,7 @@
         <el-radio-group v-model="checkStatus">
           <el-radio :label="-1">草稿</el-radio>
           <el-radio :label="0">提交待审</el-radio>
-          <el-radio v-show="userType == '0' ||  userType =='101'" :label="1">直接审核</el-radio>
+          <el-radio v-show="userType == '0'" :label="1">直接审核</el-radio>
         </el-radio-group>
       </div>
       <div class="">
@@ -577,7 +577,7 @@ export default {
         linkman: '',
         search_param: []
       },
-      checkStatus: 1
+      checkStatus: 0
     }
   },
   async mounted() {
@@ -964,6 +964,8 @@ export default {
       this.mech.search_param = []
       this.mech = this.addCN(this.mech)
       arr.detail = JSON.stringify(this.mech)
+      arr.number = this.$route.params.number
+      arr.userId =  window.sessionStorage.getItem('userId')
       let {
         data,
         success

@@ -158,10 +158,10 @@ export default {
         number: ''
       },
       loginForm: {
-        userName: '725223570@qq.com',
-        password: '123456',
-        // userName: '',
-        // password: '',
+        // userName: '725223570@qq.com',
+        // password: '123456',
+        userName: '',
+        password: '',
         isAdmin: false,
       },
       loginRules: {
@@ -350,7 +350,6 @@ export default {
             var treeData = data.data
             window.sessionStorage.setItem('treeData', JSON.stringify(treeData)) //必须传入 路由进行渲染
           }
-debugger
           // var url = "http://" + this.callbackUrl + "&token=" + window.sessionStorage.getItem('token') + "&checkStatus=" + window.sessionStorage.getItem('checkStatus') + "&userName=" + window.sessionStorage.getItem('userName') + "&userId=" +
           //   window.sessionStorage.getItem('userId') + "&userType=" + window.sessionStorage.getItem('userType') + "&cellphone=" + window.sessionStorage.getItem('cellphone') + "&email=" + window.sessionStorage.getItem('email') + "&orgType=" +
           //   window.sessionStorage.getItem('orgType' )

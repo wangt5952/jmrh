@@ -235,8 +235,9 @@
       </el-row>
       <el-row :gutter="24" style="font-size: 12px;margin-top:15px">
 
-        <el-col :span="5" style="display:flex;">
-          <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;cursor: pointer;">
+
+          <el-col :span="5" style="padding-left:0px;font-size: 14px;">
+              <div class="bg" style="height: 150px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;cursor: pointer;">
             <div @click="ToDJ(0,0,2)" style="flex:1;font-size: 20px;color: #409EFF;">{{tomeexpertDjshNums || 0}}</div>
             <div @click="ToDJ(0,0,2)" style="flex:1;text-align:left;color: #97a8be;">待处理的专家对接</div>
           </div>
@@ -429,14 +430,14 @@
         </el-col>
       </el-row>
       <el-row :gutter="24" style="font-size: 12px;margin-top:15px">
-        <el-col :span="5" style="display:flex;">
-          <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;text-align:center;cursor: pointer;">
+      <el-col :span="5" style="padding-left:0px;font-size: 14px;">
+          <div class="bg" style="height: 150px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;cursor: pointer;">
             <div @click="ToDJ(1,0,2)" style="flex:1;font-size: 20px;color: #409EFF;">{{tomedemandDjshNums || 0}}</div>
             <div @click="ToDJ(1,0,2)" style="flex:2;text-align:left;color: #97a8be;">待处理的需求对接</div>
           </div>
         </el-col>
-        <el-col :span="5" style="display:flex;">
-          <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;cursor: pointer;">
+        <el-col :span="5" style="padding-left:0px;font-size: 14px;">
+          <div class="bg" style="height: 150px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;cursor: pointer;">
             <div @click="ToDJ(2,0,2)" style="flex:1;font-size: 20px;color: #409EFF;">{{tomeactiveDjshNums || 0}}</div>
             <div @click="ToDJ(2,0,2)" style="flex:2;text-align:left;color: #97a8be;">待处理的成果对接</div>
           </div>
@@ -630,22 +631,22 @@
         </el-col>
       </el-row>
       <el-row :gutter="24" style="font-size: 12px;margin-top:15px">
-        <el-col :span="5" style="display:flex;">
-          <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;text-align:center;cursor: pointer;">
+        <el-col :span="5" style="padding-left:0px;font-size: 14px;">
+            <div class="bg" style="height: 150px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;cursor: pointer;">
             <div @click="ToDJ(1,0,2)" style="flex:1;font-size: 20px;color: #409EFF;">{{tomedemandDjshNums || 0}}</div>
             <div @click="ToDJ(1,0,2)" style="flex:2;text-align:left;color: #97a8be;">待处理的需求对接</div>
           </div>
         </el-col>
-        <el-col :span="5" style="display:flex;">
-          <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;cursor: pointer;">
+          <el-col :span="5" style="padding-left:0px;font-size: 14px;">
+            <div class="bg" style="height: 150px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;cursor: pointer;">
             <div @click="ToDJ(2,0,2)" style="flex:1;font-size: 20px;color: #409EFF;">{{tomeactiveDjshNums || 0}}</div>
             <div @click="ToDJ(2,0,2)" style="flex:2;text-align:left;color: #97a8be;">待处理的成果对接</div>
           </div>
         </el-col>
 
 
-        <el-col :span="5" style="display:flex;">
-          <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;cursor: pointer;">
+          <el-col :span="5" style="padding-left:0px;font-size: 14px;">
+            <div class="bg" style="height: 150px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;cursor: pointer;">
             <div @click="ToDJ(3,0,2)" style="flex:1;font-size: 20px;color: #409EFF;">{{tomefwDjshNums|| 0}}</div>
             <div @click="ToDJ(3,0,2)" style="flex:1;text-align:left;color: #97a8be;">待处理的服务对接</div>
           </div>
@@ -842,14 +843,14 @@
         </el-col>
       </el-row>
       <el-row :gutter="24" style="font-size: 12px;margin-top:15px">
-        <el-col :span="5" style="display:flex;">
-          <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;text-align:center;cursor: pointer;">
+        <el-col :span="5" style="padding-left:0px;font-size: 14px;">
+            <div class="bg" style="height: 150px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;cursor: pointer;">
             <div @click="ToDJ(1,0,2)" style="flex:1;font-size: 20px;color: #409EFF;">{{tomedemandDjshNums || 0}}</div>
             <div @click="ToDJ(1,0,2)" style="flex:2;text-align:left;color: #97a8be;">待处理的需求对接</div>
           </div>
         </el-col>
-        <el-col :span="5" style="display:flex;">
-          <div class="bg" style="height: 110px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;cursor: pointer;">
+          <el-col :span="5" style="padding-left:0px;font-size: 14px;">
+              <div class="bg" style="height: 150px;width:100%; display: flex;justify-content:center; align-items:Center;padding-left:0;text-align:center;cursor: pointer;">
             <div @click="ToDJ(2,0,2)" style="flex:1;font-size: 20px;color: #409EFF;">{{tomeactiveDjshNums || 0}}</div>
             <div @click="ToDJ(2,0,2)" style="flex:2;text-align:left;color: #97a8be;">待处理的成果对接</div>
           </div>
@@ -1160,7 +1161,7 @@ export default {
       if (data2.length > 0) {
         for (var i in data2) {
 
-          if (data2[i].formType == 0 && data2[i].checkStatus == -1) {
+          if (data2[i].formType == 0 && data2[i].checkStatus == 0) {
             this.expertDjshNums = data2[i].count
           }
           if (data2[i].formType == 0 && data2[i].checkStatus == 1) {
@@ -1170,7 +1171,7 @@ export default {
             this.expertDjbhNums = data2[i].count
           }
 
-          if (data2[i].formType == 1 && data2[i].checkStatus == -1) {
+          if (data2[i].formType == 1 && data2[i].checkStatus == 0) {
             this.demandDjshNums = data2[i].count
           }
           if (data2[i].formType == 1 && data2[i].checkStatus == 1) {
@@ -1180,7 +1181,7 @@ export default {
             this.demandDjbhNums = data2[i].count
           }
 
-          if (data2[i].formType == 2 && data2[i].checkStatus == -1) {
+          if (data2[i].formType == 2 && data2[i].checkStatus == 0) {
             this.activeDjshNums = data2[i].count
           }
           if (data2[i].formType == 2 && data2[i].checkStatus == 1) {
@@ -1190,7 +1191,7 @@ export default {
             this.activeDjbhNums = data2[i].count
           }
 
-          if (data2[i].formType == 3 && data2[i].checkStatus == -1) {
+          if (data2[i].formType == 3 && data2[i].checkStatus == 0) {
             this.fwDjshNums = data2[i].count
           }
           if (data2[i].formType == 3 && data2[i].checkStatus == 1) {

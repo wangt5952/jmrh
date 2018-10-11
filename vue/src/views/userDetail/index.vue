@@ -346,7 +346,7 @@
               </el-form-item>
               <el-form-item label="企业编码">
                 <span style='position: relative;left: -80px;color: #f60d0d;'>*</span>
-                <el-input :disabled=c omCodeD placeholder="请输入企业编码，不能超过20个字符！" maxlength="20" v-model="com.code" style="width:80%"></el-input>
+                <el-input :disabled=comCodeD placeholder="请输入企业编码，不能超过20个字符！" maxlength="20" v-model="com.code" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="企业规模（注册资金）">
                 <span style='position: absolute;left: -170px;color: #f60d0d;'></span>
@@ -936,6 +936,7 @@
 
     <el-row>
       <div style="padding-left: 35%;margin: 40px 0  0  0;">
+        {{shenHD}}
         <div v-show='shenHD' class="" style="padding:15px">
           <el-radio-group v-model="checkStatus">
             <el-radio :label="-1">草稿</el-radio>
@@ -960,7 +961,7 @@
               </el-form-item>
               <el-form-item label="统一社会信用代码">
                 <span style='position: absolute;left: -135px;color: #f60d0d;'>*</span>
-                <el-input :disabled=m echCodeD placeholder="请输入统一社会信用代码" v-model="mech.code" style="width:80%"></el-input>
+                <el-input :disabled=mechCodeD placeholder="请输入统一社会信用代码" v-model="mech.code" style="width:80%"></el-input>
               </el-form-item>
               <el-form-item label="营业执照">
                 <div>
@@ -1389,7 +1390,7 @@
               </el-form-item>
               <el-form-item label="统一社会信用代码">
                 <span style='position: absolute;left: -135px;color: #f60d0d;'>*</span>
-                <el-input :disabled=s choolCodeD placeholder="请输入统一社会信用代码，不能超过20个字符！" maxlength="20" v-model="school.code" style="width:80%"></el-input>
+                <el-input :disabled=schoolCodeD placeholder="请输入统一社会信用代码，不能超过20个字符！" maxlength="20" v-model="school.code" style="width:80%"></el-input>
               </el-form-item>
 
               <el-form-item label="营业执照">
@@ -1963,13 +1964,14 @@ export default {
             url: this.imgBaseUrl + this.school.picLogo
           }]
         }
-        // if (data.checkStatus == 0) {
-        //   this.$message({
-        //     message: '您的提交的信息等待审核中...',
-        //     type: 'success'
-        //   });
-        //   this.shenHD = false
-        // }
+        if (data.checkStatus == 0) {
+          debugger
+          // this.$message({
+          //   message: '您的提交的信息等待审核中...',
+          //   type: 'success'
+          // });
+          this.shenHD = false
+        }
         // if (data.checkStatus == 2) {
         //   this.$message({
         //     message: '您的信息已被驳回。',
@@ -2004,13 +2006,13 @@ export default {
     //             if (this.school.code != "") this.schoolCodeD = true
     //         }
     //         this.$message({
-    //           message: '社区内没有您的信息，请完善信息！',
+    //           message: '平台内没有您的信息，请完善信息！',
     //           type: 'success'
     //         });
     //         return
     //       } else {
     //         this.$message({
-    //           message: '社区内已存在您的信息，请关联并完善！',
+    //           message: '平台内已存在您的信息，请关联并完善！',
     //           type: 'success'
     //         });
     //         if (this.userType == '1') {

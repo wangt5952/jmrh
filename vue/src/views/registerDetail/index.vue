@@ -1850,7 +1850,7 @@ export default {
               if (this.school.code != "") this.schoolCodeD = true
           }
           this.$message({
-            message: '还没有加入社区，请完善信息！',
+            message: '还没有加入平台，请完善信息！',
             type: 'success'
           });
           return
@@ -1991,7 +1991,7 @@ export default {
             if (this.school.code != "") this.schoolCodeD = true
         }
         this.$message({
-          message: '还没有加入社区，请完善信息！',
+          message: '还没有加入平台，请完善信息！',
           type: 'success'
         });
         return

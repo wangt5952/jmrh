@@ -2,7 +2,7 @@
 <div class="tab-container">
   <div class="tools">
     <div class="paddingb textl paddingr">
-      <el-input v-model="input.objName" placeholder="可根据名称/昵称/手机号查询" style="width: 20%;"></el-input>
+      <el-input v-model="input.objName" placeholder="可根据名称、用户名、邮箱、手机号码 查询" style="width: 20%;"></el-input>
       <el-select v-model="input.userType" style="width:120px" placeholder="用户类型">
         <el-option label="专家" key="1" value="1">
         </el-option>
@@ -20,6 +20,9 @@
         </el-option>
       </el-select>
       <el-button style="margin-left:20px" @click="loadPageList" type="primary" icon="el-icon-search"></el-button>
+      <a :href=pldcUrl target="_blank">
+        <el-button v-show="userType =='0' " style="" type="primary">批量导出</el-button>
+      </a>
       <!-- <el-button style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">添加用户</el-button> -->
 
     </div>
@@ -221,6 +224,7 @@ export default {
         fullName: '',
         department: '',
       },
+      pldcUrl: "",
       content:'',
       selected: [],
       options: [{
@@ -237,6 +241,9 @@ export default {
       loading: true,
       userType: '',
     }
+  },
+  created() {
+    this.pldcUrl = this.docUrl + '/sysManager/exportBusUser?objName=' + this.input.objName + '&userType='+ this.input.userType+'&status=' + this.input.status + '&token=' + window.sessionStorage.getItem('token')
   },
   async mounted() {
     this.listLoading = false

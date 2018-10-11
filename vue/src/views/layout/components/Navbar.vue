@@ -23,7 +23,7 @@
       </router-link>
       <router-link  v-if="userType !='0'" class="inlineBlock" to="/index/userDetail">
         <el-dropdown-item>
-          <span>加入社区</span>
+          <span>加入平台</span>
         </el-dropdown-item>
       </router-link>
       <el-dropdown-item divided>
@@ -33,7 +33,7 @@
   </el-dropdown>
 
   <div class="avatarname">
-      <el-button style="margin-left:20px" @click="loadIndex" type="primary">返回门户</el-button> {{name}} 
+      <el-button style="margin-left:20px" @click="loadIndex" type="primary">返回门户</el-button> {{name}}
   </div>
   <div class="avatarBUT">
 

@@ -163,20 +163,7 @@ function validaManageUser(str) {
     });
     return false;
   }
-  if (!str || verify.isNull(str.password)) {
-    Message({
-      message: '密码不能为空！',
-      type: 'error'
-    });
-    return false;
-  }
-  if (!str || verify.isBianMa(str.password)) {
-    Message({
-      message: '密码必须包含至少一个字母和一个数字,长度大于6位！',
-      type: 'error'
-    });
-    return false;
-  }
+
   if (!str || verify.isNull(str.selected)) {
     Message({
       message: '角色不能为空！',

@@ -289,7 +289,7 @@ export default {
     }
 
 
-    // this.$confirm('是否要加入社区?', '提示', {
+    // this.$confirm('是否要加入平台?', '提示', {
     //   confirmButtonText: '加入',
     //   cancelButtonText: '不加入',
     //   type: 'warning'

@@ -14,11 +14,11 @@
           <a class="bullshit__return-home" @click="tosendEmailActivate">重新发送邮件</a>
         </div> -->
         <div class="">
-          <a class="bullshit__return-home" @click="toIndex">不加入社区直接登录</a>
+          <a class="bullshit__return-home" @click="toIndex">不加入平台直接登录</a>
         </div>
 
         <div v-if="pic == '1'" class="" style="padding:10px">
-          <a class="bullshit__return-home" @click="toNext">下一步，加入社区</a>
+          <a class="bullshit__return-home" @click="toNext">下一步，加入平台</a>
         </div>
       </div>
 

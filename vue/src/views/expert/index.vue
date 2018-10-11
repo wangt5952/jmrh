@@ -46,7 +46,7 @@
         <el-button v-show="userType =='0' && tfcheckStatus == 1 || userType =='101' && tfcheckStatus == 1" style="" @click="plxj" type="primary">批量下架</el-button>
         <el-button v-show="userType =='0' && tfcheckStatus == 1 || userType =='101' && tfcheckStatus == 1" style="" @click="plsj" type="primary">批量上架</el-button>
         <a :href=pldcUrl target="_blank">
-          <el-button v-show="userType =='0' && tfcheckStatus == 1 || userType =='101' && tfcheckStatus == 1" style="" type="primary">批量导出</el-button>
+          <el-button v-show="userType =='0' && tfcheckStatus == 1 " style="" type="primary">批量导出</el-button>
         </a>
 
       </div>
@@ -60,7 +60,7 @@
     </el-table-column>
     <el-table-column align="center" label="编号" width="150">
       <template slot-scope="scope">
-                    <span>{{ scope.row.number ||scope.row.form.number }}</span>
+                    <!-- <span>{{ scope.row.number ||scope.row.form.number}}</span> -->
                 </template>
     </el-table-column>
     <el-table-column align="center" label="名称" width="80">
@@ -721,6 +721,7 @@ export default {
         success
       } = await getexpert(this.listQuery)
       if (success) {
+        debugger
         this.list = data.list
         this.total = data.total
         this.loading = false
@@ -882,6 +883,7 @@ export default {
         if (this.input.checkStatus == 1 ) {
           objId = data.form.id
           objData = data.form.detail
+          objnumber = data.form.number
         } else if (this.input.checkStatus == 0 || this.input.checkStatus == -1|| this.input.checkStatus == 2) {
           objId = data.id
           objData = data.detail
@@ -890,6 +892,7 @@ export default {
           name: 'expertEdit',
           params: {
             objId: objId,
+            objnumber: objnumber,
             objData: objData
           }
         })
